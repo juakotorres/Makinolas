@@ -11,5 +11,5 @@ Belisario encontró un link con un unity beta para ubuntu.
 
 Nicolás Bravo, el pelao, será nuestro manager.
 
-[libgdx]{https://libgdx.badlogicgames.com/download.html}  
-[Android-SDK]{https://developer.android.com/studio/index.html#downloads}
+[libgdx](https://libgdx.badlogicgames.com/download.html)  
+[Android-SDK](https://developer.android.com/studio/index.html#downloads)
