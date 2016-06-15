@@ -1,0 +1,4 @@
+Charmander 22x22
+Charmeleon 27x27
+Charizard 32x32
+Gastly 30x30
