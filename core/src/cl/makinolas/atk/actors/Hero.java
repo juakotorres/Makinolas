@@ -76,7 +76,7 @@ public class Hero extends GameActor {
   }
   
   private void setSprite(){
-    TextureRegion texregion = new TextureRegion(new Texture(Gdx.files.internal("Hero.png")));
+    TextureRegion texregion = new TextureRegion(new Texture(Gdx.files.internal("hero.png")));
     heroSprite = texregion;
   }
   
