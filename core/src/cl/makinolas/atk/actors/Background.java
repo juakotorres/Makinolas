@@ -10,7 +10,7 @@ public class Background extends GameActor {
   private TextureRegion backgroundImage;
   
   public Background(){
-    backgroundImage = new TextureRegion(new Texture(Gdx.files.internal("SuPuente.jpg")));
+    backgroundImage = new TextureRegion(new Texture(Gdx.files.internal("Background/SuPuente.jpg")));
   }
   
   @Override

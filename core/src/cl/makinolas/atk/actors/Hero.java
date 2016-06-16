@@ -14,19 +14,27 @@ import com.badlogic.gdx.physics.box2d.PolygonShape;
 import com.badlogic.gdx.physics.box2d.World;
 import com.badlogic.gdx.utils.Array;
 
-public class Hero extends GameActor {
+import cl.makinolas.atk.stages.GameStage;
+
+public class Hero extends Monsters {
 
   private BodyDef myBodyDefinition;
   private Animation heroWalkingAnimation;
   private boolean isJumping;
   private boolean isFacingRight;
   private float dt;
+  private int health;
+  private boolean isDamaged;
+  private boolean dead;
   private World myWorld;
   
   public Hero(World myWorld) {
     
     isJumping = false;
     isFacingRight = false;
+    health = 100;    
+    isDamaged = false;
+    dead = false;
     // Definici�n del cuerpo del jugador.
     dt = 0;
     this.myWorld = myWorld;
@@ -77,10 +85,12 @@ public class Hero extends GameActor {
       }
     }
     if (Gdx.input.isKeyJustPressed(Keys.Z)){
-      GameActor fireball = new Fireball(myWorld, myBody.getPosition().x,myBody.getPosition().y,isFacingRight);
+      GameActor fireball = new Fireball(myWorld, myBody.getPosition().x,myBody.getPosition().y,isFacingRight, this);
       getStage().addActor(fireball);
     }
     myBody.setLinearVelocity(vx, myBody.getLinearVelocity().y);
+    
+    ((GameStage) getStage()).changeCamera(myBody.getPosition().x , myBody.getPosition().y );
   }
   
   public void landedPlatform(){
@@ -88,7 +98,7 @@ public class Hero extends GameActor {
   }
 
   private void setAnimation(){
-    TextureRegion texregion = new TextureRegion(new Texture(Gdx.files.internal("charmander.png")));
+    TextureRegion texregion = new TextureRegion(new Texture(Gdx.files.internal("Actors/charmander.png")));
     TextureRegion[][] animation = texregion.split(22, 22);
     
     Array<TextureRegion> walking = new Array<TextureRegion>();
@@ -109,5 +119,23 @@ public class Hero extends GameActor {
   @Override
   public boolean isHero(){
     return true;
+  }
+
+  @Override
+  public void damage(int damage, Attacks inflictor)  {
+    if(!inflictor.getSource().isHero()){
+      health -= damage;   
+      isDamaged = true;
+      inflictor.setDead();
+    }
+    if(health < 0){
+      dead = true;
+    }
+
+  }
+  
+  @Override
+  public boolean isDead(){
+    return dead;
   }
 }

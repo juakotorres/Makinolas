@@ -15,10 +15,12 @@ import com.badlogic.gdx.physics.box2d.World;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 
+import cl.makinolas.atk.actors.Attacks;
 import cl.makinolas.atk.actors.Background;
 import cl.makinolas.atk.actors.Enemy;
 import cl.makinolas.atk.actors.GameActor;
 import cl.makinolas.atk.actors.Hero;
+import cl.makinolas.atk.actors.Monsters;
 import cl.makinolas.atk.actors.Platform;
 
 public class GameStage extends Stage implements ContactListener {
@@ -52,13 +54,22 @@ public class GameStage extends Stage implements ContactListener {
     camera.update();
   }
   
+  public void changeCamera(float x, float y){
+    camera.position.set(x, y, 0);
+    getCamera().position.set(x * 20, y * 20, 0);
+    getCamera().update();    
+    camera.update();
+    
+    
+  }
+  
   @Override
   public void act(float delta){
     for(Actor actor : getActors())
     {
-      if(((GameActor) actor).isEnemy() || ((GameActor) actor).isAttack()){
+      if(((GameActor) actor).isMonster() || ((GameActor) actor).isAttack()){
         Body actorBody = ((GameActor) actor).getBody();
-        if(actorBody.getPosition().x < 0 || actorBody.getPosition().x > 32){
+        if(actorBody.getPosition().x < 0 || actorBody.getPosition().x > 32 || ((GameActor) actor).isDead()){
           suMundo.destroyBody(actorBody);
           actor.remove();
         }
@@ -76,8 +87,9 @@ public class GameStage extends Stage implements ContactListener {
     }
     
     if(nextEnemyAt < 0){
-       GameActor enemy = new Enemy(suMundo, new TextureRegion(new Texture(Gdx.files.internal("Gastly.png"))),
-                                   new int[]{30,30}, new int[][]{new int[]{3},new int[]{0,1},new int[]{0,2},new int[]{0,3}});
+       GameActor enemy = new Enemy(suMundo, new TextureRegion(new Texture(Gdx.files.internal("Actors/Gastly.png"))),
+                                   new int[]{30,30}, new int[][]{new int[]{3},new int[]{0,1},new int[]{0,2},new int[]{0,3}}
+                                   , 30);
        addActor(enemy);
        nextEnemyAt = enemySpawn;
     }
@@ -101,6 +113,10 @@ public class GameStage extends Stage implements ContactListener {
       ((Hero) actor1).landedPlatform();
     } else if (actor2.isHero() && actor1.isPlatform()){
       ((Hero) actor2).landedPlatform();
+    } else if (actor1.isAttack() && actor2.isMonster()){
+      ((Monsters) actor2).damage(((Attacks) actor1).getAttackDamage(), (Attacks) actor1);
+    } else if (actor2.isAttack() && actor1.isMonster()){
+      ((Monsters) actor1).damage(((Attacks) actor2).getAttackDamage(), (Attacks) actor2);
     }
     
   }

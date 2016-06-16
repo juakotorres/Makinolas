@@ -10,17 +10,21 @@ import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.*;
 import com.badlogic.gdx.utils.Array;
 
-public class Fireball extends GameActor {
+public class Fireball extends Attacks {
   
   private Animation fireballAnimation;
   private BodyDef myBodyDefinition; 
+  private Monsters mySource;
   private float xVelocity;
   private float initialPosition;
   private float dt;
+  private boolean dead;
   
-  public Fireball(World myWorld, float x , float y, boolean facingRight){
+  public Fireball(World myWorld, float x , float y, boolean facingRight, Monsters source){
     
     dt = 0;
+    dead = false;
+    mySource = source;
     this.xVelocity = (facingRight)? 10: -10;
     this.initialPosition= (facingRight)? .5f: -.5f;
     myBodyDefinition = new BodyDef();
@@ -30,7 +34,7 @@ public class Fireball extends GameActor {
     Body myBody = myWorld.createBody(myBodyDefinition);
     
     PolygonShape shape = new PolygonShape();
-    shape.setAsBox(0f, 0f);
+    shape.setAsBox(0.3f, 0.3f);
     
     myBody.setGravityScale(0);
     FixtureDef fixtureDef = new FixtureDef();
@@ -55,7 +59,7 @@ public class Fireball extends GameActor {
   }
   
   private void setAnimation(){
-    TextureRegion texregion = new TextureRegion(new Texture(Gdx.files.internal("fireball.png")));
+    TextureRegion texregion = new TextureRegion(new Texture(Gdx.files.internal("Attacks/fireball.png")));
     TextureRegion[][] animation = texregion.split(30, 37);
     
     Array<TextureRegion> moving = new Array<TextureRegion>();
@@ -77,5 +81,25 @@ public class Fireball extends GameActor {
   @Override
   public boolean isAttack(){
     return true;
+  }
+
+  @Override
+  public int getAttackDamage() {
+    return 10;
+  }
+
+  @Override
+  public Monsters getSource() {
+    return mySource;
+  }
+  
+  @Override
+  public void setDead(){
+    dead = true;
+  }
+  
+  @Override
+  public boolean isDead(){
+    return dead;
   }
 }
