@@ -14,7 +14,7 @@ import com.badlogic.gdx.physics.box2d.World;
 public class Platform extends GameActor {
   
   private BodyDef myBodyDefinition;
-  private int xp, yp, wp;
+  private int xp, yp, wp, hp;
   private TextureRegion region;
   private static final float TILE_FACTOR = 1.8f;
 
@@ -24,18 +24,19 @@ public class Platform extends GameActor {
    * @param x x coordinate in meters.
    * @param y y coordinate in meters.
    * @param widthTiles number of tiles of width.
+   * @param heightTiles number of tiles of height
      */
-  public Platform(World myWorld, int x, int y, int widthTiles) {
+  public Platform(World myWorld, int x, int y, int widthTiles, int heightTiles) {
     
     // Definici�n del cuerpo del jugador.
     myBodyDefinition = new BodyDef();
-    myBodyDefinition.position.set(new Vector2(x + widthTiles * TILE_FACTOR /2, y));
+    myBodyDefinition.position.set(new Vector2(x*TILE_FACTOR + widthTiles * TILE_FACTOR /2, y*TILE_FACTOR + heightTiles * TILE_FACTOR / 2));
     
     // Forma del collider del jugador.
     Body myBody = myWorld.createBody(myBodyDefinition);
     
     PolygonShape shape = new PolygonShape();
-    shape.setAsBox(widthTiles * TILE_FACTOR /2, 0.9f);
+    shape.setAsBox(widthTiles * TILE_FACTOR /2, heightTiles * TILE_FACTOR / 2);
     ///
     myBody.setGravityScale(1);
     myBody.createFixture(shape, 0.5f);
@@ -45,12 +46,17 @@ public class Platform extends GameActor {
     // Guardar body.
     setBody(myBody);
 
-    xp = x * GameConstants.WORLD_FACTOR;
-    yp = y * GameConstants.WORLD_FACTOR;
+    xp = (int) (x * TILE_FACTOR * GameConstants.WORLD_FACTOR);
+    yp = (int) (y * TILE_FACTOR* GameConstants.WORLD_FACTOR);
     wp = widthTiles;
+    hp = heightTiles;
 
     region = new TextureRegion(new Texture(Gdx.files.internal("Background/platforms2.png"))).split(36,36)[7][7];
 
+  }
+
+  public Platform(World myWorld, int x, int y, int widthTiles){
+      this(myWorld,x,y,widthTiles,1);
   }
   
   @Override
@@ -61,7 +67,9 @@ public class Platform extends GameActor {
   @Override
   public void draw(Batch batch, float parentAlpha) {
     for (int i = 0; i < wp; i++) {
-      batch.draw(region,xp + i*36, yp - 18);
+      for (int j = 0; j < hp; j++) {
+        batch.draw(region,xp + i*36, yp - j*36);
+      }
     }
   }
 }
