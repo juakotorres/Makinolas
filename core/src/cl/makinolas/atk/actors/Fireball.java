@@ -72,4 +72,9 @@ public class Fireball extends GameActor {
     batch.draw(actualSprite, myPosition.x * 20 - actualSprite.getRegionWidth() / 2 , myPosition.y * 20 - actualSprite.getRegionHeight() / 2,
         actualSprite.getRegionWidth() / 2, getOriginY(), actualSprite.getRegionWidth(), actualSprite.getRegionHeight(), (xVelocity < 0)?-1:1, 1, 0);
   }
+  
+  @Override
+  public boolean isAttack(){
+    return true;
+  }
 }

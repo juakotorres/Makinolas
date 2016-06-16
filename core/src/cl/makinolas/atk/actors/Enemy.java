@@ -89,4 +89,9 @@ public class Enemy extends GameActor {
         actualSprite.getRegionWidth() / 2, getOriginY(), actualSprite.getRegionWidth(), actualSprite.getRegionHeight(), (isFacingRight)?-1:1, 1, 0);
   }
   
+  @Override
+  public boolean isEnemy(){
+    return true;
+  }
+  
 }

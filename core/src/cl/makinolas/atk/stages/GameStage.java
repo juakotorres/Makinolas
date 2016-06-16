@@ -5,6 +5,7 @@ import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.Vector2;
+import com.badlogic.gdx.physics.box2d.Body;
 import com.badlogic.gdx.physics.box2d.Box2DDebugRenderer;
 import com.badlogic.gdx.physics.box2d.Contact;
 import com.badlogic.gdx.physics.box2d.ContactImpulse;
@@ -53,6 +54,17 @@ public class GameStage extends Stage implements ContactListener {
   
   @Override
   public void act(float delta){
+    for(Actor actor : getActors())
+    {
+      if(((GameActor) actor).isEnemy() || ((GameActor) actor).isAttack()){
+        Body actorBody = ((GameActor) actor).getBody();
+        if(actorBody.getPosition().x < 0 || actorBody.getPosition().x > 32){
+          suMundo.destroyBody(actorBody);
+          actor.remove();
+        }
+      }
+
+    }
     super.act(delta);
     
     accumulator += delta;

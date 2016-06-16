@@ -19,5 +19,17 @@ public abstract class GameActor extends Actor{
   public boolean isPlatform(){
     return false;
   }
+
+  public boolean isEnemy() {
+    return false;
+  }
+  
+  public Body getBody(){
+    return myBody;
+  }
+
+  public boolean isAttack() {
+    return false;
+  }
   
 }
