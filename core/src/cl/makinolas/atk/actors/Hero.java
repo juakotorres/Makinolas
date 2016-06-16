@@ -22,7 +22,7 @@ public class Hero extends GameActor {
     
     isJumping = false;
     isFacingRight = false;
-    // Definición del cuerpo del jugador.
+    // Definiciï¿½n del cuerpo del jugador.
     myBodyDefinition = new BodyDef();
     myBodyDefinition.type = BodyDef.BodyType.DynamicBody;
     myBodyDefinition.position.set(new Vector2(4,10));
@@ -76,7 +76,7 @@ public class Hero extends GameActor {
   }
   
   private void setSprite(){
-    TextureRegion texregion = new TextureRegion(new Texture(Gdx.files.internal("Hero.png")));
+    TextureRegion texregion = new TextureRegion(new Texture(Gdx.files.internal("hero.png")));
     heroSprite = texregion;
   }
   
