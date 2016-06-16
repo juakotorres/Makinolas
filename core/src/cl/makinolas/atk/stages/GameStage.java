@@ -23,21 +23,28 @@ public class GameStage extends Stage implements ContactListener {
   private final float frameTime = 1 / 300f;
   private final float enemySpawn = 3f;
   private float nextEnemyAt;
+  private Array<GameActor> gameActors;
   
   private OrthographicCamera camera;
   private Box2DDebugRenderer renderer;
   
   public GameStage(){
     nextEnemyAt = enemySpawn;
+    gameActors = new Array<GameActor>();
     suMundo = new World(new Vector2(0, -10), true);
     suMundo.setContactListener(this);
-    Actor hero =  new Hero(suMundo);
+    GameActor hero =  new Hero(suMundo);
     addActor(new Background());
     createPlatforms();
-    addActor(hero);
+    addGameActor(hero);
     accumulator = 0;
     renderer = new Box2DDebugRenderer();
     setupCamera();
+  }
+
+  private void addGameActor(GameActor actor) {
+    addActor(actor);
+    gameActors.add(actor);
   }
 
   private void createPlatforms() {
@@ -69,8 +76,8 @@ public class GameStage extends Stage implements ContactListener {
   
   @Override
   public void act(float delta){
-    for(Actor actor : getActors())
-    {
+    super.act(delta);
+    for(Actor actor : getActors()){
       if(((GameActor) actor).isMonster() || ((GameActor) actor).isAttack()){
         Body actorBody = ((GameActor) actor).getBody();
         if(actorBody.getPosition().y < -10 || actorBody.getPosition().x < -100 || actorBody.getPosition().x > 200 || ((GameActor) actor).isDead()){
@@ -78,10 +85,8 @@ public class GameStage extends Stage implements ContactListener {
           actor.remove();
         }
       }
-
     }
-    super.act(delta);
-    
+
     accumulator += delta;
     elapsedTime += delta;
     nextEnemyAt -= delta;
@@ -95,7 +100,7 @@ public class GameStage extends Stage implements ContactListener {
        GameActor enemy = new Enemy(suMundo, new TextureRegion(new Texture(Gdx.files.internal("Actors/Gastly.png"))),
                                    new int[]{30,30}, 3, new int[][]{new int[]{0,1},new int[]{0,2},new int[]{0,3}}
                                    , 30, (int) getCamera().position.x);
-       addActor(enemy);
+       addGameActor(enemy);
        nextEnemyAt = enemySpawn;
     }
     
