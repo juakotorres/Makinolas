@@ -3,6 +3,8 @@ package cl.makinolas.atk.actors;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input.Keys;
 import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.Animation;
+import com.badlogic.gdx.graphics.g2d.Animation.PlayMode;
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.Vector2;
@@ -10,18 +12,24 @@ import com.badlogic.gdx.physics.box2d.Body;
 import com.badlogic.gdx.physics.box2d.BodyDef;
 import com.badlogic.gdx.physics.box2d.PolygonShape;
 import com.badlogic.gdx.physics.box2d.World;
+import com.badlogic.gdx.utils.Array;
 
 public class Hero extends GameActor {
 
   private BodyDef myBodyDefinition;
-  private TextureRegion heroSprite;
+  private Animation heroWalkingAnimation;
   private boolean isJumping;
   private boolean isFacingRight;
+  private float dt;
+  private World myWorld;
   
   public Hero(World myWorld) {
     
     isJumping = false;
     isFacingRight = false;
+    // Definici�n del cuerpo del jugador.
+    dt = 0;
+    this.myWorld = myWorld;
     // Definici�n del cuerpo del jugador.
     myBodyDefinition = new BodyDef();
     myBodyDefinition.type = BodyDef.BodyType.DynamicBody;
@@ -41,24 +49,24 @@ public class Hero extends GameActor {
     // Guardar body.
     setBody(myBody);
     
-    // Crear sprite para jugador.
-    setSprite();
+    // Guardar animaciones del jugador
+    setAnimation();
   }
   
   @Override
   public void act(float delta){
+    dt += delta;
+    
     int vx = 0;
-    if (Gdx.input.isKeyPressed(Keys.LEFT)){
-      vx -= 4;
+    if (Gdx.input.isKeyPressed(Keys.LEFT) && myBody.getPosition().x > 0.5){
+      vx -= 7;
       if (isFacingRight){
-        heroSprite.flip(true, false);
         isFacingRight = false;
       }
     }
-    if (Gdx.input.isKeyPressed(Keys.RIGHT)){
-      vx += 4;
+    if (Gdx.input.isKeyPressed(Keys.RIGHT) && myBody.getPosition().x < 31.5){
+      vx += 7;
       if (!isFacingRight){
-        heroSprite.flip(true, false);
         isFacingRight = true;
       }
     }
@@ -68,22 +76,34 @@ public class Hero extends GameActor {
         isJumping = true;
       }
     }
+    if (Gdx.input.isKeyJustPressed(Keys.Z)){
+      GameActor fireball = new Fireball(myWorld, myBody.getPosition().x,myBody.getPosition().y,isFacingRight);
+      getStage().addActor(fireball);
+    }
     myBody.setLinearVelocity(vx, myBody.getLinearVelocity().y);
   }
   
   public void landedPlatform(){
     isJumping = false;
   }
-  
-  private void setSprite(){
-    TextureRegion texregion = new TextureRegion(new Texture(Gdx.files.internal("hero.png")));
-    heroSprite = texregion;
+
+  private void setAnimation(){
+    TextureRegion texregion = new TextureRegion(new Texture(Gdx.files.internal("charmander.png")));
+    TextureRegion[][] animation = texregion.split(22, 22);
+    
+    Array<TextureRegion> walking = new Array<TextureRegion>();
+    
+    walking.addAll( new TextureRegion[]{animation[0][0], animation[0][1], animation[0][2], animation[0][1]});
+    
+    heroWalkingAnimation = new Animation(0.2f, walking, PlayMode.LOOP);
   }
   
   @Override
   public void draw(Batch batch, float alpha){
     Vector2 myPosition = myBody.getPosition();
-    batch.draw(heroSprite, myPosition.x * 20 - heroSprite.getRegionWidth() / 2 , myPosition.y * 20 - heroSprite.getRegionHeight() / 2);
+    TextureRegion actualSprite = heroWalkingAnimation.getKeyFrame(dt);
+    batch.draw(actualSprite, myPosition.x * 20 - actualSprite.getRegionWidth() / 2 , myPosition.y * 20 - actualSprite.getRegionHeight() / 2,
+        actualSprite.getRegionWidth() / 2, getOriginY(), actualSprite.getRegionWidth(), actualSprite.getRegionHeight(), (isFacingRight)?-1:1, 1, 0);
   }
   
   @Override

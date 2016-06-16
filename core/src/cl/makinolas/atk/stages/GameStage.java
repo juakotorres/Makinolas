@@ -11,6 +11,7 @@ import com.badlogic.gdx.physics.box2d.World;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 
+import cl.makinolas.atk.actors.Background;
 import cl.makinolas.atk.actors.GameActor;
 import cl.makinolas.atk.actors.Hero;
 import cl.makinolas.atk.actors.Platform;
@@ -29,6 +30,7 @@ public class GameStage extends Stage implements ContactListener {
     suMundo.setContactListener(this);
     Actor hero =  new Hero(suMundo);
     Actor platform = new Platform(suMundo, 0, 0, 32f, 1f);
+    addActor(new Background());
     addActor(hero);
     addActor(platform);
     accumulator = 0;

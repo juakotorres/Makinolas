@@ -9,7 +9,6 @@ import com.badlogic.gdx.physics.box2d.World;
 public class Platform extends GameActor {
   
   private BodyDef myBodyDefinition;
-  
 
   public Platform(World myWorld, int x, int y, float width , float height) {
     
