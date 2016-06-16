@@ -12,7 +12,6 @@ import com.badlogic.gdx.physics.box2d.World;
 
 public class Hero extends AnimatedActor {
 
-  private BodyDef myBodyDefinition;
   private boolean isJumping;
   private World myWorld;
   
@@ -23,7 +22,7 @@ public class Hero extends AnimatedActor {
     // Definici�n del cuerpo del jugador.
     this.myWorld = myWorld;
     // Definici�n del cuerpo del jugador.
-    myBodyDefinition = new BodyDef();
+    BodyDef myBodyDefinition = new BodyDef();
     myBodyDefinition.type = BodyDef.BodyType.DynamicBody;
     myBodyDefinition.position.set(new Vector2(4,10));
     
