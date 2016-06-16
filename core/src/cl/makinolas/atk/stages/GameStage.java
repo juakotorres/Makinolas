@@ -1,6 +1,9 @@
 package cl.makinolas.atk.stages;
 
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.OrthographicCamera;
+import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.Box2DDebugRenderer;
 import com.badlogic.gdx.physics.box2d.Contact;
@@ -12,6 +15,7 @@ import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 
 import cl.makinolas.atk.actors.Background;
+import cl.makinolas.atk.actors.Enemy;
 import cl.makinolas.atk.actors.GameActor;
 import cl.makinolas.atk.actors.Hero;
 import cl.makinolas.atk.actors.Platform;
@@ -21,11 +25,14 @@ public class GameStage extends Stage implements ContactListener {
   private World suMundo;
   private float accumulator;
   private final float frameTime = 1 / 300f;
+  private final float enemySpawn = 3f;
+  private float nextEnemyAt;
   
   private OrthographicCamera camera;
   private Box2DDebugRenderer renderer;
   
   public GameStage(){
+    nextEnemyAt = enemySpawn;
     suMundo = new World(new Vector2(0, -10), true);
     suMundo.setContactListener(this);
     Actor hero =  new Hero(suMundo);
@@ -49,10 +56,18 @@ public class GameStage extends Stage implements ContactListener {
     super.act(delta);
     
     accumulator += delta;
+    nextEnemyAt -= delta;
     
     while(accumulator >= frameTime){
       suMundo.step(frameTime, 6, 2);
       accumulator -= frameTime;
+    }
+    
+    if(nextEnemyAt < 0){
+       GameActor enemy = new Enemy(suMundo, new TextureRegion(new Texture(Gdx.files.internal("Gastly.png"))),
+                                   new int[]{30,30}, new int[][]{new int[]{3},new int[]{0,1},new int[]{0,2},new int[]{0,3}});
+       addActor(enemy);
+       nextEnemyAt = enemySpawn;
     }
     
   }
