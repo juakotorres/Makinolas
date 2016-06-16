@@ -71,7 +71,7 @@ public class GameStage extends Stage implements ContactListener {
     {
       if(((GameActor) actor).isMonster() || ((GameActor) actor).isAttack()){
         Body actorBody = ((GameActor) actor).getBody();
-        if(actorBody.getPosition().x < 0 || actorBody.getPosition().x > 32 || ((GameActor) actor).isDead()){
+        if(actorBody.getPosition().y < -10 || actorBody.getPosition().x < -100 || actorBody.getPosition().x > 200 || ((GameActor) actor).isDead()){
           suMundo.destroyBody(actorBody);
           actor.remove();
         }
@@ -92,7 +92,7 @@ public class GameStage extends Stage implements ContactListener {
     if(nextEnemyAt < 0){
        GameActor enemy = new Enemy(suMundo, new TextureRegion(new Texture(Gdx.files.internal("Actors/Gastly.png"))),
                                    new int[]{30,30}, new int[][]{new int[]{3},new int[]{0,1},new int[]{0,2},new int[]{0,3}}
-                                   , 30);
+                                   , 30, (int) getCamera().position.x);
        addActor(enemy);
        nextEnemyAt = enemySpawn;
     }

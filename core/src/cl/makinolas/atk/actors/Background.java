@@ -15,6 +15,7 @@ public class Background extends GameActor {
   
   @Override
   public void draw(Batch batch, float alpha){
-    batch.draw(backgroundImage, 0, 0);
+    batch.draw(backgroundImage, getStage().getCamera().position.x - backgroundImage.getRegionWidth() / 2
+                                , getStage().getCamera().position.y - backgroundImage.getRegionHeight() / 2);
   }
 }

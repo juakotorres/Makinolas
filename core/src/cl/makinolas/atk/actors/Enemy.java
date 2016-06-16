@@ -36,7 +36,8 @@ public class Enemy extends Monsters {
    * @param numberOfSprite [[3], [0,0] , [0,1] , [0,2]] 3 Sprites for animation, (0,0) -> (0,1) -> (0,2)
    */
   public Enemy(World myWorld, TextureRegion enemyTexture,
-               int[] cutSprite, int[][] numberOfSprite, int givenHealth) {
+               int[] cutSprite, int[][] numberOfSprite, int givenHealth
+               , int heroPosition) {
     
     dt = 0;
     health = givenHealth;
@@ -44,9 +45,10 @@ public class Enemy extends Monsters {
     isDamaged = false;
     dead = false;
     meleeDamage = 10;
-    int randomNum = 0 + (int)(Math.random() * 32);
+    int actualPosition = heroPosition / 20;
+    int randomNum = actualPosition  + (int)(Math.random() * 16) - 7;
     
-    if (randomNum > 16){
+    if (randomNum > actualPosition){
       isFacingRight = false;
       vx = -3;
     } else {

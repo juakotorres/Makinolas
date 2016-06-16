@@ -59,13 +59,13 @@ public class Hero extends Monsters {
   @Override
   public void act(float delta){
     int vx = 0;
-    if (Gdx.input.isKeyPressed(Keys.LEFT) && myBody.getPosition().x > 0.5){
+    if (Gdx.input.isKeyPressed(Keys.LEFT)){
       vx -= 7;
       if (isFacingRight){
         isFacingRight = false;
       }
     }
-    if (Gdx.input.isKeyPressed(Keys.RIGHT) && myBody.getPosition().x < 31.5){
+    if (Gdx.input.isKeyPressed(Keys.RIGHT)){
       vx += 7;
       if (!isFacingRight){
         isFacingRight = true;
