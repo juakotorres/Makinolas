@@ -27,9 +27,10 @@ public class Hero extends GameActor {
     
     isJumping = false;
     isFacingRight = false;
+    // Definiciï¿½n del cuerpo del jugador.
     dt = 0;
     this.myWorld = myWorld;
-    // Definición del cuerpo del jugador.
+    // Definiciï¿½n del cuerpo del jugador.
     myBodyDefinition = new BodyDef();
     myBodyDefinition.type = BodyDef.BodyType.DynamicBody;
     myBodyDefinition.position.set(new Vector2(4,10));
@@ -85,17 +86,16 @@ public class Hero extends GameActor {
   public void landedPlatform(){
     isJumping = false;
   }
-  
+
   private void setAnimation(){
     TextureRegion texregion = new TextureRegion(new Texture(Gdx.files.internal("charmander.png")));
     TextureRegion[][] animation = texregion.split(22, 22);
     
     Array<TextureRegion> walking = new Array<TextureRegion>();
     
-    walking.addAll( new TextureRegion[]{animation[0][0], animation[0][1], animation[0][2], animation[0][1]});
+    walking.addAll(animation[0][0], animation[0][1], animation[0][2], animation[0][1]);
     
     heroWalkingAnimation = new Animation(0.2f, walking, PlayMode.LOOP);
-   
   }
   
   @Override

@@ -40,7 +40,7 @@ public class Enemy extends GameActor {
       vx = 3;
     }
     
-    // Definición del cuerpo del jugador.
+    // Definiciï¿½n del cuerpo del jugador.
     myBodyDefinition = new BodyDef();
     myBodyDefinition.type = BodyDef.BodyType.DynamicBody;
     myBodyDefinition.position.set(new Vector2(randomNum,3));
