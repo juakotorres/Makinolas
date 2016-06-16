@@ -93,7 +93,7 @@ public class Hero extends GameActor {
     
     Array<TextureRegion> walking = new Array<TextureRegion>();
     
-    walking.addAll( new TextureRegion[]{animation[0][0], animation[0][1], animation[0][2], animation[0][1]});
+    walking.addAll(animation[0][0], animation[0][1], animation[0][2], animation[0][1]);
     
     heroWalkingAnimation = new Animation(0.2f, walking, PlayMode.LOOP);
   }

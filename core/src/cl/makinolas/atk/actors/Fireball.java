@@ -1,17 +1,13 @@
 package cl.makinolas.atk.actors;
 
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.Input.Keys;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Animation;
+import com.badlogic.gdx.graphics.g2d.Animation.PlayMode;
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
-import com.badlogic.gdx.graphics.g2d.Animation.PlayMode;
 import com.badlogic.gdx.math.Vector2;
-import com.badlogic.gdx.physics.box2d.Body;
-import com.badlogic.gdx.physics.box2d.BodyDef;
-import com.badlogic.gdx.physics.box2d.PolygonShape;
-import com.badlogic.gdx.physics.box2d.World;
+import com.badlogic.gdx.physics.box2d.*;
 import com.badlogic.gdx.utils.Array;
 
 public class Fireball extends GameActor {
@@ -37,7 +33,11 @@ public class Fireball extends GameActor {
     shape.setAsBox(0f, 0f);
     
     myBody.setGravityScale(0);
-    myBody.createFixture(shape, 0f);
+    FixtureDef fixtureDef = new FixtureDef();
+    fixtureDef.isSensor = true;
+    fixtureDef.density = 0;
+    fixtureDef.shape = shape;
+    myBody.createFixture(fixtureDef);
     myBody.resetMassData();
     shape.dispose();
     
