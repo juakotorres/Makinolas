@@ -22,7 +22,9 @@ import cl.makinolas.atk.actors.Hero;
 import cl.makinolas.atk.actors.Platform;
 
 public class GameStage extends Stage implements ContactListener {
-  
+
+  public static float elapsedTime;
+
   private World suMundo;
   private float accumulator;
   private final float frameTime = 1 / 300f;
@@ -68,6 +70,7 @@ public class GameStage extends Stage implements ContactListener {
     super.act(delta);
     
     accumulator += delta;
+    elapsedTime += delta;
     nextEnemyAt -= delta;
     
     while(accumulator >= frameTime){
