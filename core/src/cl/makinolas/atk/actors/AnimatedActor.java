@@ -15,14 +15,14 @@ public abstract class AnimatedActor extends GameActor {
     protected boolean isFacingRight;
 
     protected void setMasterTexture(TextureRegion region, int tileWidth, int tileHeight){
-        anims = new Array<>();
+        anims = new Array<Animation>();
         tiles = region.split(tileWidth,tileHeight);
         currentAnimation = 0;
         isFacingRight = false;
     }
 
     protected int addAnimation(int frames, float duration, int[]... positions){
-        Array<TextureRegion> regs = new Array<>(frames);
+        Array<TextureRegion> regs = new Array<TextureRegion>(frames);
         for(int[] pos : positions){
             regs.add(tiles[pos[0]][pos[1]]);
         }

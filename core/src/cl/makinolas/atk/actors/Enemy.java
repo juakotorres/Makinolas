@@ -12,13 +12,16 @@ import com.badlogic.gdx.physics.box2d.PolygonShape;
 import com.badlogic.gdx.physics.box2d.World;
 import com.badlogic.gdx.utils.Array;
 
-public class Enemy extends GameActor {
+public class Enemy extends Monsters {
   
   private Animation enemyWalkingAnimation;
   private BodyDef myBodyDefinition;
   private float dt;  
   private float vx;
   private boolean isFacingRight;
+  private int health;
+  private boolean isDamaged;
+  private boolean dead;
   
   /**
    * Constructor for Enemy
@@ -28,9 +31,12 @@ public class Enemy extends GameActor {
    * @param numberOfSprite [[3], [0,0] , [0,1] , [0,2]] 3 Sprites for animation, (0,0) -> (0,1) -> (0,2)
    */
   public Enemy(World myWorld, TextureRegion enemyTexture,
-               int[] cutSprite, int[][] numberOfSprite) {
+               int[] cutSprite, int[][] numberOfSprite, int givenHealth) {
     
     dt = 0;
+    health = givenHealth;
+    isDamaged = false;
+    dead = false;
     int randomNum = 0 + (int)(Math.random() * 32);
     
     if (randomNum > 16){
@@ -41,7 +47,7 @@ public class Enemy extends GameActor {
       vx = 3;
     }
     
-    // Definiciï¿½n del cuerpo del jugador.
+    // Definición del cuerpo del jugador.
     myBodyDefinition = new BodyDef();
     myBodyDefinition.type = BodyDef.BodyType.DynamicBody;
     myBodyDefinition.position.set(new Vector2(randomNum,3));
@@ -89,10 +95,20 @@ public class Enemy extends GameActor {
     batch.draw(actualSprite, myPosition.x * GameConstants.WORLD_FACTOR - actualSprite.getRegionWidth() / 2 , myPosition.y * GameConstants.WORLD_FACTOR - actualSprite.getRegionHeight() / 2,
         actualSprite.getRegionWidth() / 2, getOriginY(), actualSprite.getRegionWidth(), actualSprite.getRegionHeight(), (isFacingRight)?-1:1, 1, 0);
   }
-  
+
   @Override
-  public boolean isEnemy(){
-    return true;
+  public void damage(int damage, Attacks inflictor) {
+    health -= damage;   
+    isDamaged = true;
+    inflictor.setDead();
+    if(health <= 0){
+      dead = true;
+    }
+
   }
   
+  @Override
+  public boolean isDead(){
+    return dead;
+  }
 }

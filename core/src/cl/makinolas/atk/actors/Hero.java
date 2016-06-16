@@ -10,15 +10,25 @@ import com.badlogic.gdx.physics.box2d.BodyDef;
 import com.badlogic.gdx.physics.box2d.PolygonShape;
 import com.badlogic.gdx.physics.box2d.World;
 
-public class Hero extends AnimatedActor {
+
+import cl.makinolas.atk.stages.GameStage;
+
+public class Hero extends Monsters {
 
   private boolean isJumping;
+  private float dt;
+  private int health;
+  private boolean isDamaged;
+  private boolean dead;
   private World myWorld;
   
   public Hero(World myWorld) {
     
     isJumping = false;
     isFacingRight = false;
+    health = 100;    
+    isDamaged = false;
+    dead = false;
     // Definici�n del cuerpo del jugador.
     this.myWorld = myWorld;
     // Definici�n del cuerpo del jugador.
@@ -66,10 +76,12 @@ public class Hero extends AnimatedActor {
       }
     }
     if (Gdx.input.isKeyJustPressed(Keys.Z)){
-      GameActor fireball = new Fireball(myWorld, myBody.getPosition().x,myBody.getPosition().y,isFacingRight);
+      GameActor fireball = new Fireball(myWorld, myBody.getPosition().x,myBody.getPosition().y,isFacingRight, this);
       getStage().addActor(fireball);
     }
     myBody.setLinearVelocity(vx, myBody.getLinearVelocity().y);
+    
+    ((GameStage) getStage()).changeCamera(myBody.getPosition().x , myBody.getPosition().y );
   }
   
   public void landedPlatform(){
@@ -77,12 +89,30 @@ public class Hero extends AnimatedActor {
   }
 
   private void setAnimation(){
-    setMasterTexture(new TextureRegion(new Texture(Gdx.files.internal("charmander.png"))),22,22);
+    setMasterTexture(new TextureRegion(new Texture(Gdx.files.internal("Actors/charmander.png"))),22,22);
     addAnimation(4,0.2f, new int[]{0, 0}, new int[]{0, 1}, new int[]{0, 2}, new int[]{0, 1});
   }
   
   @Override
   public boolean isHero(){
     return true;
+  }
+
+  @Override
+  public void damage(int damage, Attacks inflictor)  {
+    if(!inflictor.getSource().isHero()){
+      health -= damage;   
+      isDamaged = true;
+      inflictor.setDead();
+    }
+    if(health < 0){
+      dead = true;
+    }
+
+  }
+  
+  @Override
+  public boolean isDead(){
+    return dead;
   }
 }
