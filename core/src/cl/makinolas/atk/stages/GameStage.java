@@ -50,7 +50,7 @@ public class GameStage extends Stage implements ContactListener {
     camera = new OrthographicCamera(32, 24);
     camera.position.set(camera.viewportWidth / 2, camera.viewportHeight / 2, 0f);
     camera.update();
-}
+  }
   
   @Override
   public void act(float delta){
