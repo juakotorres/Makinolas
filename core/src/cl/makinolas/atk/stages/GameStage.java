@@ -41,7 +41,7 @@ public class GameStage extends Stage implements ContactListener {
     suMundo = new World(new Vector2(0, -10), true);
     suMundo.setContactListener(this);
     Actor hero =  new Hero(suMundo);
-    Actor platform = new Platform(suMundo, 0, 0, 32f, 1f);
+    Actor platform = new Platform(suMundo, 0, 0, 20);
     addActor(new Background());
     addActor(hero);
     addActor(platform);
@@ -91,7 +91,7 @@ public class GameStage extends Stage implements ContactListener {
     
     if(nextEnemyAt < 0){
        GameActor enemy = new Enemy(suMundo, new TextureRegion(new Texture(Gdx.files.internal("Actors/Gastly.png"))),
-                                   new int[]{30,30}, new int[][]{new int[]{3},new int[]{0,1},new int[]{0,2},new int[]{0,3}}
+                                   new int[]{30,30}, 3, new int[][]{new int[]{0,1},new int[]{0,2},new int[]{0,3}}
                                    , 30, (int) getCamera().position.x);
        addActor(enemy);
        nextEnemyAt = enemySpawn;
