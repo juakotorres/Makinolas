@@ -3,6 +3,7 @@ package cl.makinolas.atk.actors;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input.Keys;
 import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.Body;
@@ -10,14 +11,14 @@ import com.badlogic.gdx.physics.box2d.BodyDef;
 import com.badlogic.gdx.physics.box2d.PolygonShape;
 import com.badlogic.gdx.physics.box2d.World;
 
-
+import cl.makinolas.atk.GameConstants;
 import cl.makinolas.atk.stages.GameStage;
 
 public class Hero extends Monsters {
 
   private boolean isJumping;
-  private float dt;
   private int health;
+  private HBar healthBar;
   private boolean isDamaged;
   private boolean dead;
   private World myWorld;
@@ -27,6 +28,7 @@ public class Hero extends Monsters {
     isJumping = false;
     isFacingRight = false;
     health = 100;    
+    healthBar = new HBar(100, health, 22, new TextureRegion( new Texture(Gdx.files.internal("bar_green.png"))));
     isDamaged = false;
     dead = false;
     // Definici�n del cuerpo del jugador.
@@ -103,9 +105,10 @@ public class Hero extends Monsters {
     if(!inflictor.getSource().isHero()){
       health -= damage;   
       isDamaged = true;
+      healthBar.setCurrent(health);
       inflictor.setDead();
     }
-    if(health < 0){
+    if(health <= 0){
       dead = true;
     }
 
@@ -114,5 +117,28 @@ public class Hero extends Monsters {
   @Override
   public boolean isDead(){
     return dead;
+  }
+  
+  @Override
+  public void draw(Batch batch, float alpha){
+    super.draw(batch, alpha);
+    TextureRegion actualSprite = getActualSprite();
+    Vector2 myPosition = myBody.getPosition();
+    batch.draw(healthBar.getSprite(), myPosition.x * GameConstants.WORLD_FACTOR - actualSprite.getRegionWidth() / 2 , myPosition.y * GameConstants.WORLD_FACTOR + actualSprite.getRegionHeight() / 2);
+  }
+
+  @Override
+  public int getMeleeDamage() {
+    return 0;
+  }
+
+  @Override
+  public void meleedamage(int damage) {
+    health -= damage;   
+    isDamaged = true;
+    healthBar.setCurrent(health);
+    if(health <= 0){
+      dead = true;
+    }   
   }
 }

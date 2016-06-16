@@ -1,6 +1,7 @@
 package cl.makinolas.atk.actors;
 
-import cl.makinolas.atk.GameConstants;
+import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.Animation.PlayMode;
 import com.badlogic.gdx.graphics.g2d.Batch;
@@ -12,6 +13,8 @@ import com.badlogic.gdx.physics.box2d.PolygonShape;
 import com.badlogic.gdx.physics.box2d.World;
 import com.badlogic.gdx.utils.Array;
 
+import cl.makinolas.atk.GameConstants;
+
 public class Enemy extends Monsters {
   
   private Animation enemyWalkingAnimation;
@@ -20,7 +23,9 @@ public class Enemy extends Monsters {
   private float vx;
   private boolean isFacingRight;
   private int health;
+  private HBar healthBar;
   private boolean isDamaged;
+  private int meleeDamage;
   private boolean dead;
   
   /**
@@ -35,8 +40,10 @@ public class Enemy extends Monsters {
     
     dt = 0;
     health = givenHealth;
+    healthBar = new HBar(givenHealth, health, cutSprite[0], new TextureRegion( new Texture(Gdx.files.internal("bar_green.png"))));
     isDamaged = false;
     dead = false;
+    meleeDamage = 10;
     int randomNum = 0 + (int)(Math.random() * 32);
     
     if (randomNum > 16){
@@ -94,6 +101,7 @@ public class Enemy extends Monsters {
     TextureRegion actualSprite = enemyWalkingAnimation.getKeyFrame(dt);
     batch.draw(actualSprite, myPosition.x * GameConstants.WORLD_FACTOR - actualSprite.getRegionWidth() / 2 , myPosition.y * GameConstants.WORLD_FACTOR - actualSprite.getRegionHeight() / 2,
         actualSprite.getRegionWidth() / 2, getOriginY(), actualSprite.getRegionWidth(), actualSprite.getRegionHeight(), (isFacingRight)?-1:1, 1, 0);
+    batch.draw(healthBar.getSprite(), myPosition.x * GameConstants.WORLD_FACTOR - actualSprite.getRegionWidth() / 2 , myPosition.y * GameConstants.WORLD_FACTOR + actualSprite.getRegionHeight() / 2);
   }
 
   @Override
@@ -101,6 +109,7 @@ public class Enemy extends Monsters {
     health -= damage;   
     isDamaged = true;
     inflictor.setDead();
+    healthBar.setCurrent(health);
     if(health <= 0){
       dead = true;
     }
@@ -108,7 +117,18 @@ public class Enemy extends Monsters {
   }
   
   @Override
+  public int getMeleeDamage(){
+    return meleeDamage;
+  }
+  
+  @Override
   public boolean isDead(){
     return dead;
   }
+
+  @Override
+  public void meleedamage(int damage) {
+    
+  }
+  
 }

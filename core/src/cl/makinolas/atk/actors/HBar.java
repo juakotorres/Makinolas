@@ -14,7 +14,8 @@ public class HBar {
         vcurrent = current;
         widthmax = width;
         reg = new Sprite(sprite);
-
+        setCurrent(current);
+        reg.setRegionHeight(5);
     }
 
     public void setCurrent(float c){

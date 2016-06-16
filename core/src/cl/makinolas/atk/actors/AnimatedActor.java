@@ -33,11 +33,15 @@ public abstract class AnimatedActor extends GameActor {
     protected void changeAnimation(int anim){
         currentAnimation = anim;
     }
+    
+    protected TextureRegion getActualSprite(){
+      return anims.get(currentAnimation).getKeyFrame(GameStage.elapsedTime);
+    }
 
     @Override
     public void draw(Batch batch, float alpha){
         Vector2 myPosition = myBody.getPosition();
-        TextureRegion actualSprite = anims.get(currentAnimation).getKeyFrame(GameStage.elapsedTime);
+        TextureRegion actualSprite = getActualSprite();
         batch.draw(actualSprite, myPosition.x * 20 - actualSprite.getRegionWidth() / 2 , myPosition.y * 20 - actualSprite.getRegionHeight() / 2,
                 actualSprite.getRegionWidth() / 2, getOriginY(), actualSprite.getRegionWidth(), actualSprite.getRegionHeight(), ((isFacingRight)?-1:1)*getScaleX(), 1, 0);
     }

@@ -5,3 +5,4 @@ Gastly 30x30
 Haunter 46x36
 Gengar 41x28
 Eevee 29x24
+Platform 36x36
