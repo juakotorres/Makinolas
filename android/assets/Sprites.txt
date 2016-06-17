@@ -5,4 +5,14 @@ Gastly 30x30
 Haunter 46x36
 Gengar 41x28
 Eevee 29x24
-Platform 36x36
+FireBall 30x37
+Espeon 30x28
+Umbreon 28x28
+Leafeon 30x27
+Vaporeon 51x36
+Jolteon 34x31
+Flareon 37x31
+Glaceon 29x28
+Groudon 64x55
+BlueBeam 25x15
+Gible 31x29
