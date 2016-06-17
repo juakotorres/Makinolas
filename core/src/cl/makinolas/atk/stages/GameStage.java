@@ -2,13 +2,9 @@ package cl.makinolas.atk.stages;
 
 import cl.makinolas.atk.actors.*;
 import cl.makinolas.atk.utils.LevelReader;
-import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.OrthographicCamera;
-import com.badlogic.gdx.graphics.Texture;
-import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.*;
-import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.utils.Array;
 
@@ -42,7 +38,7 @@ public class GameStage extends Stage implements ContactListener {
     setupCamera();
   }
 
-  private void addGameActor(GameActor actor) {
+  public void addGameActor(GameActor actor) {
     addActor(actor);
     gameActors.add(actor);
   }
@@ -77,10 +73,11 @@ public class GameStage extends Stage implements ContactListener {
   @Override
   public void act(float delta){
     super.act(delta);
-    for(Actor actor : getActors()){
-      if(((GameActor) actor).isMonster() || ((GameActor) actor).isAttack()){
-        Body actorBody = ((GameActor) actor).getBody();
-        if(actorBody.getPosition().y < -10 || actorBody.getPosition().x < -100 || actorBody.getPosition().x > 200 || ((GameActor) actor).isDead()){
+    for(GameActor actor : gameActors){
+      if(actor.isMonster() || actor.isAttack()){
+        Body actorBody = actor.getBody();
+        if(actorBody.getPosition().y < -10 || actorBody.getPosition().x < -100 || actorBody.getPosition().x > 200 || actor.isDead()){
+          gameActors.removeValue(actor,true);
           suMundo.destroyBody(actorBody);
           actor.remove();
         }
@@ -97,9 +94,7 @@ public class GameStage extends Stage implements ContactListener {
     }
     
     if(nextEnemyAt < 0){
-       GameActor enemy = new Enemy(suMundo, new TextureRegion(new Texture(Gdx.files.internal("Actors/Gastly.png"))),
-                                   new int[]{30,30}, 3, new int[][]{new int[]{0,1},new int[]{0,2},new int[]{0,3}}
-                                   , 30, (int) getCamera().position.x);
+       GameActor enemy = new Gastly(suMundo, (int) getCamera().position.x);
        addGameActor(enemy);
        nextEnemyAt = enemySpawn;
     }
@@ -109,8 +104,8 @@ public class GameStage extends Stage implements ContactListener {
   @Override
   public void draw() {
       super.draw();
-      camera.update();
-      renderer.render(suMundo, camera.combined);
+      /*camera.update();
+      renderer.render(suMundo, camera.combined);*/
   }
 
   @Override

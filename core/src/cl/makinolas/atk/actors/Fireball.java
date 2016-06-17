@@ -3,12 +3,9 @@ package cl.makinolas.atk.actors;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Animation;
-import com.badlogic.gdx.graphics.g2d.Animation.PlayMode;
-import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.*;
-import com.badlogic.gdx.utils.Array;
 
 public class Fireball extends Attacks {
   
@@ -25,6 +22,7 @@ public class Fireball extends Attacks {
     dt = 0;
     dead = false;
     mySource = source;
+    isFacingRight = !facingRight;
     this.xVelocity = (facingRight)? 10: -10;
     this.initialPosition= (facingRight)? .5f: -.5f;
     myBodyDefinition = new BodyDef();
@@ -59,23 +57,8 @@ public class Fireball extends Attacks {
   }
   
   private void setAnimation(){
-    TextureRegion texregion = new TextureRegion(new Texture(Gdx.files.internal("Attacks/fireball.png")));
-    TextureRegion[][] animation = texregion.split(30, 37);
-    
-    Array<TextureRegion> moving = new Array<TextureRegion>();
-    
-    moving.addAll( new TextureRegion[]{animation[0][0], animation[0][1], animation[0][2], animation[0][3], animation[0][4]});
-    
-    fireballAnimation = new Animation(0.2f, moving, PlayMode.LOOP);
-   
-  }
-  
-  @Override
-  public void draw(Batch batch, float alpha){
-    Vector2 myPosition = myBody.getPosition();
-    TextureRegion actualSprite = fireballAnimation.getKeyFrame(dt);
-    batch.draw(actualSprite, myPosition.x * 20 - actualSprite.getRegionWidth() / 2 , myPosition.y * 20 - actualSprite.getRegionHeight() / 2,
-        actualSprite.getRegionWidth() / 2, getOriginY(), actualSprite.getRegionWidth(), actualSprite.getRegionHeight(), (xVelocity < 0)?-1:1, 1, 0);
+    setMasterTexture(new TextureRegion(new Texture(Gdx.files.internal("Attacks/fireball.png"))),30,37);
+    addAnimation(5,0.2f, new int[]{0, 0}, new int[]{0, 1}, new int[]{0, 2},new int[]{0, 3},new int[]{0, 4});
   }
   
   @Override
