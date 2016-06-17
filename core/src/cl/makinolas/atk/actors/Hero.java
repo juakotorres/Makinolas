@@ -28,7 +28,7 @@ public class Hero extends Monsters {
     isJumping = false;
     isFacingRight = false;
     health = 100;    
-    healthBar = new HBar(100, health, 22, new TextureRegion( new Texture(Gdx.files.internal("bar_green.png"))));
+    healthBar = new HBar(100, health, 22, new TextureRegion(new Texture(Gdx.files.internal("bar_green.png"))));
     isDamaged = false;
     dead = false;
     // Definici�n del cuerpo del jugador.
@@ -79,7 +79,7 @@ public class Hero extends Monsters {
     }
     if (Gdx.input.isKeyJustPressed(Keys.Z)){
       GameActor fireball = new Fireball(myWorld, myBody.getPosition().x,myBody.getPosition().y,isFacingRight, this);
-      getStage().addActor(fireball);
+      ((GameStage) getStage()).addGameActor(fireball);
     }
     myBody.setLinearVelocity(vx, myBody.getLinearVelocity().y);
     

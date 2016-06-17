@@ -12,13 +12,12 @@ public abstract class AnimatedActor extends GameActor {
     private Array<Animation> anims;
     private TextureRegion[][] tiles;
     private int currentAnimation;
-    protected boolean isFacingRight;
+    protected boolean isFacingRight = false;
 
     protected void setMasterTexture(TextureRegion region, int tileWidth, int tileHeight){
         anims = new Array<Animation>();
         tiles = region.split(tileWidth,tileHeight);
         currentAnimation = 0;
-        isFacingRight = false;
     }
 
     protected int addAnimation(int frames, float duration, int[]... positions){
@@ -43,7 +42,8 @@ public abstract class AnimatedActor extends GameActor {
         Vector2 myPosition = myBody.getPosition();
         TextureRegion actualSprite = getActualSprite();
         batch.draw(actualSprite, myPosition.x * 20 - actualSprite.getRegionWidth() / 2 , myPosition.y * 20 - actualSprite.getRegionHeight() / 2,
-                actualSprite.getRegionWidth() / 2, getOriginY(), actualSprite.getRegionWidth(), actualSprite.getRegionHeight(), ((isFacingRight)?-1:1)*getScaleX(), 1, 0);
+                actualSprite.getRegionWidth() / 2, actualSprite.getRegionHeight() / 2, actualSprite.getRegionWidth(), actualSprite.getRegionHeight(),
+                ((isFacingRight)?-1:1)*getScaleX(), getScaleY(), 0);
     }
 
 }

@@ -1,27 +1,14 @@
 package cl.makinolas.atk.stages;
 
-import com.badlogic.gdx.Gdx;
+import cl.makinolas.atk.actors.*;
+import cl.makinolas.atk.utils.LevelReader;
 import com.badlogic.gdx.graphics.OrthographicCamera;
-import com.badlogic.gdx.graphics.Texture;
-import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.Vector2;
-import com.badlogic.gdx.physics.box2d.Body;
-import com.badlogic.gdx.physics.box2d.Box2DDebugRenderer;
-import com.badlogic.gdx.physics.box2d.Contact;
-import com.badlogic.gdx.physics.box2d.ContactImpulse;
-import com.badlogic.gdx.physics.box2d.ContactListener;
-import com.badlogic.gdx.physics.box2d.Manifold;
-import com.badlogic.gdx.physics.box2d.World;
-import com.badlogic.gdx.scenes.scene2d.Actor;
+import com.badlogic.gdx.physics.box2d.*;
 import com.badlogic.gdx.scenes.scene2d.Stage;
+import com.badlogic.gdx.utils.Array;
 
-import cl.makinolas.atk.actors.Attacks;
-import cl.makinolas.atk.actors.Background;
-import cl.makinolas.atk.actors.Enemy;
-import cl.makinolas.atk.actors.GameActor;
-import cl.makinolas.atk.actors.Hero;
-import cl.makinolas.atk.actors.Monsters;
-import cl.makinolas.atk.actors.Platform;
+import java.io.IOException;
 
 public class GameStage extends Stage implements ContactListener {
 
@@ -32,24 +19,42 @@ public class GameStage extends Stage implements ContactListener {
   private final float frameTime = 1 / 300f;
   private final float enemySpawn = 3f;
   private float nextEnemyAt;
+  private Array<GameActor> gameActors;
   
   private OrthographicCamera camera;
   private Box2DDebugRenderer renderer;
   
   public GameStage(){
     nextEnemyAt = enemySpawn;
+    gameActors = new Array<GameActor>();
     suMundo = new World(new Vector2(0, -10), true);
     suMundo.setContactListener(this);
-    Actor hero =  new Hero(suMundo);
-    Actor platform = new Platform(suMundo, 0, 0, 32f, 1f);
+    GameActor hero =  new Hero(suMundo);
     addActor(new Background());
-    addActor(hero);
-    addActor(platform);
+    createPlatforms();
+    addGameActor(hero);
     accumulator = 0;
     renderer = new Box2DDebugRenderer();
     setupCamera();
   }
-  
+
+  public void addGameActor(GameActor actor) {
+    addActor(actor);
+    gameActors.add(actor);
+  }
+
+  private void createPlatforms() {
+    LevelReader reader = LevelReader.getInstance();
+    reader.setWorld(suMundo);
+    try {
+      Array<GameActor> platforms = reader.loadLevel("level1");
+      for(GameActor p : platforms)
+        addActor(p);
+    } catch (IOException e) {
+      e.printStackTrace();
+    }
+  }
+
   private void setupCamera() {
     camera = new OrthographicCamera(32, 24);
     camera.position.set(camera.viewportWidth / 2, camera.viewportHeight / 2, 0f);
@@ -67,19 +72,18 @@ public class GameStage extends Stage implements ContactListener {
   
   @Override
   public void act(float delta){
-    for(Actor actor : getActors())
-    {
-      if(((GameActor) actor).isMonster() || ((GameActor) actor).isAttack()){
-        Body actorBody = ((GameActor) actor).getBody();
-        if(actorBody.getPosition().y < -10 || actorBody.getPosition().x < -100 || actorBody.getPosition().x > 200 || ((GameActor) actor).isDead()){
+    super.act(delta);
+    for(GameActor actor : gameActors){
+      if(actor.isMonster() || actor.isAttack()){
+        Body actorBody = actor.getBody();
+        if(actorBody.getPosition().y < -10 || actorBody.getPosition().x < -100 || actorBody.getPosition().x > 200 || actor.isDead()){
+          gameActors.removeValue(actor,true);
           suMundo.destroyBody(actorBody);
           actor.remove();
         }
       }
-
     }
-    super.act(delta);
-    
+
     accumulator += delta;
     elapsedTime += delta;
     nextEnemyAt -= delta;
@@ -90,10 +94,8 @@ public class GameStage extends Stage implements ContactListener {
     }
     
     if(nextEnemyAt < 0){
-       GameActor enemy = new Enemy(suMundo, new TextureRegion(new Texture(Gdx.files.internal("Actors/Gastly.png"))),
-                                   new int[]{30,30}, new int[][]{new int[]{3},new int[]{0,1},new int[]{0,2},new int[]{0,3}}
-                                   , 30, (int) getCamera().position.x);
-       addActor(enemy);
+       GameActor enemy = new Gastly(suMundo, (int) getCamera().position.x);
+       addGameActor(enemy);
        nextEnemyAt = enemySpawn;
     }
     
@@ -102,8 +104,8 @@ public class GameStage extends Stage implements ContactListener {
   @Override
   public void draw() {
       super.draw();
-      camera.update();
-      renderer.render(suMundo, camera.combined);
+      /*camera.update();
+      renderer.render(suMundo, camera.combined);*/
   }
 
   @Override
