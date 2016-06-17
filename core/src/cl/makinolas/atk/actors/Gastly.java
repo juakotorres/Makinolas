@@ -12,6 +12,7 @@ public class Gastly extends Enemy {
 
     public Gastly(World myWorld, int heroPosition) {
         super(myWorld, new TextureRegion(new Texture(Gdx.files.internal("Actors/Gastly.png"))), new int[]{30,30}, 3,
-                new int[][]{new int[]{0,1},new int[]{0,2},new int[]{0,3}}, 30, heroPosition);
+                new int[][]{new int[]{0,1},new int[]{0,2},new int[]{0,3}},
+                1, new int[][]{new int[]{0,0}},  30, heroPosition);
     }
 }

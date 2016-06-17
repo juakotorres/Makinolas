@@ -22,6 +22,10 @@ public class Hero extends Monsters {
   private boolean isDamaged;
   private boolean dead;
   private World myWorld;
+  private int walkAnimation;
+  private int hurtAnimation;
+  private final float hurtTime = 1 / 4f;
+  private float accumulator;
   
   public Hero(World myWorld) {
     
@@ -31,6 +35,7 @@ public class Hero extends Monsters {
     healthBar = new HBar(100, health, 22, new TextureRegion(new Texture(Gdx.files.internal("bar_green.png"))));
     isDamaged = false;
     dead = false;
+    accumulator = 0;
     // Definici�n del cuerpo del jugador.
     this.myWorld = myWorld;
     // Definici�n del cuerpo del jugador.
@@ -54,6 +59,9 @@ public class Hero extends Monsters {
     
     // Guardar animaciones del jugador
     setAnimation();
+    walkAnimation = addAnimation(4,0.2f, new int[]{0, 0}, new int[]{0, 1}, new int[]{0, 2}, new int[]{0, 1});
+    hurtAnimation = addAnimation(1,0.2f, new int[][]{new int[]{0, 7}});
+    changeAnimation(walkAnimation);
   }
   
   @Override
@@ -84,6 +92,15 @@ public class Hero extends Monsters {
     myBody.setLinearVelocity(vx, myBody.getLinearVelocity().y);
     
     ((GameStage) getStage()).changeCamera(myBody.getPosition().x , myBody.getPosition().y );
+    
+    if(isDamaged){
+      accumulator += delta;
+      if(accumulator > hurtTime){
+        isDamaged = false;
+        changeAnimation(walkAnimation);
+        accumulator = 0;
+      }
+    }
   }
   
   public void landedPlatform(){
@@ -92,7 +109,6 @@ public class Hero extends Monsters {
 
   private void setAnimation(){
     setMasterTexture(new TextureRegion(new Texture(Gdx.files.internal("Actors/charmander.png"))),22,22);
-    addAnimation(4,0.2f, new int[]{0, 0}, new int[]{0, 1}, new int[]{0, 2}, new int[]{0, 1});
   }
   
   @Override
@@ -106,6 +122,7 @@ public class Hero extends Monsters {
       health -= damage;   
       isDamaged = true;
       healthBar.setCurrent(health);
+      changeAnimation(hurtAnimation);
       inflictor.setDead();
     }
     if(health <= 0){
@@ -137,6 +154,7 @@ public class Hero extends Monsters {
     health -= damage;   
     isDamaged = true;
     healthBar.setCurrent(health);
+    changeAnimation(hurtAnimation);
     if(health <= 0){
       dead = true;
     }   

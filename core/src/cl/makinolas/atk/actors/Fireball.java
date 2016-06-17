@@ -26,7 +26,7 @@ public class Fireball extends Attacks {
     this.xVelocity = (facingRight)? 10: -10;
     this.initialPosition= (facingRight)? .5f: -.5f;
     myBodyDefinition = new BodyDef();
-    myBodyDefinition.type = BodyDef.BodyType.KinematicBody;
+    myBodyDefinition.type = BodyDef.BodyType.DynamicBody;
     myBodyDefinition.position.set(new Vector2(x + initialPosition,y));
     
     Body myBody = myWorld.createBody(myBodyDefinition);
@@ -59,11 +59,6 @@ public class Fireball extends Attacks {
   private void setAnimation(){
     setMasterTexture(new TextureRegion(new Texture(Gdx.files.internal("Attacks/fireball.png"))),30,37);
     addAnimation(5,0.2f, new int[]{0, 0}, new int[]{0, 1}, new int[]{0, 2},new int[]{0, 3},new int[]{0, 4});
-  }
-  
-  @Override
-  public boolean isAttack(){
-    return true;
   }
 
   @Override

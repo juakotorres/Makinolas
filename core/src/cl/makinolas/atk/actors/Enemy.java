@@ -1,6 +1,5 @@
 package cl.makinolas.atk.actors;
 
-import cl.makinolas.atk.GameConstants;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Batch;
@@ -11,15 +10,21 @@ import com.badlogic.gdx.physics.box2d.BodyDef;
 import com.badlogic.gdx.physics.box2d.PolygonShape;
 import com.badlogic.gdx.physics.box2d.World;
 
+import cl.makinolas.atk.GameConstants;
+
 public class Enemy extends Monsters {
 
-  private float dt;
+
   private float vx;
   private int health;
   private HBar healthBar;
   private boolean isDamaged;
   private int meleeDamage;
   private boolean dead;
+  private int walkAnimation;
+  private int hurtAnimation;
+  private final float hurtTime = 1 / 4f;
+  private float accumulator;
   
   /**
    * Constructor for Enemy
@@ -29,15 +34,16 @@ public class Enemy extends Monsters {
    * @param numberOfSprite [[3], [0,0] , [0,1] , [0,2]] 3 Sprites for animation, (0,0) -> (0,1) -> (0,2)
    */
   public Enemy(World myWorld, TextureRegion enemyTexture,
-               int[] cutSprite, int frames, int[][] numberOfSprite, int givenHealth
+               int[] cutSprite, int frames, int[][] numberOfSprite
+               , int hurtFrames, int[][] numberOfHurtSprites, int givenHealth
                , int heroPosition) {
     
-    dt = 0;
     health = givenHealth;
     healthBar = new HBar(givenHealth, health, cutSprite[0], new TextureRegion( new Texture(Gdx.files.internal("bar_green.png"))));
     isDamaged = false;
     dead = false;
     meleeDamage = 10;
+    accumulator = 0;
     int actualPosition = heroPosition / 20;
     int randomNum = actualPosition  + (int)(Math.random() * 16) - 7;
     
@@ -69,18 +75,29 @@ public class Enemy extends Monsters {
     setBody(myBody);
     
     // Guardar animaciones del jugador
-    setAnimation(enemyTexture, cutSprite, frames, numberOfSprite);
+    setAnimation(enemyTexture, cutSprite);
+    hurtAnimation = addAnimation(hurtFrames, 0.2f,  numberOfHurtSprites);
+    walkAnimation = addAnimation(frames, 0.2f, numberOfSprite);
+    changeAnimation(walkAnimation);
+   
   }
   
   @Override
-  public void act(float delta){
-    dt += delta;      
+  public void act(float delta){     
     myBody.setLinearVelocity(vx, myBody.getLinearVelocity().y);
+    
+    if(isDamaged){
+      accumulator += delta;
+      if(accumulator > hurtTime){
+        isDamaged = false;
+        changeAnimation(walkAnimation);
+        accumulator = 0;
+      }
+    }
   }
   
-  private void setAnimation(TextureRegion enemySprites, int[] cutSprite, int frames, int[][] sprites){
+  private void setAnimation(TextureRegion enemySprites, int[] cutSprite){
     setMasterTexture(enemySprites,cutSprite[0],cutSprite[1]);
-    addAnimation(frames, 0.2f, sprites);
   }
   
   @Override
@@ -95,6 +112,7 @@ public class Enemy extends Monsters {
   public void damage(int damage, Attacks inflictor) {
     health -= damage;   
     isDamaged = true;
+    changeAnimation(hurtAnimation);
     inflictor.setDead();
     healthBar.setCurrent(health);
     if(health <= 0){

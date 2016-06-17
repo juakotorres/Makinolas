@@ -126,6 +126,10 @@ public class GameStage extends Stage implements ContactListener {
       ((Monsters) actor2).meleedamage(((Monsters) actor1).getMeleeDamage());
     } else if (actor1.isHero() && actor2.isMonster()){
       ((Monsters) actor1).meleedamage(((Monsters) actor2).getMeleeDamage());
+    } else if (actor1.isAttack() && actor2.isPlatform()){
+      ((Attacks) actor1).setDead();
+    } else if (actor1.isPlatform() && actor2.isAttack()){
+      ((Attacks) actor2).setDead();
     }
   }
 
