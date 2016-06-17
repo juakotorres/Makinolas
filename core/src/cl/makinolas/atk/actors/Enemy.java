@@ -39,7 +39,7 @@ public class Enemy extends Monsters {
                , int heroPosition) {
     
     health = givenHealth;
-    healthBar = new HBar(givenHealth, health, cutSprite[0], new TextureRegion( new Texture(Gdx.files.internal("bar_green.png"))));
+    healthBar = new HBar(givenHealth, health, cutSprite[0], 4, new TextureRegion( new Texture(Gdx.files.internal("Overlays/bar_green.png"))));
     isDamaged = false;
     dead = false;
     meleeDamage = 10;

@@ -9,13 +9,13 @@ public class HBar {
     private int widthmax;
     private Sprite reg;
 
-    public HBar(float max, float current, int width, TextureRegion sprite){
+    public HBar(float max, float current, int width, int height, TextureRegion sprite){
         vmax = max;
         vcurrent = current;
         widthmax = width;
         reg = new Sprite(sprite);
         setCurrent(current);
-        reg.setRegionHeight(5);
+        reg.setRegionHeight(height);
     }
 
     public void setCurrent(float c){
