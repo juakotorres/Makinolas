@@ -28,7 +28,7 @@ public class Hero extends Monsters {
     isJumping = false;
     isFacingRight = false;
     health = 100;    
-    healthBar = new HBar(100, health, 22, new TextureRegion(new Texture(Gdx.files.internal("bar_green.png"))));
+    healthBar = new HBar(100, health, 22, 4, new TextureRegion(new Texture(Gdx.files.internal("Overlays/bar_green.png"))));
     isDamaged = false;
     dead = false;
     // Definici�n del cuerpo del jugador.
