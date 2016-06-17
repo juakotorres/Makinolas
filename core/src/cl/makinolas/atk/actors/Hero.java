@@ -36,13 +36,13 @@ public class Hero extends Monsters {
     // Definici�n del cuerpo del jugador.
     BodyDef myBodyDefinition = new BodyDef();
     myBodyDefinition.type = BodyDef.BodyType.DynamicBody;
-    myBodyDefinition.position.set(new Vector2(4,10));
+    myBodyDefinition.position.set(new Vector2(4,3));
     
     // Forma del collider del jugador.
     Body myBody = myWorld.createBody(myBodyDefinition);
     
     PolygonShape shape = new PolygonShape();
-    shape.setAsBox(0.6f,0.7f);
+    shape.setAsBox(0.6f,0.5f);
     ///
     myBody.setGravityScale(1);
     myBody.createFixture(shape, 0.5f);
@@ -73,7 +73,7 @@ public class Hero extends Monsters {
     }
     if (Gdx.input.isKeyJustPressed(Keys.SPACE)){
       if(!isJumping){
-        myBody.applyLinearImpulse(0, 8, myBody.getPosition().x, myBody.getPosition().y, true);
+        myBody.applyLinearImpulse(0, 7, myBody.getPosition().x, myBody.getPosition().y, true);
         isJumping = true;
       }
     }

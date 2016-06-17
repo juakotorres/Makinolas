@@ -76,7 +76,7 @@ public class GameStage extends Stage implements ContactListener {
     for(GameActor actor : gameActors){
       if(actor.isMonster() || actor.isAttack()){
         Body actorBody = actor.getBody();
-        if(actorBody.getPosition().y < -10 || actorBody.getPosition().x < -100 || actorBody.getPosition().x > 200 || actor.isDead()){
+        if(actorBody.getPosition().y < -200 || actorBody.getPosition().x < -100 || actorBody.getPosition().x > 200 || actor.isDead()){
           gameActors.removeValue(actor,true);
           suMundo.destroyBody(actorBody);
           actor.remove();
