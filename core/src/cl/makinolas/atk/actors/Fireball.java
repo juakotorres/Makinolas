@@ -2,24 +2,24 @@ package cl.makinolas.atk.actors;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
-import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.Vector2;
-import com.badlogic.gdx.physics.box2d.*;
+import com.badlogic.gdx.physics.box2d.Body;
+import com.badlogic.gdx.physics.box2d.BodyDef;
+import com.badlogic.gdx.physics.box2d.FixtureDef;
+import com.badlogic.gdx.physics.box2d.PolygonShape;
+import com.badlogic.gdx.physics.box2d.World;
 
 public class Fireball extends Attacks {
   
-  private Animation fireballAnimation;
   private BodyDef myBodyDefinition; 
   private Monsters mySource;
   private float xVelocity;
   private float initialPosition;
-  private float dt;
   private boolean dead;
   
   public Fireball(World myWorld, float x , float y, boolean facingRight, Monsters source){
     
-    dt = 0;
     dead = false;
     mySource = source;
     isFacingRight = !facingRight;
@@ -52,7 +52,6 @@ public class Fireball extends Attacks {
   
   @Override
   public void act(float delta){
-    dt += delta;
     myBody.setLinearVelocity(xVelocity, 0);
   }
   
