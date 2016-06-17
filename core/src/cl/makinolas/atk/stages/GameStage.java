@@ -1,6 +1,7 @@
 package cl.makinolas.atk.stages;
 
 import cl.makinolas.atk.actors.*;
+import cl.makinolas.atk.actors.ui.MainBar;
 import cl.makinolas.atk.utils.LevelReader;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.math.Vector2;
@@ -29,10 +30,11 @@ public class GameStage extends Stage implements ContactListener {
     gameActors = new Array<GameActor>();
     suMundo = new World(new Vector2(0, -10), true);
     suMundo.setContactListener(this);
-    GameActor hero =  new Hero(suMundo);
+    Hero hero =  new Hero(suMundo);
     addActor(new Background());
     createPlatforms();
     addGameActor(hero);
+    addActor(new MainBar(hero));
     accumulator = 0;
     renderer = new Box2DDebugRenderer();
     setupCamera();
