@@ -1,25 +1,27 @@
 package cl.makinolas.atk.actors;
 
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.graphics.Camera;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 
-public class Background extends Actor {
- 
+public class Title extends Actor {
+
   private TextureRegion backgroundImage;
-  private Camera camera;
+  private float xPosition;
+  private float yPosition; 
   
-  public Background(String pathImage, Camera camera){
-    this.camera = camera;
+  public Title(String pathImage, float x, float y){
+    xPosition = x;
+    yPosition = y;
     backgroundImage = new TextureRegion(new Texture(Gdx.files.internal(pathImage)));
   }
   
   @Override
   public void draw(Batch batch, float alpha){
-    batch.draw(backgroundImage, camera.position.x - backgroundImage.getRegionWidth() / 2
-                                , camera.position.y - backgroundImage.getRegionHeight() / 2);
+    batch.draw(backgroundImage, xPosition - backgroundImage.getRegionWidth() / 2
+                                , yPosition - backgroundImage.getRegionHeight() / 2);
   }
+  
 }
