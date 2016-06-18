@@ -20,7 +20,7 @@ public class MainBar extends Actor{
     public MainBar(Hero h){
         hero = h;
         healthBar = new HBar(100,100,150,10,new TextureRegion(new Texture(Gdx.files.internal("Overlays/bar_green.png"))));
-        magicBar = new HBar(100,100,150,10,new TextureRegion(new Texture(Gdx.files.internal("Overlays/bar_blue.png"))));;
+        magicBar = new HBar(1000,1000,150,10,new TextureRegion(new Texture(Gdx.files.internal("Overlays/bar_blue.png"))));;
         base = new Sprite(new Texture(Gdx.files.internal("Overlays/bar_base.png")));
         base.setRegionWidth(640); //Full width
         font = new BitmapFont(Gdx.files.internal("Fonts/normal.fnt"),Gdx.files.internal("Fonts/normal.png"),false);
@@ -32,6 +32,7 @@ public class MainBar extends Actor{
         float cx = getStage().getCamera().position.x - 320;
         float cy = getStage().getCamera().position.y - 240;
         healthBar.setCurrent(hero.getHealth());
+        magicBar.setCurrent(hero.getMagic());
         batch.draw(base,cx,cy);
         batch.draw(healthBar.getSprite(),cx+50,cy+26);
         batch.draw(magicBar.getSprite(),cx+50,cy+8);

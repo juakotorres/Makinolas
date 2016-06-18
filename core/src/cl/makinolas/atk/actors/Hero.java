@@ -15,6 +15,7 @@ public class Hero extends Monsters {
 
   private boolean isJumping;
   private int health;
+  private int magic;
   private boolean isDamaged;
   private boolean dead;
   private World myWorld;
@@ -28,6 +29,7 @@ public class Hero extends Monsters {
     isJumping = false;
     isFacingRight = false;
     health = 100;
+    magic = 1000;
     isDamaged = false;
     dead = false;
     accumulator = 0;
@@ -80,7 +82,8 @@ public class Hero extends Monsters {
         isJumping = true;
       }
     }
-    if (Gdx.input.isKeyJustPressed(Keys.Z)){
+    if (Gdx.input.isKeyJustPressed(Keys.Z) && magic > 100){
+      magic -= 100;
       GameActor fireball = new Fireball(myWorld, myBody.getPosition().x,myBody.getPosition().y,isFacingRight, this);
       ((GameStage) getStage()).addGameActor(fireball);
     }
@@ -95,6 +98,9 @@ public class Hero extends Monsters {
         changeAnimation(walkAnimation);
         accumulator = 0;
       }
+    }
+    if(magic < 1000){
+      magic = ((magic + 1)%1001);
     }
   }
   
@@ -114,6 +120,11 @@ public class Hero extends Monsters {
   public int getHealth(){
     return health;
   }
+  
+  public int getMagic(){
+    return magic;
+  }
+
 
   @Override
   public void damage(int damage, Attacks inflictor)  {
