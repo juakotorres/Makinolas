@@ -9,14 +9,18 @@ import com.badlogic.gdx.scenes.scene2d.Actor;
 public class Background extends Actor {
  
   private TextureRegion backgroundImage;
+  private float xPosition;
+  private float yPosition; 
   
-  public Background(){
-    backgroundImage = new TextureRegion(new Texture(Gdx.files.internal("Background/SuPuente.jpg")));
+  public Background(String pathImage, float x, float y){
+    xPosition = x;
+    yPosition = y;
+    backgroundImage = new TextureRegion(new Texture(Gdx.files.internal(pathImage)));
   }
   
   @Override
   public void draw(Batch batch, float alpha){
-    batch.draw(backgroundImage, getStage().getCamera().position.x - backgroundImage.getRegionWidth() / 2
-                                , getStage().getCamera().position.y - backgroundImage.getRegionHeight() / 2);
+    batch.draw(backgroundImage, xPosition - backgroundImage.getRegionWidth() / 2
+                                , yPosition - backgroundImage.getRegionHeight() / 2);
   }
 }
