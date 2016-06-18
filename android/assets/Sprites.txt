@@ -16,3 +16,5 @@ Glaceon 29x28
 Groudon 64x55
 BlueBeam 25x15
 Gible 31x29
+Gabite 39x34
+Garchomp 43x40
