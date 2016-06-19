@@ -22,7 +22,9 @@ public class GameStage extends Stage implements ContactListener {
   private final float enemySpawn = 3f;
   private float nextEnemyAt;
   private Array<GameActor> gameActors;
-  
+
+  private MainBar bar;
+
   private OrthographicCamera camera;
   private Box2DDebugRenderer renderer;
   
@@ -35,7 +37,7 @@ public class GameStage extends Stage implements ContactListener {
     addActor(new Background());
     createPlatforms();
     addGameActor(hero);
-    addActor(new MainBar(hero));
+    bar = new MainBar(hero);
     accumulator = 0;
     renderer = new Box2DDebugRenderer();
     setupCamera();
@@ -69,8 +71,6 @@ public class GameStage extends Stage implements ContactListener {
     getCamera().position.set(x * 20, y * 20, 0);
     getCamera().update();    
     camera.update();
-    
-    
   }
   
   @Override
@@ -107,6 +107,7 @@ public class GameStage extends Stage implements ContactListener {
   @Override
   public void draw() {
       super.draw();
+      bar.drawCustom(getBatch(),getCamera().position.x,getCamera().position.y); //Custom draw for MainBar
       camera.update();
       renderer.render(suMundo, camera.combined);
   }
