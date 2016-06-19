@@ -1,6 +1,7 @@
 package cl.makinolas.atk.stages;
 
 import cl.makinolas.atk.actors.*;
+import cl.makinolas.atk.actors.friend.Eevee;
 import cl.makinolas.atk.actors.ui.MainBar;
 import cl.makinolas.atk.utils.LevelReader;
 import com.badlogic.gdx.graphics.OrthographicCamera;
@@ -96,7 +97,7 @@ public class GameStage extends Stage implements ContactListener {
     }
     
     if(nextEnemyAt < 0){
-       GameActor enemy = new Gastly(suMundo, (int) getCamera().position.x);
+       GameActor enemy = (new Eevee()).returnEnemy(suMundo, (int) getCamera().position.x);
        addGameActor(enemy);
        nextEnemyAt = enemySpawn;
     }
