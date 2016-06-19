@@ -14,6 +14,7 @@ import java.io.IOException;
 public class GameStage extends Stage implements ContactListener {
 
   public static float elapsedTime;
+  public static String levelName = "level1";
 
   private World suMundo;
   private float accumulator;
@@ -21,7 +22,9 @@ public class GameStage extends Stage implements ContactListener {
   private final float enemySpawn = 3f;
   private float nextEnemyAt;
   private Array<GameActor> gameActors;
-  
+
+  private MainBar bar;
+
   private OrthographicCamera camera;
   private Box2DDebugRenderer renderer;
   
@@ -34,7 +37,7 @@ public class GameStage extends Stage implements ContactListener {
     addActor(new Background("Background/SuPuente.jpg", getCamera()));
     createPlatforms();
     addGameActor(hero);
-    addActor(new MainBar(hero));
+    bar = new MainBar(hero);
     accumulator = 0;
     renderer = new Box2DDebugRenderer();
     setupCamera();
@@ -49,7 +52,7 @@ public class GameStage extends Stage implements ContactListener {
     LevelReader reader = LevelReader.getInstance();
     reader.setWorld(suMundo);
     try {
-      Array<GameActor> platforms = reader.loadLevel("level1");
+      Array<GameActor> platforms = reader.loadLevel(GameStage.levelName);
       for(GameActor p : platforms)
         addActor(p);
     } catch (IOException e) {
@@ -68,8 +71,6 @@ public class GameStage extends Stage implements ContactListener {
     getCamera().position.set(x * 20, y * 20, 0);
     getCamera().update();    
     camera.update();
-    
-    
   }
   
   @Override
@@ -106,6 +107,7 @@ public class GameStage extends Stage implements ContactListener {
   @Override
   public void draw() {
       super.draw();
+      bar.drawCustom(getBatch(),getCamera().position.x,getCamera().position.y); //Custom draw for MainBar
       camera.update();
       renderer.render(suMundo, camera.combined);
   }
