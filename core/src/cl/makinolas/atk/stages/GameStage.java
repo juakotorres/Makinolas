@@ -14,6 +14,7 @@ import java.io.IOException;
 public class GameStage extends Stage implements ContactListener {
 
   public static float elapsedTime;
+  public static String levelName = "level1";
 
   private World suMundo;
   private float accumulator;
@@ -49,7 +50,7 @@ public class GameStage extends Stage implements ContactListener {
     LevelReader reader = LevelReader.getInstance();
     reader.setWorld(suMundo);
     try {
-      Array<GameActor> platforms = reader.loadLevel("level1");
+      Array<GameActor> platforms = reader.loadLevel(GameStage.levelName);
       for(GameActor p : platforms)
         addActor(p);
     } catch (IOException e) {
