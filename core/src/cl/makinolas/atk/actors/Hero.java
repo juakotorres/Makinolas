@@ -1,15 +1,18 @@
 package cl.makinolas.atk.actors;
 
-import cl.makinolas.atk.stages.GameStage;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input.Keys;
-import com.badlogic.gdx.graphics.Texture;
-import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.Body;
 import com.badlogic.gdx.physics.box2d.BodyDef;
 import com.badlogic.gdx.physics.box2d.PolygonShape;
 import com.badlogic.gdx.physics.box2d.World;
+import com.badlogic.gdx.utils.Array;
+
+import cl.makinolas.atk.actors.friend.Eevee;
+import cl.makinolas.atk.actors.friend.Friend;
+import cl.makinolas.atk.actors.friend.Gible;
+import cl.makinolas.atk.stages.GameStage;
 
 public class Hero extends Monsters {
 
@@ -23,6 +26,9 @@ public class Hero extends Monsters {
   private int hurtAnimation;
   private final float hurtTime = 1 / 4f;
   private float accumulator;
+  private Array<Friend> allies;
+  private Friend actualFriend;
+  private int indexFriend;
   
   public Hero(World myWorld) {
     
@@ -33,6 +39,14 @@ public class Hero extends Monsters {
     isDamaged = false;
     dead = false;
     accumulator = 0;
+    
+    allies = new Array<Friend>();
+    Friend allie = new Eevee();
+    Friend allie2 = new Gible();
+    allie.setVariables(health, dead);
+    allie2.setVariables(health, dead);
+    allies.add(allie);
+    allies.add(allie2);
     // Definici�n del cuerpo del jugador.
     this.myWorld = myWorld;
     // Definici�n del cuerpo del jugador.
@@ -55,9 +69,9 @@ public class Hero extends Monsters {
     setBody(myBody);
     
     // Guardar animaciones del jugador
+    actualFriend = allies.get(0);
+    indexFriend = 0;
     setAnimation();
-    walkAnimation = addAnimation(4,0.2f, new int[]{0, 0}, new int[]{0, 1}, new int[]{0, 2}, new int[]{0, 1});
-    hurtAnimation = addAnimation(1,0.2f, new int[][]{new int[]{0, 7}});
     changeAnimation(walkAnimation);
   }
   
@@ -80,6 +94,25 @@ public class Hero extends Monsters {
       if(!isJumping){
         myBody.applyLinearImpulse(0, 7, myBody.getPosition().x, myBody.getPosition().y, true);
         isJumping = true;
+      }
+    }
+    if (Gdx.input.isKeyJustPressed(Keys.NUM_1)){
+      if(indexFriend != 0){
+        actualFriend.setVariables(health, dead);
+        allies.set(indexFriend, actualFriend);
+        actualFriend = allies.get(0);
+        indexFriend = 0;
+        health = actualFriend.getHealth();
+        setAnimation();
+      }
+    } else if (Gdx.input.isKeyJustPressed(Keys.NUM_2)){
+      if(indexFriend != 1){
+        actualFriend.setVariables(health, dead);
+        allies.set(indexFriend, actualFriend);
+        actualFriend = allies.get(1);
+        health = actualFriend.getHealth();
+        indexFriend = 1;
+        setAnimation();
       }
     }
     if (Gdx.input.isKeyJustPressed(Keys.Z) && magic > 100){
@@ -109,7 +142,9 @@ public class Hero extends Monsters {
   }
 
   private void setAnimation(){
-    setMasterTexture(new TextureRegion(new Texture(Gdx.files.internal("Actors/charmander.png"))),22,22);
+    setMasterTexture(actualFriend.getTexture(),actualFriend.getWidth(),actualFriend.getHeight());
+    walkAnimation = addAnimation(actualFriend.getWalkFrames(),0.2f, actualFriend.getWalkAnimation());
+    hurtAnimation = addAnimation(actualFriend.getHurtFrames(),0.2f, actualFriend.getHurtAnimation());
   }
   
   @Override
@@ -149,6 +184,10 @@ public class Hero extends Monsters {
   @Override
   public int getMeleeDamage() {
     return 0;
+  }
+  
+  public Friend getFriend(){
+    return actualFriend;
   }
 
   @Override
