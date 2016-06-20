@@ -17,6 +17,7 @@ public class MainBar extends Group{
 
     private Hero hero;
     private HBar healthBar, magicBar;
+    private FriendImage friend;
     private Sprite base;
     private BitmapFont font;
     private ShapeRenderer renderer;
@@ -31,8 +32,10 @@ public class MainBar extends Group{
         font = new BitmapFont(Gdx.files.internal("Fonts/normal.fnt"),Gdx.files.internal("Fonts/normal.png"),false);
         renderer = new ShapeRenderer();
         TextureRegion[][] items = new TextureRegion(new Texture(Gdx.files.internal("Overlays/items.png"))).split(32,32);
+        friend = new FriendImage();
         itemA = new ImageCuad(items[0][3],"A",font);
         itemS = new ImageCuad(items[1][0],"S",font);
+        
     }
 
     public void drawCustom(Batch batch, float camX, float camY) {
@@ -51,6 +54,10 @@ public class MainBar extends Group{
         font.draw(batch,"Magic",cx+4,cy+20);
         font.draw(batch,GameStage.levelName,cx+220,cy+38);
         font.draw(batch, ""+((int) GameStage.elapsedTime),cx+230,cy+20);
+        //Current Friend Sprite
+        friend.setPosition(cx+270,cy+2);
+        friend.setTexture(hero.getFriend().getFriendFaceSprite());
+        friend.draw(batch, 1);
         //ImageCuads
         itemA.setPosition(cx+540,cy+6);
         itemA.draw(batch,1);

@@ -185,6 +185,10 @@ public class Hero extends Monsters {
   public int getMeleeDamage() {
     return 0;
   }
+  
+  public Friend getFriend(){
+    return actualFriend;
+  }
 
   @Override
   public void meleedamage(int damage) {
