@@ -47,6 +47,8 @@ public class Hero extends Monsters {
     allie2.setVariables(health, dead);
     allies.add(allie);
     allies.add(allie2);
+    actualFriend = allies.get(0);
+    indexFriend = 0;
     // Definiciï¿½n del cuerpo del jugador.
     this.myWorld = myWorld;
     // Definiciï¿½n del cuerpo del jugador.
@@ -56,9 +58,9 @@ public class Hero extends Monsters {
     
     // Forma del collider del jugador.
     Body myBody = myWorld.createBody(myBodyDefinition);
-    
+    // 0.5 -> 22
     PolygonShape shape = new PolygonShape();
-    shape.setAsBox(0.6f,0.5f);
+    shape.setAsBox(getBodySize(actualFriend.getWidth()), getBodySize(actualFriend.getHeight()));
     ///
     myBody.setGravityScale(1);
     myBody.createFixture(shape, 0.5f);
@@ -69,8 +71,6 @@ public class Hero extends Monsters {
     setBody(myBody);
     
     // Guardar animaciones del jugador
-    actualFriend = allies.get(0);
-    indexFriend = 0;
     setAnimation();
     changeAnimation(walkAnimation);
   }
@@ -92,27 +92,17 @@ public class Hero extends Monsters {
     }
     if (Gdx.input.isKeyJustPressed(Keys.SPACE)){
       if(!isJumping){
-        myBody.applyLinearImpulse(0, 7, myBody.getPosition().x, myBody.getPosition().y, true);
+        myBody.applyLinearImpulse(0, getImpulse(), myBody.getPosition().x, myBody.getPosition().y, true);
         isJumping = true;
       }
     }
     if (Gdx.input.isKeyJustPressed(Keys.NUM_1)){
       if(indexFriend != 0){
-        actualFriend.setVariables(health, dead);
-        allies.set(indexFriend, actualFriend);
-        actualFriend = allies.get(0);
-        indexFriend = 0;
-        health = actualFriend.getHealth();
-        setAnimation();
+        setNewAllie(0);
       }
     } else if (Gdx.input.isKeyJustPressed(Keys.NUM_2)){
       if(indexFriend != 1){
-        actualFriend.setVariables(health, dead);
-        allies.set(indexFriend, actualFriend);
-        actualFriend = allies.get(1);
-        health = actualFriend.getHealth();
-        indexFriend = 1;
-        setAnimation();
+        setNewAllie(1);
       }
     }
     if (Gdx.input.isKeyJustPressed(Keys.Z) && magic > 100){
@@ -137,6 +127,10 @@ public class Hero extends Monsters {
     }
   }
   
+  private float getImpulse() {
+    return getBody().getMass()*12; // El 12 se buscó por testing.
+  }
+
   public void landedPlatform(){
     isJumping = false;
   }
@@ -199,4 +193,39 @@ public class Hero extends Monsters {
       dead = true;
     }   
   }
+  
+  private void setNewAllie(int index){
+    actualFriend.setVariables(health, dead);
+    allies.set(indexFriend, actualFriend);
+    actualFriend = allies.get(index);
+    health = actualFriend.getHealth();
+    indexFriend = index;
+    setSizeCollider();
+    setAnimation();
+  }
+  
+  private void setSizeCollider() {
+    
+    BodyDef myBodyDefinition = new BodyDef();
+    myBodyDefinition.type = BodyDef.BodyType.DynamicBody;
+    myBodyDefinition.position.set(getBody().getPosition());
+    
+    myWorld.destroyBody(getBody());
+    Body myBody = myWorld.createBody(myBodyDefinition);
+    PolygonShape shape = new PolygonShape();
+    shape.setAsBox(getBodySize(actualFriend.getWidth()), getBodySize(actualFriend.getHeight()));
+    myBody.setGravityScale(1);
+    myBody.createFixture(shape, 0.5f);
+    myBody.resetMassData();
+    shape.dispose();
+    
+    // Change Body.
+    setBody(myBody);
+  }
+
+  // This is used to get body width and height.
+  private float getBodySize(int size){
+    return (0.5f*size)/22;
+  }
+  
 }

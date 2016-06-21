@@ -16,7 +16,29 @@ public class AbstractFriend implements Friend {
   private int hurtFrame;
   private int[][] hurtAnimation;
   private TextureRegion faceSprite;
+  private float level;
   
+  
+  protected void setAnimations(int[] cutSprites, int walkingFrame, int[][] walkingAnimation,
+      int hurtFrame, int[][] hurtAnimation){
+    this.cutSprites = cutSprites;
+    this.walkingAnimation = walkingAnimation;
+    this.hurtAnimation = hurtAnimation;
+    this.hurtFrame = hurtFrame;
+    this.walkingFrame = walkingFrame;
+  }
+  
+  protected void setFaceSprite(TextureRegion faceSprite){
+    this.faceSprite = faceSprite;
+  }
+  
+  protected void setTexture(TextureRegion setTexture){
+    friendTexture = setTexture;
+  }
+  
+  protected void setLevel(float level){
+    this.level = level;
+  }
   
   @Override
   public void setVariables(int health, boolean dead) {
@@ -32,24 +54,6 @@ public class AbstractFriend implements Friend {
   @Override
   public boolean getDead() {
     return dead;
-  }
-  
-  protected void setAnimations(int[] cutSprites, int walkingFrame, int[][] walkingAnimation,
-      int hurtFrame, int[][] hurtAnimation){
-    
-    this.cutSprites = cutSprites;
-    this.walkingAnimation = walkingAnimation;
-    this.hurtAnimation = hurtAnimation;
-    this.hurtFrame = hurtFrame;
-    this.walkingFrame = walkingFrame;
-  }
-  
-  protected void setFaceSprite(TextureRegion faceSprite){
-    this.faceSprite = faceSprite;
-  }
-  
-  protected void setTexture(TextureRegion setTexture){
-    friendTexture = setTexture;
   }
   
   @Override
@@ -96,5 +100,10 @@ public class AbstractFriend implements Friend {
   @Override
   public TextureRegion getFriendFaceSprite() {
     return faceSprite;
+  }
+
+  @Override
+  public float getLevel() {
+    return level;
   }
 }
