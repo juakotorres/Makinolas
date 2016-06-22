@@ -9,9 +9,9 @@ import com.badlogic.gdx.physics.box2d.PolygonShape;
 import com.badlogic.gdx.physics.box2d.World;
 import com.badlogic.gdx.utils.Array;
 
+import cl.makinolas.atk.actors.friend.Charmander;
 import cl.makinolas.atk.actors.friend.Eevee;
 import cl.makinolas.atk.actors.friend.Friend;
-import cl.makinolas.atk.actors.friend.Gible;
 import cl.makinolas.atk.stages.GameStage;
 
 public class Hero extends Monsters {
@@ -29,6 +29,7 @@ public class Hero extends Monsters {
   private Array<Friend> allies;
   private Friend actualFriend;
   private int indexFriend;
+  private BodyDef myBodyDefinition;
   
   public Hero(World myWorld) {
     
@@ -40,37 +41,25 @@ public class Hero extends Monsters {
     dead = false;
     accumulator = 0;
     
+    // Set team for player;
     allies = new Array<Friend>();
     Friend allie = new Eevee();
-    Friend allie2 = new Gible();
+    Friend allie2 = new Charmander();
     allie.setVariables(health, dead);
     allie2.setVariables(health, dead);
     allies.add(allie);
     allies.add(allie2);
-    // Definiciï¿½n del cuerpo del jugador.
-    this.myWorld = myWorld;
-    // Definiciï¿½n del cuerpo del jugador.
-    BodyDef myBodyDefinition = new BodyDef();
-    myBodyDefinition.type = BodyDef.BodyType.DynamicBody;
-    myBodyDefinition.position.set(new Vector2(4,3));
-    
-    // Forma del collider del jugador.
-    Body myBody = myWorld.createBody(myBodyDefinition);
-    
-    PolygonShape shape = new PolygonShape();
-    shape.setAsBox(0.6f,0.5f);
-    ///
-    myBody.setGravityScale(1);
-    myBody.createFixture(shape, 0.5f);
-    myBody.resetMassData();
-    shape.dispose();
-    
-    // Guardar body.
-    setBody(myBody);
-    
-    // Guardar animaciones del jugador
+    // Set actual allie
     actualFriend = allies.get(0);
     indexFriend = 0;
+    // define player world
+    this.myWorld = myWorld;
+    // Set correct collider.
+    myBodyDefinition = new BodyDef();
+    myBodyDefinition.type = BodyDef.BodyType.DynamicBody;
+    setSizeCollider(new Vector2(3,4),true);
+    
+    // Guardar animaciones del jugador
     setAnimation();
     changeAnimation(walkAnimation);
   }
@@ -92,27 +81,17 @@ public class Hero extends Monsters {
     }
     if (Gdx.input.isKeyJustPressed(Keys.SPACE)){
       if(!isJumping){
-        myBody.applyLinearImpulse(0, 7, myBody.getPosition().x, myBody.getPosition().y, true);
+        myBody.applyLinearImpulse(0, getImpulse(), myBody.getPosition().x, myBody.getPosition().y, true);
         isJumping = true;
       }
     }
     if (Gdx.input.isKeyJustPressed(Keys.NUM_1)){
       if(indexFriend != 0){
-        actualFriend.setVariables(health, dead);
-        allies.set(indexFriend, actualFriend);
-        actualFriend = allies.get(0);
-        indexFriend = 0;
-        health = actualFriend.getHealth();
-        setAnimation();
+        setNewAllie(0);
       }
     } else if (Gdx.input.isKeyJustPressed(Keys.NUM_2)){
       if(indexFriend != 1){
-        actualFriend.setVariables(health, dead);
-        allies.set(indexFriend, actualFriend);
-        actualFriend = allies.get(1);
-        health = actualFriend.getHealth();
-        indexFriend = 1;
-        setAnimation();
+        setNewAllie(1);
       }
     }
     if (Gdx.input.isKeyJustPressed(Keys.Z) && magic > 100){
@@ -137,6 +116,10 @@ public class Hero extends Monsters {
     }
   }
   
+  private float getImpulse() {
+    return getBody().getMass()*12; // El 12 se buscó por testing.
+  }
+
   public void landedPlatform(){
     isJumping = false;
   }
@@ -199,4 +182,38 @@ public class Hero extends Monsters {
       dead = true;
     }   
   }
+  
+  private void setNewAllie(int index){
+    actualFriend.setVariables(health, dead);
+    allies.set(indexFriend, actualFriend);
+    actualFriend = allies.get(index);
+    health = actualFriend.getHealth();
+    indexFriend = index;
+    setSizeCollider(getBody().getPosition(), false);
+    setAnimation();
+  }
+  
+  private void setSizeCollider(Vector2 position, boolean first) {
+
+    myBodyDefinition.position.set(position);
+    if(!first){
+      myWorld.destroyBody(getBody());
+    }
+    Body myBody = myWorld.createBody(myBodyDefinition);
+    PolygonShape shape = new PolygonShape();
+    shape.setAsBox(getBodySize(actualFriend.getWidth()), getBodySize(actualFriend.getHeight()));
+    myBody.setGravityScale(1);
+    myBody.createFixture(shape, 0.5f);
+    myBody.resetMassData();
+    shape.dispose();
+    
+    // Change Body.
+    setBody(myBody);
+  }
+
+  // This is used to get body width and height.
+  private float getBodySize(int size){
+    return (0.5f*size)/22;
+  }
+  
 }
