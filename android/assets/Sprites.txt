@@ -20,3 +20,6 @@ Gabite 39x34
 Garchomp 43x40
 Munchlax 27x31
 Portal 50x42
+Pichu 26x28
+Pikachu 31x25
+Raichu 34x30
