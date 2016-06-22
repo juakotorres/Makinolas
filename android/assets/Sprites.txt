@@ -23,3 +23,6 @@ Portal 50x42
 Pichu 26x28
 Pikachu 31x25
 Raichu 34x30
+Weedle 30x24
+Kakuna 25x27
+Beedrill 35x28

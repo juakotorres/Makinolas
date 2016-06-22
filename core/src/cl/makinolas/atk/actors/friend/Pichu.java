@@ -6,7 +6,6 @@ import com.badlogic.gdx.graphics.g2d.TextureRegion;
 
 public class Pichu extends AbstractFriend {
   
-  
   private TextureRegion[][] faces;
   
   public Pichu() {
