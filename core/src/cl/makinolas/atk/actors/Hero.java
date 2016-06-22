@@ -9,9 +9,9 @@ import com.badlogic.gdx.physics.box2d.PolygonShape;
 import com.badlogic.gdx.physics.box2d.World;
 import com.badlogic.gdx.utils.Array;
 
+import cl.makinolas.atk.actors.friend.Charmander;
 import cl.makinolas.atk.actors.friend.Eevee;
 import cl.makinolas.atk.actors.friend.Friend;
-import cl.makinolas.atk.actors.friend.Gible;
 import cl.makinolas.atk.stages.GameStage;
 
 public class Hero extends Monsters {
@@ -44,7 +44,7 @@ public class Hero extends Monsters {
     // Set team for player;
     allies = new Array<Friend>();
     Friend allie = new Eevee();
-    Friend allie2 = new Gible();
+    Friend allie2 = new Charmander();
     allie.setVariables(health, dead);
     allie2.setVariables(health, dead);
     allies.add(allie);

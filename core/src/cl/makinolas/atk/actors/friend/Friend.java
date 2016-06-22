@@ -9,6 +9,8 @@ public interface Friend {
   public void setVariables(int health, boolean dead);
   public void setLevel(float level);
   public int getHealth(); 
+  public void setMagic(int magic);
+  public int getMagic();
   public boolean getDead();
   public int getHurtFrames();
   public int[][] getHurtAnimation();

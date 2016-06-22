@@ -12,6 +12,7 @@ public abstract class AbstractFriend implements Friend {
   
   private int health;
   private boolean dead;
+  private int magic;
   private TextureRegion friendTexture;
   private int[] cutSprites;
   private int walkingFrame;
@@ -50,6 +51,16 @@ public abstract class AbstractFriend implements Friend {
   public void setVariables(int health, boolean dead) {
    this.health = health;
    this.dead = dead;    
+  }
+  
+  @Override
+  public void setMagic(int magic){
+    this.magic = magic;
+  }
+  
+  @Override
+  public int getMagic(){
+    return magic;
   }
   
   @Override
