@@ -6,7 +6,8 @@ import com.badlogic.gdx.physics.box2d.World;
 import cl.makinolas.atk.actors.Enemy;
 
 public interface Friend {  
-  public void setVariables(int health, boolean dead);  
+  public void setVariables(int health, boolean dead);
+  public void setLevel(float level);
   public int getHealth(); 
   public boolean getDead();
   public int getHurtFrames();

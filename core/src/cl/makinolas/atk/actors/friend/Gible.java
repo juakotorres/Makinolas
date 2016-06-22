@@ -15,5 +15,11 @@ public class Gible extends AbstractFriend {
     setFaceSprite(faces[0][0]);
     setVariables(30, false);
   }
+
+  @Override
+  protected void initLevel(float level) {
+    // TODO Auto-generated method stub
+    
+  }
   
 }

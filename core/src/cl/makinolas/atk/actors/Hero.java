@@ -40,6 +40,7 @@ public class Hero extends Monsters {
     dead = false;
     accumulator = 0;
     
+    // Set team for player;
     allies = new Array<Friend>();
     Friend allie = new Eevee();
     Friend allie2 = new Gible();
@@ -47,28 +48,13 @@ public class Hero extends Monsters {
     allie2.setVariables(health, dead);
     allies.add(allie);
     allies.add(allie2);
+    // Set actual allie
     actualFriend = allies.get(0);
     indexFriend = 0;
-    // Definici�n del cuerpo del jugador.
+    // define player world
     this.myWorld = myWorld;
-    // Definici�n del cuerpo del jugador.
-    BodyDef myBodyDefinition = new BodyDef();
-    myBodyDefinition.type = BodyDef.BodyType.DynamicBody;
-    myBodyDefinition.position.set(new Vector2(4,3));
-    
-    // Forma del collider del jugador.
-    Body myBody = myWorld.createBody(myBodyDefinition);
-    // 0.5 -> 22
-    PolygonShape shape = new PolygonShape();
-    shape.setAsBox(getBodySize(actualFriend.getWidth()), getBodySize(actualFriend.getHeight()));
-    ///
-    myBody.setGravityScale(1);
-    myBody.createFixture(shape, 0.5f);
-    myBody.resetMassData();
-    shape.dispose();
-    
-    // Guardar body.
-    setBody(myBody);
+    // Set correct collider.
+    setSizeCollider(new Vector2(3,4),true);
     
     // Guardar animaciones del jugador
     setAnimation();
@@ -200,17 +186,18 @@ public class Hero extends Monsters {
     actualFriend = allies.get(index);
     health = actualFriend.getHealth();
     indexFriend = index;
-    setSizeCollider();
+    setSizeCollider(getBody().getPosition(), false);
     setAnimation();
   }
   
-  private void setSizeCollider() {
+  private void setSizeCollider(Vector2 position, boolean first) {
     
     BodyDef myBodyDefinition = new BodyDef();
     myBodyDefinition.type = BodyDef.BodyType.DynamicBody;
-    myBodyDefinition.position.set(getBody().getPosition());
-    
-    myWorld.destroyBody(getBody());
+    myBodyDefinition.position.set(position);
+    if(!first){
+      myWorld.destroyBody(getBody());
+    }
     Body myBody = myWorld.createBody(myBodyDefinition);
     PolygonShape shape = new PolygonShape();
     shape.setAsBox(getBodySize(actualFriend.getWidth()), getBodySize(actualFriend.getHeight()));
