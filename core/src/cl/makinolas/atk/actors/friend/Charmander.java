@@ -40,6 +40,13 @@ public class Charmander extends AbstractFriend {
           new int[][]{new int[]{0,0}});
       setFaceSprite(faces[0][1]);
       setVariables(60, false);
+    } else if (numberOfLevel == 2){
+      setTexture(new TextureRegion(new Texture(Gdx.files.internal("Actors/Charizard.png"))));
+      setAnimations(new int[]{32,32}, 4,
+          new int[][]{new int[]{0,1},new int[]{0,2},new int[]{0,3},new int[]{0,2}}, 1,
+          new int[][]{new int[]{0,0}});
+      setFaceSprite(faces[0][2]);
+      setVariables(120, false);
     }
   }
   

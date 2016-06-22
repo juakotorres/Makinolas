@@ -29,6 +29,7 @@ public class Hero extends Monsters {
   private Array<Friend> allies;
   private Friend actualFriend;
   private int indexFriend;
+  private BodyDef myBodyDefinition;
   
   public Hero(World myWorld) {
     
@@ -54,6 +55,8 @@ public class Hero extends Monsters {
     // define player world
     this.myWorld = myWorld;
     // Set correct collider.
+    myBodyDefinition = new BodyDef();
+    myBodyDefinition.type = BodyDef.BodyType.DynamicBody;
     setSizeCollider(new Vector2(3,4),true);
     
     // Guardar animaciones del jugador
@@ -191,9 +194,7 @@ public class Hero extends Monsters {
   }
   
   private void setSizeCollider(Vector2 position, boolean first) {
-    
-    BodyDef myBodyDefinition = new BodyDef();
-    myBodyDefinition.type = BodyDef.BodyType.DynamicBody;
+
     myBodyDefinition.position.set(position);
     if(!first){
       myWorld.destroyBody(getBody());

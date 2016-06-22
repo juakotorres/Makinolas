@@ -37,6 +37,8 @@ public class GameStage extends Stage implements ContactListener {
     Hero hero =  new Hero(suMundo);
     addActor(new Background("Background/SuPuente.jpg", getCamera()));
     createPlatforms();
+    Portal portal = new Portal(suMundo, new Vector2(49, -6));
+    addGameActor(portal);
     addGameActor(hero);
     bar = new MainBar(hero);
     accumulator = 0;
