@@ -78,19 +78,24 @@ public class Hero extends Monsters {
   @Override
   public void act(float delta){
     int vx = 0;
-    if (Gdx.input.isKeyPressed(Keys.LEFT)){
+
+    boolean touchX = Gdx.input.getX() < Gdx.graphics.getWidth()/2;
+    boolean touchY = Gdx.input.getY() < Gdx.graphics.getHeight()/2;
+    boolean pressed = Gdx.input.isTouched();
+
+    if (Gdx.input.isKeyPressed(Keys.LEFT) || pressed && touchX && !touchY){
       vx -= 7;
       if (isFacingRight){
         isFacingRight = false;
       }
     }
-    if (Gdx.input.isKeyPressed(Keys.RIGHT)){
+    if (Gdx.input.isKeyPressed(Keys.RIGHT) || pressed && !touchX && !touchY){
       vx += 7;
       if (!isFacingRight){
         isFacingRight = true;
       }
     }
-    if (Gdx.input.isKeyJustPressed(Keys.SPACE)){
+    if (Gdx.input.isKeyJustPressed(Keys.SPACE) || pressed && touchX && touchY){
       if(!isJumping){
         myBody.applyLinearImpulse(0, 7, myBody.getPosition().x, myBody.getPosition().y, true);
         isJumping = true;
@@ -115,7 +120,7 @@ public class Hero extends Monsters {
         setAnimation();
       }
     }
-    if (Gdx.input.isKeyJustPressed(Keys.Z) && magic > 100){
+    if ((Gdx.input.isKeyJustPressed(Keys.Z) || pressed && !touchX && touchY) && magic > 100){
       magic -= 100;
       GameActor fireball = new Fireball(myWorld, myBody.getPosition().x,myBody.getPosition().y,isFacingRight, this);
       ((GameStage) getStage()).addGameActor(fireball);

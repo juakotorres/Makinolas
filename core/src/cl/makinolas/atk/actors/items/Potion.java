@@ -9,12 +9,12 @@ public class Potion extends Item {
 
     @Override
     public String getDescr() {
-        return "Recovers 20HP from the current pokemon";
+        return "Recovers 30HP from the current pokemon";
     }
 
     @Override
     public void use(Hero hero) {
-        //hero.recover(20);
+        hero.getFriend().setVariables(hero.getHealth()+30,hero.getFriend().getDead());
     }
 
     @Override

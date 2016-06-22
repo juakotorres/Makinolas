@@ -9,12 +9,12 @@ public class OranBerry extends Item {
 
     @Override
     public String getDescr() {
-        return "Recovers 200 Magic points";
+        return "Recovers 10HP";
     }
 
     @Override
     public void use(Hero hero) {
-        //hero.gainMagic(200);
+        hero.getFriend().setVariables(hero.getHealth()+10,hero.getFriend().getDead());
     }
 
     @Override
