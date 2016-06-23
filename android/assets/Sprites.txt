@@ -37,3 +37,6 @@ Flaffy 25x25
 Ampharos 25x34
 Scyther 43x35
 Scyzor 35x34
+Shinx 29x28
+Luxio 28x32
+Luxray 33x33
