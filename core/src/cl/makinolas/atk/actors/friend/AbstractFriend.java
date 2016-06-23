@@ -21,6 +21,7 @@ public abstract class AbstractFriend implements Friend {
   private int[][] hurtAnimation;
   private TextureRegion faceSprite;
   protected Level level;
+  private int actualEvolution;
   
   
   protected void setAnimations(int[] cutSprites, int walkingFrame, int[][] walkingAnimation,
@@ -43,6 +44,14 @@ public abstract class AbstractFriend implements Friend {
   @Override
   public void setLevel(float level){
     this.level.setLevel(level);
+  }
+  
+  protected void setActualEvolution(int evolution){
+    actualEvolution = evolution;
+  }
+  
+  protected int getActualEvolution(){
+    return actualEvolution;
   }
   
   protected abstract void initLevel(float level);

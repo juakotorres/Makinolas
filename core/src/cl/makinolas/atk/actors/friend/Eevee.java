@@ -19,7 +19,6 @@ public class Eevee extends AbstractFriend {
 
   @Override
   protected void initLevel(float level) {
-    // TODO Auto-generated method stub
-    
+    this.level = new Level(level);    
   }
 }

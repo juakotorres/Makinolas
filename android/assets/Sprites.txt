@@ -30,3 +30,10 @@ Igglypuff 17x18
 Jigglypuff 23x21
 Wigglytuff 26x25
 Totodile 29x26
+Croconaw 27x28
+Feraligatr 38x37
+Mareep 29x21
+Flaffy 25x25
+Ampharos 25x34
+Scyther 43x35
+Scyzor 35x34

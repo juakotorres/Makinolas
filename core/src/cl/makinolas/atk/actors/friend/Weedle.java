@@ -6,7 +6,7 @@ import com.badlogic.gdx.graphics.g2d.TextureRegion;
 
 public class Weedle extends AbstractFriend {
   
-private TextureRegion[][] faces;
+  private TextureRegion[][] faces;
   
   public Weedle() {
     faces = new TextureRegion(new Texture(Gdx.files.internal("Actors/Weedle_faces.png"))).split(40,40);
@@ -16,7 +16,7 @@ private TextureRegion[][] faces;
                   new int[][]{new int[]{0,0}});
     setFaceSprite(faces[0][0]);
     initLevel(3);
-    
+    setActualEvolution(0);
     setVariables(30, false);
   }
   
@@ -34,20 +34,23 @@ private TextureRegion[][] faces;
   
   @Override
   protected void evolve(int numberOfLevel){
-    if (numberOfLevel == 1){
+    if (numberOfLevel == 1 && getActualEvolution() < 1){
       setTexture(new TextureRegion(new Texture(Gdx.files.internal("Actors/Kakuna.png"))));
       setAnimations(new int[]{25,27}, 2,
           new int[][]{new int[]{0,3},new int[]{0,4}}, 1,
           new int[][]{new int[]{0,0}});
       setFaceSprite(faces[0][1]);
+      setActualEvolution(1);
       setVariables(60, false);
-    } else if (numberOfLevel == 2){
+    } else if (numberOfLevel == 2 && getActualEvolution() < 2){
       setTexture(new TextureRegion(new Texture(Gdx.files.internal("Actors/Beedrill.png"))));
       setAnimations(new int[]{35,28}, 4,
           new int[][]{new int[]{0,1},new int[]{0,2},new int[]{0,3},new int[]{0,2}}, 1,
           new int[][]{new int[]{0,0}});
       setFaceSprite(faces[0][2]);
+      setActualEvolution(2);
       setVariables(80, false);
+      
     }
   }
   

@@ -16,7 +16,7 @@ public class Igglypuff extends AbstractFriend {
                   new int[][]{new int[]{0,0}});
     setFaceSprite(faces[0][0]);
     initLevel(5);
-    
+    setActualEvolution(0);
     setVariables(20, false);
   }
   
@@ -33,19 +33,21 @@ public class Igglypuff extends AbstractFriend {
   
   @Override
   protected void evolve(int numberOfLevel){
-    if (numberOfLevel == 1){
+    if (numberOfLevel == 1 && getActualEvolution() < 1){
       setTexture(new TextureRegion(new Texture(Gdx.files.internal("Actors/Jigglypuff.png"))));
       setAnimations(new int[]{23,21}, 3,
           new int[][]{new int[]{0,3},new int[]{0,4},new int[]{0,5}}, 1,
           new int[][]{new int[]{0,0}});
       setFaceSprite(faces[0][1]);
+      setActualEvolution(1);
       setVariables(60, false);
-    } else if (numberOfLevel == 2){
+    } else if (numberOfLevel == 2 && getActualEvolution() < 2){
       setTexture(new TextureRegion(new Texture(Gdx.files.internal("Actors/Wigglypuff.png"))));
       setAnimations(new int[]{26,25}, 4,
           new int[][]{new int[]{0,2},new int[]{0,3},new int[]{0,4},new int[]{0,3}}, 1,
           new int[][]{new int[]{0,0}});
       setFaceSprite(faces[0][2]);
+      setActualEvolution(2);
       setVariables(100, false);
     }
   }
