@@ -11,8 +11,8 @@ public class Scyther extends AbstractFriend {
   public Scyther() {
     faces = new TextureRegion(new Texture(Gdx.files.internal("Actors/Scyther_faces.png"))).split(40,40);
     setTexture(new TextureRegion(new Texture(Gdx.files.internal("Actors/Scyther.png"))));
-    setAnimations(new int[]{43,35}, 4,
-                  new int[][]{new int[]{0,3},new int[]{0,4},new int[]{0,5},new int[]{0,4}}, 1,
+    setAnimations(new int[]{43,35},
+                  new int[][]{new int[]{0,3},new int[]{0,4},new int[]{0,5},new int[]{0,4}},
                   new int[][]{new int[]{0,0}});
     setFaceSprite(faces[0][0]);
     initLevel(5);
@@ -35,8 +35,8 @@ public class Scyther extends AbstractFriend {
   protected void evolve(int numberOfLevel){
     if (numberOfLevel == 1 && getActualEvolution() < 1){
       setTexture(new TextureRegion(new Texture(Gdx.files.internal("Actors/Scyzor.png"))));
-      setAnimations(new int[]{35,34}, 4,
-          new int[][]{new int[]{0,3},new int[]{0,4},new int[]{0,5},new int[]{0,4}}, 1,
+      setAnimations(new int[]{35,34},
+          new int[][]{new int[]{0,3},new int[]{0,4},new int[]{0,5},new int[]{0,4}},
           new int[][]{new int[]{0,0}});
       setFaceSprite(faces[0][1]);
       setActualEvolution(1);

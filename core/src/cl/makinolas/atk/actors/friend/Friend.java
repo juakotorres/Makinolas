@@ -12,9 +12,7 @@ public interface Friend {
   public void setMagic(int magic);
   public int getMagic();
   public boolean getDead();
-  public int getHurtFrames();
   public int[][] getHurtAnimation();
-  public int getWalkFrames();
   public int[][] getWalkAnimation();
   public TextureRegion getTexture();
   public int getWidth();

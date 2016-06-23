@@ -20,8 +20,8 @@ public abstract class AnimatedActor extends GameActor {
         currentAnimation = 0;
     }
 
-    protected int addAnimation(int frames, float duration, int[]... positions){
-        Array<TextureRegion> regs = new Array<TextureRegion>(frames);
+    protected int addAnimation(float duration, int[]... positions){
+        Array<TextureRegion> regs = new Array<TextureRegion>(positions.length);
         for(int[] pos : positions){
             regs.add(tiles[pos[0]][pos[1]]);
         }

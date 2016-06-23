@@ -15,22 +15,19 @@ public abstract class AbstractFriend implements Friend {
   private int magic;
   private TextureRegion friendTexture;
   private int[] cutSprites;
-  private int walkingFrame;
   private int[][] walkingAnimation;
-  private int hurtFrame;
   private int[][] hurtAnimation;
+  private int[][] meleeAnimation;
   private TextureRegion faceSprite;
   protected Level level;
   private int actualEvolution;
   
   
-  protected void setAnimations(int[] cutSprites, int walkingFrame, int[][] walkingAnimation,
-      int hurtFrame, int[][] hurtAnimation){
+  protected void setAnimations(int[] cutSprites, int[][] walkingAnimation,
+      int[][] hurtAnimation){
     this.cutSprites = cutSprites;
     this.walkingAnimation = walkingAnimation;
     this.hurtAnimation = hurtAnimation;
-    this.hurtFrame = hurtFrame;
-    this.walkingFrame = walkingFrame;
   }
   
   protected void setFaceSprite(TextureRegion faceSprite){
@@ -84,23 +81,13 @@ public abstract class AbstractFriend implements Friend {
   
   @Override
   public Enemy returnEnemy(World myWorld, int heroPosition) {
-    return new Enemy(myWorld, friendTexture, cutSprites, walkingFrame,
-                walkingAnimation, hurtFrame, hurtAnimation,  getHealth(), heroPosition);
+    return new Enemy(myWorld, friendTexture, cutSprites, 
+                walkingAnimation, hurtAnimation,  getHealth(), heroPosition);
   }
-
-  @Override
-  public int getHurtFrames() {
-    return hurtFrame;
-  }
-
+  
   @Override
   public int[][] getHurtAnimation() {
     return hurtAnimation;
-  }
-
-  @Override
-  public int getWalkFrames() {
-    return walkingFrame;
   }
 
   @Override

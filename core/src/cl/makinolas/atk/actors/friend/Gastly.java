@@ -11,8 +11,8 @@ public class Gastly extends AbstractFriend {
   public Gastly() {
     faces = new TextureRegion(new Texture(Gdx.files.internal("Actors/Gastly_faces.png"))).split(40,40);
     setTexture(new TextureRegion(new Texture(Gdx.files.internal("Actors/Gastly.png"))));
-    setAnimations(new int[]{30,30}, 3,
-                  new int[][]{new int[]{0,1},new int[]{0,2},new int[]{0,3}}, 1,
+    setAnimations(new int[]{30,30},
+                  new int[][]{new int[]{0,1},new int[]{0,2},new int[]{0,3}},
                   new int[][]{new int[]{0,0}});
     setFaceSprite(faces[0][0]);
     initLevel(5);
@@ -35,8 +35,8 @@ public class Gastly extends AbstractFriend {
   protected void evolve(int numberOfLevel){
     if (numberOfLevel == 1 && getActualEvolution() < 1){
       setTexture(new TextureRegion(new Texture(Gdx.files.internal("Actors/Haunter.png"))));
-      setAnimations(new int[]{46,36}, 4,
-          new int[][]{new int[]{0,2},new int[]{0,3},new int[]{0,4},new int[]{0,3}}, 1,
+      setAnimations(new int[]{46,36},
+          new int[][]{new int[]{0,2},new int[]{0,3},new int[]{0,4},new int[]{0,3}},
           new int[][]{new int[]{0,0}});
       setFaceSprite(faces[0][1]);
       setActualEvolution(1);

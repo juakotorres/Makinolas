@@ -11,8 +11,8 @@ public class Charmander extends AbstractFriend {
   public Charmander() {
     faces = new TextureRegion(new Texture(Gdx.files.internal("Actors/Charmander_faces.png"))).split(40,40);
     setTexture(new TextureRegion(new Texture(Gdx.files.internal("Actors/charmander.png"))));
-    setAnimations(new int[]{22,22}, 4,
-                  new int[][]{new int[]{0,0},new int[]{0,1},new int[]{0,2},new int[]{0,1}}, 1,
+    setAnimations(new int[]{22,22},
+                  new int[][]{new int[]{0,0},new int[]{0,1},new int[]{0,2},new int[]{0,1}},
                   new int[][]{new int[]{0,7}});
     setFaceSprite(faces[0][0]);
     initLevel(5);
@@ -35,16 +35,16 @@ public class Charmander extends AbstractFriend {
   protected void evolve(int numberOfLevel){
     if (numberOfLevel == 1 && getActualEvolution() < 1){
       setTexture(new TextureRegion(new Texture(Gdx.files.internal("Actors/charmeleon.png"))));
-      setAnimations(new int[]{27,27}, 4,
-          new int[][]{new int[]{0,3},new int[]{0,4},new int[]{0,5},new int[]{0,4}}, 1,
+      setAnimations(new int[]{27,27},
+          new int[][]{new int[]{0,3},new int[]{0,4},new int[]{0,5},new int[]{0,4}},
           new int[][]{new int[]{0,0}});
       setFaceSprite(faces[0][1]);
       setActualEvolution(1);
       setVariables(60, false);
     } else if (numberOfLevel == 2 && getActualEvolution() < 2){
       setTexture(new TextureRegion(new Texture(Gdx.files.internal("Actors/Charizard.png"))));
-      setAnimations(new int[]{32,32}, 4,
-          new int[][]{new int[]{0,1},new int[]{0,2},new int[]{0,3},new int[]{0,2}}, 1,
+      setAnimations(new int[]{32,32},
+          new int[][]{new int[]{0,1},new int[]{0,2},new int[]{0,3},new int[]{0,2}},
           new int[][]{new int[]{0,0}});
       setFaceSprite(faces[0][2]);
       setActualEvolution(2);

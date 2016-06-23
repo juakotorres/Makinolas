@@ -100,6 +100,9 @@ public class Hero extends Monsters {
       GameActor fireball = new Fireball(myWorld, myBody.getPosition().x,myBody.getPosition().y,isFacingRight, this);
       ((GameStage) getStage()).addGameActor(fireball);
     }
+    if (Gdx.input.isKeyJustPressed(Keys.X)){
+      
+    }
     myBody.setLinearVelocity(vx, myBody.getLinearVelocity().y);
     
     ((GameStage) getStage()).changeCamera(myBody.getPosition().x , myBody.getPosition().y );
@@ -127,8 +130,8 @@ public class Hero extends Monsters {
 
   private void setAnimation(){
     setMasterTexture(actualFriend.getTexture(),actualFriend.getWidth(),actualFriend.getHeight());
-    walkAnimation = addAnimation(actualFriend.getWalkFrames(),0.2f, actualFriend.getWalkAnimation());
-    hurtAnimation = addAnimation(actualFriend.getHurtFrames(),0.2f, actualFriend.getHurtAnimation());
+    walkAnimation = addAnimation(0.2f, actualFriend.getWalkAnimation());
+    hurtAnimation = addAnimation(0.2f, actualFriend.getHurtAnimation());
   }
   
   @Override

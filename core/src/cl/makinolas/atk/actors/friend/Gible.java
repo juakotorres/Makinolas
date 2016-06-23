@@ -11,9 +11,9 @@ public class Gible extends AbstractFriend {
   public Gible() {
     faces = new TextureRegion(new Texture(Gdx.files.internal("Actors/Gible_faces.png"))).split(40,40);
     setTexture(new TextureRegion(new Texture(Gdx.files.internal("Actors/gible.png"))));
-    setAnimations(new int[]{31,29}, 4,
+    setAnimations(new int[]{31,29},
                   new int[][]{new int[]{0,4},new int[]{0,5},new int[]{0,6},new int[]{0,5}},
-                  1, new int[][]{new int[]{0,0}});
+                  new int[][]{new int[]{0,0}});
     setFaceSprite(faces[0][0]);
     setVariables(30, false);
   }
@@ -34,15 +34,15 @@ public class Gible extends AbstractFriend {
   protected void evolve(int numberOfLevel){
     if (numberOfLevel == 1){
       setTexture(new TextureRegion(new Texture(Gdx.files.internal("Actors/Gabite.png"))));
-      setAnimations(new int[]{39,34}, 4,
-          new int[][]{new int[]{0,4},new int[]{0,5},new int[]{0,6},new int[]{0,5}}, 1,
+      setAnimations(new int[]{39,34},
+          new int[][]{new int[]{0,4},new int[]{0,5},new int[]{0,6},new int[]{0,5}},
           new int[][]{new int[]{0,0}});
       setFaceSprite(faces[0][1]);
       setVariables(70, false);
     } else if (numberOfLevel == 2){
       setTexture(new TextureRegion(new Texture(Gdx.files.internal("Actors/Garchomp.png"))));
-      setAnimations(new int[]{43,40}, 4,
-          new int[][]{new int[]{0,4},new int[]{0,5},new int[]{0,6},new int[]{0,5}}, 1,
+      setAnimations(new int[]{43,40},
+          new int[][]{new int[]{0,4},new int[]{0,5},new int[]{0,6},new int[]{0,5}},
           new int[][]{new int[]{0,0}});
       setFaceSprite(faces[0][2]);
       setVariables(140, false);

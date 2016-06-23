@@ -34,8 +34,8 @@ public class Enemy extends Monsters {
    * @param numberOfSprite [[3], [0,0] , [0,1] , [0,2]] 3 Sprites for animation, (0,0) -> (0,1) -> (0,2)
    */
   public Enemy(World myWorld, TextureRegion enemyTexture,
-               int[] cutSprite, int frames, int[][] numberOfSprite
-               , int hurtFrames, int[][] numberOfHurtSprites, int givenHealth
+               int[] cutSprite, int[][] numberOfSprite
+               , int[][] numberOfHurtSprites, int givenHealth
                , int heroPosition) {
     
     health = givenHealth;
@@ -76,8 +76,8 @@ public class Enemy extends Monsters {
     
     // Guardar animaciones del jugador
     setAnimation(enemyTexture, cutSprite);
-    hurtAnimation = addAnimation(hurtFrames, 0.2f,  numberOfHurtSprites);
-    walkAnimation = addAnimation(frames, 0.2f, numberOfSprite);
+    hurtAnimation = addAnimation(0.2f,  numberOfHurtSprites);
+    walkAnimation = addAnimation(0.2f, numberOfSprite);
     changeAnimation(walkAnimation);
    
   }

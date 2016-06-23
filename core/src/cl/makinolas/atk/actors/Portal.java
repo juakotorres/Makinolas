@@ -22,7 +22,7 @@ public class Portal extends AnimatedActor{
   
   private void setAnimation() {
     setMasterTexture(new TextureRegion(new Texture(Gdx.files.internal("Actors/portal2.png"))),40,42);
-    addAnimation(4,0.2f, new int[]{0, 0}, new int[]{0, 1}, new int[]{0, 2},new int[]{0, 3});
+    addAnimation(0.2f, new int[]{0, 0}, new int[]{0, 1}, new int[]{0, 2},new int[]{0, 3});
   }
 
   public Portal(World myWorld, float xPosition, float yPosition){
