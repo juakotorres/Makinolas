@@ -10,6 +10,7 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.*;
+import com.badlogic.gdx.scenes.scene2d.Group;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.viewport.Viewport;
@@ -27,6 +28,7 @@ public class GameStage extends Stage implements ContactListener {
   private final float enemySpawn = 3f;
   private float nextEnemyAt;
   private Array<GameActor> gameActors;
+  private Group ground, mons, ui;
 
   private MainBar bar;
 
@@ -39,22 +41,34 @@ public class GameStage extends Stage implements ContactListener {
     gameActors = new Array<GameActor>();
     suMundo = new World(new Vector2(0, -10), true);
     suMundo.setContactListener(this);
-    MobileGroup group = new MobileGroup(Gdx.app.getType() == Application.ApplicationType.Android);
-    Hero hero =  new Hero(suMundo, group);
+
     addActor(new Background("Background/SuPuente.jpg", getCamera()));
+
+    ground = new Group();
+    addActor(ground);
+    mons = new Group();
+    addActor(mons);
+    ui = new Group();
+    addActor(ui);
+
+    MobileGroup group = new MobileGroup(Gdx.app.getType() == Application.ApplicationType.Android);
+    Gdx.input.setInputProcessor(this);
+    Hero hero =  new Hero(suMundo, group);
     createPlatforms();
     Portal portal = new Portal(suMundo, new Vector2(49, -6));
     addGameActor(portal);
     addGameActor(hero);
-    addActor(group);
     bar = new MainBar(hero);
+    ui.addActor(bar);
+    ui.addActor(group);
+
     accumulator = 0;
     renderer = new Box2DDebugRenderer();
     setupCamera();
   }
 
   public void addGameActor(GameActor actor) {
-    addActor(actor);
+    mons.addActor(actor);
     gameActors.add(actor);
   }
 
@@ -64,7 +78,7 @@ public class GameStage extends Stage implements ContactListener {
     try {
       Array<GameActor> platforms = reader.loadLevel(GameStage.levelName);
       for(GameActor p : platforms)
-        addActor(p);
+        ground.addActor(p);
     } catch (IOException e) {
       e.printStackTrace();
     }
@@ -117,7 +131,7 @@ public class GameStage extends Stage implements ContactListener {
   @Override
   public void draw() {
       super.draw();
-      bar.drawCustom(getBatch(),getCamera().position.x,getCamera().position.y); //Custom draw for MainBar
+      //bar.drawCustom(getBatch(),getCamera().position.x,getCamera().position.y); //Custom draw for MainBar
       camera.update();
       renderer.render(suMundo, camera.combined);
   }

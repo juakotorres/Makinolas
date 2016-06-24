@@ -97,7 +97,7 @@ public class Hero extends Monsters {
         setNewAllie(1);
       }
     }
-    if ((Gdx.input.isKeyJustPressed(Keys.Z) || group.APressed()) && magic > 100){
+    if ((Gdx.input.isKeyJustPressed(Keys.Z) || group.AJustPressed()) && magic > 100){
       magic -= 100;
       GameActor fireball = new Fireball(myWorld, myBody.getPosition().x,myBody.getPosition().y,isFacingRight, this);
       ((GameStage) getStage()).addGameActor(fireball);

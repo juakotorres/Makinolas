@@ -11,13 +11,13 @@ public class MobileGroup extends Group {
 
     public MobileGroup(boolean mobile){
         if(mobile) {
-            bleft = new MobileButton(new TextureRegion(new Texture(Gdx.files.internal("Overlays/uileftbtn.png"))), 5, 5);
+            bleft = new MobileButton(new TextureRegion(new Texture(Gdx.files.internal("Overlays/uirightbtn.png"))), 5, 25);
             addActor(bleft);
-            bright = new MobileButton(new TextureRegion(new Texture(Gdx.files.internal("Overlays/uirightbtn.png"))), 50, 5);
+            bright = new MobileButton(new TextureRegion(new Texture(Gdx.files.internal("Overlays/uileftbtn.png"))), 55, 25);
             addActor(bright);
-            bup = new MobileButton(new TextureRegion(new Texture(Gdx.files.internal("Overlays/uiupbtn.png"))), Gdx.graphics.getWidth() - 100, 0);
+            bup = new MobileButton(new TextureRegion(new Texture(Gdx.files.internal("Overlays/uiupbtn.png"))), 530, 25);
             addActor(bup);
-            ba = new MobileButton(new TextureRegion(new Texture(Gdx.files.internal("Overlays/uiabtn.png"))), Gdx.graphics.getWidth() - 55, 0);
+            ba = new MobileButton(new TextureRegion(new Texture(Gdx.files.internal("Overlays/uiabtn.png"))), 590, 25);
             addActor(ba);
         }
     }
@@ -36,6 +36,10 @@ public class MobileGroup extends Group {
 
     public boolean APressed(){
         return ba!=null && ba.isTouched();
+    }
+
+    public boolean AJustPressed(){
+        return ba!=null && ba.isJustTouched();
     }
 
 }
