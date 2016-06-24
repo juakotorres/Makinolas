@@ -33,8 +33,8 @@ public class MainBar extends Group{
         renderer = new ShapeRenderer();
         TextureRegion[][] items = new TextureRegion(new Texture(Gdx.files.internal("Overlays/items.png"))).split(32,32);
         friend = new FriendImage();
-        itemA = new ImageCuad(items[0][3],"A",font);
-        itemS = new ImageCuad(items[1][0],"S",font);
+        itemA = new ImageCuad(hero.getInventory().getSelItem1().getItem().getImage(),"A",font);
+        itemS = new ImageCuad(hero.getInventory().getSelItem2().getItem().getImage(),"S",font);
         
     }
 

@@ -1,5 +1,6 @@
 package cl.makinolas.atk.actors;
 
+import cl.makinolas.atk.actors.items.Inventory;
 import cl.makinolas.atk.actors.ui.MobileGroup;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input.Keys;
@@ -32,6 +33,7 @@ public class Hero extends Monsters {
   private int indexFriend;
   private BodyDef myBodyDefinition;
   private MobileGroup group;
+  private Inventory inventory;
   
   public Hero(World myWorld, MobileGroup g) {
     
@@ -43,6 +45,7 @@ public class Hero extends Monsters {
     dead = false;
     accumulator = 0;
     group = g;
+    inventory = new Inventory(this);
 
     // Set team for player;
     allies = new Array<Friend>();
@@ -218,5 +221,8 @@ public class Hero extends Monsters {
   private float getBodySize(int size){
     return (0.5f*size)/22;
   }
-  
+
+  public Inventory getInventory() {
+    return inventory;
+  }
 }

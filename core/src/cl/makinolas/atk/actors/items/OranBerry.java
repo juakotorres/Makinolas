@@ -7,6 +7,8 @@ import com.badlogic.gdx.graphics.g2d.TextureRegion;
 
 public class OranBerry extends Item {
 
+    private TextureRegion reg = (new TextureRegion(new Texture(Gdx.files.internal("Overlays/items.png")))).split(32,32)[2][2];
+
     @Override
     public String getDescr() {
         return "Recovers 10HP";
@@ -19,7 +21,7 @@ public class OranBerry extends Item {
 
     @Override
     public TextureRegion getImage() {
-        return (new TextureRegion(new Texture(Gdx.files.internal("Overlays/items")))).split(32,32)[2][2];
+        return reg;
     }
 
 }
