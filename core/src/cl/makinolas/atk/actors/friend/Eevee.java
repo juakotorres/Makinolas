@@ -12,8 +12,9 @@ public class Eevee extends AbstractFriend {
     setAnimations(new int[]{29,24},
                   new int[][]{new int[]{0,1},new int[]{0,2},new int[]{0,3}},
                   new int[][]{new int[]{0,0}});
+    setMeleeAnimation(3,5);
     setFaceSprite(faces[0][0]);
-    
+    initLevel(5);
     setVariables(30, false);
   }
 

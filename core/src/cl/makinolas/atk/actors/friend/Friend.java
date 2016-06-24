@@ -14,6 +14,8 @@ public interface Friend {
   public boolean getDead();
   public int[][] getHurtAnimation();
   public int[][] getWalkAnimation();
+  public int[][] getMeleeAnimation();
+  public int getMeleeFrame();
   public TextureRegion getTexture();
   public int getWidth();
   public int getHeight();

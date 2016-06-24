@@ -14,6 +14,7 @@ public class Shinx extends AbstractFriend{
     setAnimations(new int[]{29,28},
                   new int[][]{new int[]{0,0},new int[]{0,1},new int[]{0,2},new int[]{0,1}},
                   new int[][]{new int[]{0,4}});
+    setMeleeAnimation(3,3);
     setFaceSprite(faces[0][0]);
     initLevel(5);
     setActualEvolution(0);
@@ -39,6 +40,7 @@ public class Shinx extends AbstractFriend{
       setAnimations(new int[]{28,32},
           new int[][]{new int[]{0,2},new int[]{0,3},new int[]{0,4},new int[]{0,3}},
           new int[][]{new int[]{0,7}});
+      setMeleeAnimation(5,6);
       setFaceSprite(faces[0][1]);
       setActualEvolution(1);
       setVariables(80, false);
@@ -47,6 +49,7 @@ public class Shinx extends AbstractFriend{
       setAnimations(new int[]{32,32},
           new int[][]{new int[]{0,2},new int[]{0,3},new int[]{0,4},new int[]{0,3}},
           new int[][]{new int[]{0,7}});
+      setMeleeAnimation(5,6);
       setFaceSprite(faces[0][2]);
       setActualEvolution(2);
       setVariables(120, false);

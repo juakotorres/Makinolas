@@ -14,6 +14,7 @@ public class Totodile extends AbstractFriend {
     setAnimations(new int[]{29,26},
                   new int[][]{new int[]{0,4},new int[]{0,5},new int[]{0,6},new int[]{0,5}},
                   new int[][]{new int[]{0,0}});
+    setMeleeAnimation(7,11);
     setFaceSprite(faces[0][0]);
     initLevel(5);
     setActualEvolution(0);
@@ -39,6 +40,7 @@ public class Totodile extends AbstractFriend {
       setAnimations(new int[]{27,28},
           new int[][]{new int[]{0,3},new int[]{0,4},new int[]{0,5},new int[]{0,4}},
           new int[][]{new int[]{0,0}});
+      setMeleeAnimation(6,8);
       setFaceSprite(faces[0][1]);
       setActualEvolution(1);
       setVariables(60, false);
@@ -47,6 +49,7 @@ public class Totodile extends AbstractFriend {
       setAnimations(new int[]{38,37},
           new int[][]{new int[]{0,3},new int[]{0,4},new int[]{0,5},new int[]{0,4}},
           new int[][]{new int[]{0,0}});
+      setMeleeAnimation(6,8);
       setFaceSprite(faces[0][2]);
       setActualEvolution(2);
       setVariables(120, false);

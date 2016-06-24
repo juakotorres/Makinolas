@@ -14,7 +14,10 @@ public class Gible extends AbstractFriend {
     setAnimations(new int[]{31,29},
                   new int[][]{new int[]{0,4},new int[]{0,5},new int[]{0,6},new int[]{0,5}},
                   new int[][]{new int[]{0,0}});
+    setMeleeAnimation(7,9);
     setFaceSprite(faces[0][0]);
+    initLevel(5);
+    setActualEvolution(0);
     setVariables(30, false);
   }
 
@@ -32,19 +35,23 @@ public class Gible extends AbstractFriend {
   
   @Override
   protected void evolve(int numberOfLevel){
-    if (numberOfLevel == 1){
+    if (numberOfLevel == 1 && getActualEvolution() < 1){
       setTexture(new TextureRegion(new Texture(Gdx.files.internal("Actors/Gabite.png"))));
       setAnimations(new int[]{39,34},
           new int[][]{new int[]{0,4},new int[]{0,5},new int[]{0,6},new int[]{0,5}},
           new int[][]{new int[]{0,0}});
+      setMeleeAnimation(7,9);
       setFaceSprite(faces[0][1]);
+      setActualEvolution(1);
       setVariables(70, false);
-    } else if (numberOfLevel == 2){
+    } else if (numberOfLevel == 2 && getActualEvolution() < 2){
       setTexture(new TextureRegion(new Texture(Gdx.files.internal("Actors/Garchomp.png"))));
       setAnimations(new int[]{43,40},
           new int[][]{new int[]{0,4},new int[]{0,5},new int[]{0,6},new int[]{0,5}},
           new int[][]{new int[]{0,0}});
+      setMeleeAnimation(7,10);
       setFaceSprite(faces[0][2]);
+      setActualEvolution(2);
       setVariables(140, false);
     }
   }

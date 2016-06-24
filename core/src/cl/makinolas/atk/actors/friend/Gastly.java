@@ -14,6 +14,7 @@ public class Gastly extends AbstractFriend {
     setAnimations(new int[]{30,30},
                   new int[][]{new int[]{0,1},new int[]{0,2},new int[]{0,3}},
                   new int[][]{new int[]{0,0}});
+    setMeleeAnimation(4,5);
     setFaceSprite(faces[0][0]);
     initLevel(5);
     setActualEvolution(0);
@@ -38,6 +39,7 @@ public class Gastly extends AbstractFriend {
       setAnimations(new int[]{46,36},
           new int[][]{new int[]{0,2},new int[]{0,3},new int[]{0,4},new int[]{0,3}},
           new int[][]{new int[]{0,0}});
+      setMeleeAnimation(6,10);
       setFaceSprite(faces[0][1]);
       setActualEvolution(1);
       setVariables(70, false);

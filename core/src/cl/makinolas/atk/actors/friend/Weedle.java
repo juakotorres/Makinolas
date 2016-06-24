@@ -14,6 +14,7 @@ public class Weedle extends AbstractFriend {
     setAnimations(new int[]{30,24},
                   new int[][]{new int[]{0,1},new int[]{0,2}, new int[]{0,3}, new int[]{0,2}}, 
                   new int[][]{new int[]{0,0}});
+    setMeleeAnimation(6,7);
     setFaceSprite(faces[0][0]);
     initLevel(3);
     setActualEvolution(0);
@@ -39,6 +40,7 @@ public class Weedle extends AbstractFriend {
       setAnimations(new int[]{25,27},
           new int[][]{new int[]{0,3},new int[]{0,4}},
           new int[][]{new int[]{0,0}});
+      setMeleeAnimation(4,9);
       setFaceSprite(faces[0][1]);
       setActualEvolution(1);
       setVariables(60, false);
@@ -47,6 +49,7 @@ public class Weedle extends AbstractFriend {
       setAnimations(new int[]{35,28},
           new int[][]{new int[]{0,1},new int[]{0,2},new int[]{0,3},new int[]{0,2}},
           new int[][]{new int[]{0,0}});
+      setMeleeAnimation(7,10);
       setFaceSprite(faces[0][2]);
       setActualEvolution(2);
       setVariables(80, false);

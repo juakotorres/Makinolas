@@ -14,6 +14,7 @@ public class Charmander extends AbstractFriend {
     setAnimations(new int[]{22,22},
                   new int[][]{new int[]{0,0},new int[]{0,1},new int[]{0,2},new int[]{0,1}},
                   new int[][]{new int[]{0,7}});
+    setMeleeAnimation(3,5);
     setFaceSprite(faces[0][0]);
     initLevel(5);
     setActualEvolution(0);
@@ -35,9 +36,10 @@ public class Charmander extends AbstractFriend {
   protected void evolve(int numberOfLevel){
     if (numberOfLevel == 1 && getActualEvolution() < 1){
       setTexture(new TextureRegion(new Texture(Gdx.files.internal("Actors/charmeleon.png"))));
-      setAnimations(new int[]{27,27},
+      setAnimations(new int[]{34,31},
           new int[][]{new int[]{0,3},new int[]{0,4},new int[]{0,5},new int[]{0,4}},
           new int[][]{new int[]{0,0}});
+      setMeleeAnimation(6,8);
       setFaceSprite(faces[0][1]);
       setActualEvolution(1);
       setVariables(60, false);
@@ -46,6 +48,7 @@ public class Charmander extends AbstractFriend {
       setAnimations(new int[]{32,32},
           new int[][]{new int[]{0,1},new int[]{0,2},new int[]{0,3},new int[]{0,2}},
           new int[][]{new int[]{0,0}});
+      setMeleeAnimation(4,7);
       setFaceSprite(faces[0][2]);
       setActualEvolution(2);
       setVariables(120, false);

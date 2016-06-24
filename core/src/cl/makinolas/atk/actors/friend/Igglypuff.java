@@ -14,6 +14,7 @@ public class Igglypuff extends AbstractFriend {
     setAnimations(new int[]{17,18},
                   new int[][]{new int[]{0,3},new int[]{0,4},new int[]{0,5}},
                   new int[][]{new int[]{0,0}});
+    setMeleeAnimation(6,8);
     setFaceSprite(faces[0][0]);
     initLevel(5);
     setActualEvolution(0);
@@ -38,6 +39,7 @@ public class Igglypuff extends AbstractFriend {
       setAnimations(new int[]{23,21},
           new int[][]{new int[]{0,3},new int[]{0,4},new int[]{0,5}},
           new int[][]{new int[]{0,0}});
+      setMeleeAnimation(6,7);
       setFaceSprite(faces[0][1]);
       setActualEvolution(1);
       setVariables(60, false);
@@ -46,6 +48,7 @@ public class Igglypuff extends AbstractFriend {
       setAnimations(new int[]{26,25},
           new int[][]{new int[]{0,2},new int[]{0,3},new int[]{0,4},new int[]{0,3}},
           new int[][]{new int[]{0,0}});
+      setMeleeAnimation(6,8);
       setFaceSprite(faces[0][2]);
       setActualEvolution(2);
       setVariables(100, false);

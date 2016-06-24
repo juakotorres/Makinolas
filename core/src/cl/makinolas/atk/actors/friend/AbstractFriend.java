@@ -27,7 +27,32 @@ public abstract class AbstractFriend implements Friend {
       int[][] hurtAnimation){
     this.cutSprites = cutSprites;
     this.walkingAnimation = walkingAnimation;
-    this.hurtAnimation = hurtAnimation;
+    this.hurtAnimation = hurtAnimation; 
+  }
+  
+  protected void setMeleeAnimation(int beginMeleeAnimation, int endMeleeAnimation){
+    this.meleeAnimation = new int[endMeleeAnimation - beginMeleeAnimation + 1][];
+    for (int i = beginMeleeAnimation; i <= endMeleeAnimation; i++ ){
+      this.meleeAnimation[i - beginMeleeAnimation] = new int[]{0,i};
+    }
+  }
+  
+  protected void setAnimations(int[] cutSprites, int beginWalkAnimation, int endWalkAnimation,
+      int beginHurtAnimation, int endHurtAnimation, int beginMeleeAnimation, int endMeleeAnimation){
+    
+    this.cutSprites = cutSprites;
+    this.walkingAnimation = new int[1][];
+    this.hurtAnimation = new int[1][];
+    this.meleeAnimation = new int[1][];
+    for (int i = beginWalkAnimation; i <= endWalkAnimation; i++ ){
+      this.walkingAnimation[i - beginWalkAnimation] = new int[]{0,i};
+    }
+    for (int i = beginHurtAnimation; i <= endHurtAnimation; i++ ){
+      this.hurtAnimation[i - beginHurtAnimation] = new int[]{0,i};
+    }
+    for (int i = beginMeleeAnimation; i <= endMeleeAnimation; i++ ){
+      this.meleeAnimation[i - beginMeleeAnimation] = new int[]{0,i};
+    }
   }
   
   protected void setFaceSprite(TextureRegion faceSprite){
@@ -95,6 +120,16 @@ public abstract class AbstractFriend implements Friend {
     return walkingAnimation;
   }
 
+  @Override
+  public int[][] getMeleeAnimation() {
+    return meleeAnimation;
+  }
+  
+  @Override
+  public int getMeleeFrame() {
+    return meleeAnimation.length;
+  }
+    
   @Override
   public TextureRegion getTexture() {
     return friendTexture;

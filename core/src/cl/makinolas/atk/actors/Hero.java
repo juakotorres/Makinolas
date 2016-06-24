@@ -10,8 +10,8 @@ import com.badlogic.gdx.physics.box2d.World;
 import com.badlogic.gdx.utils.Array;
 
 import cl.makinolas.atk.actors.friend.Friend;
+import cl.makinolas.atk.actors.friend.Pichu;
 import cl.makinolas.atk.actors.friend.Scyther;
-import cl.makinolas.atk.actors.friend.Totodile;
 import cl.makinolas.atk.stages.GameStage;
 
 public class Hero extends Monsters {
@@ -20,10 +20,14 @@ public class Hero extends Monsters {
   private int health;
   private int magic;
   private boolean isDamaged;
+  private boolean isAttacking;
+  private float numberOfAttackingFrames;
+  private float countMeleeFrames;
   private boolean dead;
   private World myWorld;
   private int walkAnimation;
   private int hurtAnimation;
+  private int meleeAnimation;
   private final float hurtTime = 1 / 4f;
   private float accumulator;
   private Array<Friend> allies;
@@ -38,13 +42,15 @@ public class Hero extends Monsters {
     health = 100;
     magic = 1000;
     isDamaged = false;
+    isAttacking = false;
     dead = false;
     accumulator = 0;
+    countMeleeFrames = 0;
     
     // Set team for player;
     allies = new Array<Friend>();
-    Friend allie = new Totodile();
-    Friend allie2 = new Scyther();
+    Friend allie = new Scyther();
+    Friend allie2 = new Pichu();
     allie.setVariables(health, dead);
     allie2.setVariables(health, dead);
     allies.add(allie);
@@ -101,7 +107,10 @@ public class Hero extends Monsters {
       ((GameStage) getStage()).addGameActor(fireball);
     }
     if (Gdx.input.isKeyJustPressed(Keys.X)){
-      
+      if(!isAttacking){
+        isAttacking = true;
+        changeAnimation(meleeAnimation);
+      }
     }
     myBody.setLinearVelocity(vx, myBody.getLinearVelocity().y);
     
@@ -118,8 +127,21 @@ public class Hero extends Monsters {
     if(magic < 1000){
       magic = ((magic + 1)%1001);
     }
+    
+    checkMelee(delta);
   }
   
+  private void checkMelee(float delta) {
+    if(isAttacking && countMeleeFrames < numberOfAttackingFrames ){
+      countMeleeFrames+= delta;
+    }
+    else if(!isDamaged){
+      countMeleeFrames = 0;
+      isAttacking = false;
+      changeAnimation(walkAnimation);
+    }    
+  }
+
   private float getImpulse() {
     return getBody().getMass()*12; // El 12 se buscó por testing.
   }
@@ -132,6 +154,8 @@ public class Hero extends Monsters {
     setMasterTexture(actualFriend.getTexture(),actualFriend.getWidth(),actualFriend.getHeight());
     walkAnimation = addAnimation(0.2f, actualFriend.getWalkAnimation());
     hurtAnimation = addAnimation(0.2f, actualFriend.getHurtAnimation());
+    meleeAnimation = addAnimation(0.2f, actualFriend.getMeleeAnimation());
+    numberOfAttackingFrames = actualFriend.getMeleeFrame() * 0.2f;
   }
   
   @Override
@@ -182,6 +206,7 @@ public class Hero extends Monsters {
     health -= damage;   
     isDamaged = true;
     changeAnimation(hurtAnimation);
+    isAttacking = false;
     if(health <= 0){
       dead = true;
     }   

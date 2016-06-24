@@ -14,6 +14,7 @@ public class Scyther extends AbstractFriend {
     setAnimations(new int[]{43,35},
                   new int[][]{new int[]{0,3},new int[]{0,4},new int[]{0,5},new int[]{0,4}},
                   new int[][]{new int[]{0,0}});
+    setMeleeAnimation(6,8);
     setFaceSprite(faces[0][0]);
     initLevel(5);
     setActualEvolution(0);
@@ -38,6 +39,7 @@ public class Scyther extends AbstractFriend {
       setAnimations(new int[]{35,34},
           new int[][]{new int[]{0,3},new int[]{0,4},new int[]{0,5},new int[]{0,4}},
           new int[][]{new int[]{0,0}});
+      setMeleeAnimation(6,10);
       setFaceSprite(faces[0][1]);
       setActualEvolution(1);
       setVariables(80, false);
