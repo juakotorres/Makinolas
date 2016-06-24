@@ -38,12 +38,12 @@ public class MainBar extends Group{
         
     }
 
-    public void drawCustom(Batch batch, float camX, float camY) {
+    @Override
+    public void draw(Batch batch, float alpha) {
         //Camara
-        float cx = camX - 320;
-        float cy = camY - 240;
+        float cx = getStage().getCamera().position.x - 320;
+        float cy = getStage().getCamera().position.y- 240;
         //Bars
-        batch.begin();
         healthBar.setCurrent(hero.getHealth());
         magicBar.setCurrent(hero.getMagic());
         batch.draw(base,cx,cy);
@@ -72,5 +72,6 @@ public class MainBar extends Group{
         renderer.rect(cx+50, cy+26, 150, 10);
         renderer.rect(cx+50, cy+8, 150, 10);
         renderer.end();
+        batch.begin();
     }
 }

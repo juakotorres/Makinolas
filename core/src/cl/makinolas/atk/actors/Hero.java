@@ -1,5 +1,6 @@
 package cl.makinolas.atk.actors;
 
+import cl.makinolas.atk.actors.ui.MobileGroup;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input.Keys;
 import com.badlogic.gdx.math.Vector2;
@@ -30,8 +31,9 @@ public class Hero extends Monsters {
   private Friend actualFriend;
   private int indexFriend;
   private BodyDef myBodyDefinition;
+  private MobileGroup group;
   
-  public Hero(World myWorld) {
+  public Hero(World myWorld, MobileGroup g) {
     
     isJumping = false;
     isFacingRight = false;
@@ -40,7 +42,8 @@ public class Hero extends Monsters {
     isDamaged = false;
     dead = false;
     accumulator = 0;
-    
+    group = g;
+
     // Set team for player;
     allies = new Array<Friend>();
     Friend allie = new Eevee();
@@ -67,19 +70,19 @@ public class Hero extends Monsters {
   @Override
   public void act(float delta){
     int vx = 0;
-    if (Gdx.input.isKeyPressed(Keys.LEFT)){
+    if (Gdx.input.isKeyPressed(Keys.LEFT) || group.leftPressed()){
       vx -= 7;
       if (isFacingRight){
         isFacingRight = false;
       }
     }
-    if (Gdx.input.isKeyPressed(Keys.RIGHT)){
+    if (Gdx.input.isKeyPressed(Keys.RIGHT) || group.rightPressed()){
       vx += 7;
       if (!isFacingRight){
         isFacingRight = true;
       }
     }
-    if (Gdx.input.isKeyJustPressed(Keys.SPACE)){
+    if (Gdx.input.isKeyJustPressed(Keys.SPACE) || group.upPressed()){
       if(!isJumping){
         myBody.applyLinearImpulse(0, getImpulse(), myBody.getPosition().x, myBody.getPosition().y, true);
         isJumping = true;
@@ -94,7 +97,7 @@ public class Hero extends Monsters {
         setNewAllie(1);
       }
     }
-    if (Gdx.input.isKeyJustPressed(Keys.Z) && magic > 100){
+    if ((Gdx.input.isKeyJustPressed(Keys.Z) || group.AJustPressed()) && magic > 100){
       magic -= 100;
       GameActor fireball = new Fireball(myWorld, myBody.getPosition().x,myBody.getPosition().y,isFacingRight, this);
       ((GameStage) getStage()).addGameActor(fireball);
@@ -117,7 +120,7 @@ public class Hero extends Monsters {
   }
   
   private float getImpulse() {
-    return getBody().getMass()*12; // El 12 se buscó por testing.
+    return getBody().getMass()*12; // El 12 se buscï¿½ por testing.
   }
 
   public void landedPlatform(){
