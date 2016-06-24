@@ -1,20 +1,31 @@
 package cl.makinolas.atk.stages;
 
-import cl.makinolas.atk.actors.*;
-import cl.makinolas.atk.actors.friend.Eevee;
-import cl.makinolas.atk.actors.ui.MainBar;
-import cl.makinolas.atk.actors.ui.MobileGroup;
-import cl.makinolas.atk.utils.LevelReader;
+import java.io.IOException;
+
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.math.Vector2;
-import com.badlogic.gdx.physics.box2d.*;
+import com.badlogic.gdx.physics.box2d.Body;
+import com.badlogic.gdx.physics.box2d.Box2DDebugRenderer;
+import com.badlogic.gdx.physics.box2d.Contact;
+import com.badlogic.gdx.physics.box2d.ContactImpulse;
+import com.badlogic.gdx.physics.box2d.ContactListener;
+import com.badlogic.gdx.physics.box2d.Manifold;
+import com.badlogic.gdx.physics.box2d.World;
 import com.badlogic.gdx.scenes.scene2d.Group;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.viewport.Viewport;
 
-import java.io.IOException;
+import cl.makinolas.atk.actors.Background;
+import cl.makinolas.atk.actors.GameActor;
+import cl.makinolas.atk.actors.Hero;
+import cl.makinolas.atk.actors.Portal;
+import cl.makinolas.atk.actors.friend.Eevee;
+import cl.makinolas.atk.actors.ui.MainBar;
+import cl.makinolas.atk.actors.ui.MobileGroup;
+import cl.makinolas.atk.screen.GameScreen;
+import cl.makinolas.atk.utils.LevelReader;
 
 public class GameStage extends Stage implements ContactListener {
 
@@ -28,14 +39,16 @@ public class GameStage extends Stage implements ContactListener {
   private float nextEnemyAt;
   private Array<GameActor> gameActors;
   private Group ground, mons, ui;
+  private GameScreen myScreen;
 
   private MainBar bar;
 
   private OrthographicCamera camera;
   private Box2DDebugRenderer renderer;
   
-  public GameStage(Viewport v){
+  public GameStage(Viewport v, GameScreen actualScreen){
     super(v);
+    myScreen = actualScreen;
     nextEnemyAt = enemySpawn;
     gameActors = new Array<GameActor>();
     suMundo = new World(new Vector2(0, -10), true);
@@ -101,6 +114,9 @@ public class GameStage extends Stage implements ContactListener {
   public void act(float delta){
     super.act(delta);
     for(GameActor actor : gameActors){
+      if(actor.isHero() && actor.isDead()){
+        changeDeadMenu();
+      }
       if(actor.isMonster() || actor.isAttack()){
         Body actorBody = actor.getBody();
         if(actorBody.getPosition().y < -200 || actorBody.getPosition().x < -100 || actorBody.getPosition().x > 200 || actor.isDead()){
@@ -126,8 +142,13 @@ public class GameStage extends Stage implements ContactListener {
        nextEnemyAt = enemySpawn;
     }
     
+    
   }
   
+  private void changeDeadMenu() {
+    myScreen.mainMenu();
+  }
+
   @Override
   public void draw() {
       super.draw();

@@ -28,7 +28,7 @@ public class MenuScreen implements Screen {
     startButton.addListener(new ClickListener(){
         @Override
         public void clicked(InputEvent event, float x, float y) {
-            myGame.setScreen(new GameScreen());
+            myGame.setScreen(new GameScreen(myGame));
         }
     });
     TextButton loadButton = new TextButton("Load Game",  new Skin(Gdx.files.internal("Data/uiskin.json")));

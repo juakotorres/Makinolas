@@ -1,6 +1,5 @@
 package cl.makinolas.atk.actors;
 
-import cl.makinolas.atk.actors.ui.MobileGroup;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input.Keys;
 import com.badlogic.gdx.math.Vector2;
@@ -14,7 +13,8 @@ import cl.makinolas.atk.actors.attacks.Attacks;
 import cl.makinolas.atk.actors.attacks.Fireball;
 import cl.makinolas.atk.actors.friend.Friend;
 import cl.makinolas.atk.actors.friend.Pichu;
-import cl.makinolas.atk.actors.friend.Weedle;
+import cl.makinolas.atk.actors.friend.Scyther;
+import cl.makinolas.atk.actors.ui.MobileGroup;
 import cl.makinolas.atk.stages.GameStage;
 
 public class Hero extends Monsters {
@@ -53,7 +53,7 @@ public class Hero extends Monsters {
     group = g;
     // Set team for player;
     allies = new Array<Friend>();
-    Friend allie = new Weedle();
+    Friend allie = new Scyther();
     Friend allie2 = new Pichu();
     allie.setVariables(health, dead);
     allie2.setVariables(health, dead);
@@ -97,11 +97,11 @@ public class Hero extends Monsters {
       }
     }
     if (Gdx.input.isKeyJustPressed(Keys.NUM_1)){
-      if(indexFriend != 0){
+      if(indexFriend != 0 && !allies.get(0).getDead()){
         setNewAllie(0);
       }
     } else if (Gdx.input.isKeyJustPressed(Keys.NUM_2)){
-      if(indexFriend != 1){
+      if(indexFriend != 1 && !allies.get(1).getDead()){
         setNewAllie(1);
       }
     }
@@ -124,6 +124,35 @@ public class Hero extends Monsters {
     checkMelee(delta);
     giveMagic();
     
+  }
+  
+  private void changeAllie() {
+    actualFriend.setVariables(0, true);
+    allies.set(indexFriend, actualFriend);
+    lookForAliveAllie();
+    setAnimation();
+  }
+
+  private void lookForAliveAllie() {
+    for(Friend ally : allies){
+      if(!ally.getDead()){
+        indexFriend = allies.indexOf(ally, true);
+        actualFriend = ally;
+        health = ally.getHealth();
+      }
+    }
+    if(actualFriend.getDead()){
+      heroIsDead();
+    }
+  }
+
+  private void heroIsDead() {
+    dead = true;   
+  }
+
+  @Override
+  public boolean isDead(){
+    return dead;
   }
   
   private void checkDamage(float delta) {
@@ -197,14 +226,9 @@ public class Hero extends Monsters {
       inflictor.setDead();
     }
     if(health <= 0){
-      dead = true;
+      changeAllie();
     }
 
-  }
-  
-  @Override
-  public boolean isDead(){
-    return dead;
   }
 
 
@@ -224,7 +248,7 @@ public class Hero extends Monsters {
     changeAnimation(hurtAnimation);
     isAttacking = false;
     if(health <= 0){
-      dead = true;
+      changeAllie();
     }   
   }
   
@@ -239,12 +263,12 @@ public class Hero extends Monsters {
   }
   
   private void setSizeCollider(Vector2 position, boolean first) {
-
     myBodyDefinition.position.set(position);
     if(!first){
       myWorld.destroyBody(getBody());
     }
     Body myBody = myWorld.createBody(myBodyDefinition);
+    System.out.println("aqui4");
     PolygonShape shape = new PolygonShape();
     shape.setAsBox(getBodySize(actualFriend.getWidth()), getBodySize(actualFriend.getHeight()));
     myBody.setGravityScale(1);
