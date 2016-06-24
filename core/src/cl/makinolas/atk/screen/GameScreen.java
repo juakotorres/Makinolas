@@ -1,17 +1,17 @@
 package cl.makinolas.atk.screen;
 
+import cl.makinolas.atk.stages.GameStage;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.GL20;
-
-import cl.makinolas.atk.stages.GameStage;
+import com.badlogic.gdx.utils.viewport.FitViewport;
 
 public class GameScreen implements Screen{
   
   private GameStage stage;
   
   public GameScreen() {
-    stage = new GameStage();
+    stage = new GameStage(new FitViewport(640,480));
   }
 
   @Override
@@ -30,7 +30,7 @@ public class GameScreen implements Screen{
 
   @Override
   public void resize(int width, int height) {
-    //stage.setViewport(new ExtendViewport(640,480));
+    stage.getViewport().update(width,height);
   }
 
   @Override
@@ -47,6 +47,7 @@ public class GameScreen implements Screen{
 
   @Override
   public void dispose() {
+    stage.dispose();
   }
   
 }
