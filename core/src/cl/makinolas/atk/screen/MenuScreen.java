@@ -1,15 +1,16 @@
 package cl.makinolas.atk.screen;
 
+import cl.makinolas.atk.stages.MenuStage;
 import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
+import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
-
-import cl.makinolas.atk.stages.MenuStage;
+import com.badlogic.gdx.utils.viewport.FitViewport;
 
 public class MenuScreen implements Screen {
 
@@ -19,7 +20,7 @@ public class MenuScreen implements Screen {
   public MenuScreen(Game game){
     myGame = game;
     
-    stage = new MenuStage();
+    stage = new MenuStage(new FitViewport(640,480));
     Gdx.input.setInputProcessor(stage);
 
     TextButton startButton = new TextButton("Start Game",  new Skin(Gdx.files.internal("Data/uiskin.json")));
@@ -48,6 +49,7 @@ public class MenuScreen implements Screen {
 
   @Override
   public void render(float delta) {
+    Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
     stage.act(delta);
     stage.draw();
   }

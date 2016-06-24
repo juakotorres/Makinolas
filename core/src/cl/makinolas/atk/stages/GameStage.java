@@ -12,6 +12,7 @@ import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.*;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.utils.Array;
+import com.badlogic.gdx.utils.viewport.Viewport;
 
 import java.io.IOException;
 
@@ -32,7 +33,8 @@ public class GameStage extends Stage implements ContactListener {
   private OrthographicCamera camera;
   private Box2DDebugRenderer renderer;
   
-  public GameStage(){
+  public GameStage(Viewport v){
+    super(v);
     nextEnemyAt = enemySpawn;
     gameActors = new Array<GameActor>();
     suMundo = new World(new Vector2(0, -10), true);
