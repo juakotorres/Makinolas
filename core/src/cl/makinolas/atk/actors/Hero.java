@@ -11,7 +11,7 @@ import com.badlogic.gdx.utils.Array;
 
 import cl.makinolas.atk.actors.friend.Friend;
 import cl.makinolas.atk.actors.friend.Pichu;
-import cl.makinolas.atk.actors.friend.Scyther;
+import cl.makinolas.atk.actors.friend.Weedle;
 import cl.makinolas.atk.stages.GameStage;
 
 public class Hero extends Monsters {
@@ -49,13 +49,13 @@ public class Hero extends Monsters {
     
     // Set team for player;
     allies = new Array<Friend>();
-    Friend allie = new Scyther();
+    Friend allie = new Weedle();
     Friend allie2 = new Pichu();
     allie.setVariables(health, dead);
     allie2.setVariables(health, dead);
     allies.add(allie);
     allies.add(allie2);
-    allie.setLevel(20);
+    allie.setLevel(6);
     // Set actual allie
     actualFriend = allies.get(0);
     indexFriend = 0;
@@ -116,6 +116,13 @@ public class Hero extends Monsters {
     
     ((GameStage) getStage()).changeCamera(myBody.getPosition().x , myBody.getPosition().y );
     
+    checkDamage(delta);
+    checkMelee(delta);
+    giveMagic();
+    
+  }
+  
+  private void checkDamage(float delta) {
     if(isDamaged){
       accumulator += delta;
       if(accumulator > hurtTime){
@@ -124,22 +131,27 @@ public class Hero extends Monsters {
         accumulator = 0;
       }
     }
+  }
+
+  private void giveMagic() {
     if(magic < 1000){
       magic = ((magic + 1)%1001);
-    }
-    
-    checkMelee(delta);
+    }    
   }
-  
+
   private void checkMelee(float delta) {
-    if(isAttacking && countMeleeFrames < numberOfAttackingFrames ){
-      countMeleeFrames+= delta;
+    if(isAttacking && countMeleeFrames <= numberOfAttackingFrames){
+      countMeleeFrames += Math.floor(delta*100)/100;
     }
     else if(!isDamaged){
       countMeleeFrames = 0;
       isAttacking = false;
+      reloadAnimation(meleeAnimation, 0.2f, actualFriend.getMeleeAnimation());
       changeAnimation(walkAnimation);
-    }    
+    } else {
+      countMeleeFrames = 0;
+      reloadAnimation(meleeAnimation, 0.2f, actualFriend.getMeleeAnimation());
+    }
   }
 
   private float getImpulse() {
@@ -194,7 +206,7 @@ public class Hero extends Monsters {
 
   @Override
   public int getMeleeDamage() {
-    return 0;
+    return 10;
   }
   
   public Friend getFriend(){
@@ -243,6 +255,35 @@ public class Hero extends Monsters {
   // This is used to get body width and height.
   private float getBodySize(int size){
     return (0.5f*size)/22;
+  }
+  
+  public void evolved(){
+    setAnimation();
+  }
+
+  @Override
+  public void interact(GameActor actor2){
+    actor2.interactWithHero(this);
+  }
+  
+  @Override
+  public void interactWithPlatform(Platform platform){
+    landedPlatform();
+  }
+  
+  @Override
+  public void interactWithAttack(Attacks attack){
+    this.damage(attack.getAttackDamage(), attack);
+  }
+  
+  @Override
+  public void interactWithEnemy(Enemy enemy){
+    interactWithEnemy2(enemy);
+    enemy.interactWithHero2(this);
+  }
+
+  public void interactWithEnemy2(Enemy enemy) {
+    meleeAttack(enemy, isAttacking);  
   }
   
 }

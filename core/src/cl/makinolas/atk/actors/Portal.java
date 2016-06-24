@@ -57,6 +57,13 @@ public class Portal extends AnimatedActor{
   private float getBodySize(int size){
     return (0.5f*size)/22;
   }
+
+  @Override
+  public void interact(GameActor actor2) {
+    actor2.interactWithPortal(this);
+    
+  }
+  
   
   
 }

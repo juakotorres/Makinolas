@@ -72,4 +72,19 @@ public class Platform extends GameActor {
       }
     }
   }
+
+  @Override
+  public void interact(GameActor actor2) {
+    actor2.interactWithPlatform(this);
+  }
+  
+  @Override
+  public void interactWithHero(Hero hero){
+    hero.landedPlatform();
+  }
+  
+  @Override
+  public void interactWithAttack(Attacks attack){
+    attack.setDead();
+  }
 }

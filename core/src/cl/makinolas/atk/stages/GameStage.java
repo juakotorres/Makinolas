@@ -121,23 +121,7 @@ public class GameStage extends Stage implements ContactListener {
     GameActor actor1 = (GameActor) contact.getFixtureA().getBody().getUserData();
     GameActor actor2 = (GameActor) contact.getFixtureB().getBody().getUserData();
     
-    if(actor1.isHero() && actor2.isPlatform()){
-      ((Hero) actor1).landedPlatform();
-    } else if (actor2.isHero() && actor1.isPlatform()){
-      ((Hero) actor2).landedPlatform();
-    } else if (actor1.isAttack() && actor2.isMonster()){
-      ((Monsters) actor2).damage(((Attacks) actor1).getAttackDamage(), (Attacks) actor1);
-    } else if (actor2.isAttack() && actor1.isMonster()){
-      ((Monsters) actor1).damage(((Attacks) actor2).getAttackDamage(), (Attacks) actor2);
-    } else if (actor2.isHero() && actor1.isMonster()){
-      ((Monsters) actor2).meleedamage(((Monsters) actor1).getMeleeDamage());
-    } else if (actor1.isHero() && actor2.isMonster()){
-      ((Monsters) actor1).meleedamage(((Monsters) actor2).getMeleeDamage());
-    } else if (actor1.isAttack() && actor2.isPlatform()){
-      ((Attacks) actor1).setDead();
-    } else if (actor1.isPlatform() && actor2.isAttack()){
-      ((Attacks) actor2).setDead();
-    }
+    actor1.interact(actor2);
   }
 
   @Override

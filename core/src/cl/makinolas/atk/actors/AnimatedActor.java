@@ -28,6 +28,14 @@ public abstract class AnimatedActor extends GameActor {
         anims.add(new Animation(duration,regs, Animation.PlayMode.LOOP));
         return anims.size -1;
     }
+    
+    protected void reloadAnimation(int index, float duration, int[]... positions){
+      Array<TextureRegion> regs = new Array<TextureRegion>(positions.length);
+      for(int[] pos : positions){
+          regs.add(tiles[pos[0]][pos[1]]);
+      }
+      anims.insert(index, new Animation(duration,regs, Animation.PlayMode.LOOP));
+    }
 
     protected void changeAnimation(int anim){
         currentAnimation = anim;

@@ -79,4 +79,5 @@ public class Fireball extends Attacks {
   public boolean isDead(){
     return dead;
   }
+
 }

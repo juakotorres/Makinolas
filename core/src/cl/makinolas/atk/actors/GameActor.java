@@ -35,4 +35,17 @@ public abstract class GameActor extends Actor{
   public boolean isDead(){
     return false;
   }
+
+  public abstract void interact(GameActor actor2);
+
+  public void interactWithHero(Hero hero) {}
+
+  public void interactWithEnemy(Enemy enemy) {}
+
+  public void interactWithAttack(Attacks attacks) {}
+
+  public void interactWithPlatform(Platform platform) {}
+
+  public void interactWithPortal(Portal portal) {}
+  
 }

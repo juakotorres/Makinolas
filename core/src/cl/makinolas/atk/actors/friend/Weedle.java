@@ -37,9 +37,9 @@ public class Weedle extends AbstractFriend {
   protected void evolve(int numberOfLevel){
     if (numberOfLevel == 1 && getActualEvolution() < 1){
       setTexture(new TextureRegion(new Texture(Gdx.files.internal("Actors/Kakuna.png"))));
-      setAnimations(new int[]{25,27},
-          new int[][]{new int[]{0,3},new int[]{0,4}},
-          new int[][]{new int[]{0,0}});
+      setCutSprites(25,27);
+      setWalkAnimation(3,4);
+      setHurtAnimation(0);
       setMeleeAnimation(4,9);
       setFaceSprite(faces[0][1]);
       setActualEvolution(1);

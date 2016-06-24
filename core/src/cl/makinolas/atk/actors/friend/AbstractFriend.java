@@ -22,6 +22,9 @@ public abstract class AbstractFriend implements Friend {
   protected Level level;
   private int actualEvolution;
   
+  protected void setCutSprites(int width, int height){
+    this.cutSprites = new int[]{width, height};
+  }
   
   protected void setAnimations(int[] cutSprites, int[][] walkingAnimation,
       int[][] hurtAnimation){
@@ -34,6 +37,41 @@ public abstract class AbstractFriend implements Friend {
     this.meleeAnimation = new int[endMeleeAnimation - beginMeleeAnimation + 1][];
     for (int i = beginMeleeAnimation; i <= endMeleeAnimation; i++ ){
       this.meleeAnimation[i - beginMeleeAnimation] = new int[]{0,i};
+    }
+  }
+  
+  protected void setWalkAnimation(int beginWalkAnimation, int endWalkAnimation){
+    this.walkingAnimation = new int[endWalkAnimation - beginWalkAnimation + 1][];
+    for (int i = beginWalkAnimation; i <= endWalkAnimation; i++ ){
+      this.walkingAnimation[i - beginWalkAnimation] = new int[]{0,i};
+    }
+  }
+  
+  protected void setHurtAnimation(int beginHurtAnimation, int endHurtAnimation){
+    this.hurtAnimation = new int[endHurtAnimation - beginHurtAnimation + 1][];
+    for (int i = beginHurtAnimation; i <= endHurtAnimation; i++ ){
+      this.hurtAnimation[i - beginHurtAnimation] = new int[]{0,i};
+    }
+  }
+  
+  protected void setMeleeAnimation(int... positions){
+    this.meleeAnimation = new int[positions.length][];
+    for (int i = 0; i < positions.length; i++ ){
+      this.meleeAnimation[i] = new int[]{0,positions[i]};
+    }
+  }
+  
+  protected void setWalkAnimation(int... positions){
+    this.walkingAnimation = new int[positions.length][];
+    for (int i = 0; i < positions.length; i++ ){
+      this.walkingAnimation[i] = new int[]{0,positions[i]};
+    }
+  }
+  
+  protected void setHurtAnimation(int... positions){
+    this.hurtAnimation = new int[positions.length][];
+    for (int i = 0; i < positions.length; i++ ){
+      this.hurtAnimation[i] = new int[]{0,positions[i]};
     }
   }
   
