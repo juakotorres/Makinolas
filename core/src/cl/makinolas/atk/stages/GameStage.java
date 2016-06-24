@@ -5,7 +5,6 @@ import cl.makinolas.atk.actors.friend.Eevee;
 import cl.makinolas.atk.actors.ui.MainBar;
 import cl.makinolas.atk.actors.ui.MobileGroup;
 import cl.makinolas.atk.utils.LevelReader;
-import com.badlogic.gdx.Application;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.math.Vector2;
@@ -51,7 +50,8 @@ public class GameStage extends Stage implements ContactListener {
     ui = new Group();
     addActor(ui);
 
-    MobileGroup group = new MobileGroup(Gdx.app.getType() == Application.ApplicationType.Android);
+    //MobileGroup group = new MobileGroup(Gdx.app.getType() == Application.ApplicationType.Android);
+    MobileGroup group = new MobileGroup(true);
     Gdx.input.setInputProcessor(this);
     Hero hero =  new Hero(suMundo, group);
     createPlatforms();

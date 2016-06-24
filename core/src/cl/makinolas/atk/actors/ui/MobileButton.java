@@ -16,7 +16,7 @@ public class MobileButton extends Actor {
         fixedX = x;
         fixedY = y;
         region = reg;
-        setBounds(0,0,48,48);
+        setBounds(-4,-4,76,76);
         addListener(new InputListener(){
             @Override
             public void touchUp(InputEvent event, float x, float y, int pointer, int button) {
