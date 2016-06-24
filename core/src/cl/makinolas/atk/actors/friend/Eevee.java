@@ -16,4 +16,10 @@ public class Eevee extends AbstractFriend {
     
     setVariables(30, false);
   }
+
+  @Override
+  protected void initLevel(float level) {
+    // TODO Auto-generated method stub
+    
+  }
 }

@@ -1,5 +1,6 @@
 package cl.makinolas.atk.actors;
 
+import cl.makinolas.atk.actors.ui.MobileGroup;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input.Keys;
 import com.badlogic.gdx.math.Vector2;
@@ -9,9 +10,9 @@ import com.badlogic.gdx.physics.box2d.PolygonShape;
 import com.badlogic.gdx.physics.box2d.World;
 import com.badlogic.gdx.utils.Array;
 
+import cl.makinolas.atk.actors.friend.Charmander;
 import cl.makinolas.atk.actors.friend.Eevee;
 import cl.makinolas.atk.actors.friend.Friend;
-import cl.makinolas.atk.actors.friend.Gible;
 import cl.makinolas.atk.stages.GameStage;
 
 public class Hero extends Monsters {
@@ -29,8 +30,10 @@ public class Hero extends Monsters {
   private Array<Friend> allies;
   private Friend actualFriend;
   private int indexFriend;
+  private BodyDef myBodyDefinition;
+  private MobileGroup group;
   
-  public Hero(World myWorld) {
+  public Hero(World myWorld, MobileGroup g) {
     
     isJumping = false;
     isFacingRight = false;
@@ -39,38 +42,27 @@ public class Hero extends Monsters {
     isDamaged = false;
     dead = false;
     accumulator = 0;
-    
+    group = g;
+
+    // Set team for player;
     allies = new Array<Friend>();
     Friend allie = new Eevee();
-    Friend allie2 = new Gible();
+    Friend allie2 = new Charmander();
     allie.setVariables(health, dead);
     allie2.setVariables(health, dead);
     allies.add(allie);
     allies.add(allie2);
-    // Definici�n del cuerpo del jugador.
-    this.myWorld = myWorld;
-    // Definici�n del cuerpo del jugador.
-    BodyDef myBodyDefinition = new BodyDef();
-    myBodyDefinition.type = BodyDef.BodyType.DynamicBody;
-    myBodyDefinition.position.set(new Vector2(4,3));
-    
-    // Forma del collider del jugador.
-    Body myBody = myWorld.createBody(myBodyDefinition);
-    
-    PolygonShape shape = new PolygonShape();
-    shape.setAsBox(0.6f,0.5f);
-    ///
-    myBody.setGravityScale(1);
-    myBody.createFixture(shape, 0.5f);
-    myBody.resetMassData();
-    shape.dispose();
-    
-    // Guardar body.
-    setBody(myBody);
-    
-    // Guardar animaciones del jugador
+    // Set actual allie
     actualFriend = allies.get(0);
     indexFriend = 0;
+    // define player world
+    this.myWorld = myWorld;
+    // Set correct collider.
+    myBodyDefinition = new BodyDef();
+    myBodyDefinition.type = BodyDef.BodyType.DynamicBody;
+    setSizeCollider(new Vector2(3,4),true);
+    
+    // Guardar animaciones del jugador
     setAnimation();
     changeAnimation(walkAnimation);
   }
@@ -78,49 +70,34 @@ public class Hero extends Monsters {
   @Override
   public void act(float delta){
     int vx = 0;
-
-    boolean touchX = Gdx.input.getX() < Gdx.graphics.getWidth()/2;
-    boolean touchY = Gdx.input.getY() < Gdx.graphics.getHeight()/2;
-    boolean pressed = Gdx.input.isTouched();
-
-    if (Gdx.input.isKeyPressed(Keys.LEFT) || pressed && touchX && !touchY){
+    if (Gdx.input.isKeyPressed(Keys.LEFT) || group.leftPressed()){
       vx -= 7;
       if (isFacingRight){
         isFacingRight = false;
       }
     }
-    if (Gdx.input.isKeyPressed(Keys.RIGHT) || pressed && !touchX && !touchY){
+    if (Gdx.input.isKeyPressed(Keys.RIGHT) || group.rightPressed()){
       vx += 7;
       if (!isFacingRight){
         isFacingRight = true;
       }
     }
-    if (Gdx.input.isKeyJustPressed(Keys.SPACE) || pressed && touchX && touchY){
+    if (Gdx.input.isKeyJustPressed(Keys.SPACE) || group.upPressed()){
       if(!isJumping){
-        myBody.applyLinearImpulse(0, 7, myBody.getPosition().x, myBody.getPosition().y, true);
+        myBody.applyLinearImpulse(0, getImpulse(), myBody.getPosition().x, myBody.getPosition().y, true);
         isJumping = true;
       }
     }
     if (Gdx.input.isKeyJustPressed(Keys.NUM_1)){
       if(indexFriend != 0){
-        actualFriend.setVariables(health, dead);
-        allies.set(indexFriend, actualFriend);
-        actualFriend = allies.get(0);
-        indexFriend = 0;
-        health = actualFriend.getHealth();
-        setAnimation();
+        setNewAllie(0);
       }
     } else if (Gdx.input.isKeyJustPressed(Keys.NUM_2)){
       if(indexFriend != 1){
-        actualFriend.setVariables(health, dead);
-        allies.set(indexFriend, actualFriend);
-        actualFriend = allies.get(1);
-        health = actualFriend.getHealth();
-        indexFriend = 1;
-        setAnimation();
+        setNewAllie(1);
       }
     }
-    if ((Gdx.input.isKeyJustPressed(Keys.Z) || pressed && !touchX && touchY) && magic > 100){
+    if ((Gdx.input.isKeyJustPressed(Keys.Z) || group.AJustPressed()) && magic > 100){
       magic -= 100;
       GameActor fireball = new Fireball(myWorld, myBody.getPosition().x,myBody.getPosition().y,isFacingRight, this);
       ((GameStage) getStage()).addGameActor(fireball);
@@ -142,6 +119,10 @@ public class Hero extends Monsters {
     }
   }
   
+  private float getImpulse() {
+    return getBody().getMass()*12; // El 12 se busc� por testing.
+  }
+
   public void landedPlatform(){
     isJumping = false;
   }
@@ -204,4 +185,38 @@ public class Hero extends Monsters {
       dead = true;
     }   
   }
+  
+  private void setNewAllie(int index){
+    actualFriend.setVariables(health, dead);
+    allies.set(indexFriend, actualFriend);
+    actualFriend = allies.get(index);
+    health = actualFriend.getHealth();
+    indexFriend = index;
+    setSizeCollider(getBody().getPosition(), false);
+    setAnimation();
+  }
+  
+  private void setSizeCollider(Vector2 position, boolean first) {
+
+    myBodyDefinition.position.set(position);
+    if(!first){
+      myWorld.destroyBody(getBody());
+    }
+    Body myBody = myWorld.createBody(myBodyDefinition);
+    PolygonShape shape = new PolygonShape();
+    shape.setAsBox(getBodySize(actualFriend.getWidth()), getBodySize(actualFriend.getHeight()));
+    myBody.setGravityScale(1);
+    myBody.createFixture(shape, 0.5f);
+    myBody.resetMassData();
+    shape.dispose();
+    
+    // Change Body.
+    setBody(myBody);
+  }
+
+  // This is used to get body width and height.
+  private float getBodySize(int size){
+    return (0.5f*size)/22;
+  }
+  
 }
