@@ -1,5 +1,8 @@
 package cl.makinolas.atk.actors;
 
+import cl.makinolas.atk.actors.attacks.Attacks;
+import cl.makinolas.atk.actors.attacks.MeleeAttack;
+
 public abstract class Monsters extends AnimatedActor {
   
   public abstract void damage(int damage, Attacks inflictor);

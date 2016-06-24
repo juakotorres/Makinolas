@@ -1,6 +1,8 @@
 package cl.makinolas.atk.actors;
 
 import cl.makinolas.atk.GameConstants;
+import cl.makinolas.atk.actors.attacks.Attacks;
+
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Batch;

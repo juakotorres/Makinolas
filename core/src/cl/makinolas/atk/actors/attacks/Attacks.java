@@ -1,4 +1,11 @@
-package cl.makinolas.atk.actors;
+package cl.makinolas.atk.actors.attacks;
+
+import cl.makinolas.atk.actors.AnimatedActor;
+import cl.makinolas.atk.actors.Enemy;
+import cl.makinolas.atk.actors.GameActor;
+import cl.makinolas.atk.actors.Hero;
+import cl.makinolas.atk.actors.Monsters;
+import cl.makinolas.atk.actors.Platform;
 
 public abstract class Attacks extends AnimatedActor {
   public abstract int getAttackDamage();

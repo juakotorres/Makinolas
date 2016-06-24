@@ -3,6 +3,8 @@ package cl.makinolas.atk.actors;
 import com.badlogic.gdx.physics.box2d.Body;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 
+import cl.makinolas.atk.actors.attacks.Attacks;
+
 public abstract class GameActor extends Actor{
   
   protected Body myBody;

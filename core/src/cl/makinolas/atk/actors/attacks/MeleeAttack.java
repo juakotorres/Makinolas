@@ -1,4 +1,6 @@
-package cl.makinolas.atk.actors;
+package cl.makinolas.atk.actors.attacks;
+
+import cl.makinolas.atk.actors.Monsters;
 
 public class MeleeAttack extends Attacks {
   

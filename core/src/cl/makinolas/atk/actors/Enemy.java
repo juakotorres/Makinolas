@@ -11,6 +11,7 @@ import com.badlogic.gdx.physics.box2d.PolygonShape;
 import com.badlogic.gdx.physics.box2d.World;
 
 import cl.makinolas.atk.GameConstants;
+import cl.makinolas.atk.actors.attacks.Attacks;
 
 public class Enemy extends Monsters {
 
