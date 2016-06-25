@@ -53,7 +53,7 @@ public class GameStage extends Stage implements ContactListener {
     //MobileGroup group = new MobileGroup(Gdx.app.getType() == Application.ApplicationType.Android);
     MobileGroup group = new MobileGroup(true);
     Gdx.input.setInputProcessor(this);
-    Hero hero =  new Hero(suMundo, group);
+    Hero hero =  new Hero(suMundo);
     createPlatforms();
     Portal portal = new Portal(suMundo, new Vector2(49, -6));
     addGameActor(portal);
@@ -62,6 +62,7 @@ public class GameStage extends Stage implements ContactListener {
     ui.addActor(bar);
     ui.addActor(group);
 
+    addListener(new InputController(hero,group));
     accumulator = 0;
     renderer = new Box2DDebugRenderer();
     setupCamera();

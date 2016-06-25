@@ -1,20 +1,16 @@
 package cl.makinolas.atk.actors;
 
+import cl.makinolas.atk.actors.friend.Charmander;
+import cl.makinolas.atk.actors.friend.Eevee;
+import cl.makinolas.atk.actors.friend.Friend;
 import cl.makinolas.atk.actors.items.Inventory;
-import cl.makinolas.atk.actors.ui.MobileGroup;
-import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.Input.Keys;
+import cl.makinolas.atk.stages.GameStage;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.Body;
 import com.badlogic.gdx.physics.box2d.BodyDef;
 import com.badlogic.gdx.physics.box2d.PolygonShape;
 import com.badlogic.gdx.physics.box2d.World;
 import com.badlogic.gdx.utils.Array;
-
-import cl.makinolas.atk.actors.friend.Charmander;
-import cl.makinolas.atk.actors.friend.Eevee;
-import cl.makinolas.atk.actors.friend.Friend;
-import cl.makinolas.atk.stages.GameStage;
 
 public class Hero extends Monsters {
 
@@ -32,10 +28,10 @@ public class Hero extends Monsters {
   private Friend actualFriend;
   private int indexFriend;
   private BodyDef myBodyDefinition;
-  private MobileGroup group;
   private Inventory inventory;
-  
-  public Hero(World myWorld, MobileGroup g) {
+  private int vx;
+
+  public Hero(World myWorld) {
     
     isJumping = false;
     isFacingRight = false;
@@ -44,8 +40,8 @@ public class Hero extends Monsters {
     isDamaged = false;
     dead = false;
     accumulator = 0;
-    group = g;
     inventory = new Inventory(this);
+    vx = 0;
 
     // Set team for player;
     allies = new Array<Friend>();
@@ -72,39 +68,6 @@ public class Hero extends Monsters {
   
   @Override
   public void act(float delta){
-    int vx = 0;
-    if (Gdx.input.isKeyPressed(Keys.LEFT) || group.leftPressed()){
-      vx -= 7;
-      if (isFacingRight){
-        isFacingRight = false;
-      }
-    }
-    if (Gdx.input.isKeyPressed(Keys.RIGHT) || group.rightPressed()){
-      vx += 7;
-      if (!isFacingRight){
-        isFacingRight = true;
-      }
-    }
-    if (Gdx.input.isKeyJustPressed(Keys.SPACE) || group.upPressed()){
-      if(!isJumping){
-        myBody.applyLinearImpulse(0, getImpulse(), myBody.getPosition().x, myBody.getPosition().y, true);
-        isJumping = true;
-      }
-    }
-    if (Gdx.input.isKeyJustPressed(Keys.NUM_1)){
-      if(indexFriend != 0){
-        setNewAllie(0);
-      }
-    } else if (Gdx.input.isKeyJustPressed(Keys.NUM_2)){
-      if(indexFriend != 1){
-        setNewAllie(1);
-      }
-    }
-    if ((Gdx.input.isKeyJustPressed(Keys.Z) || group.AJustPressed()) && magic > 100){
-      magic -= 100;
-      GameActor fireball = new Fireball(myWorld, myBody.getPosition().x,myBody.getPosition().y,isFacingRight, this);
-      ((GameStage) getStage()).addGameActor(fireball);
-    }
     myBody.setLinearVelocity(vx, myBody.getLinearVelocity().y);
     
     ((GameStage) getStage()).changeCamera(myBody.getPosition().x , myBody.getPosition().y );
@@ -224,5 +187,38 @@ public class Hero extends Monsters {
 
   public Inventory getInventory() {
     return inventory;
+  }
+
+  public void moveHorizontal(int i) {
+    vx += 7*i;
+    if(vx!=0)
+      isFacingRight = (vx>0);
+  }
+
+
+  public void jump() {
+    if(!isJumping){
+      myBody.applyLinearImpulse(0, getImpulse(), myBody.getPosition().x, myBody.getPosition().y, true);
+      isJumping = true;
+    }
+  }
+
+  public void attackPrimary() {
+    if(magic>=100){
+      magic -= 100;
+      GameActor fireball = new Fireball(myWorld, myBody.getPosition().x,myBody.getPosition().y,isFacingRight, this);
+      ((GameStage) getStage()).addGameActor(fireball);
+    }
+  }
+
+  public void attackSecondary() {
+
+  }
+
+
+  public void changeAllie(int index) {
+    if(indexFriend != index){
+      setNewAllie(index);
+    }
   }
 }

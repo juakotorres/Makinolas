@@ -8,38 +8,36 @@ import com.badlogic.gdx.scenes.scene2d.Group;
 public class MobileGroup extends Group {
 
     private MobileButton bleft, bright, bup, ba;
+    private MobileKeyListener listener;
+
+    public enum MobileKeys {LEFT, RIGHT, UP, A};
 
     public MobileGroup(boolean mobile){
         if(mobile) {
-            bleft = new MobileButton(new TextureRegion(new Texture(Gdx.files.internal("Overlays/uileftbtn.png"))), 5, 25);
+            bleft = new MobileButton(new TextureRegion(new Texture(Gdx.files.internal("Overlays/uileftbtn.png"))), 5, 25, this, MobileKeys.LEFT);
             addActor(bleft);
-            bright = new MobileButton(new TextureRegion(new Texture(Gdx.files.internal("Overlays/uirightbtn.png"))), 85, 25);
+            bright = new MobileButton(new TextureRegion(new Texture(Gdx.files.internal("Overlays/uirightbtn.png"))), 85, 25, this, MobileKeys.RIGHT);
             addActor(bright);
-            bup = new MobileButton(new TextureRegion(new Texture(Gdx.files.internal("Overlays/uiupbtn.png"))), 460, 25);
+            bup = new MobileButton(new TextureRegion(new Texture(Gdx.files.internal("Overlays/uiupbtn.png"))), 460, 25, this, MobileKeys.UP);
             addActor(bup);
-            ba = new MobileButton(new TextureRegion(new Texture(Gdx.files.internal("Overlays/uiabtn.png"))), 550, 25);
+            ba = new MobileButton(new TextureRegion(new Texture(Gdx.files.internal("Overlays/uiabtn.png"))), 550, 25, this, MobileKeys.A);
             addActor(ba);
         }
     }
 
-    public boolean leftPressed(){
-        return bleft!=null && bleft.isTouched();
+    public void setMobileKeyListener(MobileKeyListener l){
+        listener = l;
     }
 
-    public boolean rightPressed(){
-        return bright!=null && bright.isTouched();
+    public void onMobileKeyDown(MobileKeys k){
+        if(listener!=null)
+            listener.onMobileKeyDown(k);
     }
 
-    public boolean upPressed(){
-        return bup!=null && bup.isTouched();
+    public void onMobileKeyUp(MobileKeys k){
+        if(listener!=null)
+            listener.onMobileKeyUp(k);
     }
 
-    public boolean APressed(){
-        return ba!=null && ba.isTouched();
-    }
-
-    public boolean AJustPressed(){
-        return ba!=null && ba.isJustTouched();
-    }
 
 }
