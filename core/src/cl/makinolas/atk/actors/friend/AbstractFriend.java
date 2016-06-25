@@ -11,8 +11,8 @@ import cl.makinolas.atk.actors.Enemy;
 public abstract class AbstractFriend implements Friend {
   
   private int health;
-  private boolean dead;
   private int magic;
+  private boolean dead;
   private TextureRegion friendTexture;
   private int[] cutSprites;
   private int[][] walkingAnimation;
@@ -117,9 +117,8 @@ public abstract class AbstractFriend implements Friend {
   protected abstract void initLevel(float level);
   
   @Override
-  public void setVariables(int health, boolean dead) {
-   this.health = health;
-   this.dead = dead;    
+  public void setVariables(int health) {
+   this.health = health;  
   }
   
   @Override
@@ -133,13 +132,22 @@ public abstract class AbstractFriend implements Friend {
   }
   
   @Override
-  public int getHealth() {
-    return health;
+  public boolean getDead(){
+    return dead;
   }
   
   @Override
-  public boolean getDead() {
-    return dead;
+  public void isDead(){
+    dead = true;
+  }
+  
+  protected void initDead(){
+    dead = false;
+  }
+  
+  @Override
+  public int getHealth() {
+    return health;
   }
   
   @Override

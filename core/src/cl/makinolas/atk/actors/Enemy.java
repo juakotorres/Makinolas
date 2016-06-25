@@ -135,11 +135,6 @@ public class Enemy extends Monsters {
   }
 
   @Override
-  public void meleedamage(int damage) {
-    
-  }
-
-  @Override
   public void interact(GameActor actor2) {
     actor2.interactWithEnemy(this);
   }

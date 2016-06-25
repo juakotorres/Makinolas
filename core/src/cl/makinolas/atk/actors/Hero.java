@@ -19,6 +19,8 @@ import cl.makinolas.atk.stages.GameStage;
 
 public class Hero extends Monsters {
 
+  private boolean changing;
+  private int changeIndex;
   private boolean isJumping;
   private int health;
   private int magic;
@@ -48,18 +50,16 @@ public class Hero extends Monsters {
     isDamaged = false;
     isAttacking = false;
     dead = false;
+    changing = false;
+    changeIndex = 0;
     accumulator = 0;
     countMeleeFrames = 0;    
     group = g;
     // Set team for player;
     allies = new Array<Friend>();
-    Friend allie = new Scyther();
-    Friend allie2 = new Pichu();
-    allie.setVariables(health, dead);
-    allie2.setVariables(health, dead);
-    allies.add(allie);
-    allies.add(allie2);
-    allie.setLevel(6);
+    addAllie(new Scyther());
+    addAllie(new Pichu());
+    
     // Set actual allie
     actualFriend = allies.get(0);
     indexFriend = 0;
@@ -75,8 +75,14 @@ public class Hero extends Monsters {
     changeAnimation(walkAnimation);
   }
   
+  private void addAllie(Friend friend) {
+    friend.setVariables(100);
+    allies.add(friend);
+  }
+
   @Override
   public void act(float delta){
+    checkChangingAllie();
     int vx = 0;
     if (Gdx.input.isKeyPressed(Keys.LEFT) || group.leftPressed()){
       vx -= 7;
@@ -126,22 +132,26 @@ public class Hero extends Monsters {
     
   }
   
+  private void checkChangingAllie() {
+    if(changing){
+      setNewAllie(changeIndex);
+      changing = false;
+    }
+  }
+
   private void changeAllie() {
-    actualFriend.setVariables(0, true);
-    allies.set(indexFriend, actualFriend);
+    changing = true;
+    actualFriend.isDead();
     lookForAliveAllie();
-    setAnimation();
   }
 
   private void lookForAliveAllie() {
-    for(Friend ally : allies){
-      if(!ally.getDead()){
-        indexFriend = allies.indexOf(ally, true);
-        actualFriend = ally;
-        health = ally.getHealth();
+    for(int i = 0; i < allies.size; i++){
+      if(!allies.get(i).getDead()){
+        changeIndex = i; 
       }
     }
-    if(actualFriend.getDead()){
+    if(allies.get(changeIndex).getDead()){
       heroIsDead();
     }
   }
@@ -228,7 +238,6 @@ public class Hero extends Monsters {
     if(health <= 0){
       changeAllie();
     }
-
   }
 
 
@@ -240,20 +249,9 @@ public class Hero extends Monsters {
   public Friend getFriend(){
     return actualFriend;
   }
-
-  @Override
-  public void meleedamage(int damage) {
-    health -= damage;   
-    isDamaged = true;
-    changeAnimation(hurtAnimation);
-    isAttacking = false;
-    if(health <= 0){
-      changeAllie();
-    }   
-  }
   
   private void setNewAllie(int index){
-    actualFriend.setVariables(health, dead);
+    actualFriend.setVariables(health);
     allies.set(indexFriend, actualFriend);
     actualFriend = allies.get(index);
     health = actualFriend.getHealth();
@@ -268,7 +266,6 @@ public class Hero extends Monsters {
       myWorld.destroyBody(getBody());
     }
     Body myBody = myWorld.createBody(myBodyDefinition);
-    System.out.println("aqui4");
     PolygonShape shape = new PolygonShape();
     shape.setAsBox(getBodySize(actualFriend.getWidth()), getBodySize(actualFriend.getHeight()));
     myBody.setGravityScale(1);

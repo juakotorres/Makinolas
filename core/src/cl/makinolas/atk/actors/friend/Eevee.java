@@ -15,7 +15,8 @@ public class Eevee extends AbstractFriend {
     setMeleeAnimation(3,5);
     setFaceSprite(faces[0][0]);
     initLevel(5);
-    setVariables(30, false);
+    initDead();
+    setVariables(30);
   }
 
   @Override

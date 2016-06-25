@@ -17,8 +17,9 @@ public class Scyther extends AbstractFriend {
     setMeleeAnimation(6,8);
     setFaceSprite(faces[0][0]);
     initLevel(5);
+    initDead();
     setActualEvolution(0);
-    setVariables(60, false);
+    setVariables(60);
   }
   
   public Scyther(float level){
@@ -42,7 +43,7 @@ public class Scyther extends AbstractFriend {
       setMeleeAnimation(6,10);
       setFaceSprite(faces[0][1]);
       setActualEvolution(1);
-      setVariables(80, false);
+      setVariables(80);
     } 
   }
   

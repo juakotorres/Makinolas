@@ -7,7 +7,6 @@ public abstract class Monsters extends AnimatedActor {
   
   public abstract void damage(int damage, Attacks inflictor);
   public abstract int getMeleeDamage();
-  public abstract void meleedamage(int damage);
   
   @Override
   public boolean isMonster(){
