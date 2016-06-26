@@ -37,4 +37,8 @@ public abstract class Attacks extends AnimatedActor {
   public void interactWithPlatform(Platform platform){
     this.setDead();
   }
+  
+  protected float getBodySize(int size){
+    return (0.5f*size)/22;
+  }
 }

@@ -10,7 +10,6 @@ import com.badlogic.gdx.physics.box2d.World;
 import com.badlogic.gdx.utils.Array;
 
 import cl.makinolas.atk.actors.attacks.Attacks;
-import cl.makinolas.atk.actors.attacks.Fireball;
 import cl.makinolas.atk.actors.friend.Friend;
 import cl.makinolas.atk.actors.friend.Pichu;
 import cl.makinolas.atk.actors.friend.Scyther;
@@ -113,7 +112,7 @@ public class Hero extends Monsters {
     }
     if ((Gdx.input.isKeyJustPressed(Keys.Z) || group.AJustPressed()) && magic > 100){
       magic -= 100;
-      GameActor fireball = new Fireball(myWorld, myBody.getPosition().x,myBody.getPosition().y,isFacingRight, this);
+      GameActor fireball = actualFriend.getFriendAttack(myWorld, myBody.getPosition().x,myBody.getPosition().y,isFacingRight, this);
       ((GameStage) getStage()).addGameActor(fireball);
     }
     if (Gdx.input.isKeyJustPressed(Keys.X)){
@@ -309,6 +308,16 @@ public class Hero extends Monsters {
 
   public void interactWithEnemy2(Enemy enemy) {
     meleeAttack(enemy, isAttacking);  
+  }
+
+  @Override
+  public float getMonsterWidth() {
+    return getBodySize(actualFriend.getWidth());
+  }
+
+  @Override
+  public float getMonsterHeight() {
+    return getBodySize(actualFriend.getHeight());
   }
   
 }

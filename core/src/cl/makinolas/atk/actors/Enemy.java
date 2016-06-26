@@ -21,6 +21,8 @@ public class Enemy extends Monsters {
   private HBar healthBar;
   private boolean isDamaged;
   private boolean isAttacking;
+  private int width;
+  private int height;
   private int meleeDamage;
   private boolean dead;
   private int walkAnimation;
@@ -41,6 +43,8 @@ public class Enemy extends Monsters {
                , int heroPosition) {
     
     health = givenHealth;
+    width = cutSprite[0];
+    height = cutSprite[1];
     isAttacking = true;
     healthBar = new HBar(givenHealth, health, cutSprite[0], 4, new TextureRegion( new Texture(Gdx.files.internal("Overlays/bar_green.png"))));
     isDamaged = false;
@@ -152,6 +156,20 @@ public class Enemy extends Monsters {
 
   public void interactWithHero2(Hero hero) {
     meleeAttack(hero, isAttacking);   
+  }
+  
+  private float getBodySize(int size){
+    return (0.5f*size)/22;
+  }
+
+  @Override
+  public float getMonsterWidth() {
+    return getBodySize(width);
+  }
+
+  @Override
+  public float getMonsterHeight() {
+    return getBodySize(height);
   }
   
 }

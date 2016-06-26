@@ -19,5 +19,8 @@ public abstract class Monsters extends AnimatedActor {
       monster.damage(melee.getAttackDamage(), melee);
     }
   }
+  
+  public abstract float getMonsterWidth();
+  public abstract float getMonsterHeight();
 }
 

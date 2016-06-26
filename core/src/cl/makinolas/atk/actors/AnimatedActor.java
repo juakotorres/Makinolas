@@ -29,6 +29,24 @@ public abstract class AnimatedActor extends GameActor {
         return anims.size -1;
     }
     
+    protected int addAnimation(float duration, int... positions){
+      Array<TextureRegion> regs = new Array<TextureRegion>(positions.length);
+      for(int pos : positions){
+          regs.add(tiles[0][pos]);
+      }
+      anims.add(new Animation(duration,regs, Animation.PlayMode.LOOP));
+      return anims.size -1;
+    }
+    
+    protected int addAttackAnimation(float duration, Animation.PlayMode playMode, int initialFrame, int finalFrame){
+      Array<TextureRegion> regs = new Array<TextureRegion>(finalFrame - initialFrame + 1);
+      for(int i = initialFrame; i <= finalFrame; i++){
+          regs.add(tiles[0][i]);
+      }
+      anims.add(new Animation(duration,regs, playMode));
+      return anims.size -1;
+    }
+    
     protected void reloadAnimation(int index, float duration, int[]... positions){
       Array<TextureRegion> regs = new Array<TextureRegion>(positions.length);
       for(int[] pos : positions){

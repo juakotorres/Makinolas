@@ -7,6 +7,9 @@ import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.physics.box2d.World;
 
 import cl.makinolas.atk.actors.Enemy;
+import cl.makinolas.atk.actors.Monsters;
+import cl.makinolas.atk.actors.attacks.Attacks;
+import cl.makinolas.atk.actors.attacks.DragonBreath;
 
 public abstract class AbstractFriend implements Friend {
   
@@ -248,5 +251,10 @@ public abstract class AbstractFriend implements Friend {
   // Override if it has an evolution.
   protected void evolve(int numberOfEvolution){
     
+  }
+  
+  @Override
+  public Attacks getFriendAttack(World myWorld, float x , float y, boolean facingRight, Monsters source){
+    return new DragonBreath(myWorld, x, y, facingRight, source);
   }
 }
