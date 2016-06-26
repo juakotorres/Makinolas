@@ -3,6 +3,11 @@ package cl.makinolas.atk.actors.friend;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
+import com.badlogic.gdx.physics.box2d.World;
+
+import cl.makinolas.atk.actors.Monsters;
+import cl.makinolas.atk.actors.attacks.Attacks;
+import cl.makinolas.atk.actors.attacks.ThunderBolt;
 
 public class Pichu extends AbstractFriend {
   
@@ -54,6 +59,11 @@ public class Pichu extends AbstractFriend {
       setActualEvolution(2);
       setVariables(120);
     }
+  }
+  
+  @Override
+  public Attacks getFriendAttack(World myWorld, float x , float y, boolean facingRight, Monsters source){
+    return new ThunderBolt(myWorld, x, y, facingRight, source);
   }
   
   

@@ -10,9 +10,9 @@ import com.badlogic.gdx.physics.box2d.World;
 import com.badlogic.gdx.utils.Array;
 
 import cl.makinolas.atk.actors.attacks.Attacks;
+import cl.makinolas.atk.actors.friend.Charmander;
 import cl.makinolas.atk.actors.friend.Friend;
 import cl.makinolas.atk.actors.friend.Pichu;
-import cl.makinolas.atk.actors.friend.Scyther;
 import cl.makinolas.atk.actors.ui.MobileGroup;
 import cl.makinolas.atk.stages.GameStage;
 
@@ -56,8 +56,8 @@ public class Hero extends Monsters {
     group = g;
     // Set team for player;
     allies = new Array<Friend>();
-    addAllie(new Scyther());
     addAllie(new Pichu());
+    addAllie(new Charmander());
     
     // Set actual allie
     actualFriend = allies.get(0);
