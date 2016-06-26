@@ -1,31 +1,22 @@
 package cl.makinolas.atk.stages;
 
-import java.io.IOException;
-
-import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.graphics.OrthographicCamera;
-import com.badlogic.gdx.math.Vector2;
-import com.badlogic.gdx.physics.box2d.Body;
-import com.badlogic.gdx.physics.box2d.Box2DDebugRenderer;
-import com.badlogic.gdx.physics.box2d.Contact;
-import com.badlogic.gdx.physics.box2d.ContactImpulse;
-import com.badlogic.gdx.physics.box2d.ContactListener;
-import com.badlogic.gdx.physics.box2d.Manifold;
-import com.badlogic.gdx.physics.box2d.World;
-import com.badlogic.gdx.scenes.scene2d.Group;
-import com.badlogic.gdx.scenes.scene2d.Stage;
-import com.badlogic.gdx.utils.Array;
-import com.badlogic.gdx.utils.viewport.Viewport;
-
-import cl.makinolas.atk.actors.Background;
-import cl.makinolas.atk.actors.GameActor;
-import cl.makinolas.atk.actors.Hero;
-import cl.makinolas.atk.actors.Portal;
+import cl.makinolas.atk.actors.*;
 import cl.makinolas.atk.actors.friend.Eevee;
 import cl.makinolas.atk.actors.ui.MainBar;
 import cl.makinolas.atk.actors.ui.MobileGroup;
 import cl.makinolas.atk.screen.GameScreen;
 import cl.makinolas.atk.utils.LevelReader;
+import com.badlogic.gdx.Application;
+import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.graphics.OrthographicCamera;
+import com.badlogic.gdx.math.Vector2;
+import com.badlogic.gdx.physics.box2d.*;
+import com.badlogic.gdx.scenes.scene2d.Group;
+import com.badlogic.gdx.scenes.scene2d.Stage;
+import com.badlogic.gdx.utils.Array;
+import com.badlogic.gdx.utils.viewport.Viewport;
+
+import java.io.IOException;
 
 public class GameStage extends Stage implements ContactListener {
 
@@ -63,10 +54,9 @@ public class GameStage extends Stage implements ContactListener {
     ui = new Group();
     addActor(ui);
 
-    //MobileGroup group = new MobileGroup(Gdx.app.getType() == Application.ApplicationType.Android);
-    MobileGroup group = new MobileGroup(true);
+    MobileGroup group = new MobileGroup(Gdx.app.getType() == Application.ApplicationType.Android);
     Gdx.input.setInputProcessor(this);
-    Hero hero =  new Hero(suMundo, group);
+    Hero hero =  new Hero(suMundo);
     createPlatforms();
     Portal portal = new Portal(suMundo, new Vector2(49, -6));
     addGameActor(portal);
@@ -75,6 +65,7 @@ public class GameStage extends Stage implements ContactListener {
     ui.addActor(bar);
     ui.addActor(group);
 
+    addListener(new InputController(hero,group));
     accumulator = 0;
     renderer = new Box2DDebugRenderer();
     setupCamera();
