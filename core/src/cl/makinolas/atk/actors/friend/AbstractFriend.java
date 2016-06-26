@@ -7,12 +7,15 @@ import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.physics.box2d.World;
 
 import cl.makinolas.atk.actors.Enemy;
+import cl.makinolas.atk.actors.Monsters;
+import cl.makinolas.atk.actors.attacks.Attacks;
+import cl.makinolas.atk.actors.attacks.DragonBreath;
 
 public abstract class AbstractFriend implements Friend {
   
   private int health;
-  private boolean dead;
   private int magic;
+  private boolean dead;
   private TextureRegion friendTexture;
   private int[] cutSprites;
   private int[][] walkingAnimation;
@@ -117,9 +120,8 @@ public abstract class AbstractFriend implements Friend {
   protected abstract void initLevel(float level);
   
   @Override
-  public void setVariables(int health, boolean dead) {
-   this.health = health;
-   this.dead = dead;    
+  public void setVariables(int health) {
+   this.health = health;  
   }
   
   @Override
@@ -133,13 +135,22 @@ public abstract class AbstractFriend implements Friend {
   }
   
   @Override
-  public int getHealth() {
-    return health;
+  public boolean getDead(){
+    return dead;
   }
   
   @Override
-  public boolean getDead() {
-    return dead;
+  public void isDead(){
+    dead = true;
+  }
+  
+  protected void initDead(){
+    dead = false;
+  }
+  
+  @Override
+  public int getHealth() {
+    return health;
   }
   
   @Override
@@ -240,5 +251,10 @@ public abstract class AbstractFriend implements Friend {
   // Override if it has an evolution.
   protected void evolve(int numberOfEvolution){
     
+  }
+  
+  @Override
+  public Attacks getFriendAttack(World myWorld, float x , float y, boolean facingRight, Monsters source){
+    return new DragonBreath(myWorld, x, y, facingRight, source);
   }
 }

@@ -17,8 +17,9 @@ public class Shinx extends AbstractFriend{
     setMeleeAnimation(3,3);
     setFaceSprite(faces[0][0]);
     initLevel(5);
+    initDead();
     setActualEvolution(0);
-    setVariables(30, false);
+    setVariables(30);
   }
   
   public Shinx(float level){
@@ -43,7 +44,7 @@ public class Shinx extends AbstractFriend{
       setMeleeAnimation(5,6);
       setFaceSprite(faces[0][1]);
       setActualEvolution(1);
-      setVariables(80, false);
+      setVariables(80);
     } else if (numberOfLevel == 2 && getActualEvolution() < 2){
       setTexture(new TextureRegion(new Texture(Gdx.files.internal("Actors/Luxray.png"))));
       setAnimations(new int[]{32,32},
@@ -52,7 +53,7 @@ public class Shinx extends AbstractFriend{
       setMeleeAnimation(5,6);
       setFaceSprite(faces[0][2]);
       setActualEvolution(2);
-      setVariables(120, false);
+      setVariables(120);
     }
   }
   

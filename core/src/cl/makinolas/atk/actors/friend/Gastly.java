@@ -17,8 +17,9 @@ public class Gastly extends AbstractFriend {
     setMeleeAnimation(4,5);
     setFaceSprite(faces[0][0]);
     initLevel(5);
+    initDead();
     setActualEvolution(0);
-    setVariables(30, false);
+    setVariables(30);
   }
   
   public Gastly(float level){
@@ -42,7 +43,7 @@ public class Gastly extends AbstractFriend {
       setMeleeAnimation(6,10);
       setFaceSprite(faces[0][1]);
       setActualEvolution(1);
-      setVariables(70, false);
+      setVariables(70);
     }
   }
   

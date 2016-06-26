@@ -3,6 +3,11 @@ package cl.makinolas.atk.actors.friend;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
+import com.badlogic.gdx.physics.box2d.World;
+
+import cl.makinolas.atk.actors.Monsters;
+import cl.makinolas.atk.actors.attacks.Attacks;
+import cl.makinolas.atk.actors.attacks.Ember;
 
 public class Charmander extends AbstractFriend {
   
@@ -17,8 +22,9 @@ public class Charmander extends AbstractFriend {
     setMeleeAnimation(3,5);
     setFaceSprite(faces[0][0]);
     initLevel(5);
+    initDead();
     setActualEvolution(0);
-    setVariables(30, false);
+    setVariables(30);
   }
   
   public Charmander(float level){
@@ -42,7 +48,7 @@ public class Charmander extends AbstractFriend {
       setMeleeAnimation(6,8);
       setFaceSprite(faces[0][1]);
       setActualEvolution(1);
-      setVariables(60, false);
+      setVariables(60);
     } else if (numberOfLevel == 2 && getActualEvolution() < 2){
       setTexture(new TextureRegion(new Texture(Gdx.files.internal("Actors/Charizard.png"))));
       setAnimations(new int[]{32,32},
@@ -51,8 +57,14 @@ public class Charmander extends AbstractFriend {
       setMeleeAnimation(4,7);
       setFaceSprite(faces[0][2]);
       setActualEvolution(2);
-      setVariables(120, false);
+      setVariables(120);
     }
+  }
+  
+  
+  @Override
+  public Attacks getFriendAttack(World myWorld, float x , float y, boolean facingRight, Monsters source){
+    return new Ember(myWorld, x, y, facingRight, source);
   }
   
 }

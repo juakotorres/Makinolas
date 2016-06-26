@@ -17,8 +17,9 @@ public class Weedle extends AbstractFriend {
     setMeleeAnimation(6,7);
     setFaceSprite(faces[0][0]);
     initLevel(3);
+    initDead();
     setActualEvolution(0);
-    setVariables(30, false);
+    setVariables(30);
   }
   
   public Weedle(float level){
@@ -43,7 +44,7 @@ public class Weedle extends AbstractFriend {
       setMeleeAnimation(4,9);
       setFaceSprite(faces[0][1]);
       setActualEvolution(1);
-      setVariables(60, false);
+      setVariables(60);
     } else if (numberOfLevel == 2 && getActualEvolution() < 2){
       setTexture(new TextureRegion(new Texture(Gdx.files.internal("Actors/Beedrill.png"))));
       setAnimations(new int[]{35,28},
@@ -52,7 +53,7 @@ public class Weedle extends AbstractFriend {
       setMeleeAnimation(7,10);
       setFaceSprite(faces[0][2]);
       setActualEvolution(2);
-      setVariables(80, false);
+      setVariables(80);
       
     }
   }

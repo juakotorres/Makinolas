@@ -1,6 +1,5 @@
 package cl.makinolas.atk.actors;
 
-import cl.makinolas.atk.actors.ui.MobileGroup;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input.Keys;
 import com.badlogic.gdx.math.Vector2;
@@ -11,14 +10,16 @@ import com.badlogic.gdx.physics.box2d.World;
 import com.badlogic.gdx.utils.Array;
 
 import cl.makinolas.atk.actors.attacks.Attacks;
-import cl.makinolas.atk.actors.attacks.Fireball;
+import cl.makinolas.atk.actors.friend.Charmander;
 import cl.makinolas.atk.actors.friend.Friend;
 import cl.makinolas.atk.actors.friend.Pichu;
-import cl.makinolas.atk.actors.friend.Weedle;
+import cl.makinolas.atk.actors.ui.MobileGroup;
 import cl.makinolas.atk.stages.GameStage;
 
 public class Hero extends Monsters {
 
+  private boolean changing;
+  private int changeIndex;
   private boolean isJumping;
   private int health;
   private int magic;
@@ -48,18 +49,16 @@ public class Hero extends Monsters {
     isDamaged = false;
     isAttacking = false;
     dead = false;
+    changing = false;
+    changeIndex = 0;
     accumulator = 0;
     countMeleeFrames = 0;    
     group = g;
     // Set team for player;
     allies = new Array<Friend>();
-    Friend allie = new Weedle();
-    Friend allie2 = new Pichu();
-    allie.setVariables(health, dead);
-    allie2.setVariables(health, dead);
-    allies.add(allie);
-    allies.add(allie2);
-    allie.setLevel(6);
+    addAllie(new Pichu());
+    addAllie(new Charmander());
+    
     // Set actual allie
     actualFriend = allies.get(0);
     indexFriend = 0;
@@ -75,8 +74,14 @@ public class Hero extends Monsters {
     changeAnimation(walkAnimation);
   }
   
+  private void addAllie(Friend friend) {
+    friend.setVariables(100);
+    allies.add(friend);
+  }
+
   @Override
   public void act(float delta){
+    checkChangingAllie();
     int vx = 0;
     if (Gdx.input.isKeyPressed(Keys.LEFT) || group.leftPressed()){
       vx -= 7;
@@ -97,17 +102,17 @@ public class Hero extends Monsters {
       }
     }
     if (Gdx.input.isKeyJustPressed(Keys.NUM_1)){
-      if(indexFriend != 0){
+      if(indexFriend != 0 && !allies.get(0).getDead()){
         setNewAllie(0);
       }
     } else if (Gdx.input.isKeyJustPressed(Keys.NUM_2)){
-      if(indexFriend != 1){
+      if(indexFriend != 1 && !allies.get(1).getDead()){
         setNewAllie(1);
       }
     }
     if ((Gdx.input.isKeyJustPressed(Keys.Z) || group.AJustPressed()) && magic > 100){
       magic -= 100;
-      GameActor fireball = new Fireball(myWorld, myBody.getPosition().x,myBody.getPosition().y,isFacingRight, this);
+      GameActor fireball = actualFriend.getFriendAttack(myWorld, myBody.getPosition().x,myBody.getPosition().y,isFacingRight, this);
       ((GameStage) getStage()).addGameActor(fireball);
     }
     if (Gdx.input.isKeyJustPressed(Keys.X)){
@@ -124,6 +129,39 @@ public class Hero extends Monsters {
     checkMelee(delta);
     giveMagic();
     
+  }
+  
+  private void checkChangingAllie() {
+    if(changing){
+      setNewAllie(changeIndex);
+      changing = false;
+    }
+  }
+
+  private void changeAllie() {
+    changing = true;
+    actualFriend.isDead();
+    lookForAliveAllie();
+  }
+
+  private void lookForAliveAllie() {
+    for(int i = 0; i < allies.size; i++){
+      if(!allies.get(i).getDead()){
+        changeIndex = i; 
+      }
+    }
+    if(allies.get(changeIndex).getDead()){
+      heroIsDead();
+    }
+  }
+
+  private void heroIsDead() {
+    dead = true;   
+  }
+
+  @Override
+  public boolean isDead(){
+    return dead;
   }
   
   private void checkDamage(float delta) {
@@ -197,14 +235,8 @@ public class Hero extends Monsters {
       inflictor.setDead();
     }
     if(health <= 0){
-      dead = true;
+      changeAllie();
     }
-
-  }
-  
-  @Override
-  public boolean isDead(){
-    return dead;
   }
 
 
@@ -216,20 +248,9 @@ public class Hero extends Monsters {
   public Friend getFriend(){
     return actualFriend;
   }
-
-  @Override
-  public void meleedamage(int damage) {
-    health -= damage;   
-    isDamaged = true;
-    changeAnimation(hurtAnimation);
-    isAttacking = false;
-    if(health <= 0){
-      dead = true;
-    }   
-  }
   
   private void setNewAllie(int index){
-    actualFriend.setVariables(health, dead);
+    actualFriend.setVariables(health);
     allies.set(indexFriend, actualFriend);
     actualFriend = allies.get(index);
     health = actualFriend.getHealth();
@@ -239,7 +260,6 @@ public class Hero extends Monsters {
   }
   
   private void setSizeCollider(Vector2 position, boolean first) {
-
     myBodyDefinition.position.set(position);
     if(!first){
       myWorld.destroyBody(getBody());
@@ -288,6 +308,16 @@ public class Hero extends Monsters {
 
   public void interactWithEnemy2(Enemy enemy) {
     meleeAttack(enemy, isAttacking);  
+  }
+
+  @Override
+  public float getMonsterWidth() {
+    return getBodySize(actualFriend.getWidth());
+  }
+
+  @Override
+  public float getMonsterHeight() {
+    return getBodySize(actualFriend.getHeight());
   }
   
 }

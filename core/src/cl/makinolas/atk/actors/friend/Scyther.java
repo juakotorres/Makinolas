@@ -3,6 +3,11 @@ package cl.makinolas.atk.actors.friend;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
+import com.badlogic.gdx.physics.box2d.World;
+
+import cl.makinolas.atk.actors.Monsters;
+import cl.makinolas.atk.actors.attacks.Attacks;
+import cl.makinolas.atk.actors.attacks.VineWhip;
 
 public class Scyther extends AbstractFriend {
   
@@ -17,8 +22,9 @@ public class Scyther extends AbstractFriend {
     setMeleeAnimation(6,8);
     setFaceSprite(faces[0][0]);
     initLevel(5);
+    initDead();
     setActualEvolution(0);
-    setVariables(60, false);
+    setVariables(60);
   }
   
   public Scyther(float level){
@@ -42,9 +48,13 @@ public class Scyther extends AbstractFriend {
       setMeleeAnimation(6,10);
       setFaceSprite(faces[0][1]);
       setActualEvolution(1);
-      setVariables(80, false);
+      setVariables(80);
     } 
   }
   
+  @Override
+  public Attacks getFriendAttack(World myWorld, float x , float y, boolean facingRight, Monsters source){
+    return new VineWhip(myWorld, x, y, facingRight, source);
+  }
   
 }
