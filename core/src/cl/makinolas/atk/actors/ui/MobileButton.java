@@ -9,10 +9,9 @@ import com.badlogic.gdx.scenes.scene2d.InputListener;
 public class MobileButton extends Actor {
 
     private TextureRegion region;
-    private boolean touched, justTouched;
     private int fixedX, fixedY;
 
-    public MobileButton(TextureRegion reg, int x, int y){
+    public MobileButton(TextureRegion reg, int x, int y, final MobileGroup mobileGroup, final MobileGroup.MobileKeys key){
         fixedX = x;
         fixedY = y;
         region = reg;
@@ -20,12 +19,11 @@ public class MobileButton extends Actor {
         addListener(new InputListener(){
             @Override
             public void touchUp(InputEvent event, float x, float y, int pointer, int button) {
-                touched = false;
+                mobileGroup.onMobileKeyUp(key);
             }
             @Override
             public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
-                touched = true;
-                justTouched = true;
+                mobileGroup.onMobileKeyDown(key);
                 return true;
             }
         });
@@ -34,16 +32,8 @@ public class MobileButton extends Actor {
     @Override
     public void act(float delta) {
         setPosition(getStage().getCamera().position.x-320+fixedX,getStage().getCamera().position.y-240+fixedY);
-        if(justTouched)
-            justTouched = false;
     }
 
-    public boolean isTouched(){
-        return touched;
-    }
-    public boolean isJustTouched(){
-        return justTouched;
-    }
 
     @Override
     public void draw(Batch batch, float parentAlpha) {

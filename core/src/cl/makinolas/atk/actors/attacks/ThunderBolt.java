@@ -69,7 +69,7 @@ public class ThunderBolt extends Attacks {
   }
 
   private void setAnimation(){
-    setMasterTexture(new TextureRegion(new Texture(Gdx.files.internal("Attacks/ThunderBolt.png"))),36,32);
+    setMasterTexture(new TextureRegion(new Texture(Gdx.files.internal("Attacks/Thunderbolt.png"))),36,32);
     addAttackAnimation(0.2f, Animation.PlayMode.LOOP, 0, 4);
     attackTime = 5 * 0.2f;    
   }
