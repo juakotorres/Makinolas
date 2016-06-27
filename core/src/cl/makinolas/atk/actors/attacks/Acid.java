@@ -8,20 +8,21 @@ import com.badlogic.gdx.physics.box2d.World;
 
 import cl.makinolas.atk.actors.Monsters;
 
-public class DragonBreath extends ThrowableAttacks {
+public class Acid extends ThrowableAttacks {
   
-  public DragonBreath(World myWorld, float x , float y, boolean facingRight, Monsters source){
+  public Acid(World myWorld, float x, float y, boolean facingRight, Monsters source) {
     super(myWorld, x, y, facingRight, source);
+  }
+
+  @Override
+  public int getAttackDamage() {
+    return 20;
   }
   
   @Override
-  public int getAttackDamage() {
-    return 30;
-  }
-  
-  protected void setAnimation(){
-    setMasterTexture(new TextureRegion(new Texture(Gdx.files.internal("Attacks/DragonBreath.png"))),38,30);
-    addAttackAnimation(0.1f, Animation.PlayMode.LOOP, 0, 5);
+  protected void setAnimation() {
+    setMasterTexture(new TextureRegion(new Texture(Gdx.files.internal("Attacks/Acid.png"))),23, 23);
+    addAttackAnimation(0.2f, Animation.PlayMode.LOOP, 0, 2);    
   }
   
 }

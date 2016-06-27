@@ -3,6 +3,11 @@ package cl.makinolas.atk.actors.friend;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
+import com.badlogic.gdx.physics.box2d.World;
+
+import cl.makinolas.atk.actors.Monsters;
+import cl.makinolas.atk.actors.attacks.Attacks;
+import cl.makinolas.atk.actors.attacks.Tornado;
 
 public class Zubat extends AbstractFriend {
   
@@ -56,5 +61,10 @@ public class Zubat extends AbstractFriend {
       setVariables(80);
       
     }
+  }
+  
+  @Override
+  public Attacks getFriendAttack(World myWorld, float x , float y, boolean facingRight, Monsters source){
+    return new Tornado(myWorld, x, y, facingRight, source);
   }
 }
