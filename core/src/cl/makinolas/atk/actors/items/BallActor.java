@@ -21,9 +21,9 @@ public class BallActor extends GameActor {
         Body myBody = myWorld.createBody(myBodyDefinition);
 
         PolygonShape shape = new PolygonShape();
-        shape.setAsBox(1,1);
+        shape.setAsBox(0.5f,0.5f);
 
-        myBody.setGravityScale(0);
+        myBody.setGravityScale(1);
         FixtureDef fixtureDef = new FixtureDef();
         fixtureDef.density = 0.4f;
         fixtureDef.shape = shape;
@@ -52,6 +52,6 @@ public class BallActor extends GameActor {
     }
 
     public void setThrowImpulse(int dir) {
-        myBody.applyForceToCenter(new Vector2(dir*6,10),true);
+        myBody.applyLinearImpulse(dir*5, 2f, myBody.getPosition().x, myBody.getPosition().y, true);
     }
 }

@@ -15,6 +15,8 @@ public class Inventory{
         hero = h;
         addItem(new Potion());
         addItem(new Ball(Ball.BallType.POKEBALL));
+        addItem(new Ball(Ball.BallType.POKEBALL));
+        addItem(new Ball(Ball.BallType.POKEBALL));
     }
 
     public void addItem(Item i){

@@ -1,5 +1,6 @@
 package cl.makinolas.atk.actors;
 
+import cl.makinolas.atk.GameConstants;
 import cl.makinolas.atk.actors.attacks.Attacks;
 import cl.makinolas.atk.actors.friend.Friend;
 import cl.makinolas.atk.actors.friend.Gible;
@@ -324,7 +325,8 @@ public class Hero extends Monsters {
   }
 
   public void throwBall(Ball.BallType type) {
-    BallActor ball = new BallActor(type,myWorld,myBody.getPosition().x,myBody.getPosition().y);
+    BallActor ball = new BallActor(type, myWorld, myBody.getPosition().x + ((isFacingRight)?0.6f:-0.6f)*actualFriend.getWidth()/ GameConstants.WORLD_FACTOR,
+            myBody.getPosition().y);
     ball.setThrowImpulse((isFacingRight)?1:-1);
     ((GameStage) getStage()).addGameActor(ball);
   }
