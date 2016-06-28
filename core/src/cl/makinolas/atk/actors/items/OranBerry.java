@@ -1,13 +1,11 @@
 package cl.makinolas.atk.actors.items;
 
 import cl.makinolas.atk.actors.Hero;
-import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 
 public class OranBerry extends Item {
 
-    private TextureRegion reg = (new TextureRegion(new Texture(Gdx.files.internal("Overlays/items.png")))).split(32,32)[2][2];
+    private TextureRegion reg = Item.textures[2][2];
 
     @Override
     public String getDescr() {

@@ -1,9 +1,10 @@
 package cl.makinolas.atk.actors;
 
 import cl.makinolas.atk.actors.attacks.Attacks;
-import cl.makinolas.atk.actors.friend.Charmander;
 import cl.makinolas.atk.actors.friend.Friend;
-import cl.makinolas.atk.actors.friend.Pichu;
+import cl.makinolas.atk.actors.friend.Gible;
+import cl.makinolas.atk.actors.friend.Weedle;
+import cl.makinolas.atk.actors.items.Ball;
 import cl.makinolas.atk.actors.items.Inventory;
 import cl.makinolas.atk.stages.GameStage;
 import com.badlogic.gdx.math.Vector2;
@@ -55,8 +56,8 @@ public class Hero extends Monsters {
 
     // Set team for player;
     allies = new Array<Friend>();
-    addAllie(new Pichu());
-    addAllie(new Charmander());
+    addAllie(new Weedle());
+    addAllie(new Gible());
     
     // Set actual allie
     actualFriend = allies.get(0);
@@ -321,4 +322,7 @@ public class Hero extends Monsters {
     }
   }
 
+  public void throwBall(Ball.BallType type) {
+    //TBD
+  }
 }
