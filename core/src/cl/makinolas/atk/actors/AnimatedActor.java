@@ -1,5 +1,6 @@
 package cl.makinolas.atk.actors;
 
+import cl.makinolas.atk.GameConstants;
 import cl.makinolas.atk.stages.GameStage;
 import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.Batch;
@@ -67,7 +68,7 @@ public abstract class AnimatedActor extends GameActor {
     public void draw(Batch batch, float alpha){
         Vector2 myPosition = myBody.getPosition();
         TextureRegion actualSprite = getActualSprite();
-        batch.draw(actualSprite, myPosition.x * 20 - actualSprite.getRegionWidth() / 2 , myPosition.y * 20 - actualSprite.getRegionHeight() / 2,
+        batch.draw(actualSprite, myPosition.x * GameConstants.WORLD_FACTOR - actualSprite.getRegionWidth() / 2 , myPosition.y * GameConstants.WORLD_FACTOR - actualSprite.getRegionHeight() / 2,
                 actualSprite.getRegionWidth() / 2, actualSprite.getRegionHeight() / 2, actualSprite.getRegionWidth(), actualSprite.getRegionHeight(),
                 ((isFacingRight)?-1:1)*getScaleX(), getScaleY(), 0);
     }
