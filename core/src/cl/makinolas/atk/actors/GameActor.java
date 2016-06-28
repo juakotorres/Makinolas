@@ -34,6 +34,10 @@ public abstract class GameActor extends Actor{
   public boolean isMonster() {
     return false;
   }
+
+  public boolean isBall() {
+    return false;
+  }
   
   public boolean isDead(){
     return false;
