@@ -24,7 +24,8 @@ public class Charmander extends AbstractFriend {
     initLevel(5);
     initDead();
     setActualEvolution(0);
-    setVariables(30);
+    setMaxHealth(30);
+    setMaxMagic(100);
   }
   
   public Charmander(float level){
@@ -48,7 +49,8 @@ public class Charmander extends AbstractFriend {
       setMeleeAnimation(6,8);
       setFaceSprite(faces[0][1]);
       setActualEvolution(1);
-      setVariables(60);
+      setMaxHealth(60);
+      setMaxMagic(100);
     } else if (numberOfLevel == 2 && getActualEvolution() < 2){
       setTexture(new TextureRegion(new Texture(Gdx.files.internal("Actors/Charizard.png"))));
       setAnimations(new int[]{32,32},
@@ -57,7 +59,8 @@ public class Charmander extends AbstractFriend {
       setMeleeAnimation(4,7);
       setFaceSprite(faces[0][2]);
       setActualEvolution(2);
-      setVariables(120);
+      setMaxHealth(120);
+      setMaxMagic(100);
     }
   }
   

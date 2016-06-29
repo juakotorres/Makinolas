@@ -24,7 +24,8 @@ public class Pichu extends AbstractFriend {
     initLevel(5);
     initDead();
     setActualEvolution(0);
-    setVariables(30);
+    setMaxHealth(30);
+    setMaxMagic(100);
   }
   
   public Pichu(float level){
@@ -48,7 +49,8 @@ public class Pichu extends AbstractFriend {
       setMeleeAnimation(1,2);
       setFaceSprite(faces[0][1]);
       setActualEvolution(1);
-      setVariables(60);
+      setMaxHealth(50);
+      setMaxMagic(100);
     } else if (numberOfLevel == 2 && getActualEvolution() < 2){
       setTexture(new TextureRegion(new Texture(Gdx.files.internal("Actors/Raichu.png"))));
       setAnimations(new int[]{34,30},
@@ -57,7 +59,8 @@ public class Pichu extends AbstractFriend {
       setMeleeAnimation(4,4);
       setFaceSprite(faces[0][2]);
       setActualEvolution(2);
-      setVariables(120);
+      setMaxHealth(80);
+      setMaxMagic(100);
     }
   }
   

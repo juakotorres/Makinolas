@@ -75,7 +75,6 @@ public class Hero extends Monsters {
   }
   
   private void addAllie(Friend friend) {
-    friend.setVariables(100);
     allies.add(friend);
   }
 
@@ -211,7 +210,7 @@ public class Hero extends Monsters {
   }
   
   private void setNewAllie(int index){
-    actualFriend.setVariables(health);
+    actualFriend.setVariables(health, magic);
     allies.set(indexFriend, actualFriend);
     actualFriend = allies.get(index);
     health = actualFriend.getHealth();

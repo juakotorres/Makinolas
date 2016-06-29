@@ -16,7 +16,8 @@ public class Eevee extends AbstractFriend {
     setFaceSprite(faces[0][0]);
     initLevel(5);
     initDead();
-    setVariables(30);
+    setMaxHealth(30);
+    setMaxMagic(100);
   }
 
   @Override

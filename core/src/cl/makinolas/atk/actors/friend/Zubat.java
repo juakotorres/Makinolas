@@ -24,7 +24,8 @@ public class Zubat extends AbstractFriend {
     initLevel(10);
     initDead();
     setActualEvolution(0);
-    setVariables(30);
+    setMaxHealth(30);
+    setMaxMagic(100);
   }
   
   public Zubat(float level){
@@ -49,7 +50,8 @@ public class Zubat extends AbstractFriend {
       setMeleeAnimation(4,4);
       setFaceSprite(faces[0][1]);
       setActualEvolution(1);
-      setVariables(60);
+      setMaxHealth(60);
+      setMaxMagic(100);
     } else if (numberOfLevel == 2 && getActualEvolution() < 2){
       setTexture(new TextureRegion(new Texture(Gdx.files.internal("Actors/Crobat.png"))));
       setCutSprites(26,28);
@@ -58,7 +60,8 @@ public class Zubat extends AbstractFriend {
       setMeleeAnimation(4,7);
       setFaceSprite(faces[0][2]);
       setActualEvolution(2);
-      setVariables(80);
+      setMaxHealth(80);
+      setMaxMagic(100);
       
     }
   }

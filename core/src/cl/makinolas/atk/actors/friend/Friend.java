@@ -8,10 +8,13 @@ import cl.makinolas.atk.actors.Monsters;
 import cl.makinolas.atk.actors.attacks.Attacks;
 
 public interface Friend {  
-  public void setVariables(int health);
+  public void setVariables(int health, int magic);
   public void setLevel(float level);
+  public void setHealth(int health);
   public int getHealth(); 
+  public int getMaxHealth();
   public void setMagic(int magic);
+  public int getMaxMagic();
   public int getMagic();
   public boolean getDead();
   public void isDead();

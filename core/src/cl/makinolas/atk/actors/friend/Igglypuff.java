@@ -19,7 +19,8 @@ public class Igglypuff extends AbstractFriend {
     initLevel(5);
     initDead();
     setActualEvolution(0);
-    setVariables(20);
+    setMaxHealth(30);
+    setMaxMagic(100);
   }
   
   public Igglypuff(float level){
@@ -43,7 +44,8 @@ public class Igglypuff extends AbstractFriend {
       setMeleeAnimation(6,7);
       setFaceSprite(faces[0][1]);
       setActualEvolution(1);
-      setVariables(60);
+      setMaxHealth(60);
+      setMaxMagic(100);
     } else if (numberOfLevel == 2 && getActualEvolution() < 2){
       setTexture(new TextureRegion(new Texture(Gdx.files.internal("Actors/Wigglypuff.png"))));
       setAnimations(new int[]{26,25},
@@ -52,7 +54,8 @@ public class Igglypuff extends AbstractFriend {
       setMeleeAnimation(6,8);
       setFaceSprite(faces[0][2]);
       setActualEvolution(2);
-      setVariables(100);
+      setMaxHealth(100);
+      setMaxMagic(100);
     }
   }
   

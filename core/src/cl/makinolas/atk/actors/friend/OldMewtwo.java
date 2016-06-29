@@ -24,7 +24,8 @@ public class OldMewtwo extends AbstractFriend {
     initLevel(30);
     initDead();
     setActualEvolution(0);
-    setVariables(1000);
+    setMaxHealth(1000);
+    setMaxMagic(100);
   }
   
   @Override

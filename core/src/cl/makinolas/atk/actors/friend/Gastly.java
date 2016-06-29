@@ -19,7 +19,8 @@ public class Gastly extends AbstractFriend {
     initLevel(5);
     initDead();
     setActualEvolution(0);
-    setVariables(30);
+    setMaxHealth(30);
+    setMaxMagic(100);
   }
   
   public Gastly(float level){
@@ -43,7 +44,8 @@ public class Gastly extends AbstractFriend {
       setMeleeAnimation(6,10);
       setFaceSprite(faces[0][1]);
       setActualEvolution(1);
-      setVariables(70);
+      setMaxHealth(70);
+      setMaxMagic(100);
     }
   }
   

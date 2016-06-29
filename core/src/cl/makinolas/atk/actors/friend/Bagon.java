@@ -24,7 +24,8 @@ public class Bagon extends AbstractFriend {
     initLevel(10);
     initDead();
     setActualEvolution(0);
-    setVariables(30);
+    setMaxHealth(30);
+    setMaxMagic(100);
   }
   
   public Bagon(float level){
@@ -49,7 +50,8 @@ public class Bagon extends AbstractFriend {
       setMeleeAnimation(6,9);
       setFaceSprite(faces[0][1]);
       setActualEvolution(1);
-      setVariables(60);
+      setMaxHealth(60);
+      setMaxMagic(100);
     } else if (numberOfLevel == 2 && getActualEvolution() < 2){
       setTexture(new TextureRegion(new Texture(Gdx.files.internal("Actors/Salamence.png"))));
       setCutSprites(55,48);
@@ -58,7 +60,8 @@ public class Bagon extends AbstractFriend {
       setMeleeAnimation(5,9);
       setFaceSprite(faces[0][2]);
       setActualEvolution(2);
-      setVariables(80);
+      setMaxHealth(120);
+      setMaxMagic(100);
       
     }
   }

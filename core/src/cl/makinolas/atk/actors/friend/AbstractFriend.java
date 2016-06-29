@@ -14,7 +14,9 @@ import cl.makinolas.atk.actors.attacks.DragonBreath;
 public abstract class AbstractFriend implements Friend {
   
   private int health;
+  private int maxHealth;
   private int magic;
+  private int maxMagic;
   private boolean dead;
   private TextureRegion friendTexture;
   private int[] cutSprites;
@@ -120,8 +122,9 @@ public abstract class AbstractFriend implements Friend {
   protected abstract void initLevel(float level);
   
   @Override
-  public void setVariables(int health) {
+  public void setVariables(int health, int magic) {
    this.health = health;  
+   this.magic = magic;
   }
   
   @Override
@@ -251,6 +254,31 @@ public abstract class AbstractFriend implements Friend {
   // Override if it has an evolution.
   protected void evolve(int numberOfEvolution){
     
+  }
+  
+  @Override
+  public int getMaxHealth(){
+    return maxHealth;
+  }
+  
+  @Override
+  public void setHealth(int health){
+    this.health = health;
+  }
+  
+  protected void setMaxHealth(int maxHealth){
+    this.maxHealth = maxHealth;
+    this.health = maxHealth;
+  }
+  
+  @Override
+  public int getMaxMagic(){
+    return maxMagic;
+  }
+  
+  protected void setMaxMagic(int maxMagic){
+    this.maxMagic = maxMagic;
+    this.magic = maxMagic;
   }
   
   @Override

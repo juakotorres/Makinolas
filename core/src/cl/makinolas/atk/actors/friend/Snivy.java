@@ -24,7 +24,8 @@ public class Snivy extends AbstractFriend {
     initLevel(10);
     initDead();
     setActualEvolution(0);
-    setVariables(30);
+    setMaxHealth(30);
+    setMaxMagic(100);
   }
   
   public Snivy(float level){
@@ -49,7 +50,8 @@ public class Snivy extends AbstractFriend {
       setMeleeAnimation(5,7);
       setFaceSprite(faces[0][1]);
       setActualEvolution(1);
-      setVariables(60);
+      setMaxHealth(60);
+      setMaxMagic(100);
     } else if (numberOfLevel == 2 && getActualEvolution() < 2){
       setTexture(new TextureRegion(new Texture(Gdx.files.internal("Actors/Serperior.png"))));
       setCutSprites(57,50);
@@ -58,7 +60,8 @@ public class Snivy extends AbstractFriend {
       setMeleeAnimation(4,5);
       setFaceSprite(faces[0][2]);
       setActualEvolution(2);
-      setVariables(80);
+      setMaxHealth(80);
+      setMaxMagic(100);
       
     }
   }

@@ -24,7 +24,8 @@ public class Totodile extends AbstractFriend {
     initLevel(5);
     initDead();
     setActualEvolution(0);
-    setVariables(30);
+    setMaxHealth(30);
+    setMaxMagic(100);
   }
   
   public Totodile(float level){
@@ -49,7 +50,8 @@ public class Totodile extends AbstractFriend {
       setMeleeAnimation(6,8);
       setFaceSprite(faces[0][1]);
       setActualEvolution(1);
-      setVariables(60);
+      setMaxHealth(60);
+      setMaxMagic(100);
     } else if (numberOfLevel == 2 && getActualEvolution() < 2){
       setTexture(new TextureRegion(new Texture(Gdx.files.internal("Actors/Feraligatr.png"))));
       setAnimations(new int[]{38,37},
@@ -58,7 +60,8 @@ public class Totodile extends AbstractFriend {
       setMeleeAnimation(6,8);
       setFaceSprite(faces[0][2]);
       setActualEvolution(2);
-      setVariables(120);
+      setMaxHealth(100);
+      setMaxMagic(100);
     }
   }
   
