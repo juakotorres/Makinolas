@@ -16,7 +16,7 @@ public class OranBerry extends Item {
 
     @Override
     public void use(Hero hero) {
-        hero.getFriend().setVariables(hero.getHealth()+10);
+        hero.getFriend().setHealth(hero.getHealth()+10);
     }
 
     @Override

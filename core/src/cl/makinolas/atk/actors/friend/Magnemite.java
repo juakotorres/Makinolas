@@ -9,26 +9,26 @@ import cl.makinolas.atk.actors.Monsters;
 import cl.makinolas.atk.actors.attacks.Attacks;
 import cl.makinolas.atk.actors.attacks.ThunderBolt;
 
-public class Pichu extends AbstractFriend {
+public class Magnemite extends AbstractFriend {
   
   private TextureRegion[][] faces;
   
-  public Pichu() {
-    faces = new TextureRegion(new Texture(Gdx.files.internal("Actors/Pichu_faces.png"))).split(40,40);
-    setTexture(new TextureRegion(new Texture(Gdx.files.internal("Actors/Pichu.png"))));
-    setAnimations(new int[]{26,28},
-                  new int[][]{new int[]{0,4},new int[]{0,5}},
-                  new int[][]{new int[]{0,3}});
-    setMeleeAnimation(2,2);
+  public Magnemite() {
+    faces = new TextureRegion(new Texture(Gdx.files.internal("Actors/Magnemite_faces.png"))).split(40,40);
+    setTexture(new TextureRegion(new Texture(Gdx.files.internal("Actors/Magnemite.png"))));
+    setCutSprites(20,22);
+    setWalkAnimation(1,2,3,2);
+    setHurtAnimation(0);
+    setMeleeAnimation(4,4);
     setFaceSprite(faces[0][0]);
-    initLevel(5);
+    initLevel(10);
     initDead();
     setActualEvolution(0);
     setMaxHealth(30);
     setMaxMagic(100);
   }
   
-  public Pichu(float level){
+  public Magnemite(float level){
     this();
     initLevel(level);
   }
@@ -36,31 +36,33 @@ public class Pichu extends AbstractFriend {
   @Override
   protected void initLevel(float level){
    this.level = new Level(level);
-   new Evolution(this.level, 10, 1);
+   new Evolution(this.level, 22, 1);
+   new Evolution(this.level, 45, 2);
   }
   
   @Override
   protected void evolve(int numberOfLevel){
     if (numberOfLevel == 1 && getActualEvolution() < 1){
-      setTexture(new TextureRegion(new Texture(Gdx.files.internal("Actors/Pikachu.png"))));
-      setAnimations(new int[]{31,25},
-          new int[][]{new int[]{0,3},new int[]{0,4},new int[]{0,5},new int[]{0,4}},
-          new int[][]{new int[]{0,0}});
-      setMeleeAnimation(1,2);
+      setTexture(new TextureRegion(new Texture(Gdx.files.internal("Actors/Magneton.png"))));
+      setCutSprites(29,32);
+      setWalkAnimation(1,2,3,2);
+      setHurtAnimation(0);
+      setMeleeAnimation(4,4);
       setFaceSprite(faces[0][1]);
       setActualEvolution(1);
-      setMaxHealth(50);
+      setMaxHealth(60);
       setMaxMagic(100);
     } else if (numberOfLevel == 2 && getActualEvolution() < 2){
-      setTexture(new TextureRegion(new Texture(Gdx.files.internal("Actors/Raichu.png"))));
-      setAnimations(new int[]{34,30},
-          new int[][]{new int[]{0,1},new int[]{0,2},new int[]{0,3},new int[]{0,2}},
-          new int[][]{new int[]{0,0}});
+      setTexture(new TextureRegion(new Texture(Gdx.files.internal("Actors/Magnezone.png"))));
+      setCutSprites(31,30);
+      setWalkAnimation(1,2,3,2);
+      setHurtAnimation(0);
       setMeleeAnimation(4,4);
       setFaceSprite(faces[0][2]);
       setActualEvolution(2);
       setMaxHealth(80);
       setMaxMagic(100);
+      
     }
   }
   
@@ -68,6 +70,5 @@ public class Pichu extends AbstractFriend {
   public Attacks getFriendAttack(World myWorld, float x , float y, boolean facingRight, Monsters source){
     return new ThunderBolt(myWorld, x, y, facingRight, source);
   }
-  
   
 }

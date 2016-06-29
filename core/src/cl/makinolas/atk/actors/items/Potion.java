@@ -16,7 +16,7 @@ public class Potion extends Item {
 
     @Override
     public void use(Hero hero) {
-        hero.getFriend().setVariables(hero.getHealth()+30);
+        hero.getFriend().setHealth(hero.getHealth()+30);
     }
 
     @Override

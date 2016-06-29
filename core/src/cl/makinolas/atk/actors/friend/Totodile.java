@@ -3,6 +3,11 @@ package cl.makinolas.atk.actors.friend;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
+import com.badlogic.gdx.physics.box2d.World;
+
+import cl.makinolas.atk.actors.Monsters;
+import cl.makinolas.atk.actors.attacks.Attacks;
+import cl.makinolas.atk.actors.attacks.Bubble;
 
 public class Totodile extends AbstractFriend {
   
@@ -19,7 +24,8 @@ public class Totodile extends AbstractFriend {
     initLevel(5);
     initDead();
     setActualEvolution(0);
-    setVariables(30);
+    setMaxHealth(30);
+    setMaxMagic(100);
   }
   
   public Totodile(float level){
@@ -44,7 +50,8 @@ public class Totodile extends AbstractFriend {
       setMeleeAnimation(6,8);
       setFaceSprite(faces[0][1]);
       setActualEvolution(1);
-      setVariables(60);
+      setMaxHealth(60);
+      setMaxMagic(100);
     } else if (numberOfLevel == 2 && getActualEvolution() < 2){
       setTexture(new TextureRegion(new Texture(Gdx.files.internal("Actors/Feraligatr.png"))));
       setAnimations(new int[]{38,37},
@@ -53,8 +60,14 @@ public class Totodile extends AbstractFriend {
       setMeleeAnimation(6,8);
       setFaceSprite(faces[0][2]);
       setActualEvolution(2);
-      setVariables(120);
+      setMaxHealth(100);
+      setMaxMagic(100);
     }
+  }
+  
+  @Override
+  public Attacks getFriendAttack(World myWorld, float x , float y, boolean facingRight, Monsters source){
+    return new Bubble(myWorld, x, y, facingRight, source);
   }
   
 }

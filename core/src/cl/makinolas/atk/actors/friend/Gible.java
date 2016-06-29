@@ -19,7 +19,8 @@ public class Gible extends AbstractFriend {
     initLevel(5);
     initDead();
     setActualEvolution(0);
-    setVariables(30);
+    setMaxHealth(30);
+    setMaxMagic(100);
   }
 
   public Gible(float level){
@@ -44,7 +45,8 @@ public class Gible extends AbstractFriend {
       setMeleeAnimation(7,9);
       setFaceSprite(faces[0][1]);
       setActualEvolution(1);
-      setVariables(70);
+      setMaxHealth(70);
+      setMaxMagic(100);
     } else if (numberOfLevel == 2 && getActualEvolution() < 2){
       setTexture(new TextureRegion(new Texture(Gdx.files.internal("Actors/Garchomp.png"))));
       setAnimations(new int[]{43,40},
@@ -53,7 +55,8 @@ public class Gible extends AbstractFriend {
       setMeleeAnimation(7,10);
       setFaceSprite(faces[0][2]);
       setActualEvolution(2);
-      setVariables(140);
+      setMaxHealth(140);
+      setMaxMagic(100);
     }
   }
   

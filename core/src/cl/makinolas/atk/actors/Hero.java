@@ -1,17 +1,18 @@
 package cl.makinolas.atk.actors;
 
-import cl.makinolas.atk.actors.attacks.Attacks;
-import cl.makinolas.atk.actors.friend.Charmander;
-import cl.makinolas.atk.actors.friend.Friend;
-import cl.makinolas.atk.actors.friend.Pichu;
-import cl.makinolas.atk.actors.items.Inventory;
-import cl.makinolas.atk.stages.GameStage;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.Body;
 import com.badlogic.gdx.physics.box2d.BodyDef;
 import com.badlogic.gdx.physics.box2d.PolygonShape;
 import com.badlogic.gdx.physics.box2d.World;
 import com.badlogic.gdx.utils.Array;
+
+import cl.makinolas.atk.actors.attacks.Attacks;
+import cl.makinolas.atk.actors.friend.Friend;
+import cl.makinolas.atk.actors.friend.Totodile;
+import cl.makinolas.atk.actors.friend.Zubat;
+import cl.makinolas.atk.actors.items.Inventory;
+import cl.makinolas.atk.stages.GameStage;
 
 public class Hero extends Monsters {
 
@@ -55,8 +56,8 @@ public class Hero extends Monsters {
 
     // Set team for player;
     allies = new Array<Friend>();
-    addAllie(new Pichu());
-    addAllie(new Charmander());
+    addAllie(new Totodile());
+    addAllie(new Zubat());
     
     // Set actual allie
     actualFriend = allies.get(0);
@@ -74,7 +75,6 @@ public class Hero extends Monsters {
   }
   
   private void addAllie(Friend friend) {
-    friend.setVariables(100);
     allies.add(friend);
   }
 
@@ -210,7 +210,7 @@ public class Hero extends Monsters {
   }
   
   private void setNewAllie(int index){
-    actualFriend.setVariables(health);
+    actualFriend.setVariables(health, magic);
     allies.set(indexFriend, actualFriend);
     actualFriend = allies.get(index);
     health = actualFriend.getHealth();
