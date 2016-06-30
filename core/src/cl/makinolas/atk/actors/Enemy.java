@@ -14,13 +14,11 @@ import cl.makinolas.atk.GameConstants;
 import cl.makinolas.atk.actors.attacks.Attacks;
 
 public class Enemy extends Monsters {
-
-
+  
   private float vx;
   private int health;
   private HBar healthBar;
   private boolean isDamaged;
-  private boolean isAttacking;
   private int width;
   private int height;
   private int meleeDamage;
@@ -151,11 +149,7 @@ public class Enemy extends Monsters {
   @Override
   public void interactWithHero(Hero hero){
     interactWithHero2(hero);
-    hero.interactWithEnemy2(this);
-  }
-
-  public void interactWithHero2(Hero hero) {
-    meleeAttack(hero, isAttacking);   
+    hero.interactWithMonster(this);
   }
   
   private float getBodySize(int size){

@@ -4,6 +4,7 @@ import com.badlogic.gdx.physics.box2d.Body;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 
 import cl.makinolas.atk.actors.attacks.Attacks;
+import cl.makinolas.atk.actors.bosses.IBoss;
 
 public abstract class GameActor extends Actor{
   
@@ -49,5 +50,7 @@ public abstract class GameActor extends Actor{
   public void interactWithPlatform(Platform platform) {}
 
   public void interactWithPortal(Portal portal) {}
+
+  public void interactWithBoss(IBoss boss) {  }
   
 }

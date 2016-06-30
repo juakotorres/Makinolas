@@ -22,22 +22,19 @@ import cl.makinolas.atk.actors.Background;
 import cl.makinolas.atk.actors.GameActor;
 import cl.makinolas.atk.actors.Hero;
 import cl.makinolas.atk.actors.InputController;
-import cl.makinolas.atk.actors.Portal;
-import cl.makinolas.atk.actors.friend.Eevee;
+import cl.makinolas.atk.actors.bosses.OldMewtwo;
 import cl.makinolas.atk.actors.ui.MainBar;
 import cl.makinolas.atk.actors.ui.MobileGroup;
 import cl.makinolas.atk.screen.GameScreen;
 import cl.makinolas.atk.utils.LevelReader;
 
-public class GameStage extends AbstractStage implements ContactListener {
-
-  public static String levelName = "level1";
+public class BossStage extends AbstractStage implements ContactListener {
+  
+  public static String levelName = "bossstage1";
 
   private World suMundo;
   private float accumulator;
   private final float frameTime = 1 / 300f;
-  private final float enemySpawn = 3f;
-  private float nextEnemyAt;
   private Array<GameActor> gameActors;
   private Group ground, mons, ui;
   private GameScreen myScreen;
@@ -46,11 +43,10 @@ public class GameStage extends AbstractStage implements ContactListener {
 
   private OrthographicCamera camera;
   private Box2DDebugRenderer renderer;
-  
-  public GameStage(Viewport v, GameScreen actualScreen, Game myGame){
+
+  public BossStage(Viewport v, GameScreen actualScreen, Game myGame){
     super(v);
     myScreen = actualScreen;
-    nextEnemyAt = enemySpawn;
     gameActors = new Array<GameActor>();
     suMundo = new World(new Vector2(0, -10), true);
     suMundo.setContactListener(this);
@@ -63,23 +59,26 @@ public class GameStage extends AbstractStage implements ContactListener {
     addActor(mons);
     ui = new Group();
     addActor(ui);
-
+    
     MobileGroup group = new MobileGroup(Gdx.app.getType() == Application.ApplicationType.Android);
     Gdx.input.setInputProcessor(this);
-    Portal portal = new Portal(suMundo, new Vector2(10, 3), myGame);
-    addGameActor(portal);
     Hero hero =  new Hero(suMundo);
     createPlatforms();
-    addGameActor(hero); 
+    
+    GameActor enemy = new OldMewtwo(suMundo);
+    addGameActor(enemy);
+    
+    addGameActor(hero);
     bar = new MainBar(hero);
     ui.addActor(bar);
-    ui.addActor(group);    
-    
+    ui.addActor(group);
+
     addListener(new InputController(hero,group));
     accumulator = 0;
     renderer = new Box2DDebugRenderer();
     setupCamera();
   }
+  
 
   public void addGameActor(GameActor actor) {
     mons.addActor(actor);
@@ -87,10 +86,10 @@ public class GameStage extends AbstractStage implements ContactListener {
   }
 
   private void createPlatforms() {
-    LevelReader reader = LevelReader.getInstance();   
+    LevelReader reader = LevelReader.getInstance();
     reader.setWorld(suMundo);
     try {
-      Array<GameActor> platforms = reader.loadLevel(GameStage.levelName);
+      Array<GameActor> platforms = reader.loadLevel(BossStage.levelName);
       for(GameActor p : platforms)
         ground.addActor(p);
     } catch (IOException e) {
@@ -105,8 +104,8 @@ public class GameStage extends AbstractStage implements ContactListener {
   }
   
   public void changeCamera(float x, float y){
-    camera.position.set(x, y, 0);
-    getCamera().position.set(x * 20, y * 20, 0);
+    camera.position.set(14, 7, 0);
+    getCamera().position.set(14 * 20, 7* 20, 0);
     getCamera().update();    
     camera.update();
   }
@@ -130,19 +129,11 @@ public class GameStage extends AbstractStage implements ContactListener {
 
     accumulator += delta;
     elapsedTime += delta;
-    nextEnemyAt -= delta;
     
     while(accumulator >= frameTime){
       suMundo.step(frameTime, 6, 2);
       accumulator -= frameTime;
     }
-    
-    if(nextEnemyAt < 0){
-       GameActor enemy = (new Eevee()).returnEnemy(suMundo, (int) getCamera().position.x);
-       addGameActor(enemy);
-       nextEnemyAt = enemySpawn;
-    }
-    
     
   }
   
@@ -181,6 +172,4 @@ public class GameStage extends AbstractStage implements ContactListener {
   public void postSolve(Contact contact, ContactImpulse impulse) {
     
   }
-  
-  
 }

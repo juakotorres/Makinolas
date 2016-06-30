@@ -5,6 +5,7 @@ import cl.makinolas.atk.actors.attacks.MeleeAttack;
 
 public abstract class Monsters extends AnimatedActor {
   
+  protected boolean isAttacking;
   public abstract void damage(int damage, Attacks inflictor);
   public abstract int getMeleeDamage();
   
@@ -22,5 +23,8 @@ public abstract class Monsters extends AnimatedActor {
   
   public abstract float getMonsterWidth();
   public abstract float getMonsterHeight();
+  public void interactWithHero2(Hero hero) {
+    meleeAttack(hero, isAttacking);       
+  }
 }
 

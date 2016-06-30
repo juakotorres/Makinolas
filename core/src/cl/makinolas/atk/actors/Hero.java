@@ -8,11 +8,12 @@ import com.badlogic.gdx.physics.box2d.World;
 import com.badlogic.gdx.utils.Array;
 
 import cl.makinolas.atk.actors.attacks.Attacks;
+import cl.makinolas.atk.actors.bosses.IBoss;
 import cl.makinolas.atk.actors.friend.Friend;
 import cl.makinolas.atk.actors.friend.Totodile;
 import cl.makinolas.atk.actors.friend.Zubat;
 import cl.makinolas.atk.actors.items.Inventory;
-import cl.makinolas.atk.stages.GameStage;
+import cl.makinolas.atk.stages.AbstractStage;
 
 public class Hero extends Monsters {
 
@@ -83,7 +84,7 @@ public class Hero extends Monsters {
     checkChangingAllie();
     myBody.setLinearVelocity(vx, myBody.getLinearVelocity().y);
     
-    ((GameStage) getStage()).changeCamera(myBody.getPosition().x , myBody.getPosition().y );
+    ((AbstractStage) getStage()).changeCamera(myBody.getPosition().x , myBody.getPosition().y );
     
     checkDamage(delta);
     checkMelee(delta);
@@ -261,13 +262,24 @@ public class Hero extends Monsters {
   }
   
   @Override
+  public void interactWithBoss(IBoss boss){
+    interactWithMonster(boss.getBoss());
+    boss.getBoss().interactWithHero2(this);
+  }
+  
+  @Override
   public void interactWithEnemy(Enemy enemy){
-    interactWithEnemy2(enemy);
+    interactWithMonster(enemy);
     enemy.interactWithHero2(this);
   }
 
-  public void interactWithEnemy2(Enemy enemy) {
-    meleeAttack(enemy, isAttacking);  
+  public void interactWithMonster(Monsters monster) {
+    meleeAttack(monster, isAttacking);  
+  }
+  
+  @Override
+  public void interactWithPortal(Portal portal){
+    portal.nextStage();
   }
 
   @Override
@@ -303,7 +315,7 @@ public class Hero extends Monsters {
     if(magic>=100){
       magic -= 100;
       GameActor fireball = actualFriend.getFriendAttack(myWorld, myBody.getPosition().x,myBody.getPosition().y,isFacingRight, this);
-      ((GameStage) getStage()).addGameActor(fireball);
+      ((AbstractStage) getStage()).addGameActor(fireball);
     }
   }
 

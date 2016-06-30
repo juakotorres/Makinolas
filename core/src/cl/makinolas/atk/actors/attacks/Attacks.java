@@ -6,6 +6,7 @@ import cl.makinolas.atk.actors.GameActor;
 import cl.makinolas.atk.actors.Hero;
 import cl.makinolas.atk.actors.Monsters;
 import cl.makinolas.atk.actors.Platform;
+import cl.makinolas.atk.actors.bosses.IBoss;
 
 public abstract class Attacks extends AnimatedActor {
   public abstract int getAttackDamage();
@@ -31,6 +32,11 @@ public abstract class Attacks extends AnimatedActor {
   @Override
   public void interactWithEnemy(Enemy enemy){
     enemy.damage(this.getAttackDamage(), this);
+  }
+  
+  @Override
+  public void interactWithBoss(IBoss boss){
+    boss.getBoss().damage(this.getAttackDamage(), this);
   }
   
   @Override
