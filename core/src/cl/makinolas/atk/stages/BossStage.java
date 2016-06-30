@@ -65,7 +65,7 @@ public class BossStage extends AbstractStage implements ContactListener {
     Hero hero =  new Hero(suMundo);
     createPlatforms();
     
-    GameActor enemy = new OldMewtwo(suMundo);
+    GameActor enemy = new OldMewtwo(suMundo, hero);
     addGameActor(enemy);
     
     addGameActor(hero);

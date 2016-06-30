@@ -87,6 +87,6 @@ public class Platform extends GameActor {
   
   @Override
   public void interactWithAttack(Attacks attack){
-    attack.setDead();
+    attack.interactWithPlatform(this);
   }
 }

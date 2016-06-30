@@ -66,7 +66,9 @@ public class GameStage extends AbstractStage implements ContactListener {
 
     MobileGroup group = new MobileGroup(Gdx.app.getType() == Application.ApplicationType.Android);
     Gdx.input.setInputProcessor(this);
-    Portal portal = new Portal(suMundo, new Vector2(10, 3), myGame);
+    Portal portal = new Portal(suMundo, new Vector2(49, -6), myGame);
+    /* for easy entering boss 1
+    Portal portal = new Portal(suMundo, new Vector2(10, 3), myGame);*/
     addGameActor(portal);
     Hero hero =  new Hero(suMundo);
     createPlatforms();

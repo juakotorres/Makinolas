@@ -16,23 +16,35 @@ public abstract class Boss extends Monsters implements IBoss{
   protected int health;
   protected HBar healthBar;
   protected boolean isDamaged;
+  protected boolean isLaunchingAttack;
   protected int width;
   protected int height;
   protected boolean dead;
   protected int walkAnimation;
   protected int hurtAnimation;
   protected int attackAnimation;
+  protected int secondaryAttackAnimation;
   protected final float hurtTime = 1 / 4f;
   protected float accumulator;
+  protected float accumulatorAttack = 0;
   
   
   @Override
   public void act(float delta){         
-    if(isDamaged){
+    if(isDamaged && !isLaunchingAttack){
       accumulator += delta;
       if(accumulator > hurtTime){
         isDamaged = false;
         changeAnimation(walkAnimation);
+        accumulator = 0;
+      }
+    } else if (isLaunchingAttack){
+      accumulatorAttack += delta;
+      if(accumulatorAttack > hurtTime){
+        isLaunchingAttack = false;
+        isDamaged = false;
+        changeAnimation(walkAnimation);
+        accumulatorAttack = 0;
         accumulator = 0;
       }
     }
@@ -49,13 +61,15 @@ public abstract class Boss extends Monsters implements IBoss{
   
   @Override
   public void damage(int damage, Attacks inflictor) {
-    health -= damage;   
-    isDamaged = true;
-    changeAnimation(hurtAnimation);
-    inflictor.setDead();
-    healthBar.setCurrent(health);
-    if(health <= 0){
-      dead = true;
+    if(inflictor.getSource().isHero()){
+      health -= damage;   
+      isDamaged = true;
+      changeAnimation(hurtAnimation);
+      inflictor.setDead();
+      healthBar.setCurrent(health);
+      if(health <= 0){
+        dead = true;
+      }
     }
   }
   
