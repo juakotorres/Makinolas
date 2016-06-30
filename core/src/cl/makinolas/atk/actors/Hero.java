@@ -1,18 +1,20 @@
 package cl.makinolas.atk.actors;
 
+import cl.makinolas.atk.GameConstants;
+import cl.makinolas.atk.actors.attacks.Attacks;
+import cl.makinolas.atk.actors.friend.Friend;
+import cl.makinolas.atk.actors.friend.Totodile;
+import cl.makinolas.atk.actors.friend.Zubat;
+import cl.makinolas.atk.actors.items.Ball;
+import cl.makinolas.atk.actors.items.BallActor;
+import cl.makinolas.atk.actors.items.Inventory;
+import cl.makinolas.atk.stages.GameStage;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.Body;
 import com.badlogic.gdx.physics.box2d.BodyDef;
 import com.badlogic.gdx.physics.box2d.PolygonShape;
 import com.badlogic.gdx.physics.box2d.World;
 import com.badlogic.gdx.utils.Array;
-
-import cl.makinolas.atk.actors.attacks.Attacks;
-import cl.makinolas.atk.actors.friend.Friend;
-import cl.makinolas.atk.actors.friend.Totodile;
-import cl.makinolas.atk.actors.friend.Zubat;
-import cl.makinolas.atk.actors.items.Inventory;
-import cl.makinolas.atk.stages.GameStage;
 
 public class Hero extends Monsters {
 
@@ -38,6 +40,7 @@ public class Hero extends Monsters {
   private BodyDef myBodyDefinition;
   private Inventory inventory;
   private int vx;
+  private boolean inertia;
 
   public Hero(World myWorld) {
     
@@ -53,6 +56,7 @@ public class Hero extends Monsters {
     accumulator = 0;
     inventory = new Inventory(this);
     vx = 0;
+    inertia = false;
 
     // Set team for player;
     allies = new Array<Friend>();
@@ -285,10 +289,12 @@ public class Hero extends Monsters {
     return inventory;
   }
 
-  public void moveHorizontal(int i) {
+  public void moveHorizontal(int i, boolean restitutive) {
+    if(restitutive && !inertia) return;
     vx += 7*i;
     if(vx!=0)
       isFacingRight = (vx>0);
+    inertia = true;
   }
 
 
@@ -321,4 +327,10 @@ public class Hero extends Monsters {
     }
   }
 
+  public void throwBall(Ball.BallType type) {
+    BallActor ball = new BallActor(type, myWorld, myBody.getPosition().x + ((isFacingRight)?0.6f:-0.6f)*actualFriend.getWidth()/ GameConstants.WORLD_FACTOR,
+            myBody.getPosition().y);
+    ball.setThrowImpulse((isFacingRight)?1:-1);
+    ((GameStage) getStage()).addGameActor(ball);
+  }
 }

@@ -22,7 +22,7 @@ public class ImageCuad extends Actor {
     }
 
     public ImageCuad(TextureRegion reg, String t, BitmapFont f){
-        this(reg,t,"",f);
+        this(reg,"",t,f);
     }
 
 
