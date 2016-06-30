@@ -40,6 +40,7 @@ public class Hero extends Monsters {
   private BodyDef myBodyDefinition;
   private Inventory inventory;
   private int vx;
+  private boolean inertia;
 
   public Hero(World myWorld) {
     
@@ -55,6 +56,7 @@ public class Hero extends Monsters {
     accumulator = 0;
     inventory = new Inventory(this);
     vx = 0;
+    inertia = false;
 
     // Set team for player;
     allies = new Array<Friend>();
@@ -288,10 +290,12 @@ public class Hero extends Monsters {
     return inventory;
   }
 
-  public void moveHorizontal(int i) {
+  public void moveHorizontal(int i, boolean restitutive) {
+    if(restitutive && !inertia) return;
     vx += 7*i;
     if(vx!=0)
       isFacingRight = (vx>0);
+    inertia = true;
   }
 
 

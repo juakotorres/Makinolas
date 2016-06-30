@@ -60,8 +60,10 @@ public class MainBar extends Group{
         friend.draw(batch, 1);
         //ImageCuads
         itemA.setPosition(cx+540,cy+6);
+        itemA.setRightLabel(""+hero.getInventory().getSelItem1().getQuantity());
         itemA.draw(batch,1);
         itemS.setPosition(cx+580,cy+6);
+        itemS.setRightLabel(""+hero.getInventory().getSelItem2().getQuantity());
         itemS.draw(batch,1);
         //Rectangles (should be always at final)
         batch.end();

@@ -13,7 +13,7 @@ public class Inventory{
     public Inventory(Hero h){
         items = new HashMap<String, ItemBox>();
         hero = h;
-        addItem(new MaxPotion());
+        addItem(new Potion());
         addItem(new Ball(Ball.BallType.POKEBALL));
         addItem(new Ball(Ball.BallType.POKEBALL));
         addItem(new Ball(Ball.BallType.POKEBALL));
