@@ -1,6 +1,5 @@
 package cl.makinolas.atk.screen;
 
-import cl.makinolas.atk.stages.MenuStage;
 import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
@@ -11,6 +10,10 @@ import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.utils.viewport.FitViewport;
+
+import cl.makinolas.atk.stages.GameStage;
+import cl.makinolas.atk.stages.Levels;
+import cl.makinolas.atk.stages.MenuStage;
 
 public class MenuScreen implements Screen {
 
@@ -28,7 +31,9 @@ public class MenuScreen implements Screen {
     startButton.addListener(new ClickListener(){
         @Override
         public void clicked(InputEvent event, float x, float y) {
-            myGame.setScreen(new GameScreen(myGame));
+            GameScreen gameScreen = new GameScreen(myGame);
+            gameScreen.setStage(new GameStage(new FitViewport(640,480), gameScreen, myGame, Levels.LEVEL1));
+            myGame.setScreen(gameScreen);
         }
     });
     TextButton loadButton = new TextButton("Load Game",  new Skin(Gdx.files.internal("Data/uiskin.json")));

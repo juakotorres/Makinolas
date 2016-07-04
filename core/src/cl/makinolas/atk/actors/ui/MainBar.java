@@ -1,8 +1,5 @@
 package cl.makinolas.atk.actors.ui;
 
-import cl.makinolas.atk.actors.HBar;
-import cl.makinolas.atk.actors.Hero;
-import cl.makinolas.atk.stages.GameStage;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.Texture;
@@ -12,6 +9,11 @@ import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.scenes.scene2d.Group;
+
+import cl.makinolas.atk.actors.HBar;
+import cl.makinolas.atk.actors.Hero;
+import cl.makinolas.atk.stages.AbstractStage;
+import cl.makinolas.atk.stages.GameStage;
 
 public class MainBar extends Group{
 
@@ -52,8 +54,8 @@ public class MainBar extends Group{
         //Labels
         font.draw(batch,"HP",cx+18,cy+36);
         font.draw(batch,"Magic",cx+4,cy+20);
-        font.draw(batch,GameStage.levelName,cx+220,cy+38);
-        font.draw(batch, ""+((int) GameStage.elapsedTime),cx+230,cy+20);
+        font.draw(batch,AbstractStage.levelName ,cx+220,cy+38);
+        font.draw(batch, ""+((int) AbstractStage.elapsedTime),cx+230,cy+20);
         //Current Friend Sprite
         friend.setPosition(cx+270,cy+2);
         friend.setTexture(hero.getFriend().getFriendFaceSprite());

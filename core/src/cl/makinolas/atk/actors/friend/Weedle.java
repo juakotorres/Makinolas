@@ -25,16 +25,16 @@ public class Weedle extends AbstractFriend {
     initDead();
     setActualEvolution(0);
     setMaxHealth(30);
-    setMaxMagic(100);
+    setMaxMagic(1000);
   }
   
-  public Weedle(float level){
+  public Weedle(int level){
     this();
     initLevel(level);
   }
   
   @Override
-  protected void initLevel(float level){
+  protected void initLevel(int level){
    this.level = new Level(level);
    new Evolution(this.level, 6, 1);
    new Evolution(this.level, 10, 2);

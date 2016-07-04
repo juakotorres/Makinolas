@@ -1,5 +1,6 @@
 package cl.makinolas.atk.actors;
 
+import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
@@ -9,15 +10,22 @@ import com.badlogic.gdx.physics.box2d.BodyDef;
 import com.badlogic.gdx.physics.box2d.FixtureDef;
 import com.badlogic.gdx.physics.box2d.PolygonShape;
 import com.badlogic.gdx.physics.box2d.World;
+import com.badlogic.gdx.utils.viewport.FitViewport;
+
+import cl.makinolas.atk.screen.GameScreen;
+import cl.makinolas.atk.stages.AbstractStage;
+import cl.makinolas.atk.stages.BossStage;
+import cl.makinolas.atk.stages.GameStage;
+import cl.makinolas.atk.stages.Levels;
 
 public class Portal extends AnimatedActor{
   
   private BodyDef myBodyDefinition; 
   private static final float TILE_FACTOR = 1.8f;
+  private Game myGame;
   
-  public Portal(World myWorld,Vector2 position){
-    this(myWorld, position.x, position.y);
-    
+  public Portal(World myWorld,Vector2 position, Game game){
+    this(myWorld, position.x, position.y, game);
   }
   
   private void setAnimation() {
@@ -25,8 +33,9 @@ public class Portal extends AnimatedActor{
     addAnimation(0.2f, new int[]{0, 0}, new int[]{0, 1}, new int[]{0, 2},new int[]{0, 3});
   }
 
-  public Portal(World myWorld, float xPosition, float yPosition){
-
+  public Portal(World myWorld, float xPosition, float yPosition, Game game){
+    
+    this.myGame = game;
     myBodyDefinition = new BodyDef();
     myBodyDefinition.type = BodyDef.BodyType.DynamicBody;
     myBodyDefinition.position.set(xPosition*TILE_FACTOR , yPosition*TILE_FACTOR);
@@ -61,7 +70,34 @@ public class Portal extends AnimatedActor{
   @Override
   public void interact(GameActor actor2) {
     actor2.interactWithPortal(this);
+  }
+  
+  @Override
+  public void interactWithHero(Hero hero){
+    nextStage();
+  }
+
+  public void nextStage(){
+    AbstractStage myStage = ((AbstractStage) getStage());
+    Levels actualLevel = myStage.getLevel();
+    GameScreen gameScreen = new GameScreen(myGame);
     
+    int numberOfLevel = actualLevel.ordinal() + 1;
+   
+    if(numberOfLevel > Levels.values().length - 1){
+      myStage.changeDeadMenu();
+      return;
+    }
+    
+    Levels nextLevel = Levels.values()[numberOfLevel];
+       
+    if(nextLevel.bossLevel){
+      gameScreen.setStage(new BossStage(new FitViewport(640,480), gameScreen, myGame, nextLevel));
+    } else {
+      gameScreen.setStage(new GameStage(new FitViewport(640,480), gameScreen, myGame, nextLevel));
+    }
+    
+    myGame.setScreen(gameScreen);
   }
   
   

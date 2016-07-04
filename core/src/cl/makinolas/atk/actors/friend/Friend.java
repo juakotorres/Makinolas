@@ -9,7 +9,6 @@ import cl.makinolas.atk.actors.attacks.Attacks;
 
 public interface Friend {  
   public void setVariables(int health, int magic);
-  public void setLevel(float level);
   public void setHealth(int health);
   public int getHealth(); 
   public int getMaxHealth();
@@ -26,7 +25,9 @@ public interface Friend {
   public TextureRegion getTexture();
   public int getWidth();
   public int getHeight();
-  public float getLevel();
+  public int getLevel();
+  public void gainExperience(int wildLevel);
+  public double thisLevelExp();
   public TextureRegion getFriendFaceSprite();
   public Enemy returnEnemy(World myWorld, int heroPosition);
 }

@@ -14,13 +14,11 @@ import cl.makinolas.atk.GameConstants;
 import cl.makinolas.atk.actors.attacks.Attacks;
 
 public class Enemy extends Monsters {
-
-
+  
   private float vx;
   private int health;
   private HBar healthBar;
   private boolean isDamaged;
-  private boolean isAttacking;
   private int width;
   private int height;
   private int meleeDamage;
@@ -29,6 +27,7 @@ public class Enemy extends Monsters {
   private int hurtAnimation;
   private final float hurtTime = 1 / 4f;
   private float accumulator;
+  private int level;
   
   /**
    * Constructor for Enemy
@@ -40,7 +39,7 @@ public class Enemy extends Monsters {
   public Enemy(World myWorld, TextureRegion enemyTexture,
                int[] cutSprite, int[][] numberOfSprite
                , int[][] numberOfHurtSprites, int givenHealth
-               , int heroPosition) {
+               , int heroPosition, int level) {
     
     health = givenHealth;
     width = cutSprite[0];
@@ -51,6 +50,7 @@ public class Enemy extends Monsters {
     dead = false;
     meleeDamage = 10;
     accumulator = 0;
+    this.level = level;
     int actualPosition = heroPosition / 20;
     int randomNum = actualPosition  + (int)(Math.random() * 16) - 7;
     
@@ -120,14 +120,21 @@ public class Enemy extends Monsters {
     health -= damage;   
     isDamaged = true;
     changeAnimation(hurtAnimation);
+    Monsters source = inflictor.getSource();
     inflictor.setDead();
     healthBar.setCurrent(health);
     if(health <= 0){
+      source.gainExperience(getLevel());
       dead = true;
+      
     }
 
   }
   
+  private int getLevel() {
+    return level;
+  }
+
   @Override
   public int getMeleeDamage(){
     return meleeDamage;
@@ -151,11 +158,7 @@ public class Enemy extends Monsters {
   @Override
   public void interactWithHero(Hero hero){
     interactWithHero2(hero);
-    hero.interactWithEnemy2(this);
-  }
-
-  public void interactWithHero2(Hero hero) {
-    meleeAttack(hero, isAttacking);   
+    hero.interactWithMonster(this);
   }
   
   private float getBodySize(int size){
@@ -171,5 +174,8 @@ public class Enemy extends Monsters {
   public float getMonsterHeight() {
     return getBodySize(height);
   }
+
+  @Override
+  protected void gainExp(int level) {}
   
 }

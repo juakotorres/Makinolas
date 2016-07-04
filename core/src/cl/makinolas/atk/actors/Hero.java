@@ -1,20 +1,24 @@
 package cl.makinolas.atk.actors;
 
-import cl.makinolas.atk.GameConstants;
-import cl.makinolas.atk.actors.attacks.Attacks;
-import cl.makinolas.atk.actors.friend.Friend;
-import cl.makinolas.atk.actors.friend.Totodile;
-import cl.makinolas.atk.actors.friend.Zubat;
-import cl.makinolas.atk.actors.items.Ball;
-import cl.makinolas.atk.actors.items.BallActor;
-import cl.makinolas.atk.actors.items.Inventory;
-import cl.makinolas.atk.stages.GameStage;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.Body;
 import com.badlogic.gdx.physics.box2d.BodyDef;
 import com.badlogic.gdx.physics.box2d.PolygonShape;
 import com.badlogic.gdx.physics.box2d.World;
 import com.badlogic.gdx.utils.Array;
+
+import cl.makinolas.atk.GameConstants;
+import cl.makinolas.atk.actors.attacks.Attacks;
+import cl.makinolas.atk.actors.bosses.IBoss;
+import cl.makinolas.atk.actors.friend.Bagon;
+import cl.makinolas.atk.actors.friend.Friend;
+import cl.makinolas.atk.actors.friend.Weedle;
+import cl.makinolas.atk.actors.items.Ball;
+import cl.makinolas.atk.actors.items.BallActor;
+import cl.makinolas.atk.actors.items.Inventory;
+import cl.makinolas.atk.stages.AbstractStage;
+import cl.makinolas.atk.stages.GameStage;
+
 
 public class Hero extends Monsters {
 
@@ -46,8 +50,6 @@ public class Hero extends Monsters {
     
     isJumping = false;
     isFacingRight = false;
-    health = 100;
-    magic = 1000;
     isDamaged = false;
     isAttacking = false;
     dead = false;
@@ -60,12 +62,16 @@ public class Hero extends Monsters {
 
     // Set team for player;
     allies = new Array<Friend>();
-    addAllie(new Totodile());
-    addAllie(new Zubat());
+    addAllie(new Bagon());
+    addAllie(new Weedle());
+    
     
     // Set actual allie
-    actualFriend = allies.get(0);
-    indexFriend = 0;
+    actualFriend = allies.get(1);
+    indexFriend = 1;
+    
+    health = actualFriend.getHealth();
+    magic = actualFriend.getMagic();
     // define player world
     this.myWorld = myWorld;
     // Set correct collider.
@@ -87,7 +93,7 @@ public class Hero extends Monsters {
     checkChangingAllie();
     myBody.setLinearVelocity(vx, myBody.getLinearVelocity().y);
     
-    ((GameStage) getStage()).changeCamera(myBody.getPosition().x , myBody.getPosition().y );
+    ((AbstractStage) getStage()).changeCamera(myBody.getPosition().x , myBody.getPosition().y );
     
     checkDamage(delta);
     checkMelee(delta);
@@ -265,13 +271,24 @@ public class Hero extends Monsters {
   }
   
   @Override
+  public void interactWithBoss(IBoss boss){
+    interactWithMonster(boss.getBoss());
+    boss.getBoss().interactWithHero2(this);
+  }
+  
+  @Override
   public void interactWithEnemy(Enemy enemy){
-    interactWithEnemy2(enemy);
+    interactWithMonster(enemy);
     enemy.interactWithHero2(this);
   }
 
-  public void interactWithEnemy2(Enemy enemy) {
-    meleeAttack(enemy, isAttacking);  
+  public void interactWithMonster(Monsters monster) {
+    meleeAttack(monster, isAttacking);  
+  }
+  
+  @Override
+  public void interactWithPortal(Portal portal){
+    portal.nextStage();
   }
 
   @Override
@@ -309,7 +326,7 @@ public class Hero extends Monsters {
     if(magic>=100){
       magic -= 100;
       GameActor fireball = actualFriend.getFriendAttack(myWorld, myBody.getPosition().x,myBody.getPosition().y,isFacingRight, this);
-      ((GameStage) getStage()).addGameActor(fireball);
+      ((AbstractStage) getStage()).addGameActor(fireball);
     }
   }
 
@@ -327,10 +344,16 @@ public class Hero extends Monsters {
     }
   }
 
+  @Override
+  protected void gainExp(int enemyLevel) {
+    actualFriend.gainExperience(enemyLevel);
+  }
+
   public void throwBall(Ball.BallType type) {
     BallActor ball = new BallActor(type, myWorld, myBody.getPosition().x + ((isFacingRight)?0.6f:-0.6f)*actualFriend.getWidth()/ GameConstants.WORLD_FACTOR,
             myBody.getPosition().y);
     ball.setThrowImpulse((isFacingRight)?1:-1);
     ((GameStage) getStage()).addGameActor(ball);
   }
+
 }

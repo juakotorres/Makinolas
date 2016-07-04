@@ -28,13 +28,13 @@ public class Totodile extends AbstractFriend {
     setMaxMagic(100);
   }
   
-  public Totodile(float level){
+  public Totodile(int level){
     this();
     initLevel(level);
   }
   
   @Override
-  protected void initLevel(float level){
+  protected void initLevel(int level){
    this.level = new Level(level);
    new Evolution(this.level, 18, 1);
    new Evolution(this.level, 30, 2);
