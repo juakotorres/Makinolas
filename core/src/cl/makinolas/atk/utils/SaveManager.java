@@ -26,7 +26,9 @@ public class SaveManager {
     public void loadData(String path){
         String encData = Gdx.files.local(path).readString();
         Json base = new Json();
-        save = base.fromJson(SaveInstance.class,cryptor.decrypt(encData));
+        String data = cryptor.decrypt(encData);
+        System.out.println("Loaded:\n"+data);
+        save = base.fromJson(SaveInstance.class,data);
     }
 
 
@@ -34,6 +36,7 @@ public class SaveManager {
         Json base = new Json(JsonWriter.OutputType.javascript);
         String jstr = base.toJson(saved);
         Gdx.files.local(path).writeString(cryptor.encrypt(jstr),false);
+        System.out.println("Saved");
     }
 
 

@@ -9,7 +9,7 @@ public class PhraseCryptor implements Cryptor{
         n = k.length();
         key = new char[n];
         for (int i = 0; i < n; i++) {
-            key[i] = k.charAt(i);
+            key[i] = (char) (k.charAt(i) - '0');
         }
     }
 
@@ -17,7 +17,7 @@ public class PhraseCryptor implements Cryptor{
     public String encrypt(String msg) {
         StringBuilder builder = new StringBuilder();
         for (int i = 0; i < msg.length(); i++) {
-            builder.append(msg.charAt(i)+key[i%n]);
+            builder.append((char)(msg.charAt(i)+key[i%n]));
         }
         return builder.toString();
     }
@@ -26,7 +26,7 @@ public class PhraseCryptor implements Cryptor{
     public String decrypt(String msg) {
         StringBuilder builder = new StringBuilder();
         for (int i = 0; i < msg.length(); i++) {
-            builder.append(msg.charAt(i)-key[i%n]);
+            builder.append((char)(msg.charAt(i)-key[i%n]));
         }
         return builder.toString();
     }

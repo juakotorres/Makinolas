@@ -9,6 +9,8 @@ import cl.makinolas.atk.actors.items.Ball;
 import cl.makinolas.atk.actors.items.BallActor;
 import cl.makinolas.atk.actors.items.Inventory;
 import cl.makinolas.atk.stages.GameStage;
+import cl.makinolas.atk.utils.SaveInstance;
+import cl.makinolas.atk.utils.SaveManager;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.Body;
 import com.badlogic.gdx.physics.box2d.BodyDef;
@@ -71,7 +73,10 @@ public class Hero extends Monsters {
     // Set correct collider.
     myBodyDefinition = new BodyDef();
     myBodyDefinition.type = BodyDef.BodyType.DynamicBody;
-    setSizeCollider(new Vector2(3,4),true);
+    // Load position from saved instance (only for production)
+    SaveManager.getInstance().loadData("ATK.sav");
+    SaveInstance lsi = SaveManager.getInstance().getSaveInstance();
+    setSizeCollider(new Vector2(lsi.heroX,lsi.heroY),true);
     
     // Guardar animaciones del jugador
     setAnimation();

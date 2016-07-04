@@ -5,6 +5,6 @@ package cl.makinolas.atk.utils;
  */
 public class SaveInstance {
 
-    float heroX, heroY;
+    public float heroX, heroY;
 
 }
