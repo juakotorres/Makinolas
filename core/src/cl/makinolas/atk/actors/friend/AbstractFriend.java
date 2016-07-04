@@ -10,6 +10,7 @@ import cl.makinolas.atk.actors.Enemy;
 import cl.makinolas.atk.actors.Monsters;
 import cl.makinolas.atk.actors.attacks.Attacks;
 import cl.makinolas.atk.actors.attacks.DragonBreath;
+import cl.makinolas.atk.utils.Formulas;
 
 public abstract class AbstractFriend implements Friend {
   
@@ -107,8 +108,13 @@ public abstract class AbstractFriend implements Friend {
   }
   
   @Override
-  public void setLevel(float level){
-    this.level.setLevel(level);
+  public void gainExperience(int wildLevel){
+    level.gainExp(wildLevel);
+  }
+  
+  @Override
+  public double thisLevelExp(){
+    return level.getLevelMax();
   }
   
   protected void setActualEvolution(int evolution){
@@ -119,7 +125,7 @@ public abstract class AbstractFriend implements Friend {
     return actualEvolution;
   }
   
-  protected abstract void initLevel(float level);
+  protected abstract void initLevel(int level);
   
   @Override
   public void setVariables(int health, int magic) {
@@ -159,7 +165,7 @@ public abstract class AbstractFriend implements Friend {
   @Override
   public Enemy returnEnemy(World myWorld, int heroPosition) {
     return new Enemy(myWorld, friendTexture, cutSprites, 
-                walkingAnimation, hurtAnimation,  getHealth(), heroPosition);
+                walkingAnimation, hurtAnimation,  getHealth(), heroPosition, getLevel());
   }
   
   @Override
@@ -203,27 +209,46 @@ public abstract class AbstractFriend implements Friend {
   }
 
   @Override
-  public float getLevel() {
+  public int getLevel() {
     return level.getLevel();
   }
   
   protected class Level extends Observable {
-    private float level;
+    private double nextExpLevel;
+    private double expLevelMax;
+    private int level;
     
-    public Level(float level){
+    public Level(int level){
       this.level = level;
+      nextExpLevel = Formulas.nextExpLevel(level);
+      expLevelMax = nextExpLevel;
     }
     
-    public void setLevel(float newLevel) {
+    public void gainExp(int wildPokemonLevel){
+      this.nextExpLevel -= Formulas.gainExp(level, wildPokemonLevel);
+      if(nextExpLevel < 0 && level < 100){
+        double freeExp = Math.abs(nextExpLevel);
+        levelUp(level + 1);
+        this.nextExpLevel -= freeExp;
+      }
+    }
+    
+    private void levelUp(int newLevel) {
       synchronized (this) {
         this.level = newLevel;
+        this.nextExpLevel = Formulas.nextExpLevel(newLevel);
+        expLevelMax = nextExpLevel;
       }
       setChanged();
       notifyObservers();
     }
 
-    public synchronized float getLevel() {
+    public synchronized int getLevel() {
       return level;
+    }
+    
+    public double getLevelMax(){
+      return expLevelMax;
     }
   }
   

@@ -29,7 +29,7 @@ public class OldMewtwo extends AbstractFriend {
   }
   
   @Override
-  protected void initLevel(float level){
+  protected void initLevel(int level){
    this.level = new Level(level);
   }
   

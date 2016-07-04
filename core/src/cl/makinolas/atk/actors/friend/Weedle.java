@@ -28,13 +28,13 @@ public class Weedle extends AbstractFriend {
     setMaxMagic(100);
   }
   
-  public Weedle(float level){
+  public Weedle(int level){
     this();
     initLevel(level);
   }
   
   @Override
-  protected void initLevel(float level){
+  protected void initLevel(int level){
    this.level = new Level(level);
    new Evolution(this.level, 6, 1);
    new Evolution(this.level, 10, 2);

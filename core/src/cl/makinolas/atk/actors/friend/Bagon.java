@@ -28,13 +28,13 @@ public class Bagon extends AbstractFriend {
     setMaxMagic(100);
   }
   
-  public Bagon(float level){
+  public Bagon(int level){
     this();
     initLevel(level);
   }
   
   @Override
-  protected void initLevel(float level){
+  protected void initLevel(int level){
    this.level = new Level(level);
    new Evolution(this.level, 30, 1);
    new Evolution(this.level, 50, 2);

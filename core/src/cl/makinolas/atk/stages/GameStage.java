@@ -23,7 +23,7 @@ import cl.makinolas.atk.actors.GameActor;
 import cl.makinolas.atk.actors.Hero;
 import cl.makinolas.atk.actors.InputController;
 import cl.makinolas.atk.actors.Portal;
-import cl.makinolas.atk.actors.friend.Eevee;
+import cl.makinolas.atk.actors.friend.Gastly;
 import cl.makinolas.atk.actors.ui.MainBar;
 import cl.makinolas.atk.actors.ui.MobileGroup;
 import cl.makinolas.atk.screen.GameScreen;
@@ -140,7 +140,7 @@ public class GameStage extends AbstractStage implements ContactListener {
     }
     
     if(nextEnemyAt < 0){
-       GameActor enemy = (new Eevee()).returnEnemy(suMundo, (int) getCamera().position.x);
+       GameActor enemy = (new Gastly()).returnEnemy(suMundo, (int) getCamera().position.x);
        addGameActor(enemy);
        nextEnemyAt = enemySpawn;
     }

@@ -28,13 +28,13 @@ public class Snivy extends AbstractFriend {
     setMaxMagic(100);
   }
   
-  public Snivy(float level){
+  public Snivy(int level){
     this();
     initLevel(level);
   }
   
   @Override
-  protected void initLevel(float level){
+  protected void initLevel(int level){
    this.level = new Level(level);
    new Evolution(this.level, 16, 1);
    new Evolution(this.level, 32, 2);

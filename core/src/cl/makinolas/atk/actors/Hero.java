@@ -10,8 +10,8 @@ import com.badlogic.gdx.utils.Array;
 import cl.makinolas.atk.actors.attacks.Attacks;
 import cl.makinolas.atk.actors.bosses.IBoss;
 import cl.makinolas.atk.actors.friend.Friend;
-import cl.makinolas.atk.actors.friend.Totodile;
-import cl.makinolas.atk.actors.friend.Zubat;
+import cl.makinolas.atk.actors.friend.Pichu;
+import cl.makinolas.atk.actors.friend.Scyther;
 import cl.makinolas.atk.actors.items.Inventory;
 import cl.makinolas.atk.stages.AbstractStage;
 
@@ -57,12 +57,13 @@ public class Hero extends Monsters {
 
     // Set team for player;
     allies = new Array<Friend>();
-    addAllie(new Totodile());
-    addAllie(new Zubat());
+    addAllie(new Scyther());
+    addAllie(new Pichu());
+    
     
     // Set actual allie
-    actualFriend = allies.get(0);
-    indexFriend = 0;
+    actualFriend = allies.get(1);
+    indexFriend = 1;
     // define player world
     this.myWorld = myWorld;
     // Set correct collider.
@@ -331,6 +332,11 @@ public class Hero extends Monsters {
     if(indexFriend != index && !allies.get(index).getDead()){
       setNewAllie(index);
     }
+  }
+
+  @Override
+  protected void gainExp(int enemyLevel) {
+    actualFriend.gainExperience(enemyLevel);
   }
 
 }

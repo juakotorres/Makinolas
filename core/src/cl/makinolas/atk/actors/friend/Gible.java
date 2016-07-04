@@ -23,13 +23,13 @@ public class Gible extends AbstractFriend {
     setMaxMagic(100);
   }
 
-  public Gible(float level){
+  public Gible(int level){
     this();
     initLevel(level);
   }
   
   @Override
-  protected void initLevel(float level){
+  protected void initLevel(int level){
    this.level = new Level(level);
    new Evolution(this.level, 34, 1);
    new Evolution(this.level, 50, 1);

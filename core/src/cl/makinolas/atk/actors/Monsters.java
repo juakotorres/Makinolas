@@ -26,5 +26,9 @@ public abstract class Monsters extends AnimatedActor {
   public void interactWithHero2(Hero hero) {
     meleeAttack(hero, isAttacking);       
   }
+  public void gainExperience(int level) {
+    gainExp(level);
+  }
+  protected abstract void gainExp(int level);
 }
 
