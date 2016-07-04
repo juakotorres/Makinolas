@@ -1,7 +1,12 @@
 package cl.makinolas.atk.actors;
 
+import cl.makinolas.atk.GameConstants;
+import cl.makinolas.atk.actors.attacks.Attacks;
+import cl.makinolas.atk.actors.friend.Friend;
 import cl.makinolas.atk.actors.items.BallActor;
+import cl.makinolas.atk.stages.GameStage;
 import cl.makinolas.atk.utils.Formulas;
+import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Batch;
@@ -11,9 +16,6 @@ import com.badlogic.gdx.physics.box2d.Body;
 import com.badlogic.gdx.physics.box2d.BodyDef;
 import com.badlogic.gdx.physics.box2d.PolygonShape;
 import com.badlogic.gdx.physics.box2d.World;
-
-import cl.makinolas.atk.GameConstants;
-import cl.makinolas.atk.actors.attacks.Attacks;
 
 public class Enemy extends Monsters {
   
@@ -30,6 +32,7 @@ public class Enemy extends Monsters {
   private final float hurtTime = 1 / 4f;
   private float accumulator;
   private int level;
+  private Friend parent;
   
   /**
    * Constructor for Enemy
@@ -41,7 +44,7 @@ public class Enemy extends Monsters {
   public Enemy(World myWorld, TextureRegion enemyTexture,
                int[] cutSprite, int[][] numberOfSprite
                , int[][] numberOfHurtSprites, int givenHealth
-               , int heroPosition, int level) {
+               , int heroPosition, int level, Friend parent) {
     
     health = givenHealth;
     width = cutSprite[0];
@@ -53,6 +56,7 @@ public class Enemy extends Monsters {
     meleeDamage = 10;
     accumulator = 0;
     this.level = level;
+    this.parent = parent;
     int actualPosition = heroPosition / 20;
     int randomNum = actualPosition  + (int)(Math.random() * 16) - 7;
     
@@ -176,7 +180,7 @@ public class Enemy extends Monsters {
   public void interactWithBall(BallActor ball) {
     if(Formulas.checkCatch(ball.getType().catchability/100f,0.9f,health,100)){
       dead = true;
-      System.out.println("Caught");
+      ((GameStage) getStage()).addAllie(parent);
     }
     else{
       System.out.println("Broke free");

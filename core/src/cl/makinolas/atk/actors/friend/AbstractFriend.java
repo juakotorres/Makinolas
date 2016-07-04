@@ -1,16 +1,15 @@
 package cl.makinolas.atk.actors.friend;
 
-import java.util.Observable;
-import java.util.Observer;
-
-import com.badlogic.gdx.graphics.g2d.TextureRegion;
-import com.badlogic.gdx.physics.box2d.World;
-
 import cl.makinolas.atk.actors.Enemy;
 import cl.makinolas.atk.actors.Monsters;
 import cl.makinolas.atk.actors.attacks.Attacks;
 import cl.makinolas.atk.actors.attacks.DragonBreath;
 import cl.makinolas.atk.utils.Formulas;
+import com.badlogic.gdx.graphics.g2d.TextureRegion;
+import com.badlogic.gdx.physics.box2d.World;
+
+import java.util.Observable;
+import java.util.Observer;
 
 public abstract class AbstractFriend implements Friend {
   
@@ -165,7 +164,7 @@ public abstract class AbstractFriend implements Friend {
   @Override
   public Enemy returnEnemy(World myWorld, int heroPosition) {
     return new Enemy(myWorld, friendTexture, cutSprites, 
-                walkingAnimation, hurtAnimation,  getHealth(), heroPosition, getLevel());
+                walkingAnimation, hurtAnimation,  getHealth(), heroPosition, getLevel(),this);
   }
   
   @Override

@@ -89,7 +89,7 @@ public class Hero extends Monsters {
     changeAnimation(walkAnimation);
   }
   
-  private void addAllie(Friend friend) {
+  public void addAllie(Friend friend) {
     allies.add(friend);
   }
 
@@ -361,4 +361,11 @@ public class Hero extends Monsters {
     ((GameStage) getStage()).addGameActor(ball);
   }
 
+  public void nextAllie() {
+    changeAllie((indexFriend+1)%allies.size);
+  }
+
+  public void prevAllie(){
+    changeAllie((indexFriend-1+allies.size)%allies.size);
+  }
 }
