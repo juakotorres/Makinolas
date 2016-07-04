@@ -3,18 +3,18 @@ package cl.makinolas.atk.actors.items;
 import cl.makinolas.atk.actors.Hero;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 
-public class OranBerry extends Item {
+public class MaxPotion extends Item {
 
-    private TextureRegion reg = Item.textures[2][2];
+    private TextureRegion reg = Item.textures[1][3];
 
     @Override
     public String getDescr() {
-        return "Recovers 10HP";
+        return "Recovers all HP from the current pokemon";
     }
 
     @Override
     public void use(Hero hero) {
-        hero.getFriend().setHealth(hero.getHealth()+10);
+        hero.getFriend().setHealth(hero.getFriend().getMaxHealth());
     }
 
     @Override

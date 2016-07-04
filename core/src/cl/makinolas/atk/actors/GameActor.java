@@ -1,5 +1,6 @@
 package cl.makinolas.atk.actors;
 
+import cl.makinolas.atk.actors.items.BallActor;
 import com.badlogic.gdx.physics.box2d.Body;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 
@@ -34,6 +35,10 @@ public abstract class GameActor extends Actor{
   public boolean isMonster() {
     return false;
   }
+
+  public boolean isBall() {
+    return false;
+  }
   
   public boolean isDead(){
     return false;
@@ -52,5 +57,8 @@ public abstract class GameActor extends Actor{
   public void interactWithPortal(Portal portal) {}
 
   public void interactWithBoss(IBoss boss) {  }
+
+  public void interactWithBall(BallActor ball){}
+
   
 }
