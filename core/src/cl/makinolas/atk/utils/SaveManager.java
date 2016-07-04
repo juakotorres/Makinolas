@@ -14,6 +14,7 @@ public class SaveManager {
 
     private SaveManager(){
         cryptor = new PhraseCryptor("ATK");
+        //cryptor = new IdentityCryptor();
     }
 
     public static SaveManager getInstance() {
