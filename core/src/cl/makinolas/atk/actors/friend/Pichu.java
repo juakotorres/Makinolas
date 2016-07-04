@@ -28,6 +28,7 @@ public class Pichu extends AbstractFriend {
     setActualEvolution(0);
     setMaxHealth(30);
     setMaxMagic(100);
+    friend = Enemies.PICHU;
   }
   
   public Pichu(int level, Hero hero){
@@ -53,6 +54,7 @@ public class Pichu extends AbstractFriend {
       setActualEvolution(1);
       setMaxHealth(50);
       setMaxMagic(100);
+      friend = Enemies.PIKACHU;
     } else if (numberOfLevel == 2 && getActualEvolution() < 2){
       setTexture(new TextureRegion(new Texture(Gdx.files.internal("Actors/Raichu.png"))));
       setAnimations(new int[]{34,30},
@@ -63,6 +65,7 @@ public class Pichu extends AbstractFriend {
       setActualEvolution(2);
       setMaxHealth(80);
       setMaxMagic(100);
+      friend = Enemies.RAICHU;
     }
   }
   

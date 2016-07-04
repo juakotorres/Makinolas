@@ -21,6 +21,7 @@ public class Eevee extends AbstractFriend {
     initDead();
     setMaxHealth(30);
     setMaxMagic(100);
+    friend = Enemies.EEVEE;
   }
 
   @Override

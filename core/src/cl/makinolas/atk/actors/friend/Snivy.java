@@ -28,6 +28,7 @@ public class Snivy extends AbstractFriend {
     setActualEvolution(0);
     setMaxHealth(30);
     setMaxMagic(100);
+    friend = Enemies.SNIVY;
   }
   
   public Snivy(int level, Hero hero){
@@ -54,6 +55,7 @@ public class Snivy extends AbstractFriend {
       setActualEvolution(1);
       setMaxHealth(60);
       setMaxMagic(100);
+      friend = Enemies.SERVINE;
     } else if (numberOfLevel == 2 && getActualEvolution() < 2){
       setTexture(new TextureRegion(new Texture(Gdx.files.internal("Actors/Serperior.png"))));
       setCutSprites(57,50);
@@ -64,7 +66,7 @@ public class Snivy extends AbstractFriend {
       setActualEvolution(2);
       setMaxHealth(80);
       setMaxMagic(100);
-      
+      friend = Enemies.SERPERIOR;     
     }
   }
   

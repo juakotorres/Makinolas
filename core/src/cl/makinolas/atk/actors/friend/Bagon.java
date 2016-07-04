@@ -28,6 +28,7 @@ public class Bagon extends AbstractFriend {
     setActualEvolution(0);
     setMaxHealth(30);
     setMaxMagic(100);
+    friend = Enemies.BAGON;
   }
   
   public Bagon(int level, Hero hero){
@@ -54,6 +55,7 @@ public class Bagon extends AbstractFriend {
       setActualEvolution(1);
       setMaxHealth(60);
       setMaxMagic(100);
+      friend = Enemies.SHELGON;
     } else if (numberOfLevel == 2 && getActualEvolution() < 2){
       setTexture(new TextureRegion(new Texture(Gdx.files.internal("Actors/Salamence.png"))));
       setCutSprites(55,48);
@@ -64,7 +66,7 @@ public class Bagon extends AbstractFriend {
       setActualEvolution(2);
       setMaxHealth(120);
       setMaxMagic(100);
-      
+      friend = Enemies.SALAMENCE;
     }
   }
   

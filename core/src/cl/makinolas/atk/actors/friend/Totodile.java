@@ -28,6 +28,7 @@ public class Totodile extends AbstractFriend {
     setActualEvolution(0);
     setMaxHealth(30);
     setMaxMagic(100);
+    friend = Enemies.TOTODILE;
   }
   
   public Totodile(int level, Hero hero){
@@ -54,6 +55,7 @@ public class Totodile extends AbstractFriend {
       setActualEvolution(1);
       setMaxHealth(60);
       setMaxMagic(100);
+      friend = Enemies.CROCONAW;
     } else if (numberOfLevel == 2 && getActualEvolution() < 2){
       setTexture(new TextureRegion(new Texture(Gdx.files.internal("Actors/Feraligatr.png"))));
       setAnimations(new int[]{38,37},
@@ -64,6 +66,7 @@ public class Totodile extends AbstractFriend {
       setActualEvolution(2);
       setMaxHealth(100);
       setMaxMagic(100);
+      friend = Enemies.FERALIGATR;
     }
   }
   

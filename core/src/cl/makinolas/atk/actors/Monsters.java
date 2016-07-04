@@ -2,6 +2,7 @@ package cl.makinolas.atk.actors;
 
 import cl.makinolas.atk.actors.attacks.Attacks;
 import cl.makinolas.atk.actors.attacks.MeleeAttack;
+import cl.makinolas.atk.actors.friend.Enemies;
 
 public abstract class Monsters extends AnimatedActor {
   
@@ -26,9 +27,9 @@ public abstract class Monsters extends AnimatedActor {
   public void interactWithHero2(Hero hero) {
     meleeAttack(hero, isAttacking);       
   }
-  public void gainExperience(int level) {
-    gainExp(level);
+  public void gainExperience(int level, Enemies type) {
+    gainExp(level, type);
   }
-  protected abstract void gainExp(int level);
+  protected abstract void gainExp(int level, Enemies type);
 }
 

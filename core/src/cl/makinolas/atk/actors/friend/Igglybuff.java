@@ -6,11 +6,11 @@ import com.badlogic.gdx.graphics.g2d.TextureRegion;
 
 import cl.makinolas.atk.actors.Hero;
 
-public class Igglypuff extends AbstractFriend {
+public class Igglybuff extends AbstractFriend {
   
   private TextureRegion[][] faces;
   
-  public Igglypuff(Hero hero) {
+  public Igglybuff(Hero hero) {
     super(hero);
     faces = new TextureRegion(new Texture(Gdx.files.internal("Actors/Igglypuff_faces.png"))).split(40,40);
     setTexture(new TextureRegion(new Texture(Gdx.files.internal("Actors/Igglypuff.png"))));
@@ -24,9 +24,10 @@ public class Igglypuff extends AbstractFriend {
     setActualEvolution(0);
     setMaxHealth(30);
     setMaxMagic(100);
+    friend = Enemies.IGGLYBUFF;
   }
   
-  public Igglypuff(int level, Hero hero){
+  public Igglybuff(int level, Hero hero){
     this(hero);
     initLevel(level);
   }
@@ -49,6 +50,7 @@ public class Igglypuff extends AbstractFriend {
       setActualEvolution(1);
       setMaxHealth(60);
       setMaxMagic(100);
+      friend = Enemies.JIGGLYPUFF;
     } else if (numberOfLevel == 2 && getActualEvolution() < 2){
       setTexture(new TextureRegion(new Texture(Gdx.files.internal("Actors/Wigglypuff.png"))));
       setAnimations(new int[]{26,25},
@@ -59,6 +61,7 @@ public class Igglypuff extends AbstractFriend {
       setActualEvolution(2);
       setMaxHealth(100);
       setMaxMagic(100);
+      friend = Enemies.WIGGLYTUFF;
     }
   }
   

@@ -24,6 +24,7 @@ public class Shinx extends AbstractFriend{
     setActualEvolution(0);
     setMaxHealth(30);
     setMaxMagic(100);
+    friend = Enemies.SHINX;
   }
   
   public Shinx(int level, Hero hero){
@@ -50,6 +51,7 @@ public class Shinx extends AbstractFriend{
       setActualEvolution(1);
       setMaxHealth(80);
       setMaxMagic(100);
+      friend = Enemies.LUXIO;
     } else if (numberOfLevel == 2 && getActualEvolution() < 2){
       setTexture(new TextureRegion(new Texture(Gdx.files.internal("Actors/Luxray.png"))));
       setAnimations(new int[]{32,32},
@@ -60,6 +62,7 @@ public class Shinx extends AbstractFriend{
       setActualEvolution(2);
       setMaxHealth(100);
       setMaxMagic(100);
+      friend = Enemies.LUXRAY;
     }
   }
   

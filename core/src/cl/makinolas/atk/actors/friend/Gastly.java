@@ -24,6 +24,7 @@ public class Gastly extends AbstractFriend {
     setActualEvolution(0);
     setMaxHealth(30);
     setMaxMagic(100);
+    friend = Enemies.GASTLY;
   }
   
   public Gastly(int level, Hero hero){
@@ -49,6 +50,7 @@ public class Gastly extends AbstractFriend {
       setActualEvolution(1);
       setMaxHealth(70);
       setMaxMagic(100);
+      friend = Enemies.HAUNTER;
     }
   }
   

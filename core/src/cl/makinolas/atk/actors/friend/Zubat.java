@@ -28,6 +28,7 @@ public class Zubat extends AbstractFriend {
     setActualEvolution(0);
     setMaxHealth(30);
     setMaxMagic(100);
+    friend = Enemies.ZUBAT;
   }
   
   public Zubat(int level, Hero hero){
@@ -54,6 +55,7 @@ public class Zubat extends AbstractFriend {
       setActualEvolution(1);
       setMaxHealth(60);
       setMaxMagic(100);
+      friend = Enemies.GOLBAT;
     } else if (numberOfLevel == 2 && getActualEvolution() < 2){
       setTexture(new TextureRegion(new Texture(Gdx.files.internal("Actors/Crobat.png"))));
       setCutSprites(26,28);
@@ -64,7 +66,7 @@ public class Zubat extends AbstractFriend {
       setActualEvolution(2);
       setMaxHealth(80);
       setMaxMagic(100);
-      
+      friend = Enemies.CROBAT;
     }
   }
   

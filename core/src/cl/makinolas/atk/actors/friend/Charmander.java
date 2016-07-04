@@ -28,6 +28,7 @@ public class Charmander extends AbstractFriend {
     setActualEvolution(0);
     setMaxHealth(30);
     setMaxMagic(100);
+    friend = Enemies.CHARMANDER;
   }
   
   public Charmander(int level, Hero hero){
@@ -53,6 +54,7 @@ public class Charmander extends AbstractFriend {
       setActualEvolution(1);
       setMaxHealth(60);
       setMaxMagic(100);
+      friend = Enemies.CHARMELEON;
     } else if (numberOfLevel == 2 && getActualEvolution() < 2){
       setTexture(new TextureRegion(new Texture(Gdx.files.internal("Actors/Charizard.png"))));
       setAnimations(new int[]{32,32},
@@ -63,6 +65,7 @@ public class Charmander extends AbstractFriend {
       setActualEvolution(2);
       setMaxHealth(120);
       setMaxMagic(100);
+      friend = Enemies.CHARIZARD;
     }
   }
   
