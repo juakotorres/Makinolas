@@ -2,6 +2,8 @@ package cl.makinolas.atk.actors;
 
 import cl.makinolas.atk.actors.ui.MobileGroup;
 import cl.makinolas.atk.actors.ui.MobileKeyListener;
+import cl.makinolas.atk.utils.SaveInstance;
+import cl.makinolas.atk.utils.SaveManager;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.InputListener;
@@ -45,6 +47,12 @@ public class InputController extends InputListener implements MobileKeyListener{
                 break;
             case Input.Keys.NUM_2:
                 hero.changeAllie(1);
+                break;
+            case Input.Keys.NUM_8:
+                SaveInstance save = new SaveInstance();
+                save.heroX = hero.getBody().getPosition().x;
+                save.heroY = hero.getBody().getPosition().y;
+                SaveManager.getInstance().saveData(save,"ATK.sav");
                 break;
         }
         return true;

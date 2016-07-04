@@ -1,12 +1,5 @@
 package cl.makinolas.atk.actors;
 
-import com.badlogic.gdx.math.Vector2;
-import com.badlogic.gdx.physics.box2d.Body;
-import com.badlogic.gdx.physics.box2d.BodyDef;
-import com.badlogic.gdx.physics.box2d.PolygonShape;
-import com.badlogic.gdx.physics.box2d.World;
-import com.badlogic.gdx.utils.Array;
-
 import cl.makinolas.atk.GameConstants;
 import cl.makinolas.atk.actors.attacks.Attacks;
 import cl.makinolas.atk.actors.bosses.IBoss;
@@ -18,7 +11,14 @@ import cl.makinolas.atk.actors.items.BallActor;
 import cl.makinolas.atk.actors.items.Inventory;
 import cl.makinolas.atk.stages.AbstractStage;
 import cl.makinolas.atk.stages.GameStage;
-
+import cl.makinolas.atk.utils.SaveInstance;
+import cl.makinolas.atk.utils.SaveManager;
+import com.badlogic.gdx.math.Vector2;
+import com.badlogic.gdx.physics.box2d.Body;
+import com.badlogic.gdx.physics.box2d.BodyDef;
+import com.badlogic.gdx.physics.box2d.PolygonShape;
+import com.badlogic.gdx.physics.box2d.World;
+import com.badlogic.gdx.utils.Array;
 
 public class Hero extends Monsters {
 
@@ -47,7 +47,7 @@ public class Hero extends Monsters {
   private boolean inertia;
 
   public Hero(World myWorld) {
-    
+
     isJumping = false;
     isFacingRight = false;
     isDamaged = false;
@@ -64,8 +64,6 @@ public class Hero extends Monsters {
     allies = new Array<Friend>();
     addAllie(new Bagon());
     addAllie(new Weedle());
-    
-    
     // Set actual allie
     actualFriend = allies.get(1);
     indexFriend = 1;
@@ -77,8 +75,15 @@ public class Hero extends Monsters {
     // Set correct collider.
     myBodyDefinition = new BodyDef();
     myBodyDefinition.type = BodyDef.BodyType.DynamicBody;
-    setSizeCollider(new Vector2(3,4),true);
-    
+    // Load position from saved instance (only for production)
+    SaveManager.getInstance().loadData("ATK.sav");
+    if (SaveManager.getInstance().hasSaveInstance()){
+      SaveInstance lsi = SaveManager.getInstance().getSaveInstance();
+      setSizeCollider(new Vector2(lsi.heroX, lsi.heroY), true);
+    }
+    else{
+      setSizeCollider(new Vector2(2, 3), true);
+    }
     // Guardar animaciones del jugador
     setAnimation();
     changeAnimation(walkAnimation);
