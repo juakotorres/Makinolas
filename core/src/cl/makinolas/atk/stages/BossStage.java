@@ -150,6 +150,7 @@ public class BossStage extends AbstractStage implements ContactListener {
     if(bossDefeated){
       Portal portal = new Portal(suMundo, new Vector2(10, 3), myGame);
       addGameActor(portal); 
+      bossDefeated = false;
     }    
   }
 
