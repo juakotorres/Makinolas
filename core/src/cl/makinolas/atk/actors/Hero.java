@@ -45,7 +45,7 @@ public class Hero extends Monsters {
   private boolean inertia;
 
   public Hero(World myWorld) {
-    
+
     isJumping = false;
     isFacingRight = false;
     health = 100;
@@ -64,7 +64,7 @@ public class Hero extends Monsters {
     allies = new Array<Friend>();
     addAllie(new Totodile());
     addAllie(new Zubat());
-    
+
     // Set actual allie
     actualFriend = allies.get(0);
     indexFriend = 0;
@@ -75,9 +75,10 @@ public class Hero extends Monsters {
     myBodyDefinition.type = BodyDef.BodyType.DynamicBody;
     // Load position from saved instance (only for production)
     SaveManager.getInstance().loadData("ATK.sav");
-    SaveInstance lsi = SaveManager.getInstance().getSaveInstance();
-    setSizeCollider(new Vector2(lsi.heroX,lsi.heroY),true);
-    
+    if (SaveManager.getInstance().hasSaveInstance()){
+      SaveInstance lsi = SaveManager.getInstance().getSaveInstance();
+      setSizeCollider(new Vector2(lsi.heroX, lsi.heroY), true);
+    }
     // Guardar animaciones del jugador
     setAnimation();
     changeAnimation(walkAnimation);
