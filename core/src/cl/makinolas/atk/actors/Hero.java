@@ -79,6 +79,9 @@ public class Hero extends Monsters {
       SaveInstance lsi = SaveManager.getInstance().getSaveInstance();
       setSizeCollider(new Vector2(lsi.heroX, lsi.heroY), true);
     }
+    else{
+      setSizeCollider(new Vector2(3, 2), true);
+    }
     // Guardar animaciones del jugador
     setAnimation();
     changeAnimation(walkAnimation);
