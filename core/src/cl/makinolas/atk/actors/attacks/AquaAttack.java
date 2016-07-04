@@ -9,6 +9,7 @@ import com.badlogic.gdx.physics.box2d.BodyDef;
 import com.badlogic.gdx.physics.box2d.FixtureDef;
 import com.badlogic.gdx.physics.box2d.PolygonShape;
 import com.badlogic.gdx.physics.box2d.World;
+import com.badlogic.gdx.physics.box2d.WorldManifold;
 
 import cl.makinolas.atk.actors.Monsters;
 import cl.makinolas.atk.actors.Platform;
@@ -125,7 +126,7 @@ public class AquaAttack extends Attacks {
   }
   
   @Override
-  public void interactWithPlatform(Platform platform){
+  public void interactWithPlatform(Platform platform, WorldManifold worldManifold){
   } 
   
   

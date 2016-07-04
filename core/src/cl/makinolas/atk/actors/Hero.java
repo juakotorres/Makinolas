@@ -5,6 +5,7 @@ import com.badlogic.gdx.physics.box2d.Body;
 import com.badlogic.gdx.physics.box2d.BodyDef;
 import com.badlogic.gdx.physics.box2d.PolygonShape;
 import com.badlogic.gdx.physics.box2d.World;
+import com.badlogic.gdx.physics.box2d.WorldManifold;
 import com.badlogic.gdx.utils.Array;
 
 import cl.makinolas.atk.GameConstants;
@@ -190,8 +191,10 @@ public class Hero extends Monsters {
     return getBody().getMass()*12; // El 12 se busc� por testing.
   }
 
-  public void landedPlatform(){
-    isJumping = false;
+  public void landedPlatform(WorldManifold worldManifold, Platform platform){
+    if(worldManifold.getNormal().y == -1.0){
+      isJumping = false;
+    }
   }
 
   private void setAnimation(){
@@ -279,17 +282,17 @@ public class Hero extends Monsters {
   }
 
   @Override
-  public void interact(GameActor actor2){
-    actor2.interactWithHero(this);
+  public void interact(GameActor actor2, WorldManifold worldManifold){
+    actor2.interactWithHero(this, worldManifold);
   }
   
   @Override
-  public void interactWithPlatform(Platform platform){
-    landedPlatform();
+  public void interactWithPlatform(Platform platform, WorldManifold worldManifold){
+    landedPlatform(worldManifold, platform);
   }
   
   @Override
-  public void interactWithAttack(Attacks attack){
+  public void interactWithAttack(Attacks attack, WorldManifold worldManifold){
     this.damage(attack.getAttackDamage(), attack);
   }
   

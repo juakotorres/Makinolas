@@ -9,6 +9,7 @@ import com.badlogic.gdx.physics.box2d.Body;
 import com.badlogic.gdx.physics.box2d.BodyDef;
 import com.badlogic.gdx.physics.box2d.PolygonShape;
 import com.badlogic.gdx.physics.box2d.World;
+import com.badlogic.gdx.physics.box2d.WorldManifold;
 
 import cl.makinolas.atk.GameConstants;
 import cl.makinolas.atk.actors.attacks.Attacks;
@@ -146,17 +147,17 @@ public class Enemy extends Monsters {
   }
 
   @Override
-  public void interact(GameActor actor2) {
+  public void interact(GameActor actor2, WorldManifold worldManifold) {
     actor2.interactWithEnemy(this);
   }
   
   @Override
-  public void interactWithAttack(Attacks attack){
+  public void interactWithAttack(Attacks attack, WorldManifold worldManifold){
     this.damage(attack.getAttackDamage(), attack);
   }
   
   @Override
-  public void interactWithHero(Hero hero){
+  public void interactWithHero(Hero hero, WorldManifold worldManifold){
     interactWithHero2(hero);
     hero.interactWithMonster(this);
   }

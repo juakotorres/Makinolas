@@ -162,7 +162,7 @@ public class GameStage extends AbstractStage implements ContactListener {
     GameActor actor1 = (GameActor) contact.getFixtureA().getBody().getUserData();
     GameActor actor2 = (GameActor) contact.getFixtureB().getBody().getUserData();
     
-    actor1.interact(actor2);
+    actor1.interact(actor2, contact.getWorldManifold());
   }
 
   @Override

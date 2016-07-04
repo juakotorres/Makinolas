@@ -231,8 +231,6 @@ public abstract class AbstractFriend implements Friend {
     }
     
     public void gainExp(int wildPokemonLevel){
-      System.out.println(nextExpLevel);
-      System.out.println(Formulas.gainExp(level, wildPokemonLevel));
       this.nextExpLevel -= Formulas.gainExp(level, wildPokemonLevel);
       if(nextExpLevel < 0 && level < 100){
         double freeExp = Math.abs(nextExpLevel);

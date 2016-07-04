@@ -13,7 +13,7 @@ public class SaveManager {
     private static SaveManager instance = new SaveManager();
 
     private SaveManager(){
-        cryptor = new PhraseCryptor("ATK");
+        cryptor = new PhraseCryptor("0");
     }
 
     public static SaveManager getInstance() {

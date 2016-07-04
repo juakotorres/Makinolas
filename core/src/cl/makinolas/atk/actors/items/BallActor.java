@@ -44,12 +44,12 @@ public class BallActor extends GameActor {
     }
 
     @Override
-    public void interact(GameActor actor2) {
+    public void interact(GameActor actor2, WorldManifold worldManifold) {
         actor2.interactWithBall(this);
     }
 
     @Override
-    public void interactWithPlatform(Platform platform){
+    public void interactWithPlatform(Platform platform, WorldManifold worldManifold){
         dead = true;
     }
 
