@@ -11,8 +11,13 @@ public class Formulas {
   
   // for medium slow pokemon exp gain.
   public static double nextExpLevel(int level){
-    return 6/5*level^3 - 15*level^2 + 100*level - 140;
+    return 6.0/5*level*level*level - 15*level*level + 100*level - 140;
   }
-  
-  
+
+
+  public static boolean checkCatch(float ballCatchability, float enemyCatchRatio, int currentHP, int maxHP) {
+    float bernulli = (3*maxHP - 2*currentHP) * ballCatchability * enemyCatchRatio / (3*maxHP);
+    return Math.random()<=bernulli;
+  }
+
 }

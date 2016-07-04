@@ -1,6 +1,7 @@
 package cl.makinolas.atk.actors;
 
 import cl.makinolas.atk.actors.items.BallActor;
+import cl.makinolas.atk.utils.Formulas;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Batch;
@@ -173,7 +174,13 @@ public class Enemy extends Monsters {
 
   @Override
   public void interactWithBall(BallActor ball) {
-
+    if(Formulas.checkCatch(ball.getType().catchability/100f,0.9f,health,100)){
+      dead = true;
+      System.out.println("Caught");
+    }
+    else{
+      System.out.println("Broke free");
+    }
   }
 
   @Override

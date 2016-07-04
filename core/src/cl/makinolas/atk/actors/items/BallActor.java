@@ -1,5 +1,6 @@
 package cl.makinolas.atk.actors.items;
 
+import cl.makinolas.atk.actors.Enemy;
 import cl.makinolas.atk.actors.GameActor;
 import cl.makinolas.atk.actors.Platform;
 import com.badlogic.gdx.graphics.g2d.Batch;
@@ -51,6 +52,11 @@ public class BallActor extends GameActor {
     @Override
     public void interactWithPlatform(Platform platform){
         dead = true;
+    }
+
+    @Override
+    public void interactWithEnemy(Enemy enemy) {
+        enemy.interactWithBall(this);
     }
 
     @Override
