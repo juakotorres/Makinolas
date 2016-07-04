@@ -28,6 +28,7 @@ public class Scyther extends AbstractFriend {
     setActualEvolution(0);
     setMaxHealth(60);
     setMaxMagic(100);
+    friend = Enemies.SCYTHER;
   }
   
   public Scyther(int level, Hero hero){
@@ -53,6 +54,7 @@ public class Scyther extends AbstractFriend {
       setActualEvolution(1);
       setMaxHealth(80);
       setMaxMagic(100);
+      friend = Enemies.SCIZOR;
     } 
   }
   

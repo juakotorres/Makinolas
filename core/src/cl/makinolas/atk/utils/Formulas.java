@@ -1,12 +1,15 @@
 package cl.makinolas.atk.utils;
 
+import cl.makinolas.atk.actors.friend.Enemies;
+
 public class Formulas {
   
   // Experience gain formula
-  public static double gainExp(int trainerPokemonLevel, int wildPokemonLevel){
+  public static double gainExp(int trainerPokemonLevel, int wildPokemonLevel, Enemies enemyType){
     double L = wildPokemonLevel;
     double Lp = trainerPokemonLevel;
-    return ((L / 5) * Math.pow(2*L + 10, 2.5) / Math.pow(L + Lp + 10, 2.5)) + 1;
+    double b = enemyType.baseExperience;
+    return (b * (L / 5) * Math.pow(2*L + 10, 2.5) / Math.pow(L + Lp + 10, 2.5)) + 1;
   }
   
   // for medium slow pokemon exp gain.

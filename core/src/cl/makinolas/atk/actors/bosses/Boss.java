@@ -11,6 +11,7 @@ import cl.makinolas.atk.actors.HBar;
 import cl.makinolas.atk.actors.Hero;
 import cl.makinolas.atk.actors.Monsters;
 import cl.makinolas.atk.actors.attacks.Attacks;
+import cl.makinolas.atk.actors.friend.Enemies;
 import cl.makinolas.atk.stages.BossStage;
 
 public abstract class Boss extends Monsters implements IBoss{
@@ -121,5 +122,5 @@ public abstract class Boss extends Monsters implements IBoss{
   }
   
   @Override
-  protected void gainExp(int enemyLevel) {}
+  protected void gainExp(int enemyLevel, Enemies type) {}
 }

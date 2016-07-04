@@ -28,6 +28,7 @@ public class Weedle extends AbstractFriend {
     setActualEvolution(0);
     setMaxHealth(30);
     setMaxMagic(1000);
+    friend = Enemies.WEEDLE;
   }
   
   public Weedle(int level, Hero hero){
@@ -54,6 +55,7 @@ public class Weedle extends AbstractFriend {
       setActualEvolution(1);
       setMaxHealth(60);
       setMaxMagic(100);
+      friend = Enemies.KAKUNA;
     } else if (numberOfLevel == 2 && getActualEvolution() < 2){
       setTexture(new TextureRegion(new Texture(Gdx.files.internal("Actors/Beedrill.png"))));
       setAnimations(new int[]{35,28},
@@ -64,7 +66,7 @@ public class Weedle extends AbstractFriend {
       setActualEvolution(2);
       setMaxHealth(80);
       setMaxMagic(100);
-      
+      friend = Enemies.BEEDRILL;
     }
   }
   

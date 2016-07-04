@@ -29,6 +29,7 @@ public abstract class AbstractFriend implements Friend {
   protected Level level;
   private int actualEvolution;
   private Hero myHero;
+  public Enemies friend;
   
   public AbstractFriend(Hero hero){
     myHero = hero;
@@ -114,8 +115,8 @@ public abstract class AbstractFriend implements Friend {
   }
   
   @Override
-  public void gainExperience(int wildLevel){
-    level.gainExp(wildLevel);
+  public void gainExperience(int wildLevel, Enemies type){
+    level.gainExp(wildLevel, type);
   }
   
   @Override
@@ -171,7 +172,7 @@ public abstract class AbstractFriend implements Friend {
   @Override
   public Enemy returnEnemy(World myWorld, int heroPosition) {
     return new Enemy(myWorld, friendTexture, cutSprites, 
-                walkingAnimation, hurtAnimation,  getHealth(), heroPosition, getLevel());
+                walkingAnimation, hurtAnimation,  getHealth(), heroPosition, getLevel(), friend);
   }
   
   @Override
@@ -230,8 +231,8 @@ public abstract class AbstractFriend implements Friend {
       expLevelMax = nextExpLevel;
     }
     
-    public void gainExp(int wildPokemonLevel){
-      this.nextExpLevel -= Formulas.gainExp(level, wildPokemonLevel);
+    public void gainExp(int wildPokemonLevel, Enemies type){
+      this.nextExpLevel -= Formulas.gainExp(level, wildPokemonLevel, type);
       if(nextExpLevel < 0 && level < 100){
         double freeExp = Math.abs(nextExpLevel);
         levelUp(level + 1);
@@ -319,5 +320,10 @@ public abstract class AbstractFriend implements Friend {
   @Override
   public Attacks getFriendAttack(World myWorld, float x , float y, boolean facingRight, Monsters source){
     return new DragonBreath(myWorld, x, y, facingRight, source);
+  }
+  
+  @Override
+  public Enemies getType(){
+    return friend;
   }
 }

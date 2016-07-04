@@ -13,6 +13,7 @@ import com.badlogic.gdx.physics.box2d.WorldManifold;
 
 import cl.makinolas.atk.GameConstants;
 import cl.makinolas.atk.actors.attacks.Attacks;
+import cl.makinolas.atk.actors.friend.Enemies;
 
 public class Enemy extends Monsters {
   
@@ -29,6 +30,7 @@ public class Enemy extends Monsters {
   private final float hurtTime = 1 / 4f;
   private float accumulator;
   private int level;
+  private Enemies type;
   
   /**
    * Constructor for Enemy
@@ -40,11 +42,12 @@ public class Enemy extends Monsters {
   public Enemy(World myWorld, TextureRegion enemyTexture,
                int[] cutSprite, int[][] numberOfSprite
                , int[][] numberOfHurtSprites, int givenHealth
-               , int heroPosition, int level) {
+               , int heroPosition, int level, Enemies type) {
     
     health = givenHealth;
     width = cutSprite[0];
     height = cutSprite[1];
+    this.type = type;
     isAttacking = true;
     healthBar = new HBar(givenHealth, health, cutSprite[0], 4, new TextureRegion( new Texture(Gdx.files.internal("Overlays/bar_green.png"))));
     isDamaged = false;
@@ -125,7 +128,7 @@ public class Enemy extends Monsters {
     inflictor.setDead();
     healthBar.setCurrent(health);
     if(health <= 0){
-      source.gainExperience(getLevel());
+      source.gainExperience(getLevel(), type);
       dead = true;
       
     }
@@ -177,6 +180,6 @@ public class Enemy extends Monsters {
   }
 
   @Override
-  protected void gainExp(int level) {}
+  protected void gainExp(int level, Enemies type) {}
   
 }

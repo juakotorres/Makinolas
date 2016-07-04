@@ -24,6 +24,7 @@ public class Mareep extends AbstractFriend {
     setActualEvolution(0);
     setMaxHealth(30);
     setMaxMagic(100);
+    friend = Enemies.MAREEP;
   }
   
   public Mareep(int level, Hero hero){
@@ -50,6 +51,7 @@ public class Mareep extends AbstractFriend {
       setActualEvolution(1);
       setMaxHealth(60);
       setMaxMagic(100);
+      friend = Enemies.FLAAFFY;
     } else if (numberOfLevel == 2 && getActualEvolution() < 2){
       setTexture(new TextureRegion(new Texture(Gdx.files.internal("Actors/Ampharos.png"))));
       setAnimations(new int[]{25,34},
@@ -60,6 +62,7 @@ public class Mareep extends AbstractFriend {
       setActualEvolution(2);
       setMaxHealth(120);
       setMaxMagic(100);
+      friend = Enemies.AMPHAROS;
     }
   }
   

@@ -13,6 +13,7 @@ import cl.makinolas.atk.actors.attacks.Attacks;
 import cl.makinolas.atk.actors.attacks.Puff;
 import cl.makinolas.atk.actors.bosses.IBoss;
 import cl.makinolas.atk.actors.friend.Bagon;
+import cl.makinolas.atk.actors.friend.Enemies;
 import cl.makinolas.atk.actors.friend.Friend;
 import cl.makinolas.atk.actors.friend.Weedle;
 import cl.makinolas.atk.actors.items.Ball;
@@ -371,8 +372,8 @@ public class Hero extends Monsters {
   }
 
   @Override
-  protected void gainExp(int enemyLevel) {
-    actualFriend.gainExperience(enemyLevel);
+  protected void gainExp(int enemyLevel, Enemies type) {
+    actualFriend.gainExperience(enemyLevel, type);
   }
 
   public void throwBall(Ball.BallType type) {
