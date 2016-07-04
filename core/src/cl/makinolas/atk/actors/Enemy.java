@@ -1,5 +1,6 @@
 package cl.makinolas.atk.actors;
 
+import cl.makinolas.atk.actors.items.BallActor;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Batch;
@@ -168,6 +169,11 @@ public class Enemy extends Monsters {
   @Override
   public float getMonsterWidth() {
     return getBodySize(width);
+  }
+
+  @Override
+  public void interactWithBall(BallActor ball) {
+
   }
 
   @Override

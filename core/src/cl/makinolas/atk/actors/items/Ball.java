@@ -10,7 +10,7 @@ public class Ball extends Item{
         POKEBALL(10, Item.textures[0][3]),
         GREATBALL(20, Item.textures[0][2]),
         ULTRABALL(40, Item.textures[0][1]),
-        MASTERBALL(10, Item.textures[0][0]);
+        MASTERBALL(100, Item.textures[0][0]);
 
         public int catchability;
         public TextureRegion texture;
