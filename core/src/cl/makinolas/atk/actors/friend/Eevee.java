@@ -4,9 +4,12 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 
+import cl.makinolas.atk.actors.Hero;
+
 public class Eevee extends AbstractFriend {
   
-  public Eevee() {
+  public Eevee(Hero hero) {
+    super(hero);
     TextureRegion[][] faces = new TextureRegion(new Texture(Gdx.files.internal("Actors/Eevee_faces.png"))).split(40,40);
     setTexture(new TextureRegion(new Texture(Gdx.files.internal("Actors/Eevee.png"))));
     setAnimations(new int[]{29,24},

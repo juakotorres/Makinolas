@@ -139,7 +139,7 @@ public class GameStage extends AbstractStage implements ContactListener {
     }
     
     if(nextEnemyAt < 0){
-       GameActor enemy = (new Gastly()).returnEnemy(suMundo, (int) getCamera().position.x);
+       GameActor enemy = (new Gastly(null)).returnEnemy(suMundo, (int) getCamera().position.x);
        addGameActor(enemy);
        nextEnemyAt = enemySpawn;
     }

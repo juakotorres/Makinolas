@@ -4,11 +4,14 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 
+import cl.makinolas.atk.actors.Hero;
+
 public class Gible extends AbstractFriend {
   
   private TextureRegion[][] faces;
   
-  public Gible() {
+  public Gible(Hero hero) {
+    super(hero);
     faces = new TextureRegion(new Texture(Gdx.files.internal("Actors/Gible_faces.png"))).split(40,40);
     setTexture(new TextureRegion(new Texture(Gdx.files.internal("Actors/gible.png"))));
     setAnimations(new int[]{31,29},
@@ -23,8 +26,8 @@ public class Gible extends AbstractFriend {
     setMaxMagic(100);
   }
 
-  public Gible(int level){
-    this();
+  public Gible(int level, Hero hero){
+    this(hero);
     initLevel(level);
   }
   

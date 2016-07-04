@@ -4,11 +4,14 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 
+import cl.makinolas.atk.actors.Hero;
+
 public class Gastly extends AbstractFriend {
   
  private TextureRegion[][] faces;
   
-  public Gastly() {
+  public Gastly(Hero hero) {
+    super(hero);
     faces = new TextureRegion(new Texture(Gdx.files.internal("Actors/Gastly_faces.png"))).split(40,40);
     setTexture(new TextureRegion(new Texture(Gdx.files.internal("Actors/Gastly.png"))));
     setAnimations(new int[]{30,30},
@@ -23,8 +26,8 @@ public class Gastly extends AbstractFriend {
     setMaxMagic(100);
   }
   
-  public Gastly(int level){
-    this();
+  public Gastly(int level, Hero hero){
+    this(hero);
     initLevel(level);
   }
   

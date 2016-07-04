@@ -9,6 +9,7 @@ import com.badlogic.gdx.utils.Array;
 
 import cl.makinolas.atk.GameConstants;
 import cl.makinolas.atk.actors.attacks.Attacks;
+import cl.makinolas.atk.actors.attacks.Puff;
 import cl.makinolas.atk.actors.bosses.IBoss;
 import cl.makinolas.atk.actors.friend.Bagon;
 import cl.makinolas.atk.actors.friend.Friend;
@@ -17,7 +18,6 @@ import cl.makinolas.atk.actors.items.Ball;
 import cl.makinolas.atk.actors.items.BallActor;
 import cl.makinolas.atk.actors.items.Inventory;
 import cl.makinolas.atk.stages.AbstractStage;
-import cl.makinolas.atk.stages.GameStage;
 
 
 public class Hero extends Monsters {
@@ -45,6 +45,7 @@ public class Hero extends Monsters {
   private Inventory inventory;
   private int vx;
   private boolean inertia;
+  private boolean hasEvolved;
 
   public Hero(World myWorld) {
     
@@ -52,6 +53,7 @@ public class Hero extends Monsters {
     isFacingRight = false;
     isDamaged = false;
     isAttacking = false;
+    hasEvolved = false;
     dead = false;
     changing = false;
     changeIndex = 0;
@@ -62,8 +64,8 @@ public class Hero extends Monsters {
 
     // Set team for player;
     allies = new Array<Friend>();
-    addAllie(new Bagon());
-    addAllie(new Weedle());
+    addAllie(new Bagon(this));
+    addAllie(new Weedle(this));
     
     
     // Set actual allie
@@ -97,10 +99,20 @@ public class Hero extends Monsters {
     
     checkDamage(delta);
     checkMelee(delta);
+    checkEvolution();
     giveMagic();
     
   }
   
+  private void checkEvolution() {
+    if(hasEvolved){
+      Attacks attack = new Puff(myWorld, myBody.getPosition().x,myBody.getPosition().y,isFacingRight, this);
+      ((AbstractStage) getStage()).addGameActor(attack);
+      hasEvolved = false;
+    }
+    
+  }
+
   private void checkChangingAllie() {
     if(changing){
       setNewAllie(changeIndex);
@@ -220,6 +232,8 @@ public class Hero extends Monsters {
   }
   
   private void setNewAllie(int index){
+    Attacks attack = new Puff(myWorld, myBody.getPosition().x,myBody.getPosition().y,isFacingRight, this);
+    ((AbstractStage) getStage()).addGameActor(attack);
     actualFriend.setVariables(health, magic);
     allies.set(indexFriend, actualFriend);
     actualFriend = allies.get(index);
@@ -253,6 +267,7 @@ public class Hero extends Monsters {
   
   public void evolved(){
     setAnimation();
+    hasEvolved = true;
   }
 
   @Override
@@ -353,7 +368,7 @@ public class Hero extends Monsters {
     BallActor ball = new BallActor(type, myWorld, myBody.getPosition().x + ((isFacingRight)?0.6f:-0.6f)*actualFriend.getWidth()/ GameConstants.WORLD_FACTOR,
             myBody.getPosition().y);
     ball.setThrowImpulse((isFacingRight)?1:-1);
-    ((GameStage) getStage()).addGameActor(ball);
+    ((AbstractStage) getStage()).addGameActor(ball);
   }
 
 }

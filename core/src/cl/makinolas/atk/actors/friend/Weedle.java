@@ -5,6 +5,7 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.physics.box2d.World;
 
+import cl.makinolas.atk.actors.Hero;
 import cl.makinolas.atk.actors.Monsters;
 import cl.makinolas.atk.actors.attacks.Attacks;
 import cl.makinolas.atk.actors.attacks.Poison_Sting;
@@ -13,7 +14,8 @@ public class Weedle extends AbstractFriend {
   
   private TextureRegion[][] faces;
   
-  public Weedle() {
+  public Weedle(Hero hero) {
+    super(hero);
     faces = new TextureRegion(new Texture(Gdx.files.internal("Actors/Weedle_faces.png"))).split(40,40);
     setTexture(new TextureRegion(new Texture(Gdx.files.internal("Actors/Weedle.png"))));
     setAnimations(new int[]{30,24},
@@ -28,8 +30,8 @@ public class Weedle extends AbstractFriend {
     setMaxMagic(1000);
   }
   
-  public Weedle(int level){
-    this();
+  public Weedle(int level, Hero hero){
+    this(hero);
     initLevel(level);
   }
   

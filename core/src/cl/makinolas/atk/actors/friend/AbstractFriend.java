@@ -7,6 +7,7 @@ import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.physics.box2d.World;
 
 import cl.makinolas.atk.actors.Enemy;
+import cl.makinolas.atk.actors.Hero;
 import cl.makinolas.atk.actors.Monsters;
 import cl.makinolas.atk.actors.attacks.Attacks;
 import cl.makinolas.atk.actors.attacks.DragonBreath;
@@ -27,6 +28,11 @@ public abstract class AbstractFriend implements Friend {
   private TextureRegion faceSprite;
   protected Level level;
   private int actualEvolution;
+  private Hero myHero;
+  
+  public AbstractFriend(Hero hero){
+    myHero = hero;
+  }
   
   protected void setCutSprites(int width, int height){
     this.cutSprites = new int[]{width, height};
@@ -225,6 +231,8 @@ public abstract class AbstractFriend implements Friend {
     }
     
     public void gainExp(int wildPokemonLevel){
+      System.out.println(nextExpLevel);
+      System.out.println(Formulas.gainExp(level, wildPokemonLevel));
       this.nextExpLevel -= Formulas.gainExp(level, wildPokemonLevel);
       if(nextExpLevel < 0 && level < 100){
         double freeExp = Math.abs(nextExpLevel);
@@ -256,11 +264,13 @@ public abstract class AbstractFriend implements Friend {
     
     private float evolLevel;
     private int numberOfEvolution;
+    private boolean evolved;
     
     public Evolution(Level level, float evolLevel, int numberOfEvolution){
       observe(level);
       this.evolLevel = evolLevel;
       this.numberOfEvolution = numberOfEvolution;
+      evolved = false;
     }
     
     public void observe(Observable o) {
@@ -270,8 +280,10 @@ public abstract class AbstractFriend implements Friend {
     @Override
     public void update(Observable o, Object arg) {
       float newLevel = ((Level) o).getLevel();
-      if(newLevel >= evolLevel){
+      if(newLevel >= evolLevel && !evolved){
        evolve(this.numberOfEvolution);
+       myHero.evolved();
+       evolved = true;
       }
     }
   }

@@ -4,11 +4,14 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 
+import cl.makinolas.atk.actors.Hero;
+
 public class Shinx extends AbstractFriend{
   
   private TextureRegion[][] faces;
   
-  public Shinx() {
+  public Shinx(Hero hero) {
+    super(hero);
     faces = new TextureRegion(new Texture(Gdx.files.internal("Actors/Shinx_faces.png"))).split(40,40);
     setTexture(new TextureRegion(new Texture(Gdx.files.internal("Actors/Shinx.png"))));
     setAnimations(new int[]{29,28},
@@ -23,8 +26,8 @@ public class Shinx extends AbstractFriend{
     setMaxMagic(100);
   }
   
-  public Shinx(int level){
-    this();
+  public Shinx(int level, Hero hero){
+    this(hero);
     initLevel(level);
   }
   

@@ -11,7 +11,7 @@ public class Formulas {
   
   // for medium slow pokemon exp gain.
   public static double nextExpLevel(int level){
-    return 6/5*level^3 - 15*level^2 + 100*level - 140;
+    return 6/5*Math.pow(level, 3) - 15*Math.pow(level, 2) + 100*level - 140;
   }
   
   

@@ -5,6 +5,7 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.physics.box2d.World;
 
+import cl.makinolas.atk.actors.Hero;
 import cl.makinolas.atk.actors.Monsters;
 import cl.makinolas.atk.actors.attacks.Attacks;
 import cl.makinolas.atk.actors.attacks.Bubble;
@@ -13,7 +14,8 @@ public class Totodile extends AbstractFriend {
   
   private TextureRegion[][] faces;
   
-  public Totodile() {
+  public Totodile(Hero hero) {
+    super(hero);
     faces = new TextureRegion(new Texture(Gdx.files.internal("Actors/Totodile_faces.png"))).split(40,40);
     setTexture(new TextureRegion(new Texture(Gdx.files.internal("Actors/Totodile.png"))));
     setAnimations(new int[]{29,26},
@@ -28,8 +30,8 @@ public class Totodile extends AbstractFriend {
     setMaxMagic(100);
   }
   
-  public Totodile(int level){
-    this();
+  public Totodile(int level, Hero hero){
+    this(hero);
     initLevel(level);
   }
   

@@ -5,6 +5,7 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.physics.box2d.World;
 
+import cl.makinolas.atk.actors.Hero;
 import cl.makinolas.atk.actors.Monsters;
 import cl.makinolas.atk.actors.attacks.Attacks;
 import cl.makinolas.atk.actors.attacks.VineWhip;
@@ -13,7 +14,8 @@ public class Snivy extends AbstractFriend {
   
   private TextureRegion[][] faces;
   
-  public Snivy() {
+  public Snivy(Hero hero) {
+    super(hero);
     faces = new TextureRegion(new Texture(Gdx.files.internal("Actors/Snivy_faces.png"))).split(40,40);
     setTexture(new TextureRegion(new Texture(Gdx.files.internal("Actors/Snivy.png"))));
     setCutSprites(22,21);
@@ -28,8 +30,8 @@ public class Snivy extends AbstractFriend {
     setMaxMagic(100);
   }
   
-  public Snivy(int level){
-    this();
+  public Snivy(int level, Hero hero){
+    this(hero);
     initLevel(level);
   }
   

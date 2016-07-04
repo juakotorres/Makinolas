@@ -5,6 +5,7 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.physics.box2d.World;
 
+import cl.makinolas.atk.actors.Hero;
 import cl.makinolas.atk.actors.Monsters;
 import cl.makinolas.atk.actors.attacks.Attacks;
 import cl.makinolas.atk.actors.attacks.ThunderBolt;
@@ -13,7 +14,8 @@ public class Magnemite extends AbstractFriend {
   
   private TextureRegion[][] faces;
   
-  public Magnemite() {
+  public Magnemite(Hero hero) {
+    super(hero);
     faces = new TextureRegion(new Texture(Gdx.files.internal("Actors/Magnemite_faces.png"))).split(40,40);
     setTexture(new TextureRegion(new Texture(Gdx.files.internal("Actors/Magnemite.png"))));
     setCutSprites(20,22);
@@ -28,8 +30,8 @@ public class Magnemite extends AbstractFriend {
     setMaxMagic(100);
   }
   
-  public Magnemite(int level){
-    this();
+  public Magnemite(int level, Hero hero){
+    this(hero);
     initLevel(level);
   }
   

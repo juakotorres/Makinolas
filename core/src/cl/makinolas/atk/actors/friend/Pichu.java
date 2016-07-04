@@ -5,6 +5,7 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.physics.box2d.World;
 
+import cl.makinolas.atk.actors.Hero;
 import cl.makinolas.atk.actors.Monsters;
 import cl.makinolas.atk.actors.attacks.Attacks;
 import cl.makinolas.atk.actors.attacks.ThunderBolt;
@@ -13,7 +14,8 @@ public class Pichu extends AbstractFriend {
   
   private TextureRegion[][] faces;
   
-  public Pichu() {
+  public Pichu(Hero hero) {
+    super(hero);
     faces = new TextureRegion(new Texture(Gdx.files.internal("Actors/Pichu_faces.png"))).split(40,40);
     setTexture(new TextureRegion(new Texture(Gdx.files.internal("Actors/Pichu.png"))));
     setAnimations(new int[]{26,28},
@@ -28,8 +30,8 @@ public class Pichu extends AbstractFriend {
     setMaxMagic(100);
   }
   
-  public Pichu(int level){
-    this();
+  public Pichu(int level, Hero hero){
+    this(hero);
     initLevel(level);
   }
   

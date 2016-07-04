@@ -4,11 +4,14 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 
+import cl.makinolas.atk.actors.Hero;
+
 public class Igglypuff extends AbstractFriend {
   
   private TextureRegion[][] faces;
   
-  public Igglypuff() {
+  public Igglypuff(Hero hero) {
+    super(hero);
     faces = new TextureRegion(new Texture(Gdx.files.internal("Actors/Igglypuff_faces.png"))).split(40,40);
     setTexture(new TextureRegion(new Texture(Gdx.files.internal("Actors/Igglypuff.png"))));
     setAnimations(new int[]{17,18},
@@ -23,8 +26,8 @@ public class Igglypuff extends AbstractFriend {
     setMaxMagic(100);
   }
   
-  public Igglypuff(int level){
-    this();
+  public Igglypuff(int level, Hero hero){
+    this(hero);
     initLevel(level);
   }
   

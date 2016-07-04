@@ -5,6 +5,7 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.physics.box2d.World;
 
+import cl.makinolas.atk.actors.Hero;
 import cl.makinolas.atk.actors.Monsters;
 import cl.makinolas.atk.actors.attacks.Attacks;
 import cl.makinolas.atk.actors.attacks.Ember;
@@ -13,7 +14,8 @@ public class Charmander extends AbstractFriend {
   
   private TextureRegion[][] faces;
   
-  public Charmander() {
+  public Charmander(Hero hero) {
+    super(hero);
     faces = new TextureRegion(new Texture(Gdx.files.internal("Actors/Charmander_faces.png"))).split(40,40);
     setTexture(new TextureRegion(new Texture(Gdx.files.internal("Actors/charmander.png"))));
     setAnimations(new int[]{22,22},
@@ -28,8 +30,8 @@ public class Charmander extends AbstractFriend {
     setMaxMagic(100);
   }
   
-  public Charmander(int level){
-    this();
+  public Charmander(int level, Hero hero){
+    this(hero);
     initLevel(level);
   }
   

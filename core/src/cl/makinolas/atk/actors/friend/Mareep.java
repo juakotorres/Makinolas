@@ -4,11 +4,14 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 
+import cl.makinolas.atk.actors.Hero;
+
 public class Mareep extends AbstractFriend {
   
   private TextureRegion[][] faces;
   
-  public Mareep() {
+  public Mareep(Hero hero) {
+    super(hero);
     faces = new TextureRegion(new Texture(Gdx.files.internal("Actors/Mareep_faces.png"))).split(40,40);
     setTexture(new TextureRegion(new Texture(Gdx.files.internal("Actors/Mareep.png"))));
     setAnimations(new int[]{29,21},
@@ -23,8 +26,8 @@ public class Mareep extends AbstractFriend {
     setMaxMagic(100);
   }
   
-  public Mareep(int level){
-    this();
+  public Mareep(int level, Hero hero){
+    this(hero);
     initLevel(level);
   }
   
