@@ -31,8 +31,6 @@ import cl.makinolas.atk.utils.LevelReader;
 
 public class GameStage extends AbstractStage implements ContactListener {
 
-  public static String levelName = "level1";
-
   private World suMundo;
   private float accumulator;
   private final float frameTime = 1 / 300f;
@@ -40,15 +38,16 @@ public class GameStage extends AbstractStage implements ContactListener {
   private float nextEnemyAt;
   private Array<GameActor> gameActors;
   private Group ground, mons, ui;
-  private GameScreen myScreen;
 
   private MainBar bar;
 
   private OrthographicCamera camera;
   private Box2DDebugRenderer renderer;
   
-  public GameStage(Viewport v, GameScreen actualScreen, Game myGame){
+  public GameStage(Viewport v, GameScreen actualScreen, Game myGame, Levels type){
     super(v);
+    level = type;
+    levelName = getLevelName();
     myScreen = actualScreen;
     nextEnemyAt = enemySpawn;
     gameActors = new Array<GameActor>();
@@ -66,9 +65,9 @@ public class GameStage extends AbstractStage implements ContactListener {
 
     MobileGroup group = new MobileGroup(Gdx.app.getType() == Application.ApplicationType.Android);
     Gdx.input.setInputProcessor(this);
-    Portal portal = new Portal(suMundo, new Vector2(49, -6), myGame);
-    /* for easy entering boss 1
-    Portal portal = new Portal(suMundo, new Vector2(10, 3), myGame);*/
+    //Portal portal = new Portal(suMundo, new Vector2(49, -6), myGame);
+    /* for easy entering boss 1 */
+    Portal portal = new Portal(suMundo, new Vector2(10, 3), myGame);
     addGameActor(portal);
     Hero hero =  new Hero(suMundo);
     createPlatforms();
@@ -92,7 +91,7 @@ public class GameStage extends AbstractStage implements ContactListener {
     LevelReader reader = LevelReader.getInstance();   
     reader.setWorld(suMundo);
     try {
-      Array<GameActor> platforms = reader.loadLevel(GameStage.levelName);
+      Array<GameActor> platforms = reader.loadLevel(getLevelName());
       for(GameActor p : platforms)
         ground.addActor(p);
     } catch (IOException e) {
@@ -148,9 +147,6 @@ public class GameStage extends AbstractStage implements ContactListener {
     
   }
   
-  private void changeDeadMenu() {
-    myScreen.mainMenu();
-  }
 
   @Override
   public void draw() {

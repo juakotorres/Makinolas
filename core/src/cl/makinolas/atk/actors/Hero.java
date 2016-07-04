@@ -10,9 +10,9 @@ import com.badlogic.gdx.utils.Array;
 import cl.makinolas.atk.GameConstants;
 import cl.makinolas.atk.actors.attacks.Attacks;
 import cl.makinolas.atk.actors.bosses.IBoss;
+import cl.makinolas.atk.actors.friend.Bagon;
 import cl.makinolas.atk.actors.friend.Friend;
-import cl.makinolas.atk.actors.friend.Pichu;
-import cl.makinolas.atk.actors.friend.Scyther;
+import cl.makinolas.atk.actors.friend.Weedle;
 import cl.makinolas.atk.actors.items.Ball;
 import cl.makinolas.atk.actors.items.BallActor;
 import cl.makinolas.atk.actors.items.Inventory;
@@ -50,8 +50,6 @@ public class Hero extends Monsters {
     
     isJumping = false;
     isFacingRight = false;
-    health = 100;
-    magic = 1000;
     isDamaged = false;
     isAttacking = false;
     dead = false;
@@ -64,13 +62,16 @@ public class Hero extends Monsters {
 
     // Set team for player;
     allies = new Array<Friend>();
-    addAllie(new Scyther());
-    addAllie(new Pichu());
+    addAllie(new Bagon());
+    addAllie(new Weedle());
     
     
     // Set actual allie
     actualFriend = allies.get(1);
     indexFriend = 1;
+    
+    health = actualFriend.getHealth();
+    magic = actualFriend.getMagic();
     // define player world
     this.myWorld = myWorld;
     // Set correct collider.

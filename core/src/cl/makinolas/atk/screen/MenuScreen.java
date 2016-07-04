@@ -12,6 +12,7 @@ import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.utils.viewport.FitViewport;
 
 import cl.makinolas.atk.stages.GameStage;
+import cl.makinolas.atk.stages.Levels;
 import cl.makinolas.atk.stages.MenuStage;
 
 public class MenuScreen implements Screen {
@@ -31,7 +32,7 @@ public class MenuScreen implements Screen {
         @Override
         public void clicked(InputEvent event, float x, float y) {
             GameScreen gameScreen = new GameScreen(myGame);
-            gameScreen.setStage(new GameStage(new FitViewport(640,480), gameScreen, myGame));
+            gameScreen.setStage(new GameStage(new FitViewport(640,480), gameScreen, myGame, Levels.LEVEL1));
             myGame.setScreen(gameScreen);
         }
     });

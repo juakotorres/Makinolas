@@ -10,6 +10,7 @@ import cl.makinolas.atk.actors.HBar;
 import cl.makinolas.atk.actors.Hero;
 import cl.makinolas.atk.actors.Monsters;
 import cl.makinolas.atk.actors.attacks.Attacks;
+import cl.makinolas.atk.stages.BossStage;
 
 public abstract class Boss extends Monsters implements IBoss{
   
@@ -68,6 +69,7 @@ public abstract class Boss extends Monsters implements IBoss{
       inflictor.setDead();
       healthBar.setCurrent(health);
       if(health <= 0){
+        ((BossStage) getStage()).bossIsDead();
         dead = true;
       }
     }

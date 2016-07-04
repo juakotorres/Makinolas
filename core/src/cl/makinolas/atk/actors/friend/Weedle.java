@@ -25,7 +25,7 @@ public class Weedle extends AbstractFriend {
     initDead();
     setActualEvolution(0);
     setMaxHealth(30);
-    setMaxMagic(100);
+    setMaxMagic(1000);
   }
   
   public Weedle(int level){

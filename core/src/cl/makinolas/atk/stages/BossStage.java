@@ -22,6 +22,7 @@ import cl.makinolas.atk.actors.Background;
 import cl.makinolas.atk.actors.GameActor;
 import cl.makinolas.atk.actors.Hero;
 import cl.makinolas.atk.actors.InputController;
+import cl.makinolas.atk.actors.Portal;
 import cl.makinolas.atk.actors.bosses.OldMewtwo;
 import cl.makinolas.atk.actors.ui.MainBar;
 import cl.makinolas.atk.actors.ui.MobileGroup;
@@ -29,23 +30,25 @@ import cl.makinolas.atk.screen.GameScreen;
 import cl.makinolas.atk.utils.LevelReader;
 
 public class BossStage extends AbstractStage implements ContactListener {
-  
-  public static String levelName = "bossstage1";
 
   private World suMundo;
   private float accumulator;
   private final float frameTime = 1 / 300f;
+  private boolean bossDefeated;
   private Array<GameActor> gameActors;
   private Group ground, mons, ui;
-  private GameScreen myScreen;
+  private Game myGame;
 
   private MainBar bar;
 
   private OrthographicCamera camera;
   private Box2DDebugRenderer renderer;
 
-  public BossStage(Viewport v, GameScreen actualScreen, Game myGame){
+  public BossStage(Viewport v, GameScreen actualScreen, Game myGame, Levels type){
     super(v);
+    level = type;
+    levelName = getLevelName();
+    this.myGame = myGame;
     myScreen = actualScreen;
     gameActors = new Array<GameActor>();
     suMundo = new World(new Vector2(0, -10), true);
@@ -65,6 +68,7 @@ public class BossStage extends AbstractStage implements ContactListener {
     Hero hero =  new Hero(suMundo);
     createPlatforms();
     
+    bossDefeated = false;
     GameActor enemy = new OldMewtwo(suMundo, hero);
     addGameActor(enemy);
     
@@ -89,7 +93,7 @@ public class BossStage extends AbstractStage implements ContactListener {
     LevelReader reader = LevelReader.getInstance();
     reader.setWorld(suMundo);
     try {
-      Array<GameActor> platforms = reader.loadLevel(BossStage.levelName);
+      Array<GameActor> platforms = reader.loadLevel(getLevelName());
       for(GameActor p : platforms)
         ground.addActor(p);
     } catch (IOException e) {
@@ -103,6 +107,10 @@ public class BossStage extends AbstractStage implements ContactListener {
     camera.update();
   }
   
+  public void bossIsDead(){
+    bossDefeated = true;
+  }
+  
   public void changeCamera(float x, float y){
     camera.position.set(14, 7, 0);
     getCamera().position.set(14 * 20, 7* 20, 0);
@@ -113,6 +121,7 @@ public class BossStage extends AbstractStage implements ContactListener {
   @Override
   public void act(float delta){
     super.act(delta);
+    checkBossAlive();
     for(GameActor actor : gameActors){
       if(actor.isHero() && actor.isDead()){
         changeDeadMenu();
@@ -136,10 +145,14 @@ public class BossStage extends AbstractStage implements ContactListener {
     }
     
   }
-  
-  private void changeDeadMenu() {
-    myScreen.mainMenu();
+
+  private void checkBossAlive() {
+    if(bossDefeated){
+      Portal portal = new Portal(suMundo, new Vector2(10, 3), myGame);
+      addGameActor(portal); 
+    }    
   }
+
 
   @Override
   public void draw() {

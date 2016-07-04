@@ -54,7 +54,7 @@ public class MainBar extends Group{
         //Labels
         font.draw(batch,"HP",cx+18,cy+36);
         font.draw(batch,"Magic",cx+4,cy+20);
-        font.draw(batch,GameStage.levelName,cx+220,cy+38);
+        font.draw(batch,AbstractStage.levelName ,cx+220,cy+38);
         font.draw(batch, ""+((int) AbstractStage.elapsedTime),cx+230,cy+20);
         //Current Friend Sprite
         friend.setPosition(cx+270,cy+2);

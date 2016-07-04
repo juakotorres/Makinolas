@@ -13,7 +13,10 @@ import com.badlogic.gdx.physics.box2d.World;
 import com.badlogic.gdx.utils.viewport.FitViewport;
 
 import cl.makinolas.atk.screen.GameScreen;
+import cl.makinolas.atk.stages.AbstractStage;
 import cl.makinolas.atk.stages.BossStage;
+import cl.makinolas.atk.stages.GameStage;
+import cl.makinolas.atk.stages.Levels;
 
 public class Portal extends AnimatedActor{
   
@@ -73,10 +76,27 @@ public class Portal extends AnimatedActor{
   public void interactWithHero(Hero hero){
     nextStage();
   }
-  
+
   public void nextStage(){
+    AbstractStage myStage = ((AbstractStage) getStage());
+    Levels actualLevel = myStage.getLevel();
     GameScreen gameScreen = new GameScreen(myGame);
-    gameScreen.setStage(new BossStage(new FitViewport(640,480), gameScreen, myGame));
+    
+    int numberOfLevel = actualLevel.ordinal() + 1;
+   
+    if(numberOfLevel > Levels.values().length - 1){
+      myStage.changeDeadMenu();
+      return;
+    }
+    
+    Levels nextLevel = Levels.values()[numberOfLevel];
+       
+    if(nextLevel.bossLevel){
+      gameScreen.setStage(new BossStage(new FitViewport(640,480), gameScreen, myGame, nextLevel));
+    } else {
+      gameScreen.setStage(new GameStage(new FitViewport(640,480), gameScreen, myGame, nextLevel));
+    }
+    
     myGame.setScreen(gameScreen);
   }
   
