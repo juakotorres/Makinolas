@@ -75,6 +75,10 @@ public abstract class ThrowableAttacks extends Attacks {
   public boolean isDead(){
     return dead;
   }
+  
+  public float getXVelocity(){
+	  return xVelocity;
+  }
 
   
 }

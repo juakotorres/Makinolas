@@ -96,4 +96,8 @@ public class VineWhip extends Attacks {
     return dead;
   }
   
+   @Override
+   public float getXVelocity(){
+	   return isFacingRight? -3 : 3;
+   }
 }

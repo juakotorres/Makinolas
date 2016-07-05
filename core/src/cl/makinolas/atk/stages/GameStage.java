@@ -35,7 +35,7 @@ public class GameStage extends AbstractStage implements ContactListener {
   private World suMundo;
   private float accumulator;
   private final float frameTime = 1 / 300f;
-  private final float enemySpawn = 3f;
+  private final float enemySpawn = 5f;
   private float nextEnemyAt;
   private Array<GameActor> gameActors;
   private Group ground, mons, ui;
@@ -148,7 +148,7 @@ public class GameStage extends AbstractStage implements ContactListener {
        GameActor enemy2 = (new Scyther(Hero.getInstance())).returnPhysicalEnemy(suMundo, (int)getCamera().position.x);
        //addGameActor(enemy1);
        addGameActor(enemy2);
-       nextEnemyAt = 100;
+       nextEnemyAt = enemySpawn;
     }
     
     

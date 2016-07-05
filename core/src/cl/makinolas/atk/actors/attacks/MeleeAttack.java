@@ -8,6 +8,7 @@ public class MeleeAttack extends Attacks {
   private boolean dead;
   
   public MeleeAttack(Monsters monster){
+	 xVelocity =0;
     source = monster;
     dead = false;
   }

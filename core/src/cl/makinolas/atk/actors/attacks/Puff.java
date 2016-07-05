@@ -23,7 +23,7 @@ public class Puff extends Attacks {
   private boolean dead;
   
 public Puff(World myWorld, float x , float y, boolean facingRight, Monsters source){
-    
+    xVelocity =0;
     dead = false;
     mySource = source;
     accumulator = 0;

@@ -16,7 +16,7 @@ import cl.makinolas.atk.actors.enemies.Enemy;
 import cl.makinolas.atk.actors.friend.Bagon;
 import cl.makinolas.atk.actors.friend.Enemies;
 import cl.makinolas.atk.actors.friend.Friend;
-import cl.makinolas.atk.actors.friend.Weedle;
+import cl.makinolas.atk.actors.friend.Scyther;
 import cl.makinolas.atk.actors.items.Ball;
 import cl.makinolas.atk.actors.items.BallActor;
 import cl.makinolas.atk.actors.items.Inventory;
@@ -69,7 +69,7 @@ public class Hero extends Monsters {
     // Set team for player;
     allies = new Array<Friend>();
     addAllie(new Bagon(this));
-    addAllie(new Weedle(this));
+    addAllie(new Scyther(this));
 
     // Set actual allie
     actualFriend = allies.get(1);
@@ -417,4 +417,10 @@ public class Hero extends Monsters {
       }
     }
   }
+
+@Override
+public float getXDirection() {
+	
+	return vx;
+}
 }

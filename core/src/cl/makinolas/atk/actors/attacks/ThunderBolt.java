@@ -23,7 +23,7 @@ public class ThunderBolt extends Attacks {
   private boolean dead;
   
   public ThunderBolt(World myWorld, float x , float y, boolean facingRight, Monsters source){
-    
+    xVelocity = 0;
     dead = false;
     mySource = source;
     attackTime = 0;

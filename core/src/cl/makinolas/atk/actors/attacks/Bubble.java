@@ -19,7 +19,6 @@ public class Bubble extends Attacks {
   private Monsters mySource;
   private float attackTime;
   private float accumulator;
-  private float xVelocity;
   private float initialPosition;
   private boolean dead;
   
