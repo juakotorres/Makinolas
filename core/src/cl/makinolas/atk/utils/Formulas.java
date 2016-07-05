@@ -44,4 +44,11 @@ public class Formulas {
   public static int getHpStat(int baseStat, int level){
     return (((2 * baseStat) * level) / 100) + level + 10;    
   }
+
+
+  public static boolean checkCatch(float ballFactor, float enemyCatchRatio, int currentHP, int maxHP) {
+    float bernulli = (3*maxHP - 2*currentHP) * ballFactor * enemyCatchRatio / (3*maxHP);
+    return Math.random()<=bernulli;
+  }
+
 }

@@ -92,10 +92,6 @@ public class Hero extends Monsters {
     player = new Hero();
   }
   
-  private void addAllie(Friend friend) {
-    allies.add(friend);
-  }
-  
   public void setWorld(World myWorld){
     this.myWorld = myWorld;
     isJumping = false;
@@ -109,6 +105,14 @@ public class Hero extends Monsters {
     else{
       setSizeCollider(new Vector2(2, 3), true);
     }
+    // Guardar animaciones del jugador
+    setAnimation();
+    changeAnimation(walkAnimation);
+  }
+  
+  public void addAllie(Friend friend) {
+    if(allies.size<4)
+      allies.add(friend);
   }
 
   @Override
@@ -399,4 +403,23 @@ public class Hero extends Monsters {
     ((AbstractStage) getStage()).addGameActor(ball);
   }
 
+  public void nextAllie() {
+    for (int i = 1; i <= allies.size; i++) {
+      int j = (indexFriend + i) % allies.size;
+      if(!allies.get(j).getDead()) {
+        changeAllie(j);
+        break;
+      }
+    }
+  }
+
+  public void prevAllie(){
+    for (int i = 1; i <= allies.size; i++) {
+      int j = (indexFriend - i + allies.size) % allies.size;
+      if(!allies.get(j).getDead()) {
+        changeAllie(j);
+        break;
+      }
+    }
+  }
 }

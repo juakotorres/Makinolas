@@ -1,33 +1,22 @@
 package cl.makinolas.atk.stages;
 
-import java.io.IOException;
-
-import com.badlogic.gdx.Application;
-import com.badlogic.gdx.Game;
-import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.graphics.OrthographicCamera;
-import com.badlogic.gdx.math.Vector2;
-import com.badlogic.gdx.physics.box2d.Body;
-import com.badlogic.gdx.physics.box2d.Box2DDebugRenderer;
-import com.badlogic.gdx.physics.box2d.Contact;
-import com.badlogic.gdx.physics.box2d.ContactImpulse;
-import com.badlogic.gdx.physics.box2d.ContactListener;
-import com.badlogic.gdx.physics.box2d.Manifold;
-import com.badlogic.gdx.physics.box2d.World;
-import com.badlogic.gdx.scenes.scene2d.Group;
-import com.badlogic.gdx.utils.Array;
-import com.badlogic.gdx.utils.viewport.Viewport;
-
-import cl.makinolas.atk.actors.Background;
-import cl.makinolas.atk.actors.GameActor;
-import cl.makinolas.atk.actors.Hero;
-import cl.makinolas.atk.actors.InputController;
-import cl.makinolas.atk.actors.Portal;
+import cl.makinolas.atk.actors.*;
 import cl.makinolas.atk.actors.friend.Gastly;
 import cl.makinolas.atk.actors.ui.MainBar;
 import cl.makinolas.atk.actors.ui.MobileGroup;
 import cl.makinolas.atk.screen.GameScreen;
 import cl.makinolas.atk.utils.LevelReader;
+import com.badlogic.gdx.Application;
+import com.badlogic.gdx.Game;
+import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.graphics.OrthographicCamera;
+import com.badlogic.gdx.math.Vector2;
+import com.badlogic.gdx.physics.box2d.*;
+import com.badlogic.gdx.scenes.scene2d.Group;
+import com.badlogic.gdx.utils.Array;
+import com.badlogic.gdx.utils.viewport.Viewport;
+
+import java.io.IOException;
 
 public class GameStage extends AbstractStage implements ContactListener {
 
@@ -38,6 +27,7 @@ public class GameStage extends AbstractStage implements ContactListener {
   private float nextEnemyAt;
   private Array<GameActor> gameActors;
   private Group ground, mons, ui;
+  private Hero hero;
 
   private MainBar bar;
 
@@ -182,6 +172,5 @@ public class GameStage extends AbstractStage implements ContactListener {
   public void postSolve(Contact contact, ContactImpulse impulse) {
     
   }
-  
-  
+
 }

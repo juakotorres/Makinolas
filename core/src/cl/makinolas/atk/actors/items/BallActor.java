@@ -1,5 +1,6 @@
 package cl.makinolas.atk.actors.items;
 
+import cl.makinolas.atk.actors.Enemy;
 import cl.makinolas.atk.actors.GameActor;
 import cl.makinolas.atk.actors.Platform;
 import com.badlogic.gdx.graphics.g2d.Batch;
@@ -54,6 +55,11 @@ public class BallActor extends GameActor {
     }
 
     @Override
+    public void interactWithEnemy(Enemy enemy) {
+        enemy.interactWithBall(this);
+    }
+
+    @Override
     public boolean isDead() {
         return dead;
     }
@@ -71,5 +77,9 @@ public class BallActor extends GameActor {
 
     public void setThrowImpulse(int dir) {
         myBody.applyLinearImpulse(dir*5, 2f, myBody.getPosition().x, myBody.getPosition().y, true);
+    }
+
+    public void setDead() {
+        dead = true;
     }
 }
