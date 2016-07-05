@@ -3,9 +3,9 @@ package cl.makinolas.atk.actors.friend;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.physics.box2d.World;
 
-import cl.makinolas.atk.actors.Enemy;
 import cl.makinolas.atk.actors.Monsters;
 import cl.makinolas.atk.actors.attacks.Attacks;
+import cl.makinolas.atk.actors.enemies.Enemy;
 
 public interface Friend {  
   public void setVariables(int health, int magic);
@@ -31,4 +31,6 @@ public interface Friend {
   public TextureRegion getFriendFaceSprite();
   public Enemy returnEnemy(World myWorld, int heroPosition);
   public Enemies getType();
+  public Enemy returnLongRangeEnemy(World myWorld, int heroPosition);
+  public Enemy returnPhysicalEnemy(World myWorld, int heroPosition);
 }

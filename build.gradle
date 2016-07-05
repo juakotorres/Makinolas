@@ -7,11 +7,10 @@ buildscript {
     }
     dependencies {
         classpath 'de.richsource.gradle.plugins:gwt-gradle-plugin:0.6'
-        classpath 'com.android.tools.build:gradle:1.5.0'
+        classpath 'com.android.tools.build:gradle:2.1.2'
         classpath 'com.mobidevelop.robovm:robovm-gradle-plugin:2.1.0'
     }
 }
-
 allprojects {
     apply plugin: "eclipse"
     apply plugin: "idea"
@@ -33,7 +32,6 @@ allprojects {
         maven { url "https://oss.sonatype.org/content/repositories/releases/" }
     }
 }
-
 project(":desktop") {
     apply plugin: "java"
 
@@ -45,7 +43,6 @@ project(":desktop") {
         compile "com.badlogicgames.gdx:gdx-box2d-platform:$gdxVersion:natives-desktop"
     }
 }
-
 project(":android") {
     apply plugin: "android"
 
@@ -67,7 +64,6 @@ project(":android") {
         natives "com.badlogicgames.gdx:gdx-box2d-platform:$gdxVersion:natives-x86_64"
     }
 }
-
 project(":ios") {
     apply plugin: "java"
     apply plugin: "robovm"
@@ -82,7 +78,6 @@ project(":ios") {
         compile "com.badlogicgames.gdx:gdx-box2d-platform:$gdxVersion:natives-ios"
     }
 }
-
 project(":html") {
     apply plugin: "gwt"
     apply plugin: "war"
@@ -97,7 +92,6 @@ project(":html") {
         compile "com.badlogicgames.gdx:gdx-box2d-gwt:$gdxVersion:sources"
     }
 }
-
 project(":core") {
     apply plugin: "java"
 
@@ -107,7 +101,13 @@ project(":core") {
         compile "com.badlogicgames.gdx:gdx-box2d:$gdxVersion"
     }
 }
-
 tasks.eclipse.doLast {
     delete ".project"
+}
+/*
+android {
+    buildToolsVersion '23.0.1'
+}
+*/
+dependencies {
 }

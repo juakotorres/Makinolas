@@ -6,6 +6,7 @@ import com.badlogic.gdx.scenes.scene2d.Actor;
 
 import cl.makinolas.atk.actors.attacks.Attacks;
 import cl.makinolas.atk.actors.bosses.IBoss;
+import cl.makinolas.atk.actors.enemies.Enemy;
 import cl.makinolas.atk.actors.items.BallActor;
 
 public abstract class GameActor extends Actor{

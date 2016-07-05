@@ -1,4 +1,4 @@
-package cl.makinolas.atk.actors;
+package cl.makinolas.atk.actors.enemies;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
@@ -12,12 +12,16 @@ import com.badlogic.gdx.physics.box2d.World;
 import com.badlogic.gdx.physics.box2d.WorldManifold;
 
 import cl.makinolas.atk.GameConstants;
+import cl.makinolas.atk.actors.GameActor;
+import cl.makinolas.atk.actors.HBar;
+import cl.makinolas.atk.actors.Hero;
+import cl.makinolas.atk.actors.Monsters;
 import cl.makinolas.atk.actors.attacks.Attacks;
 import cl.makinolas.atk.actors.friend.Enemies;
 
 public class Enemy extends Monsters {
   
-  private float vx;
+  protected float vx;
   private int health;
   private HBar healthBar;
   private boolean isDamaged;
@@ -55,7 +59,7 @@ public class Enemy extends Monsters {
     meleeDamage = 10;
     accumulator = 0;
     this.level = level;
-    int actualPosition = heroPosition / 20;
+    int actualPosition = heroPosition/10;
     int randomNum = actualPosition  + (int)(Math.random() * 16) - 7;
     
     if (randomNum > actualPosition){
@@ -96,7 +100,7 @@ public class Enemy extends Monsters {
   @Override
   public void act(float delta){     
     myBody.setLinearVelocity(vx, myBody.getLinearVelocity().y);
-    
+    //myBody.applyForce(1, 1, 10, 10, true);
     if(isDamaged){
       accumulator += delta;
       if(accumulator > hurtTime){

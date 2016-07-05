@@ -6,11 +6,13 @@ import java.util.Observer;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.physics.box2d.World;
 
-import cl.makinolas.atk.actors.Enemy;
 import cl.makinolas.atk.actors.Hero;
 import cl.makinolas.atk.actors.Monsters;
 import cl.makinolas.atk.actors.attacks.Attacks;
 import cl.makinolas.atk.actors.attacks.DragonBreath;
+import cl.makinolas.atk.actors.enemies.Enemy;
+import cl.makinolas.atk.actors.enemies.PhysicalEnemy;
+import cl.makinolas.atk.actors.enemies.LongRangeEnemy;
 import cl.makinolas.atk.utils.Formulas;
 
 public abstract class AbstractFriend implements Friend {
@@ -172,6 +174,17 @@ public abstract class AbstractFriend implements Friend {
   @Override
   public Enemy returnEnemy(World myWorld, int heroPosition) {
     return new Enemy(myWorld, friendTexture, cutSprites, 
+                walkingAnimation, hurtAnimation,  getHealth(), heroPosition, getLevel(), friend);
+  }
+  
+  @Override
+  public Enemy returnLongRangeEnemy(World myWorld, int heroPosition) {
+    return new LongRangeEnemy(myWorld, friendTexture, cutSprites, 
+                walkingAnimation, hurtAnimation,  getHealth(), heroPosition, getLevel(), friend);
+  }
+  @Override
+  public Enemy returnPhysicalEnemy(World myWorld, int heroPosition) {
+    return new PhysicalEnemy(myWorld, friendTexture, cutSprites, 
                 walkingAnimation, hurtAnimation,  getHealth(), heroPosition, getLevel(), friend);
   }
   
