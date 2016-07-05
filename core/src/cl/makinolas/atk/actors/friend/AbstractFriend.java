@@ -299,7 +299,7 @@ public abstract class AbstractFriend implements Friend {
   
   @Override
   public void setHealth(int health){
-    this.health = health;
+    this.health = health > maxHealth? maxHealth:health;
   }
   
   protected void setMaxHealth(int maxHealth){

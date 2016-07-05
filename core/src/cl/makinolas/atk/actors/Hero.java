@@ -26,11 +26,10 @@ import cl.makinolas.atk.utils.SaveManager;
 
 public class Hero extends Monsters {
 
+  public static Hero player = new Hero();
   private boolean changing;
   private int changeIndex;
   private boolean isJumping;
-  private int health;
-  private int magic;
   private boolean isDamaged;
   private boolean isAttacking;
   private float numberOfAttackingFrames;
@@ -51,7 +50,7 @@ public class Hero extends Monsters {
   private boolean inertia;
   private boolean hasEvolved;
 
-  public Hero(World myWorld) {
+  private Hero() {
 
     isJumping = false;
     isFacingRight = false;
@@ -75,13 +74,31 @@ public class Hero extends Monsters {
     actualFriend = allies.get(1);
     indexFriend = 1;
     
-    health = actualFriend.getHealth();
-    magic = actualFriend.getMagic();
-    // define player world
-    this.myWorld = myWorld;
     // Set correct collider.
     myBodyDefinition = new BodyDef();
     myBodyDefinition.type = BodyDef.BodyType.DynamicBody;
+    
+    // Guardar animaciones del jugador
+    setAnimation();
+    changeAnimation(walkAnimation);
+  }
+  
+  public static Hero getInstance(){
+    return player;
+  }
+  
+  public void reset(){
+    player = new Hero();
+  }
+  
+  private void addAllie(Friend friend) {
+    allies.add(friend);
+  }
+  
+  public void setWorld(World myWorld){
+    this.myWorld = myWorld;
+    isJumping = false;
+    
     // Load position from saved instance (only for production)
     SaveManager.getInstance().loadData("ATK.sav");
     if (SaveManager.getInstance().hasSaveInstance()){
@@ -91,13 +108,6 @@ public class Hero extends Monsters {
     else{
       setSizeCollider(new Vector2(2, 3), true);
     }
-    // Guardar animaciones del jugador
-    setAnimation();
-    changeAnimation(walkAnimation);
-  }
-  
-  private void addAllie(Friend friend) {
-    allies.add(friend);
   }
 
   @Override
@@ -168,8 +178,8 @@ public class Hero extends Monsters {
   }
 
   private void giveMagic() {
-    if(magic < 1000){
-      magic = ((magic + 1)%1001);
+    if(actualFriend.getMagic() < 1000){
+      actualFriend.setMagic(((actualFriend.getMagic() + 1)%1001));
     }    
   }
 
@@ -193,7 +203,7 @@ public class Hero extends Monsters {
   }
 
   public void landedPlatform(WorldManifold worldManifold, Platform platform){
-    if(worldManifold.getNormal().y == -1.0){
+    if(worldManifold.getNormal().y < -0.95){
       isJumping = false;
     }
   }
@@ -212,23 +222,23 @@ public class Hero extends Monsters {
   }
 
   public int getHealth(){
-    return health;
+    return actualFriend.getHealth();
   }
   
   public int getMagic(){
-    return magic;
+    return actualFriend.getMagic();
   }
 
 
   @Override
   public void damage(int damage, Attacks inflictor)  {
     if(!inflictor.getSource().isHero()){
-      health -= damage;   
+      actualFriend.setHealth(actualFriend.getHealth() - damage);
       isDamaged = true;
       changeAnimation(hurtAnimation);
       inflictor.setDead();
     }
-    if(health <= 0){
+    if(actualFriend.getHealth() <= 0){
       changeAllie();
     }
   }
@@ -244,15 +254,15 @@ public class Hero extends Monsters {
   }
   
   private void setNewAllie(int index){
-    Attacks attack = new Puff(myWorld, myBody.getPosition().x,myBody.getPosition().y,isFacingRight, this);
-    ((AbstractStage) getStage()).addGameActor(attack);
-    actualFriend.setVariables(health, magic);
-    allies.set(indexFriend, actualFriend);
-    actualFriend = allies.get(index);
-    health = actualFriend.getHealth();
-    indexFriend = index;
-    setSizeCollider(getBody().getPosition(), false);
-    setAnimation();
+    if(!isJumping){
+      Attacks attack = new Puff(myWorld, myBody.getPosition().x,myBody.getPosition().y,isFacingRight, this);
+      ((AbstractStage) getStage()).addGameActor(attack);
+      allies.set(indexFriend, actualFriend);
+      actualFriend = allies.get(index);
+      indexFriend = index;
+      setSizeCollider(getBody().getPosition(), false);
+      setAnimation();
+    }
   }
   
   private void setSizeCollider(Vector2 position, boolean first) {
@@ -350,8 +360,8 @@ public class Hero extends Monsters {
   }
 
   public void attackPrimary() {
-    if(magic>=100){
-      magic -= 100;
+    if(actualFriend.getMagic() >= 100){
+      actualFriend.setMagic(actualFriend.getMagic() - 100);
       GameActor fireball = actualFriend.getFriendAttack(myWorld, myBody.getPosition().x,myBody.getPosition().y,isFacingRight, this);
       ((AbstractStage) getStage()).addGameActor(fireball);
     }

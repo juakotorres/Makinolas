@@ -19,7 +19,7 @@ public class Gastly extends AbstractFriend {
                   new int[][]{new int[]{0,0}});
     setMeleeAnimation(4,5);
     setFaceSprite(faces[0][0]);
-    initLevel(5);
+    initLevel(10);
     initDead();
     setActualEvolution(0);
     setMaxHealth(30);
