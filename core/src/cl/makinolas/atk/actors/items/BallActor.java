@@ -78,4 +78,8 @@ public class BallActor extends GameActor {
     public void setThrowImpulse(int dir) {
         myBody.applyLinearImpulse(dir*5, 2f, myBody.getPosition().x, myBody.getPosition().y, true);
     }
+
+    public void setDead() {
+        dead = true;
+    }
 }

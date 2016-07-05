@@ -6,7 +6,6 @@ import cl.makinolas.atk.actors.friend.Friend;
 import cl.makinolas.atk.actors.items.BallActor;
 import cl.makinolas.atk.stages.GameStage;
 import cl.makinolas.atk.utils.Formulas;
-import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Batch;
@@ -181,9 +180,10 @@ public class Enemy extends Monsters {
     if(Formulas.checkCatch(ball.getType().catchability/100f,0.9f,health,100)){
       dead = true;
       ((GameStage) getStage()).addAllie(parent);
+      ball.setDead();
     }
     else{
-      System.out.println("Broke free");
+      ball.setDead();
     }
   }
 

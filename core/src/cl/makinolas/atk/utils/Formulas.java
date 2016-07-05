@@ -15,8 +15,8 @@ public class Formulas {
   }
 
 
-  public static boolean checkCatch(float ballCatchability, float enemyCatchRatio, int currentHP, int maxHP) {
-    float bernulli = (3*maxHP - 2*currentHP) * ballCatchability * enemyCatchRatio / (3*maxHP);
+  public static boolean checkCatch(float ballFactor, float enemyCatchRatio, int currentHP, int maxHP) {
+    float bernulli = (3*maxHP - 2*currentHP) * ballFactor * enemyCatchRatio / (3*maxHP);
     return Math.random()<=bernulli;
   }
 

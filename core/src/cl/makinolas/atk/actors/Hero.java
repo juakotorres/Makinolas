@@ -90,7 +90,8 @@ public class Hero extends Monsters {
   }
   
   public void addAllie(Friend friend) {
-    allies.add(friend);
+    if(allies.size<4)
+      allies.add(friend);
   }
 
   @Override
@@ -362,10 +363,22 @@ public class Hero extends Monsters {
   }
 
   public void nextAllie() {
-    changeAllie((indexFriend+1)%allies.size);
+    for (int i = 1; i <= allies.size; i++) {
+      int j = (indexFriend + i) % allies.size;
+      if(!allies.get(j).getDead()) {
+        changeAllie(j);
+        break;
+      }
+    }
   }
 
   public void prevAllie(){
-    changeAllie((indexFriend-1+allies.size)%allies.size);
+    for (int i = 1; i <= allies.size; i++) {
+      int j = (indexFriend - i + allies.size) % allies.size;
+      if(!allies.get(j).getDead()) {
+        changeAllie(j);
+        break;
+      }
+    }
   }
 }

@@ -7,14 +7,14 @@ import cl.makinolas.atk.actors.Hero;
 public class Ball extends Item{
 
     public enum BallType{
-        POKEBALL(10, Item.textures[0][3]),
-        GREATBALL(20, Item.textures[0][2]),
-        ULTRABALL(40, Item.textures[0][1]),
-        MASTERBALL(100, Item.textures[0][0]);
+        POKEBALL(1, Item.textures[0][3]),
+        GREATBALL(1.5f, Item.textures[0][2]),
+        ULTRABALL(2, Item.textures[0][1]),
+        MASTERBALL(Float.POSITIVE_INFINITY, Item.textures[0][0]);
 
-        public int catchability;
+        public float catchability;
         public TextureRegion texture;
-        BallType(int k, TextureRegion reg){
+        BallType(float k, TextureRegion reg){
             catchability = k;
             texture = reg;
         }
