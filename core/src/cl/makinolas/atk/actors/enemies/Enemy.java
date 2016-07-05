@@ -1,4 +1,4 @@
-package cl.makinolas.atk.actors;
+package cl.makinolas.atk.actors.enemies;
 
 import cl.makinolas.atk.GameConstants;
 import cl.makinolas.atk.actors.attacks.Attacks;
@@ -13,10 +13,24 @@ import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.*;
+import com.badlogic.gdx.physics.box2d.Body;
+import com.badlogic.gdx.physics.box2d.BodyDef;
+import com.badlogic.gdx.physics.box2d.PolygonShape;
+import com.badlogic.gdx.physics.box2d.World;
+import com.badlogic.gdx.physics.box2d.WorldManifold;
+
+import cl.makinolas.atk.GameConstants;
+import cl.makinolas.atk.actors.GameActor;
+import cl.makinolas.atk.actors.HBar;
+import cl.makinolas.atk.actors.Hero;
+import cl.makinolas.atk.actors.Monsters;
+import cl.makinolas.atk.actors.Platform;
+import cl.makinolas.atk.actors.attacks.Attacks;
+import cl.makinolas.atk.actors.friend.Enemies;
 
 public class Enemy extends Monsters {
   
-  private float vx;
+  protected float vx;
   private int health;
   private HBar healthBar;
   private boolean isDamaged;
@@ -28,6 +42,7 @@ public class Enemy extends Monsters {
   private int hurtAnimation;
   private final float hurtTime = 1 / 4f;
   private float accumulator;
+  private float inflictorVelocity;
   private int level;
   private Enemies type;
   
@@ -46,6 +61,7 @@ public class Enemy extends Monsters {
     health = givenHealth;
     width = cutSprite[0];
     height = cutSprite[1];
+    inflictorVelocity = 0;
     this.type = type;
     isAttacking = true;
     healthBar = new HBar(givenHealth, health, cutSprite[0], 4, new TextureRegion( new Texture(Gdx.files.internal("Overlays/bar_green.png"))));
@@ -56,6 +72,7 @@ public class Enemy extends Monsters {
     this.level = level;
     this.parent = parent;
     int actualPosition = heroPosition / 20;
+
     int randomNum = actualPosition  + (int)(Math.random() * 16) - 7;
     
     if (randomNum > actualPosition){
@@ -96,8 +113,9 @@ public class Enemy extends Monsters {
   @Override
   public void act(float delta){     
     myBody.setLinearVelocity(vx, myBody.getLinearVelocity().y);
-    
+    //myBody.applyForce(1, 1, 10, 10, true);
     if(isDamaged){
+        myBody.setLinearVelocity(new Vector2(inflictorVelocity,0));
       accumulator += delta;
       if(accumulator > hurtTime){
         isDamaged = false;
@@ -125,6 +143,7 @@ public class Enemy extends Monsters {
     isDamaged = true;
     changeAnimation(hurtAnimation);
     Monsters source = inflictor.getSource();
+    inflictorVelocity = inflictor.getXVelocity();
     inflictor.setDead();
     healthBar.setCurrent(health);
     if(health <= 0){
@@ -193,5 +212,32 @@ public class Enemy extends Monsters {
 
   @Override
   protected void gainExp(int level, Enemies type) {}
-  
+
+@Override
+public float getXDirection() {
+	return vx;
 }
+
+
+@Override
+ public void interactWithPlatform(Platform platform, WorldManifold worldManifold) {
+	if (worldManifold.getNormal().x < -0.95 || worldManifold.getNormal().x >0.95){
+		vx = -vx;
+		isFacingRight = !isFacingRight;
+	}
+}
+
+@Override
+public void interactWithEnemy(Enemy enemy) {
+	this.flip();
+	enemy.flip();
+}
+
+public void flip(){
+	vx=-vx;
+	isFacingRight = !isFacingRight;
+}
+
+}
+
+

@@ -22,7 +22,6 @@ public class AquaAttack extends Attacks {
   private int actualAnimation;
   protected final float spriteTime = 1 / 5f;
   protected float accumulator;
-  private float xVelocity;
   private float initialPosition;
   private World myWorld;
   private boolean dead;

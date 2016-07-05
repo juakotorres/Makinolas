@@ -132,6 +132,11 @@ public class OldMewtwoBoss extends Boss {
   public int getMeleeDamage() {
     return 10;
   }
+
+@Override
+public float getXDirection() {
+	return vx;
+	}
   
   
 }

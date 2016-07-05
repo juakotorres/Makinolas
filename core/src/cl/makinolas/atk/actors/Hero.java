@@ -12,6 +12,7 @@ import cl.makinolas.atk.GameConstants;
 import cl.makinolas.atk.actors.attacks.Attacks;
 import cl.makinolas.atk.actors.attacks.Puff;
 import cl.makinolas.atk.actors.bosses.IBoss;
+import cl.makinolas.atk.actors.enemies.Enemy;
 import cl.makinolas.atk.actors.friend.Bagon;
 import cl.makinolas.atk.actors.friend.Enemies;
 import cl.makinolas.atk.actors.friend.Friend;
@@ -70,6 +71,7 @@ public class Hero extends Monsters {
     allies = new Array<Friend>();
     addAllie(new Bagon(this));
     addAllie(new Gible(this));
+
 
     // Set actual allie
     actualFriend = allies.get(1);
@@ -422,4 +424,10 @@ public class Hero extends Monsters {
       }
     }
   }
+
+@Override
+public float getXDirection() {
+	
+	return vx;
+}
 }

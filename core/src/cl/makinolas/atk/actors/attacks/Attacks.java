@@ -3,18 +3,22 @@ package cl.makinolas.atk.actors.attacks;
 import com.badlogic.gdx.physics.box2d.WorldManifold;
 
 import cl.makinolas.atk.actors.AnimatedActor;
-import cl.makinolas.atk.actors.Enemy;
 import cl.makinolas.atk.actors.GameActor;
 import cl.makinolas.atk.actors.Hero;
 import cl.makinolas.atk.actors.Monsters;
 import cl.makinolas.atk.actors.Platform;
 import cl.makinolas.atk.actors.bosses.IBoss;
+import cl.makinolas.atk.actors.enemies.Enemy;
 
 public abstract class Attacks extends AnimatedActor {
+	protected float xVelocity;
   public abstract int getAttackDamage();
   public abstract Monsters getSource();
   public abstract void setDead();
   
+  public  float getXVelocity() {
+	  return xVelocity;
+  }
   
   @Override
   public boolean isAttack(){
