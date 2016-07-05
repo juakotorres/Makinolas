@@ -69,7 +69,8 @@ public class GameStage extends AbstractStage implements ContactListener {
     /* for easy entering boss 1 */
     Portal portal = new Portal(suMundo, new Vector2(10, 3), myGame);
     addGameActor(portal);
-    Hero hero =  new Hero(suMundo);
+    Hero hero =  Hero.getInstance();
+    hero.setWorld(suMundo);
     createPlatforms();
     addGameActor(hero); 
     bar = new MainBar(hero);
@@ -116,12 +117,14 @@ public class GameStage extends AbstractStage implements ContactListener {
   public void act(float delta){
     super.act(delta);
     for(GameActor actor : gameActors){
-      if(actor.isHero() && actor.isDead()){
+      Body actorBody = actor.getBody();
+      if(actor.isHero() && (actorBody.getPosition().y < -200 || actorBody.getPosition().x < -100 
+          || actorBody.getPosition().x > 200 || actor.isDead())){
         changeDeadMenu();
       }
       if(actor.isMonster() || actor.isAttack() || actor.isBall()){
-        Body actorBody = actor.getBody();
-        if(actorBody.getPosition().y < -200 || actorBody.getPosition().x < -100 || actorBody.getPosition().x > 200 || actor.isDead()){
+        if(actorBody.getPosition().y < -200 || actorBody.getPosition().x < -100 
+            || actorBody.getPosition().x > 200 || actor.isDead()){
           gameActors.removeValue(actor,true);
           suMundo.destroyBody(actorBody);
           actor.remove();

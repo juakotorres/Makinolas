@@ -65,7 +65,8 @@ public class BossStage extends AbstractStage implements ContactListener {
     
     MobileGroup group = new MobileGroup(Gdx.app.getType() == Application.ApplicationType.Android);
     Gdx.input.setInputProcessor(this);
-    Hero hero =  new Hero(suMundo);
+    Hero hero =  Hero.getInstance();
+    hero.setWorld(suMundo);
     createPlatforms();
     
     bossDefeated = false;
