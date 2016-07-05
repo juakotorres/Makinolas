@@ -13,6 +13,7 @@ public abstract class Monsters extends AnimatedActor {
   public abstract int getMeleeDamage();
   protected Friend parent;
   public abstract float getXDirection();
+
   
   @Override
   public boolean isMonster(){

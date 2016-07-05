@@ -73,6 +73,7 @@ public class Hero extends Monsters {
     addAllie(new Gible(this));
 
 
+
     // Set actual allie
     actualFriend = allies.get(1);
     indexFriend = 1;
