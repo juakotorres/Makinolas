@@ -23,3 +23,8 @@
     width: 85vw;
     height: 100%;
 }
+
+.img-btn{
+    display: inline-block;
+    padding: 4px;
+}

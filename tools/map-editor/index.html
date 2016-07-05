@@ -1,9 +1,12 @@
-<html>
+<html ng-app>
 <head>
     <title>Map Editor</title>
+    <meta charset="UTF-8">
+    <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.0.4/angular.js"></script>
     <link rel="stylesheet" href="main.css">
+    <script src="main.js"></script>
 </head>
-<body>
+<body ng-controller="MainController">
     <div id="header">
         <h3>Map Editor ATK</h3>
         <span>Nombre: </span>
@@ -11,7 +14,11 @@
     </div>
     <div id="main-container">
         <div id="platform-bars">
-
+            <br>
+            <span>Selected: {{selName}}</span><br><br>
+            <a ng-repeat="plt in platforms" ng-click="setSel(plt.name)" class="img-btn">
+                <img src="platforms/{{plt.img}}" alt="img">
+            </a>
         </div>
         <div id="canvas-contianer">
 
