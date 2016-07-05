@@ -16,6 +16,7 @@ public class Scyther extends AbstractFriend {
   
   public Scyther(Hero hero) {
     super(hero);
+    friend = Enemies.SCYTHER;
     faces = new TextureRegion(new Texture(Gdx.files.internal("Actors/Scyther_faces.png"))).split(40,40);
     setTexture(new TextureRegion(new Texture(Gdx.files.internal("Actors/Scyther.png"))));
     setAnimations(new int[]{43,35},
@@ -26,9 +27,8 @@ public class Scyther extends AbstractFriend {
     initLevel(5);
     initDead();
     setActualEvolution(0);
-    setMaxHealth(60);
-    setMaxMagic(100);
-    friend = Enemies.SCYTHER;
+    setStats();
+    setMaxMagic(1000);
   }
   
   public Scyther(int level, Hero hero){
@@ -45,6 +45,7 @@ public class Scyther extends AbstractFriend {
   @Override
   protected void evolve(int numberOfLevel){
     if (numberOfLevel == 1 && getActualEvolution() < 1){
+      friend = Enemies.SCIZOR;
       setTexture(new TextureRegion(new Texture(Gdx.files.internal("Actors/Scyzor.png"))));
       setAnimations(new int[]{35,34},
           new int[][]{new int[]{0,3},new int[]{0,4},new int[]{0,5},new int[]{0,4}},
@@ -52,9 +53,8 @@ public class Scyther extends AbstractFriend {
       setMeleeAnimation(6,10);
       setFaceSprite(faces[0][1]);
       setActualEvolution(1);
-      setMaxHealth(80);
-      setMaxMagic(100);
-      friend = Enemies.SCIZOR;
+      setStats();
+      setMaxMagic(1000);
     } 
   }
   

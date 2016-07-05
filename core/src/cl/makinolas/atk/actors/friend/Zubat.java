@@ -16,6 +16,7 @@ public class Zubat extends AbstractFriend {
   
   public Zubat(Hero hero) {
     super(hero);
+    friend = Enemies.ZUBAT;
     faces = new TextureRegion(new Texture(Gdx.files.internal("Actors/Zubat_faces.png"))).split(40,40);
     setTexture(new TextureRegion(new Texture(Gdx.files.internal("Actors/Zubat.png"))));
     setCutSprites(28,28);
@@ -26,9 +27,8 @@ public class Zubat extends AbstractFriend {
     initLevel(10);
     initDead();
     setActualEvolution(0);
-    setMaxHealth(30);
-    setMaxMagic(100);
-    friend = Enemies.ZUBAT;
+    setStats();
+    setMaxMagic(1000);
   }
   
   public Zubat(int level, Hero hero){
@@ -46,6 +46,7 @@ public class Zubat extends AbstractFriend {
   @Override
   protected void evolve(int numberOfLevel){
     if (numberOfLevel == 1 && getActualEvolution() < 1){
+      friend = Enemies.GOLBAT;
       setTexture(new TextureRegion(new Texture(Gdx.files.internal("Actors/Golbat.png"))));
       setCutSprites(20,32);
       setWalkAnimation(1,2,3,2);
@@ -53,10 +54,10 @@ public class Zubat extends AbstractFriend {
       setMeleeAnimation(4,4);
       setFaceSprite(faces[0][1]);
       setActualEvolution(1);
-      setMaxHealth(60);
-      setMaxMagic(100);
-      friend = Enemies.GOLBAT;
+      setStats();
+      setMaxMagic(1000);
     } else if (numberOfLevel == 2 && getActualEvolution() < 2){
+      friend = Enemies.CROBAT;
       setTexture(new TextureRegion(new Texture(Gdx.files.internal("Actors/Crobat.png"))));
       setCutSprites(26,28);
       setWalkAnimation(1,2,3,2);
@@ -64,9 +65,8 @@ public class Zubat extends AbstractFriend {
       setMeleeAnimation(4,7);
       setFaceSprite(faces[0][2]);
       setActualEvolution(2);
-      setMaxHealth(80);
-      setMaxMagic(100);
-      friend = Enemies.CROBAT;
+      setStats();
+      setMaxMagic(1000);
     }
   }
   

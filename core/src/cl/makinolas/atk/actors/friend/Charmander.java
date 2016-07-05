@@ -16,6 +16,7 @@ public class Charmander extends AbstractFriend {
   
   public Charmander(Hero hero) {
     super(hero);
+    friend = Enemies.CHARMANDER;
     faces = new TextureRegion(new Texture(Gdx.files.internal("Actors/Charmander_faces.png"))).split(40,40);
     setTexture(new TextureRegion(new Texture(Gdx.files.internal("Actors/charmander.png"))));
     setAnimations(new int[]{22,22},
@@ -26,9 +27,8 @@ public class Charmander extends AbstractFriend {
     initLevel(5);
     initDead();
     setActualEvolution(0);
-    setMaxHealth(30);
-    setMaxMagic(100);
-    friend = Enemies.CHARMANDER;
+    setStats();
+    setMaxMagic(1000);
   }
   
   public Charmander(int level, Hero hero){
@@ -45,6 +45,7 @@ public class Charmander extends AbstractFriend {
   @Override
   protected void evolve(int numberOfLevel){
     if (numberOfLevel == 1 && getActualEvolution() < 1){
+      friend = Enemies.CHARMELEON;
       setTexture(new TextureRegion(new Texture(Gdx.files.internal("Actors/charmeleon.png"))));
       setAnimations(new int[]{34,31},
           new int[][]{new int[]{0,3},new int[]{0,4},new int[]{0,5},new int[]{0,4}},
@@ -52,10 +53,10 @@ public class Charmander extends AbstractFriend {
       setMeleeAnimation(6,8);
       setFaceSprite(faces[0][1]);
       setActualEvolution(1);
-      setMaxHealth(60);
-      setMaxMagic(100);
-      friend = Enemies.CHARMELEON;
+      setStats();
+      setMaxMagic(1000);
     } else if (numberOfLevel == 2 && getActualEvolution() < 2){
+      friend = Enemies.CHARIZARD;
       setTexture(new TextureRegion(new Texture(Gdx.files.internal("Actors/Charizard.png"))));
       setAnimations(new int[]{32,32},
           new int[][]{new int[]{0,1},new int[]{0,2},new int[]{0,3},new int[]{0,2}},
@@ -63,9 +64,8 @@ public class Charmander extends AbstractFriend {
       setMeleeAnimation(4,7);
       setFaceSprite(faces[0][2]);
       setActualEvolution(2);
-      setMaxHealth(120);
-      setMaxMagic(100);
-      friend = Enemies.CHARIZARD;
+      setStats();
+      setMaxMagic(1000);
     }
   }
   

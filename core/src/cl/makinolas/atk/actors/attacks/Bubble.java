@@ -78,7 +78,7 @@ public class Bubble extends Attacks {
 
   @Override
   public int getAttackDamage() {
-    return 10;
+    return 40;
   }
 
   @Override

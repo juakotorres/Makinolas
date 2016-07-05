@@ -18,9 +18,9 @@ public class Formulas {
   }
   
   // damage formula
-  public static int getDamage(Enemies friend1, int level1, Enemies friend2, int level2, int attackBaseDamage){
-    int attack = getOtherStat(friend1.attackBase, level1);
-    int defense = getOtherStat(friend2.defenseBase, level2);
+  public static int getDamage(int attack1, int level1, int defense2, int level2, int attackBaseDamage){
+    double attack = getOtherStat(attack1, level1);
+    double defense = getOtherStat(defense2, level2);
     
     double randomMultiplier = Math.random()* 0.15 + 0.85;
     double criticalRandomizer = Math.random();
@@ -29,10 +29,9 @@ public class Formulas {
     if( criticalRandomizer < 1/16){
       critical = 1.5;
     }
-    
-    double modifier = critical * randomMultiplier;
-    
-    return (int) ((((2 * level1) + 10) / 250) * (attack/defense) * attackBaseDamage * modifier);
+    double modifier = critical * randomMultiplier * 2;
+
+    return (int) ((((2 * (double) level1) + 10) / 250) * (attack/defense) * attackBaseDamage * modifier) + 1;
   }
   
   // stats formula

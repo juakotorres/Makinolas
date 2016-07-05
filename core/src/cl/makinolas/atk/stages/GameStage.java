@@ -23,7 +23,7 @@ import cl.makinolas.atk.actors.GameActor;
 import cl.makinolas.atk.actors.Hero;
 import cl.makinolas.atk.actors.InputController;
 import cl.makinolas.atk.actors.Portal;
-import cl.makinolas.atk.actors.friend.Scyther;
+import cl.makinolas.atk.actors.friend.Gastly;
 import cl.makinolas.atk.actors.ui.MainBar;
 import cl.makinolas.atk.actors.ui.MobileGroup;
 import cl.makinolas.atk.screen.GameScreen;
@@ -39,7 +39,6 @@ public class GameStage extends AbstractStage implements ContactListener {
   private float nextEnemyAt;
   private Array<GameActor> gameActors;
   private Group ground, mons, ui;
-  private Hero hero;
 
   private MainBar bar;
 
@@ -75,7 +74,7 @@ public class GameStage extends AbstractStage implements ContactListener {
     hero.setWorld(suMundo);
     createPlatforms();
     addGameActor(hero); 
-    bar = new MainBar(hero);
+    bar = MainBar.getInstance();
     ui.addActor(bar);
     ui.addActor(group);    
     
@@ -144,10 +143,10 @@ public class GameStage extends AbstractStage implements ContactListener {
     }
     
     if(nextEnemyAt < 0){
-       //GameActor enemy1 = (new Gastly(Hero.getInstance())).returnLongRangeEnemy(suMundo, (int) getCamera().position.x);
-       GameActor enemy2 = (new Scyther(Hero.getInstance())).returnPhysicalEnemy(suMundo, (int)getCamera().position.x);
-       //addGameActor(enemy1);
-       addGameActor(enemy2);
+       GameActor enemy1 = (new Gastly(Hero.getInstance())).returnLongRangeEnemy(suMundo, (int) getCamera().position.x);
+       //GameActor enemy2 = (new Scyther(Hero.getInstance())).returnPhysicalEnemy(suMundo, (int)getCamera().position.x);
+       addGameActor(enemy1);
+       //addGameActor(enemy2);
        nextEnemyAt = enemySpawn;
     }
     

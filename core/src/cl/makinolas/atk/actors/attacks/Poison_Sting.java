@@ -17,5 +17,11 @@ public class Poison_Sting extends ThrowableAttacks {
     setMasterTexture(new TextureRegion(new Texture(Gdx.files.internal("Attacks/Poison_Sting.png"))),16,5);
     addAnimation(0.2f, new int[]{0, 0});
   }
+  
+  @Override
+  public int getAttackDamage() {
+    return 15;
+  }
+
 
 }

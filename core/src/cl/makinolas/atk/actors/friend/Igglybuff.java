@@ -12,6 +12,7 @@ public class Igglybuff extends AbstractFriend {
   
   public Igglybuff(Hero hero) {
     super(hero);
+    friend = Enemies.IGGLYBUFF;
     faces = new TextureRegion(new Texture(Gdx.files.internal("Actors/Igglypuff_faces.png"))).split(40,40);
     setTexture(new TextureRegion(new Texture(Gdx.files.internal("Actors/Igglypuff.png"))));
     setAnimations(new int[]{17,18},
@@ -22,9 +23,8 @@ public class Igglybuff extends AbstractFriend {
     initLevel(5);
     initDead();
     setActualEvolution(0);
-    setMaxHealth(30);
-    setMaxMagic(100);
-    friend = Enemies.IGGLYBUFF;
+    setStats();
+    setMaxMagic(1000);
   }
   
   public Igglybuff(int level, Hero hero){
@@ -41,6 +41,7 @@ public class Igglybuff extends AbstractFriend {
   @Override
   protected void evolve(int numberOfLevel){
     if (numberOfLevel == 1 && getActualEvolution() < 1){
+      friend = Enemies.JIGGLYPUFF;
       setTexture(new TextureRegion(new Texture(Gdx.files.internal("Actors/Jigglypuff.png"))));
       setAnimations(new int[]{23,21},
           new int[][]{new int[]{0,3},new int[]{0,4},new int[]{0,5}},
@@ -48,10 +49,10 @@ public class Igglybuff extends AbstractFriend {
       setMeleeAnimation(6,7);
       setFaceSprite(faces[0][1]);
       setActualEvolution(1);
-      setMaxHealth(60);
-      setMaxMagic(100);
-      friend = Enemies.JIGGLYPUFF;
+      setStats();
+      setMaxMagic(1000);
     } else if (numberOfLevel == 2 && getActualEvolution() < 2){
+      friend = Enemies.WIGGLYTUFF;
       setTexture(new TextureRegion(new Texture(Gdx.files.internal("Actors/Wigglypuff.png"))));
       setAnimations(new int[]{26,25},
           new int[][]{new int[]{0,2},new int[]{0,3},new int[]{0,4},new int[]{0,3}},
@@ -59,9 +60,8 @@ public class Igglybuff extends AbstractFriend {
       setMeleeAnimation(6,8);
       setFaceSprite(faces[0][2]);
       setActualEvolution(2);
-      setMaxHealth(100);
-      setMaxMagic(100);
-      friend = Enemies.WIGGLYTUFF;
+      setStats();
+      setMaxMagic(1000);
     }
   }
   

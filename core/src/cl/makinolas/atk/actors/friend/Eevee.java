@@ -10,6 +10,7 @@ public class Eevee extends AbstractFriend {
   
   public Eevee(Hero hero) {
     super(hero);
+    friend = Enemies.EEVEE;
     TextureRegion[][] faces = new TextureRegion(new Texture(Gdx.files.internal("Actors/Eevee_faces.png"))).split(40,40);
     setTexture(new TextureRegion(new Texture(Gdx.files.internal("Actors/Eevee.png"))));
     setAnimations(new int[]{29,24},
@@ -19,9 +20,8 @@ public class Eevee extends AbstractFriend {
     setFaceSprite(faces[0][0]);
     initLevel(5);
     initDead();
-    setMaxHealth(30);
-    setMaxMagic(100);
-    friend = Enemies.EEVEE;
+    setStats();
+    setMaxMagic(1000);
   }
 
   @Override

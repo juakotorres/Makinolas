@@ -33,4 +33,9 @@ public interface Friend {
   public Enemies getType();
   public Enemy returnLongRangeEnemy(World myWorld, int heroPosition);
   public Enemy returnPhysicalEnemy(World myWorld, int heroPosition);
+  public int getAttack();
+  public int getDefense();
+  public int getSpecialAttack();
+  public int getSpecialDefense();
+  public int getSpeed();
 }

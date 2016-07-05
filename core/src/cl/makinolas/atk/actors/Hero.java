@@ -20,6 +20,7 @@ import cl.makinolas.atk.actors.friend.Scyther;
 import cl.makinolas.atk.actors.items.Ball;
 import cl.makinolas.atk.actors.items.BallActor;
 import cl.makinolas.atk.actors.items.Inventory;
+import cl.makinolas.atk.actors.ui.MainBar;
 import cl.makinolas.atk.stages.AbstractStage;
 import cl.makinolas.atk.utils.SaveInstance;
 import cl.makinolas.atk.utils.SaveManager;
@@ -71,9 +72,11 @@ public class Hero extends Monsters {
     addAllie(new Bagon(this));
     addAllie(new Scyther(this));
 
+
     // Set actual allie
     actualFriend = allies.get(1);
     indexFriend = 1;
+    parent = actualFriend;
     
     // Set correct collider.
     myBodyDefinition = new BodyDef();
@@ -185,7 +188,9 @@ public class Hero extends Monsters {
   private void giveMagic() {
     if(actualFriend.getMagic() < 1000){
       actualFriend.setMagic(((actualFriend.getMagic() + 1)%1001));
-    }    
+    } else {
+      actualFriend.setMagic(1000);
+    }
   }
 
   private void checkMelee(float delta) {
@@ -243,7 +248,7 @@ public class Hero extends Monsters {
       changeAnimation(hurtAnimation);
       inflictor.setDead();
     }
-    if(actualFriend.getHealth() <= 0){
+    if(getHealth() <= 0){
       changeAllie();
     }
   }
@@ -259,12 +264,14 @@ public class Hero extends Monsters {
   }
   
   private void setNewAllie(int index){
-    if(!isJumping){
+    if(!isJumping || actualFriend.getDead()){
       Attacks attack = new Puff(myWorld, myBody.getPosition().x,myBody.getPosition().y,isFacingRight, this);
       ((AbstractStage) getStage()).addGameActor(attack);
       allies.set(indexFriend, actualFriend);
       actualFriend = allies.get(index);
       indexFriend = index;
+      parent = actualFriend;
+      MainBar.getInstance().setBars();
       setSizeCollider(getBody().getPosition(), false);
       setAnimation();
     }
@@ -309,9 +316,9 @@ public class Hero extends Monsters {
   
   @Override
   public void interactWithAttack(Attacks attack, WorldManifold worldManifold){
-    this.damage(attack.getAttackDamage(), attack);
+    this.damage(getAttackDamage(attack), attack);
   }
-  
+
   @Override
   public void interactWithBoss(IBoss boss){
     interactWithMonster(boss.getBoss());

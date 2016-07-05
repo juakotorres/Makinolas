@@ -16,6 +16,7 @@ public class Weedle extends AbstractFriend {
   
   public Weedle(Hero hero) {
     super(hero);
+    friend = Enemies.WEEDLE;
     faces = new TextureRegion(new Texture(Gdx.files.internal("Actors/Weedle_faces.png"))).split(40,40);
     setTexture(new TextureRegion(new Texture(Gdx.files.internal("Actors/Weedle.png"))));
     setAnimations(new int[]{30,24},
@@ -26,9 +27,8 @@ public class Weedle extends AbstractFriend {
     initLevel(3);
     initDead();
     setActualEvolution(0);
-    setMaxHealth(30);
+    setStats();
     setMaxMagic(1000);
-    friend = Enemies.WEEDLE;
   }
   
   public Weedle(int level, Hero hero){
@@ -46,6 +46,7 @@ public class Weedle extends AbstractFriend {
   @Override
   protected void evolve(int numberOfLevel){
     if (numberOfLevel == 1 && getActualEvolution() < 1){
+      friend = Enemies.KAKUNA;
       setTexture(new TextureRegion(new Texture(Gdx.files.internal("Actors/Kakuna.png"))));
       setCutSprites(25,27);
       setWalkAnimation(3,4);
@@ -53,10 +54,10 @@ public class Weedle extends AbstractFriend {
       setMeleeAnimation(4,9);
       setFaceSprite(faces[0][1]);
       setActualEvolution(1);
-      setMaxHealth(60);
-      setMaxMagic(100);
-      friend = Enemies.KAKUNA;
+      setStats();
+      setMaxMagic(1000);
     } else if (numberOfLevel == 2 && getActualEvolution() < 2){
+      friend = Enemies.BEEDRILL;
       setTexture(new TextureRegion(new Texture(Gdx.files.internal("Actors/Beedrill.png"))));
       setAnimations(new int[]{35,28},
           new int[][]{new int[]{0,1},new int[]{0,2},new int[]{0,3},new int[]{0,2}},
@@ -64,9 +65,8 @@ public class Weedle extends AbstractFriend {
       setMeleeAnimation(7,10);
       setFaceSprite(faces[0][2]);
       setActualEvolution(2);
-      setMaxHealth(80);
-      setMaxMagic(100);
-      friend = Enemies.BEEDRILL;
+      setStats();
+      setMaxMagic(1000);
     }
   }
   

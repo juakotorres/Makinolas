@@ -16,6 +16,7 @@ public class Gastly extends AbstractFriend {
   
   public Gastly(Hero hero) {
     super(hero);
+    friend = Enemies.GASTLY;
     faces = new TextureRegion(new Texture(Gdx.files.internal("Actors/Gastly_faces.png"))).split(40,40);
     setTexture(new TextureRegion(new Texture(Gdx.files.internal("Actors/Gastly.png"))));
     setAnimations(new int[]{30,30},
@@ -23,12 +24,11 @@ public class Gastly extends AbstractFriend {
                   new int[][]{new int[]{0,0}});
     setMeleeAnimation(4,5);
     setFaceSprite(faces[0][0]);
-    initLevel(10);
+    initLevel(5);
     initDead();
     setActualEvolution(0);
-    setMaxHealth(30);
-    setMaxMagic(100);
-    friend = Enemies.GASTLY;
+    setStats();
+    setMaxMagic(1000);
   }
   
   public Gastly(int level, Hero hero){
@@ -45,6 +45,7 @@ public class Gastly extends AbstractFriend {
   @Override
   protected void evolve(int numberOfLevel){
     if (numberOfLevel == 1 && getActualEvolution() < 1){
+      friend = Enemies.HAUNTER;
       setTexture(new TextureRegion(new Texture(Gdx.files.internal("Actors/Haunter.png"))));
       setAnimations(new int[]{46,36},
           new int[][]{new int[]{0,2},new int[]{0,3},new int[]{0,4},new int[]{0,3}},
@@ -52,9 +53,8 @@ public class Gastly extends AbstractFriend {
       setMeleeAnimation(6,10);
       setFaceSprite(faces[0][1]);
       setActualEvolution(1);
-      setMaxHealth(70);
-      setMaxMagic(100);
-      friend = Enemies.HAUNTER;
+      setStats();
+      setMaxMagic(1000);
     }
   }
   

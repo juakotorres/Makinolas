@@ -32,17 +32,17 @@ public abstract class Attacks extends AnimatedActor {
   
   @Override
   public void interactWithHero(Hero hero, WorldManifold worldManifold){
-    hero.damage(this.getAttackDamage(), this);
+    hero.damage(hero.getAttackDamage(this), this);
   }
   
   @Override
   public void interactWithEnemy(Enemy enemy){
-    enemy.damage(this.getAttackDamage(), this);
+    enemy.damage(enemy.getAttackDamage(this), this);
   }
   
   @Override
   public void interactWithBoss(IBoss boss){
-    boss.getBoss().damage(this.getAttackDamage(), this);
+    boss.getBoss().damage(boss.getBoss().getAttackDamage(this), this);
   }
   
   @Override

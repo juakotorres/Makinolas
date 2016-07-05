@@ -13,10 +13,10 @@ import com.badlogic.gdx.scenes.scene2d.Group;
 import cl.makinolas.atk.actors.HBar;
 import cl.makinolas.atk.actors.Hero;
 import cl.makinolas.atk.stages.AbstractStage;
-import cl.makinolas.atk.stages.GameStage;
 
 public class MainBar extends Group{
 
+    public static MainBar barra = new MainBar();
     private Hero hero;
     private HBar healthBar, magicBar;
     private FriendImage friend;
@@ -25,19 +25,31 @@ public class MainBar extends Group{
     private ShapeRenderer renderer;
     private ImageCuad itemA, itemS;
 
-    public MainBar(Hero h){
-        hero = h;
-        healthBar = new HBar(100,100,150,10,new TextureRegion(new Texture(Gdx.files.internal("Overlays/bar_green.png"))));
-        magicBar = new HBar(1000,1000,150,10,new TextureRegion(new Texture(Gdx.files.internal("Overlays/bar_blue.png"))));;
+    private MainBar(){
+        hero = Hero.getInstance();
+        setBars();
         base = new Sprite(new Texture(Gdx.files.internal("Overlays/bar_base.png")));
         base.setRegionWidth(640); //Full width
         font = new BitmapFont(Gdx.files.internal("Fonts/normal.fnt"),Gdx.files.internal("Fonts/normal.png"),false);
         renderer = new ShapeRenderer();
-        TextureRegion[][] items = new TextureRegion(new Texture(Gdx.files.internal("Overlays/items.png"))).split(32,32);
         friend = new FriendImage();
         itemA = new ImageCuad(hero.getInventory().getSelItem1().getItem().getImage(),"A",font);
         itemS = new ImageCuad(hero.getInventory().getSelItem2().getItem().getImage(),"S",font);
         
+    }
+    
+    public static MainBar getInstance(){
+      return barra;
+    }
+    
+    public void reset(){
+      barra = new MainBar();
+    }
+
+    public void setBars() {
+      Hero h = Hero.getInstance();
+      healthBar = new HBar(h.getHealth(),h.getFriend().getMaxHealth(),150,10,new TextureRegion(new Texture(Gdx.files.internal("Overlays/bar_green.png"))));
+      magicBar = new HBar(h.getMagic(),h.getFriend().getMaxMagic(),150,10,new TextureRegion(new Texture(Gdx.files.internal("Overlays/bar_blue.png"))));;
     }
 
     @Override

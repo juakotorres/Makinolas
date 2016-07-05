@@ -78,7 +78,7 @@ public class VineWhip extends Attacks {
 
   @Override
   public int getAttackDamage() {
-    return 10;
+    return 45;
   }
 
   @Override
