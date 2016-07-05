@@ -14,9 +14,9 @@ public class Inventory{
         items = new HashMap<String, ItemBox>();
         hero = h;
         addItem(new Potion());
-        addItem(new Ball(Ball.BallType.POKEBALL));
-        addItem(new Ball(Ball.BallType.POKEBALL));
-        addItem(new Ball(Ball.BallType.POKEBALL));
+        addItem(new Ball(Ball.BallType.MASTERBALL));
+        addItem(new Ball(Ball.BallType.MASTERBALL));
+        addItem(new Ball(Ball.BallType.MASTERBALL));
     }
 
     public void addItem(Item i){
