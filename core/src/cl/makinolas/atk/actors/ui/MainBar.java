@@ -48,8 +48,8 @@ public class MainBar extends Group{
 
     public void setBars() {
       Hero h = Hero.getInstance();
-      healthBar = new HBar(h.getFriend().getHealth(),h.getFriend().getMaxHealth(),150,10,new TextureRegion(new Texture(Gdx.files.internal("Overlays/bar_green.png"))));
-      magicBar = new HBar(h.getFriend().getMagic(),h.getFriend().getMaxMagic(),150,10,new TextureRegion(new Texture(Gdx.files.internal("Overlays/bar_blue.png"))));;
+      healthBar = new HBar(h.getHealth(),h.getFriend().getMaxHealth(),150,10,new TextureRegion(new Texture(Gdx.files.internal("Overlays/bar_green.png"))));
+      magicBar = new HBar(h.getMagic(),h.getFriend().getMaxMagic(),150,10,new TextureRegion(new Texture(Gdx.files.internal("Overlays/bar_blue.png"))));;
     }
 
     @Override

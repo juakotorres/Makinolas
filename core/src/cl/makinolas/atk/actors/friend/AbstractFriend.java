@@ -305,6 +305,9 @@ public abstract class AbstractFriend implements Friend {
   @Override
   public void setHealth(int health){
     this.health = health > hp? hp:health;
+    if(this.health <= 0){
+      this.health = 0;
+    }
   }
 
   protected void setStats(){

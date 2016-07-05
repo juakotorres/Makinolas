@@ -186,7 +186,9 @@ public class Hero extends Monsters {
   private void giveMagic() {
     if(actualFriend.getMagic() < 1000){
       actualFriend.setMagic(((actualFriend.getMagic() + 1)%1001));
-    }    
+    } else {
+      actualFriend.setMagic(1000);
+    }
   }
 
   private void checkMelee(float delta) {
@@ -244,7 +246,7 @@ public class Hero extends Monsters {
       changeAnimation(hurtAnimation);
       inflictor.setDead();
     }
-    if(actualFriend.getHealth() <= 0){
+    if(getHealth() <= 0){
       changeAllie();
     }
   }
@@ -260,7 +262,7 @@ public class Hero extends Monsters {
   }
   
   private void setNewAllie(int index){
-    if(!isJumping){
+    if(!isJumping || actualFriend.getDead()){
       Attacks attack = new Puff(myWorld, myBody.getPosition().x,myBody.getPosition().y,isFacingRight, this);
       ((AbstractStage) getStage()).addGameActor(attack);
       allies.set(indexFriend, actualFriend);
