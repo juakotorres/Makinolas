@@ -31,4 +31,9 @@ public interface Friend {
   public TextureRegion getFriendFaceSprite();
   public Enemy returnEnemy(World myWorld, int heroPosition);
   public Enemies getType();
+  public int getAttack();
+  public int getDefense();
+  public int getSpecialAttack();
+  public int getSpecialDefense();
+  public int getSpeed();
 }

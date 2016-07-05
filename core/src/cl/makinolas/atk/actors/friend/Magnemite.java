@@ -16,6 +16,7 @@ public class Magnemite extends AbstractFriend {
   
   public Magnemite(Hero hero) {
     super(hero);
+    friend = Enemies.MAGNEMITE;
     faces = new TextureRegion(new Texture(Gdx.files.internal("Actors/Magnemite_faces.png"))).split(40,40);
     setTexture(new TextureRegion(new Texture(Gdx.files.internal("Actors/Magnemite.png"))));
     setCutSprites(20,22);
@@ -28,7 +29,6 @@ public class Magnemite extends AbstractFriend {
     setActualEvolution(0);
     setStats();
     setMaxMagic(1000);
-    friend = Enemies.MAGNEMITE;
   }
   
   public Magnemite(int level, Hero hero){
@@ -46,6 +46,7 @@ public class Magnemite extends AbstractFriend {
   @Override
   protected void evolve(int numberOfLevel){
     if (numberOfLevel == 1 && getActualEvolution() < 1){
+      friend = Enemies.MAGNETON;
       setTexture(new TextureRegion(new Texture(Gdx.files.internal("Actors/Magneton.png"))));
       setCutSprites(29,32);
       setWalkAnimation(1,2,3,2);
@@ -55,8 +56,8 @@ public class Magnemite extends AbstractFriend {
       setActualEvolution(1);
       setStats();
       setMaxMagic(1000);
-      friend = Enemies.MAGNETON;
     } else if (numberOfLevel == 2 && getActualEvolution() < 2){
+      friend = Enemies.MAGNEZONE;
       setTexture(new TextureRegion(new Texture(Gdx.files.internal("Actors/Magnezone.png"))));
       setCutSprites(31,30);
       setWalkAnimation(1,2,3,2);
@@ -65,9 +66,7 @@ public class Magnemite extends AbstractFriend {
       setFaceSprite(faces[0][2]);
       setActualEvolution(2);
       setStats();
-      setMaxMagic(1000);
-      friend = Enemies.MAGNEZONE;
-      
+      setMaxMagic(1000);      
     }
   }
   

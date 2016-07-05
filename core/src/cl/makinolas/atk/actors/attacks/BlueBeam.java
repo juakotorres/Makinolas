@@ -19,4 +19,9 @@ public class BlueBeam extends ThrowableAttacks {
     addAnimation(0.2f, new int[]{0, 0}, new int[]{0, 1}, new int[]{0, 2},new int[]{0, 3});
   }
   
+  @Override
+  public int getAttackDamage() {
+    return 70;
+  }
+  
 }

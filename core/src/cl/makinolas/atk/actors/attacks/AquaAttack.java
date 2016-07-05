@@ -107,7 +107,7 @@ public class AquaAttack extends Attacks {
   
   @Override
   public int getAttackDamage() {
-    return 30;
+    return 90;
   }
   
   @Override

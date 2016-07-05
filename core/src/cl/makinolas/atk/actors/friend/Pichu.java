@@ -16,6 +16,7 @@ public class Pichu extends AbstractFriend {
   
   public Pichu(Hero hero) {
     super(hero);
+    friend = Enemies.PICHU;
     faces = new TextureRegion(new Texture(Gdx.files.internal("Actors/Pichu_faces.png"))).split(40,40);
     setTexture(new TextureRegion(new Texture(Gdx.files.internal("Actors/Pichu.png"))));
     setAnimations(new int[]{26,28},
@@ -28,7 +29,6 @@ public class Pichu extends AbstractFriend {
     setActualEvolution(0);
     setStats();
     setMaxMagic(1000);
-    friend = Enemies.PICHU;
   }
   
   public Pichu(int level, Hero hero){
@@ -45,6 +45,7 @@ public class Pichu extends AbstractFriend {
   @Override
   protected void evolve(int numberOfLevel){
     if (numberOfLevel == 1 && getActualEvolution() < 1){
+      friend = Enemies.PIKACHU;
       setTexture(new TextureRegion(new Texture(Gdx.files.internal("Actors/Pikachu.png"))));
       setAnimations(new int[]{31,25},
           new int[][]{new int[]{0,3},new int[]{0,4},new int[]{0,5},new int[]{0,4}},
@@ -54,8 +55,8 @@ public class Pichu extends AbstractFriend {
       setActualEvolution(1);
       setStats();
       setMaxMagic(1000);
-      friend = Enemies.PIKACHU;
     } else if (numberOfLevel == 2 && getActualEvolution() < 2){
+      friend = Enemies.RAICHU;
       setTexture(new TextureRegion(new Texture(Gdx.files.internal("Actors/Raichu.png"))));
       setAnimations(new int[]{34,30},
           new int[][]{new int[]{0,1},new int[]{0,2},new int[]{0,3},new int[]{0,2}},
@@ -65,7 +66,6 @@ public class Pichu extends AbstractFriend {
       setActualEvolution(2);
       setStats();
       setMaxMagic(1000);
-      friend = Enemies.RAICHU;
     }
   }
   

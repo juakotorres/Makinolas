@@ -27,7 +27,6 @@ public class GameStage extends AbstractStage implements ContactListener {
   private float nextEnemyAt;
   private Array<GameActor> gameActors;
   private Group ground, mons, ui;
-  private Hero hero;
 
   private MainBar bar;
 
@@ -63,7 +62,7 @@ public class GameStage extends AbstractStage implements ContactListener {
     hero.setWorld(suMundo);
     createPlatforms();
     addGameActor(hero); 
-    bar = new MainBar(hero);
+    bar = MainBar.getInstance();
     ui.addActor(bar);
     ui.addActor(group);    
     
@@ -132,7 +131,7 @@ public class GameStage extends AbstractStage implements ContactListener {
     }
     
     if(nextEnemyAt < 0){
-       GameActor enemy = (new Gastly(null)).returnEnemy(suMundo, (int) getCamera().position.x);
+       GameActor enemy = (new Gastly(Hero.getInstance())).returnEnemy(suMundo, (int) getCamera().position.x);
        addGameActor(enemy);
        nextEnemyAt = enemySpawn;
     }

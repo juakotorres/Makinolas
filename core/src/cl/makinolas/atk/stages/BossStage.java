@@ -23,7 +23,7 @@ import cl.makinolas.atk.actors.GameActor;
 import cl.makinolas.atk.actors.Hero;
 import cl.makinolas.atk.actors.InputController;
 import cl.makinolas.atk.actors.Portal;
-import cl.makinolas.atk.actors.bosses.OldMewtwo;
+import cl.makinolas.atk.actors.bosses.OldMewtwoBoss;
 import cl.makinolas.atk.actors.ui.MainBar;
 import cl.makinolas.atk.actors.ui.MobileGroup;
 import cl.makinolas.atk.screen.GameScreen;
@@ -70,11 +70,11 @@ public class BossStage extends AbstractStage implements ContactListener {
     createPlatforms();
     
     bossDefeated = false;
-    GameActor enemy = new OldMewtwo(suMundo, hero);
+    GameActor enemy = new OldMewtwoBoss(suMundo, hero);
     addGameActor(enemy);
     
     addGameActor(hero);
-    bar = new MainBar(hero);
+    bar = MainBar.getInstance();
     ui.addActor(bar);
     ui.addActor(group);
 

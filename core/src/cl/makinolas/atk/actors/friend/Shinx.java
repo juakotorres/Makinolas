@@ -12,6 +12,7 @@ public class Shinx extends AbstractFriend{
   
   public Shinx(Hero hero) {
     super(hero);
+    friend = Enemies.SHINX;
     faces = new TextureRegion(new Texture(Gdx.files.internal("Actors/Shinx_faces.png"))).split(40,40);
     setTexture(new TextureRegion(new Texture(Gdx.files.internal("Actors/Shinx.png"))));
     setAnimations(new int[]{29,28},
@@ -24,7 +25,6 @@ public class Shinx extends AbstractFriend{
     setActualEvolution(0);
     setStats();
     setMaxMagic(1000);
-    friend = Enemies.SHINX;
   }
   
   public Shinx(int level, Hero hero){
@@ -42,6 +42,7 @@ public class Shinx extends AbstractFriend{
   @Override
   protected void evolve(int numberOfLevel){
     if (numberOfLevel == 1 && getActualEvolution() < 1){
+      friend = Enemies.LUXIO;
       setTexture(new TextureRegion(new Texture(Gdx.files.internal("Actors/Luxio.png"))));
       setAnimations(new int[]{28,32},
           new int[][]{new int[]{0,2},new int[]{0,3},new int[]{0,4},new int[]{0,3}},
@@ -51,8 +52,8 @@ public class Shinx extends AbstractFriend{
       setActualEvolution(1);
       setStats();
       setMaxMagic(1000);
-      friend = Enemies.LUXIO;
     } else if (numberOfLevel == 2 && getActualEvolution() < 2){
+      friend = Enemies.LUXRAY;
       setTexture(new TextureRegion(new Texture(Gdx.files.internal("Actors/Luxray.png"))));
       setAnimations(new int[]{32,32},
           new int[][]{new int[]{0,2},new int[]{0,3},new int[]{0,4},new int[]{0,3}},
@@ -62,7 +63,6 @@ public class Shinx extends AbstractFriend{
       setActualEvolution(2);
       setStats();
       setMaxMagic(1000);
-      friend = Enemies.LUXRAY;
     }
   }
   

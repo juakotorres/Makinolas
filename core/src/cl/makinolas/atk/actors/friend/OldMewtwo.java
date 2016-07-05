@@ -16,6 +16,7 @@ public class OldMewtwo extends AbstractFriend {
   
   public OldMewtwo(Hero hero) {
     super(hero);
+    friend = Enemies.MEWTWO;
     faces = new TextureRegion(new Texture(Gdx.files.internal("Actors/Mewtwo_faces.png"))).split(40,40);
     setTexture(new TextureRegion(new Texture(Gdx.files.internal("Actors/Mewtwo.png"))));
     setCutSprites(39,33);

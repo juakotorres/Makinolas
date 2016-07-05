@@ -16,7 +16,7 @@ public class DragonBreath extends ThrowableAttacks {
   
   @Override
   public int getAttackDamage() {
-    return 30;
+    return 60;
   }
   
   protected void setAnimation(){

@@ -16,6 +16,7 @@ public class Totodile extends AbstractFriend {
   
   public Totodile(Hero hero) {
     super(hero);
+    friend = Enemies.TOTODILE;
     faces = new TextureRegion(new Texture(Gdx.files.internal("Actors/Totodile_faces.png"))).split(40,40);
     setTexture(new TextureRegion(new Texture(Gdx.files.internal("Actors/Totodile.png"))));
     setAnimations(new int[]{29,26},
@@ -28,7 +29,6 @@ public class Totodile extends AbstractFriend {
     setActualEvolution(0);
     setStats();
     setMaxMagic(1000);
-    friend = Enemies.TOTODILE;
   }
   
   public Totodile(int level, Hero hero){
@@ -46,6 +46,7 @@ public class Totodile extends AbstractFriend {
   @Override
   protected void evolve(int numberOfLevel){
     if (numberOfLevel == 1 && getActualEvolution() < 1){
+      friend = Enemies.CROCONAW;
       setTexture(new TextureRegion(new Texture(Gdx.files.internal("Actors/Croconaw.png"))));
       setAnimations(new int[]{27,28},
           new int[][]{new int[]{0,3},new int[]{0,4},new int[]{0,5},new int[]{0,4}},
@@ -55,8 +56,8 @@ public class Totodile extends AbstractFriend {
       setActualEvolution(1);
       setStats();
       setMaxMagic(1000);
-      friend = Enemies.CROCONAW;
     } else if (numberOfLevel == 2 && getActualEvolution() < 2){
+      friend = Enemies.FERALIGATR;
       setTexture(new TextureRegion(new Texture(Gdx.files.internal("Actors/Feraligatr.png"))));
       setAnimations(new int[]{38,37},
           new int[][]{new int[]{0,3},new int[]{0,4},new int[]{0,5},new int[]{0,4}},
@@ -66,7 +67,6 @@ public class Totodile extends AbstractFriend {
       setActualEvolution(2);
       setStats();
       setMaxMagic(1000);
-      friend = Enemies.FERALIGATR;
     }
   }
   

@@ -20,6 +20,7 @@ public enum Enemies {
   GENGAR(225, 45, 60, 65, 60, 130, 75, 110),
   SCYTHER(100, 45, 70, 110, 80, 55, 80, 105),
   EEVEE(65, 45, 55, 55, 50, 45, 65, 55),
+  MEWTWO(306, 3, 106, 110, 90, 154, 90, 130),
   TOTODILE(63, 45, 50, 65, 64, 44, 48, 43),
   CROCONAW(142, 45, 65, 80, 80, 59, 63, 58),
   FERALIGATR(239, 45, 85, 105, 100, 79, 83, 78),
@@ -42,7 +43,7 @@ public enum Enemies {
   MAGNEZONE(241, 30, 70, 70, 115, 130, 90, 60),
   SNIVY(28, 45, 45, 45, 55, 45, 55, 63),
   SERVINE(145, 45, 60, 60, 75, 60, 75, 83),
-  SERPERIOR(238, 45, 75, 75, 95, 75, 95, 113); 
+  SERPERIOR(238, 45, 75, 75, 95, 75, 95, 113);
   
   public int baseExperience;
   public int catchRate;

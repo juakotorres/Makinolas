@@ -16,6 +16,7 @@ public class Snivy extends AbstractFriend {
   
   public Snivy(Hero hero) {
     super(hero);
+    friend = Enemies.SNIVY;
     faces = new TextureRegion(new Texture(Gdx.files.internal("Actors/Snivy_faces.png"))).split(40,40);
     setTexture(new TextureRegion(new Texture(Gdx.files.internal("Actors/Snivy.png"))));
     setCutSprites(22,21);
@@ -28,7 +29,6 @@ public class Snivy extends AbstractFriend {
     setActualEvolution(0);
     setStats();
     setMaxMagic(1000);
-    friend = Enemies.SNIVY;
   }
   
   public Snivy(int level, Hero hero){
@@ -46,6 +46,7 @@ public class Snivy extends AbstractFriend {
   @Override
   protected void evolve(int numberOfLevel){
     if (numberOfLevel == 1 && getActualEvolution() < 1){
+      friend = Enemies.SERVINE;
       setTexture(new TextureRegion(new Texture(Gdx.files.internal("Actors/Servine.png"))));
       setCutSprites(34,29);
       setWalkAnimation(2,3,4,3);
@@ -55,8 +56,8 @@ public class Snivy extends AbstractFriend {
       setActualEvolution(1);
       setStats();
       setMaxMagic(1000);
-      friend = Enemies.SERVINE;
     } else if (numberOfLevel == 2 && getActualEvolution() < 2){
+      friend = Enemies.SERPERIOR;  
       setTexture(new TextureRegion(new Texture(Gdx.files.internal("Actors/Serperior.png"))));
       setCutSprites(57,50);
       setWalkAnimation(2,3);
@@ -65,8 +66,7 @@ public class Snivy extends AbstractFriend {
       setFaceSprite(faces[0][2]);
       setActualEvolution(2);
       setStats();
-      setMaxMagic(1000);
-      friend = Enemies.SERPERIOR;     
+      setMaxMagic(1000);   
     }
   }
   

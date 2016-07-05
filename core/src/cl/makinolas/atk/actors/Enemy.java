@@ -30,7 +30,6 @@ public class Enemy extends Monsters {
   private float accumulator;
   private int level;
   private Enemies type;
-  private Friend parent;
   
   /**
    * Constructor for Enemy
@@ -157,7 +156,7 @@ public class Enemy extends Monsters {
   
   @Override
   public void interactWithAttack(Attacks attack, WorldManifold worldManifold){
-    this.damage(attack.getAttackDamage(), attack);
+    this.damage(getAttackDamage(attack), attack);
   }
   
   @Override

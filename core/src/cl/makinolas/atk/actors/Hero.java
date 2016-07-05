@@ -15,12 +15,12 @@ import cl.makinolas.atk.actors.bosses.IBoss;
 import cl.makinolas.atk.actors.friend.Bagon;
 import cl.makinolas.atk.actors.friend.Enemies;
 import cl.makinolas.atk.actors.friend.Friend;
-import cl.makinolas.atk.actors.friend.Weedle;
+import cl.makinolas.atk.actors.friend.Scyther;
 import cl.makinolas.atk.actors.items.Ball;
 import cl.makinolas.atk.actors.items.BallActor;
 import cl.makinolas.atk.actors.items.Inventory;
+import cl.makinolas.atk.actors.ui.MainBar;
 import cl.makinolas.atk.stages.AbstractStage;
-import cl.makinolas.atk.utils.Formulas;
 import cl.makinolas.atk.utils.SaveInstance;
 import cl.makinolas.atk.utils.SaveManager;
 
@@ -69,11 +69,12 @@ public class Hero extends Monsters {
     // Set team for player;
     allies = new Array<Friend>();
     addAllie(new Bagon(this));
-    addAllie(new Weedle(this));
+    addAllie(new Scyther(this));
 
     // Set actual allie
     actualFriend = allies.get(1);
     indexFriend = 1;
+    parent = actualFriend;
     
     // Set correct collider.
     myBodyDefinition = new BodyDef();
@@ -265,6 +266,8 @@ public class Hero extends Monsters {
       allies.set(indexFriend, actualFriend);
       actualFriend = allies.get(index);
       indexFriend = index;
+      parent = actualFriend;
+      MainBar.getInstance().setBars();
       setSizeCollider(getBody().getPosition(), false);
       setAnimation();
     }
@@ -310,11 +313,6 @@ public class Hero extends Monsters {
   @Override
   public void interactWithAttack(Attacks attack, WorldManifold worldManifold){
     this.damage(getAttackDamage(attack), attack);
-  }
-  
-  private int getAttackDamage(Attacks attack) {
-    //return Formulas.getDamage(attack.getSource(), level1, defense2, level2, attackBaseDamage);
-    return 0;
   }
 
   @Override

@@ -12,6 +12,7 @@ public class Mareep extends AbstractFriend {
   
   public Mareep(Hero hero) {
     super(hero);
+    friend = Enemies.MAREEP;
     faces = new TextureRegion(new Texture(Gdx.files.internal("Actors/Mareep_faces.png"))).split(40,40);
     setTexture(new TextureRegion(new Texture(Gdx.files.internal("Actors/Mareep.png"))));
     setAnimations(new int[]{29,21},
@@ -24,7 +25,6 @@ public class Mareep extends AbstractFriend {
     setActualEvolution(0);
     setStats();
     setMaxMagic(1000);
-    friend = Enemies.MAREEP;
   }
   
   public Mareep(int level, Hero hero){
@@ -42,6 +42,7 @@ public class Mareep extends AbstractFriend {
   @Override
   protected void evolve(int numberOfLevel){
     if (numberOfLevel == 1 && getActualEvolution() < 1){
+      friend = Enemies.FLAAFFY;
       setTexture(new TextureRegion(new Texture(Gdx.files.internal("Actors/Flaffy.png"))));
       setAnimations(new int[]{25,25},
           new int[][]{new int[]{0,1},new int[]{0,2},new int[]{0,3},new int[]{0,2}},
@@ -51,8 +52,8 @@ public class Mareep extends AbstractFriend {
       setActualEvolution(1);
       setStats();
       setMaxMagic(1000);
-      friend = Enemies.FLAAFFY;
     } else if (numberOfLevel == 2 && getActualEvolution() < 2){
+      friend = Enemies.AMPHAROS;
       setTexture(new TextureRegion(new Texture(Gdx.files.internal("Actors/Ampharos.png"))));
       setAnimations(new int[]{25,34},
           new int[][]{new int[]{0,4},new int[]{0,5},new int[]{0,6},new int[]{0,5}},
@@ -62,7 +63,6 @@ public class Mareep extends AbstractFriend {
       setActualEvolution(2);
       setStats();
       setMaxMagic(1000);
-      friend = Enemies.AMPHAROS;
     }
   }
   

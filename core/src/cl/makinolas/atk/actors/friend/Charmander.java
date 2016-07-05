@@ -16,6 +16,7 @@ public class Charmander extends AbstractFriend {
   
   public Charmander(Hero hero) {
     super(hero);
+    friend = Enemies.CHARMANDER;
     faces = new TextureRegion(new Texture(Gdx.files.internal("Actors/Charmander_faces.png"))).split(40,40);
     setTexture(new TextureRegion(new Texture(Gdx.files.internal("Actors/charmander.png"))));
     setAnimations(new int[]{22,22},
@@ -28,7 +29,6 @@ public class Charmander extends AbstractFriend {
     setActualEvolution(0);
     setStats();
     setMaxMagic(1000);
-    friend = Enemies.CHARMANDER;
   }
   
   public Charmander(int level, Hero hero){
@@ -45,6 +45,7 @@ public class Charmander extends AbstractFriend {
   @Override
   protected void evolve(int numberOfLevel){
     if (numberOfLevel == 1 && getActualEvolution() < 1){
+      friend = Enemies.CHARMELEON;
       setTexture(new TextureRegion(new Texture(Gdx.files.internal("Actors/charmeleon.png"))));
       setAnimations(new int[]{34,31},
           new int[][]{new int[]{0,3},new int[]{0,4},new int[]{0,5},new int[]{0,4}},
@@ -54,8 +55,8 @@ public class Charmander extends AbstractFriend {
       setActualEvolution(1);
       setStats();
       setMaxMagic(1000);
-      friend = Enemies.CHARMELEON;
     } else if (numberOfLevel == 2 && getActualEvolution() < 2){
+      friend = Enemies.CHARIZARD;
       setTexture(new TextureRegion(new Texture(Gdx.files.internal("Actors/Charizard.png"))));
       setAnimations(new int[]{32,32},
           new int[][]{new int[]{0,1},new int[]{0,2},new int[]{0,3},new int[]{0,2}},
@@ -65,7 +66,6 @@ public class Charmander extends AbstractFriend {
       setActualEvolution(2);
       setStats();
       setMaxMagic(1000);
-      friend = Enemies.CHARIZARD;
     }
   }
   

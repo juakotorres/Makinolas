@@ -1,16 +1,17 @@
 package cl.makinolas.atk.actors.friend;
 
+import java.util.Observable;
+import java.util.Observer;
+
+import com.badlogic.gdx.graphics.g2d.TextureRegion;
+import com.badlogic.gdx.physics.box2d.World;
+
 import cl.makinolas.atk.actors.Enemy;
 import cl.makinolas.atk.actors.Hero;
 import cl.makinolas.atk.actors.Monsters;
 import cl.makinolas.atk.actors.attacks.Attacks;
 import cl.makinolas.atk.actors.attacks.DragonBreath;
 import cl.makinolas.atk.utils.Formulas;
-import com.badlogic.gdx.graphics.g2d.TextureRegion;
-import com.badlogic.gdx.physics.box2d.World;
-
-import java.util.Observable;
-import java.util.Observer;
 
 public abstract class AbstractFriend implements Friend {
   
@@ -140,8 +141,8 @@ public abstract class AbstractFriend implements Friend {
   
   @Override
   public void setVariables(int health, int magic) {
-   this.health = health;  
-   this.magic = magic;
+   setMagic(magic);
+   setHealth(health);
   }
   
   @Override
@@ -321,6 +322,7 @@ public abstract class AbstractFriend implements Friend {
   }
   
   protected void setMaxMagic(int maxMagic){
+    this.health = hp;
     this.maxMagic = maxMagic;
     this.magic = maxMagic;
   }
@@ -333,5 +335,30 @@ public abstract class AbstractFriend implements Friend {
   @Override
   public Enemies getType(){
     return friend;
+  }
+  
+  @Override
+  public int getAttack(){
+    return attack;
+  }
+  
+  @Override
+  public int getDefense(){
+    return defense;
+  }
+  
+  @Override
+  public int getSpecialAttack(){
+    return spAttack;
+  }
+  
+  @Override
+  public int getSpecialDefense(){
+    return spDefense;
+  }
+  
+  @Override
+  public int getSpeed(){
+    return speed;
   }
 }
