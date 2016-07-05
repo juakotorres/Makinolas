@@ -1,0 +1,25 @@
+*{
+    margin: 0;
+    padding: 0;
+}
+
+#header{
+    width: 100%;
+    height: 10vh;
+}
+
+#main-container{
+    width: 100%;
+    height: 90vh;
+}
+
+#platform-bars{
+    width: 15vw;
+    height: 100%;
+    background: #ccc;
+}
+
+#canvas-container{
+    width: 85vw;
+    height: 100%;
+}
