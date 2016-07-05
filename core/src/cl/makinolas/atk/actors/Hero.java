@@ -20,6 +20,7 @@ import cl.makinolas.atk.actors.items.Ball;
 import cl.makinolas.atk.actors.items.BallActor;
 import cl.makinolas.atk.actors.items.Inventory;
 import cl.makinolas.atk.stages.AbstractStage;
+import cl.makinolas.atk.utils.Formulas;
 import cl.makinolas.atk.utils.SaveInstance;
 import cl.makinolas.atk.utils.SaveManager;
 
@@ -304,9 +305,14 @@ public class Hero extends Monsters {
   
   @Override
   public void interactWithAttack(Attacks attack, WorldManifold worldManifold){
-    this.damage(attack.getAttackDamage(), attack);
+    this.damage(getAttackDamage(attack), attack);
   }
   
+  private int getAttackDamage(Attacks attack) {
+    //return Formulas.getDamage(attack.getSource(), level1, defense2, level2, attackBaseDamage);
+    return 0;
+  }
+
   @Override
   public void interactWithBoss(IBoss boss){
     interactWithMonster(boss.getBoss());

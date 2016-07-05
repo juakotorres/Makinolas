@@ -26,8 +26,8 @@ public class Magnemite extends AbstractFriend {
     initLevel(10);
     initDead();
     setActualEvolution(0);
-    setMaxHealth(30);
-    setMaxMagic(100);
+    setStats();
+    setMaxMagic(1000);
     friend = Enemies.MAGNEMITE;
   }
   
@@ -53,8 +53,8 @@ public class Magnemite extends AbstractFriend {
       setMeleeAnimation(4,4);
       setFaceSprite(faces[0][1]);
       setActualEvolution(1);
-      setMaxHealth(60);
-      setMaxMagic(100);
+      setStats();
+      setMaxMagic(1000);
       friend = Enemies.MAGNETON;
     } else if (numberOfLevel == 2 && getActualEvolution() < 2){
       setTexture(new TextureRegion(new Texture(Gdx.files.internal("Actors/Magnezone.png"))));
@@ -64,8 +64,8 @@ public class Magnemite extends AbstractFriend {
       setMeleeAnimation(4,4);
       setFaceSprite(faces[0][2]);
       setActualEvolution(2);
-      setMaxHealth(80);
-      setMaxMagic(100);
+      setStats();
+      setMaxMagic(1000);
       friend = Enemies.MAGNEZONE;
       
     }

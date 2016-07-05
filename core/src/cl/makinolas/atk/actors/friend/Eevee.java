@@ -19,8 +19,8 @@ public class Eevee extends AbstractFriend {
     setFaceSprite(faces[0][0]);
     initLevel(5);
     initDead();
-    setMaxHealth(30);
-    setMaxMagic(100);
+    setStats();
+    setMaxMagic(1000);
     friend = Enemies.EEVEE;
   }
 

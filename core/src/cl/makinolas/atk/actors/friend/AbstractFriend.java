@@ -16,7 +16,12 @@ import cl.makinolas.atk.utils.Formulas;
 public abstract class AbstractFriend implements Friend {
   
   private int health;
-  private int maxHealth;
+  private int hp;
+  private int attack;
+  private int defense;
+  private int spAttack;
+  private int spDefense;
+  private int speed;
   private int magic;
   private int maxMagic;
   private boolean dead;
@@ -294,17 +299,21 @@ public abstract class AbstractFriend implements Friend {
   
   @Override
   public int getMaxHealth(){
-    return maxHealth;
+    return hp;
   }
   
   @Override
   public void setHealth(int health){
-    this.health = health > maxHealth? maxHealth:health;
+    this.health = health > hp? hp:health;
   }
-  
-  protected void setMaxHealth(int maxHealth){
-    this.maxHealth = maxHealth;
-    this.health = maxHealth;
+
+  protected void setStats(){
+    this.hp = Formulas.getHpStat(friend.hpBase , level.level);
+    this.attack = Formulas.getOtherStat(friend.attackBase, level.level);
+    this.defense = Formulas.getOtherStat(friend.defenseBase, level.level);
+    this.spAttack = Formulas.getOtherStat(friend.spAttackBase, level.level);
+    this.spDefense = Formulas.getOtherStat(friend.spDefenseBase, level.level);
+    this.speed = Formulas.getOtherStat(friend.speedBase, level.level);
   }
   
   @Override

@@ -22,8 +22,8 @@ public class Gastly extends AbstractFriend {
     initLevel(10);
     initDead();
     setActualEvolution(0);
-    setMaxHealth(30);
-    setMaxMagic(100);
+    setStats();
+    setMaxMagic(1000);
     friend = Enemies.GASTLY;
   }
   
@@ -48,8 +48,8 @@ public class Gastly extends AbstractFriend {
       setMeleeAnimation(6,10);
       setFaceSprite(faces[0][1]);
       setActualEvolution(1);
-      setMaxHealth(70);
-      setMaxMagic(100);
+      setStats();
+      setMaxMagic(1000);
       friend = Enemies.HAUNTER;
     }
   }

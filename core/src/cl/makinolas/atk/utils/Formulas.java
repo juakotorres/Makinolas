@@ -18,9 +18,9 @@ public class Formulas {
   }
   
   // damage formula
-  public static int getDamage(Enemies friend1, int level1, Enemies friend2, int level2, int attackBaseDamage){
-    int attack = getOtherStat(friend1.attackBase, level1);
-    int defense = getOtherStat(friend2.defenseBase, level2);
+  public static int getDamage(int attack1, int level1, int defense2, int level2, int attackBaseDamage){
+    int attack = getOtherStat(attack1, level1);
+    int defense = getOtherStat(defense2, level2);
     
     double randomMultiplier = Math.random()* 0.15 + 0.85;
     double criticalRandomizer = Math.random();

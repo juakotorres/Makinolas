@@ -22,8 +22,8 @@ public class Igglybuff extends AbstractFriend {
     initLevel(5);
     initDead();
     setActualEvolution(0);
-    setMaxHealth(30);
-    setMaxMagic(100);
+    setStats();
+    setMaxMagic(1000);
     friend = Enemies.IGGLYBUFF;
   }
   
@@ -48,8 +48,8 @@ public class Igglybuff extends AbstractFriend {
       setMeleeAnimation(6,7);
       setFaceSprite(faces[0][1]);
       setActualEvolution(1);
-      setMaxHealth(60);
-      setMaxMagic(100);
+      setStats();
+      setMaxMagic(1000);
       friend = Enemies.JIGGLYPUFF;
     } else if (numberOfLevel == 2 && getActualEvolution() < 2){
       setTexture(new TextureRegion(new Texture(Gdx.files.internal("Actors/Wigglypuff.png"))));
@@ -59,8 +59,8 @@ public class Igglybuff extends AbstractFriend {
       setMeleeAnimation(6,8);
       setFaceSprite(faces[0][2]);
       setActualEvolution(2);
-      setMaxHealth(100);
-      setMaxMagic(100);
+      setStats();
+      setMaxMagic(1000);
       friend = Enemies.WIGGLYTUFF;
     }
   }

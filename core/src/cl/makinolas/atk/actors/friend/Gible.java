@@ -22,8 +22,8 @@ public class Gible extends AbstractFriend {
     initLevel(5);
     initDead();
     setActualEvolution(0);
-    setMaxHealth(30);
-    setMaxMagic(100);
+    setStats();
+    setMaxMagic(1000);
     friend = Enemies.GIBLE;
   }
 
@@ -49,8 +49,8 @@ public class Gible extends AbstractFriend {
       setMeleeAnimation(7,9);
       setFaceSprite(faces[0][1]);
       setActualEvolution(1);
-      setMaxHealth(70);
-      setMaxMagic(100);
+      setStats();
+      setMaxMagic(1000);
       friend = Enemies.GABITE;
     } else if (numberOfLevel == 2 && getActualEvolution() < 2){
       setTexture(new TextureRegion(new Texture(Gdx.files.internal("Actors/Garchomp.png"))));
@@ -60,8 +60,8 @@ public class Gible extends AbstractFriend {
       setMeleeAnimation(7,10);
       setFaceSprite(faces[0][2]);
       setActualEvolution(2);
-      setMaxHealth(140);
-      setMaxMagic(100);
+      setStats();
+      setMaxMagic(1000);
       friend = Enemies.GARCHOMP;
     }
   }

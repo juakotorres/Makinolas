@@ -26,8 +26,8 @@ public class Scyther extends AbstractFriend {
     initLevel(5);
     initDead();
     setActualEvolution(0);
-    setMaxHealth(60);
-    setMaxMagic(100);
+    setStats();
+    setMaxMagic(1000);
     friend = Enemies.SCYTHER;
   }
   
@@ -52,8 +52,8 @@ public class Scyther extends AbstractFriend {
       setMeleeAnimation(6,10);
       setFaceSprite(faces[0][1]);
       setActualEvolution(1);
-      setMaxHealth(80);
-      setMaxMagic(100);
+      setStats();
+      setMaxMagic(1000);
       friend = Enemies.SCIZOR;
     } 
   }
