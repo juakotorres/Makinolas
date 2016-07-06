@@ -43,10 +43,10 @@ public class InputController extends InputListener implements MobileKeyListener{
                 hero.attackSecondary();
                 break;
             case Input.Keys.NUM_1:
-                hero.nextAllie();
+                hero.prevAllie();
                 break;
             case Input.Keys.NUM_2:
-                hero.prevAllie();
+                hero.nextAllie();
                 break;
             case Input.Keys.NUM_8:
                 SaveInstance save = new SaveInstance();

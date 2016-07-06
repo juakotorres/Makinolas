@@ -13,6 +13,7 @@ import com.badlogic.gdx.scenes.scene2d.Group;
 import cl.makinolas.atk.actors.HBar;
 import cl.makinolas.atk.actors.Hero;
 import cl.makinolas.atk.stages.AbstractStage;
+import com.badlogic.gdx.utils.Array;
 
 public class MainBar extends Group{
 
@@ -20,6 +21,7 @@ public class MainBar extends Group{
     private Hero hero;
     private HBar healthBar, magicBar;
     private FriendImage friend;
+    private Array<TeamFriendImage> team;
     private Sprite base;
     private BitmapFont font;
     private ShapeRenderer renderer;
@@ -35,9 +37,16 @@ public class MainBar extends Group{
         friend = new FriendImage();
         itemA = new ImageCuad(hero.getInventory().getSelItem1().getItem().getImage(),"A",font);
         itemS = new ImageCuad(hero.getInventory().getSelItem2().getItem().getImage(),"S",font);
-        
+        //updateTeam();
     }
-    
+
+    public void updateTeam() {
+        team = new Array<TeamFriendImage>();
+        for (int i = 0; i < hero.getAllies().size; i++) {
+            team.add(new TeamFriendImage(hero.getAllies().get(i)));
+        }
+    }
+
     public static MainBar getInstance(){
       return barra;
     }
@@ -75,6 +84,13 @@ public class MainBar extends Group{
         friend.setPosition(cx+270,cy+2);
         friend.setTexture(hero.getFriend().getFriendFaceSprite());
         friend.draw(batch, 1);
+        //Team Friend Sprite
+        if(team == null) updateTeam();
+        for (int i = 1; i < team.size; i++) {
+            TeamFriendImage friendImage =  team.get((i+hero.getIndexFriend())%team.size);
+            friendImage.setPosition(cx+320+32*(i-1),cy);
+            friendImage.draw(batch,1);
+        }
         //ImageCuads
         itemA.setPosition(cx+540,cy+6);
         itemA.setRightLabel(""+hero.getInventory().getSelItem1().getQuantity());

@@ -207,7 +207,7 @@ public class Hero extends Monsters {
   }
 
   public void landedPlatform(WorldManifold worldManifold, Platform platform){
-    if(worldManifold.getNormal().y < -0.95){
+    if(worldManifold.getNormal().y > 0.95){
       isJumping = false;
     }
   }
@@ -423,4 +423,13 @@ public class Hero extends Monsters {
   public float getXDirection(){
       return vx;
   }
+
+  public Array<Friend> getAllies(){
+    return allies;
+  }
+
+  public int getIndexFriend(){
+    return indexFriend;
+  }
+
 }
