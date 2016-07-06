@@ -15,16 +15,33 @@
 
 #platform-bars{
     width: 15vw;
-    height: 100%;
+    height: 85vh;
     background: #ccc;
+    display: inline-block;
+    position: absolute;
 }
 
 #canvas-container{
-    width: 85vw;
-    height: 100%;
+    width: 80vw;
+    height: 85vh;
+    overflow: scroll;
+    display: inline-block;
+    position: absolute;
+    right: 10px;
 }
 
 .img-btn{
     display: inline-block;
     padding: 4px;
+}
+
+.pull-right{
+    display: block;
+    float: right;
+    margin-right: 8px;
+}
+
+#canvas{
+    width: 5250px;
+    height: 700px;
 }
