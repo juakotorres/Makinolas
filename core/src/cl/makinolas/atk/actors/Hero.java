@@ -73,6 +73,7 @@ public class Hero extends Monsters {
     addAllie(new Scyther(this));
 
 
+
     // Set actual allie
     actualFriend = allies.get(1);
     indexFriend = 1;
@@ -90,9 +91,13 @@ public class Hero extends Monsters {
   public static Hero getInstance(){
     return player;
   }
-  
+
   public void reset(){
     player = new Hero();
+  }
+  
+  public World getMyWorld(){
+    return myWorld;
   }
   
   public void setWorld(World myWorld){
@@ -327,7 +332,7 @@ public class Hero extends Monsters {
   
   @Override
   public void interactWithEnemy(Enemy enemy){
-    interactWithMonster(enemy);
+    interactWithMonster( enemy);
     enemy.interactWithHero2(this);
   }
 
@@ -382,7 +387,7 @@ public class Hero extends Monsters {
   public void attackSecondary() {
     if(!isAttacking){
       isAttacking = true;
-      changeAnimation(meleeAnimation);
+      changeAnimation(meleeAnimation);  
     }
   }
 

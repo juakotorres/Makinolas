@@ -147,6 +147,7 @@ public class GameStage extends AbstractStage implements ContactListener {
        //GameActor enemy2 = (new Scyther(Hero.getInstance())).returnPhysicalEnemy(suMundo, (int)getCamera().position.x);
        addGameActor(enemy1);
        //addGameActor(enemy2);
+
        nextEnemyAt = enemySpawn;
     }
     

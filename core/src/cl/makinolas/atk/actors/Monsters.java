@@ -11,12 +11,21 @@ public abstract class Monsters extends AnimatedActor {
   protected boolean isAttacking;
   public abstract void damage(int damage, Attacks inflictor);
   public abstract int getMeleeDamage();
-  public abstract float getXDirection();
   protected Friend parent;
+  public abstract float getXDirection();
+
   
   @Override
   public boolean isMonster(){
     return true;
+  }
+  
+  public boolean facingRight(){
+    return isFacingRight;
+  }
+  
+  public Friend getMyself(){
+    return parent;
   }
   
   protected void meleeAttack(Monsters monster, boolean isAttacking){

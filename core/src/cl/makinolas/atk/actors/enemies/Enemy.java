@@ -1,18 +1,10 @@
 package cl.makinolas.atk.actors.enemies;
 
-import cl.makinolas.atk.GameConstants;
-import cl.makinolas.atk.actors.attacks.Attacks;
-import cl.makinolas.atk.actors.friend.Enemies;
-import cl.makinolas.atk.actors.friend.Friend;
-import cl.makinolas.atk.actors.items.BallActor;
-import cl.makinolas.atk.stages.AbstractStage;
-import cl.makinolas.atk.utils.Formulas;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.Vector2;
-import com.badlogic.gdx.physics.box2d.*;
 import com.badlogic.gdx.physics.box2d.Body;
 import com.badlogic.gdx.physics.box2d.BodyDef;
 import com.badlogic.gdx.physics.box2d.PolygonShape;
@@ -27,6 +19,10 @@ import cl.makinolas.atk.actors.Monsters;
 import cl.makinolas.atk.actors.Platform;
 import cl.makinolas.atk.actors.attacks.Attacks;
 import cl.makinolas.atk.actors.friend.Enemies;
+import cl.makinolas.atk.actors.friend.Friend;
+import cl.makinolas.atk.actors.items.BallActor;
+import cl.makinolas.atk.stages.AbstractStage;
+import cl.makinolas.atk.utils.Formulas;
 
 public class Enemy extends Monsters {
   
