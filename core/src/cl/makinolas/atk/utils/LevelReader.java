@@ -21,7 +21,9 @@ public class LevelReader {
     private Game game;
     private Vector2 heroPos;
 
-    private LevelReader(){}
+    private LevelReader(){
+        heroPos = new Vector2(2,3);
+    }
 
     public static LevelReader getInstance() {
         return reader;

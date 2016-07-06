@@ -419,9 +419,8 @@ public class Hero extends Monsters {
     }
   }
 
-@Override
-public float getXDirection() {
-	
-	return vx;
-}
+  @Override
+  public float getXDirection(){
+      return vx;
+  }
 }
