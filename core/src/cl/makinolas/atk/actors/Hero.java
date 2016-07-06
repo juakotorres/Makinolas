@@ -27,13 +27,14 @@ public class Hero extends Monsters {
   private boolean isJumping;
   private boolean isDamaged;
   private boolean isAttacking;
-  private float numberOfAttackingFrames;
+  private int[] attackAnimations;
+  private int actualAnimation;
+  protected final float spriteTime = 1 / 5f;
   private float countMeleeFrames;
   private boolean dead;
   private World myWorld;
   private int walkAnimation;
   private int hurtAnimation;
-  private int meleeAnimation;
   private final float hurtTime = 1 / 4f;
   private float accumulator;
   private Array<Friend> allies;
@@ -188,17 +189,27 @@ public class Hero extends Monsters {
   }
 
   private void checkMelee(float delta) {
-    if(isAttacking && countMeleeFrames <= numberOfAttackingFrames){
-      countMeleeFrames += Math.floor(delta*100)/100;
+    if(isAttacking){
+      countMeleeFrames += delta;
+      if(countMeleeFrames > spriteTime){
+        if(actualAnimation  < attackAnimations.length) {
+          changeAnimation(attackAnimations[actualAnimation]);
+          countMeleeFrames = 0;
+          actualAnimation += 1;
+        } else {
+          isAttacking = false;
+          countMeleeFrames = 0;
+          actualAnimation = 0;
+        }
+      }
     }
     else if(!isDamaged){
       countMeleeFrames = 0;
       isAttacking = false;
-      reloadAnimation(meleeAnimation, 0.2f, actualFriend.getMeleeAnimation());
+      actualAnimation = 0;
       changeAnimation(walkAnimation);
     } else {
       countMeleeFrames = 0;
-      reloadAnimation(meleeAnimation, 0.2f, actualFriend.getMeleeAnimation());
     }
   }
 
@@ -207,9 +218,10 @@ public class Hero extends Monsters {
   }
 
   public void landedPlatform(WorldManifold worldManifold, Platform platform){
-    System.out.println(worldManifold.getNormal().y);
-    if(worldManifold.getNormal().y > 0.95){
-      isJumping = false;
+    for(int i = 0; i < worldManifold.getNumberOfContactPoints(); i++){
+      if(worldManifold.getPoints()[i].y < myBody.getPosition().y && (worldManifold.getNormal().y > 0.95 || worldManifold.getNormal().y < -0.95)){
+        isJumping = false;
+      }
     }
   }
 
@@ -217,8 +229,12 @@ public class Hero extends Monsters {
     setMasterTexture(actualFriend.getTexture(),actualFriend.getWidth(),actualFriend.getHeight());
     walkAnimation = addAnimation(0.2f, actualFriend.getWalkAnimation());
     hurtAnimation = addAnimation(0.2f, actualFriend.getHurtAnimation());
-    meleeAnimation = addAnimation(0.2f, actualFriend.getMeleeAnimation());
-    numberOfAttackingFrames = actualFriend.getMeleeFrame() * 0.2f;
+    attackAnimations = new int[actualFriend.getMeleeAnimation().length];
+    countMeleeFrames = 0;
+    for(int i = 0; i < actualFriend.getMeleeAnimation().length; i++){
+      attackAnimations[i] = addAnimation(0.2f, actualFriend.getMeleeAnimation()[i][1]);
+    }  
+    actualAnimation = 0;
   }
   
   @Override
@@ -377,7 +393,6 @@ public class Hero extends Monsters {
   public void attackSecondary() {
     if(!isAttacking){
       isAttacking = true;
-      changeAnimation(meleeAnimation);  
     }
   }
 

@@ -98,6 +98,8 @@ public class InputController extends InputListener implements MobileKeyListener{
             case RIGHT:
                 hero.moveHorizontal(-1,true);
                 break;
+        default:
+          break;
         }
     }
 }
