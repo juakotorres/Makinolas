@@ -207,7 +207,8 @@ public class Hero extends Monsters {
   }
 
   public void landedPlatform(WorldManifold worldManifold, Platform platform){
-    if(worldManifold.getNormal().y < -0.95){
+    System.out.println(worldManifold.getNormal().y);
+    if(worldManifold.getNormal().y > 0.95){
       isJumping = false;
     }
   }
