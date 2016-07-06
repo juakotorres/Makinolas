@@ -7,18 +7,43 @@ var MainController = function($scope){
     ];
 
     self.platforms = [
-             {name:"LP", img:"ClassicPrettyLeftCorner.png"},
-             {name:"RR", img:"ClassicRoundedRightCorner.png"},
-             {name:"P", img:"ClassicUp.png"},
-             {name:"PR", img:"ClassicPrettyRightCorner.png"},
-             {name:"SL", img:"ClassicSimpleLeftCorner.png"},
-             {name:"RL", img:"ClassicRoundedLeftCorner.png"},
-             {name:"SR", img:"ClassicSimpleRightCorner.png"}
-         ];
+                     {"name":"CPL",img:"ClassicPrettyLeftCorner.png"},
+                     {"name":"CU",img:"ClassicUp.png"},
+                     {"name":"FPR",img:"FreezePrettyRightCorner.png"},
+                     {"name":"FG",img:"FreezeWithoutGrass.png"},
+                     {"name":"SRL",img:"SnowRoundedLeftCorner.png"},
+                     {"name":"CPR",img:"ClassicPrettyRightCorner.png"},
+                     {"name":"CG",img:"ClassicWithoutGrass.png"},
+                     {"name":"FRL",img:"FreezeRoundedLeftCorner.png"},
+                     {"name":"FGR",img:"FreezeWithoutGrassRounded.png"},
+                     {"name":"SRR",img:"SnowRoundedRightCorner.png"},
+                     {"name":"YB",img:"YellowBlock.png"},
+                     {"name":"CRL",img:"ClassicRoundedLeftCorner.png"},
+                     {"name":"CGR",img:"ClassicWithoutGrassRounded.png"},
+                     {"name":"FRR",img:"FreezeRoundedRightCorner.png"},
+                     {"name":"BL",img:"LineBox.png"},
+                     {"name":"SSL",img:"SnowSimpleLeftCorner.png"},
+                     {"name":"CRR",img:"ClassicRoundedRightCorner.png"},
+                     {"name":"BC",img:"CrossBox.png"},
+                     {"name":"FSL",img:"FreezeSimpleLeftCorner.png"},
+                     {"name":"SSR",img:"SnowSimpleRightCorner.png"},
+                     {"name":"CSL",img:"ClassicSimpleLeftCorner.png"},
+                     {"name":"ZFL",img:"Flame.png"},
+                     {"name":"FSR",img:"FreezeSimpleRightCorner.png"},
+                     {"name":"SPL",img:"SnowPrettyLeftCorner.png"},
+                     {"name":"SU",img:"SnowUp.png"},
+                     {"name":"CSR",img:"ClassicSimpleRightCorner.png"},
+                     {"name":"FPL",img:"FreezePrettyLeftCorner.png"},
+                     {"name":"FU",img:"FreezeUp.png"},
+                     {"name":"SPR",img:"SnowPrettyRightCorner.png"},
+                     {"name":"SGR",img:"SnowWithoutGrassRounded.png"}
+                     ];
+
+    self.platforms.sort(function(a,b){return a.name.localeCompare(b.name)});
 
     self.map = {};
 
-    self.selName = "P";
+    self.selName = "BL";
     self.levelName = "level1"
     self.uniqueTool = false;
     self.startX = 0;
