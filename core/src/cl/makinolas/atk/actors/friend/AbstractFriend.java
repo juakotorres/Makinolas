@@ -377,4 +377,9 @@ public abstract class AbstractFriend implements Friend {
   public int getSpeed(){
     return speed;
   }
+  
+  @Override
+  public void forceEvolve(int numberOfEvolution){
+    this.evolve(numberOfEvolution);
+  }
 }
