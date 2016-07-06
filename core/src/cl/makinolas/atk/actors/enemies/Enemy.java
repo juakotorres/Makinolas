@@ -1,11 +1,5 @@
-package cl.makinolas.atk.actors;
+package cl.makinolas.atk.actors.enemies;
 
-import cl.makinolas.atk.GameConstants;
-import cl.makinolas.atk.actors.attacks.Attacks;
-import cl.makinolas.atk.actors.friend.Friend;
-import cl.makinolas.atk.actors.items.BallActor;
-import cl.makinolas.atk.stages.GameStage;
-import cl.makinolas.atk.utils.Formulas;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Batch;
@@ -15,10 +9,24 @@ import com.badlogic.gdx.physics.box2d.Body;
 import com.badlogic.gdx.physics.box2d.BodyDef;
 import com.badlogic.gdx.physics.box2d.PolygonShape;
 import com.badlogic.gdx.physics.box2d.World;
+import com.badlogic.gdx.physics.box2d.WorldManifold;
+
+import cl.makinolas.atk.GameConstants;
+import cl.makinolas.atk.actors.GameActor;
+import cl.makinolas.atk.actors.HBar;
+import cl.makinolas.atk.actors.Hero;
+import cl.makinolas.atk.actors.Monsters;
+import cl.makinolas.atk.actors.Platform;
+import cl.makinolas.atk.actors.attacks.Attacks;
+import cl.makinolas.atk.actors.friend.Enemies;
+import cl.makinolas.atk.actors.friend.Friend;
+import cl.makinolas.atk.actors.items.BallActor;
+import cl.makinolas.atk.stages.AbstractStage;
+import cl.makinolas.atk.utils.Formulas;
 
 public class Enemy extends Monsters {
   
-  private float vx;
+  protected float vx;
   private int health;
   private HBar healthBar;
   private boolean isDamaged;
@@ -30,8 +38,9 @@ public class Enemy extends Monsters {
   private int hurtAnimation;
   private final float hurtTime = 1 / 4f;
   private float accumulator;
+  private float inflictorVelocity;
   private int level;
-  private Friend parent;
+  private Enemies type;
   
   /**
    * Constructor for Enemy
@@ -43,11 +52,13 @@ public class Enemy extends Monsters {
   public Enemy(World myWorld, TextureRegion enemyTexture,
                int[] cutSprite, int[][] numberOfSprite
                , int[][] numberOfHurtSprites, int givenHealth
-               , int heroPosition, int level, Friend parent) {
+               , int heroPosition, int level, Enemies type, Friend parent) {
     
     health = givenHealth;
     width = cutSprite[0];
     height = cutSprite[1];
+    inflictorVelocity = 0;
+    this.type = type;
     isAttacking = true;
     healthBar = new HBar(givenHealth, health, cutSprite[0], 4, new TextureRegion( new Texture(Gdx.files.internal("Overlays/bar_green.png"))));
     isDamaged = false;
@@ -57,6 +68,7 @@ public class Enemy extends Monsters {
     this.level = level;
     this.parent = parent;
     int actualPosition = heroPosition / 20;
+
     int randomNum = actualPosition  + (int)(Math.random() * 16) - 7;
     
     if (randomNum > actualPosition){
@@ -97,8 +109,9 @@ public class Enemy extends Monsters {
   @Override
   public void act(float delta){     
     myBody.setLinearVelocity(vx, myBody.getLinearVelocity().y);
-    
+    //myBody.applyForce(1, 1, 10, 10, true);
     if(isDamaged){
+        myBody.setLinearVelocity(new Vector2(inflictorVelocity,0));
       accumulator += delta;
       if(accumulator > hurtTime){
         isDamaged = false;
@@ -126,10 +139,11 @@ public class Enemy extends Monsters {
     isDamaged = true;
     changeAnimation(hurtAnimation);
     Monsters source = inflictor.getSource();
+    inflictorVelocity = inflictor.getXVelocity();
     inflictor.setDead();
     healthBar.setCurrent(health);
     if(health <= 0){
-      source.gainExperience(getLevel());
+      source.gainExperience(getLevel(), type);
       dead = true;
       
     }
@@ -151,17 +165,17 @@ public class Enemy extends Monsters {
   }
 
   @Override
-  public void interact(GameActor actor2) {
+  public void interact(GameActor actor2, WorldManifold worldManifold) {
     actor2.interactWithEnemy(this);
   }
   
   @Override
-  public void interactWithAttack(Attacks attack){
-    this.damage(attack.getAttackDamage(), attack);
+  public void interactWithAttack(Attacks attack, WorldManifold worldManifold){
+    this.damage(getAttackDamage(attack), attack);
   }
   
   @Override
-  public void interactWithHero(Hero hero){
+  public void interactWithHero(Hero hero, WorldManifold worldManifold){
     interactWithHero2(hero);
     hero.interactWithMonster(this);
   }
@@ -179,7 +193,7 @@ public class Enemy extends Monsters {
   public void interactWithBall(BallActor ball) {
     if(Formulas.checkCatch(ball.getType().catchability/100f,0.9f,health,100)){
       dead = true;
-      ((GameStage) getStage()).addAllie(parent);
+      ((AbstractStage) getStage()).addAllie(parent);
       ball.setDead();
     }
     else{
@@ -193,6 +207,33 @@ public class Enemy extends Monsters {
   }
 
   @Override
-  protected void gainExp(int level) {}
-  
+  protected void gainExp(int level, Enemies type) {}
+
+@Override
+public float getXDirection() {
+	return vx;
 }
+
+
+@Override
+ public void interactWithPlatform(Platform platform, WorldManifold worldManifold) {
+	if (worldManifold.getNormal().x < -0.95 || worldManifold.getNormal().x >0.95){
+		vx = -vx;
+		isFacingRight = !isFacingRight;
+	}
+}
+
+@Override
+public void interactWithEnemy(Enemy enemy) {
+	this.flip();
+	enemy.flip();
+}
+
+public void flip(){
+	vx=-vx;
+	isFacingRight = !isFacingRight;
+}
+
+}
+
+

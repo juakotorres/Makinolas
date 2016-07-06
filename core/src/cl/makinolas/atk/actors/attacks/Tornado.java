@@ -24,7 +24,7 @@ public class Tornado extends Attacks {
   private boolean dead;
   
   public Tornado(World myWorld, float x , float y, boolean facingRight, Monsters source){
-    
+    xVelocity =0;
     dead = false;
     mySource = source;
     attackTime = 0;

@@ -2,7 +2,6 @@ package cl.makinolas.atk.actors.attacks;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
-import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.Body;
@@ -13,27 +12,25 @@ import com.badlogic.gdx.physics.box2d.World;
 
 import cl.makinolas.atk.actors.Monsters;
 
-public class Bubble extends Attacks {
+public class Puff extends Attacks {
   
   private BodyDef myBodyDefinition; 
   private Monsters mySource;
-  private float attackTime;
+  protected final float spriteTime = 1 / 50f;
+  private int[] attackAnimations;
+  private int actualAnimation;
   private float accumulator;
-  private float initialPosition;
   private boolean dead;
   
-  public Bubble(World myWorld, float x , float y, boolean facingRight, Monsters source){
-    
+public Puff(World myWorld, float x , float y, boolean facingRight, Monsters source){
+    xVelocity =0;
     dead = false;
     mySource = source;
-    attackTime = 0;
     accumulator = 0;
     isFacingRight = !facingRight;
-    this.xVelocity = (facingRight)? 10: -10;
-    this.initialPosition= (facingRight)? 1f: -1f;
     myBodyDefinition = new BodyDef();
     myBodyDefinition.type = BodyDef.BodyType.DynamicBody;
-    myBodyDefinition.position.set(new Vector2(x + initialPosition * source.getMonsterWidth() * 2, y));
+    myBodyDefinition.position.set(new Vector2(x, y));
     
     Body myBody = myWorld.createBody(myBodyDefinition);
     
@@ -58,29 +55,38 @@ public class Bubble extends Attacks {
   
   @Override
   public void act(float delta){
-    myBody.setLinearVelocity(xVelocity, 0);
-    checkFinish(delta);
+    
+    myBody.setTransform(new Vector2(mySource.getBody().getPosition().x ,mySource.getBody().getPosition().y)
+        , myBody.getAngle());
+    accumulator += delta;
+    
+    if(accumulator > spriteTime){
+      actualAnimation += 1;
+      if(actualAnimation  < 7) {
+        changeAnimation(actualAnimation);
+        accumulator = 0;
+      } else {
+        setDead();
+      }
+    }
   }
   
-  private void checkFinish(float delta) {
-    accumulator += delta;
-    if(accumulator >= attackTime){
-      dead = true;
-    }
-    
-  }
 
   private void setAnimation(){
-    setMasterTexture(new TextureRegion(new Texture(Gdx.files.internal("Attacks/Bubble.png"))),15, 15);
-    addAttackAnimation(0.2f, Animation.PlayMode.LOOP, 0, 4);
-    attackTime = 5 * 0.2f;    
+    attackAnimations = new int[7];
+    setMasterTexture(new TextureRegion(new Texture(Gdx.files.internal("Attacks/Puff.png"))),41,32);
+    for(int i = 0; i < 7; i++){
+      attackAnimations[i] = addAnimation(0.2f, i);
+    }  
+    actualAnimation = 0;
+    changeAnimation(0);  
   }
 
   @Override
   public int getAttackDamage() {
-    return 40;
+    return 0;
   }
-
+  
   @Override
   public Monsters getSource() {
     return mySource;

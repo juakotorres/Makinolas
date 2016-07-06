@@ -5,6 +5,7 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.physics.box2d.World;
 
+import cl.makinolas.atk.actors.Hero;
 import cl.makinolas.atk.actors.Monsters;
 import cl.makinolas.atk.actors.attacks.Attacks;
 import cl.makinolas.atk.actors.attacks.VineWhip;
@@ -13,7 +14,9 @@ public class Snivy extends AbstractFriend {
   
   private TextureRegion[][] faces;
   
-  public Snivy() {
+  public Snivy(Hero hero) {
+    super(hero);
+    friend = Enemies.SNIVY;
     faces = new TextureRegion(new Texture(Gdx.files.internal("Actors/Snivy_faces.png"))).split(40,40);
     setTexture(new TextureRegion(new Texture(Gdx.files.internal("Actors/Snivy.png"))));
     setCutSprites(22,21);
@@ -24,12 +27,12 @@ public class Snivy extends AbstractFriend {
     initLevel(10);
     initDead();
     setActualEvolution(0);
-    setMaxHealth(30);
-    setMaxMagic(100);
+    setStats();
+    setMaxMagic(1000);
   }
   
-  public Snivy(int level){
-    this();
+  public Snivy(int level, Hero hero){
+    this(hero);
     initLevel(level);
   }
   
@@ -43,6 +46,7 @@ public class Snivy extends AbstractFriend {
   @Override
   protected void evolve(int numberOfLevel){
     if (numberOfLevel == 1 && getActualEvolution() < 1){
+      friend = Enemies.SERVINE;
       setTexture(new TextureRegion(new Texture(Gdx.files.internal("Actors/Servine.png"))));
       setCutSprites(34,29);
       setWalkAnimation(2,3,4,3);
@@ -50,9 +54,10 @@ public class Snivy extends AbstractFriend {
       setMeleeAnimation(5,7);
       setFaceSprite(faces[0][1]);
       setActualEvolution(1);
-      setMaxHealth(60);
-      setMaxMagic(100);
+      setStats();
+      setMaxMagic(1000);
     } else if (numberOfLevel == 2 && getActualEvolution() < 2){
+      friend = Enemies.SERPERIOR;  
       setTexture(new TextureRegion(new Texture(Gdx.files.internal("Actors/Serperior.png"))));
       setCutSprites(57,50);
       setWalkAnimation(2,3);
@@ -60,9 +65,8 @@ public class Snivy extends AbstractFriend {
       setMeleeAnimation(4,5);
       setFaceSprite(faces[0][2]);
       setActualEvolution(2);
-      setMaxHealth(80);
-      setMaxMagic(100);
-      
+      setStats();
+      setMaxMagic(1000);   
     }
   }
   

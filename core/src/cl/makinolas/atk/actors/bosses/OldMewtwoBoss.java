@@ -14,9 +14,10 @@ import cl.makinolas.atk.actors.HBar;
 import cl.makinolas.atk.actors.Hero;
 import cl.makinolas.atk.actors.attacks.AquaAttack;
 import cl.makinolas.atk.actors.attacks.BlueBeam;
+import cl.makinolas.atk.actors.friend.OldMewtwo;
 import cl.makinolas.atk.stages.AbstractStage;
 
-public class OldMewtwo extends Boss {
+public class OldMewtwoBoss extends Boss {
   
   private final float enemyAttack = 2f;
   private float nextEnemyAttackAt;
@@ -27,11 +28,12 @@ public class OldMewtwo extends Boss {
   private final float velocityMewtwo = 3;
   private int[] myAttacks;
   
-  public OldMewtwo(World myWorld, Hero hero) {
+  public OldMewtwoBoss(World myWorld, Hero hero) {
     
     health = 200;
     width = 39;
     height = 33;
+    parent = new OldMewtwo(Hero.getInstance());
     nextEnemyAttackAt = enemyAttack;
     isAttacking = true;
     isLaunchingAttack = false;
@@ -130,6 +132,11 @@ public class OldMewtwo extends Boss {
   public int getMeleeDamage() {
     return 10;
   }
+
+@Override
+public float getXDirection() {
+	return vx;
+	}
   
   
 }

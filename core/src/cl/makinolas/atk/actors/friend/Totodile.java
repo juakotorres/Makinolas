@@ -5,6 +5,7 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.physics.box2d.World;
 
+import cl.makinolas.atk.actors.Hero;
 import cl.makinolas.atk.actors.Monsters;
 import cl.makinolas.atk.actors.attacks.Attacks;
 import cl.makinolas.atk.actors.attacks.Bubble;
@@ -13,7 +14,9 @@ public class Totodile extends AbstractFriend {
   
   private TextureRegion[][] faces;
   
-  public Totodile() {
+  public Totodile(Hero hero) {
+    super(hero);
+    friend = Enemies.TOTODILE;
     faces = new TextureRegion(new Texture(Gdx.files.internal("Actors/Totodile_faces.png"))).split(40,40);
     setTexture(new TextureRegion(new Texture(Gdx.files.internal("Actors/Totodile.png"))));
     setAnimations(new int[]{29,26},
@@ -24,12 +27,12 @@ public class Totodile extends AbstractFriend {
     initLevel(5);
     initDead();
     setActualEvolution(0);
-    setMaxHealth(30);
-    setMaxMagic(100);
+    setStats();
+    setMaxMagic(1000);
   }
   
-  public Totodile(int level){
-    this();
+  public Totodile(int level, Hero hero){
+    this(hero);
     initLevel(level);
   }
   
@@ -43,6 +46,7 @@ public class Totodile extends AbstractFriend {
   @Override
   protected void evolve(int numberOfLevel){
     if (numberOfLevel == 1 && getActualEvolution() < 1){
+      friend = Enemies.CROCONAW;
       setTexture(new TextureRegion(new Texture(Gdx.files.internal("Actors/Croconaw.png"))));
       setAnimations(new int[]{27,28},
           new int[][]{new int[]{0,3},new int[]{0,4},new int[]{0,5},new int[]{0,4}},
@@ -50,9 +54,10 @@ public class Totodile extends AbstractFriend {
       setMeleeAnimation(6,8);
       setFaceSprite(faces[0][1]);
       setActualEvolution(1);
-      setMaxHealth(60);
-      setMaxMagic(100);
+      setStats();
+      setMaxMagic(1000);
     } else if (numberOfLevel == 2 && getActualEvolution() < 2){
+      friend = Enemies.FERALIGATR;
       setTexture(new TextureRegion(new Texture(Gdx.files.internal("Actors/Feraligatr.png"))));
       setAnimations(new int[]{38,37},
           new int[][]{new int[]{0,3},new int[]{0,4},new int[]{0,5},new int[]{0,4}},
@@ -60,8 +65,8 @@ public class Totodile extends AbstractFriend {
       setMeleeAnimation(6,8);
       setFaceSprite(faces[0][2]);
       setActualEvolution(2);
-      setMaxHealth(100);
-      setMaxMagic(100);
+      setStats();
+      setMaxMagic(1000);
     }
   }
   

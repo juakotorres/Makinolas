@@ -1,20 +1,29 @@
 package cl.makinolas.atk.actors.friend;
 
-import cl.makinolas.atk.actors.Enemy;
-import cl.makinolas.atk.actors.Monsters;
-import cl.makinolas.atk.actors.attacks.Attacks;
-import cl.makinolas.atk.actors.attacks.DragonBreath;
-import cl.makinolas.atk.utils.Formulas;
+import java.util.Observable;
+import java.util.Observer;
+
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.physics.box2d.World;
 
-import java.util.Observable;
-import java.util.Observer;
+import cl.makinolas.atk.actors.Hero;
+import cl.makinolas.atk.actors.Monsters;
+import cl.makinolas.atk.actors.attacks.Attacks;
+import cl.makinolas.atk.actors.attacks.DragonBreath;
+import cl.makinolas.atk.actors.enemies.Enemy;
+import cl.makinolas.atk.actors.enemies.LongRangeEnemy;
+import cl.makinolas.atk.actors.enemies.PhysicalEnemy;
+import cl.makinolas.atk.utils.Formulas;
 
 public abstract class AbstractFriend implements Friend {
   
   private int health;
-  private int maxHealth;
+  private int hp;
+  private int attack;
+  private int defense;
+  private int spAttack;
+  private int spDefense;
+  private int speed;
   private int magic;
   private int maxMagic;
   private boolean dead;
@@ -26,6 +35,12 @@ public abstract class AbstractFriend implements Friend {
   private TextureRegion faceSprite;
   protected Level level;
   private int actualEvolution;
+  private Hero myHero;
+  public Enemies friend;
+  
+  public AbstractFriend(Hero hero){
+    myHero = hero;
+  }
   
   protected void setCutSprites(int width, int height){
     this.cutSprites = new int[]{width, height};
@@ -107,8 +122,8 @@ public abstract class AbstractFriend implements Friend {
   }
   
   @Override
-  public void gainExperience(int wildLevel){
-    level.gainExp(wildLevel);
+  public void gainExperience(int wildLevel, Enemies type){
+    level.gainExp(wildLevel, type);
   }
   
   @Override
@@ -128,8 +143,8 @@ public abstract class AbstractFriend implements Friend {
   
   @Override
   public void setVariables(int health, int magic) {
-   this.health = health;  
-   this.magic = magic;
+   setMagic(magic);
+   setHealth(health);
   }
   
   @Override
@@ -163,8 +178,19 @@ public abstract class AbstractFriend implements Friend {
   
   @Override
   public Enemy returnEnemy(World myWorld, int heroPosition) {
-    return new Enemy(myWorld, friendTexture, cutSprites, 
-                walkingAnimation, hurtAnimation,  getHealth(), heroPosition, getLevel(),this);
+    return new Enemy(myWorld, friendTexture, cutSprites,
+                walkingAnimation, hurtAnimation,  getHealth(), heroPosition, getLevel(), friend, this);
+  }
+  
+  @Override
+  public Enemy returnLongRangeEnemy(World myWorld, int heroPosition) {
+    return new LongRangeEnemy(myWorld, friendTexture, cutSprites, 
+                walkingAnimation, hurtAnimation,  getHealth(), heroPosition, getLevel(), friend,this);
+  }
+  @Override
+  public Enemy returnPhysicalEnemy(World myWorld, int heroPosition) {
+    return new PhysicalEnemy(myWorld, friendTexture, cutSprites, 
+                walkingAnimation, hurtAnimation,  getHealth(), heroPosition, getLevel(), friend,this);
   }
   
   @Override
@@ -223,8 +249,8 @@ public abstract class AbstractFriend implements Friend {
       expLevelMax = nextExpLevel;
     }
     
-    public void gainExp(int wildPokemonLevel){
-      this.nextExpLevel -= Formulas.gainExp(level, wildPokemonLevel);
+    public void gainExp(int wildPokemonLevel, Enemies type){
+      this.nextExpLevel -= Formulas.gainExp(level, wildPokemonLevel, type);
       if(nextExpLevel < 0 && level < 100){
         double freeExp = Math.abs(nextExpLevel);
         levelUp(level + 1);
@@ -255,11 +281,13 @@ public abstract class AbstractFriend implements Friend {
     
     private float evolLevel;
     private int numberOfEvolution;
+    private boolean evolved;
     
     public Evolution(Level level, float evolLevel, int numberOfEvolution){
       observe(level);
       this.evolLevel = evolLevel;
       this.numberOfEvolution = numberOfEvolution;
+      evolved = false;
     }
     
     public void observe(Observable o) {
@@ -269,8 +297,10 @@ public abstract class AbstractFriend implements Friend {
     @Override
     public void update(Observable o, Object arg) {
       float newLevel = ((Level) o).getLevel();
-      if(newLevel >= evolLevel){
+      if(newLevel >= evolLevel && !evolved){
        evolve(this.numberOfEvolution);
+       myHero.evolved();
+       evolved = true;
       }
     }
   }
@@ -282,17 +312,24 @@ public abstract class AbstractFriend implements Friend {
   
   @Override
   public int getMaxHealth(){
-    return maxHealth;
+    return hp;
   }
   
   @Override
   public void setHealth(int health){
-    this.health = health;
+    this.health = health > hp? hp:health;
+    if(this.health <= 0){
+      this.health = 0;
+    }
   }
-  
-  protected void setMaxHealth(int maxHealth){
-    this.maxHealth = maxHealth;
-    this.health = maxHealth;
+
+  protected void setStats(){
+    this.hp = Formulas.getHpStat(friend.hpBase , level.level);
+    this.attack = Formulas.getOtherStat(friend.attackBase, level.level);
+    this.defense = Formulas.getOtherStat(friend.defenseBase, level.level);
+    this.spAttack = Formulas.getOtherStat(friend.spAttackBase, level.level);
+    this.spDefense = Formulas.getOtherStat(friend.spDefenseBase, level.level);
+    this.speed = Formulas.getOtherStat(friend.speedBase, level.level);
   }
   
   @Override
@@ -301,6 +338,7 @@ public abstract class AbstractFriend implements Friend {
   }
   
   protected void setMaxMagic(int maxMagic){
+    this.health = hp;
     this.maxMagic = maxMagic;
     this.magic = maxMagic;
   }
@@ -308,5 +346,35 @@ public abstract class AbstractFriend implements Friend {
   @Override
   public Attacks getFriendAttack(World myWorld, float x , float y, boolean facingRight, Monsters source){
     return new DragonBreath(myWorld, x, y, facingRight, source);
+  }
+  
+  @Override
+  public Enemies getType(){
+    return friend;
+  }
+  
+  @Override
+  public int getAttack(){
+    return attack;
+  }
+  
+  @Override
+  public int getDefense(){
+    return defense;
+  }
+  
+  @Override
+  public int getSpecialAttack(){
+    return spAttack;
+  }
+  
+  @Override
+  public int getSpecialDefense(){
+    return spDefense;
+  }
+  
+  @Override
+  public int getSpeed(){
+    return speed;
   }
 }

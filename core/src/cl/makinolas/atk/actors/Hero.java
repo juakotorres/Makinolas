@@ -2,31 +2,29 @@ package cl.makinolas.atk.actors;
 
 import cl.makinolas.atk.GameConstants;
 import cl.makinolas.atk.actors.attacks.Attacks;
+import cl.makinolas.atk.actors.attacks.Puff;
 import cl.makinolas.atk.actors.bosses.IBoss;
+import cl.makinolas.atk.actors.enemies.Enemy;
 import cl.makinolas.atk.actors.friend.Bagon;
+import cl.makinolas.atk.actors.friend.Enemies;
 import cl.makinolas.atk.actors.friend.Friend;
-import cl.makinolas.atk.actors.friend.Weedle;
+import cl.makinolas.atk.actors.friend.Scyther;
 import cl.makinolas.atk.actors.items.Ball;
 import cl.makinolas.atk.actors.items.BallActor;
 import cl.makinolas.atk.actors.items.Inventory;
+import cl.makinolas.atk.actors.ui.MainBar;
 import cl.makinolas.atk.stages.AbstractStage;
-import cl.makinolas.atk.stages.GameStage;
-import cl.makinolas.atk.utils.SaveInstance;
-import cl.makinolas.atk.utils.SaveManager;
 import com.badlogic.gdx.math.Vector2;
-import com.badlogic.gdx.physics.box2d.Body;
-import com.badlogic.gdx.physics.box2d.BodyDef;
-import com.badlogic.gdx.physics.box2d.PolygonShape;
-import com.badlogic.gdx.physics.box2d.World;
+import com.badlogic.gdx.physics.box2d.*;
 import com.badlogic.gdx.utils.Array;
+
 
 public class Hero extends Monsters {
 
+  public static Hero player = new Hero();
   private boolean changing;
   private int changeIndex;
   private boolean isJumping;
-  private int health;
-  private int magic;
   private boolean isDamaged;
   private boolean isAttacking;
   private float numberOfAttackingFrames;
@@ -45,13 +43,15 @@ public class Hero extends Monsters {
   private Inventory inventory;
   private int vx;
   private boolean inertia;
+  private boolean hasEvolved;
 
-  public Hero(World myWorld) {
+  private Hero() {
 
     isJumping = false;
     isFacingRight = false;
     isDamaged = false;
     isAttacking = false;
+    hasEvolved = false;
     dead = false;
     changing = false;
     changeIndex = 0;
@@ -62,31 +62,49 @@ public class Hero extends Monsters {
 
     // Set team for player;
     allies = new Array<Friend>();
-    addAllie(new Bagon());
-    addAllie(new Weedle());
+    addAllie(new Bagon(this));
+    addAllie(new Scyther(this));
+
+
+
     // Set actual allie
     actualFriend = allies.get(1);
     indexFriend = 1;
+    parent = actualFriend;
     
-    health = actualFriend.getHealth();
-    magic = actualFriend.getMagic();
-    // define player world
-    this.myWorld = myWorld;
     // Set correct collider.
     myBodyDefinition = new BodyDef();
     myBodyDefinition.type = BodyDef.BodyType.DynamicBody;
-    // Load position from saved instance (only for production)
-    SaveManager.getInstance().loadData("ATK.sav");
-    if (SaveManager.getInstance().hasSaveInstance()){
-      SaveInstance lsi = SaveManager.getInstance().getSaveInstance();
-      setSizeCollider(new Vector2(lsi.heroX, lsi.heroY), true);
-    }
-    else{
-      setSizeCollider(new Vector2(2, 3), true);
-    }
+    
     // Guardar animaciones del jugador
     setAnimation();
     changeAnimation(walkAnimation);
+  }
+  
+  public static Hero getInstance(){
+    return player;
+  }
+
+  public void reset(){
+    player = new Hero();
+  }
+  
+  public World getMyWorld(){
+    return myWorld;
+  }
+  
+  public void setWorld(World myWorld, Vector2 initialPosition){
+    this.myWorld = myWorld;
+    isJumping = false;
+
+    setSizeCollider(initialPosition, true);
+    // Guardar animaciones del jugador
+    setAnimation();
+    changeAnimation(walkAnimation);
+  }
+
+  public void setWorld(World myWorld){
+    setWorld(myWorld, new Vector2(2,3));
   }
   
   public void addAllie(Friend friend) {
@@ -103,10 +121,20 @@ public class Hero extends Monsters {
     
     checkDamage(delta);
     checkMelee(delta);
+    checkEvolution();
     giveMagic();
     
   }
   
+  private void checkEvolution() {
+    if(hasEvolved){
+      Attacks attack = new Puff(myWorld, myBody.getPosition().x,myBody.getPosition().y,isFacingRight, this);
+      ((AbstractStage) getStage()).addGameActor(attack);
+      hasEvolved = false;
+    }
+    
+  }
+
   private void checkChangingAllie() {
     if(changing){
       setNewAllie(changeIndex);
@@ -152,9 +180,11 @@ public class Hero extends Monsters {
   }
 
   private void giveMagic() {
-    if(magic < 1000){
-      magic = ((magic + 1)%1001);
-    }    
+    if(actualFriend.getMagic() < 1000){
+      actualFriend.setMagic(((actualFriend.getMagic() + 1)%1001));
+    } else {
+      actualFriend.setMagic(1000);
+    }
   }
 
   private void checkMelee(float delta) {
@@ -176,8 +206,10 @@ public class Hero extends Monsters {
     return getBody().getMass()*12; // El 12 se busc� por testing.
   }
 
-  public void landedPlatform(){
-    isJumping = false;
+  public void landedPlatform(WorldManifold worldManifold, Platform platform){
+    if(worldManifold.getNormal().y < -0.95){
+      isJumping = false;
+    }
   }
 
   private void setAnimation(){
@@ -194,23 +226,23 @@ public class Hero extends Monsters {
   }
 
   public int getHealth(){
-    return health;
+    return actualFriend.getHealth();
   }
   
   public int getMagic(){
-    return magic;
+    return actualFriend.getMagic();
   }
 
 
   @Override
   public void damage(int damage, Attacks inflictor)  {
     if(!inflictor.getSource().isHero()){
-      health -= damage;   
+      actualFriend.setHealth(actualFriend.getHealth() - damage);
       isDamaged = true;
       changeAnimation(hurtAnimation);
       inflictor.setDead();
     }
-    if(health <= 0){
+    if(getHealth() <= 0){
       changeAllie();
     }
   }
@@ -226,13 +258,17 @@ public class Hero extends Monsters {
   }
   
   private void setNewAllie(int index){
-    actualFriend.setVariables(health, magic);
-    allies.set(indexFriend, actualFriend);
-    actualFriend = allies.get(index);
-    health = actualFriend.getHealth();
-    indexFriend = index;
-    setSizeCollider(getBody().getPosition(), false);
-    setAnimation();
+    if(!isJumping || actualFriend.getDead()){
+      Attacks attack = new Puff(myWorld, myBody.getPosition().x,myBody.getPosition().y,isFacingRight, this);
+      ((AbstractStage) getStage()).addGameActor(attack);
+      allies.set(indexFriend, actualFriend);
+      actualFriend = allies.get(index);
+      indexFriend = index;
+      parent = actualFriend;
+      MainBar.getInstance().setBars();
+      setSizeCollider(getBody().getPosition(), false);
+      setAnimation();
+    }
   }
   
   private void setSizeCollider(Vector2 position, boolean first) {
@@ -259,23 +295,24 @@ public class Hero extends Monsters {
   
   public void evolved(){
     setAnimation();
+    hasEvolved = true;
   }
 
   @Override
-  public void interact(GameActor actor2){
-    actor2.interactWithHero(this);
+  public void interact(GameActor actor2, WorldManifold worldManifold){
+    actor2.interactWithHero(this, worldManifold);
   }
   
   @Override
-  public void interactWithPlatform(Platform platform){
-    landedPlatform();
+  public void interactWithPlatform(Platform platform, WorldManifold worldManifold){
+    landedPlatform(worldManifold, platform);
   }
   
   @Override
-  public void interactWithAttack(Attacks attack){
-    this.damage(attack.getAttackDamage(), attack);
+  public void interactWithAttack(Attacks attack, WorldManifold worldManifold){
+    this.damage(getAttackDamage(attack), attack);
   }
-  
+
   @Override
   public void interactWithBoss(IBoss boss){
     interactWithMonster(boss.getBoss());
@@ -284,7 +321,7 @@ public class Hero extends Monsters {
   
   @Override
   public void interactWithEnemy(Enemy enemy){
-    interactWithMonster(enemy);
+    interactWithMonster( enemy);
     enemy.interactWithHero2(this);
   }
 
@@ -329,8 +366,8 @@ public class Hero extends Monsters {
   }
 
   public void attackPrimary() {
-    if(magic>=100){
-      magic -= 100;
+    if(actualFriend.getMagic() >= 100){
+      actualFriend.setMagic(actualFriend.getMagic() - 100);
       GameActor fireball = actualFriend.getFriendAttack(myWorld, myBody.getPosition().x,myBody.getPosition().y,isFacingRight, this);
       ((AbstractStage) getStage()).addGameActor(fireball);
     }
@@ -339,7 +376,7 @@ public class Hero extends Monsters {
   public void attackSecondary() {
     if(!isAttacking){
       isAttacking = true;
-      changeAnimation(meleeAnimation);
+      changeAnimation(meleeAnimation);  
     }
   }
 
@@ -351,15 +388,15 @@ public class Hero extends Monsters {
   }
 
   @Override
-  protected void gainExp(int enemyLevel) {
-    actualFriend.gainExperience(enemyLevel);
+  protected void gainExp(int enemyLevel, Enemies type) {
+    actualFriend.gainExperience(enemyLevel, type);
   }
 
   public void throwBall(Ball.BallType type) {
     BallActor ball = new BallActor(type, myWorld, myBody.getPosition().x + ((isFacingRight)?0.6f:-0.6f)*actualFriend.getWidth()/ GameConstants.WORLD_FACTOR,
             myBody.getPosition().y);
     ball.setThrowImpulse((isFacingRight)?1:-1);
-    ((GameStage) getStage()).addGameActor(ball);
+    ((AbstractStage) getStage()).addGameActor(ball);
   }
 
   public void nextAllie() {
@@ -381,4 +418,10 @@ public class Hero extends Monsters {
       }
     }
   }
+
+@Override
+public float getXDirection() {
+	
+	return vx;
+}
 }

@@ -62,7 +62,7 @@ var MainController = function($scope){
         if(!self.uniqueTool){
             var lastX = ~~(event.layerX/35);
             var lastY = ~~(event.layerY/35);
-            var tag = ""+Math.min(self.startX,lastX)+","+Math.min(self.startY,lastY)+","+
+            var tag = ""+Math.min(self.startX,lastX)+","+Math.min(20-self.startY,20-lastY)+","+
                             (Math.abs(self.startX-lastX)+1)+","+(Math.abs(self.startY-lastY)+1);
             self.map[tag] = self.selName;
             for(var x=self.startX; x<=lastX; x++){

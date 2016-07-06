@@ -5,6 +5,7 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.physics.box2d.World;
 
+import cl.makinolas.atk.actors.Hero;
 import cl.makinolas.atk.actors.Monsters;
 import cl.makinolas.atk.actors.attacks.Attacks;
 import cl.makinolas.atk.actors.attacks.DragonBreath;
@@ -13,7 +14,9 @@ public class Bagon extends AbstractFriend {
   
   private TextureRegion[][] faces;
   
-  public Bagon() {
+  public Bagon(Hero hero) {
+    super(hero);
+    friend = Enemies.BAGON;
     faces = new TextureRegion(new Texture(Gdx.files.internal("Actors/Bagon_faces.png"))).split(40,40);
     setTexture(new TextureRegion(new Texture(Gdx.files.internal("Actors/Bagon.png"))));
     setCutSprites(25,26);
@@ -24,12 +27,12 @@ public class Bagon extends AbstractFriend {
     initLevel(10);
     initDead();
     setActualEvolution(0);
-    setMaxHealth(30);
-    setMaxMagic(100);
+    setStats();
+    setMaxMagic(1000);
   }
   
-  public Bagon(int level){
-    this();
+  public Bagon(int level, Hero hero){
+    this(hero);
     initLevel(level);
   }
   
@@ -43,6 +46,7 @@ public class Bagon extends AbstractFriend {
   @Override
   protected void evolve(int numberOfLevel){
     if (numberOfLevel == 1 && getActualEvolution() < 1){
+      friend = Enemies.SHELGON;
       setTexture(new TextureRegion(new Texture(Gdx.files.internal("Actors/Shelgon.png"))));
       setCutSprites(28,29);
       setWalkAnimation(3,4,5,4);
@@ -50,9 +54,10 @@ public class Bagon extends AbstractFriend {
       setMeleeAnimation(6,9);
       setFaceSprite(faces[0][1]);
       setActualEvolution(1);
-      setMaxHealth(60);
-      setMaxMagic(100);
+      setStats();
+      setMaxMagic(1000);
     } else if (numberOfLevel == 2 && getActualEvolution() < 2){
+      friend = Enemies.SALAMENCE;
       setTexture(new TextureRegion(new Texture(Gdx.files.internal("Actors/Salamence.png"))));
       setCutSprites(55,48);
       setWalkAnimation(3,4);
@@ -60,9 +65,8 @@ public class Bagon extends AbstractFriend {
       setMeleeAnimation(5,9);
       setFaceSprite(faces[0][2]);
       setActualEvolution(2);
-      setMaxHealth(120);
-      setMaxMagic(100);
-      
+      setStats();
+      setMaxMagic(1000);
     }
   }
   

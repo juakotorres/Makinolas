@@ -10,6 +10,7 @@ import com.badlogic.gdx.physics.box2d.BodyDef;
 import com.badlogic.gdx.physics.box2d.FixtureDef;
 import com.badlogic.gdx.physics.box2d.PolygonShape;
 import com.badlogic.gdx.physics.box2d.World;
+import com.badlogic.gdx.physics.box2d.WorldManifold;
 import com.badlogic.gdx.utils.viewport.FitViewport;
 
 import cl.makinolas.atk.screen.GameScreen;
@@ -68,12 +69,12 @@ public class Portal extends AnimatedActor{
   }
 
   @Override
-  public void interact(GameActor actor2) {
+  public void interact(GameActor actor2, WorldManifold worldManifold) {
     actor2.interactWithPortal(this);
   }
   
   @Override
-  public void interactWithHero(Hero hero){
+  public void interactWithHero(Hero hero, WorldManifold worldManifold){
     nextStage();
   }
 

@@ -4,11 +4,15 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 
+import cl.makinolas.atk.actors.Hero;
+
 public class Mareep extends AbstractFriend {
   
   private TextureRegion[][] faces;
   
-  public Mareep() {
+  public Mareep(Hero hero) {
+    super(hero);
+    friend = Enemies.MAREEP;
     faces = new TextureRegion(new Texture(Gdx.files.internal("Actors/Mareep_faces.png"))).split(40,40);
     setTexture(new TextureRegion(new Texture(Gdx.files.internal("Actors/Mareep.png"))));
     setAnimations(new int[]{29,21},
@@ -19,12 +23,12 @@ public class Mareep extends AbstractFriend {
     initLevel(5);
     initDead();
     setActualEvolution(0);
-    setMaxHealth(30);
-    setMaxMagic(100);
+    setStats();
+    setMaxMagic(1000);
   }
   
-  public Mareep(int level){
-    this();
+  public Mareep(int level, Hero hero){
+    this(hero);
     initLevel(level);
   }
   
@@ -38,6 +42,7 @@ public class Mareep extends AbstractFriend {
   @Override
   protected void evolve(int numberOfLevel){
     if (numberOfLevel == 1 && getActualEvolution() < 1){
+      friend = Enemies.FLAAFFY;
       setTexture(new TextureRegion(new Texture(Gdx.files.internal("Actors/Flaffy.png"))));
       setAnimations(new int[]{25,25},
           new int[][]{new int[]{0,1},new int[]{0,2},new int[]{0,3},new int[]{0,2}},
@@ -45,9 +50,10 @@ public class Mareep extends AbstractFriend {
       setMeleeAnimation(4,7);
       setFaceSprite(faces[0][1]);
       setActualEvolution(1);
-      setMaxHealth(60);
-      setMaxMagic(100);
+      setStats();
+      setMaxMagic(1000);
     } else if (numberOfLevel == 2 && getActualEvolution() < 2){
+      friend = Enemies.AMPHAROS;
       setTexture(new TextureRegion(new Texture(Gdx.files.internal("Actors/Ampharos.png"))));
       setAnimations(new int[]{25,34},
           new int[][]{new int[]{0,4},new int[]{0,5},new int[]{0,6},new int[]{0,5}},
@@ -55,8 +61,8 @@ public class Mareep extends AbstractFriend {
       setMeleeAnimation(7,8);
       setFaceSprite(faces[0][2]);
       setActualEvolution(2);
-      setMaxHealth(120);
-      setMaxMagic(100);
+      setStats();
+      setMaxMagic(1000);
     }
   }
   

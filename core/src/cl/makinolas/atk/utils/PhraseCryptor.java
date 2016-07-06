@@ -2,14 +2,15 @@ package cl.makinolas.atk.utils;
 
 public class PhraseCryptor implements Cryptor{
 
-    public char[] key;
+    public int[] key;
     public int n;
+    private final String alphabet = "0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ:\"{}()[],.-_#@$%&+*/\\;?!=|<>";
 
     public PhraseCryptor(String k) {
         n = k.length();
-        key = new char[n];
+        key = new int[n];
         for (int i = 0; i < n; i++) {
-            key[i] = (char) (k.charAt(i) - '0');
+            key[i] = alphabet.indexOf(k.charAt(i));
         }
     }
 
@@ -17,7 +18,7 @@ public class PhraseCryptor implements Cryptor{
     public String encrypt(String msg) {
         StringBuilder builder = new StringBuilder();
         for (int i = 0; i < msg.length(); i++) {
-            builder.append((char)(msg.charAt(i)+key[i%n]));
+            builder.append(alphabet.charAt((alphabet.indexOf(msg.charAt(i))+key[i%n])%alphabet.length()));
         }
         return builder.toString();
     }
@@ -26,7 +27,7 @@ public class PhraseCryptor implements Cryptor{
     public String decrypt(String msg) {
         StringBuilder builder = new StringBuilder();
         for (int i = 0; i < msg.length(); i++) {
-            builder.append((char)(msg.charAt(i)-key[i%n]));
+            builder.append(alphabet.charAt((alphabet.indexOf(msg.charAt(i))-key[i%n]+alphabet.length())%alphabet.length()));
         }
         return builder.toString();
     }

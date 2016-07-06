@@ -1,33 +1,22 @@
 package cl.makinolas.atk.stages;
 
-import java.io.IOException;
-
+import cl.makinolas.atk.actors.*;
+import cl.makinolas.atk.actors.bosses.OldMewtwoBoss;
+import cl.makinolas.atk.actors.ui.MainBar;
+import cl.makinolas.atk.actors.ui.MobileGroup;
+import cl.makinolas.atk.screen.GameScreen;
+import cl.makinolas.atk.utils.LevelReader;
 import com.badlogic.gdx.Application;
 import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.math.Vector2;
-import com.badlogic.gdx.physics.box2d.Body;
-import com.badlogic.gdx.physics.box2d.Box2DDebugRenderer;
-import com.badlogic.gdx.physics.box2d.Contact;
-import com.badlogic.gdx.physics.box2d.ContactImpulse;
-import com.badlogic.gdx.physics.box2d.ContactListener;
-import com.badlogic.gdx.physics.box2d.Manifold;
-import com.badlogic.gdx.physics.box2d.World;
+import com.badlogic.gdx.physics.box2d.*;
 import com.badlogic.gdx.scenes.scene2d.Group;
 import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.viewport.Viewport;
 
-import cl.makinolas.atk.actors.Background;
-import cl.makinolas.atk.actors.GameActor;
-import cl.makinolas.atk.actors.Hero;
-import cl.makinolas.atk.actors.InputController;
-import cl.makinolas.atk.actors.Portal;
-import cl.makinolas.atk.actors.bosses.OldMewtwo;
-import cl.makinolas.atk.actors.ui.MainBar;
-import cl.makinolas.atk.actors.ui.MobileGroup;
-import cl.makinolas.atk.screen.GameScreen;
-import cl.makinolas.atk.utils.LevelReader;
+import java.io.IOException;
 
 public class BossStage extends AbstractStage implements ContactListener {
 
@@ -65,15 +54,16 @@ public class BossStage extends AbstractStage implements ContactListener {
     
     MobileGroup group = new MobileGroup(Gdx.app.getType() == Application.ApplicationType.Android);
     Gdx.input.setInputProcessor(this);
-    Hero hero =  new Hero(suMundo);
-    createPlatforms();
+    Hero hero =  Hero.getInstance();
+    hero.setWorld(suMundo);
+    createPlatforms(myGame);
     
     bossDefeated = false;
-    GameActor enemy = new OldMewtwo(suMundo, hero);
+    GameActor enemy = new OldMewtwoBoss(suMundo, hero);
     addGameActor(enemy);
     
     addGameActor(hero);
-    bar = new MainBar(hero);
+    bar = MainBar.getInstance();
     ui.addActor(bar);
     ui.addActor(group);
 
@@ -89,9 +79,10 @@ public class BossStage extends AbstractStage implements ContactListener {
     gameActors.add(actor);
   }
 
-  private void createPlatforms() {
+  private void createPlatforms(Game g) {
     LevelReader reader = LevelReader.getInstance();
     reader.setWorld(suMundo);
+    reader.setGame(g);
     try {
       Array<GameActor> platforms = reader.loadLevel(getLevelName());
       for(GameActor p : platforms)
@@ -169,7 +160,7 @@ public class BossStage extends AbstractStage implements ContactListener {
     GameActor actor1 = (GameActor) contact.getFixtureA().getBody().getUserData();
     GameActor actor2 = (GameActor) contact.getFixtureB().getBody().getUserData();
     
-    actor1.interact(actor2);
+    actor1.interact(actor2, contact.getWorldManifold());
   }
 
   @Override

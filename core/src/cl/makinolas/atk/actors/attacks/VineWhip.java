@@ -67,7 +67,6 @@ public class VineWhip extends Attacks {
     if(accumulator >= attackTime){
       dead = true;
     }
-    
   }
 
   private void setAnimation(){
@@ -78,7 +77,7 @@ public class VineWhip extends Attacks {
 
   @Override
   public int getAttackDamage() {
-    return 10;
+    return 45;
   }
 
   @Override
@@ -96,4 +95,8 @@ public class VineWhip extends Attacks {
     return dead;
   }
   
+   @Override
+   public float getXVelocity(){
+	   return isFacingRight? -3 : 3;
+   }
 }

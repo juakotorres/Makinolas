@@ -13,10 +13,10 @@ import com.badlogic.gdx.scenes.scene2d.Group;
 import cl.makinolas.atk.actors.HBar;
 import cl.makinolas.atk.actors.Hero;
 import cl.makinolas.atk.stages.AbstractStage;
-import cl.makinolas.atk.stages.GameStage;
 
 public class MainBar extends Group{
 
+    public static MainBar barra = new MainBar();
     private Hero hero;
     private HBar healthBar, magicBar;
     private FriendImage friend;
@@ -25,19 +25,31 @@ public class MainBar extends Group{
     private ShapeRenderer renderer;
     private ImageCuad itemA, itemS;
 
-    public MainBar(Hero h){
-        hero = h;
-        healthBar = new HBar(100,100,150,10,new TextureRegion(new Texture(Gdx.files.internal("Overlays/bar_green.png"))));
-        magicBar = new HBar(1000,1000,150,10,new TextureRegion(new Texture(Gdx.files.internal("Overlays/bar_blue.png"))));;
+    private MainBar(){
+        hero = Hero.getInstance();
+        setBars();
         base = new Sprite(new Texture(Gdx.files.internal("Overlays/bar_base.png")));
         base.setRegionWidth(640); //Full width
         font = new BitmapFont(Gdx.files.internal("Fonts/normal.fnt"),Gdx.files.internal("Fonts/normal.png"),false);
         renderer = new ShapeRenderer();
-        TextureRegion[][] items = new TextureRegion(new Texture(Gdx.files.internal("Overlays/items.png"))).split(32,32);
         friend = new FriendImage();
         itemA = new ImageCuad(hero.getInventory().getSelItem1().getItem().getImage(),"A",font);
         itemS = new ImageCuad(hero.getInventory().getSelItem2().getItem().getImage(),"S",font);
         
+    }
+    
+    public static MainBar getInstance(){
+      return barra;
+    }
+    
+    public void reset(){
+      barra = new MainBar();
+    }
+
+    public void setBars() {
+      Hero h = Hero.getInstance();
+      healthBar = new HBar(h.getFriend().getMaxHealth(),h.getHealth(),150,10,new TextureRegion(new Texture(Gdx.files.internal("Overlays/bar_green.png"))));
+      magicBar = new HBar(h.getFriend().getMaxMagic(),h.getMagic(),150,10,new TextureRegion(new Texture(Gdx.files.internal("Overlays/bar_blue.png"))));;
     }
 
     @Override
@@ -54,6 +66,9 @@ public class MainBar extends Group{
         //Labels
         font.draw(batch,"HP",cx+18,cy+36);
         font.draw(batch,"Magic",cx+4,cy+20);
+        font.draw(batch,String.valueOf(Hero.getInstance().getHealth()),cx+100, cy+36); 
+        font.draw(batch, "/", cx+120, cy+36);
+        font.draw(batch,String.valueOf(Hero.getInstance().getFriend().getMaxHealth()),cx+130, cy+36);
         font.draw(batch,AbstractStage.levelName ,cx+220,cy+38);
         font.draw(batch, ""+((int) AbstractStage.elapsedTime),cx+230,cy+20);
         //Current Friend Sprite

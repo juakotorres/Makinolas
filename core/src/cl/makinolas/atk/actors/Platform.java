@@ -12,6 +12,7 @@ import com.badlogic.gdx.physics.box2d.Body;
 import com.badlogic.gdx.physics.box2d.BodyDef;
 import com.badlogic.gdx.physics.box2d.PolygonShape;
 import com.badlogic.gdx.physics.box2d.World;
+import com.badlogic.gdx.physics.box2d.WorldManifold;
 
 public class Platform extends GameActor {
   
@@ -76,17 +77,17 @@ public class Platform extends GameActor {
   }
 
   @Override
-  public void interact(GameActor actor2) {
-    actor2.interactWithPlatform(this);
+  public void interact(GameActor actor2, WorldManifold worldManifold) {
+    actor2.interactWithPlatform(this, worldManifold);
   }
   
   @Override
-  public void interactWithHero(Hero hero){
-    hero.landedPlatform();
+  public void interactWithHero(Hero hero, WorldManifold worldManifold){
+    hero.landedPlatform(worldManifold, this);
   }
   
   @Override
-  public void interactWithAttack(Attacks attack){
-    attack.interactWithPlatform(this);
+  public void interactWithAttack(Attacks attack, WorldManifold worldManifold){
+    attack.interactWithPlatform(this, worldManifold);
   }
 }

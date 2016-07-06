@@ -5,6 +5,7 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.physics.box2d.World;
 
+import cl.makinolas.atk.actors.Hero;
 import cl.makinolas.atk.actors.Monsters;
 import cl.makinolas.atk.actors.attacks.Attacks;
 import cl.makinolas.atk.actors.attacks.ThunderBolt;
@@ -13,7 +14,9 @@ public class Magnemite extends AbstractFriend {
   
   private TextureRegion[][] faces;
   
-  public Magnemite() {
+  public Magnemite(Hero hero) {
+    super(hero);
+    friend = Enemies.MAGNEMITE;
     faces = new TextureRegion(new Texture(Gdx.files.internal("Actors/Magnemite_faces.png"))).split(40,40);
     setTexture(new TextureRegion(new Texture(Gdx.files.internal("Actors/Magnemite.png"))));
     setCutSprites(20,22);
@@ -24,12 +27,12 @@ public class Magnemite extends AbstractFriend {
     initLevel(10);
     initDead();
     setActualEvolution(0);
-    setMaxHealth(30);
-    setMaxMagic(100);
+    setStats();
+    setMaxMagic(1000);
   }
   
-  public Magnemite(int level){
-    this();
+  public Magnemite(int level, Hero hero){
+    this(hero);
     initLevel(level);
   }
   
@@ -43,6 +46,7 @@ public class Magnemite extends AbstractFriend {
   @Override
   protected void evolve(int numberOfLevel){
     if (numberOfLevel == 1 && getActualEvolution() < 1){
+      friend = Enemies.MAGNETON;
       setTexture(new TextureRegion(new Texture(Gdx.files.internal("Actors/Magneton.png"))));
       setCutSprites(29,32);
       setWalkAnimation(1,2,3,2);
@@ -50,9 +54,10 @@ public class Magnemite extends AbstractFriend {
       setMeleeAnimation(4,4);
       setFaceSprite(faces[0][1]);
       setActualEvolution(1);
-      setMaxHealth(60);
-      setMaxMagic(100);
+      setStats();
+      setMaxMagic(1000);
     } else if (numberOfLevel == 2 && getActualEvolution() < 2){
+      friend = Enemies.MAGNEZONE;
       setTexture(new TextureRegion(new Texture(Gdx.files.internal("Actors/Magnezone.png"))));
       setCutSprites(31,30);
       setWalkAnimation(1,2,3,2);
@@ -60,9 +65,8 @@ public class Magnemite extends AbstractFriend {
       setMeleeAnimation(4,4);
       setFaceSprite(faces[0][2]);
       setActualEvolution(2);
-      setMaxHealth(80);
-      setMaxMagic(100);
-      
+      setStats();
+      setMaxMagic(1000);      
     }
   }
   

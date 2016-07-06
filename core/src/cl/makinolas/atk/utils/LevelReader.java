@@ -51,7 +51,7 @@ public class LevelReader {
                     platforms.add(new Portal(world,Integer.parseInt(comps[1]),Integer.parseInt(comps[2]),game));
                     break;
                 case "%S":
-                    heroPos = new Vector2(Integer.parseInt(comps[1]),Integer.parseInt(comps[2]));
+                    heroPos = new Vector2(Integer.parseInt(comps[1])*1.8f,Integer.parseInt(comps[2])*1.8f);
                     break;
                 //Add other cases
             }

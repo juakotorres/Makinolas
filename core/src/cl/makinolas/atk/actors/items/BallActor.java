@@ -1,12 +1,18 @@
 package cl.makinolas.atk.actors.items;
 
-import cl.makinolas.atk.actors.Enemy;
-import cl.makinolas.atk.actors.GameActor;
-import cl.makinolas.atk.actors.Platform;
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.Vector2;
-import com.badlogic.gdx.physics.box2d.*;
+import com.badlogic.gdx.physics.box2d.Body;
+import com.badlogic.gdx.physics.box2d.BodyDef;
+import com.badlogic.gdx.physics.box2d.FixtureDef;
+import com.badlogic.gdx.physics.box2d.PolygonShape;
+import com.badlogic.gdx.physics.box2d.World;
+import com.badlogic.gdx.physics.box2d.WorldManifold;
+
+import cl.makinolas.atk.actors.GameActor;
+import cl.makinolas.atk.actors.Platform;
+import cl.makinolas.atk.actors.enemies.Enemy;
 
 public class BallActor extends GameActor {
 
@@ -45,12 +51,12 @@ public class BallActor extends GameActor {
     }
 
     @Override
-    public void interact(GameActor actor2) {
+    public void interact(GameActor actor2, WorldManifold worldManifold) {
         actor2.interactWithBall(this);
     }
 
     @Override
-    public void interactWithPlatform(Platform platform){
+    public void interactWithPlatform(Platform platform, WorldManifold worldManifold){
         dead = true;
     }
 

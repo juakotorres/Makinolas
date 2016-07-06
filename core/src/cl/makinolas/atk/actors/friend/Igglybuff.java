@@ -4,11 +4,15 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 
-public class Igglypuff extends AbstractFriend {
+import cl.makinolas.atk.actors.Hero;
+
+public class Igglybuff extends AbstractFriend {
   
   private TextureRegion[][] faces;
   
-  public Igglypuff() {
+  public Igglybuff(Hero hero) {
+    super(hero);
+    friend = Enemies.IGGLYBUFF;
     faces = new TextureRegion(new Texture(Gdx.files.internal("Actors/Igglypuff_faces.png"))).split(40,40);
     setTexture(new TextureRegion(new Texture(Gdx.files.internal("Actors/Igglypuff.png"))));
     setAnimations(new int[]{17,18},
@@ -19,12 +23,12 @@ public class Igglypuff extends AbstractFriend {
     initLevel(5);
     initDead();
     setActualEvolution(0);
-    setMaxHealth(30);
-    setMaxMagic(100);
+    setStats();
+    setMaxMagic(1000);
   }
   
-  public Igglypuff(int level){
-    this();
+  public Igglybuff(int level, Hero hero){
+    this(hero);
     initLevel(level);
   }
   
@@ -37,6 +41,7 @@ public class Igglypuff extends AbstractFriend {
   @Override
   protected void evolve(int numberOfLevel){
     if (numberOfLevel == 1 && getActualEvolution() < 1){
+      friend = Enemies.JIGGLYPUFF;
       setTexture(new TextureRegion(new Texture(Gdx.files.internal("Actors/Jigglypuff.png"))));
       setAnimations(new int[]{23,21},
           new int[][]{new int[]{0,3},new int[]{0,4},new int[]{0,5}},
@@ -44,9 +49,10 @@ public class Igglypuff extends AbstractFriend {
       setMeleeAnimation(6,7);
       setFaceSprite(faces[0][1]);
       setActualEvolution(1);
-      setMaxHealth(60);
-      setMaxMagic(100);
+      setStats();
+      setMaxMagic(1000);
     } else if (numberOfLevel == 2 && getActualEvolution() < 2){
+      friend = Enemies.WIGGLYTUFF;
       setTexture(new TextureRegion(new Texture(Gdx.files.internal("Actors/Wigglypuff.png"))));
       setAnimations(new int[]{26,25},
           new int[][]{new int[]{0,2},new int[]{0,3},new int[]{0,4},new int[]{0,3}},
@@ -54,8 +60,8 @@ public class Igglypuff extends AbstractFriend {
       setMeleeAnimation(6,8);
       setFaceSprite(faces[0][2]);
       setActualEvolution(2);
-      setMaxHealth(100);
-      setMaxMagic(100);
+      setStats();
+      setMaxMagic(1000);
     }
   }
   

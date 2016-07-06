@@ -1,5 +1,7 @@
 package cl.makinolas.atk.stages;
 
+import cl.makinolas.atk.actors.Hero;
+import cl.makinolas.atk.actors.friend.Friend;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.utils.viewport.Viewport;
 
@@ -24,7 +26,11 @@ public abstract class AbstractStage extends Stage {
   public void changeCamera(float x, float y) {
     this.changeCamera(x, y);    
   }
-  
+
+  public void addAllie(Friend friend) {
+    Hero.getInstance().addAllie(friend);
+  }
+
   public String getLevelName(){
     return level.levelName;
   }

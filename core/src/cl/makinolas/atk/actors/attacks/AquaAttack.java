@@ -9,6 +9,7 @@ import com.badlogic.gdx.physics.box2d.BodyDef;
 import com.badlogic.gdx.physics.box2d.FixtureDef;
 import com.badlogic.gdx.physics.box2d.PolygonShape;
 import com.badlogic.gdx.physics.box2d.World;
+import com.badlogic.gdx.physics.box2d.WorldManifold;
 
 import cl.makinolas.atk.actors.Monsters;
 import cl.makinolas.atk.actors.Platform;
@@ -21,7 +22,6 @@ public class AquaAttack extends Attacks {
   private int actualAnimation;
   protected final float spriteTime = 1 / 5f;
   protected float accumulator;
-  private float xVelocity;
   private float initialPosition;
   private World myWorld;
   private boolean dead;
@@ -106,7 +106,7 @@ public class AquaAttack extends Attacks {
   
   @Override
   public int getAttackDamage() {
-    return 30;
+    return 90;
   }
   
   @Override
@@ -125,9 +125,8 @@ public class AquaAttack extends Attacks {
   }
   
   @Override
-  public void interactWithPlatform(Platform platform){
-  }
-  
+  public void interactWithPlatform(Platform platform, WorldManifold worldManifold){
+  } 
   
   
 }

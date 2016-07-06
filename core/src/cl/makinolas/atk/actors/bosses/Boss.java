@@ -3,6 +3,7 @@ package cl.makinolas.atk.actors.bosses;
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.Vector2;
+import com.badlogic.gdx.physics.box2d.WorldManifold;
 
 import cl.makinolas.atk.GameConstants;
 import cl.makinolas.atk.actors.GameActor;
@@ -10,6 +11,7 @@ import cl.makinolas.atk.actors.HBar;
 import cl.makinolas.atk.actors.Hero;
 import cl.makinolas.atk.actors.Monsters;
 import cl.makinolas.atk.actors.attacks.Attacks;
+import cl.makinolas.atk.actors.friend.Enemies;
 import cl.makinolas.atk.stages.BossStage;
 
 public abstract class Boss extends Monsters implements IBoss{
@@ -85,17 +87,17 @@ public abstract class Boss extends Monsters implements IBoss{
   }
   
   @Override
-  public void interact(GameActor actor2) {
+  public void interact(GameActor actor2, WorldManifold worldManifold) {
     actor2.interactWithBoss(this);
   }
   
   @Override
-  public void interactWithAttack(Attacks attack){
-    this.damage(attack.getAttackDamage(), attack);
+  public void interactWithAttack(Attacks attack, WorldManifold worldManifold){
+    this.damage(getAttackDamage(attack), attack);
   }
   
   @Override
-  public void interactWithHero(Hero hero){
+  public void interactWithHero(Hero hero, WorldManifold worldManifold){
     interactWithHero2(hero);
     hero.interactWithMonster(this);
   }
@@ -120,5 +122,5 @@ public abstract class Boss extends Monsters implements IBoss{
   }
   
   @Override
-  protected void gainExp(int enemyLevel) {}
+  protected void gainExp(int enemyLevel, Enemies type) {}
 }

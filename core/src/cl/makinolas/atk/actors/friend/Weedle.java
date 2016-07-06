@@ -5,6 +5,7 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.physics.box2d.World;
 
+import cl.makinolas.atk.actors.Hero;
 import cl.makinolas.atk.actors.Monsters;
 import cl.makinolas.atk.actors.attacks.Attacks;
 import cl.makinolas.atk.actors.attacks.Poison_Sting;
@@ -13,7 +14,9 @@ public class Weedle extends AbstractFriend {
   
   private TextureRegion[][] faces;
   
-  public Weedle() {
+  public Weedle(Hero hero) {
+    super(hero);
+    friend = Enemies.WEEDLE;
     faces = new TextureRegion(new Texture(Gdx.files.internal("Actors/Weedle_faces.png"))).split(40,40);
     setTexture(new TextureRegion(new Texture(Gdx.files.internal("Actors/Weedle.png"))));
     setAnimations(new int[]{30,24},
@@ -24,12 +27,12 @@ public class Weedle extends AbstractFriend {
     initLevel(3);
     initDead();
     setActualEvolution(0);
-    setMaxHealth(30);
+    setStats();
     setMaxMagic(1000);
   }
   
-  public Weedle(int level){
-    this();
+  public Weedle(int level, Hero hero){
+    this(hero);
     initLevel(level);
   }
   
@@ -43,6 +46,7 @@ public class Weedle extends AbstractFriend {
   @Override
   protected void evolve(int numberOfLevel){
     if (numberOfLevel == 1 && getActualEvolution() < 1){
+      friend = Enemies.KAKUNA;
       setTexture(new TextureRegion(new Texture(Gdx.files.internal("Actors/Kakuna.png"))));
       setCutSprites(25,27);
       setWalkAnimation(3,4);
@@ -50,9 +54,10 @@ public class Weedle extends AbstractFriend {
       setMeleeAnimation(4,9);
       setFaceSprite(faces[0][1]);
       setActualEvolution(1);
-      setMaxHealth(60);
-      setMaxMagic(100);
+      setStats();
+      setMaxMagic(1000);
     } else if (numberOfLevel == 2 && getActualEvolution() < 2){
+      friend = Enemies.BEEDRILL;
       setTexture(new TextureRegion(new Texture(Gdx.files.internal("Actors/Beedrill.png"))));
       setAnimations(new int[]{35,28},
           new int[][]{new int[]{0,1},new int[]{0,2},new int[]{0,3},new int[]{0,2}},
@@ -60,9 +65,8 @@ public class Weedle extends AbstractFriend {
       setMeleeAnimation(7,10);
       setFaceSprite(faces[0][2]);
       setActualEvolution(2);
-      setMaxHealth(80);
-      setMaxMagic(100);
-      
+      setStats();
+      setMaxMagic(1000);
     }
   }
   
