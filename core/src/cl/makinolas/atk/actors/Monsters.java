@@ -20,6 +20,14 @@ public abstract class Monsters extends AnimatedActor {
     return true;
   }
   
+  public boolean facingRight(){
+    return isFacingRight;
+  }
+  
+  public Friend getMyself(){
+    return parent;
+  }
+  
   protected void meleeAttack(Monsters monster, boolean isAttacking){
     if(isAttacking){
       Attacks melee = new MeleeAttack(this);

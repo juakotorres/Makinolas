@@ -48,8 +48,8 @@ public class MainBar extends Group{
 
     public void setBars() {
       Hero h = Hero.getInstance();
-      healthBar = new HBar(h.getHealth(),h.getFriend().getMaxHealth(),150,10,new TextureRegion(new Texture(Gdx.files.internal("Overlays/bar_green.png"))));
-      magicBar = new HBar(h.getMagic(),h.getFriend().getMaxMagic(),150,10,new TextureRegion(new Texture(Gdx.files.internal("Overlays/bar_blue.png"))));;
+      healthBar = new HBar(h.getFriend().getMaxHealth(),h.getHealth(),150,10,new TextureRegion(new Texture(Gdx.files.internal("Overlays/bar_green.png"))));
+      magicBar = new HBar(h.getFriend().getMaxMagic(),h.getMagic(),150,10,new TextureRegion(new Texture(Gdx.files.internal("Overlays/bar_blue.png"))));;
     }
 
     @Override
@@ -66,6 +66,9 @@ public class MainBar extends Group{
         //Labels
         font.draw(batch,"HP",cx+18,cy+36);
         font.draw(batch,"Magic",cx+4,cy+20);
+        font.draw(batch,String.valueOf(Hero.getInstance().getHealth()),cx+100, cy+36); 
+        font.draw(batch, "/", cx+120, cy+36);
+        font.draw(batch,String.valueOf(Hero.getInstance().getFriend().getMaxHealth()),cx+130, cy+36);
         font.draw(batch,AbstractStage.levelName ,cx+220,cy+38);
         font.draw(batch, ""+((int) AbstractStage.elapsedTime),cx+230,cy+20);
         //Current Friend Sprite

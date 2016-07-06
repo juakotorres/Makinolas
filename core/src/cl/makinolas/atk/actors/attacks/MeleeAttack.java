@@ -8,7 +8,7 @@ public class MeleeAttack extends Attacks {
   private boolean dead;
   
   public MeleeAttack(Monsters monster){
-	 xVelocity =0;
+    xVelocity =0;
     source = monster;
     dead = false;
   }
@@ -31,6 +31,11 @@ public class MeleeAttack extends Attacks {
   @Override
   public boolean isDead(){
     return dead;
+  }
+  
+  @Override
+  public float getXVelocity(){
+    return isFacingRight? -3 : 3;
   }
   
 }

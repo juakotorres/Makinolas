@@ -67,7 +67,6 @@ public class VineWhip extends Attacks {
     if(accumulator >= attackTime){
       dead = true;
     }
-    
   }
 
   private void setAnimation(){
