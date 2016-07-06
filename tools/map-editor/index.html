@@ -1,0 +1,39 @@
+<html ng-app>
+<head>
+    <title>ATK Map Editor</title>
+    <meta charset="UTF-8">
+    <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.0.4/angular.js"></script>
+    <link rel="stylesheet" href="main.css">
+    <script src="main.js"></script>
+</head>
+<body ng-controller="MainController">
+    <div id="header">
+        <h3>ATK Map Editor</h3>
+        <span>Nombre: </span>
+        <input type="text" ng-model="levelName">
+        <div class="pull-right">
+            <button ng-click="downloadLevel()">Download Level</button>
+        </div>
+    </div>
+    <div id="main-container">
+        <div id="platform-bars">
+            <br>
+            <pre>Code Selected: {{selName}}</pre><br>
+            <pre>Required:</pre>
+            <a ng-repeat="plt in required" ng-click="setSel(plt.name,true)" class="img-btn">
+                <img src="platforms/{{plt.img}}" alt="img" id="im-{{plt.name}}">
+            </a>
+            <br><br>
+            <pre>Rectangular:</pre>
+            <a ng-repeat="plt in platforms" ng-click="setSel(plt.name,false)" class="img-btn">
+                <img src="platforms/{{plt.img}}" alt="img" id="im-{{plt.name}}">
+            </a>
+            <br>
+        </div>
+        <div id="canvas-container">
+            <canvas id="canvas" width="5250" height="700"></canvas>
+        </div>
+    </div>
+</body>
+
+</html>

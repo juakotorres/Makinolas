@@ -1,13 +1,5 @@
 package cl.makinolas.atk.actors;
 
-import com.badlogic.gdx.math.Vector2;
-import com.badlogic.gdx.physics.box2d.Body;
-import com.badlogic.gdx.physics.box2d.BodyDef;
-import com.badlogic.gdx.physics.box2d.PolygonShape;
-import com.badlogic.gdx.physics.box2d.World;
-import com.badlogic.gdx.physics.box2d.WorldManifold;
-import com.badlogic.gdx.utils.Array;
-
 import cl.makinolas.atk.GameConstants;
 import cl.makinolas.atk.actors.attacks.Attacks;
 import cl.makinolas.atk.actors.attacks.Puff;
@@ -22,8 +14,9 @@ import cl.makinolas.atk.actors.items.BallActor;
 import cl.makinolas.atk.actors.items.Inventory;
 import cl.makinolas.atk.actors.ui.MainBar;
 import cl.makinolas.atk.stages.AbstractStage;
-import cl.makinolas.atk.utils.SaveInstance;
-import cl.makinolas.atk.utils.SaveManager;
+import com.badlogic.gdx.math.Vector2;
+import com.badlogic.gdx.physics.box2d.*;
+import com.badlogic.gdx.utils.Array;
 
 
 public class Hero extends Monsters {
@@ -100,22 +93,18 @@ public class Hero extends Monsters {
     return myWorld;
   }
   
-  public void setWorld(World myWorld){
+  public void setWorld(World myWorld, Vector2 initialPosition){
     this.myWorld = myWorld;
     isJumping = false;
-    
-    // Load position from saved instance (only for production)
-    SaveManager.getInstance().loadData("ATK.sav");
-    if (SaveManager.getInstance().hasSaveInstance()){
-      SaveInstance lsi = SaveManager.getInstance().getSaveInstance();
-      setSizeCollider(new Vector2(lsi.heroX, lsi.heroY), true);
-    }
-    else{
-      setSizeCollider(new Vector2(2, 3), true);
-    }
+
+    setSizeCollider(initialPosition, true);
     // Guardar animaciones del jugador
     setAnimation();
     changeAnimation(walkAnimation);
+  }
+
+  public void setWorld(World myWorld){
+    setWorld(myWorld, new Vector2(2,3));
   }
   
   public void addAllie(Friend friend) {

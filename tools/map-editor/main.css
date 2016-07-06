@@ -1,0 +1,47 @@
+*{
+    margin: 0;
+    padding: 0;
+}
+
+#header{
+    width: 100%;
+    height: 10vh;
+}
+
+#main-container{
+    width: 100%;
+    height: 90vh;
+}
+
+#platform-bars{
+    width: 15vw;
+    height: 85vh;
+    background: #ccc;
+    display: inline-block;
+    position: absolute;
+}
+
+#canvas-container{
+    width: 80vw;
+    height: 85vh;
+    overflow: scroll;
+    display: inline-block;
+    position: absolute;
+    right: 10px;
+}
+
+.img-btn{
+    display: inline-block;
+    padding: 4px;
+}
+
+.pull-right{
+    display: block;
+    float: right;
+    margin-right: 8px;
+}
+
+#canvas{
+    width: 5250px;
+    height: 700px;
+}
