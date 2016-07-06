@@ -33,16 +33,22 @@ public class LevelReader {
         Array<GameActor> platforms = new Array<GameActor>();
         String line = reader.readLine();
         while(line!=null){
-            GameActor platform = parsePlatform(line);
-            platforms.add(platform);
+            String[] comps = line.split(",");
+            switch (comps[0]){
+                case "P":
+                    platforms.add(parsePlatform(comps));
+                    break;
+                case "#": //used for comments
+                    break;
+                //Add other cases
+            }
             line = reader.readLine();
         }
 
         return platforms;
     }
 
-    private GameActor parsePlatform(String line) {
-        String[] comps = line.split(",");
+    private GameActor parsePlatform(String[] comps) {
         return new Platform(world,Integer.parseInt(comps[1]),Integer.parseInt(comps[2]),Integer.parseInt(comps[3]),Integer.parseInt(comps[4]));
     }
 

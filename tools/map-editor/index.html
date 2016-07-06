@@ -18,10 +18,17 @@
     <div id="main-container">
         <div id="platform-bars">
             <br>
-            <pre>Code Selected: {{selName}}</pre><br><br>
-            <a ng-repeat="plt in platforms" ng-click="setSel(plt.name)" class="img-btn">
+            <pre>Code Selected: {{selName}}</pre><br>
+            <pre>Required:</pre>
+            <a ng-repeat="plt in required" ng-click="setSel(plt.name,true)" class="img-btn">
                 <img src="platforms/{{plt.img}}" alt="img" id="im-{{plt.name}}">
             </a>
+            <br><br>
+            <pre>Rectangular:</pre>
+            <a ng-repeat="plt in platforms" ng-click="setSel(plt.name,false)" class="img-btn">
+                <img src="platforms/{{plt.img}}" alt="img" id="im-{{plt.name}}">
+            </a>
+            <br>
         </div>
         <div id="canvas-container">
             <canvas id="canvas" width="5250" height="700"></canvas>

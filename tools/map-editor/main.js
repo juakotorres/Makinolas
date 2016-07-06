@@ -1,9 +1,12 @@
 var MainController = function($scope){
     var self = $scope;
 
+    self.required = [
+         {name:"%S", img:"start.png"},
+         {name:"%P", img:"portal.png"},
+    ];
+
     self.platforms = [
-             {name:"%S", img:"start.png"},
-             {name:"%P", img:"portal.png"},
              {name:"LP", img:"ClassicPrettyLeftCorner.png"},
              {name:"RR", img:"ClassicRoundedRightCorner.png"},
              {name:"P", img:"ClassicUp.png"},
@@ -17,10 +20,13 @@ var MainController = function($scope){
 
     self.selName = "P";
     self.levelName = "level1"
-    self.mouseDown = false;
+    self.uniqueTool = false;
+    self.startX = 0;
+    self.startY = 0;
 
-    self.setSel = function(nm){
+    self.setSel = function(nm, unq){
         self.selName = nm;
+        self.uniqueTool = unq;
     }
 
     self.cv = document.getElementById("canvas");
@@ -40,26 +46,37 @@ var MainController = function($scope){
     self.ctx.stroke();
 
     self.cv.onmousedown = function(event){
-        self.mouseDown = true;
+        var x = ~~(event.layerX/35);
+        var y = ~~(event.layerY/35);
+        if(self.uniqueTool){
+            self.ctx.drawImage(document.getElementById("im-"+self.selName),x*35,y*35);
+            self.map[""+x+","+(20-y)+",1,1"] = self.selName;
+        }
+        else{
+            self.startX = x;
+            self.startY = y;
+        }
     }
 
     self.cv.onmouseup = function(event){
-        self.mouseDown = false;
-    }
-
-    self.cv.onmousemove = function(event){
-        if(self.mouseDown){
-            var x = ~~(event.layerX/35);
-            var y = ~~(event.layerY/35);
-            self.ctx.drawImage(document.getElementById("im-"+self.selName),x*35,y*35);
-            self.map[""+x+","+(20-y)] = self.selName;
+        if(!self.uniqueTool){
+            var lastX = ~~(event.layerX/35);
+            var lastY = ~~(event.layerY/35);
+            var tag = ""+Math.min(self.startX,lastX)+","+Math.min(self.startY,lastY)+","+
+                            (Math.abs(self.startX-lastX)+1)+","+(Math.abs(self.startY-lastY)+1);
+            self.map[tag] = self.selName;
+            for(var x=self.startX; x<=lastX; x++){
+                for(var y=self.startY; y<=lastY; y++){
+                    self.ctx.drawImage(document.getElementById("im-"+self.selName),x*35,y*35);
+                }
+            }
         }
     }
 
     self.downloadLevel = function(){
-        var builder = "#Autogenerado con ATK Map Editor\n";
+        var builder = "#ATK Map Editor\n";
         for(var coords in self.map){
-            builder += self.map[coords]+","+coords+",1,1\n";
+            builder += self.map[coords]+","+coords+"\n";
         }
         download(self.levelName+".lvl",builder);
     }
