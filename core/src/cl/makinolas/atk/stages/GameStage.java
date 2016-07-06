@@ -61,8 +61,8 @@ public class GameStage extends AbstractStage implements ContactListener {
     Portal portal = new Portal(suMundo, new Vector2(10, 3), myGame);
     addGameActor(portal);
     hero =  new Hero(suMundo);
-    createPlatforms();
-    addGameActor(hero); 
+    createPlatforms(myGame);
+    addGameActor(hero);
     bar = new MainBar(hero);
     ui.addActor(bar);
     ui.addActor(group);    
@@ -78,9 +78,10 @@ public class GameStage extends AbstractStage implements ContactListener {
     gameActors.add(actor);
   }
 
-  private void createPlatforms() {
+  private void createPlatforms(Game g) {
     LevelReader reader = LevelReader.getInstance();   
     reader.setWorld(suMundo);
+    reader.setGame(g);
     try {
       Array<GameActor> platforms = reader.loadLevel(getLevelName());
       for(GameActor p : platforms)

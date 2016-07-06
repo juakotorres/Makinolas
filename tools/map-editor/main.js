@@ -50,7 +50,7 @@ var MainController = function($scope){
         var y = ~~(event.layerY/35);
         if(self.uniqueTool){
             self.ctx.drawImage(document.getElementById("im-"+self.selName),x*35,y*35);
-            self.map[""+x+","+(20-y)+",1,1"] = self.selName;
+            self.map[""+x+","+(20-y)] = self.selName;
         }
         else{
             self.startX = x;

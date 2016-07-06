@@ -2,8 +2,11 @@ package cl.makinolas.atk.utils;
 
 import cl.makinolas.atk.actors.GameActor;
 import cl.makinolas.atk.actors.Platform;
+import cl.makinolas.atk.actors.Portal;
+import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.files.FileHandle;
+import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.World;
 import com.badlogic.gdx.utils.Array;
 
@@ -15,6 +18,8 @@ public class LevelReader {
 
     private static LevelReader reader = new LevelReader();
     private World world;
+    private Game game;
+    private Vector2 heroPos;
 
     private LevelReader(){}
 
@@ -24,6 +29,10 @@ public class LevelReader {
 
     public void setWorld(World w){
         world = w;
+    }
+
+    public void setGame(Game g){
+        game = g;
     }
 
     public Array<GameActor> loadLevel(String name) throws IOException {
@@ -38,7 +47,11 @@ public class LevelReader {
                 case "P":
                     platforms.add(parsePlatform(comps));
                     break;
-                case "#": //used for comments
+                case "%P":
+                    platforms.add(new Portal(world,Integer.parseInt(comps[1]),Integer.parseInt(comps[2]),game));
+                    break;
+                case "%S":
+                    heroPos = new Vector2(Integer.parseInt(comps[1]),Integer.parseInt(comps[2]));
                     break;
                 //Add other cases
             }
@@ -52,4 +65,7 @@ public class LevelReader {
         return new Platform(world,Integer.parseInt(comps[1]),Integer.parseInt(comps[2]),Integer.parseInt(comps[3]),Integer.parseInt(comps[4]));
     }
 
+    public Vector2 getHeroPosition() {
+        return heroPos;
+    }
 }
