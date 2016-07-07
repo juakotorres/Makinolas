@@ -16,11 +16,13 @@ import cl.makinolas.atk.actors.enemies.Enemy;
 import cl.makinolas.atk.actors.enemies.MonsterFactory;
 import cl.makinolas.atk.actors.friend.Enemies;
 import cl.makinolas.atk.actors.friend.Friend;
+import cl.makinolas.atk.actors.friend.FriendDescriptor;
 import cl.makinolas.atk.actors.items.Ball;
 import cl.makinolas.atk.actors.items.BallActor;
 import cl.makinolas.atk.actors.items.Inventory;
 import cl.makinolas.atk.actors.ui.MainBar;
 import cl.makinolas.atk.stages.AbstractStage;
+import cl.makinolas.atk.utils.SaveManager;
 
 
 public class Hero extends Monsters {
@@ -72,14 +74,11 @@ public class Hero extends Monsters {
 
     // Set team for player;
     allies = new Array<Friend>();
-    addAllie(MonsterFactory.getInstance().getHeroFriend("Kakuna", 6));
-    addAllie(MonsterFactory.getInstance().getHeroFriend("Scyther", 20));
-
-
+    loadFriends();
 
     // Set actual allie
-    actualFriend = allies.get(1);
-    indexFriend = 1;
+    actualFriend = allies.get(0);
+    indexFriend = 0;
     parent = actualFriend;
     
     // Set correct collider.
@@ -91,6 +90,23 @@ public class Hero extends Monsters {
     changeAnimation(walkAnimation);
   }
   
+  private void loadFriends() {
+    SaveManager.getInstance().loadData("ATK.sav");
+    if(SaveManager.getInstance().hasSaveInstance()){
+      FriendDescriptor[] friends = SaveManager.getInstance().getSaveInstance().friends;
+      if(friends.length == 0){
+        addAllie(MonsterFactory.getInstance().getHeroFriend("Kakuna", 6));
+      } else {
+        for(int i = 0; i < friends.length; i++){
+          addAllie(MonsterFactory.getInstance().getHeroFriend(friends[i].name, friends[i].level));
+        }
+      }
+    } else {
+      addAllie(MonsterFactory.getInstance().getHeroFriend("Kakuna", 6));
+      addAllie(MonsterFactory.getInstance().getHeroFriend("Scyther", 20));
+    }
+  }
+
   public static Hero getInstance(){
     return player;
   }
@@ -479,5 +495,16 @@ public class Hero extends Monsters {
   @Override
   public float getXDirection(){
       return vx;
+  }
+
+  public FriendDescriptor[] saveMyFriends() {
+    FriendDescriptor[] friends = new FriendDescriptor[allies.size];
+    for(int i = 0; i < allies.size; i++){
+      Friend ally = allies.get(i);
+      friends[i] = new FriendDescriptor();
+      friends[i].name = ally.getName();
+      friends[i].level = ally.getLevel();
+    }
+    return friends;
   }
 }
