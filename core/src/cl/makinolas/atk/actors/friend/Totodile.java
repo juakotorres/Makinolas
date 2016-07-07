@@ -27,18 +27,19 @@ public class Totodile extends AbstractFriend {
     initLevel(5);
     initDead();
     setActualEvolution(0);
-    setStats();
     setMaxMagic(1000);
   }
   
-  public Totodile(int level, Hero hero){
-    this(hero);
+  public Totodile(int level){
+    this(Hero.getInstance());
     initLevel(level);
   }
   
   @Override
   protected void initLevel(int level){
    this.level = new Level(level);
+   setStats();
+   setHealth(getMaxHealth());
    new Evolution(this.level, 18, 1);
    new Evolution(this.level, 30, 2);
   }

@@ -23,18 +23,19 @@ public class Mareep extends AbstractFriend {
     initLevel(5);
     initDead();
     setActualEvolution(0);
-    setStats();
     setMaxMagic(1000);
   }
   
-  public Mareep(int level, Hero hero){
-    this(hero);
+  public Mareep(int level){
+    this(Hero.getInstance());
     initLevel(level);
   }
   
   @Override
   protected void initLevel(int level){
    this.level = new Level(level);
+   setStats();
+   setHealth(getMaxHealth());
    new Evolution(this.level, 16, 1);
    new Evolution(this.level, 30, 2);
   }

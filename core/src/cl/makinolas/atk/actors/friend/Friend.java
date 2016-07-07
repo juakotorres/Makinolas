@@ -36,7 +36,6 @@ public interface Friend {
   public int getSpecialAttack();
   public int getSpecialDefense();
   public int getSpeed();
-  public void forceEvolve(int numberOfEvolution);
   public Enemy returnLongRangeEnemy(World myWorld, int heroPosition);
   public Enemy returnPhysicalEnemy(World myWorld, int heroPosition);
 

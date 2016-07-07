@@ -23,7 +23,7 @@ import cl.makinolas.atk.actors.GameActor;
 import cl.makinolas.atk.actors.Hero;
 import cl.makinolas.atk.actors.InputController;
 import cl.makinolas.atk.actors.Portal;
-import cl.makinolas.atk.actors.enemies.EnemyFactory;
+import cl.makinolas.atk.actors.enemies.MonsterFactory;
 import cl.makinolas.atk.actors.ui.MainBar;
 import cl.makinolas.atk.actors.ui.MobileGroup;
 import cl.makinolas.atk.screen.GameScreen;
@@ -148,7 +148,7 @@ public class GameStage extends AbstractStage implements ContactListener {
        //GameActor enemy2 = (new Scyther(Hero.getInstance())).returnPhysicalEnemy(suMundo, (int)getCamera().position.x);
        //addGameActor(enemy1);
        //addGameActor(enemy2);
-       addGameActor(EnemyFactory.getInstance().giveMonster("Haunter", 10, (int)getCamera().position.x));
+       addGameActor(MonsterFactory.getInstance().giveClassicEnemy("Gastly", 5, (int)getCamera().position.x));
 
        nextEnemyAt = enemySpawn;
     }

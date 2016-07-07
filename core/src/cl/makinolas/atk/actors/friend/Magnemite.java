@@ -27,19 +27,20 @@ public class Magnemite extends AbstractFriend {
     initLevel(10);
     initDead();
     setActualEvolution(0);
-    setStats();
     setMaxMagic(1000);
   }
   
-  public Magnemite(int level, Hero hero){
-    this(hero);
+  public Magnemite(int level){
+    this(Hero.getInstance());
     initLevel(level);
   }
   
   @Override
   protected void initLevel(int level){
    this.level = new Level(level);
-   new Evolution(this.level, 22, 1);
+   setStats();
+   setHealth(getMaxHealth());
+   new Evolution(this.level, 30, 1);
    new Evolution(this.level, 45, 2);
   }
   

@@ -31,7 +31,7 @@ public class Formulas {
     }
     //System.out.println("Attack pokemon: " + attack);
     //System.out.println("Defense pokemon: " + defense);
-    double modifier = critical * randomMultiplier ;
+    double modifier = critical * randomMultiplier * 2;
     return (int) ((((2 * (double) level1) + 10) / 250) * (attack/defense) * attackBaseDamage * modifier) + 1;
   }
   

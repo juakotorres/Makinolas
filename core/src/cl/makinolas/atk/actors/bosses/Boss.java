@@ -65,7 +65,11 @@ public abstract class Boss extends Monsters implements IBoss{
   @Override
   public void damage(int damage, Attacks inflictor) {
     if(inflictor.getSource().isHero()){
-      health -= damage;   
+      if(health - damage <= 0){
+        health = 0;
+      } else{
+        health -= damage;
+      }
       isDamaged = true;
       changeAnimation(hurtAnimation);
       inflictor.setDead();

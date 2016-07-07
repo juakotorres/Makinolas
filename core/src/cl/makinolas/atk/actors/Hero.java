@@ -13,10 +13,9 @@ import cl.makinolas.atk.actors.attacks.Attacks;
 import cl.makinolas.atk.actors.attacks.Puff;
 import cl.makinolas.atk.actors.bosses.IBoss;
 import cl.makinolas.atk.actors.enemies.Enemy;
+import cl.makinolas.atk.actors.enemies.MonsterFactory;
 import cl.makinolas.atk.actors.friend.Enemies;
 import cl.makinolas.atk.actors.friend.Friend;
-import cl.makinolas.atk.actors.friend.Scyther;
-import cl.makinolas.atk.actors.friend.Weedle;
 import cl.makinolas.atk.actors.items.Ball;
 import cl.makinolas.atk.actors.items.BallActor;
 import cl.makinolas.atk.actors.items.Inventory;
@@ -73,8 +72,8 @@ public class Hero extends Monsters {
 
     // Set team for player;
     allies = new Array<Friend>();
-    addAllie(new Weedle(this));
-    addAllie(new Scyther(this));
+    addAllie(MonsterFactory.getInstance().getHeroFriend("Kakuna", 6));
+    addAllie(MonsterFactory.getInstance().getHeroFriend("Scyther", 20));
 
 
 

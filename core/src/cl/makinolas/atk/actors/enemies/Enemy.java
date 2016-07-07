@@ -135,7 +135,11 @@ public class Enemy extends Monsters {
 
   @Override
   public void damage(int damage, Attacks inflictor) {
-    health -= damage;   
+    if(health - damage <= 0){
+      health = 0;
+    } else {
+      health -= damage;
+    }
     isDamaged = true;
     changeAnimation(hurtAnimation);
     Monsters source = inflictor.getSource();

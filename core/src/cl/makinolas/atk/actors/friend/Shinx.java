@@ -23,20 +23,21 @@ public class Shinx extends AbstractFriend{
     initLevel(5);
     initDead();
     setActualEvolution(0);
-    setStats();
     setMaxMagic(1000);
   }
   
-  public Shinx(int level, Hero hero){
-    this(hero);
+  public Shinx(int level){
+    this(Hero.getInstance());
     initLevel(level);
   }
   
   @Override
   protected void initLevel(int level){
    this.level = new Level(level);
-   new Evolution(this.level, 16, 1);
-   new Evolution(this.level, 32, 1);
+   setStats();
+   setHealth(getMaxHealth());
+   new Evolution(this.level, 15, 1);
+   new Evolution(this.level, 30, 1);
   }
   
   @Override
