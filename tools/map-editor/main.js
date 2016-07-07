@@ -64,34 +64,47 @@ var MainController = function($scope){
     self.selName = "BL";
     self.levelName = "level1"
     self.uniqueTool = false;
+    self.deleteTool = false;
     self.startX = 0;
     self.startY = 0;
 
     self.setSel = function(nm, unq){
         self.selName = nm;
         self.uniqueTool = unq;
+        self.deleteTool = false;
+    };
+
+    self.setDel = function(){
+        self.deleteTool = true;
     }
 
     self.cv = document.getElementById("canvas");
     self.ctx = self.cv.getContext("2d");
 
-    self.ctx.beginPath();
-    self.ctx.lineWidth = 1;
-    self.ctx.strokeStyle = "#ccc";
-    for(var i=0; i<150; i++){
-        self.ctx.moveTo(35*i,0);
-        self.ctx.lineTo(35*i,700);
+    self.drawBaseLines = function(){
+        self.ctx.beginPath();
+        self.ctx.lineWidth = 1;
+        self.ctx.strokeStyle = "#ccc";
+        for(var i=0; i<150; i++){
+            self.ctx.moveTo(35*i,0);
+            self.ctx.lineTo(35*i,700);
+        }
+        for(var i=0; i<20; i++){
+            self.ctx.moveTo(0,35*i);
+            self.ctx.lineTo(5250,35*i);
+        }
+        self.ctx.stroke();
     }
-    for(var i=0; i<20; i++){
-        self.ctx.moveTo(0,35*i);
-        self.ctx.lineTo(5250,35*i);
-    }
-    self.ctx.stroke();
+
+    self.drawBaseLines();
 
     self.cv.onmousedown = function(event){
         var x = ~~(event.layerX/35);
         var y = ~~(event.layerY/35);
-        if(self.uniqueTool){
+        if(self.deleteTool){
+            self.deleteBlock(x,20-y);
+        }
+        else if(self.uniqueTool){
             self.ctx.drawImage(document.getElementById("im-"+self.selName),x*35,y*35);
             self.map[""+x+","+(20-y)] = self.selName;
         }
@@ -99,10 +112,10 @@ var MainController = function($scope){
             self.startX = x;
             self.startY = y;
         }
-    }
+    };
 
     self.cv.onmouseup = function(event){
-        if(!self.uniqueTool){
+        if(!self.uniqueTool && !self.deleteTool){
             var lastX = ~~(event.layerX/35);
             var lastY = ~~(event.layerY/35);
             var tag = ""+Math.min(self.startX,lastX)+","+Math.min(20-self.startY,20-lastY)+","+
@@ -114,15 +127,38 @@ var MainController = function($scope){
                 }
             }
         }
-    }
+    };
 
     self.downloadLevel = function(){
         var builder = "#ATK Map Editor\n";
         for(var coords in self.map){
-            builder += self.map[coords]+","+coords+"\n";
+            if(self.map[coords]!=null)
+                builder += self.map[coords]+","+coords+"\n";
         }
         download(self.levelName+".lvl",builder);
-    }
+    };
+
+    self.deleteBlock = function(x,y){
+        console.log(x+","+y);
+        console.log(self.map);
+        for(var coords in self.map){
+            var comps = coords.split(",").map(function(e){return parseInt(e)});
+            if(comps.length == 2 && comps[0]==x && comps[1]==y){
+                self.map[coords] = null;
+                self.ctx.clearRect(x*35,(20-y)*35,35,35);
+                break;
+            }
+            else{
+                if(comps[0]<=x && comps[0]+comps[2]>=x && comps[1]<=y && comps[1]+comps[3]>=y){
+                    self.map[coords] = null;
+                    console.log("borrado");
+                    self.ctx.clearRect(comps[0]*35,(20-comps[1]-comps[3]+1)*35,35*comps[2],35*comps[3]);
+                    self.drawBaseLines();
+                    break;
+                }
+            }
+        }
+    };
 
 };
 
