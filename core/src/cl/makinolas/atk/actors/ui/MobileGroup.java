@@ -7,20 +7,19 @@ import com.badlogic.gdx.scenes.scene2d.Group;
 
 public class MobileGroup extends Group {
 
-    private MobileButton bleft, bright, bup, ba;
     private MobileKeyListener listener;
 
     public enum MobileKeys {LEFT, RIGHT, UP, A};
 
     public MobileGroup(boolean mobile){
         if(mobile) {
-            bleft = new MobileButton(new TextureRegion(new Texture(Gdx.files.internal("Overlays/uileftbtn.png"))), 5, 25, this, MobileKeys.LEFT);
+            MobileButton bleft = new MobileButton(new TextureRegion(new Texture(Gdx.files.internal("Overlays/uileftbtn.png"))), 5, 25, this, MobileKeys.LEFT);
             addActor(bleft);
-            bright = new MobileButton(new TextureRegion(new Texture(Gdx.files.internal("Overlays/uirightbtn.png"))), 85, 25, this, MobileKeys.RIGHT);
+            MobileButton bright = new MobileButton(new TextureRegion(new Texture(Gdx.files.internal("Overlays/uirightbtn.png"))), 85, 25, this, MobileKeys.RIGHT);
             addActor(bright);
-            bup = new MobileButton(new TextureRegion(new Texture(Gdx.files.internal("Overlays/uiupbtn.png"))), 460, 25, this, MobileKeys.UP);
+            MobileButton bup = new MobileButton(new TextureRegion(new Texture(Gdx.files.internal("Overlays/uiupbtn.png"))), 460, 25, this, MobileKeys.UP);
             addActor(bup);
-            ba = new MobileButton(new TextureRegion(new Texture(Gdx.files.internal("Overlays/uiabtn.png"))), 550, 25, this, MobileKeys.A);
+            MobileButton ba = new MobileButton(new TextureRegion(new Texture(Gdx.files.internal("Overlays/uiabtn.png"))), 550, 25, this, MobileKeys.A);
             addActor(ba);
         }
     }

@@ -19,6 +19,7 @@
     background: #ccc;
     display: inline-block;
     position: absolute;
+    overflow: auto;
 }
 
 #canvas-container{

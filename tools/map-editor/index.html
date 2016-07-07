@@ -12,6 +12,7 @@
         <span>Nombre: </span>
         <input type="text" ng-model="levelName">
         <div class="pull-right">
+            <button ng-click="setDel()">Borrar</button>
             <button ng-click="downloadLevel()">Download Level</button>
         </div>
     </div>
@@ -28,7 +29,12 @@
             <a ng-repeat="plt in platforms" ng-click="setSel(plt.name,false)" class="img-btn">
                 <img src="platforms/{{plt.img}}" alt="img" id="im-{{plt.name}}">
             </a>
-            <br>
+            <br><br>
+            <pre>Pokemon:</pre>
+            <a ng-repeat="plt in pokemons" ng-click="setSel(plt.name,true)" class="img-btn">
+                <img src="platforms/{{plt.img}}" alt="img" id="im-{{plt.name}}">
+            </a>
+            <br><br>
         </div>
         <div id="canvas-container">
             <canvas id="canvas" width="5250" height="700"></canvas>
