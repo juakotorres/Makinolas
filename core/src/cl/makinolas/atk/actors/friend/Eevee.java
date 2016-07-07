@@ -20,12 +20,18 @@ public class Eevee extends AbstractFriend {
     setFaceSprite(faces[0][0]);
     initLevel(5);
     initDead();
-    setStats();
     setMaxMagic(1000);
   }
 
+  public Eevee(int level){
+    this(Hero.getInstance());
+    initLevel(level);
+  }
+  
   @Override
   protected void initLevel(int level) {
-    this.level = new Level(level);    
+    this.level = new Level(level);  
+    setStats();
+    setHealth(getMaxHealth());
   }
 }

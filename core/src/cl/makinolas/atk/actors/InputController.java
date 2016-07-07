@@ -27,8 +27,10 @@ public class InputController extends InputListener implements MobileKeyListener{
                 hero.moveHorizontal(1,false);
                 break;
             case Input.Keys.SPACE:
+                hero.jump(1);
+                break;
             case Input.Keys.UP:
-                hero.jump();
+                hero.jump(2);
                 break;
             case Input.Keys.A:
                 hero.getInventory().useSelItem1();
@@ -67,6 +69,13 @@ public class InputController extends InputListener implements MobileKeyListener{
             case Input.Keys.RIGHT:
                 hero.moveHorizontal(-1,true);
                 break;
+            case Input.Keys.SPACE:
+                hero.isNotPressingSpace();
+                break;
+            case Input.Keys.UP:
+                hero.isNotPressingUp();
+                break;
+              
         }
         return true;
     }
@@ -81,7 +90,7 @@ public class InputController extends InputListener implements MobileKeyListener{
                 hero.moveHorizontal(1,false);
                 break;
             case UP:
-                hero.jump();
+                hero.jump(1);
                 break;
             case A:
                 hero.attackPrimary();
@@ -98,6 +107,11 @@ public class InputController extends InputListener implements MobileKeyListener{
             case RIGHT:
                 hero.moveHorizontal(-1,true);
                 break;
+            case UP:
+                hero.isNotPressingUp();
+                break;
+        default:
+          break;
         }
     }
 }

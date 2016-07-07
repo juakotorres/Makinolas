@@ -63,7 +63,7 @@ public class Enemy extends Monsters {
     healthBar = new HBar(givenHealth, health, cutSprite[0], 4, new TextureRegion( new Texture(Gdx.files.internal("Overlays/bar_green.png"))));
     isDamaged = false;
     dead = false;
-    meleeDamage = 10;
+    meleeDamage = 45;
     accumulator = 0;
     this.level = level;
     this.parent = parent;
@@ -135,7 +135,11 @@ public class Enemy extends Monsters {
 
   @Override
   public void damage(int damage, Attacks inflictor) {
-    health -= damage;   
+    if(health - damage <= 0){
+      health = 0;
+    } else {
+      health -= damage;
+    }
     isDamaged = true;
     changeAnimation(hurtAnimation);
     Monsters source = inflictor.getSource();

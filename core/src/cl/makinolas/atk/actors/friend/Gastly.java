@@ -27,7 +27,6 @@ public class Gastly extends AbstractFriend {
     initLevel(5);
     initDead();
     setActualEvolution(0);
-    setStats();
     setMaxMagic(1000);
   }
   
@@ -36,9 +35,16 @@ public class Gastly extends AbstractFriend {
     initLevel(level);
   }
   
+  public Gastly(int level){
+    this(Hero.getInstance());
+    initLevel(level);
+  }
+  
   @Override
   protected void initLevel(int level){
    this.level = new Level(level);
+   setStats();
+   setHealth(getMaxHealth());
    new Evolution(this.level, 25, 1);
   }
   
@@ -53,6 +59,18 @@ public class Gastly extends AbstractFriend {
       setMeleeAnimation(6,10);
       setFaceSprite(faces[0][1]);
       setActualEvolution(1);
+      setStats();
+      setMaxMagic(1000);
+    }
+    if (numberOfLevel == 2 && getActualEvolution() < 2){
+      friend = Enemies.GENGAR;
+      setTexture(new TextureRegion(new Texture(Gdx.files.internal("Actors/Gengar.png"))));
+      setCutSprites(41,28);
+      setWalkAnimation(4,5,6,5);
+      setHurtAnimation(0);
+      setMeleeAnimation(7,8,9);
+      setFaceSprite(faces[0][2]);
+      setActualEvolution(2);
       setStats();
       setMaxMagic(1000);
     }

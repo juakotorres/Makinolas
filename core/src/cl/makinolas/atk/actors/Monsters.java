@@ -31,7 +31,7 @@ public abstract class Monsters extends AnimatedActor {
   protected void meleeAttack(Monsters monster, boolean isAttacking){
     if(isAttacking){
       Attacks melee = new MeleeAttack(this);
-      monster.damage(getAttackDamage(melee), melee);
+      monster.damage(monster.getAttackDamage(melee), melee);
     }
   }
   
@@ -47,9 +47,9 @@ public abstract class Monsters extends AnimatedActor {
   
   public int getAttackDamage(Attacks attack) {
     int attackStat = attack.getSource().parent.getAttack();
-    int level1 = this.parent.getLevel();
+    int level1 = attack.getSource().parent.getLevel();
     int defenseStat = this.parent.getDefense();
-    int level2 = attack.getSource().parent.getLevel();
+    int level2 = this.parent.getLevel();
     return Formulas.getDamage(attackStat, level1, defenseStat, level2, attack.getAttackDamage());
   }
 }

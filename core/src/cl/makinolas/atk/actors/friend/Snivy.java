@@ -27,18 +27,19 @@ public class Snivy extends AbstractFriend {
     initLevel(10);
     initDead();
     setActualEvolution(0);
-    setStats();
     setMaxMagic(1000);
   }
   
-  public Snivy(int level, Hero hero){
-    this(hero);
+  public Snivy(int level){
+    this(Hero.getInstance());
     initLevel(level);
   }
   
   @Override
   protected void initLevel(int level){
    this.level = new Level(level);
+   setStats();
+   setHealth(getMaxHealth());
    new Evolution(this.level, 16, 1);
    new Evolution(this.level, 32, 2);
   }

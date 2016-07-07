@@ -1,22 +1,26 @@
 package cl.makinolas.atk.actors;
 
+import com.badlogic.gdx.math.Vector2;
+import com.badlogic.gdx.physics.box2d.Body;
+import com.badlogic.gdx.physics.box2d.BodyDef;
+import com.badlogic.gdx.physics.box2d.PolygonShape;
+import com.badlogic.gdx.physics.box2d.World;
+import com.badlogic.gdx.physics.box2d.WorldManifold;
+import com.badlogic.gdx.utils.Array;
+
 import cl.makinolas.atk.GameConstants;
 import cl.makinolas.atk.actors.attacks.Attacks;
 import cl.makinolas.atk.actors.attacks.Puff;
 import cl.makinolas.atk.actors.bosses.IBoss;
 import cl.makinolas.atk.actors.enemies.Enemy;
-import cl.makinolas.atk.actors.friend.Bagon;
+import cl.makinolas.atk.actors.enemies.MonsterFactory;
 import cl.makinolas.atk.actors.friend.Enemies;
 import cl.makinolas.atk.actors.friend.Friend;
-import cl.makinolas.atk.actors.friend.Scyther;
 import cl.makinolas.atk.actors.items.Ball;
 import cl.makinolas.atk.actors.items.BallActor;
 import cl.makinolas.atk.actors.items.Inventory;
 import cl.makinolas.atk.actors.ui.MainBar;
 import cl.makinolas.atk.stages.AbstractStage;
-import com.badlogic.gdx.math.Vector2;
-import com.badlogic.gdx.physics.box2d.*;
-import com.badlogic.gdx.utils.Array;
 
 
 public class Hero extends Monsters {
@@ -27,13 +31,17 @@ public class Hero extends Monsters {
   private boolean isJumping;
   private boolean isDamaged;
   private boolean isAttacking;
-  private float numberOfAttackingFrames;
+  private int[] attackAnimations;
+  private int actualAnimation;
+  protected final float spriteTime = 1 / 5f;
   private float countMeleeFrames;
   private boolean dead;
+  private float jumpAccumulator;
+  private boolean isAccumulatingJump;
+  private int jumpButton;
   private World myWorld;
   private int walkAnimation;
   private int hurtAnimation;
-  private int meleeAnimation;
   private final float hurtTime = 1 / 4f;
   private float accumulator;
   private Array<Friend> allies;
@@ -54,7 +62,9 @@ public class Hero extends Monsters {
     hasEvolved = false;
     dead = false;
     changing = false;
+    isAccumulatingJump = false;
     changeIndex = 0;
+    jumpAccumulator = 3;
     accumulator = 0;
     inventory = new Inventory(this);
     vx = 0;
@@ -62,8 +72,8 @@ public class Hero extends Monsters {
 
     // Set team for player;
     allies = new Array<Friend>();
-    addAllie(new Bagon(this));
-    addAllie(new Scyther(this));
+    addAllie(MonsterFactory.getInstance().getHeroFriend("Kakuna", 6));
+    addAllie(MonsterFactory.getInstance().getHeroFriend("Scyther", 20));
 
 
 
@@ -122,15 +132,23 @@ public class Hero extends Monsters {
     checkDamage(delta);
     checkMelee(delta);
     checkEvolution();
+    checkAccumulatingJump();
     giveMagic();
     
   }
   
+  private void checkAccumulatingJump() {
+   if(isAccumulatingJump && !isJumping){
+     increaseJumpAccumulator();
+   }    
+  }
+
   private void checkEvolution() {
     if(hasEvolved){
       Attacks attack = new Puff(myWorld, myBody.getPosition().x,myBody.getPosition().y,isFacingRight, this);
       ((AbstractStage) getStage()).addGameActor(attack);
       hasEvolved = false;
+      MainBar.getInstance().setBars();
     }
     
   }
@@ -188,28 +206,39 @@ public class Hero extends Monsters {
   }
 
   private void checkMelee(float delta) {
-    if(isAttacking && countMeleeFrames <= numberOfAttackingFrames){
-      countMeleeFrames += Math.floor(delta*100)/100;
+    if(isAttacking){
+      countMeleeFrames += delta;
+      if(countMeleeFrames > spriteTime){
+        if(actualAnimation  < attackAnimations.length) {
+          changeAnimation(attackAnimations[actualAnimation]);
+          countMeleeFrames = 0;
+          actualAnimation += 1;
+        } else {
+          isAttacking = false;
+          countMeleeFrames = 0;
+          actualAnimation = 0;
+        }
+      }
     }
     else if(!isDamaged){
       countMeleeFrames = 0;
       isAttacking = false;
-      reloadAnimation(meleeAnimation, 0.2f, actualFriend.getMeleeAnimation());
+      actualAnimation = 0;
       changeAnimation(walkAnimation);
     } else {
       countMeleeFrames = 0;
-      reloadAnimation(meleeAnimation, 0.2f, actualFriend.getMeleeAnimation());
     }
   }
 
-  private float getImpulse() {
-    return getBody().getMass()*12; // El 12 se busc� por testing.
+  private float getImpulse(float impulse) {
+    return getBody().getMass()*impulse; // El 12 se busc� por testing.
   }
 
   public void landedPlatform(WorldManifold worldManifold, Platform platform){
-    System.out.println(worldManifold.getNormal().y);
-    if(worldManifold.getNormal().y > 0.95){
-      isJumping = false;
+    for(int i = 0; i < worldManifold.getNumberOfContactPoints(); i++){
+      if(worldManifold.getPoints()[i].y < myBody.getPosition().y && (worldManifold.getNormal().y > 0.95 || worldManifold.getNormal().y < -0.95)){
+        isJumping = false;
+      }
     }
   }
 
@@ -217,8 +246,12 @@ public class Hero extends Monsters {
     setMasterTexture(actualFriend.getTexture(),actualFriend.getWidth(),actualFriend.getHeight());
     walkAnimation = addAnimation(0.2f, actualFriend.getWalkAnimation());
     hurtAnimation = addAnimation(0.2f, actualFriend.getHurtAnimation());
-    meleeAnimation = addAnimation(0.2f, actualFriend.getMeleeAnimation());
-    numberOfAttackingFrames = actualFriend.getMeleeFrame() * 0.2f;
+    attackAnimations = new int[actualFriend.getMeleeAnimation().length];
+    countMeleeFrames = 0;
+    for(int i = 0; i < actualFriend.getMeleeAnimation().length; i++){
+      attackAnimations[i] = addAnimation(0.2f, actualFriend.getMeleeAnimation()[i][1]);
+    }  
+    actualAnimation = 0;
   }
   
   @Override
@@ -251,7 +284,7 @@ public class Hero extends Monsters {
 
   @Override
   public int getMeleeDamage() {
-    return 10;
+    return 50;
   }
   
   public Friend getFriend(){
@@ -359,11 +392,35 @@ public class Hero extends Monsters {
   }
 
 
-  public void jump() {
+  public void jump(int button) {
+    jumpButton = button;
     if(!isJumping){
-      myBody.applyLinearImpulse(0, getImpulse(), myBody.getPosition().x, myBody.getPosition().y, true);
-      isJumping = true;
+      isAccumulatingJump = true;
     }
+  }
+  
+  public void isNotPressingSpace() {
+    if(!isJumping && jumpButton == 1){
+      myBody.applyLinearImpulse(0, getImpulse(jumpAccumulator), myBody.getPosition().x, myBody.getPosition().y, true);
+      isJumping = true;
+      jumpAccumulator = 3;
+      isAccumulatingJump = false;
+    }
+  }
+  
+  public void isNotPressingUp() {
+    if(!isJumping && jumpButton == 2){
+      myBody.applyLinearImpulse(0, getImpulse(jumpAccumulator), myBody.getPosition().x, myBody.getPosition().y, true);
+      isJumping = true;
+      jumpAccumulator = 3;
+      isAccumulatingJump = false;
+    }    
+  }
+
+  private void increaseJumpAccumulator() {
+    if(jumpAccumulator < 12){
+      jumpAccumulator += 1;
+    }    
   }
 
   public void attackPrimary() {
@@ -377,7 +434,6 @@ public class Hero extends Monsters {
   public void attackSecondary() {
     if(!isAttacking){
       isAttacking = true;
-      changeAnimation(meleeAnimation);  
     }
   }
 

@@ -13,6 +13,7 @@ import cl.makinolas.atk.actors.attacks.DragonBreath;
 import cl.makinolas.atk.actors.enemies.Enemy;
 import cl.makinolas.atk.actors.enemies.LongRangeEnemy;
 import cl.makinolas.atk.actors.enemies.PhysicalEnemy;
+import cl.makinolas.atk.actors.ui.MainBar;
 import cl.makinolas.atk.utils.Formulas;
 
 public abstract class AbstractFriend implements Friend {
@@ -263,11 +264,12 @@ public abstract class AbstractFriend implements Friend {
         this.level = newLevel;
         this.nextExpLevel = Formulas.nextExpLevel(newLevel);
         expLevelMax = nextExpLevel;
+        setFriendStats();
       }
       setChanged();
       notifyObservers();
     }
-
+    
     public synchronized int getLevel() {
       return level;
     }
@@ -301,6 +303,7 @@ public abstract class AbstractFriend implements Friend {
        evolve(this.numberOfEvolution);
        myHero.evolved();
        evolved = true;
+       setFriendStats();
       }
     }
   }
@@ -308,6 +311,16 @@ public abstract class AbstractFriend implements Friend {
   // Override if it has an evolution.
   protected void evolve(int numberOfEvolution){
     
+  }
+  
+
+  private void setFriendStats() {
+    double percentage = (health * 100) /getMaxHealth();
+    setStats();
+    System.out.println("Health previous: " + health);
+    System.out.println("health post: " + ((percentage * getMaxHealth()) / 100 + 1));
+    setHealth((int) (percentage * getMaxHealth()) / 100 + 1);    
+    MainBar.getInstance().setBars();
   }
   
   @Override
@@ -338,7 +351,6 @@ public abstract class AbstractFriend implements Friend {
   }
   
   protected void setMaxMagic(int maxMagic){
-    this.health = hp;
     this.maxMagic = maxMagic;
     this.magic = maxMagic;
   }
@@ -376,5 +388,11 @@ public abstract class AbstractFriend implements Friend {
   @Override
   public int getSpeed(){
     return speed;
+  }
+  
+  public void forceEvolve(int numberOfEvolution){
+    this.evolve(numberOfEvolution);
+    setStats();
+    setHealth(getMaxHealth());
   }
 }
