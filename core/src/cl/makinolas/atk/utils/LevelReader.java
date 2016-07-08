@@ -46,14 +46,17 @@ public class LevelReader {
         while(line!=null){
             String[] comps = line.split(",");
             switch (comps[0]){
-                case "P":
-                    platforms.add(parsePlatform(comps));
+                case "#":
                     break;
                 case "%P":
                     platforms.add(new Portal(world,Integer.parseInt(comps[1]),Integer.parseInt(comps[2]),game));
                     break;
                 case "%S":
                     heroPos = new Vector2(Integer.parseInt(comps[1])*1.8f,Integer.parseInt(comps[2])*1.8f);
+                    break;
+                default:
+                    if(comps[0].length()<=3)
+                        platforms.add(parsePlatform(comps));
                     break;
                 //Add other cases
             }
@@ -64,7 +67,7 @@ public class LevelReader {
     }
 
     private GameActor parsePlatform(String[] comps) {
-        return new Platform(world,Integer.parseInt(comps[1]),Integer.parseInt(comps[2]),Integer.parseInt(comps[3]),Integer.parseInt(comps[4]));
+        return new Platform(world,comps[0],Integer.parseInt(comps[1]),Integer.parseInt(comps[2]),Integer.parseInt(comps[3]),Integer.parseInt(comps[4]));
     }
 
     public Vector2 getHeroPosition() {

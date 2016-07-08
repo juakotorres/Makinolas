@@ -1,5 +1,6 @@
 package cl.makinolas.atk.actors.platform;
 
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
@@ -8,7 +9,7 @@ import java.util.HashMap;
 
 public class PlatformResource {
 
-    private static TextureAtlas platAtlas = new TextureAtlas("Background/Platforms.pack");
+    private static TextureAtlas platAtlas = new TextureAtlas(Gdx.files.internal("Background/Platforms.pack"));
     private static HashMap<String,Sprite> textCodes = new HashMap<String, Sprite>();
     private static PlatformResource instance = new PlatformResource();
 
@@ -27,10 +28,10 @@ public class PlatformResource {
         textCodes.put("CRL",platAtlas.createSprite("ClassicRoundedLeftCorner"));
         textCodes.put("CGR",platAtlas.createSprite("ClassicWithoutGrassRounded"));
         textCodes.put("FRR",platAtlas.createSprite("FreezeRoundedRightCorner"));
-        textCodes.put("LB",platAtlas.createSprite("LineBox"));
+        textCodes.put("BL",platAtlas.createSprite("LineBox"));
         textCodes.put("SSL",platAtlas.createSprite("SnowSimpleLeftCorner"));
         textCodes.put("CRR",platAtlas.createSprite("ClassicRoundedRightCorner"));
-        textCodes.put("CB",platAtlas.createSprite("CrossBox"));
+        textCodes.put("BC",platAtlas.createSprite("CrossBox"));
         textCodes.put("FSL",platAtlas.createSprite("FreezeSimpleLeftCorner"));
         textCodes.put("SSR",platAtlas.createSprite("SnowSimpleRightCorner"));
         textCodes.put("CSL",platAtlas.createSprite("ClassicSimpleLeftCorner"));
