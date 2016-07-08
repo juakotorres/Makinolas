@@ -6,6 +6,7 @@ import cl.makinolas.atk.actors.attacks.Attacks;
 import cl.makinolas.atk.actors.friend.Enemies;
 import cl.makinolas.atk.actors.friend.Friend;
 import cl.makinolas.atk.actors.items.BallActor;
+import cl.makinolas.atk.actors.platform.Platform;
 import cl.makinolas.atk.actors.ui.MainBar;
 import cl.makinolas.atk.utils.Formulas;
 import com.badlogic.gdx.Gdx;

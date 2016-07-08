@@ -6,7 +6,7 @@ import cl.makinolas.atk.actors.AnimatedActor;
 import cl.makinolas.atk.actors.GameActor;
 import cl.makinolas.atk.actors.Hero;
 import cl.makinolas.atk.actors.Monsters;
-import cl.makinolas.atk.actors.Platform;
+import cl.makinolas.atk.actors.platform.Platform;
 import cl.makinolas.atk.actors.bosses.IBoss;
 import cl.makinolas.atk.actors.enemies.Enemy;
 

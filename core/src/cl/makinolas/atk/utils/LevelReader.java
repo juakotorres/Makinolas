@@ -1,7 +1,7 @@
 package cl.makinolas.atk.utils;
 
 import cl.makinolas.atk.actors.GameActor;
-import cl.makinolas.atk.actors.Platform;
+import cl.makinolas.atk.actors.platform.Platform;
 import cl.makinolas.atk.actors.Portal;
 import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;

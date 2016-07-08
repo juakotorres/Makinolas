@@ -1,0 +1,68 @@
+
+Platforms.png
+format: RGBA8888
+filter: Nearest,Nearest
+repeat: none
+ClassicPrettyLeftCorner
+  rotate: false
+  xy: 1, 1
+  size: 35, 35
+  orig: 35, 35
+  offset: 0, 0
+  index: -1
+ClassicRoundedLeftCorner
+  rotate: false
+  xy: 38, 1
+  size: 35, 35
+  orig: 35, 35
+  offset: 0, 0
+  index: -1
+ClassicSimpleLeftCorner
+  rotate: false
+  xy: 75, 1
+  size: 35, 35
+  orig: 35, 35
+  offset: 0, 0
+  index: -1
+ClassicPrettyRightCorner
+  rotate: false
+  xy: 112, 1
+  size: 35, 35
+  orig: 35, 35
+  offset: 0, 0
+  index: -1
+ClassicSimpleRightCorner
+  rotate: false
+  xy: 149, 1
+  size: 35, 35
+  orig: 35, 35
+  offset: 0, 0
+  index: -1
+portal
+  rotate: false
+  xy: 186, 1
+  size: 35, 35
+  orig: 35, 35
+  offset: 0, 0
+  index: -1
+ClassicUp
+  rotate: false
+  xy: 223, 1
+  size: 35, 35
+  orig: 35, 35
+  offset: 0, 0
+  index: -1
+start
+  rotate: false
+  xy: 260, 1
+  size: 35, 35
+  orig: 35, 35
+  offset: 0, 0
+  index: -1
+ClassicRoundedRightCorner
+  rotate: false
+  xy: 297, 1
+  size: 35, 35
+  orig: 35, 35
+  offset: 0, 0
+  index: -1

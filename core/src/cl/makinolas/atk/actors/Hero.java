@@ -12,6 +12,7 @@ import cl.makinolas.atk.actors.friend.Scyther;
 import cl.makinolas.atk.actors.items.Ball;
 import cl.makinolas.atk.actors.items.BallActor;
 import cl.makinolas.atk.actors.items.Inventory;
+import cl.makinolas.atk.actors.platform.Platform;
 import cl.makinolas.atk.actors.ui.MainBar;
 import cl.makinolas.atk.stages.AbstractStage;
 import com.badlogic.gdx.math.Vector2;
