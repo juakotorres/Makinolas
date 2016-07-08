@@ -317,8 +317,8 @@ public abstract class AbstractFriend implements Friend {
   private void setFriendStats() {
     double percentage = (health * 100) /getMaxHealth();
     setStats();
-    System.out.println("Health previous: " + health);
-    System.out.println("health post: " + ((percentage * getMaxHealth()) / 100 + 1));
+    //System.out.println("Health previous: " + health);
+    //System.out.println("health post: " + ((percentage * getMaxHealth()) / 100 + 1));
     setHealth((int) (percentage * getMaxHealth()) / 100 + 1);    
     MainBar.getInstance().setBars();
   }
@@ -394,5 +394,10 @@ public abstract class AbstractFriend implements Friend {
     this.evolve(numberOfEvolution);
     setStats();
     setHealth(getMaxHealth());
+  }
+  
+  @Override
+  public String getName(){
+    return this.getType().toString();
   }
 }
