@@ -10,7 +10,7 @@ public abstract class Item {
     public static TextureRegion[][] textures = new TextureRegion(new Texture(Gdx.files.internal("Overlays/items.png"))).split(32,32);
 
     public String getName(){
-        return this.getClass().getName();
+        return this.getClass().getSimpleName();
     }
 
     public abstract String getDescr();

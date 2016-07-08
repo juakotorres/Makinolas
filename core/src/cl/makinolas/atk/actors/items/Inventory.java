@@ -19,7 +19,7 @@ public class Inventory{
         }
         else {
             addItem(new Potion());
-            addItem(new Ball(Ball.BallType.MASTERBALL), 4);
+            addItem(new Ball.MasterBall(), 4);
         }
     }
 

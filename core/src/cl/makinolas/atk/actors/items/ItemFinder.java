@@ -8,10 +8,11 @@ public class ItemFinder {
     private static HashMap<String,Class<? extends Item>> map;
 
     private ItemFinder(){
-        Class<? extends Item>[] itemClasses = new Class[]{Potion.class, Ball.class, OranBerry.class, LeppaBerry.class, MaxPotion.class};
+        Class<? extends Item>[] itemClasses = new Class[]{Potion.class, OranBerry.class, LeppaBerry.class, MaxPotion.class,
+                Ball.PokeBall.class, Ball.GreatBall.class, Ball.UltraBall.class, Ball.MasterBall.class};
         map = new HashMap<String, Class<? extends Item>>(itemClasses.length);
         for(Class<? extends Item> c : itemClasses){
-            map.put(c.getName(),c);
+            map.put(c.getSimpleName(),c);
         }
     }
 
