@@ -29,7 +29,7 @@ public class ItemBox {
         quantity--;
     }
 
-    public void addOne() {
-        quantity++;
+    public void add(int q) {
+        quantity+=q;
     }
 }

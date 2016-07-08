@@ -39,7 +39,7 @@ public class SaveManager {
         Json base = new Json(JsonWriter.OutputType.javascript);
         String jstr = base.toJson(saved);
         Gdx.files.local(path).writeString(cryptor.encrypt(jstr),false);
-        System.out.println("Saved");
+        System.out.println(jstr);
     }
 
     public boolean hasSaveInstance(){
