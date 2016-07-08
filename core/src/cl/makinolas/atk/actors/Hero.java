@@ -20,6 +20,7 @@ import cl.makinolas.atk.actors.friend.FriendDescriptor;
 import cl.makinolas.atk.actors.items.Ball;
 import cl.makinolas.atk.actors.items.BallActor;
 import cl.makinolas.atk.actors.items.Inventory;
+import cl.makinolas.atk.actors.platform.Platform;
 import cl.makinolas.atk.actors.ui.MainBar;
 import cl.makinolas.atk.stages.AbstractStage;
 import cl.makinolas.atk.utils.SaveManager;
@@ -506,5 +507,12 @@ public class Hero extends Monsters {
       friends[i].level = ally.getLevel();
     }
     return friends;
+  }
+  public Array<Friend> getAllies(){
+    return allies;
+  }
+
+  public int getIndexFriend(){
+    return indexFriend;
   }
 }

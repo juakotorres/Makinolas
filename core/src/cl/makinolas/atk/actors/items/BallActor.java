@@ -11,7 +11,7 @@ import com.badlogic.gdx.physics.box2d.World;
 import com.badlogic.gdx.physics.box2d.WorldManifold;
 
 import cl.makinolas.atk.actors.GameActor;
-import cl.makinolas.atk.actors.Platform;
+import cl.makinolas.atk.actors.platform.Platform;
 import cl.makinolas.atk.actors.enemies.Enemy;
 
 public class BallActor extends GameActor {

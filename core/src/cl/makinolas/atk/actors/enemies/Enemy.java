@@ -1,28 +1,20 @@
 package cl.makinolas.atk.actors.enemies;
 
+import cl.makinolas.atk.GameConstants;
+import cl.makinolas.atk.actors.*;
+import cl.makinolas.atk.actors.attacks.Attacks;
+import cl.makinolas.atk.actors.friend.Enemies;
+import cl.makinolas.atk.actors.friend.Friend;
+import cl.makinolas.atk.actors.items.BallActor;
+import cl.makinolas.atk.actors.platform.Platform;
+import cl.makinolas.atk.actors.ui.MainBar;
+import cl.makinolas.atk.utils.Formulas;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.Vector2;
-import com.badlogic.gdx.physics.box2d.Body;
-import com.badlogic.gdx.physics.box2d.BodyDef;
-import com.badlogic.gdx.physics.box2d.PolygonShape;
-import com.badlogic.gdx.physics.box2d.World;
-import com.badlogic.gdx.physics.box2d.WorldManifold;
-
-import cl.makinolas.atk.GameConstants;
-import cl.makinolas.atk.actors.GameActor;
-import cl.makinolas.atk.actors.HBar;
-import cl.makinolas.atk.actors.Hero;
-import cl.makinolas.atk.actors.Monsters;
-import cl.makinolas.atk.actors.Platform;
-import cl.makinolas.atk.actors.attacks.Attacks;
-import cl.makinolas.atk.actors.friend.Enemies;
-import cl.makinolas.atk.actors.friend.Friend;
-import cl.makinolas.atk.actors.items.BallActor;
-import cl.makinolas.atk.stages.AbstractStage;
-import cl.makinolas.atk.utils.Formulas;
+import com.badlogic.gdx.physics.box2d.*;
 
 public class Enemy extends Monsters {
   
@@ -197,7 +189,8 @@ public class Enemy extends Monsters {
   public void interactWithBall(BallActor ball) {
     if(Formulas.checkCatch(ball.getType().catchability/100f,0.9f,health,100)){
       dead = true;
-      ((AbstractStage) getStage()).addAllie(parent);
+      Hero.getInstance().addAllie(parent);
+      MainBar.getInstance().updateTeam();
       ball.setDead();
     }
     else{

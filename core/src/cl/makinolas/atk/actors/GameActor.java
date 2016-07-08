@@ -1,5 +1,6 @@
 package cl.makinolas.atk.actors;
 
+import cl.makinolas.atk.actors.platform.Platform;
 import com.badlogic.gdx.physics.box2d.Body;
 import com.badlogic.gdx.physics.box2d.WorldManifold;
 import com.badlogic.gdx.scenes.scene2d.Actor;

@@ -1,18 +1,13 @@
-package cl.makinolas.atk.actors;
+package cl.makinolas.atk.actors.platform;
 
 import cl.makinolas.atk.GameConstants;
+import cl.makinolas.atk.actors.GameActor;
+import cl.makinolas.atk.actors.Hero;
 import cl.makinolas.atk.actors.attacks.Attacks;
-
-import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.Vector2;
-import com.badlogic.gdx.physics.box2d.Body;
-import com.badlogic.gdx.physics.box2d.BodyDef;
-import com.badlogic.gdx.physics.box2d.PolygonShape;
-import com.badlogic.gdx.physics.box2d.World;
-import com.badlogic.gdx.physics.box2d.WorldManifold;
+import com.badlogic.gdx.physics.box2d.*;
 
 public class Platform extends GameActor {
   
@@ -20,6 +15,7 @@ public class Platform extends GameActor {
   private int xp, yp, wp, hp;
   private TextureRegion region;
   private static final float TILE_FACTOR = 1.8f;
+
 
   /**
    * Creates a new platform object.
@@ -29,7 +25,7 @@ public class Platform extends GameActor {
    * @param widthTiles number of tiles of width.
    * @param heightTiles number of tiles of height
      */
-  public Platform(World myWorld, int x, int y, int widthTiles, int heightTiles) {
+  public Platform(World myWorld, String textureCode, int x, int y, int widthTiles, int heightTiles) {
     
     // Definici�n del cuerpo del jugador.
     myBodyDefinition = new BodyDef();
@@ -54,12 +50,12 @@ public class Platform extends GameActor {
     wp = widthTiles;
     hp = heightTiles;
 
-    region = new TextureRegion(new Texture(Gdx.files.internal("Background/platforms2.png"))).split(36,36)[7][7];
+    region = PlatformResource.getInstance().getRegionWithCode(textureCode);
 
   }
 
   public Platform(World myWorld, int x, int y, int widthTiles){
-      this(myWorld,x,y,widthTiles,1);
+      this(myWorld,"CU",x,y,widthTiles,1);
   }
   
   @Override
