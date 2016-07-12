@@ -1,5 +1,6 @@
 package cl.makinolas.atk.screen;
 
+import cl.makinolas.atk.stages.MapStage;
 import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
@@ -31,9 +32,9 @@ public class MenuScreen implements Screen {
     startButton.addListener(new ClickListener(){
         @Override
         public void clicked(InputEvent event, float x, float y) {
-            GameScreen gameScreen = new GameScreen(myGame);
-            gameScreen.setStage(new GameStage(new FitViewport(640,480), gameScreen, myGame, Levels.LEVEL1));
-            myGame.setScreen(gameScreen);
+          MapScreen mapScreen = new MapScreen(myGame);
+          mapScreen.setStage(new MapStage(new FitViewport(640, 480)));
+          myGame.setScreen(mapScreen);
         }
     });
     TextButton loadButton = new TextButton("Load Game",  new Skin(Gdx.files.internal("Data/uiskin.json")));
