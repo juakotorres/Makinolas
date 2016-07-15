@@ -55,6 +55,7 @@ public class InputController extends InputListener implements MobileKeyListener{
                 save.heroX = hero.getBody().getPosition().x;
                 save.heroY = hero.getBody().getPosition().y;
                 save.friends = hero.saveMyFriends();
+                save.items = hero.getInventory().createDescriptors();
                 SaveManager.getInstance().saveData(save,"ATK.sav");
                 break;
         }

@@ -4,7 +4,7 @@ import com.badlogic.gdx.graphics.g2d.TextureRegion;
 
 import cl.makinolas.atk.actors.Hero;
 
-public class Ball extends Item{
+public abstract class Ball extends Item{
 
     public enum BallType{
         POKEBALL(1, Item.textures[0][3]),
@@ -39,6 +39,31 @@ public class Ball extends Item{
     @Override
     public TextureRegion getImage() {
         return type.texture;
+    }
+
+    // Classes for all balls
+    public static class PokeBall extends Ball{
+        public PokeBall(){
+            super(BallType.POKEBALL);
+        }
+    }
+
+    public static class GreatBall extends Ball{
+        public GreatBall(){
+            super(BallType.GREATBALL);
+        }
+    }
+
+    public static class UltraBall extends Ball{
+        public UltraBall(){
+            super(BallType.ULTRABALL);
+        }
+    }
+
+    public static class MasterBall extends Ball{
+        public MasterBall(){
+            super(BallType.MASTERBALL);
+        }
     }
 
 }

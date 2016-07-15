@@ -69,13 +69,15 @@ public class Hero extends Monsters {
     changeIndex = 0;
     jumpAccumulator = 3;
     accumulator = 0;
-    inventory = new Inventory(this);
     vx = 0;
     inertia = false;
 
     // Set team for player;
     allies = new Array<Friend>();
     loadFriends();
+
+    //Inventory uses loaded data
+    inventory = new Inventory(this);
 
     // Set actual allie
     actualFriend = allies.get(0);
