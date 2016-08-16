@@ -64,12 +64,9 @@ nb-configuration.xml
 .gradle
 gradle-app.setting
 build/
-gradle/
-gradlew
 
 ## OS Specific
 .DS_Store
 Thumbs.db
 
-gradlew
 *.sav
