@@ -10,16 +10,19 @@ public class Inventory{
     private HashMap<String,ItemBox> items;
     private Hero hero;
     private ItemBox selItem1, selItem2;
+    private float money;
 
     public Inventory(Hero h){
         items = new HashMap<String, ItemBox>();
         hero = h;
         if(SaveManager.getInstance().hasSaveInstance() && SaveManager.getInstance().getSaveInstance().items!=null){
             fillFromDescriptors(SaveManager.getInstance().getSaveInstance().items);
+            money = SaveManager.getInstance().getSaveInstance().money;
         }
         else {
             addItem(new Potion());
             addItem(new Ball.MasterBall(), 4);
+            money = 0;
         }
     }
 
@@ -76,6 +79,14 @@ public class Inventory{
             i++;
         }
         return itemDescriptors;
+    }
+
+    public float getMoney(){
+        return money;
+    }
+
+    public void earnMoney(float c){
+        money += c;
     }
 
     public void fillFromDescriptors(ItemDescriptor[] itemDescriptors){

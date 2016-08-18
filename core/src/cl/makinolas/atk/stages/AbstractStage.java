@@ -23,9 +23,7 @@ public abstract class AbstractStage extends Stage {
     this.addGameActor(fireball);
   }
 
-  public void changeCamera(float x, float y) {
-    this.changeCamera(x, y);    
-  }
+  public abstract void changeCamera(float x, float y);
 
   public void addAllie(Friend friend) {
     Hero.getInstance().addAllie(friend);

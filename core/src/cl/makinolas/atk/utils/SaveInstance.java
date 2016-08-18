@@ -11,5 +11,6 @@ public class SaveInstance {
     public float heroX, heroY;
     public FriendDescriptor[] friends;
     public ItemDescriptor[] items;
+    public float money;
 
 }
