@@ -178,9 +178,9 @@ public abstract class AbstractFriend implements Friend {
   }
   
   @Override
-  public Enemy returnEnemy(World myWorld, int heroPosition) {
+  public Enemy returnEnemy(World myWorld, int positionX, int positionY) {
     return new Enemy(myWorld, friendTexture, cutSprites,
-                walkingAnimation, hurtAnimation,  getHealth(), heroPosition, getLevel(), friend, this);
+                walkingAnimation, hurtAnimation,  getHealth(), positionX, positionY, getLevel(), friend, this);
   }
   
   @Override

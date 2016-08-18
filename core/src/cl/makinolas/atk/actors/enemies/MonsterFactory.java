@@ -336,8 +336,8 @@ public class MonsterFactory {
       return friend;
     }
     
-    protected Enemy giveEnemy(int level, int position){
-      return giveFriend(level).returnEnemy(Hero.getInstance().getMyWorld(), position);
+    protected Enemy giveEnemy(int level, int positionX, int positionY){
+      return giveFriend(level).returnEnemy(Hero.getInstance().getMyWorld(), positionX, positionY);
     }
     
     protected Enemy givePhysicalEnemy(int level, int position){
@@ -351,8 +351,8 @@ public class MonsterFactory {
     public abstract Friend giveFriend(int level);
   }
   
-  public Enemy giveClassicEnemy(String nameFriend, int level, int position){
-    return map.get(nameFriend.toLowerCase()).giveEnemy(level, position); 
+  public Enemy giveClassicEnemy(String nameFriend, int level, int positionX, int positionY){
+    return map.get(nameFriend.toLowerCase()).giveEnemy(level, positionX, positionY); 
   }
   
   public Enemy givePhysicalEnemy(String nameFriend, int level, int position){

@@ -44,7 +44,7 @@ public class Enemy extends Monsters {
   public Enemy(World myWorld, TextureRegion enemyTexture,
                int[] cutSprite, int[][] numberOfSprite
                , int[][] numberOfHurtSprites, int givenHealth
-               , int heroPosition, int level, Enemies type, Friend parent) {
+               , int positionX, int positionY, int level, Enemies type, Friend parent) {
     
     health = givenHealth;
     width = cutSprite[0];
@@ -59,11 +59,11 @@ public class Enemy extends Monsters {
     accumulator = 0;
     this.level = level;
     this.parent = parent;
-    int actualPosition = heroPosition;
+    int actualPosition = positionX;
 
     int randomNum = actualPosition;
     
-    if (randomNum > actualPosition){
+    if (randomNum >= actualPosition){
       isFacingRight = false;
       vx = -3;
     } else {
@@ -74,7 +74,7 @@ public class Enemy extends Monsters {
     // Definici�n del cuerpo del jugador.
     BodyDef myBodyDefinition = new BodyDef();
     myBodyDefinition.type = BodyDef.BodyType.DynamicBody;
-    myBodyDefinition.position.set(new Vector2(randomNum,30));
+    myBodyDefinition.position.set(new Vector2(randomNum,positionY));
     
     // Forma del collider del jugador.
     Body myBody = myWorld.createBody(myBodyDefinition);

@@ -10,7 +10,7 @@ public class EnemyCreator implements Observer{
 
   private String enemyType;
   private int positionX;
-  //private int positionY;
+  private int positionY;
   private AbstractStage stage;
   private boolean firstSpawn;
   
@@ -20,16 +20,16 @@ public class EnemyCreator implements Observer{
     enemyType = enemy;
     this.positionX = positionX;
     firstSpawn = false;
-    //this.positionY = positionY;
+    this.positionY = positionY;
   }
 
   @Override
   public void update(Observable o, Object arg) {
     float cameraPositionX = ((CameraPosition) o).getPositionX();
-    if (Math.abs(cameraPositionX - positionX) < 10 && !firstSpawn){
+    if (Math.abs(cameraPositionX - positionX) < 0.5 && !firstSpawn){
       firstSpawn = true;
       System.out.println("Spawned");
-      stage.addGameActor(MonsterFactory.getInstance().giveClassicEnemy(enemyType, 5, (int) (positionX * 1.8f)));
+      stage.addGameActor(MonsterFactory.getInstance().giveClassicEnemy(enemyType, 5, (int) (positionX * 1.8f), (int) (positionY * 2f)));
     }
     
   } 
