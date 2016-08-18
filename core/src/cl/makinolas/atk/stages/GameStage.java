@@ -39,7 +39,6 @@ public class GameStage extends AbstractStage implements ContactListener {
   private float nextEnemyAt;
   private Array<GameActor> gameActors;
   private Group ground, mons, ui;
-
   private MainBar bar;
 
   private OrthographicCamera camera;
@@ -54,7 +53,6 @@ public class GameStage extends AbstractStage implements ContactListener {
     gameActors = new Array<GameActor>();
     suMundo = new World(new Vector2(0, -10), true);
     suMundo.setContactListener(this);
-
     addActor(new Background("Background/SuPuente.jpg", getCamera()));
 
     ground = new Group();
@@ -71,13 +69,17 @@ public class GameStage extends AbstractStage implements ContactListener {
     Portal portal = new Portal(suMundo, new Vector2(10, 3), myGame);
     addGameActor(portal);
     Hero hero =  Hero.getInstance();
+    cameraObserver = new CameraPosition();
+
     createPlatforms(myGame);
     hero.setWorld(suMundo,LevelReader.getInstance().getHeroPosition());
+    cameraObserver.setPosition(hero.getBody().getPosition().x, hero.getBody().getPosition().y);
     addGameActor(hero);
     bar = MainBar.getInstance();
     ui.addActor(bar);
     ui.addActor(group);    
     
+   
     addListener(new InputController(hero,group));
     accumulator = 0;
     renderer = new Box2DDebugRenderer();
@@ -93,6 +95,7 @@ public class GameStage extends AbstractStage implements ContactListener {
     LevelReader reader = LevelReader.getInstance();   
     reader.setWorld(suMundo);
     reader.setGame(g);
+    reader.setStage(this);
     try {
       Array<GameActor> platforms = reader.loadLevel(getLevelName());
       for(GameActor p : platforms)
@@ -141,9 +144,10 @@ public class GameStage extends AbstractStage implements ContactListener {
     while(accumulator >= frameTime){
       suMundo.step(frameTime, 6, 2);
       accumulator -= frameTime;
+      cameraObserver.setPosition(Hero.getInstance().getBody().getPosition().x, Hero.getInstance().getBody().getPosition().y);
     }
     
-    if(nextEnemyAt < 0){
+    /*if(nextEnemyAt < 0){
        //GameActor enemy1 = (new Gastly(Hero.getInstance())).returnLongRangeEnemy(suMundo, (int) getCamera().position.x);
        //GameActor enemy2 = (new Scyther(Hero.getInstance())).returnPhysicalEnemy(suMundo, (int)getCamera().position.x);
        //addGameActor(enemy1);
@@ -151,11 +155,10 @@ public class GameStage extends AbstractStage implements ContactListener {
        addGameActor(MonsterFactory.getInstance().giveClassicEnemy("Gastly", 5, (int)getCamera().position.x));
 
        nextEnemyAt = enemySpawn;
-    }
+    }*/
     
     
   }
-  
 
   @Override
   public void draw() {

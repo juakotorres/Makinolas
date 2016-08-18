@@ -1,11 +1,11 @@
 package cl.makinolas.atk.stages;
 
-import cl.makinolas.atk.actors.Hero;
-import cl.makinolas.atk.actors.friend.Friend;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.utils.viewport.Viewport;
 
 import cl.makinolas.atk.actors.GameActor;
+import cl.makinolas.atk.actors.Hero;
+import cl.makinolas.atk.actors.friend.Friend;
 import cl.makinolas.atk.screen.GameScreen;
 
 public abstract class AbstractStage extends Stage {
@@ -14,6 +14,7 @@ public abstract class AbstractStage extends Stage {
   public Levels level;
   public static String levelName;
   protected GameScreen myScreen;
+  public CameraPosition cameraObserver;
   
   public AbstractStage(Viewport v) {
     super(v);
@@ -42,5 +43,4 @@ public abstract class AbstractStage extends Stage {
   public void changeDeadMenu() {
     myScreen.mainMenu();
   }
-  
 }

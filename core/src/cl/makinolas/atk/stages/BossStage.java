@@ -83,6 +83,7 @@ public class BossStage extends AbstractStage implements ContactListener {
     LevelReader reader = LevelReader.getInstance();
     reader.setWorld(suMundo);
     reader.setGame(g);
+    reader.setStage(this);
     try {
       Array<GameActor> platforms = reader.loadLevel(getLevelName());
       for(GameActor p : platforms)

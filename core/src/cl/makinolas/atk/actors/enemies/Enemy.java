@@ -59,9 +59,9 @@ public class Enemy extends Monsters {
     accumulator = 0;
     this.level = level;
     this.parent = parent;
-    int actualPosition = heroPosition / 20;
+    int actualPosition = heroPosition;
 
-    int randomNum = actualPosition  + (int)(Math.random() * 16) - 7;
+    int randomNum = actualPosition;
     
     if (randomNum > actualPosition){
       isFacingRight = false;
@@ -74,7 +74,7 @@ public class Enemy extends Monsters {
     // Definici�n del cuerpo del jugador.
     BodyDef myBodyDefinition = new BodyDef();
     myBodyDefinition.type = BodyDef.BodyType.DynamicBody;
-    myBodyDefinition.position.set(new Vector2(randomNum,3));
+    myBodyDefinition.position.set(new Vector2(randomNum,30));
     
     // Forma del collider del jugador.
     Body myBody = myWorld.createBody(myBodyDefinition);
