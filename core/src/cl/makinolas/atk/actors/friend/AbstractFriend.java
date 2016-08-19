@@ -13,6 +13,7 @@ import cl.makinolas.atk.actors.attacks.DragonBreath;
 import cl.makinolas.atk.actors.enemies.Enemy;
 import cl.makinolas.atk.actors.enemies.LongRangeEnemy;
 import cl.makinolas.atk.actors.enemies.PhysicalEnemy;
+import cl.makinolas.atk.actors.enemies.StayAndShootEnemy;
 import cl.makinolas.atk.actors.ui.MainBar;
 import cl.makinolas.atk.utils.Formulas;
 
@@ -180,6 +181,12 @@ public abstract class AbstractFriend implements Friend {
   @Override
   public Enemy returnEnemy(World myWorld, int positionX, int positionY) {
     return new Enemy(myWorld, friendTexture, cutSprites,
+                walkingAnimation, hurtAnimation,  getHealth(), positionX, positionY, getLevel(), friend, this);
+  }
+  
+  @Override
+  public Enemy returnStayAndShootEnemy(World myWorld, int positionX, int positionY) {
+    return new StayAndShootEnemy(myWorld, friendTexture, cutSprites,
                 walkingAnimation, hurtAnimation,  getHealth(), positionX, positionY, getLevel(), friend, this);
   }
   

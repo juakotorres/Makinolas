@@ -33,6 +33,7 @@ public class Enemy extends Monsters {
   private float inflictorVelocity;
   private int level;
   private Enemies type;
+  protected World myWorld;
   
   /**
    * Constructor for Enemy
@@ -46,6 +47,7 @@ public class Enemy extends Monsters {
                , int[][] numberOfHurtSprites, int givenHealth
                , int positionX, int positionY, int level, Enemies type, Friend parent) {
     
+    this.myWorld = myWorld;
     health = givenHealth;
     width = cutSprite[0];
     height = cutSprite[1];
@@ -102,17 +104,21 @@ public class Enemy extends Monsters {
   public void act(float delta){     
     myBody.setLinearVelocity(vx, myBody.getLinearVelocity().y);
     //myBody.applyForce(1, 1, 10, 10, true);
+    checkDamage(delta, inflictorVelocity);
+  }
+  
+  protected void checkDamage(float delta, float inflictorVel) {
     if(isDamaged){
-        myBody.setLinearVelocity(new Vector2(inflictorVelocity,0));
+      myBody.setLinearVelocity(new Vector2(inflictorVel,0));
       accumulator += delta;
       if(accumulator > hurtTime){
         isDamaged = false;
         changeAnimation(walkAnimation);
         accumulator = 0;
       }
-    }
+    }    
   }
-  
+
   private void setAnimation(TextureRegion enemySprites, int[] cutSprite){
     setMasterTexture(enemySprites,cutSprite[0],cutSprite[1]);
   }

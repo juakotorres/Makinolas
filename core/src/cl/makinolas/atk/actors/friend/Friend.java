@@ -39,4 +39,5 @@ public interface Friend {
   public Enemy returnLongRangeEnemy(World myWorld, int heroPosition);
   public Enemy returnPhysicalEnemy(World myWorld, int heroPosition);
   public String getName();
+  public Enemy returnStayAndShootEnemy(World myWorld, int positionX, int positionY);
 }
