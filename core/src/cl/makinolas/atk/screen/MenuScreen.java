@@ -6,25 +6,16 @@ import cl.makinolas.atk.stages.MenuStage;
 import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
-import com.badlogic.gdx.Screen;
-import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
-import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.utils.viewport.FitViewport;
 
-public class MenuScreen implements Screen {
-
-  private Game myGame;
-  private final Stage stage;
+public class MenuScreen extends SimpleScreen {
   
   public MenuScreen(Game game){
-    myGame = game;
-    
-    stage = new MenuStage(new FitViewport(640,480));
-    Gdx.input.setInputProcessor(stage);
+    super(game);
 
     TextButton startButton = new TextButton("Start Game",  new Skin(Gdx.files.internal("Data/uiskin.json")));
     startButton.setPosition(280, 240);
@@ -53,41 +44,10 @@ public class MenuScreen implements Screen {
   }
 
   @Override
-  public void show() {
-  }
-
-  @Override
   public void render(float delta) {
-    Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
-    stage.act(delta);
-    stage.draw();
+    super.render(delta);
     if(Gdx.input.isKeyPressed(Input.Keys.ENTER))
       startGame();
-  }
-
-  @Override
-  public void resize(int width, int height) {
-      stage.getViewport().update(width,height);
-  }
-
-  @Override
-  public void pause() {
-    
-  }
-
-  @Override
-  public void resume() {
-    
-  }
-
-  @Override
-  public void hide() {
-    
-  }
-
-  @Override
-  public void dispose() {
-      stage.dispose();
   }
   
 }

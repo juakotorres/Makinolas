@@ -89,6 +89,14 @@ public class Inventory{
         money += c;
     }
 
+    public boolean costMoney(float c){
+        if(money - c >= 0){
+            money -= c;
+            return true;
+        }
+        return false;
+    }
+
     public void fillFromDescriptors(ItemDescriptor[] itemDescriptors){
         for(ItemDescriptor id : itemDescriptors){
             addItem(ItemFinder.getInstance().itemForName(id.name),id.quantity);
