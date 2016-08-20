@@ -5,16 +5,15 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.scenes.scene2d.Stage;
-import com.badlogic.gdx.utils.viewport.FitViewport;
 
 public abstract class SimpleScreen implements Screen {
 
     protected Stage stage;
     protected Game myGame;
 
-    public SimpleScreen(Game g){
+    public SimpleScreen(Game g, Stage s){
         myGame = g;
-        stage = new Stage(new FitViewport(640,480));
+        stage = s;
         Gdx.input.setInputProcessor(stage);
     }
 
@@ -25,6 +24,7 @@ public abstract class SimpleScreen implements Screen {
     @Override
     public void render(float delta) {
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
+        Gdx.gl.glClearColor(0.13f,0.48f,0.19f,1);
         stage.act(delta);
         stage.draw();
     }

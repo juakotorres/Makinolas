@@ -2,7 +2,6 @@ package cl.makinolas.atk.actors;
 
 import cl.makinolas.atk.actors.ui.MobileGroup;
 import cl.makinolas.atk.actors.ui.MobileKeyListener;
-import cl.makinolas.atk.utils.SaveInstance;
 import cl.makinolas.atk.utils.SaveManager;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
@@ -51,13 +50,7 @@ public class InputController extends InputListener implements MobileKeyListener{
                 hero.nextAllie();
                 break;
             case Input.Keys.NUM_8:
-                SaveInstance save = new SaveInstance();
-                save.heroX = hero.getBody().getPosition().x;
-                save.heroY = hero.getBody().getPosition().y;
-                save.friends = hero.saveMyFriends();
-                save.items = hero.getInventory().createDescriptors();
-                save.money = hero.getInventory().getMoney();
-                SaveManager.getInstance().saveData(save,"ATK.sav");
+                SaveManager.getInstance().saveState();
                 break;
         }
         return true;

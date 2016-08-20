@@ -89,7 +89,7 @@ public class Inventory{
         money += c;
     }
 
-    public boolean costMoney(float c){
+    public boolean payMoney(float c){
         if(money - c >= 0){
             money -= c;
             return true;

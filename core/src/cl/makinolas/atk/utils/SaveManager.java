@@ -1,5 +1,6 @@
 package cl.makinolas.atk.utils;
 
+import cl.makinolas.atk.actors.Hero;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.files.FileHandle;
 import com.badlogic.gdx.utils.Json;
@@ -35,7 +36,7 @@ public class SaveManager {
         save = base.fromJson(SaveInstance.class,data);
     }
 
-    public void saveData(SaveInstance saved, String path){
+    private void saveData(SaveInstance saved, String path){
         Json base = new Json(JsonWriter.OutputType.javascript);
         String jstr = base.toJson(saved);
         Gdx.files.local(path).writeString(cryptor.encrypt(jstr),false);
@@ -47,4 +48,14 @@ public class SaveManager {
     }
 
 
+    public void saveState() {
+        Hero hero = Hero.getInstance();
+        SaveInstance save = new SaveInstance();
+        save.heroX = hero.getBody().getPosition().x;
+        save.heroY = hero.getBody().getPosition().y;
+        save.friends = hero.saveMyFriends();
+        save.items = hero.getInventory().createDescriptors();
+        save.money = hero.getInventory().getMoney();
+        SaveManager.getInstance().saveData(save,"ATK.sav");
+    }
 }
