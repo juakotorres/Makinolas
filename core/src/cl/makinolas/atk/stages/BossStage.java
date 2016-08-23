@@ -62,6 +62,8 @@ public class BossStage extends AbstractStage implements ContactListener {
     GameActor enemy = new OldMewtwoBoss(suMundo, hero);
     addGameActor(enemy);
     
+    addActor(new Title("Overlays/bossBar2.png", 550,200));
+    
     addGameActor(hero);
     bar = MainBar.getInstance();
     ui.addActor(bar);

@@ -10,7 +10,7 @@ import com.badlogic.gdx.physics.box2d.PolygonShape;
 import com.badlogic.gdx.physics.box2d.World;
 
 import cl.makinolas.atk.actors.GameActor;
-import cl.makinolas.atk.actors.HBar;
+import cl.makinolas.atk.actors.HBarFliped;
 import cl.makinolas.atk.actors.Hero;
 import cl.makinolas.atk.actors.attacks.AquaAttack;
 import cl.makinolas.atk.actors.attacks.BlueBeam;
@@ -43,7 +43,7 @@ public class OldMewtwoBoss extends Boss {
     isFacingRight = false;
     vx = -velocityMewtwo;
     this.hero = hero;
-    healthBar = new HBar(health, health, width, 4, new TextureRegion( new Texture(Gdx.files.internal("Overlays/bar_green.png"))));
+    healthBar = new HBarFliped(health, health, 20, 133, new TextureRegion( new Texture(Gdx.files.internal("Overlays/bar_green.png"))));
     isDamaged = false;
     dead = false;
     accumulator = 0;

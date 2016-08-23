@@ -2,10 +2,11 @@ package cl.makinolas.atk.stages;
 
 public enum Levels {
   LEVEL1("level1", false),
+  BOSSLEVEL1("bossstage1", true),
   FIRSTSTAGE("FirstStage", false),
   LEVEL2("level2", false),
-  LEVEL3("level3", false),
-  BOSSLEVEL1("bossstage1", true);
+  LEVEL3("level3", false);
+
 
   
   public String levelName;
