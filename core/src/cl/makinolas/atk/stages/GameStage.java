@@ -23,7 +23,6 @@ import cl.makinolas.atk.actors.GameActor;
 import cl.makinolas.atk.actors.Hero;
 import cl.makinolas.atk.actors.InputController;
 import cl.makinolas.atk.actors.Portal;
-import cl.makinolas.atk.actors.enemies.MonsterFactory;
 import cl.makinolas.atk.actors.ui.MainBar;
 import cl.makinolas.atk.actors.ui.MobileGroup;
 import cl.makinolas.atk.screen.GameScreen;
@@ -35,8 +34,6 @@ public class GameStage extends AbstractStage implements ContactListener {
   private World suMundo;
   private float accumulator;
   private final float frameTime = 1 / 300f;
-  private final float enemySpawn = 5f;
-  private float nextEnemyAt;
   private Array<GameActor> gameActors;
   private Group ground, mons, ui;
   private MainBar bar;
@@ -49,7 +46,6 @@ public class GameStage extends AbstractStage implements ContactListener {
     level = type;
     levelName = getLevelName();
     myScreen = actualScreen;
-    nextEnemyAt = enemySpawn;
     gameActors = new Array<GameActor>();
     suMundo = new World(new Vector2(0, -10), true);
     suMundo.setContactListener(this);
@@ -123,13 +119,11 @@ public class GameStage extends AbstractStage implements ContactListener {
     super.act(delta);
     for(GameActor actor : gameActors){
       Body actorBody = actor.getBody();
-      if(actor.isHero() && (actorBody.getPosition().y < -200 || actorBody.getPosition().x < -100 
-          || actorBody.getPosition().x > 200 || actor.isDead())){
+      if(actor.isHero() && (actorBody.getPosition().y < -50 || actorBody.getPosition().x < -100 || actor.isDead())){
         changeDeadMenu();
       }
-      if(actor.isMonster() || actor.isAttack() || actor.isBall()){
-        if(actorBody.getPosition().y < -200 || actorBody.getPosition().x < -100 
-            || actorBody.getPosition().x > 200 || actor.isDead()){
+      if(actor.isEnemy() || actor.isAttack() || actor.isBall()){
+        if(actorBody.getPosition().y < -200 || actorBody.getPosition().x < -100 || actor.isDead()){
           gameActors.removeValue(actor,true);
           suMundo.destroyBody(actorBody);
           actor.remove();
@@ -139,24 +133,14 @@ public class GameStage extends AbstractStage implements ContactListener {
 
     accumulator += delta;
     elapsedTime += delta;
-    nextEnemyAt -= delta;
     
     while(accumulator >= frameTime){
       suMundo.step(frameTime, 6, 2);
       accumulator -= frameTime;
-      cameraObserver.setPosition(Hero.getInstance().getBody().getPosition().x, Hero.getInstance().getBody().getPosition().y);
+      if(Hero.getInstance().hasBody()){
+        cameraObserver.setPosition(Hero.getInstance().getBody().getPosition().x, Hero.getInstance().getBody().getPosition().y);
+      }
     }
-    
-    /*if(nextEnemyAt < 0){
-       //GameActor enemy1 = (new Gastly(Hero.getInstance())).returnLongRangeEnemy(suMundo, (int) getCamera().position.x);
-       //GameActor enemy2 = (new Scyther(Hero.getInstance())).returnPhysicalEnemy(suMundo, (int)getCamera().position.x);
-       //addGameActor(enemy1);
-       //addGameActor(enemy2);
-       addGameActor(MonsterFactory.getInstance().giveClassicEnemy("Gastly", 5, (int)getCamera().position.x));
-
-       nextEnemyAt = enemySpawn;
-    }*/
-    
     
   }
 

@@ -14,6 +14,7 @@ import cl.makinolas.atk.actors.HBar;
 import cl.makinolas.atk.actors.Hero;
 import cl.makinolas.atk.actors.attacks.AquaAttack;
 import cl.makinolas.atk.actors.attacks.BlueBeam;
+import cl.makinolas.atk.actors.attacks.OldMewtwoFinalAttack;
 import cl.makinolas.atk.actors.friend.OldMewtwo;
 import cl.makinolas.atk.stages.AbstractStage;
 
@@ -24,13 +25,15 @@ public class OldMewtwoBoss extends Boss {
   private World myWorld;
   private int currentAttack;
   private Hero hero;
+  private int maxHealth;
   private float vx;
   private final float velocityMewtwo = 3;
   private int[] myAttacks;
   
   public OldMewtwoBoss(World myWorld, Hero hero) {
     
-    health = 200;
+    health = 50;
+    maxHealth = 50;
     width = 39;
     height = 33;
     parent = new OldMewtwo(Hero.getInstance());
@@ -74,7 +77,7 @@ public class OldMewtwoBoss extends Boss {
     secondaryAttackAnimation = addAnimation(0.2f, 1);
     changeAnimation(walkAnimation);
     
-    myAttacks = new int[]{1,1,2};
+    myAttacks = new int[]{1,2,3};
     currentAttack = 0;
   }
   
@@ -94,6 +97,12 @@ public class OldMewtwoBoss extends Boss {
         primaryAttack();
       } else if (myAttacks[currentAttack] == 2){
         secondaryAttack();
+      } else if (myAttacks[currentAttack] == 3){
+        if(this.health < this.maxHealth * 0.3){
+          finalAttack();
+        } else {
+          primaryAttack();
+        }
       }
       
       nextEnemyAttackAt = enemyAttack;
@@ -102,6 +111,19 @@ public class OldMewtwoBoss extends Boss {
     
   }
   
+  private void finalAttack() {
+    GameActor fireball = new OldMewtwoFinalAttack(myWorld,4,10,isFacingRight, this);
+    GameActor fireball2 = new OldMewtwoFinalAttack(myWorld, 9,10,isFacingRight, this);
+    GameActor fireball3 = new OldMewtwoFinalAttack(myWorld, 14,10,isFacingRight, this);
+    GameActor fireball4 = new OldMewtwoFinalAttack(myWorld, 19,10,isFacingRight, this);
+    GameActor fireball5 = new OldMewtwoFinalAttack(myWorld, 24,10,isFacingRight, this);
+    ((AbstractStage) getStage()).addGameActor(fireball);   
+    ((AbstractStage) getStage()).addGameActor(fireball2);  
+    ((AbstractStage) getStage()).addGameActor(fireball3);  
+    ((AbstractStage) getStage()).addGameActor(fireball4);  
+    ((AbstractStage) getStage()).addGameActor(fireball5);   
+  }
+
   private void secondaryAttack() {
     GameActor fireball = new AquaAttack(myWorld, myBody.getPosition().x,myBody.getPosition().y,isFacingRight, this);
     ((AbstractStage) getStage()).addGameActor(fireball);

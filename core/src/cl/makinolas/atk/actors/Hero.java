@@ -517,4 +517,8 @@ public class Hero extends Monsters {
   public int getIndexFriend(){
     return indexFriend;
   }
+
+  public boolean hasBody() {
+    return myBody != null;
+  }
 }
