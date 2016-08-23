@@ -94,5 +94,9 @@ public class ThunderBolt extends Attacks {
     return dead;
   }
   
-  
+  @Override
+  public void setSource(Monsters monsters){
+    this.mySource = monsters;
+  }
+
 }

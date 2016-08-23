@@ -128,5 +128,10 @@ public class AquaAttack extends Attacks {
   public void interactWithPlatform(Platform platform, WorldManifold worldManifold){
   } 
   
+  @Override
+  public void setSource(Monsters monsters){
+    this.mySource = monsters;
+  }
+
   
 }

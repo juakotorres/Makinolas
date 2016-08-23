@@ -102,4 +102,10 @@ public Puff(World myWorld, float x , float y, boolean facingRight, Monsters sour
     return dead;
   }
   
+  @Override
+  public void setSource(Monsters monsters){
+    this.mySource = monsters;
+  }
+
+  
 }

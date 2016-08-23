@@ -52,5 +52,9 @@ public abstract class Monsters extends AnimatedActor {
     int level2 = this.parent.getLevel();
     return Formulas.getDamage(attackStat, level1, defenseStat, level2, attack.getAttackDamage());
   }
+  
+  public boolean isEnemy() {
+    return false;
+  }
 }
 

@@ -154,6 +154,7 @@ CG,123,4,4,7
 %P,124,14
 %E,Gastly,25,9,Normal
 %E,Gastly,27,17,StayAndShoot
+%E,Gastly,27,18,FlyWaveAndDrop
 %E,Gastly,50,13,Normal
 %E,Gastly,52,13,Normal
 %E,Gastly,67,16,Normal

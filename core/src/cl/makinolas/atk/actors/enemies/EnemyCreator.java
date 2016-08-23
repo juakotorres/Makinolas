@@ -39,7 +39,8 @@ public class EnemyCreator implements Observer{
     switch(enemyThinker){
       case "StayAndShoot":
         return MonsterFactory.getInstance().giveStayAndShootEnemy(enemyType, 5, (int) (positionX * 1.8f), (int) (positionY * 2f));
-      
+      case "FlyWaveAndDrop":
+        return MonsterFactory.getInstance().giveFlyWaveAndDropEnemy(enemyType, 5, (int) (positionX * 1.8f), (int) (positionY * 2f));
       default:
         return MonsterFactory.getInstance().giveClassicEnemy(enemyType, 5, (int) (positionX * 1.8f), (int) (positionY * 2f));
     }

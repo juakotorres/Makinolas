@@ -133,6 +133,9 @@ public class Enemy extends Monsters {
 
   @Override
   public void damage(int damage, Attacks inflictor) {
+    if(inflictor.getSource().isEnemy()){
+      return;
+    }
     if(health - damage <= 0){
       health = 0;
     } else {
@@ -211,31 +214,37 @@ public class Enemy extends Monsters {
 
   @Override
   protected void gainExp(int level, Enemies type) {}
-
-@Override
-public float getXDirection() {
-	return vx;
-}
-
-
-@Override
- public void interactWithPlatform(Platform platform, WorldManifold worldManifold) {
-	if (worldManifold.getNormal().x < -0.95 || worldManifold.getNormal().x >0.95){
-		vx = -vx;
-		isFacingRight = !isFacingRight;
-	}
-}
-
-@Override
-public void interactWithEnemy(Enemy enemy) {
-	this.flip();
-	enemy.flip();
-}
-
-public void flip(){
-	vx=-vx;
-	isFacingRight = !isFacingRight;
-}
+  
+  @Override
+  public float getXDirection() {
+    return vx;
+  }
+  
+  
+  @Override
+  public void interactWithPlatform(Platform platform, WorldManifold worldManifold) {
+    if (worldManifold.getNormal().x < -0.95 || worldManifold.getNormal().x >0.95){
+      vx = -vx;
+      isFacingRight = !isFacingRight;
+    }
+  }
+  
+  @Override
+  public void interactWithEnemy(Enemy enemy) {
+    this.flip();
+    enemy.flip();
+  }
+  
+  public void flip(){
+    vx=-vx;
+    isFacingRight = !isFacingRight;
+  }
+  
+  @Override
+  public boolean isEnemy(){
+    return true;
+  }
+  
 
 }
 

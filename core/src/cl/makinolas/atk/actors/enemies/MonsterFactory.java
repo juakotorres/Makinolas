@@ -345,6 +345,10 @@ public class MonsterFactory {
       return giveFriend(level).returnStayAndShootEnemy(Hero.getInstance().getMyWorld(), positionX, positionY);
     }
     
+    protected GameActor giveFlyWaveAndDropEnemy(int level, int positionX, int positionY) {
+      return giveFriend(level).returnFlyWaveAndDropEnemy(Hero.getInstance().getMyWorld(), positionX, positionY);
+    }
+    
     protected Enemy givePhysicalEnemy(int level, int position){
       return giveFriend(level).returnPhysicalEnemy(Hero.getInstance().getMyWorld(), position);
     }
@@ -365,6 +369,10 @@ public class MonsterFactory {
     return map.get(nameFriend.toLowerCase()).giveStayAndShootEnemy(level, positionX, positionY); 
   }
   
+  public GameActor giveFlyWaveAndDropEnemy(String nameFriend, int level, int positionX, int positionY) {
+    return map.get(nameFriend.toLowerCase()).giveFlyWaveAndDropEnemy(level, positionX, positionY); 
+  }
+  
   public Enemy givePhysicalEnemy(String nameFriend, int level, int position){
     return map.get(nameFriend.toLowerCase()).givePhysicalEnemy(level, position); 
   }
@@ -376,5 +384,6 @@ public class MonsterFactory {
   public Friend getHeroFriend(String nameFriend, int level){
     return map.get(nameFriend.toLowerCase()).giveFriend(level);
   }
+
   
 }

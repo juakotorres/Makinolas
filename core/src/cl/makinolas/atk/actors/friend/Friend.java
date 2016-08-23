@@ -40,4 +40,5 @@ public interface Friend {
   public Enemy returnPhysicalEnemy(World myWorld, int heroPosition);
   public String getName();
   public Enemy returnStayAndShootEnemy(World myWorld, int positionX, int positionY);
+  public Enemy returnFlyWaveAndDropEnemy(World myWorld, int positionX, int positionY);
 }
