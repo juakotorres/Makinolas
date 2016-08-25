@@ -1,6 +1,5 @@
 package cl.makinolas.atk.actors.ui;
 
-import cl.makinolas.atk.actors.items.Item;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Batch;
