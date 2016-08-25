@@ -10,7 +10,7 @@ public class Inventory{
     private HashMap<String,ItemBox> items;
     private Hero hero;
     private ItemBox selItem1, selItem2;
-    private float money;
+    private int money;
 
     public Inventory(Hero h){
         items = new HashMap<String, ItemBox>();
@@ -81,11 +81,11 @@ public class Inventory{
         return itemDescriptors;
     }
 
-    public float getMoney(){
+    public int getMoney(){
         return money;
     }
 
-    public void earnMoney(float c){
+    public void earnMoney(int c){
         money += c;
     }
 

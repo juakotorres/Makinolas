@@ -97,7 +97,7 @@ public class ShopScreen extends SimpleScreen{
 
     public void purchaseItem(int quantity){
         Inventory inventory = Hero.getInstance().getInventory();
-        if(itemSel==-1 && inventory.payMoney(prices[itemSel]*quantity)){
+        if(itemSel!=-1 && inventory.payMoney(prices[itemSel]*quantity)){
             inventory.addItem(ItemFinder.getInstance().itemForName(items[itemSel]),quantity);
             SaveManager.getInstance().saveState();
             currentMoney.setText("$"+inventory.getMoney());

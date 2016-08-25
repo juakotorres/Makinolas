@@ -51,8 +51,6 @@ public class SaveManager {
     public void saveState() {
         Hero hero = Hero.getInstance();
         SaveInstance save = new SaveInstance();
-        save.heroX = hero.getBody().getPosition().x;
-        save.heroY = hero.getBody().getPosition().y;
         save.friends = hero.saveMyFriends();
         save.items = hero.getInventory().createDescriptors();
         save.money = hero.getInventory().getMoney();

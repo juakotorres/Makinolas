@@ -51,8 +51,8 @@ public class Formulas {
     return Math.random()<=bernulli;
   }
 
-  public static float getMoney(int level, int experience) {
+  public static int getMoney(int level, int experience) {
     float r = (float) Math.random();
-    return (float) (Math.floor((0.3f + 0.7f*r)*level*experience/2f)/10f);
+    return (int) ((0.3f + 0.7f*r)*level*experience/20f);
   }
 }
