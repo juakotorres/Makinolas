@@ -14,6 +14,7 @@ public abstract class AbstractStage extends Stage {
   public Levels level;
   public static String levelName;
   protected GameScreen myScreen;
+  protected boolean paused;
   
   public AbstractStage(Viewport v) {
     super(v);
@@ -40,5 +41,12 @@ public abstract class AbstractStage extends Stage {
   public void changeDeadMenu() {
     myScreen.mainMenu();
   }
-  
+
+  public void togglePause(){
+    paused = !paused;
+  }
+
+  public boolean isPaused() {
+    return paused;
+  }
 }

@@ -134,28 +134,28 @@ public class GameStage extends AbstractStage implements ContactListener {
       }
     }
 
-    accumulator += delta;
-    elapsedTime += delta;
-    nextEnemyAt -= delta;
-    
-    while(accumulator >= frameTime){
-      suMundo.step(frameTime, 6, 2);
-      accumulator -= frameTime;
-    }
-    
-    if(nextEnemyAt < 0){
-       //GameActor enemy1 = (new Gastly(Hero.getInstance())).returnLongRangeEnemy(suMundo, (int) getCamera().position.x);
-       //GameActor enemy2 = (new Scyther(Hero.getInstance())).returnPhysicalEnemy(suMundo, (int)getCamera().position.x);
-       //addGameActor(enemy1);
-       //addGameActor(enemy2);
-       addGameActor(MonsterFactory.getInstance().giveClassicEnemy("Gastly", 5, (int)getCamera().position.x));
+    if(!paused) {
+      accumulator += delta;
+      elapsedTime += delta;
+      nextEnemyAt -= delta;
 
-       nextEnemyAt = enemySpawn;
+      while (accumulator >= frameTime) {
+        suMundo.step(frameTime, 6, 2);
+        accumulator -= frameTime;
+      }
+
+      if (nextEnemyAt < 0) {
+        //GameActor enemy1 = (new Gastly(Hero.getInstance())).returnLongRangeEnemy(suMundo, (int) getCamera().position.x);
+        //GameActor enemy2 = (new Scyther(Hero.getInstance())).returnPhysicalEnemy(suMundo, (int)getCamera().position.x);
+        //addGameActor(enemy1);
+        //addGameActor(enemy2);
+        addGameActor(MonsterFactory.getInstance().giveClassicEnemy("Gastly", 5, (int) getCamera().position.x));
+
+        nextEnemyAt = enemySpawn;
+      }
     }
-    
     
   }
-  
 
   @Override
   public void draw() {
