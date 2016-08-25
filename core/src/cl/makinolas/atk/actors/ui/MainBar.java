@@ -78,8 +78,9 @@ public class MainBar extends Group{
         font.draw(batch,String.valueOf(Hero.getInstance().getHealth()),cx+100, cy+36); 
         font.draw(batch, "/", cx+120, cy+36);
         font.draw(batch,String.valueOf(Hero.getInstance().getFriend().getMaxHealth()),cx+130, cy+36);
-        font.draw(batch,AbstractStage.levelName ,cx+220,cy+38);
-        font.draw(batch, ""+((int) AbstractStage.elapsedTime),cx+230,cy+20);
+        //font.draw(batch,AbstractStage.levelName ,cx+220,cy+38);
+        //font.draw(batch, ""+((int) AbstractStage.elapsedTime),cx+230,cy+20);
+        font.draw(batch, "$"+Hero.getInstance().getInventory().getMoney(),cx+220,cy+20);
         //Current Friend Sprite
         friend.setPosition(cx+270,cy+2);
         friend.setTexture(hero.getFriend().getFriendFaceSprite());

@@ -1,5 +1,6 @@
 package cl.makinolas.atk.actors;
 
+import cl.makinolas.atk.utils.Formulas;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.Body;
 import com.badlogic.gdx.physics.box2d.BodyDef;
@@ -516,5 +517,9 @@ public class Hero extends Monsters {
 
   public int getIndexFriend(){
     return indexFriend;
+  }
+
+  public void earnMoney(int level, Enemies type) {
+    inventory.earnMoney(Formulas.getMoney(level,type.baseExperience));
   }
 }

@@ -8,8 +8,8 @@ import cl.makinolas.atk.actors.items.ItemDescriptor;
  */
 public class SaveInstance {
 
-    public float heroX, heroY;
     public FriendDescriptor[] friends;
     public ItemDescriptor[] items;
+    public int money;
 
 }

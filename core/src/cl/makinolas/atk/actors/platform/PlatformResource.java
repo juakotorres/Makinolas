@@ -52,8 +52,8 @@ public class PlatformResource {
     }
 
     public TextureRegion getRegionWithCode(String code){
-        System.out.println(code);
-        System.out.println(textCodes.get(code));
+        //System.out.println(code);
+        //System.out.println(textCodes.get(code));
         return textCodes.get(code);
     }
 
