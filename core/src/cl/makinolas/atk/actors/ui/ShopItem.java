@@ -12,11 +12,12 @@ public class ShopItem extends Actor {
     private TextureRegion reg;
     private final TextureRegion bg = new TextureRegion(new Texture("Overlays/boxgray.png"));
     private BitmapFont font = new BitmapFont(Gdx.files.internal("Fonts/normal.fnt"),Gdx.files.internal("Fonts/normal.png"),false);
-    private int price;
+    private int price, quantity;
 
-    public ShopItem(TextureRegion im, int cost){
+    public ShopItem(TextureRegion im, int cost, int q){
         reg = im;
         price = cost;
+        quantity = q;
         setBounds(0,0,120,48);
     }
 
@@ -26,6 +27,7 @@ public class ShopItem extends Actor {
         float cy = getY();
         batch.draw(bg,cx,cy);
         batch.draw(reg,cx+8,cy+8);
-        font.draw(batch,"$"+price,cx+42,cy+32);
+        font.draw(batch,"$"+price,cx+44,cy+34);
+        font.draw(batch,"In Bag: "+quantity,cx+40,cy+20);
     }
 }

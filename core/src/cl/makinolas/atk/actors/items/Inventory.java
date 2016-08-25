@@ -103,4 +103,10 @@ public class Inventory{
         }
     }
 
+    public int getItemQuantity(String itemname){
+        ItemBox box = items.get(itemname);
+        if(box==null) return 0;
+        return box.getQuantity();
+    }
+
 }

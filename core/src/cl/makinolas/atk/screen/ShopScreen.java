@@ -1,6 +1,8 @@
 package cl.makinolas.atk.screen;
 
+import cl.makinolas.atk.actors.Background;
 import cl.makinolas.atk.actors.Hero;
+import cl.makinolas.atk.actors.SimpleImageActor;
 import cl.makinolas.atk.actors.items.Ball;
 import cl.makinolas.atk.actors.items.Inventory;
 import cl.makinolas.atk.actors.items.Item;
@@ -11,6 +13,7 @@ import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
+import com.badlogic.gdx.math.Matrix4;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.InputListener;
 import com.badlogic.gdx.scenes.scene2d.Stage;
@@ -33,6 +36,8 @@ public class ShopScreen extends SimpleScreen{
 
     public ShopScreen(Game g) {
         super(g, new Stage(new FitViewport(640,480)));
+        stage.addActor(new Background("Background/ShopBG.jpg",stage.getCamera()));
+        stage.addActor(new SimpleImageActor("Humans/Salesman2.png",440,60));
         createShopItems();
         Skin uskin = new Skin(Gdx.files.internal("Data/uiskin.json"));
         TextButton exitButton = new TextButton("Exit Shop", uskin);
@@ -68,6 +73,10 @@ public class ShopScreen extends SimpleScreen{
         currentMoney = new Label("$"+Hero.getInstance().getInventory().getMoney(),uskin);
         currentMoney.setPosition(280,20);
         stage.addActor(currentMoney);
+        Label title = new Label("SHOP",uskin);
+        title.setFontScale(1.5f);
+        title.setPosition(300,440);
+        stage.addActor(title);
     }
 
     private void exitShop() {
@@ -75,8 +84,9 @@ public class ShopScreen extends SimpleScreen{
     }
 
     private void createShopItems() {
+        Inventory inventory = Hero.getInstance().getInventory();
         for(int i = 0; i < items.length; i++) {
-            ShopItem item = new ShopItem(sps[i],prices[i]);
+            ShopItem item = new ShopItem(sps[i],prices[i],inventory.getItemQuantity(items[i]));
             item.setPosition(132*(i%3)+16,320-60*(i/3));
             final int finalI = i;
             item.addListener(new InputListener(){
