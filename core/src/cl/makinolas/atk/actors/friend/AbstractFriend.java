@@ -38,11 +38,9 @@ public abstract class AbstractFriend implements Friend {
   private TextureRegion faceSprite;
   protected Level level;
   private int actualEvolution;
-  private Hero myHero;
   public Enemies friend;
   
   public AbstractFriend(Hero hero){
-    myHero = hero;
   }
   
   protected void setCutSprites(int width, int height){
@@ -315,7 +313,7 @@ public abstract class AbstractFriend implements Friend {
       float newLevel = ((Level) o).getLevel();
       if(newLevel >= evolLevel && !evolved){
        evolve(this.numberOfEvolution);
-       myHero.evolved();
+       Hero.getInstance().evolved();
        evolved = true;
        setFriendStats();
       }
