@@ -2,6 +2,7 @@ package cl.makinolas.atk.actors.enemies;
 
 import java.util.HashMap;
 
+import cl.makinolas.atk.actors.GameActor;
 import cl.makinolas.atk.actors.Hero;
 import cl.makinolas.atk.actors.friend.AbstractFriend;
 import cl.makinolas.atk.actors.friend.Bagon;
@@ -336,8 +337,16 @@ public class MonsterFactory {
       return friend;
     }
     
-    protected Enemy giveEnemy(int level, int position){
-      return giveFriend(level).returnEnemy(Hero.getInstance().getMyWorld(), position);
+    protected Enemy giveEnemy(int level, int positionX, int positionY){
+      return giveFriend(level).returnEnemy(Hero.getInstance().getMyWorld(), positionX, positionY);
+    }
+    
+    protected GameActor giveStayAndShootEnemy(int level, int positionX, int positionY) {
+      return giveFriend(level).returnStayAndShootEnemy(Hero.getInstance().getMyWorld(), positionX, positionY);
+    }
+    
+    protected GameActor giveFlyWaveAndDropEnemy(int level, int positionX, int positionY) {
+      return giveFriend(level).returnFlyWaveAndDropEnemy(Hero.getInstance().getMyWorld(), positionX, positionY);
     }
     
     protected Enemy givePhysicalEnemy(int level, int position){
@@ -349,10 +358,19 @@ public class MonsterFactory {
     }
     
     public abstract Friend giveFriend(int level);
+
   }
   
-  public Enemy giveClassicEnemy(String nameFriend, int level, int position){
-    return map.get(nameFriend.toLowerCase()).giveEnemy(level, position); 
+  public Enemy giveClassicEnemy(String nameFriend, int level, int positionX, int positionY){
+    return map.get(nameFriend.toLowerCase()).giveEnemy(level, positionX, positionY); 
+  }
+  
+  public GameActor giveStayAndShootEnemy(String nameFriend, int level, int positionX, int positionY) {
+    return map.get(nameFriend.toLowerCase()).giveStayAndShootEnemy(level, positionX, positionY); 
+  }
+  
+  public GameActor giveFlyWaveAndDropEnemy(String nameFriend, int level, int positionX, int positionY) {
+    return map.get(nameFriend.toLowerCase()).giveFlyWaveAndDropEnemy(level, positionX, positionY); 
   }
   
   public Enemy givePhysicalEnemy(String nameFriend, int level, int position){
@@ -366,5 +384,6 @@ public class MonsterFactory {
   public Friend getHeroFriend(String nameFriend, int level){
     return map.get(nameFriend.toLowerCase()).giveFriend(level);
   }
+
   
 }

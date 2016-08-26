@@ -38,4 +38,10 @@ public class MeleeAttack extends Attacks {
     return isFacingRight? -3 : 3;
   }
   
+  @Override
+  public void setSource(Monsters monsters){
+    this.source = monsters;
+  }
+
+  
 }

@@ -2,12 +2,11 @@ package cl.makinolas.atk.actors.bosses;
 
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
-import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.WorldManifold;
 
 import cl.makinolas.atk.GameConstants;
 import cl.makinolas.atk.actors.GameActor;
-import cl.makinolas.atk.actors.HBar;
+import cl.makinolas.atk.actors.HBarFliped;
 import cl.makinolas.atk.actors.Hero;
 import cl.makinolas.atk.actors.Monsters;
 import cl.makinolas.atk.actors.attacks.Attacks;
@@ -17,7 +16,7 @@ import cl.makinolas.atk.stages.BossStage;
 public abstract class Boss extends Monsters implements IBoss{
   
   protected int health;
-  protected HBar healthBar;
+  protected HBarFliped healthBar;
   protected boolean isDamaged;
   protected boolean isLaunchingAttack;
   protected int width;
@@ -57,9 +56,8 @@ public abstract class Boss extends Monsters implements IBoss{
   @Override
   public void draw(Batch batch, float alpha){
     super.draw(batch,alpha);
-    Vector2 myPosition = myBody.getPosition();
-    batch.draw(healthBar.getSprite(), myPosition.x * GameConstants.WORLD_FACTOR - getActualSprite().getRegionWidth() / 2 ,
-        myPosition.y * GameConstants.WORLD_FACTOR + getActualSprite().getRegionHeight() / 2);
+    batch.draw(healthBar.getSprite(),28 * GameConstants.WORLD_FACTOR - getActualSprite().getRegionWidth() / 2 ,
+        5.9f* GameConstants.WORLD_FACTOR + getActualSprite().getRegionHeight() / 2);
   }
   
   @Override

@@ -13,7 +13,6 @@ public abstract class ThrowableAttacks extends Attacks {
   
   private BodyDef myBodyDefinition; 
   private Monsters mySource;
-  private float xVelocity;
   private float initialPosition;
   private boolean dead;
   
@@ -51,7 +50,7 @@ public abstract class ThrowableAttacks extends Attacks {
   
   @Override
   public void act(float delta){
-    myBody.setLinearVelocity(xVelocity, 0);
+    myBody.setLinearVelocity(xVelocity, yVelocity);
   }
   
   protected abstract void setAnimation();
@@ -78,6 +77,11 @@ public abstract class ThrowableAttacks extends Attacks {
   
   public float getXVelocity(){
 	  return xVelocity;
+  }
+  
+  @Override
+  public void setSource(Monsters monsters){
+    this.mySource = monsters;
   }
 
   

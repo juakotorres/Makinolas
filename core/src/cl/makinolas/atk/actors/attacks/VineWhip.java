@@ -99,4 +99,10 @@ public class VineWhip extends Attacks {
    public float getXVelocity(){
 	   return isFacingRight? -3 : 3;
    }
+   
+   @Override
+   public void setSource(Monsters monsters){
+     this.mySource = monsters;
+   }
+
 }

@@ -62,6 +62,8 @@ public class BossStage extends AbstractStage implements ContactListener {
     GameActor enemy = new OldMewtwoBoss(suMundo, hero);
     addGameActor(enemy);
     
+    addActor(new Title("Overlays/bossBar2.png", 550,200));
+    
     addGameActor(hero);
     bar = MainBar.getInstance();
     ui.addActor(bar);
@@ -83,6 +85,7 @@ public class BossStage extends AbstractStage implements ContactListener {
     LevelReader reader = LevelReader.getInstance();
     reader.setWorld(suMundo);
     reader.setGame(g);
+    reader.setStage(this);
     try {
       Array<GameActor> platforms = reader.loadLevel(getLevelName());
       for(GameActor p : platforms)

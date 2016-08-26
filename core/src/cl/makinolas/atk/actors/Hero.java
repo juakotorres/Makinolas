@@ -522,4 +522,8 @@ public class Hero extends Monsters {
   public void earnMoney(int level, Enemies type) {
     inventory.earnMoney(Formulas.getMoney(level,type.baseExperience));
   }
+    
+  public boolean hasBody() {
+    return myBody != null;
+  }
 }
