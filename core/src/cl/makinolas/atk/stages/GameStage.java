@@ -160,7 +160,6 @@ public class GameStage extends AbstractStage implements ContactListener {
   @Override
   public void draw() {
       super.draw();
-      //bar.drawCustom(getBatch(),getCamera().position.x,getCamera().position.y); //Custom draw for MainBar
       camera.update();
       renderer.render(suMundo, camera.combined);
   }
