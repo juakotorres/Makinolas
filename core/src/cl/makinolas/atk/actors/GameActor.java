@@ -63,5 +63,9 @@ public abstract class GameActor extends Actor{
 
   public void interactWithBall(BallActor ball){}
 
+  public boolean isEnemy() {
+    return false;
+  }
+
   
 }

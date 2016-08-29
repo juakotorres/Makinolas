@@ -12,6 +12,7 @@ import cl.makinolas.atk.actors.enemies.Enemy;
 
 public abstract class Attacks extends AnimatedActor {
 	protected float xVelocity;
+	protected float yVelocity = 0;
   public abstract int getAttackDamage();
   public abstract Monsters getSource();
   public abstract void setDead();
@@ -52,5 +53,12 @@ public abstract class Attacks extends AnimatedActor {
   
   protected float getBodySize(int size){
     return (0.5f*size)/22;
+  }
+  
+  public abstract void setSource(Monsters monster);
+  
+  public void isDropping(){
+    yVelocity = -3;
+    xVelocity = 0;
   }
 }

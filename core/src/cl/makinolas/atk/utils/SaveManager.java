@@ -1,10 +1,13 @@
 package cl.makinolas.atk.utils;
 
-import cl.makinolas.atk.actors.Hero;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.files.FileHandle;
 import com.badlogic.gdx.utils.Json;
 import com.badlogic.gdx.utils.JsonWriter;
+
+import cl.makinolas.atk.actors.Hero;
+import cl.makinolas.atk.actors.friend.Friend;
+import cl.makinolas.atk.actors.friend.FriendDescriptor;
 
 public class SaveManager {
 
@@ -46,7 +49,16 @@ public class SaveManager {
     public boolean hasSaveInstance(){
         return save != null;
     }
-
+    
+    public void startGameSave(Friend friend){
+      SaveInstance saveInstance = new SaveInstance();
+      FriendDescriptor fd = new FriendDescriptor();
+      fd.name = friend.getName();
+      fd.level = 5;
+      saveInstance.friends = new FriendDescriptor[]{fd};
+      
+      SaveManager.getInstance().saveData(saveInstance, "ATK.sav");
+    }
 
     public void saveState() {
         Hero hero = Hero.getInstance();

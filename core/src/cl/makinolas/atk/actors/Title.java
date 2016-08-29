@@ -23,5 +23,10 @@ public class Title extends Actor {
     batch.draw(backgroundImage, xPosition - backgroundImage.getRegionWidth() / 2
                                 , yPosition - backgroundImage.getRegionHeight() / 2);
   }
+
+  public void changeCoordinates(int xPosition, int yPosition) {
+    this.xPosition = xPosition;
+    this.yPosition = yPosition;
+  }
   
 }

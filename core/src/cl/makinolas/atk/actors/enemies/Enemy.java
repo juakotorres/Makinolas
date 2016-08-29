@@ -33,6 +33,7 @@ public class Enemy extends Monsters {
   private float inflictorVelocity;
   private int level;
   private Enemies type;
+  protected World myWorld;
   
   /**
    * Constructor for Enemy
@@ -44,8 +45,9 @@ public class Enemy extends Monsters {
   public Enemy(World myWorld, TextureRegion enemyTexture,
                int[] cutSprite, int[][] numberOfSprite
                , int[][] numberOfHurtSprites, int givenHealth
-               , int heroPosition, int level, Enemies type, Friend parent) {
+               , int positionX, int positionY, int level, Enemies type, Friend parent) {
     
+    this.myWorld = myWorld;
     health = givenHealth;
     width = cutSprite[0];
     height = cutSprite[1];
@@ -59,11 +61,11 @@ public class Enemy extends Monsters {
     accumulator = 0;
     this.level = level;
     this.parent = parent;
-    int actualPosition = heroPosition / 20;
+    int actualPosition = positionX;
 
-    int randomNum = actualPosition  + (int)(Math.random() * 16) - 7;
+    int randomNum = actualPosition;
     
-    if (randomNum > actualPosition){
+    if (randomNum >= actualPosition){
       isFacingRight = false;
       vx = -3;
     } else {
@@ -74,7 +76,7 @@ public class Enemy extends Monsters {
     // Definici�n del cuerpo del jugador.
     BodyDef myBodyDefinition = new BodyDef();
     myBodyDefinition.type = BodyDef.BodyType.DynamicBody;
-    myBodyDefinition.position.set(new Vector2(randomNum,3));
+    myBodyDefinition.position.set(new Vector2(randomNum,positionY));
     
     // Forma del collider del jugador.
     Body myBody = myWorld.createBody(myBodyDefinition);
@@ -102,17 +104,21 @@ public class Enemy extends Monsters {
   public void act(float delta){     
     myBody.setLinearVelocity(vx, myBody.getLinearVelocity().y);
     //myBody.applyForce(1, 1, 10, 10, true);
+    checkDamage(delta, inflictorVelocity);
+  }
+  
+  protected void checkDamage(float delta, float inflictorVel) {
     if(isDamaged){
-        myBody.setLinearVelocity(new Vector2(inflictorVelocity,0));
+      myBody.setLinearVelocity(new Vector2(inflictorVel,0));
       accumulator += delta;
       if(accumulator > hurtTime){
         isDamaged = false;
         changeAnimation(walkAnimation);
         accumulator = 0;
       }
-    }
+    }    
   }
-  
+
   private void setAnimation(TextureRegion enemySprites, int[] cutSprite){
     setMasterTexture(enemySprites,cutSprite[0],cutSprite[1]);
   }
@@ -127,6 +133,9 @@ public class Enemy extends Monsters {
 
   @Override
   public void damage(int damage, Attacks inflictor) {
+    if(inflictor.getSource().isEnemy()){
+      return;
+    }
     if(health - damage <= 0){
       health = 0;
     } else {
@@ -206,31 +215,37 @@ public class Enemy extends Monsters {
 
   @Override
   protected void gainExp(int level, Enemies type) {}
-
-@Override
-public float getXDirection() {
-	return vx;
-}
-
-
-@Override
- public void interactWithPlatform(Platform platform, WorldManifold worldManifold) {
-	if (worldManifold.getNormal().x < -0.95 || worldManifold.getNormal().x >0.95){
-		vx = -vx;
-		isFacingRight = !isFacingRight;
-	}
-}
-
-@Override
-public void interactWithEnemy(Enemy enemy) {
-	this.flip();
-	enemy.flip();
-}
-
-public void flip(){
-	vx=-vx;
-	isFacingRight = !isFacingRight;
-}
+  
+  @Override
+  public float getXDirection() {
+    return vx;
+  }
+  
+  
+  @Override
+  public void interactWithPlatform(Platform platform, WorldManifold worldManifold) {
+    if (worldManifold.getNormal().x < -0.95 || worldManifold.getNormal().x >0.95){
+      vx = -vx;
+      isFacingRight = !isFacingRight;
+    }
+  }
+  
+  @Override
+  public void interactWithEnemy(Enemy enemy) {
+    this.flip();
+    enemy.flip();
+  }
+  
+  public void flip(){
+    vx=-vx;
+    isFacingRight = !isFacingRight;
+  }
+  
+  @Override
+  public boolean isEnemy(){
+    return true;
+  }
+  
 
 }
 

@@ -11,8 +11,10 @@ import cl.makinolas.atk.actors.Monsters;
 import cl.makinolas.atk.actors.attacks.Attacks;
 import cl.makinolas.atk.actors.attacks.DragonBreath;
 import cl.makinolas.atk.actors.enemies.Enemy;
+import cl.makinolas.atk.actors.enemies.FlyWaveAndDropEnemy;
 import cl.makinolas.atk.actors.enemies.LongRangeEnemy;
 import cl.makinolas.atk.actors.enemies.PhysicalEnemy;
+import cl.makinolas.atk.actors.enemies.StayAndShootEnemy;
 import cl.makinolas.atk.actors.ui.MainBar;
 import cl.makinolas.atk.utils.Formulas;
 
@@ -36,11 +38,9 @@ public abstract class AbstractFriend implements Friend {
   private TextureRegion faceSprite;
   protected Level level;
   private int actualEvolution;
-  private Hero myHero;
   public Enemies friend;
   
   public AbstractFriend(Hero hero){
-    myHero = hero;
   }
   
   protected void setCutSprites(int width, int height){
@@ -178,9 +178,21 @@ public abstract class AbstractFriend implements Friend {
   }
   
   @Override
-  public Enemy returnEnemy(World myWorld, int heroPosition) {
+  public Enemy returnEnemy(World myWorld, int positionX, int positionY) {
     return new Enemy(myWorld, friendTexture, cutSprites,
-                walkingAnimation, hurtAnimation,  getHealth(), heroPosition, getLevel(), friend, this);
+                walkingAnimation, hurtAnimation,  getHealth(), positionX, positionY, getLevel(), friend, this);
+  }
+  
+  @Override
+  public Enemy returnStayAndShootEnemy(World myWorld, int positionX, int positionY) {
+    return new StayAndShootEnemy(myWorld, friendTexture, cutSprites,
+                walkingAnimation, hurtAnimation,  getHealth(), positionX, positionY, getLevel(), friend, this);
+  }
+  
+  @Override
+  public Enemy returnFlyWaveAndDropEnemy(World myWorld, int positionX, int positionY) {
+    return new FlyWaveAndDropEnemy(myWorld, friendTexture, cutSprites,
+                walkingAnimation, hurtAnimation,  getHealth(), positionX, positionY, getLevel(), friend, this);
   }
   
   @Override
@@ -301,7 +313,7 @@ public abstract class AbstractFriend implements Friend {
       float newLevel = ((Level) o).getLevel();
       if(newLevel >= evolLevel && !evolved){
        evolve(this.numberOfEvolution);
-       myHero.evolved();
+       Hero.getInstance().evolved();
        evolved = true;
        setFriendStats();
       }
