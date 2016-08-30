@@ -2,6 +2,7 @@ package cl.makinolas.atk.stages;
 
 import java.io.IOException;
 
+import cl.makinolas.atk.actors.ui.BagVis;
 import com.badlogic.gdx.Application;
 import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
@@ -37,6 +38,7 @@ public class GameStage extends AbstractStage implements ContactListener {
   private Array<GameActor> gameActors;
   private Group ground, mons, ui;
   private MainBar bar;
+  private BagVis bagVis;
 
   private OrthographicCamera camera;
   private Box2DDebugRenderer renderer;
@@ -151,6 +153,19 @@ public class GameStage extends AbstractStage implements ContactListener {
       super.draw();
       camera.update();
       renderer.render(suMundo, camera.combined);
+  }
+
+  @Override
+  public void togglePause() {
+    super.togglePause();
+    if(isPaused()){
+      bagVis = new BagVis();
+      bagVis.setPosition(getCamera().position.x,getCamera().position.y);
+      ui.addActor(bagVis);
+    }
+    else{
+      bagVis.remove();
+    }
   }
 
   @Override

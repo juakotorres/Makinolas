@@ -3,7 +3,10 @@ package cl.makinolas.atk.actors.items;
 import cl.makinolas.atk.actors.Hero;
 import cl.makinolas.atk.utils.SaveManager;
 
+import java.util.ArrayList;
+import java.util.Collection;
 import java.util.HashMap;
+import java.util.List;
 
 public class Inventory{
 
@@ -107,6 +110,10 @@ public class Inventory{
         ItemBox box = items.get(itemname);
         if(box==null) return 0;
         return box.getQuantity();
+    }
+
+    public Collection<ItemBox> getItems(){
+        return items.values();
     }
 
 }
