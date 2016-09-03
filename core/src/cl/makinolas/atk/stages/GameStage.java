@@ -75,7 +75,8 @@ public class GameStage extends AbstractStage implements ContactListener {
     addGameActor(hero);
     bar = MainBar.getInstance();
     ui.addActor(bar);
-    ui.addActor(group);    
+    ui.addActor(group);
+    ui.addActor(BagVis.getInstance());
     
    
     addListener(new InputController(hero,group));
@@ -159,12 +160,12 @@ public class GameStage extends AbstractStage implements ContactListener {
   public void togglePause() {
     super.togglePause();
     if(isPaused()){
-      bagVis = new BagVis();
-      bagVis.setPosition(getCamera().position.x,getCamera().position.y);
-      ui.addActor(bagVis);
+      bagVis = BagVis.getInstance();
+      //bagVis.setPosition(getCamera().position.x,getCamera().position.y);
+      bagVis.show();
     }
     else{
-      bagVis.remove();
+      bagVis.hide();
     }
   }
 

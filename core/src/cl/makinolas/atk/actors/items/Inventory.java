@@ -116,4 +116,12 @@ public class Inventory{
         return items.values();
     }
 
+    public void selectItem1(String itemName) {
+        selItem1 = items.get(itemName);
+    }
+
+    public void selectItem2(String itemName) {
+        selItem2 = items.get(itemName);
+    }
+
 }

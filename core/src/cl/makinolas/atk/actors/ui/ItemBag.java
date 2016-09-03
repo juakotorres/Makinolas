@@ -18,10 +18,16 @@ public class ItemBag extends Actor {
 
     public ItemBag(TextureRegion reg, String nm, int quant, float x, float y, boolean sel){
         icon = reg;
+        setBounds(0,0,120,48);
         setPosition(x,y);
-        selected = true;
+        selected = sel;
         name = nm;
         quantity = quant;
+    }
+
+    @Override
+    public String getName() {
+        return name;
     }
 
     public void setSelected(boolean sel){
@@ -36,8 +42,8 @@ public class ItemBag extends Actor {
             batch.draw(selReg,cx,cy);
         else
             batch.draw(normalReg,cx,cy);
-        batch.draw(icon,cx+8,cy+8);
-        font.draw(batch,name,cx+44,cy+34);
+        batch.draw(icon,cx+4,cy+8);
+        font.draw(batch,name,cx+40,cy+34);
         font.draw(batch,"In Bag: "+quantity,cx+40,cy+20);
     }
 }
