@@ -23,8 +23,9 @@ public class Inventory{
             money = SaveManager.getInstance().getSaveInstance().money;
         }
         else {
-            addItem(new Potion());
-            addItem(new Ball.MasterBall(), 4);
+            addItem(new Potion(), 2);
+            addItem(new Ball.PokeBall(), 4);
+            addItem(new LeppaBerry(), 2);
             money = 0;
         }
     }
