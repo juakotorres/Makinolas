@@ -24,7 +24,6 @@ public abstract class SimpleScreen implements Screen {
     @Override
     public void render(float delta) {
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
-        Gdx.gl.glClearColor(0.13f,0.48f,0.19f,1);
         stage.act(delta);
         stage.draw();
     }

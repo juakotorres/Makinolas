@@ -1,5 +1,6 @@
 package cl.makinolas.atk.actors;
 
+import cl.makinolas.atk.actors.ui.BagVis;
 import cl.makinolas.atk.actors.ui.MobileGroup;
 import cl.makinolas.atk.actors.ui.MobileKeyListener;
 import cl.makinolas.atk.stages.AbstractStage;
@@ -63,6 +64,9 @@ public class InputController extends InputListener implements MobileKeyListener{
             switch (keycode) {
                 case Input.Keys.P:
                     ((AbstractStage) hero.getStage()).togglePause();
+                    break;
+                default:
+                    BagVis.getInstance().handleKey(keycode);
                     break;
             }
         }

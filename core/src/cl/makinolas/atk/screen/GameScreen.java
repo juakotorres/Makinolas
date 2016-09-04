@@ -56,7 +56,8 @@ public class GameScreen implements Screen{
   }
 
   public void setStage(Stage nextStage) {
-    stage = nextStage;    
+    stage = nextStage;
+    Gdx.input.setInputProcessor(stage);
   }
   
 }

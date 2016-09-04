@@ -3,7 +3,10 @@ package cl.makinolas.atk.actors.items;
 import cl.makinolas.atk.actors.Hero;
 import cl.makinolas.atk.utils.SaveManager;
 
+import java.util.ArrayList;
+import java.util.Collection;
 import java.util.HashMap;
+import java.util.List;
 
 public class Inventory{
 
@@ -20,8 +23,9 @@ public class Inventory{
             money = SaveManager.getInstance().getSaveInstance().money;
         }
         else {
-            addItem(new Potion());
-            addItem(new Ball.MasterBall(), 4);
+            addItem(new Potion(), 2);
+            addItem(new Ball.PokeBall(), 4);
+            addItem(new LeppaBerry(), 2);
             money = 0;
         }
     }
@@ -107,6 +111,18 @@ public class Inventory{
         ItemBox box = items.get(itemname);
         if(box==null) return 0;
         return box.getQuantity();
+    }
+
+    public Collection<ItemBox> getItems(){
+        return items.values();
+    }
+
+    public void selectItem1(String itemName) {
+        selItem1 = items.get(itemName);
+    }
+
+    public void selectItem2(String itemName) {
+        selItem2 = items.get(itemName);
     }
 
 }

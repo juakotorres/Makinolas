@@ -11,6 +11,7 @@ import cl.makinolas.atk.actors.ui.ShopItem;
 import cl.makinolas.atk.utils.SaveManager;
 import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.Matrix4;
@@ -31,7 +32,7 @@ public class ShopScreen extends SimpleScreen{
     private TextureRegion[] sps = {Ball.BallType.POKEBALL.texture, Ball.BallType.GREATBALL.texture,
             Ball.BallType.ULTRABALL.texture, Item.textures[1][0],Item.textures[1][3]};
     private int itemSel = -1;
-    private BitmapFont font = new BitmapFont(Gdx.files.internal("Fonts/normal.fnt"),Gdx.files.internal("Fonts/normal.png"),false);
+    private BitmapFont large = new BitmapFont(Gdx.files.internal("Fonts/large.fnt"),Gdx.files.internal("Fonts/large.png"),false);
     private Label currentItem, currentMoney;
 
     public ShopScreen(Game g) {
@@ -73,10 +74,6 @@ public class ShopScreen extends SimpleScreen{
         currentMoney = new Label("$"+Hero.getInstance().getInventory().getMoney(),uskin);
         currentMoney.setPosition(280,20);
         stage.addActor(currentMoney);
-        Label title = new Label("SHOP",uskin);
-        title.setFontScale(1.5f);
-        title.setPosition(300,440);
-        stage.addActor(title);
     }
 
     private void exitShop() {
@@ -114,4 +111,12 @@ public class ShopScreen extends SimpleScreen{
         }
     }
 
+    @Override
+    public void render(float delta) {
+        super.render(delta);
+        Batch batch = stage.getBatch();
+        batch.begin();
+        large.draw(batch,"SHOP",298,460);
+        batch.end();
+    }
 }
