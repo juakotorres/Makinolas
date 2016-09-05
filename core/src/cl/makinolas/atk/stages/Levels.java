@@ -6,8 +6,6 @@ public enum Levels {
   LEVEL2("level2", false, 28, 16),
   LEVEL3("level3", false, 26, 16),
   BOSSLEVEL1("bossstage1", true, 24, 16);
-
-
   
   public String levelName;
   public boolean bossLevel;
