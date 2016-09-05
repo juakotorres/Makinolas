@@ -58,8 +58,7 @@ public class MenuScreen extends SimpleScreen {
   }
 
   protected void loadMap(){
-    MapScreen mapScreen = new MapScreen(myGame);
-    mapScreen.setStage(new MapStage(new FitViewport(640, 480)));
+    MapScreen mapScreen = new MapScreen(myGame,new MapStage(new FitViewport(640, 480)));
     myGame.setScreen(mapScreen);
   }
 

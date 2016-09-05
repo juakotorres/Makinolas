@@ -7,17 +7,18 @@ import cl.makinolas.atk.actors.Traveler;
 import cl.makinolas.atk.actors.ui.MobileGroup;
 import com.badlogic.gdx.Application;
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.Input;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.utils.viewport.Viewport;
+
+import java.util.ArrayList;
 
 public class MapStage extends Stage {
 
     private Traveler traveler = new Traveler();
 
-    private Level actualLevel;
-    private Level level1 = new Level("level1", 505,370);
-    private Level level2 = new Level("level2", 505, 300, level1);
-    private Level level3 = new Level("level3", 450, 300, level2);
+    private Levels[] levels;
+    private int current = 0;
 
     public MapStage(Viewport v) {
         super(v);
@@ -25,32 +26,59 @@ public class MapStage extends Stage {
         //Adding the actors to the stage (currently just the background, the traveler and the levels)
         addActor(new Background("Background/mapa.png", getCamera()));
         addActor(traveler);
-        addActor(level1);
-        addActor(level2);
-        addActor(level3);
+
+        buildLevels();
+
+        // Add floors
 
         //Input configurations
         addListener(new MapInputController(this, new MobileGroup(Gdx.app.getType() == Application.ApplicationType.Android)));
         Gdx.input.setInputProcessor(this);
 
-        //Level configuration
-        actualLevel = level1;
+        current = 0;
 
         //The initial position of the traveler
-        traveler.setPosition(505,370);
+        moveToLevel(current);
     }
 
-    public void setLevel(Level level){actualLevel = level;}
+    private void moveToLevel(int c) {
+        current = c;
+        traveler.setPosition(levels[c].mapx*20, levels[c].mapy*20);
+    }
 
-    public Level getActualLevel(){return actualLevel;}
+    private void buildLevels() {
+        levels = Levels.values();
+    }
+
+    //public int getCurrentLevel(){return current;}
 
     public void nextLevel(){
-        actualLevel = actualLevel.getAfter();
-        traveler.setPosition(actualLevel.getX(), actualLevel.getY());
+        moveToLevel(current+1);
     }
 
-    public void lastLevel(){
-        actualLevel = actualLevel.getBefore();
-        traveler.setPosition(actualLevel.getX(), actualLevel.getY());
+    public void prevLevel(){
+        moveToLevel(current-1);
     }
+
+    public void handleKey(int keycode){
+        int keynext = -1;
+        int keyprev = -1;
+        if(current > 0){
+            if(levels[current].mapx > levels[current-1].mapx) keyprev = Input.Keys.LEFT;
+            else if(levels[current].mapx < levels[current-1].mapx) keyprev = Input.Keys.RIGHT;
+            else if(levels[current].mapy < levels[current-1].mapy) keyprev = Input.Keys.UP;
+            else if(levels[current].mapy > levels[current-1].mapy) keyprev = Input.Keys.DOWN;
+        }
+        if(current < levels.length-1){
+            if(levels[current].mapx > levels[current+1].mapx) keynext = Input.Keys.LEFT;
+            else if(levels[current].mapx < levels[current+1].mapx) keynext = Input.Keys.RIGHT;
+            else if(levels[current].mapy < levels[current+1].mapy) keynext = Input.Keys.UP;
+            else if(levels[current].mapy > levels[current+1].mapy) keynext = Input.Keys.DOWN;
+        }
+        if(keycode == keyprev)
+            prevLevel();
+        else if(keycode == keynext)
+            nextLevel();
+    }
+
 }

@@ -126,8 +126,7 @@ public class ChooseStage extends AbstractStage {
     Hero.getInstance().reset();
     MainBar.getInstance().reset();
 
-    MapScreen mapScreen = new MapScreen(myGame);
-    mapScreen.setStage(new MapStage(new FitViewport(640, 480)));
+    MapScreen mapScreen = new MapScreen(myGame,new MapStage(new FitViewport(640, 480)));
     myGame.setScreen(mapScreen);
   }
   

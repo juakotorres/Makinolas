@@ -6,9 +6,6 @@ import cl.makinolas.atk.stages.MapStage;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.InputListener;
 
-/**
- * Created by nbravo on 06-07-16.
- */
 public class MapInputController extends InputListener implements MobileKeyListener{
     
     private MapStage myMap;
@@ -20,10 +17,7 @@ public class MapInputController extends InputListener implements MobileKeyListen
 
     @Override
     public boolean keyDown(InputEvent event, int keycode) {
-        if (myMap.getActualLevel().canGoForward(keycode))
-            myMap.nextLevel();
-        else if (myMap.getActualLevel().canGoBackward(keycode))
-            myMap.lastLevel();
+        myMap.handleKey(keycode);
         return true;
     }
 

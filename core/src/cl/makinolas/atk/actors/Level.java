@@ -3,9 +3,6 @@ package cl.makinolas.atk.actors;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 
-/**
- * Created by nbravo on 11-07-16.
- */
 public class Level extends Actor{
 
     private String myName;
