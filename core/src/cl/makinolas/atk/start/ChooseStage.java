@@ -1,5 +1,7 @@
 package cl.makinolas.atk.start;
 
+import cl.makinolas.atk.screen.MapScreen;
+import cl.makinolas.atk.stages.MapStage;
 import com.badlogic.gdx.Application;
 import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
@@ -123,10 +125,10 @@ public class ChooseStage extends AbstractStage {
     SaveManager.getInstance().startGameSave(friend);
     Hero.getInstance().reset();
     MainBar.getInstance().reset();
-      
-    GameScreen gameScreen = new GameScreen(myGame);
-    gameScreen.setStage(new GameStage(new FitViewport(640,480), gameScreen, myGame, Levels.LEVEL1));
-    myGame.setScreen(gameScreen);
+
+    MapScreen mapScreen = new MapScreen(myGame);
+    mapScreen.setStage(new MapStage(new FitViewport(640, 480)));
+    myGame.setScreen(mapScreen);
   }
   
   @Override

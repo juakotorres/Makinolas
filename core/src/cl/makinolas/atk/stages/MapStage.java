@@ -7,12 +7,10 @@ import cl.makinolas.atk.actors.Traveler;
 import cl.makinolas.atk.actors.ui.MobileGroup;
 import com.badlogic.gdx.Application;
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.utils.viewport.Viewport;
 
-/**
- * Created by nbravo on 05-07-16.
- */
-public class MapStage extends AbstractStage {
+public class MapStage extends Stage {
 
     private Traveler traveler = new Traveler();
 
