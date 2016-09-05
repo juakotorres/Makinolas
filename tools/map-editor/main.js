@@ -39,6 +39,8 @@ var MainController = function($scope){
                      {"name":"SGR",img:"SnowWithoutGrassRounded.png"}
                      ];
 
+    self.modifiers = ["Stay","Normal","Stay and Shot","Fly wave and drop","Jumper","Follower","Fly Melee","Melee"];
+
     self.platforms.sort(function(a,b){return a.name.localeCompare(b.name)});
 
     self.pokemons = [
@@ -64,13 +66,16 @@ var MainController = function($scope){
     self.selName = "BL";
     self.levelName = "level1"
     self.uniqueTool = false;
+    self.modifierTool = false;
     self.deleteTool = false;
     self.startX = 0;
     self.startY = 0;
 
-    self.setSel = function(nm, unq){
+    self.setSel = function(nm, unq, mod){
         self.selName = nm;
         self.uniqueTool = unq;
+        if(mod == null) mod = false;
+        self.modifierTool = mod;
         self.deleteTool = false;
     };
 
@@ -80,6 +85,7 @@ var MainController = function($scope){
 
     self.cv = document.getElementById("canvas");
     self.ctx = self.cv.getContext("2d");
+    self.ctx.font = "10px Arial";
 
     self.drawBaseLines = function(){
         self.ctx.beginPath();
@@ -106,7 +112,13 @@ var MainController = function($scope){
         }
         else if(self.uniqueTool){
             self.ctx.drawImage(document.getElementById("im-"+self.selName),x*35,y*35);
-            self.map[""+x+","+(20-y)] = self.selName;
+            self.map[""+x+","+(20-y)] = self.selName+",0";
+        }
+        else if(self.modifierTool){
+            if(self.map[""+x+","+(20-y)] != null){
+                self.map[""+x+","+(20-y)] =  self.map[""+x+","+(20-y)].split(",")[0]+","+self.selName;
+                self.ctx.fillText(self.selName,x*35,y*35+10);
+            }
         }
         else{
             self.startX = x;
@@ -115,7 +127,7 @@ var MainController = function($scope){
     };
 
     self.cv.onmouseup = function(event){
-        if(!self.uniqueTool && !self.deleteTool){
+        if(!self.uniqueTool && !self.deleteTool && !self.modifierTool){
             var lastX = ~~(event.layerX/35);
             var lastY = ~~(event.layerY/35);
             var tag = ""+Math.min(self.startX,lastX)+","+Math.min(20-self.startY,20-lastY)+","+
@@ -132,8 +144,10 @@ var MainController = function($scope){
     self.downloadLevel = function(){
         var builder = "#ATK Map Editor\n";
         for(var coords in self.map){
-            if(self.map[coords]!=null)
-                builder += self.map[coords]+","+coords+"\n";
+            if(self.map[coords]!=null){
+                var comps = self.map[coords].split(",");
+                builder += comps[0]+","+coords+","+comps[1]+"\n";
+            }
         }
         download(self.levelName+".lvl",builder);
     };
