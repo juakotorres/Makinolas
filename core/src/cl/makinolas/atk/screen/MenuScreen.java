@@ -1,5 +1,6 @@
 package cl.makinolas.atk.screen;
 
+import cl.makinolas.atk.stages.MapStage;
 import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
@@ -24,7 +25,9 @@ public class MenuScreen extends SimpleScreen {
     startButton.addListener(new ClickListener(){
         @Override
         public void clicked(InputEvent event, float x, float y) {
-            startGame();
+          MapScreen mapScreen = new MapScreen(myGame);
+          mapScreen.setStage(new MapStage(new FitViewport(640, 480)));
+          myGame.setScreen(mapScreen);
         }
     });
     
