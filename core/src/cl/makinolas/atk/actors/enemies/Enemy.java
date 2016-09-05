@@ -172,7 +172,7 @@ public class Enemy extends Monsters {
 
   @Override
   public void interact(GameActor actor2, WorldManifold worldManifold) {
-    actor2.interactWithEnemy(this);
+    actor2.interactWithEnemy(this, worldManifold);
   }
   
   @Override
@@ -231,7 +231,7 @@ public class Enemy extends Monsters {
   }
   
   @Override
-  public void interactWithEnemy(Enemy enemy) {
+  public void interactWithEnemy(Enemy enemy, WorldManifold worldManifold) {
     this.flip();
     enemy.flip();
   }
@@ -244,6 +244,14 @@ public class Enemy extends Monsters {
   @Override
   public boolean isEnemy(){
     return true;
+  }
+
+  public void jump() {
+    
+  }
+
+  public void landedPlatform(WorldManifold worldManifold, Platform platform) {
+    
   }
   
 

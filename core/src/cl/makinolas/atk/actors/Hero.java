@@ -374,7 +374,7 @@ public class Hero extends Monsters {
   }
   
   @Override
-  public void interactWithEnemy(Enemy enemy){
+  public void interactWithEnemy(Enemy enemy, WorldManifold worldManifold){
     interactWithMonster( enemy);
     enemy.interactWithHero2(this);
   }

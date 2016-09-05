@@ -6,9 +6,10 @@ import cl.makinolas.atk.actors.AnimatedActor;
 import cl.makinolas.atk.actors.GameActor;
 import cl.makinolas.atk.actors.Hero;
 import cl.makinolas.atk.actors.Monsters;
-import cl.makinolas.atk.actors.platform.Platform;
 import cl.makinolas.atk.actors.bosses.IBoss;
+import cl.makinolas.atk.actors.enemies.AttackDetector;
 import cl.makinolas.atk.actors.enemies.Enemy;
+import cl.makinolas.atk.actors.platform.Platform;
 
 public abstract class Attacks extends AnimatedActor {
 	protected float xVelocity;
@@ -37,13 +38,18 @@ public abstract class Attacks extends AnimatedActor {
   }
   
   @Override
-  public void interactWithEnemy(Enemy enemy){
+  public void interactWithEnemy(Enemy enemy, WorldManifold worldManifold){
     enemy.damage(enemy.getAttackDamage(this), this);
   }
   
   @Override
   public void interactWithBoss(IBoss boss){
     boss.getBoss().damage(boss.getBoss().getAttackDamage(this), this);
+  }
+  
+  @Override
+  public void interactWithAttackDetector(AttackDetector attackDetector){
+    attackDetector.detected(this);
   }
   
   @Override

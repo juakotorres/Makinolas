@@ -3,7 +3,6 @@ package cl.makinolas.atk.actors.enemies;
 import java.util.Observable;
 import java.util.Observer;
 
-import cl.makinolas.atk.actors.GameActor;
 import cl.makinolas.atk.stages.AbstractStage;
 import cl.makinolas.atk.stages.CameraPosition;
 
@@ -14,9 +13,10 @@ public class EnemyCreator implements Observer{
   private int positionY;
   private AbstractStage stage;
   private boolean firstSpawn;
-  private String enemyThinker;
+  private int enemyThinker;
+  private Enemy actualEnemy;
   
-  public EnemyCreator(AbstractStage stage, String enemy, int positionX, int positionY, String enemyThinker) {
+  public EnemyCreator(AbstractStage stage, String enemy, int positionX, int positionY, int enemyThinker) {
     stage.cameraObserver.addObserver(this);
     this.stage = stage;
     enemyType = enemy;
@@ -35,14 +35,22 @@ public class EnemyCreator implements Observer{
     }    
   }
 
-  private GameActor chooseEnemyThinker() {
+  private Enemy chooseEnemyThinker() {
     switch(enemyThinker){
-      case "StayAndShoot":
-        return MonsterFactory.getInstance().giveStayAndShootEnemy(enemyType, 5, (int) (positionX * 1.8f), (int) (positionY * 2f));
-      case "FlyWaveAndDrop":
-        return MonsterFactory.getInstance().giveFlyWaveAndDropEnemy(enemyType, 5, (int) (positionX * 1.8f), (int) (positionY * 2f));
+      case 2:
+        actualEnemy = MonsterFactory.getInstance().giveStayAndShootEnemy(enemyType, 5, (int) (positionX * 1.8f), (int) (positionY * 2f));  
+        break;
+      case 3:
+        actualEnemy = MonsterFactory.getInstance().giveFlyWaveAndDropEnemy(enemyType, 5, (int) (positionX * 1.8f), (int) (positionY * 2f));
+        break;
+      case 4:
+        actualEnemy =  MonsterFactory.getInstance().giveJumperEnemy(enemyType, 5, (int) (positionX * 1.8f), (int) (positionY * 2f));
+        ((JumperEnemy) actualEnemy).initDetector(stage);
+        break;
       default:
-        return MonsterFactory.getInstance().giveClassicEnemy(enemyType, 5, (int) (positionX * 1.8f), (int) (positionY * 2f));
+        actualEnemy = MonsterFactory.getInstance().giveClassicEnemy(enemyType, 5, (int) (positionX * 1.8f), (int) (positionY * 2f));
+        break;
     }
+    return actualEnemy;
   } 
 }

@@ -63,7 +63,7 @@ public class LevelReader {
                     heroPos = new Vector2(Integer.parseInt(comps[1])*1.8f,Integer.parseInt(comps[2])*1.8f);
                     break;
                 case "%E":
-                    new EnemyCreator(gameStage, comps[1], Integer.parseInt(comps[2]),Integer.parseInt(comps[3]), comps[4]);
+                    new EnemyCreator(gameStage, comps[1], Integer.parseInt(comps[2]),Integer.parseInt(comps[3]), Integer.parseInt(comps[4]));
                     break;
                 default:
                     if(comps[0].length()<=3)

@@ -1,13 +1,19 @@
 package cl.makinolas.atk.actors.platform;
 
+import com.badlogic.gdx.graphics.g2d.Batch;
+import com.badlogic.gdx.graphics.g2d.TextureRegion;
+import com.badlogic.gdx.math.Vector2;
+import com.badlogic.gdx.physics.box2d.Body;
+import com.badlogic.gdx.physics.box2d.BodyDef;
+import com.badlogic.gdx.physics.box2d.PolygonShape;
+import com.badlogic.gdx.physics.box2d.World;
+import com.badlogic.gdx.physics.box2d.WorldManifold;
+
 import cl.makinolas.atk.GameConstants;
 import cl.makinolas.atk.actors.GameActor;
 import cl.makinolas.atk.actors.Hero;
 import cl.makinolas.atk.actors.attacks.Attacks;
-import com.badlogic.gdx.graphics.g2d.Batch;
-import com.badlogic.gdx.graphics.g2d.TextureRegion;
-import com.badlogic.gdx.math.Vector2;
-import com.badlogic.gdx.physics.box2d.*;
+import cl.makinolas.atk.actors.enemies.Enemy;
 
 public class Platform extends GameActor {
   
@@ -85,5 +91,10 @@ public class Platform extends GameActor {
   @Override
   public void interactWithAttack(Attacks attack, WorldManifold worldManifold){
     attack.interactWithPlatform(this, worldManifold);
+  }
+  
+  @Override
+  public void interactWithEnemy(Enemy enemy, WorldManifold worldManifold){
+    enemy.landedPlatform(worldManifold, this);
   }
 }
