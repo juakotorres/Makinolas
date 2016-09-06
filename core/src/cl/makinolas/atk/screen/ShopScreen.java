@@ -77,7 +77,7 @@ public class ShopScreen extends SimpleScreen{
     }
 
     private void exitShop() {
-        myGame.setScreen(new MenuScreen(myGame));
+        myGame.setScreen(new MapScreen(myGame));
     }
 
     private void createShopItems() {

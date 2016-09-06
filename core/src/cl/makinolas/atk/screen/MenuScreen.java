@@ -28,7 +28,7 @@ public class MenuScreen extends SimpleScreen {
           startGame();
         }
     });
-    
+    /*
     TextButton shopButton = new TextButton("Enter Shop",  new Skin(Gdx.files.internal("Data/uiskin.json")));
     shopButton.addListener(new ClickListener(){
       @Override
@@ -36,7 +36,7 @@ public class MenuScreen extends SimpleScreen {
         enterShop();
       }
     });
-    
+    */
     TextButton loadButton = new TextButton("Load Game",  new Skin(Gdx.files.internal("Data/uiskin.json")));
     loadButton.addListener(new ClickListener(){
       @Override
@@ -45,15 +45,13 @@ public class MenuScreen extends SimpleScreen {
       }
     });
     TextButton optionButton = new TextButton("Options",  new Skin(Gdx.files.internal("Data/uiskin.json")));
-    optionButton.setWidth(shopButton.getWidth());
-    startButton.setWidth(shopButton.getWidth());
+    optionButton.setWidth(startButton.getWidth());
+    loadButton.setWidth(startButton.getWidth());
 
     loadButton.setPosition(280, 200);
-    shopButton.setPosition(280, 160);
-    optionButton.setPosition(280, 120);
+    optionButton.setPosition(280, 160);
     stage.addActor(startButton);
     stage.addActor(loadButton);
-    stage.addActor(shopButton);    
     stage.addActor(optionButton);
   }
 
@@ -75,10 +73,6 @@ public class MenuScreen extends SimpleScreen {
     // go to begin story
     gameScreen.setStage(new StartingJourneyStage(new FitViewport(640,480), gameScreen, myGame));
     myGame.setScreen(gameScreen);
-  }
-
-  private void enterShop() {
-    myGame.setScreen(new ShopScreen(myGame));
   }
 
   @Override

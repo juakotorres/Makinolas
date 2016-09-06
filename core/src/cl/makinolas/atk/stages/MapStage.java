@@ -4,11 +4,16 @@ import cl.makinolas.atk.actors.*;
 import cl.makinolas.atk.actors.ui.MapStageActor;
 import cl.makinolas.atk.actors.ui.MobileGroup;
 import cl.makinolas.atk.screen.GameScreen;
+import cl.makinolas.atk.screen.ShopScreen;
 import com.badlogic.gdx.Application;
 import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
+import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.Stage;
+import com.badlogic.gdx.scenes.scene2d.ui.Skin;
+import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
+import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.utils.viewport.FitViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
 
@@ -47,6 +52,16 @@ public class MapStage extends Stage {
 
         current = 0;
 
+        TextButton shopButton = new TextButton("Enter Shop",  new Skin(Gdx.files.internal("Data/uiskin.json")));
+        shopButton.addListener(new ClickListener(){
+            @Override
+            public void clicked(InputEvent event, float x, float y) {
+                enterShop();
+            }
+        });
+        shopButton.setPosition(20,20);
+        addActor(shopButton);
+
         //The initial position of the traveler
         moveToLevel(current);
     }
@@ -75,6 +90,10 @@ public class MapStage extends Stage {
             startLevel();
             return;
         }
+        else if(keycode == Input.Keys.X){
+            enterShop();
+            return;
+        }
         int keynext = -1;
         int keyprev = -1;
         if(current > 0){
@@ -95,9 +114,16 @@ public class MapStage extends Stage {
             nextLevel();
     }
 
+    private void enterShop() {
+        myGame.setScreen(new ShopScreen(myGame));
+    }
+
     public void startLevel(){
         GameScreen gameScreen = new GameScreen(myGame);
-        gameScreen.setStage(new GameStage(new FitViewport(640,480), gameScreen, myGame, levels[current]));
+        if(!levels[current].bossLevel)
+            gameScreen.setStage(new GameStage(new FitViewport(640,480), gameScreen, myGame, levels[current]));
+        else
+            gameScreen.setStage(new BossStage(new FitViewport(640,480), gameScreen, myGame, levels[current]));
         myGame.setScreen(gameScreen);
     }
 
