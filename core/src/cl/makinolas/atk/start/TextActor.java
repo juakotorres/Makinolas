@@ -29,7 +29,7 @@ public class TextActor extends Actor {
   
   
   public TextActor(String paragraph) {
-    // 60 caracteres cada línea.
+    // 60 caracteres cada linea
     
     this.holeText = paragraph;
     

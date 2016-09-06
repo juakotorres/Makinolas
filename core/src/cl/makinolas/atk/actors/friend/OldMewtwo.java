@@ -9,7 +9,7 @@ import cl.makinolas.atk.actors.Hero;
 import cl.makinolas.atk.actors.Monsters;
 import cl.makinolas.atk.actors.attacks.Attacks;
 import cl.makinolas.atk.actors.attacks.BlueBeam;
-// En un futuro debería extender de otra clase.
+//
 public class OldMewtwo extends AbstractFriend {
   
  private TextureRegion[][] faces;

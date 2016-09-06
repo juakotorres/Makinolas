@@ -1,6 +1,10 @@
 package cl.makinolas.atk.actors;
 
+import cl.makinolas.atk.screen.GameScreen;
+import cl.makinolas.atk.screen.MapScreen;
+import cl.makinolas.atk.stages.*;
 import cl.makinolas.atk.utils.Formulas;
+import com.badlogic.gdx.Game;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.Body;
 import com.badlogic.gdx.physics.box2d.BodyDef;
@@ -23,8 +27,8 @@ import cl.makinolas.atk.actors.items.BallActor;
 import cl.makinolas.atk.actors.items.Inventory;
 import cl.makinolas.atk.actors.platform.Platform;
 import cl.makinolas.atk.actors.ui.MainBar;
-import cl.makinolas.atk.stages.AbstractStage;
 import cl.makinolas.atk.utils.SaveManager;
+import com.badlogic.gdx.utils.viewport.FitViewport;
 
 
 public class Hero extends Monsters {
@@ -56,6 +60,7 @@ public class Hero extends Monsters {
   private int vx;
   private boolean inertia;
   private boolean hasEvolved;
+  private int maxLevelUnlocked = 1;
 
   private Hero() {
 
@@ -98,6 +103,7 @@ public class Hero extends Monsters {
     SaveManager.getInstance().loadData("ATK.sav");
     if(SaveManager.getInstance().hasSaveInstance()){
       FriendDescriptor[] friends = SaveManager.getInstance().getSaveInstance().friends;
+      maxLevelUnlocked = Math.max(SaveManager.getInstance().getSaveInstance().maxLevel,1);
       if(friends.length == 0){
         addAllie(MonsterFactory.getInstance().getHeroFriend("Kakuna", 6));
       } else {
@@ -385,7 +391,7 @@ public class Hero extends Monsters {
   
   @Override
   public void interactWithPortal(Portal portal){
-    portal.nextStage();
+    portal.completeStage();
   }
 
   @Override
@@ -526,4 +532,25 @@ public class Hero extends Monsters {
   public boolean hasBody() {
     return myBody != null;
   }
+
+  public void completeStage(Game myGame){
+    AbstractStage myStage = ((AbstractStage) getStage());
+    Levels actualLevel = myStage.getLevel();
+
+    int numberOfLevel = actualLevel.ordinal() + 2;
+    if(maxLevelUnlocked < numberOfLevel)
+      maxLevelUnlocked = numberOfLevel;
+
+    SaveManager.getInstance().saveState();
+
+    vx = 0;
+
+    MapScreen mapScreen = new MapScreen(myGame,new MapStage(new FitViewport(640, 480),myGame));
+    myGame.setScreen(mapScreen);
+  }
+
+  public int getMaxLevelUnlocked() {
+    return maxLevelUnlocked;
+  }
+
 }
