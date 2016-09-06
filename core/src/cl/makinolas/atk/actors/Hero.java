@@ -56,10 +56,15 @@ public class Hero extends Monsters {
   private int vx;
   private boolean inertia;
   private boolean hasEvolved;
+  private boolean isJumping2;
+  private boolean onAir;
+  private int jumpSpeed;
 
   private Hero() {
 
     isJumping = false;
+    isJumping2 = false;
+    onAir = false;
     isFacingRight = false;
     isDamaged = false;
     isAttacking = false;
@@ -92,6 +97,8 @@ public class Hero extends Monsters {
     // Guardar animaciones del jugador
     setAnimation();
     changeAnimation(walkAnimation);
+    myBodyDefinition.fixedRotation=true;
+    
   }
   
   private void loadFriends() {
@@ -145,7 +152,6 @@ public class Hero extends Monsters {
   @Override
   public void act(float delta){
     checkChangingAllie();
-    myBody.setLinearVelocity(vx, myBody.getLinearVelocity().y);
     
     ((AbstractStage) getStage()).changeCamera(myBody.getPosition().x , myBody.getPosition().y );
     
@@ -154,6 +160,19 @@ public class Hero extends Monsters {
     checkEvolution();
     checkAccumulatingJump();
     giveMagic();
+    
+    if (isJumping && jumpAccumulator<9 && !isJumping2 ) {
+    	jumpAccumulator++;
+    }
+    if (isJumping && jumpAccumulator>=9 && !isJumping2){
+        myBody.setLinearVelocity(vx, myBody.getLinearVelocity().y+2);
+    	isJumping2=true;
+    	jumpAccumulator=0;
+    	jumpSpeed=0;
+    }
+    
+    
+    myBody.setLinearVelocity(vx, myBody.getLinearVelocity().y+jumpSpeed);
     
   }
   
@@ -258,6 +277,7 @@ public class Hero extends Monsters {
     for(int i = 0; i < worldManifold.getNumberOfContactPoints(); i++){
       if(worldManifold.getPoints()[i].y < myBody.getPosition().y && (worldManifold.getNormal().y > 0.95 || worldManifold.getNormal().y < -0.95)){
         isJumping = false;
+        isJumping2 = false;
       }
     }
   }
@@ -414,18 +434,30 @@ public class Hero extends Monsters {
 
   public void jump(int button) {
     jumpButton = button;
-    if(!isJumping){
-      isAccumulatingJump = true;
+    
+    if (!isJumping ) {
+    	isJumping = true;
+    	jumpSpeed=2;
+    	//myBody.setLinearVelocity(0, 10);
+    	onAir = true;
+    	jumpAccumulator=0;
     }
+    
+   
   }
   
   public void isNotPressingSpace() {
-    if(!isJumping && jumpButton == 1){
+	  isJumping2 = true;
+	  jumpSpeed = 0;
+	  jumpAccumulator = 0;
+    /*if(!isJumping && jumpButton == 1){
       myBody.applyLinearImpulse(0, getImpulse(jumpAccumulator), myBody.getPosition().x, myBody.getPosition().y, true);
       isJumping = true;
       jumpAccumulator = 3;
       isAccumulatingJump = false;
-    }
+    }*/
+    
+
   }
   
   public void isNotPressingUp() {
@@ -438,7 +470,7 @@ public class Hero extends Monsters {
   }
 
   private void increaseJumpAccumulator() {
-    if(jumpAccumulator < 12){
+    if(jumpAccumulator < 15){
       jumpAccumulator += 1;
     }    
   }
