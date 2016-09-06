@@ -10,6 +10,6 @@ public class SaveInstance {
 
     public FriendDescriptor[] friends;
     public ItemDescriptor[] items;
-    public int money;
+    public int money, maxLevel;
 
 }

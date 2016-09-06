@@ -14,15 +14,17 @@ public class MapStageActor extends Actor {
     private TextureRegion floorlock = new TextureRegion(new Texture("Overlays/mapstagelock.png"));
     private boolean locked;
 
-    public MapStageActor(final int lvl, boolean lck, final MapStage master, int x, int y){
+    public MapStageActor(final int lvl, final boolean lck, final MapStage master, int x, int y){
         locked = lck;
         addListener(new InputListener(){
             @Override
             public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
-                master.moveToLevel(lvl);
+                if(!lck)
+                    master.moveToLevel(lvl);
                 return true;
             }
         });
+        setBounds(0,0,32,32);
         setPosition(20*x,20*y-4);
     }
 

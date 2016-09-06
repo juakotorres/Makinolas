@@ -75,32 +75,11 @@ public class Portal extends AnimatedActor{
   
   @Override
   public void interactWithHero(Hero hero, WorldManifold worldManifold){
-    nextStage();
+    completeStage();
   }
 
-  public void nextStage(){
-    AbstractStage myStage = ((AbstractStage) getStage());
-    Levels actualLevel = myStage.getLevel();
-    GameScreen gameScreen = new GameScreen(myGame);
-    
-    int numberOfLevel = actualLevel.ordinal() + 1;
-   
-    if(numberOfLevel > Levels.values().length - 1){
-      myStage.changeDeadMenu();
-      return;
-    }
-    
-    Levels nextLevel = Levels.values()[numberOfLevel];
-       
-    if(nextLevel.bossLevel){
-      gameScreen.setStage(new BossStage(new FitViewport(640,480), gameScreen, myGame, nextLevel));
-    } else {
-      gameScreen.setStage(new GameStage(new FitViewport(640,480), gameScreen, myGame, nextLevel));
-    }
-    
-    myGame.setScreen(gameScreen);
+
+  public void completeStage() {
+    Hero.getInstance().completeStage(myGame);
   }
-  
-  
-  
 }

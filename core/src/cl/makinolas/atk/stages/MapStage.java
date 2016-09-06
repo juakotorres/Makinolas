@@ -1,9 +1,6 @@
 package cl.makinolas.atk.stages;
 
-import cl.makinolas.atk.actors.Background;
-import cl.makinolas.atk.actors.Level;
-import cl.makinolas.atk.actors.MapInputController;
-import cl.makinolas.atk.actors.Traveler;
+import cl.makinolas.atk.actors.*;
 import cl.makinolas.atk.actors.ui.MapStageActor;
 import cl.makinolas.atk.actors.ui.MobileGroup;
 import cl.makinolas.atk.screen.GameScreen;
@@ -33,6 +30,7 @@ public class MapStage extends Stage {
         //Adding the actors to the stage (currently just the background, the traveler and the levels)
         addActor(new Background("Background/mapa.png", getCamera()));
 
+        maxAllowed = Hero.getInstance().getMaxLevelUnlocked();
         buildLevels();
 
         // Add floors

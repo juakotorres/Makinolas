@@ -66,6 +66,7 @@ public class SaveManager {
         save.friends = hero.saveMyFriends();
         save.items = hero.getInventory().createDescriptors();
         save.money = hero.getInventory().getMoney();
+        save.maxLevel = hero.getMaxLevelUnlocked();
         SaveManager.getInstance().saveData(save,"ATK.sav");
     }
 }
