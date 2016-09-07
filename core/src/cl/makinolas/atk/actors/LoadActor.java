@@ -22,7 +22,7 @@ public class LoadActor extends Actor {
   private int xPosition;
   private int yPosition;
   private String fileName;
-  private String myName;
+  private String trainerName;
   private String[] myFriends;
   private BitmapFont font;
   private ShapeRenderer renderer;
@@ -41,7 +41,6 @@ public class LoadActor extends Actor {
     
     this.myStage = stage;
     this.fileName = fileName;
-    this.myName = saveName;
     this.xPosition = xPosition;
     this.yPosition = yPosition;
     
@@ -51,9 +50,14 @@ public class LoadActor extends Actor {
       for(int i = 0;  i < myFriends.length ; i++){
           myFriends[i] = herosFriends[i].name;
       }
+      trainerName = SaveManager.getInstance().getSaveInstance().name;
+      if(SaveManager.getInstance().getSaveInstance().sex){
+        typeImage = new TextureRegion(new Texture(Gdx.files.internal("CharacterImages/hombre.png")));
+      } else {
+        typeImage = new TextureRegion(new Texture(Gdx.files.internal("CharacterImages/mujer.png")));
+      }
     }
     font = new BitmapFont(Gdx.files.internal("Fonts/normal.fnt"),Gdx.files.internal("Fonts/normal.png"),false);
-    typeImage = new TextureRegion(new Texture(Gdx.files.internal("CharacterImages/trainerSprite.png")));
     font.setColor(Color.RED);
     renderer = new ShapeRenderer();
   }
@@ -72,8 +76,8 @@ public class LoadActor extends Actor {
     batch.begin();
     
     if(!noFile){
-      font.draw(batch,myName,cx+20,cy+95);
-      batch.draw(typeImage, cx + 10, cy);
+      font.draw(batch,trainerName,cx+20,cy+95);
+      batch.draw(typeImage, cx + 10, cy, 50, 80);
       
       for(String face: myFriends){
         batch.draw(MonsterFactory.getInstance().getHeroFriend(face, 5).getFriendFaceSprite(), cx + friendPosition, cy + 30);

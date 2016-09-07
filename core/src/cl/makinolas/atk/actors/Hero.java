@@ -106,6 +106,8 @@ public class Hero extends Monsters {
     try {
       SaveManager.getInstance().loadData(GameText.savePath);
     } catch (SaveDoesNotExistException e) {
+      addAllie(MonsterFactory.getInstance().getHeroFriend("Kakuna", 6));
+      addAllie(MonsterFactory.getInstance().getHeroFriend("Scyther", 20));
       return;
     }
     if(SaveManager.getInstance().hasSaveInstance()){

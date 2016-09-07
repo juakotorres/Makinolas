@@ -25,6 +25,7 @@ public class BoyOrGirlStage extends AbstractStage {
   private Title arrow;
   private int lastSelected;
   private Title images2;
+  private boolean mySex;
 
   protected String myName;
   
@@ -54,7 +55,7 @@ public class BoyOrGirlStage extends AbstractStage {
     
     if(sceneCount == 4){
       GameScreen gameScreen = new GameScreen(myGame);
-      gameScreen.setStage(new ChooseStage(new FitViewport(640,480), gameScreen, myGame));
+      gameScreen.setStage(new ChooseStage(new FitViewport(640,480), gameScreen, myGame, myName, mySex));
       myGame.setScreen(gameScreen);
     }
     
@@ -63,6 +64,11 @@ public class BoyOrGirlStage extends AbstractStage {
       images.remove();
       images2.remove();
       sceneCount = 2;
+      if(lastSelected == 0){
+        mySex = true;
+      } else {
+        mySex = false;
+      }
     }
     
     if(sceneCount == 2){
