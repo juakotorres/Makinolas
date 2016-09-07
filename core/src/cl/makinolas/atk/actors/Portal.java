@@ -11,13 +11,6 @@ import com.badlogic.gdx.physics.box2d.FixtureDef;
 import com.badlogic.gdx.physics.box2d.PolygonShape;
 import com.badlogic.gdx.physics.box2d.World;
 import com.badlogic.gdx.physics.box2d.WorldManifold;
-import com.badlogic.gdx.utils.viewport.FitViewport;
-
-import cl.makinolas.atk.screen.GameScreen;
-import cl.makinolas.atk.stages.AbstractStage;
-import cl.makinolas.atk.stages.BossStage;
-import cl.makinolas.atk.stages.GameStage;
-import cl.makinolas.atk.stages.Levels;
 
 public class Portal extends AnimatedActor{
   

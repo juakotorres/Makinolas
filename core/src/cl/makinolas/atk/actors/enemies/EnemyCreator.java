@@ -37,7 +37,7 @@ public class EnemyCreator implements Observer{
     if (Math.abs(cameraPositionX - positionX) < 24 && !firstSpawn){
       firstSpawn = true;  
       stage.addGameActor(chooseEnemyThinker());
-    } else if(firstSpawn && enemyDead && Math.abs(cameraPositionX - positionX) > 0.1){ 
+    } else if(firstSpawn && enemyDead && Math.abs(cameraPositionX - positionX) > 24){ 
       firstSpawn = false;    
     } else if (firstSpawn && !enemyDead){
       Vector2 enemyPosition = actualEnemy.getBody().getPosition();

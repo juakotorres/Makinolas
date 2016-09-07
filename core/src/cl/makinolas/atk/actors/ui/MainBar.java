@@ -9,11 +9,10 @@ import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.scenes.scene2d.Group;
+import com.badlogic.gdx.utils.Array;
 
 import cl.makinolas.atk.actors.HBar;
 import cl.makinolas.atk.actors.Hero;
-import cl.makinolas.atk.stages.AbstractStage;
-import com.badlogic.gdx.utils.Array;
 
 public class MainBar extends Group{
 

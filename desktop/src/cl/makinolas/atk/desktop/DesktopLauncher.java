@@ -2,6 +2,7 @@ package cl.makinolas.atk.desktop;
 
 import com.badlogic.gdx.backends.lwjgl.LwjglApplication;
 import com.badlogic.gdx.backends.lwjgl.LwjglApplicationConfiguration;
+
 import cl.makinolas.atk.Main;
 
 public class DesktopLauncher {

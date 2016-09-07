@@ -1,10 +1,5 @@
 package cl.makinolas.atk.stages;
 
-import cl.makinolas.atk.actors.*;
-import cl.makinolas.atk.actors.ui.MapStageActor;
-import cl.makinolas.atk.actors.ui.MobileGroup;
-import cl.makinolas.atk.screen.GameScreen;
-import cl.makinolas.atk.screen.ShopScreen;
 import com.badlogic.gdx.Application;
 import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
@@ -17,7 +12,14 @@ import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.utils.viewport.FitViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
 
-import java.util.ArrayList;
+import cl.makinolas.atk.actors.Background;
+import cl.makinolas.atk.actors.Hero;
+import cl.makinolas.atk.actors.MapInputController;
+import cl.makinolas.atk.actors.Traveler;
+import cl.makinolas.atk.actors.ui.MapStageActor;
+import cl.makinolas.atk.actors.ui.MobileGroup;
+import cl.makinolas.atk.screen.GameScreen;
+import cl.makinolas.atk.screen.ShopScreen;
 
 public class MapStage extends Stage {
 

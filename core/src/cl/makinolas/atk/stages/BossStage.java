@@ -120,7 +120,7 @@ public class BossStage extends AbstractStage implements ContactListener {
       if(actor.isHero() && actor.isDead()){
         changeDeadMenu();
       }
-      if(actor.isMonster() || actor.isAttack()){
+      if(actor.isMonster() || actor.isAttack() || actor.isDetector()){
         Body actorBody = actor.getBody();
         if(actorBody.getPosition().y < -200 || actorBody.getPosition().x < -100 || actorBody.getPosition().x > 200 || actor.isDead()){
           gameActors.removeValue(actor,true);

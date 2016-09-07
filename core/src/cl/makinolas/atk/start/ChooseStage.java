@@ -1,7 +1,5 @@
 package cl.makinolas.atk.start;
 
-import cl.makinolas.atk.screen.MapScreen;
-import cl.makinolas.atk.stages.MapStage;
 import com.badlogic.gdx.Application;
 import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
@@ -24,9 +22,9 @@ import cl.makinolas.atk.actors.friend.Totodile;
 import cl.makinolas.atk.actors.ui.MainBar;
 import cl.makinolas.atk.actors.ui.MobileGroup;
 import cl.makinolas.atk.screen.GameScreen;
+import cl.makinolas.atk.screen.MapScreen;
 import cl.makinolas.atk.stages.AbstractStage;
-import cl.makinolas.atk.stages.GameStage;
-import cl.makinolas.atk.stages.Levels;
+import cl.makinolas.atk.stages.MapStage;
 import cl.makinolas.atk.utils.SaveManager;
 
 public class ChooseStage extends AbstractStage {

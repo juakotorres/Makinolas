@@ -47,6 +47,10 @@ public abstract class GameActor extends Actor{
   public boolean isDead(){
     return false;
   }
+  
+  public boolean isDetector() {
+    return false;
+  }
 
   public abstract void interact(GameActor actor2, WorldManifold worldManifold);
 
