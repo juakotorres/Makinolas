@@ -66,12 +66,14 @@ public class SaveManager {
 
     public void saveState() {
         Hero hero = Hero.getInstance();
-        SaveInstance save = new SaveInstance();
-        save.friends = hero.saveMyFriends();
-        save.items = hero.getInventory().createDescriptors();
-        save.money = hero.getInventory().getMoney();
-        save.maxLevel = hero.getMaxLevelUnlocked();
+        SaveInstance save2 = new SaveInstance();
+        save2.friends = hero.saveMyFriends();
+        save2.items = hero.getInventory().createDescriptors();
+        save2.money = hero.getInventory().getMoney();
+        save2.maxLevel = hero.getMaxLevelUnlocked();
+        save2.name = save.name;
+        save2.sex = save.sex;
         //System.out.println(GameText.savePath);
-        SaveManager.getInstance().saveData(save,GameText.savePath);
+        SaveManager.getInstance().saveData(save2,GameText.savePath);
     }
 }
