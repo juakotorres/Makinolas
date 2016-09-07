@@ -5,22 +5,21 @@ import java.util.Observer;
 
 import com.badlogic.gdx.math.Vector2;
 
-import cl.makinolas.atk.actors.Hero;
 import cl.makinolas.atk.stages.AbstractStage;
 import cl.makinolas.atk.stages.CameraPosition;
 
 public class EnemyCreator implements Observer{
 
   private String enemyType;
-  private int positionX;
-  private int positionY;
+  private float positionX;
+  private float positionY;
   private AbstractStage stage;
   private boolean firstSpawn;
   private int enemyThinker;
   private Enemy actualEnemy;
   private boolean enemyDead;
   
-  public EnemyCreator(AbstractStage stage, String enemy, int positionX, int positionY, int enemyThinker) {
+  public EnemyCreator(AbstractStage stage, String enemy, float positionX, float positionY, int enemyThinker) {
     stage.cameraObserver.addObserver(this);
     this.stage = stage;
     enemyType = enemy;
@@ -35,16 +34,15 @@ public class EnemyCreator implements Observer{
   public void update(Observable o, Object arg) {
     float cameraPositionX = ((CameraPosition) o).getPositionX();
     
-    if (Math.abs(cameraPositionX - positionX) < 0.1 && !firstSpawn){
-      firstSpawn = true;
+    if (Math.abs(cameraPositionX - positionX) < 24 && !firstSpawn){
+      firstSpawn = true;  
       stage.addGameActor(chooseEnemyThinker());
     } else if(firstSpawn && enemyDead && Math.abs(cameraPositionX - positionX) > 0.1){ 
       firstSpawn = false;    
     } else if (firstSpawn && !enemyDead){
-      Vector2 heroPosition = Hero.getInstance().getBody().getPosition();
       Vector2 enemyPosition = actualEnemy.getBody().getPosition();
-      
-      if(Math.abs(heroPosition.x - enemyPosition.x) > 25){
+
+      if(Math.abs(cameraPositionX - enemyPosition.x) > 30){
         actualEnemy.setDead();
         enemyDead = true;
       }      
@@ -55,17 +53,20 @@ public class EnemyCreator implements Observer{
   private Enemy chooseEnemyThinker() {
     switch(enemyThinker){
       case 2:
-        actualEnemy = MonsterFactory.getInstance().giveStayAndShootEnemy(enemyType, 5, (int) (positionX * 1.8f), (int) (positionY * 2f));  
+        actualEnemy = MonsterFactory.getInstance().giveStayAndShootEnemy(enemyType, 5, (int) (positionX), (int) (positionY + 5));  
         break;
       case 3:
-        actualEnemy = MonsterFactory.getInstance().giveFlyWaveAndDropEnemy(enemyType, 5, (int) (positionX * 1.8f), (int) (positionY * 2f));
+        actualEnemy = MonsterFactory.getInstance().giveFlyWaveAndDropEnemy(enemyType, 5, (int) (positionX), (int) (positionY + 5));
         break;
       case 4:
-        actualEnemy =  MonsterFactory.getInstance().giveJumperEnemy(enemyType, 5, (int) (positionX * 1.8f), (int) (positionY * 2f));
+        actualEnemy =  MonsterFactory.getInstance().giveJumperEnemy(enemyType, 5, (int) (positionX), (int) (positionY + 5));
         ((JumperEnemy) actualEnemy).initDetector(stage);
         break;
+      case 5:
+        actualEnemy =  MonsterFactory.getInstance().giveFollowerEnemy(enemyType, 5, (int) (positionX), (int) (positionY + 5));
+        break;
       default:
-        actualEnemy = MonsterFactory.getInstance().giveClassicEnemy(enemyType, 5, (int) (positionX * 1.8f), (int) (positionY * 2f));
+        actualEnemy = MonsterFactory.getInstance().giveClassicEnemy(enemyType, 5, (int) (positionX), (int) (positionY + 5));
         break;
     }
     enemyDead = false;

@@ -12,6 +12,7 @@ import cl.makinolas.atk.actors.attacks.Attacks;
 import cl.makinolas.atk.actors.attacks.DragonBreath;
 import cl.makinolas.atk.actors.enemies.Enemy;
 import cl.makinolas.atk.actors.enemies.FlyWaveAndDropEnemy;
+import cl.makinolas.atk.actors.enemies.FollowerEnemy;
 import cl.makinolas.atk.actors.enemies.JumperEnemy;
 import cl.makinolas.atk.actors.enemies.LongRangeEnemy;
 import cl.makinolas.atk.actors.enemies.PhysicalEnemy;
@@ -199,6 +200,12 @@ public abstract class AbstractFriend implements Friend {
   @Override
   public Enemy returnJumperEnemy(World myWorld, int positionX, int positionY) {
     return new JumperEnemy(myWorld, friendTexture, cutSprites,
+                walkingAnimation, hurtAnimation,  getHealth(), positionX, positionY, getLevel(), friend, this);
+  }
+  
+  @Override
+  public Enemy returnFollowerEnemy(World myWorld, int positionX, int positionY) {
+    return new FollowerEnemy(myWorld, friendTexture, cutSprites,
                 walkingAnimation, hurtAnimation,  getHealth(), positionX, positionY, getLevel(), friend, this);
   }
   
