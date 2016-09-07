@@ -28,6 +28,7 @@ public interface Friend {
   public int getLevel();
   public void gainExperience(int wildLevel, Enemies type);
   public double thisLevelExp();
+  public double getNextExperience();
   public TextureRegion getFriendFaceSprite();
   public Enemy returnEnemy(World myWorld, int positionX, int positionY);
   public Enemies getType();

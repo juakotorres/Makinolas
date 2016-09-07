@@ -19,7 +19,7 @@ public class MainBar extends Group{
 
     public static MainBar barra = new MainBar();
     private Hero hero;
-    private HBar healthBar, magicBar;
+    private HBar healthBar, magicBar, xpBar;
     private FriendImage friend;
     private Array<TeamFriendImage> team;
     private Sprite base;
@@ -56,9 +56,10 @@ public class MainBar extends Group{
     }
 
     public void setBars() {
-      Hero h = Hero.getInstance();
-      healthBar = new HBar(h.getFriend().getMaxHealth(),h.getHealth(),150,10,new TextureRegion(new Texture(Gdx.files.internal("Overlays/bar_green.png"))));
-      magicBar = new HBar(h.getFriend().getMaxMagic(),h.getMagic(),150,10,new TextureRegion(new Texture(Gdx.files.internal("Overlays/bar_blue.png"))));;
+        Hero h = Hero.getInstance();
+        healthBar = new HBar(h.getFriend().getMaxHealth(),h.getHealth(),150,10,new TextureRegion(new Texture(Gdx.files.internal("Overlays/bar_green.png"))));
+        magicBar = new HBar(h.getFriend().getMaxMagic(),h.getMagic(),150,10,new TextureRegion(new Texture(Gdx.files.internal("Overlays/bar_blue.png"))));
+        xpBar = new HBar((float) h.getFriend().thisLevelExp(), (float) (h.getFriend().thisLevelExp() - h.getFriend().getNextExperience()),150,4,new TextureRegion(new Texture(Gdx.files.internal("Overlays/bar_blue.png"))));
     }
 
     @Override
@@ -69,16 +70,18 @@ public class MainBar extends Group{
         //Bars
         healthBar.setCurrent(hero.getHealth());
         magicBar.setCurrent(hero.getMagic());
+        xpBar.setCurrent((float) (hero.getFriend().thisLevelExp() - hero.getFriend().getNextExperience()));
         batch.draw(base,cx,cy);
         batch.draw(healthBar.getSprite(),cx+50,cy+26);
         batch.draw(magicBar.getSprite(),cx+50,cy+8);
+        batch.draw(xpBar.getSprite(),cx+50,cy+4);
         //Labels
         font.draw(batch,"HP",cx+18,cy+36);
         font.draw(batch,"Magic",cx+4,cy+20);
         font.draw(batch,String.valueOf(Hero.getInstance().getHealth()),cx+100, cy+36); 
         font.draw(batch, "/", cx+120, cy+36);
         font.draw(batch,String.valueOf(Hero.getInstance().getFriend().getMaxHealth()),cx+130, cy+36);
-        //font.draw(batch,AbstractStage.levelName ,cx+220,cy+38);
+        font.draw(batch, "Lv "+Hero.getInstance().getFriend().getLevel(),cx+220,cy+38);
         //font.draw(batch, ""+((int) AbstractStage.elapsedTime),cx+230,cy+20);
         font.draw(batch, "$"+Hero.getInstance().getInventory().getMoney(),cx+220,cy+20);
         //Current Friend Sprite
