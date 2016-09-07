@@ -264,7 +264,12 @@ public abstract class AbstractFriend implements Friend {
   public int getLevel() {
     return level.getLevel();
   }
-  
+
+  @Override
+  public double getNextExperience(){
+    return level.getNextExpLevel();
+  }
+
   protected class Level extends Observable {
     private double nextExpLevel;
     private double expLevelMax;
@@ -303,6 +308,11 @@ public abstract class AbstractFriend implements Friend {
     public double getLevelMax(){
       return expLevelMax;
     }
+
+    public double getNextExpLevel(){
+      return nextExpLevel;
+    }
+
   }
   
   protected class Evolution implements Observer {

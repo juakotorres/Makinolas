@@ -6,6 +6,7 @@ import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
+import com.badlogic.gdx.graphics.g2d.NinePatch;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.scenes.scene2d.Actor;
@@ -13,10 +14,7 @@ import com.badlogic.gdx.scenes.scene2d.Actor;
 public class TextActor extends Actor {
 
   private BitmapFont font;
-  private Sprite base;
-  private Sprite basefliped;
-  private Sprite basedown;
-  private Sprite baseleft;
+  private NinePatch base;
   private ShapeRenderer renderer;
   private String holeText;
   private String firstText;
@@ -38,10 +36,7 @@ public class TextActor extends Actor {
     
     setTexts(paragraph, 0);
     
-    base = new Sprite(new Texture(Gdx.files.internal("Overlays/superdupertextarea2.png")));
-    basefliped = new Sprite(new Texture(Gdx.files.internal("Overlays/superdupertextarea2fliped.png")));
-    basedown = new Sprite(new Texture(Gdx.files.internal("Overlays/superdupertextarea2down.png")));
-    baseleft = new Sprite(new Texture(Gdx.files.internal("Overlays/superdupertextarea2left.png")));
+    base = new NinePatch(new Texture("Overlays/superdupertextarea.png"),12,12,12,12);
     font = new BitmapFont(Gdx.files.internal("Fonts/normal.fnt"),Gdx.files.internal("Fonts/normal.png"),false);
     renderer = new ShapeRenderer();
   }
@@ -107,15 +102,8 @@ public class TextActor extends Actor {
     renderer.rect(cx, cy, 640, 120);
     renderer.end();
     batch.begin();
-    
-    batch.draw(base,cx,cy + 120);
-    batch.draw(base,cx + base.getWidth(),cy + 120);
-    batch.draw(base,cx + 1.9f*base.getWidth(),cy + 120);
-    batch.draw(basedown,cx,cy);
-    batch.draw(basedown,cx + base.getWidth(),cy);
-    batch.draw(basedown,cx + 1.9f*base.getWidth(),cy);
-    batch.draw(basefliped,cx,cy);
-    batch.draw(baseleft,cx + 635,cy);
+
+    base.draw(batch,cx,cy,640,120);
     
     font.draw(batch,firstText,cx+18,cy+100);
     font.draw(batch,secondText,cx+18,cy+70);

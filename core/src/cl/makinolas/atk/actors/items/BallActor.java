@@ -31,7 +31,7 @@ public class BallActor extends GameActor {
         Body myBody = myWorld.createBody(myBodyDefinition);
 
         PolygonShape shape = new PolygonShape();
-        shape.setAsBox(0.5f,0.5f);
+        shape.setAsBox(0.3f,0.3f);
 
         myBody.setGravityScale(1);
         FixtureDef fixtureDef = new FixtureDef();
@@ -78,11 +78,11 @@ public class BallActor extends GameActor {
     @Override
     public void draw(Batch batch, float parentAlpha) {
         Vector2 myPosition = myBody.getPosition();
-        batch.draw(region, myPosition.x * 20 - region.getRegionWidth() / 2 , myPosition.y * 20 - region.getRegionHeight() / 2);
+        batch.draw(region, myPosition.x * 20 - 10 , myPosition.y * 20 - 10,20,20);
     }
 
     public void setThrowImpulse(int dir) {
-        myBody.applyLinearImpulse(dir*5, 2f, myBody.getPosition().x, myBody.getPosition().y, true);
+        myBody.applyLinearImpulse(dir*3, 0.6f, myBody.getPosition().x, myBody.getPosition().y, true);
     }
 
     public void setDead() {

@@ -4,10 +4,7 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input.Keys;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.Texture;
-import com.badlogic.gdx.graphics.g2d.Batch;
-import com.badlogic.gdx.graphics.g2d.BitmapFont;
-import com.badlogic.gdx.graphics.g2d.Sprite;
-import com.badlogic.gdx.graphics.g2d.TextureRegion;
+import com.badlogic.gdx.graphics.g2d.*;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 
@@ -17,10 +14,7 @@ import cl.makinolas.atk.utils.Formulas;
 public class PokemonStarter extends Actor {
   
   private BitmapFont font;
-  private Sprite base;
-  private Sprite basefliped;
-  private Sprite basedown;
-  private Sprite baseleft;
+  private NinePatch base;
   private ShapeRenderer renderer;
   private Friend friend;
   private int xPosition;
@@ -49,10 +43,7 @@ public class PokemonStarter extends Actor {
     
     setTexts(description, 0);
     
-    base = new Sprite(new Texture(Gdx.files.internal("Overlays/superdupertextarea2.png")));
-    basefliped = new Sprite(new Texture(Gdx.files.internal("Overlays/superdupertextarea2fliped.png")));
-    basedown = new Sprite(new Texture(Gdx.files.internal("Overlays/superdupertextarea2down.png")));
-    baseleft = new Sprite(new Texture(Gdx.files.internal("Overlays/superdupertextarea2left.png")));
+    base = new NinePatch(new Texture("Overlays/superdupertextarea.png"),12,12,12,12);
     font = new BitmapFont(Gdx.files.internal("Fonts/normal.fnt"),Gdx.files.internal("Fonts/normal.png"),false);
     renderer = new ShapeRenderer();
     
@@ -129,14 +120,8 @@ public class PokemonStarter extends Actor {
       renderer.end();
       batch.begin();
       
-      batch.draw(base,cx + 400,cy + 400);
-      batch.draw(basedown,cx + 400,cy + 100);
-      batch.draw(basefliped,cx + 400,cy + 100);
-      batch.draw(basefliped,cx + 400,cy + 200);
-      batch.draw(basefliped,cx + 400,cy + 280);
-      batch.draw(baseleft,cx + 620,cy + 100);
-      batch.draw(baseleft,cx + 620,cy + 200);
-      batch.draw(baseleft,cx + 620,cy + 280);
+      //batch.draw(base,cx + 400,cy + 400);
+      base.draw(batch,cx+400,cy+100,220,300);
       
       font.draw(batch,friend.getName().substring(0,1) + friend.getName().substring(1).toLowerCase(),cx + 500,cy + 380);
       font.draw(batch,"Level 5",cx + 420,cy + 380);
