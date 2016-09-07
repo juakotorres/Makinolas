@@ -1,14 +1,15 @@
 package cl.makinolas.atk.actors;
 
-import cl.makinolas.atk.actors.platform.Platform;
 import com.badlogic.gdx.physics.box2d.Body;
 import com.badlogic.gdx.physics.box2d.WorldManifold;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 
 import cl.makinolas.atk.actors.attacks.Attacks;
 import cl.makinolas.atk.actors.bosses.IBoss;
+import cl.makinolas.atk.actors.enemies.AttackDetector;
 import cl.makinolas.atk.actors.enemies.Enemy;
 import cl.makinolas.atk.actors.items.BallActor;
+import cl.makinolas.atk.actors.platform.Platform;
 
 public abstract class GameActor extends Actor{
   
@@ -51,11 +52,13 @@ public abstract class GameActor extends Actor{
 
   public void interactWithHero(Hero hero, WorldManifold worldManifold) {}
 
-  public void interactWithEnemy(Enemy enemy) {}
+  public void interactWithEnemy(Enemy enemy, WorldManifold worldManifold) {}
 
   public void interactWithAttack(Attacks attacks, WorldManifold worldManifold) {}
 
   public void interactWithPlatform(Platform platform, WorldManifold worldManifold) {}
+  
+  public void interactWithAttackDetector(AttackDetector attackDetector) {}
 
   public void interactWithPortal(Portal portal) {}
 
