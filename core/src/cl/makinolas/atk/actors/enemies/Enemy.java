@@ -192,8 +192,7 @@ public class Enemy extends Monsters {
     if(health <= 0){
       source.gainExperience(getLevel(), type);
       Hero.getInstance().earnMoney(getLevel(), type);
-      dead = true;
-      
+      dead = true;      
     }
 
   }
@@ -302,6 +301,10 @@ public class Enemy extends Monsters {
       isAttacking = true;
       meleeAccumulator = 0;
     }
+  }
+  
+  public void setDead(){
+    dead = true;
   }
   
 
