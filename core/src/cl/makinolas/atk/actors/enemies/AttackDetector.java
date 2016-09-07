@@ -18,10 +18,12 @@ public class AttackDetector extends GameActor{
   private boolean attackDetected;
   private BodyDef myBodyDefinition; 
   private Body myBody;
+  private boolean dead;
   
   public AttackDetector(World myWorld, Enemy enemy, Friend parent) {
     myEnemy = enemy;
     attackDetected = false;
+    dead = false;
     
     myBodyDefinition = new BodyDef();
     myBodyDefinition.type = BodyDef.BodyType.DynamicBody;
@@ -76,6 +78,20 @@ public class AttackDetector extends GameActor{
     if(!attacks.getSource().isEnemy()){
       attackDetected = true;    
     }
+  }
+
+  public void setDead() {
+    dead = true;
+  }
+  
+  @Override
+  public boolean isDetector(){
+    return true;
+  }
+  
+  @Override
+  public boolean isDead(){
+    return dead;
   }
   
 }

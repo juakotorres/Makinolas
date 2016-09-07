@@ -192,7 +192,7 @@ public class Enemy extends Monsters {
     if(health <= 0){
       source.gainExperience(getLevel(), type);
       Hero.getInstance().earnMoney(getLevel(), type);
-      dead = true;      
+      setDead();     
     }
 
   }
@@ -239,7 +239,7 @@ public class Enemy extends Monsters {
   @Override
   public void interactWithBall(BallActor ball) {
     if(Formulas.checkCatch(ball.getType().catchability/100f,0.9f,health,100)){
-      dead = true;
+      setDead();
       Hero.getInstance().addAllie(parent);
       MainBar.getInstance().updateTeam();
       ball.setDead();
