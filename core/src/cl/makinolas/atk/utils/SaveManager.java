@@ -8,6 +8,7 @@ import com.badlogic.gdx.utils.JsonWriter;
 import cl.makinolas.atk.actors.Hero;
 import cl.makinolas.atk.actors.friend.Friend;
 import cl.makinolas.atk.actors.friend.FriendDescriptor;
+import cl.makinolas.atk.start.GameText;
 
 public class SaveManager {
 
@@ -29,9 +30,9 @@ public class SaveManager {
         return save;
     }
 
-    public void loadData(String path){
+    public void loadData(String path) throws SaveDoesNotExistException{
         FileHandle file = Gdx.files.local(path);
-        if(!file.exists()) return;
+        if(!file.exists()) throw new SaveDoesNotExistException();
         String encData = file.readString();
         Json base = new Json();
         String data = cryptor.decrypt(encData);
@@ -57,7 +58,8 @@ public class SaveManager {
       fd.level = 5;
       saveInstance.friends = new FriendDescriptor[]{fd};
       
-      SaveManager.getInstance().saveData(saveInstance, "ATK.sav");
+      System.out.println(GameText.savePath);
+      SaveManager.getInstance().saveData(saveInstance, GameText.savePath);
     }
 
     public void saveState() {
@@ -67,6 +69,7 @@ public class SaveManager {
         save.items = hero.getInventory().createDescriptors();
         save.money = hero.getInventory().getMoney();
         save.maxLevel = hero.getMaxLevelUnlocked();
-        SaveManager.getInstance().saveData(save,"ATK.sav");
+        System.out.println(GameText.savePath);
+        SaveManager.getInstance().saveData(save,GameText.savePath);
     }
 }

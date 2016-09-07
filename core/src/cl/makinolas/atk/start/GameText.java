@@ -2,6 +2,8 @@ package cl.makinolas.atk.start;
 
 public class GameText {
   
+  public static String savePath = "ATK.sav";
+  
   public static String firstStartText = 
       "Wena cabros aqui empiezan una nueva aventura junto a sus basuras "
       + "de pokemon. Para empezar les explicaremos que este es un nuevo mundo "

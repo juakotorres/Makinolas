@@ -8,10 +8,13 @@ import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.scenes.scene2d.Actor;
-import com.badlogic.gdx.utils.Array;
 
-import cl.makinolas.atk.actors.friend.Friend;
+import cl.makinolas.atk.actors.enemies.MonsterFactory;
+import cl.makinolas.atk.actors.friend.FriendDescriptor;
 import cl.makinolas.atk.actors.ui.MainBar;
+import cl.makinolas.atk.stages.LoadStage;
+import cl.makinolas.atk.start.GameText;
+import cl.makinolas.atk.utils.SaveDoesNotExistException;
 import cl.makinolas.atk.utils.SaveManager;
 
 public class LoadActor extends Actor {
@@ -20,23 +23,36 @@ public class LoadActor extends Actor {
   private int yPosition;
   private String fileName;
   private String myName;
-  private Array<Friend> myFriends;
+  private String[] myFriends;
   private BitmapFont font;
   private ShapeRenderer renderer;
   private TextureRegion typeImage;
+  private boolean noFile;
+  private LoadStage myStage;
   
-  public LoadActor(String saveName, String fileName, int xPosition, int yPosition) {
+  public LoadActor(String saveName, String fileName, int xPosition, int yPosition, LoadStage stage) {
     
-    SaveManager.getInstance().loadData(fileName);  
-    Hero.getInstance().reset();
-    MainBar.getInstance().reset();
-
+    try {
+      SaveManager.getInstance().loadData(fileName);
+      noFile = false;
+    } catch (SaveDoesNotExistException e) {
+      noFile = true;
+    }  
     
+    this.myStage = stage;
     this.fileName = fileName;
     this.myName = saveName;
     this.xPosition = xPosition;
     this.yPosition = yPosition;
-    myFriends = Hero.getInstance().getAllies();
+    
+    if(!noFile){
+      myFriends = new String[SaveManager.getInstance().getSaveInstance().friends.length];
+      FriendDescriptor[] herosFriends = SaveManager.getInstance().getSaveInstance().friends;
+      for(int i = 0;  i < myFriends.length ; i++){
+          System.out.println(fileName);
+          myFriends[i] = herosFriends[i].name;
+      }
+    }
     font = new BitmapFont(Gdx.files.internal("Fonts/normal.fnt"),Gdx.files.internal("Fonts/normal.png"),false);
     typeImage = new TextureRegion(new Texture(Gdx.files.internal("CharacterImages/trainerSprite.png")));
     font.setColor(Color.RED);
@@ -56,22 +72,33 @@ public class LoadActor extends Actor {
     renderer.end();
     batch.begin();
     
-    font.draw(batch,myName,cx+20,cy+95);
-    batch.draw(typeImage, cx + 10, cy);
-    
-    for(Friend friend : myFriends){
-      batch.draw(friend.getFriendFaceSprite(), cx + friendPosition, cy + 30);
-      friendPosition += 50;      
+    if(!noFile){
+      font.draw(batch,myName,cx+20,cy+95);
+      batch.draw(typeImage, cx + 10, cy);
+      
+      for(String face: myFriends){
+        batch.draw(MonsterFactory.getInstance().getHeroFriend(face, 5).getFriendFaceSprite(), cx + friendPosition, cy + 30);
+        friendPosition += 50;      
+      }
+    } else {
+      font.draw(batch,"No save data",cx+200,cy+50);
     }
 
     
   
   }
 
+  
   public void loadMap() {
-    SaveManager.getInstance().loadData(fileName);  
-    Hero.getInstance().reset();
-    MainBar.getInstance().reset();    
+    GameText.savePath = fileName;
+    try {
+      SaveManager.getInstance().loadData(fileName);
+      Hero.getInstance().reset();
+      MainBar.getInstance().reset();   
+      myStage.loadMap();
+    } catch (SaveDoesNotExistException e) {
+      myStage.startJourney();
+    }  
   }
   
 }

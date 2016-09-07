@@ -28,7 +28,9 @@ import cl.makinolas.atk.screen.MapScreen;
 import cl.makinolas.atk.stages.AbstractStage;
 import cl.makinolas.atk.stages.Levels;
 import cl.makinolas.atk.stages.MapStage;
+import cl.makinolas.atk.start.GameText;
 import cl.makinolas.atk.utils.Formulas;
+import cl.makinolas.atk.utils.SaveDoesNotExistException;
 import cl.makinolas.atk.utils.SaveManager;
 
 
@@ -101,7 +103,13 @@ public class Hero extends Monsters {
   }
   
   private void loadFriends() {
-    SaveManager.getInstance().loadData("ATK.sav");
+    try {
+      SaveManager.getInstance().loadData(GameText.savePath);
+    } catch (SaveDoesNotExistException e) {
+      addAllie(MonsterFactory.getInstance().getHeroFriend("Kakuna", 6));
+      addAllie(MonsterFactory.getInstance().getHeroFriend("Scyther", 20));
+      return;
+    }
     if(SaveManager.getInstance().hasSaveInstance()){
       FriendDescriptor[] friends = SaveManager.getInstance().getSaveInstance().friends;
       maxLevelUnlocked = Math.max(SaveManager.getInstance().getSaveInstance().maxLevel,1);
