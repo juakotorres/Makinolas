@@ -70,3 +70,4 @@ build/
 Thumbs.db
 
 *.sav
+local.properties
