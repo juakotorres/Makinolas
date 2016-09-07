@@ -67,7 +67,7 @@ public class Platform extends GameActor {
   public void draw(Batch batch, float parentAlpha) {
     for (int i = 0; i < wp; i++) {
       for (int j = 0; j < hp; j++) {
-        batch.draw(region,xp + i*36, yp + j*36);
+        batch.draw(region,xp + i*36, yp + j*36,37,37);
       }
     }
   }
