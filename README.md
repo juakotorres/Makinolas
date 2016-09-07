@@ -1,15 +1,18 @@
-# Makinolas
+# ATK
 
+Juego de rol plataformero insipirado en pokemon, donde se pueden atrapar y entrenar criaturas que deben combatir contra otras. Diferentes etapas y jefes forman un desafiante juego.
 
-Buenas buenas cómo va perrekestres?  
+### Elige tu inicial
+![Inicial](/tools/images/choose.tiff)
 
-Aquí agregando colaboradores, agregue a belisario amigo de la u tratenlo bien.
-También sergio :D buena onda.
+### Completa las diferentes etapas
+![Inicial](/tools/images/map.tiff)
 
-Belisario encontró un link con un unity beta para ubuntu. 
-[unity-ubuntu](http://blogs.unity3d.com/2015/08/26/unity-comes-to-linux-experimental-build-now-available/)
+### Lucha y entrena
+![Inicial](/tools/images/battle1.tiff)
+![Inicial](/tools/images/battle2.tiff)
 
-Tambien está Nicolás Bravo, el pelao.
+### Compra items y mejoras
+![Inicial](/tools/images/shop.tiff)
 
-[libgdx](https://libgdx.badlogicgames.com/download.html)  
-[Android-SDK](https://developer.android.com/studio/index.html#downloads)
+Disponible para Desktop (Windows, Mac OS X, Linux) y Android. Proximamente iOS.
