@@ -80,6 +80,7 @@ public class ChooseStage extends AbstractStage {
     accumulator = 0;
     renderer = new Box2DDebugRenderer();
     setupCamera();
+    options[0].isSelected();
   }
   
   public void act(float delta){

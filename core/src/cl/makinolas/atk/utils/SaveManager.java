@@ -36,7 +36,7 @@ public class SaveManager {
         String encData = file.readString();
         Json base = new Json();
         String data = cryptor.decrypt(encData);
-        System.out.println("Loaded:\n"+data);
+        //System.out.println("Loaded:\n"+data);
         save = base.fromJson(SaveInstance.class,data);
     }
 
@@ -58,7 +58,7 @@ public class SaveManager {
       fd.level = 5;
       saveInstance.friends = new FriendDescriptor[]{fd};
       
-      System.out.println(GameText.savePath);
+      //System.out.println(GameText.savePath);
       SaveManager.getInstance().saveData(saveInstance, GameText.savePath);
     }
 
@@ -69,7 +69,7 @@ public class SaveManager {
         save.items = hero.getInventory().createDescriptors();
         save.money = hero.getInventory().getMoney();
         save.maxLevel = hero.getMaxLevelUnlocked();
-        System.out.println(GameText.savePath);
+        //System.out.println(GameText.savePath);
         SaveManager.getInstance().saveData(save,GameText.savePath);
     }
 }

@@ -22,6 +22,8 @@ public class GameText {
       + "and capable of crushing anything. Even its trainer must be careful.";
   
   public static String charmanderDescription = "Obviously prefers hot places. When it rains,"
-      + " steam is said to spout from the tip of its tail."; 
+      + " steam is said to spout from the tip of its tail.";
+
+  public static String chooseSexText = "Ahora debes elegir que sexo usaras dentro de esta aventura."; 
   
 }

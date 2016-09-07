@@ -49,7 +49,6 @@ public class LoadActor extends Actor {
       myFriends = new String[SaveManager.getInstance().getSaveInstance().friends.length];
       FriendDescriptor[] herosFriends = SaveManager.getInstance().getSaveInstance().friends;
       for(int i = 0;  i < myFriends.length ; i++){
-          System.out.println(fileName);
           myFriends[i] = herosFriends[i].name;
       }
     }
