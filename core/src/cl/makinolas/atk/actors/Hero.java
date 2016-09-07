@@ -1,9 +1,5 @@
 package cl.makinolas.atk.actors;
 
-import cl.makinolas.atk.screen.GameScreen;
-import cl.makinolas.atk.screen.MapScreen;
-import cl.makinolas.atk.stages.*;
-import cl.makinolas.atk.utils.Formulas;
 import com.badlogic.gdx.Game;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.Body;
@@ -12,6 +8,7 @@ import com.badlogic.gdx.physics.box2d.PolygonShape;
 import com.badlogic.gdx.physics.box2d.World;
 import com.badlogic.gdx.physics.box2d.WorldManifold;
 import com.badlogic.gdx.utils.Array;
+import com.badlogic.gdx.utils.viewport.FitViewport;
 
 import cl.makinolas.atk.GameConstants;
 import cl.makinolas.atk.actors.attacks.Attacks;
@@ -27,8 +24,12 @@ import cl.makinolas.atk.actors.items.BallActor;
 import cl.makinolas.atk.actors.items.Inventory;
 import cl.makinolas.atk.actors.platform.Platform;
 import cl.makinolas.atk.actors.ui.MainBar;
+import cl.makinolas.atk.screen.MapScreen;
+import cl.makinolas.atk.stages.AbstractStage;
+import cl.makinolas.atk.stages.Levels;
+import cl.makinolas.atk.stages.MapStage;
+import cl.makinolas.atk.utils.Formulas;
 import cl.makinolas.atk.utils.SaveManager;
-import com.badlogic.gdx.utils.viewport.FitViewport;
 
 
 public class Hero extends Monsters {

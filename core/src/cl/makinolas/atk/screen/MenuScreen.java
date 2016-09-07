@@ -41,7 +41,7 @@ public class MenuScreen extends SimpleScreen {
     loadButton.addListener(new ClickListener(){
       @Override
       public void clicked(InputEvent event, float x, float y) {
-          loadMap();
+          loadGame();
       }
     });
     TextButton optionButton = new TextButton("Options",  new Skin(Gdx.files.internal("Data/uiskin.json")));
@@ -54,13 +54,13 @@ public class MenuScreen extends SimpleScreen {
     stage.addActor(loadButton);
     stage.addActor(optionButton);
   }
-
+  
   protected void loadMap(){
     MapScreen mapScreen = new MapScreen(myGame,new MapStage(new FitViewport(640, 480),myGame));
     myGame.setScreen(mapScreen);
   }
 
-  protected void LoadGame() {
+  protected void loadGame() {
     GameScreen gameScreen = new GameScreen(myGame);
     gameScreen.setStage(new LoadStage(new FitViewport(640,480), gameScreen, myGame));
     myGame.setScreen(gameScreen);

@@ -1,12 +1,10 @@
 package cl.makinolas.atk.actors.items;
 
-import cl.makinolas.atk.actors.Hero;
-import cl.makinolas.atk.utils.SaveManager;
-
-import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
-import java.util.List;
+
+import cl.makinolas.atk.actors.Hero;
+import cl.makinolas.atk.utils.SaveManager;
 
 public class Inventory{
 
