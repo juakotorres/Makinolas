@@ -29,11 +29,17 @@ public class Enemy extends Monsters {
   private int walkAnimation;
   private int hurtAnimation;
   private final float hurtTime = 1 / 4f;
+  private final float meleeTime = 2f;
+  private float meleeAccumulator;
   private float accumulator;
   private float inflictorVelocity;
   private int level;
   private Enemies type;
   protected World myWorld;
+  protected final float spriteTime = 1 / 5f;
+  private float countMeleeFrames;
+  private int[] attackAnimations;
+  private int actualAnimation;
   
   /**
    * Constructor for Enemy
@@ -52,8 +58,9 @@ public class Enemy extends Monsters {
     width = cutSprite[0];
     height = cutSprite[1];
     inflictorVelocity = 0;
+    meleeAccumulator = 0;
     this.type = type;
-    isAttacking = true;
+    isAttacking = false;
     healthBar = new HBar(givenHealth, health, cutSprite[0], 4, new TextureRegion( new Texture(Gdx.files.internal("Overlays/bar_green.png"))));
     isDamaged = false;
     dead = false;
@@ -105,8 +112,37 @@ public class Enemy extends Monsters {
     myBody.setLinearVelocity(vx, myBody.getLinearVelocity().y);
     //myBody.applyForce(1, 1, 10, 10, true);
     checkDamage(delta, inflictorVelocity);
+    
+    checkHeroNear(delta);
+    checkMelee(delta);
   }
-  
+
+  private void checkMelee(float delta) {
+    if(isAttacking){
+      countMeleeFrames += delta;
+      if(countMeleeFrames > spriteTime){
+        if(actualAnimation  < attackAnimations.length) {
+          changeAnimation(attackAnimations[actualAnimation]);
+          countMeleeFrames = 0;
+          actualAnimation += 1;
+        } else {
+          isAttacking = false;
+          countMeleeFrames = 0;
+          actualAnimation = 0;
+        }
+      }
+    }
+    else if(!isDamaged){
+      countMeleeFrames = 0;
+      isAttacking = false;
+      actualAnimation = 0;
+      changeAnimation(walkAnimation);
+    } else {
+      countMeleeFrames = 0;
+    }
+    
+  }
+
   protected void checkDamage(float delta, float inflictorVel) {
     if(isDamaged){
       myBody.setLinearVelocity(new Vector2(inflictorVel,0));
@@ -121,6 +157,12 @@ public class Enemy extends Monsters {
 
   private void setAnimation(TextureRegion enemySprites, int[] cutSprite){
     setMasterTexture(enemySprites,cutSprite[0],cutSprite[1]);
+    attackAnimations = new int[parent.getMeleeAnimation().length];
+    countMeleeFrames = 0;
+    for(int i = 0; i < parent.getMeleeAnimation().length; i++){
+      attackAnimations[i] = addAnimation(0.2f, parent.getMeleeAnimation()[i][1]);
+    }  
+    actualAnimation = 0;
   }
   
   @Override
@@ -246,12 +288,20 @@ public class Enemy extends Monsters {
     return true;
   }
 
-  public void jump() {
-    
-  }
+  public void jump() {}
 
-  public void landedPlatform(WorldManifold worldManifold, Platform platform) {
-    
+  public void landedPlatform(WorldManifold worldManifold, Platform platform) {}
+  
+  private void checkHeroNear(float delta) {
+    Vector2 heroPosition = Hero.getInstance().getBody().getPosition();
+    meleeAccumulator += delta;
+    if(Math.abs(heroPosition.x - getBody().getPosition().x) < 3
+        && Math.abs(heroPosition.y - getBody().getPosition().y) < 1
+        && !isAttacking
+        && meleeAccumulator > meleeTime){
+      isAttacking = true;
+      meleeAccumulator = 0;
+    }
   }
   
 

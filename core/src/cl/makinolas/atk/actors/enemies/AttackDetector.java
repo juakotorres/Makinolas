@@ -30,7 +30,7 @@ public class AttackDetector extends GameActor{
     myBody = myWorld.createBody(myBodyDefinition);
     
     PolygonShape shape = new PolygonShape();
-    shape.setAsBox(getBodySize(parent.getWidth() * 4), getBodySize(parent.getHeight() * 4));
+    shape.setAsBox(getBodySize(parent.getWidth() * 4), getBodySize(parent.getHeight() * 2));
     
     myBody.setGravityScale(0);
     FixtureDef fixtureDef = new FixtureDef();
