@@ -9,6 +9,8 @@ import cl.makinolas.atk.actors.items.ItemDescriptor;
 public class SaveInstance {
 
     public FriendDescriptor[] friends;
+    public String name;
+    public boolean sex; // M true, F false
     public ItemDescriptor[] items;
     public int money, maxLevel;
 

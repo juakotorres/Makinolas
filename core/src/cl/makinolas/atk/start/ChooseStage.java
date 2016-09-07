@@ -40,11 +40,15 @@ public class ChooseStage extends AbstractStage {
   private PokemonStarter[] options;
   private int lastSelected;
   private Title arrow;
+  private String myName;
+  private boolean mySex;
   
-  public ChooseStage(Viewport v, GameScreen actualScreen, Game myGame) {
+  public ChooseStage(Viewport v, GameScreen actualScreen, Game myGame,String myName, boolean mySex) {
     super(v);
     
     lastSelected = 0;
+    this.myName = myName;
+    this.mySex = mySex;
     this.myGame = myGame;
     myScreen = actualScreen;
     suMundo = new World(new Vector2(0, -10), true);
@@ -80,6 +84,7 @@ public class ChooseStage extends AbstractStage {
     accumulator = 0;
     renderer = new Box2DDebugRenderer();
     setupCamera();
+    options[0].isSelected();
   }
   
   public void act(float delta){
@@ -120,7 +125,7 @@ public class ChooseStage extends AbstractStage {
   }
 
   public void setChosenInitial(Friend friend){
-    SaveManager.getInstance().startGameSave(friend);
+    SaveManager.getInstance().startGameSave(friend, myName, mySex);
     Hero.getInstance().reset();
     MainBar.getInstance().reset();
 

@@ -69,7 +69,7 @@ public class StartingJourneyStage extends AbstractStage{
     
     if(Gdx.input.isKeyPressed(Keys.Z) && actualText.hasFinished() && sceneCount == 1){
       GameScreen gameScreen = new GameScreen(myGame);
-      gameScreen.setStage(new ChooseStage(new FitViewport(640,480), gameScreen, myGame));
+      gameScreen.setStage(new BoyOrGirlStage(new FitViewport(640,480), gameScreen, myGame));
       myGame.setScreen(gameScreen);
     }
     

@@ -2,6 +2,8 @@ package cl.makinolas.atk.start;
 
 public class GameText {
   
+  public static String savePath = "ATK.sav";
+  
   public static String firstStartText = 
       "Wena cabros aqui empiezan una nueva aventura junto a sus basuras "
       + "de pokemon. Para empezar les explicaremos que este es un nuevo mundo "
@@ -20,6 +22,8 @@ public class GameText {
       + "and capable of crushing anything. Even its trainer must be careful.";
   
   public static String charmanderDescription = "Obviously prefers hot places. When it rains,"
-      + " steam is said to spout from the tip of its tail."; 
+      + " steam is said to spout from the tip of its tail.";
+
+  public static String chooseSexText = "Ahora debes elegir que sexo usaras dentro de esta aventura."; 
   
 }

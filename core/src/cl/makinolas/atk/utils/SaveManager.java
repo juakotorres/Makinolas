@@ -8,6 +8,7 @@ import com.badlogic.gdx.utils.JsonWriter;
 import cl.makinolas.atk.actors.Hero;
 import cl.makinolas.atk.actors.friend.Friend;
 import cl.makinolas.atk.actors.friend.FriendDescriptor;
+import cl.makinolas.atk.start.GameText;
 
 public class SaveManager {
 
@@ -29,13 +30,13 @@ public class SaveManager {
         return save;
     }
 
-    public void loadData(String path){
+    public void loadData(String path) throws SaveDoesNotExistException{
         FileHandle file = Gdx.files.local(path);
-        if(!file.exists()) return;
+        if(!file.exists()) throw new SaveDoesNotExistException();
         String encData = file.readString();
         Json base = new Json();
         String data = cryptor.decrypt(encData);
-        System.out.println("Loaded:\n"+data);
+        //System.out.println("Loaded:\n"+data);
         save = base.fromJson(SaveInstance.class,data);
     }
 
@@ -50,14 +51,17 @@ public class SaveManager {
         return save != null;
     }
     
-    public void startGameSave(Friend friend){
+    public void startGameSave(Friend friend, String myName, boolean mySex){
       SaveInstance saveInstance = new SaveInstance();
       FriendDescriptor fd = new FriendDescriptor();
       fd.name = friend.getName();
       fd.level = 5;
       saveInstance.friends = new FriendDescriptor[]{fd};
+      saveInstance.name = myName;
+      saveInstance.sex = mySex;
       
-      SaveManager.getInstance().saveData(saveInstance, "ATK.sav");
+      //System.out.println(GameText.savePath);
+      SaveManager.getInstance().saveData(saveInstance, GameText.savePath);
     }
 
     public void saveState() {
@@ -67,6 +71,7 @@ public class SaveManager {
         save.items = hero.getInventory().createDescriptors();
         save.money = hero.getInventory().getMoney();
         save.maxLevel = hero.getMaxLevelUnlocked();
-        SaveManager.getInstance().saveData(save,"ATK.sav");
+        //System.out.println(GameText.savePath);
+        SaveManager.getInstance().saveData(save,GameText.savePath);
     }
 }

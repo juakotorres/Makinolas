@@ -23,6 +23,7 @@ import cl.makinolas.atk.actors.ui.MobileGroup;
 import cl.makinolas.atk.screen.GameScreen;
 import cl.makinolas.atk.screen.MapScreen;
 import cl.makinolas.atk.screen.MenuScreen;
+import cl.makinolas.atk.start.StartingJourneyStage;
 
 public class LoadStage extends AbstractStage{
   
@@ -51,10 +52,10 @@ public class LoadStage extends AbstractStage{
     
     arrow = new Title("CharacterImages/arrow.png", 50, 300);
     addActor(arrow);
-    LoadActor firstSave = new LoadActor("Save 1", "ATK.sav", 80, 250);
+    LoadActor firstSave = new LoadActor("Save 1", "ATK.sav", 80, 250, this);
     addActor(firstSave);
     
-    LoadActor secondSave = new LoadActor("Save 2", "ATK.sav", 80, 140);
+    LoadActor secondSave = new LoadActor("Save 2", "ATK2.sav", 80, 140, this);
     addActor(secondSave);
     
     TextButton menuButton = new TextButton("Back to menu",  new Skin(Gdx.files.internal("Data/uiskin.json")));
@@ -92,7 +93,7 @@ public class LoadStage extends AbstractStage{
     myGame.setScreen(menuScreen);
   }
 
-  protected void loadMap(){
+  public void loadMap(){
     MapScreen mapScreen = new MapScreen(myGame,new MapStage(new FitViewport(640, 480),myGame));
     myGame.setScreen(mapScreen);
   }
@@ -119,7 +120,6 @@ public class LoadStage extends AbstractStage{
       changeArrow(last, lastSelected);
     } if (Gdx.input.isKeyJustPressed(Keys.Z)){
       options[lastSelected].loadMap();
-      loadMap();
     }
   }
   
@@ -152,6 +152,12 @@ public class LoadStage extends AbstractStage{
     getCamera().position.set(x * 20, y * 20, 0);
     getCamera().update();    
     camera.update();
+  }
+
+  public void startJourney() {
+    GameScreen gameScreen = new GameScreen(myGame);
+    gameScreen.setStage(new StartingJourneyStage(new FitViewport(640,480), gameScreen, myGame));
+    myGame.setScreen(gameScreen);    
   }
   
 }

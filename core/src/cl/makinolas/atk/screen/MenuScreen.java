@@ -20,14 +20,6 @@ public class MenuScreen extends SimpleScreen {
   public MenuScreen(Game game){
     super(game, new MenuStage(new FitViewport(640,480)));
     
-    TextButton startButton = new TextButton("Start Game",  new Skin(Gdx.files.internal("Data/uiskin.json")));
-    startButton.setPosition(280, 240);
-    startButton.addListener(new ClickListener(){
-        @Override
-        public void clicked(InputEvent event, float x, float y) {
-          startGame();
-        }
-    });
     /*
     TextButton shopButton = new TextButton("Enter Shop",  new Skin(Gdx.files.internal("Data/uiskin.json")));
     shopButton.addListener(new ClickListener(){
@@ -37,7 +29,7 @@ public class MenuScreen extends SimpleScreen {
       }
     });
     */
-    TextButton loadButton = new TextButton("Load Game",  new Skin(Gdx.files.internal("Data/uiskin.json")));
+    TextButton loadButton = new TextButton("Begin Game",  new Skin(Gdx.files.internal("Data/uiskin.json")));
     loadButton.addListener(new ClickListener(){
       @Override
       public void clicked(InputEvent event, float x, float y) {
@@ -45,12 +37,9 @@ public class MenuScreen extends SimpleScreen {
       }
     });
     TextButton optionButton = new TextButton("Options",  new Skin(Gdx.files.internal("Data/uiskin.json")));
-    optionButton.setWidth(startButton.getWidth());
-    loadButton.setWidth(startButton.getWidth());
 
     loadButton.setPosition(280, 200);
     optionButton.setPosition(280, 160);
-    stage.addActor(startButton);
     stage.addActor(loadButton);
     stage.addActor(optionButton);
   }
