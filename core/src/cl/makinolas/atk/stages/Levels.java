@@ -3,7 +3,7 @@ package cl.makinolas.atk.stages;
 public enum Levels {
   LEVEL1("level1", false, 28, 20),
   FIRSTSTAGE("FirstStage", false, 28, 18),
-  LEVEL2("level2", false, 28, 16),
+  LEVEL2("Electric_Campament", false, 28, 16),
   LEVEL3("level3", false, 26, 16),
   BOSSLEVEL1("bossstage1", true, 24, 16);
   
