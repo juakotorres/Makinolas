@@ -28,7 +28,6 @@ var MainController = function($scope){
                      {"name":"FSL",img:"FreezeSimpleLeftCorner.png"},
                      {"name":"SSR",img:"SnowSimpleRightCorner.png"},
                      {"name":"CSL",img:"ClassicSimpleLeftCorner.png"},
-                     {"name":"ZFL",img:"Flame.png"},
                      {"name":"FSR",img:"FreezeSimpleRightCorner.png"},
                      {"name":"SPL",img:"SnowPrettyLeftCorner.png"},
                      {"name":"SU",img:"SnowUp.png"},
@@ -40,6 +39,8 @@ var MainController = function($scope){
                      ];
 
     self.modifiers = ["Stay","Normal","Stay and Shot","Fly wave and drop","Jumper","Follower","Fly Melee","Melee"];
+
+    self.decorations = [{"name":"ZFL",img:"Flame.png"}];
 
     self.platforms.sort(function(a,b){return a.name.localeCompare(b.name)});
 
@@ -62,6 +63,7 @@ var MainController = function($scope){
     ];
 
     self.map = {};
+    self.prefix = "";
 
     self.selName = "BL";
     self.levelName = "level1"
@@ -71,12 +73,13 @@ var MainController = function($scope){
     self.startX = 0;
     self.startY = 0;
 
-    self.setSel = function(nm, unq, mod){
+    self.setSel = function(nm, unq, mod, prfx){
         self.selName = nm;
         self.uniqueTool = unq;
         if(mod == null) mod = false;
         self.modifierTool = mod;
         self.deleteTool = false;
+        self.prefix = prfx;
     };
 
     self.setDel = function(){
@@ -112,11 +115,15 @@ var MainController = function($scope){
         }
         else if(self.uniqueTool){
             self.ctx.drawImage(document.getElementById("im-"+self.selName),x*35,y*35);
-            self.map[""+x+","+(20-y)] = self.selName+",0";
+            if(self.selName.charAt(0) == "%")
+                self.map[""+x+","+(20-y)] = self.selName+",0";
+            else
+                self.map[""+x+","+(20-y)] = self.prefix+","+self.selName+",0";
         }
         else if(self.modifierTool){
             if(self.map[""+x+","+(20-y)] != null){
-                self.map[""+x+","+(20-y)] =  self.map[""+x+","+(20-y)].split(",")[0]+","+self.selName;
+                var comps = self.map[""+x+","+(20-y)].split(",");
+                self.map[""+x+","+(20-y)] =  comps[0]+","+comps[1]+","+self.selName;
                 self.ctx.fillText(self.selName,x*35,y*35+10);
             }
         }
@@ -146,7 +153,10 @@ var MainController = function($scope){
         for(var coords in self.map){
             if(self.map[coords]!=null){
                 var comps = self.map[coords].split(",");
-                builder += comps[0]+","+coords+","+comps[1]+"\n";
+                if(comps.length>2)
+                    builder += comps[0]+","+comps[1]+","+coords+","+comps[2]+"\n";
+                else
+                    builder += comps[0]+","+coords+"\n";
             }
         }
         download(self.levelName+".lvl",builder);

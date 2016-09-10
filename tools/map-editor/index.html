@@ -31,7 +31,7 @@
             </a>
             <br><br>
             <pre>Pokemon:</pre>
-            <a ng-repeat="plt in pokemons" ng-click="setSel(plt.name,true)" class="img-btn">
+            <a ng-repeat="plt in pokemons" ng-click="setSel(plt.name,true,false,'%E')" class="img-btn">
                 <img src="platforms/{{plt.img}}" alt="img" id="im-{{plt.name}}">
             </a>
             <br><br>
@@ -39,6 +39,11 @@
             <button ng-repeat="plt in modifiers" ng-click="setSel($index,false,true)" style="width: 100%;">
                 {{$index+". "+plt}}
             </button>
+            <br><br>
+            <pre>Decoration:</pre>
+            <a ng-repeat="plt in decorations" ng-click="setSel(plt.name,true,false,'%D')" class="img-btn">
+                <img src="platforms/{{plt.img}}" alt="img" id="im-{{plt.name}}">
+            </a>
             <br><br>
         </div>
         <div id="canvas-container">
