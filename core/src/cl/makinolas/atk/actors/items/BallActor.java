@@ -78,7 +78,7 @@ public class BallActor extends GameActor {
         super.act(delta);
         if(captureTime > 0){
             myBody.setLinearVelocity(0,0);
-            captureTime -= delta * 6;
+            captureTime -= delta * 8;
             if(captureTime <= 0) {
                 setDead();
                 listener.onBroke(captureX,captureY);
@@ -93,7 +93,9 @@ public class BallActor extends GameActor {
             batch.draw(region, myPosition.x * 20 - 10, myPosition.y * 20 - 10, 20, 20);
         }
         else {
-            batch.draw(region, captureX * 20 - 16, captureY * 20 - 16, 16, 16, 32, 32, 1, 1, (float) (40*Math.sin(captureTime)));
+            float r = (float) (40*Math.sin(captureTime));
+            r = (r>10)?10:r;
+            batch.draw(region, captureX * 20 - 16, captureY * 20 - 16, 16, 16, 32, 32, 1, 1, r);
         }
     }
 

@@ -257,6 +257,8 @@ public class Enemy extends Monsters {
           MainBar.getInstance().updateTeam();
         }
       });
+      free = false;
+      myBody.setLinearVelocity(0,0);
     }
     else if(free){
       ball.roll(2, new BallActor.BrokeListener() {
