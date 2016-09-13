@@ -3,12 +3,7 @@ package cl.makinolas.atk.actors.items;
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.Vector2;
-import com.badlogic.gdx.physics.box2d.Body;
-import com.badlogic.gdx.physics.box2d.BodyDef;
-import com.badlogic.gdx.physics.box2d.FixtureDef;
-import com.badlogic.gdx.physics.box2d.PolygonShape;
-import com.badlogic.gdx.physics.box2d.World;
-import com.badlogic.gdx.physics.box2d.WorldManifold;
+import com.badlogic.gdx.physics.box2d.*;
 
 import cl.makinolas.atk.actors.GameActor;
 import cl.makinolas.atk.actors.platform.Platform;
@@ -19,10 +14,13 @@ public class BallActor extends GameActor {
     private TextureRegion region;
     private Ball.BallType type;
     private boolean dead;
+    private float captureTime, captureX, captureY;
+    private BrokeListener listener;
 
     public BallActor(Ball.BallType t, World myWorld, float x, float y){
         type = t;
         dead = false;
+        captureTime = -1;
 
         BodyDef myBodyDefinition = new BodyDef();
         myBodyDefinition.type = BodyDef.BodyType.DynamicBody;
@@ -57,7 +55,7 @@ public class BallActor extends GameActor {
 
     @Override
     public void interactWithPlatform(Platform platform, WorldManifold worldManifold){
-        dead = true;
+        setDead();
     }
 
     @Override
@@ -76,9 +74,27 @@ public class BallActor extends GameActor {
     }
 
     @Override
+    public void act(float delta) {
+        super.act(delta);
+        if(captureTime > 0){
+            myBody.setLinearVelocity(0,0);
+            captureTime -= delta * 6;
+            if(captureTime <= 0) {
+                setDead();
+                listener.onBroke();
+            }
+        }
+    }
+
+    @Override
     public void draw(Batch batch, float parentAlpha) {
-        Vector2 myPosition = myBody.getPosition();
-        batch.draw(region, myPosition.x * 20 - 10 , myPosition.y * 20 - 10,20,20);
+        if(captureTime < 0) {
+            Vector2 myPosition = myBody.getPosition();
+            batch.draw(region, myPosition.x * 20 - 10, myPosition.y * 20 - 10, 20, 20);
+        }
+        else {
+            batch.draw(region, captureX * 20 - 16, captureY * 20 - 16, 16, 16, 32, 32, 1, 1, (float) (40*Math.sin(captureTime)));
+        }
     }
 
     public void setThrowImpulse(int dir) {
@@ -86,6 +102,19 @@ public class BallActor extends GameActor {
     }
 
     public void setDead() {
+        if(captureTime > 0) return;
         dead = true;
+    }
+
+    public void roll(int n, BrokeListener ls){
+        if(captureTime > 0) return;
+        captureTime = (float) (n*2*Math.PI);
+        captureX = myBody.getPosition().x;
+        captureY = myBody.getPosition().y + 1;
+        listener = ls;
+    }
+
+    public interface BrokeListener {
+        public void onBroke();
     }
 }

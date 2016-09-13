@@ -25,7 +25,7 @@ public class Enemy extends Monsters {
   private int width;
   private int height;
   private int meleeDamage;
-  private boolean dead;
+  private boolean dead, free;
   private int walkAnimation;
   private int hurtAnimation;
   private final float hurtTime = 1 / 4f;
@@ -64,6 +64,7 @@ public class Enemy extends Monsters {
     healthBar = new HBar(givenHealth, health, cutSprite[0], 4, new TextureRegion( new Texture(Gdx.files.internal("Overlays/bar_green.png"))));
     isDamaged = false;
     dead = false;
+    free = true;
     meleeDamage = 45;
     accumulator = 0;
     this.level = level;
@@ -108,7 +109,11 @@ public class Enemy extends Monsters {
   }
   
   @Override
-  public void act(float delta){     
+  public void act(float delta){
+    if(!free){
+      myBody.setLinearVelocity(0,0);
+      return;
+    }
     myBody.setLinearVelocity(vx, myBody.getLinearVelocity().y);
     //myBody.applyForce(1, 1, 10, 10, true);
     checkDamage(delta, inflictorVelocity);
@@ -167,6 +172,7 @@ public class Enemy extends Monsters {
   
   @Override
   public void draw(Batch batch, float alpha){
+    if(!free) return;
     super.draw(batch,alpha);
     Vector2 myPosition = myBody.getPosition();
     batch.draw(healthBar.getSprite(), myPosition.x * GameConstants.WORLD_FACTOR - getActualSprite().getRegionWidth() / 2 ,
@@ -213,18 +219,22 @@ public class Enemy extends Monsters {
 
   @Override
   public void interact(GameActor actor2, WorldManifold worldManifold) {
-    actor2.interactWithEnemy(this, worldManifold);
+    if(free)
+      actor2.interactWithEnemy(this, worldManifold);
   }
   
   @Override
   public void interactWithAttack(Attacks attack, WorldManifold worldManifold){
-    this.damage(getAttackDamage(attack), attack);
+    if(free)
+      this.damage(getAttackDamage(attack), attack);
   }
   
   @Override
   public void interactWithHero(Hero hero, WorldManifold worldManifold){
-    interactWithHero2(hero);
-    hero.interactWithMonster(this);
+    if(free) {
+      interactWithHero2(hero);
+      hero.interactWithMonster(this);
+    }
   }
   
   private float getBodySize(int size){
@@ -238,14 +248,25 @@ public class Enemy extends Monsters {
 
   @Override
   public void interactWithBall(BallActor ball) {
-    if(Formulas.checkCatch(ball.getType().catchability/100f,0.9f,health,100)){
-      setDead();
-      Hero.getInstance().addAllie(parent);
-      MainBar.getInstance().updateTeam();
-      ball.setDead();
+    if(free && Formulas.checkCatch(ball.getType().catchability/100f,0.9f,health,100)){
+      ball.roll(3, new BallActor.BrokeListener() {
+        @Override
+        public void onBroke() {
+          setDead();
+          Hero.getInstance().addAllie(parent);
+          MainBar.getInstance().updateTeam();
+        }
+      });
     }
-    else{
-      ball.setDead();
+    else if(free){
+      ball.roll(2, new BallActor.BrokeListener() {
+        @Override
+        public void onBroke() {
+          free = true;
+        }
+      });
+      free = false;
+      myBody.setLinearVelocity(0,0);
     }
   }
 
