@@ -81,7 +81,7 @@ public class BallActor extends GameActor {
             captureTime -= delta * 6;
             if(captureTime <= 0) {
                 setDead();
-                listener.onBroke();
+                listener.onBroke(captureX,captureY);
             }
         }
     }
@@ -115,6 +115,6 @@ public class BallActor extends GameActor {
     }
 
     public interface BrokeListener {
-        public void onBroke();
+        public void onBroke(float x, float y);
     }
 }

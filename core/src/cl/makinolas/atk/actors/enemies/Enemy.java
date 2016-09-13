@@ -251,7 +251,7 @@ public class Enemy extends Monsters {
     if(free && Formulas.checkCatch(ball.getType().catchability/100f,0.9f,health,100)){
       ball.roll(3, new BallActor.BrokeListener() {
         @Override
-        public void onBroke() {
+        public void onBroke(float x, float y) {
           setDead();
           Hero.getInstance().addAllie(parent);
           MainBar.getInstance().updateTeam();
@@ -261,8 +261,9 @@ public class Enemy extends Monsters {
     else if(free){
       ball.roll(2, new BallActor.BrokeListener() {
         @Override
-        public void onBroke() {
+        public void onBroke(float x, float y) {
           free = true;
+          myBody.setTransform(x,y,0);
         }
       });
       free = false;
