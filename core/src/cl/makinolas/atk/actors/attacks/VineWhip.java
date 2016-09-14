@@ -5,52 +5,22 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.Vector2;
-import com.badlogic.gdx.physics.box2d.Body;
-import com.badlogic.gdx.physics.box2d.BodyDef;
-import com.badlogic.gdx.physics.box2d.FixtureDef;
-import com.badlogic.gdx.physics.box2d.PolygonShape;
 import com.badlogic.gdx.physics.box2d.World;
 
 import cl.makinolas.atk.actors.Monsters;
 
 public class VineWhip extends Attacks {
   
-  private BodyDef myBodyDefinition; 
-  private Monsters mySource;
   private float attackTime;
   private float accumulator;
-  private float initialPosition;
-  private boolean dead;
   
   public VineWhip(World myWorld, float x , float y, boolean facingRight, Monsters source){
+    super(myWorld, x, y, facingRight, source);
     
-    dead = false;
-    mySource = source;
-    attackTime = 0;
     accumulator = 0;
-    isFacingRight = !facingRight;
     this.initialPosition= (facingRight)? 1f: -1f;
-    myBodyDefinition = new BodyDef();
-    myBodyDefinition.type = BodyDef.BodyType.DynamicBody;
-    myBodyDefinition.position.set(new Vector2(x + initialPosition * source.getMonsterWidth(), y));
-    
-    Body myBody = myWorld.createBody(myBodyDefinition);
-    
-    PolygonShape shape = new PolygonShape();
-    shape.setAsBox(0.5f, 0.5f);
-    
-    myBody.setGravityScale(0);
-    FixtureDef fixtureDef = new FixtureDef();
-    fixtureDef.isSensor = true;
-    fixtureDef.density = 0;
-    fixtureDef.shape = shape;
-    myBody.createFixture(fixtureDef);
-    myBody.resetMassData();
-    shape.dispose();
-    
-    // Guardar body.
-    setBody(myBody);
-    
+    this.initialPosition *= source.getMonsterWidth();
+    initializeBody(x, y, 0.5f, 0.5f);
     // Guardar animaciones del jugador
     setAnimation();
   }
@@ -69,7 +39,7 @@ public class VineWhip extends Attacks {
     }
   }
 
-  private void setAnimation(){
+  protected void setAnimation(){
     setMasterTexture(new TextureRegion(new Texture(Gdx.files.internal("Attacks/Latigo_cepa.png"))),39,32);
     addAttackAnimation(0.1f, Animation.PlayMode.LOOP, 0, 4);
     attackTime = 5 * 0.1f;    

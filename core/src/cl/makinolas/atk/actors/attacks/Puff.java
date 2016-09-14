@@ -4,50 +4,22 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.Vector2;
-import com.badlogic.gdx.physics.box2d.Body;
-import com.badlogic.gdx.physics.box2d.BodyDef;
-import com.badlogic.gdx.physics.box2d.FixtureDef;
-import com.badlogic.gdx.physics.box2d.PolygonShape;
 import com.badlogic.gdx.physics.box2d.World;
 
 import cl.makinolas.atk.actors.Monsters;
 
 public class Puff extends Attacks {
   
-  private BodyDef myBodyDefinition; 
-  private Monsters mySource;
   protected final float spriteTime = 1 / 50f;
   private int[] attackAnimations;
   private int actualAnimation;
   private float accumulator;
-  private boolean dead;
   
-public Puff(World myWorld, float x , float y, boolean facingRight, Monsters source){
+  public Puff(World myWorld, float x , float y, boolean facingRight, Monsters source){
+    super(myWorld, x, y, facingRight, source);
     xVelocity =0;
-    dead = false;
-    mySource = source;
     accumulator = 0;
-    isFacingRight = !facingRight;
-    myBodyDefinition = new BodyDef();
-    myBodyDefinition.type = BodyDef.BodyType.DynamicBody;
-    myBodyDefinition.position.set(new Vector2(x, y));
-    
-    Body myBody = myWorld.createBody(myBodyDefinition);
-    
-    PolygonShape shape = new PolygonShape();
-    shape.setAsBox(0.5f, 0.5f);
-    
-    myBody.setGravityScale(0);
-    FixtureDef fixtureDef = new FixtureDef();
-    fixtureDef.isSensor = true;
-    fixtureDef.density = 0;
-    fixtureDef.shape = shape;
-    myBody.createFixture(fixtureDef);
-    myBody.resetMassData();
-    shape.dispose();
-    
-    // Guardar body.
-    setBody(myBody);
+    initializeBody(x, y, 0.5f, 0.5f);
     
     // Guardar animaciones del jugador
     setAnimation();
@@ -72,7 +44,7 @@ public Puff(World myWorld, float x , float y, boolean facingRight, Monsters sour
   }
   
 
-  private void setAnimation(){
+  protected void setAnimation(){
     attackAnimations = new int[7];
     setMasterTexture(new TextureRegion(new Texture(Gdx.files.internal("Attacks/Puff.png"))),41,32);
     for(int i = 0; i < 7; i++){
