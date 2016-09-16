@@ -13,8 +13,9 @@ import cl.makinolas.atk.actors.GameActor;
 import cl.makinolas.atk.actors.HBarFliped;
 import cl.makinolas.atk.actors.Hero;
 import cl.makinolas.atk.actors.attacks.AquaAttack;
-import cl.makinolas.atk.actors.attacks.BlueBeam;
-import cl.makinolas.atk.actors.attacks.OldMewtwoFinalAttack;
+import cl.makinolas.atk.actors.attacks.DroppingAttack;
+import cl.makinolas.atk.actors.attacks.ShootAttack;
+import cl.makinolas.atk.actors.attacks.states.BlueBeamState;
 import cl.makinolas.atk.actors.friend.OldMewtwo;
 import cl.makinolas.atk.stages.AbstractStage;
 
@@ -112,11 +113,11 @@ public class OldMewtwoBoss extends Boss {
   }
   
   private void finalAttack() {
-    GameActor fireball = new OldMewtwoFinalAttack(myWorld,4,10,isFacingRight, this);
-    GameActor fireball2 = new OldMewtwoFinalAttack(myWorld, 9,10,isFacingRight, this);
-    GameActor fireball3 = new OldMewtwoFinalAttack(myWorld, 14,10,isFacingRight, this);
-    GameActor fireball4 = new OldMewtwoFinalAttack(myWorld, 19,10,isFacingRight, this);
-    GameActor fireball5 = new OldMewtwoFinalAttack(myWorld, 24,10,isFacingRight, this);
+    GameActor fireball = new DroppingAttack(new BlueBeamState(), myWorld,4,10,isFacingRight, this);
+    GameActor fireball2 = new DroppingAttack(new BlueBeamState(), myWorld, 9,10,isFacingRight, this);
+    GameActor fireball3 = new DroppingAttack(new BlueBeamState(), myWorld, 14,10,isFacingRight, this);
+    GameActor fireball4 = new DroppingAttack(new BlueBeamState(), myWorld, 19,10,isFacingRight, this);
+    GameActor fireball5 = new DroppingAttack(new BlueBeamState(), myWorld, 24,10,isFacingRight, this);
     ((AbstractStage) getStage()).addGameActor(fireball);   
     ((AbstractStage) getStage()).addGameActor(fireball2);  
     ((AbstractStage) getStage()).addGameActor(fireball3);  
@@ -130,7 +131,7 @@ public class OldMewtwoBoss extends Boss {
   }
 
   private void primaryAttack(){
-    GameActor fireball = new BlueBeam(myWorld, myBody.getPosition().x,myBody.getPosition().y,isFacingRight, this);
+    GameActor fireball = new ShootAttack(new BlueBeamState(), myWorld, myBody.getPosition().x,myBody.getPosition().y,isFacingRight, this);
     ((AbstractStage) getStage()).addGameActor(fireball);
   }
   

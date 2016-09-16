@@ -12,7 +12,6 @@ import com.badlogic.gdx.utils.viewport.FitViewport;
 
 import cl.makinolas.atk.GameConstants;
 import cl.makinolas.atk.actors.attacks.Attacks;
-import cl.makinolas.atk.actors.attacks.Puff;
 import cl.makinolas.atk.actors.bosses.IBoss;
 import cl.makinolas.atk.actors.enemies.Enemy;
 import cl.makinolas.atk.actors.enemies.MonsterFactory;
@@ -180,8 +179,8 @@ public class Hero extends Monsters {
 
   private void checkEvolution() {
     if(hasEvolved){
-      Attacks attack = new Puff(myWorld, myBody.getPosition().x,myBody.getPosition().y,isFacingRight, this);
-      ((AbstractStage) getStage()).addGameActor(attack);
+      GameActor puff = new Puff(myWorld, myBody.getPosition().x,myBody.getPosition().y,isFacingRight, this);
+      ((AbstractStage) getStage()).addGameActor(puff);
       hasEvolved = false;
       MainBar.getInstance().setBars();
     }
@@ -328,8 +327,8 @@ public class Hero extends Monsters {
   
   private void setNewAllie(int index){
     if(!isJumping || actualFriend.getDead()){
-      Attacks attack = new Puff(myWorld, myBody.getPosition().x,myBody.getPosition().y,isFacingRight, this);
-      ((AbstractStage) getStage()).addGameActor(attack);
+      GameActor puff = new Puff(myWorld, myBody.getPosition().x,myBody.getPosition().y,isFacingRight, this);
+      ((AbstractStage) getStage()).addGameActor(puff);
       allies.set(indexFriend, actualFriend);
       actualFriend = allies.get(index);
       indexFriend = index;

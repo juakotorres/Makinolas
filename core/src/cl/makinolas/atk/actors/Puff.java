@@ -1,28 +1,61 @@
-package cl.makinolas.atk.actors.attacks;
+package cl.makinolas.atk.actors;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.Vector2;
+import com.badlogic.gdx.physics.box2d.Body;
+import com.badlogic.gdx.physics.box2d.BodyDef;
+import com.badlogic.gdx.physics.box2d.FixtureDef;
+import com.badlogic.gdx.physics.box2d.PolygonShape;
 import com.badlogic.gdx.physics.box2d.World;
+import com.badlogic.gdx.physics.box2d.WorldManifold;
 
-import cl.makinolas.atk.actors.Monsters;
-
-public class Puff extends Attacks {
+public class Puff extends AnimatedActor {
   
   protected final float spriteTime = 1 / 50f;
   private int[] attackAnimations;
   private int actualAnimation;
   private float accumulator;
+  private boolean dead;
+  private Monsters mySource;
+  private float initialPosition;
+  private BodyDef myBodyDefinition;
   
   public Puff(World myWorld, float x , float y, boolean facingRight, Monsters source){
-    super(myWorld, x, y, facingRight, source);
-    xVelocity =0;
+    dead = false;
+    mySource = source;
+    isFacingRight = !facingRight;
+    this.initialPosition= (facingRight)? .5f: -.5f;
+    
     accumulator = 0;
-    initializeBody(x, y, 0.5f, 0.5f);
+    myBodyDefinition = new BodyDef();
+    myBodyDefinition.type = BodyDef.BodyType.DynamicBody;
+    myBodyDefinition.position.set(new Vector2(x + initialPosition,y));
+    
+    Body myBody = myWorld.createBody(myBodyDefinition);
+    
+    PolygonShape shape = new PolygonShape();
+    shape.setAsBox(getBodySize(41), getBodySize(32));
+    
+    myBody.setGravityScale(0);
+    FixtureDef fixtureDef = new FixtureDef();
+    fixtureDef.isSensor = true;
+    fixtureDef.density = 0;
+    fixtureDef.shape = shape;
+    myBody.createFixture(fixtureDef);
+    myBody.resetMassData();
+    shape.dispose();
+    
+    // Guardar body.
+    setBody(myBody);
     
     // Guardar animaciones del jugador
     setAnimation();
+  }
+  
+  protected float getBodySize(int size){
+    return (0.5f*size)/22;
   }
   
   @Override
@@ -54,17 +87,10 @@ public class Puff extends Attacks {
     changeAnimation(0);  
   }
 
-  @Override
-  public int getAttackDamage() {
-    return 0;
-  }
-  
-  @Override
   public Monsters getSource() {
     return mySource;
   }
   
-  @Override
   public void setDead(){
     dead = true;
   }
@@ -73,11 +99,15 @@ public class Puff extends Attacks {
   public boolean isDead(){
     return dead;
   }
+
+  @Override
+  public void interact(GameActor actor2, WorldManifold worldManifold) {
+    
+  }
   
   @Override
-  public void setSource(Monsters monsters){
-    this.mySource = monsters;
+  public boolean isPuff() {
+    return true;
   }
-
   
 }

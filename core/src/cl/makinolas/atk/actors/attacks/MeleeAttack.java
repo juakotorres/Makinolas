@@ -5,7 +5,7 @@ import cl.makinolas.atk.actors.Monsters;
 public class MeleeAttack extends Attacks {
   
   public MeleeAttack(Monsters monster){
-    super(null, 0, 0, false, monster);
+    super(null, 0, 0, false, monster, false);
     xVelocity =0;
   }
   

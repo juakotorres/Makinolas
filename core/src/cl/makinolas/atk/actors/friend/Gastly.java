@@ -7,8 +7,9 @@ import com.badlogic.gdx.physics.box2d.World;
 
 import cl.makinolas.atk.actors.Hero;
 import cl.makinolas.atk.actors.Monsters;
-import cl.makinolas.atk.actors.attacks.Acid;
 import cl.makinolas.atk.actors.attacks.Attacks;
+import cl.makinolas.atk.actors.attacks.ShootAttack;
+import cl.makinolas.atk.actors.attacks.states.AcidState;
 
 public class Gastly extends AbstractFriend {
   
@@ -78,7 +79,7 @@ public class Gastly extends AbstractFriend {
   
   @Override
   public Attacks getFriendAttack(World myWorld, float x , float y, boolean facingRight, Monsters source){
-    return new Acid(myWorld, x, y, facingRight, source);
+    return new ShootAttack(new AcidState(),myWorld, x, y, facingRight, source);
   }
   
 }

@@ -25,7 +25,7 @@ public class AquaAttack extends Attacks {
   private int[] spriteHeight;
   
   public AquaAttack(World myWorld, float x , float y, boolean facingRight, Monsters source){
-    super(myWorld, x, y, facingRight, source);
+    super(myWorld, x, y, facingRight, source, false);
     
     spriteWidth = new int[]{24, 24, 25, 26, 26, 29, 29};
     spriteHeight = new int[]{18, 18, 26, 37, 37, 52, 52};

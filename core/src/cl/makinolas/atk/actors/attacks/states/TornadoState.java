@@ -15,7 +15,7 @@ public class TornadoState extends SpriteState {
 
   @Override
   public void initializeBody(float x, float y) {
-    myAttack.initializeBody(x, y, 0.5f, 1.7f);    
+    myAttack.initializeBody(x, y);    
   }
 
   @Override

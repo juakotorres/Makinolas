@@ -8,7 +8,8 @@ import com.badlogic.gdx.physics.box2d.World;
 import cl.makinolas.atk.actors.Hero;
 import cl.makinolas.atk.actors.Monsters;
 import cl.makinolas.atk.actors.attacks.Attacks;
-import cl.makinolas.atk.actors.attacks.Bubble;
+import cl.makinolas.atk.actors.attacks.ShootBombAttack;
+import cl.makinolas.atk.actors.attacks.states.BubbleState;
 
 public class Totodile extends AbstractFriend {
   
@@ -73,7 +74,7 @@ public class Totodile extends AbstractFriend {
   
   @Override
   public Attacks getFriendAttack(World myWorld, float x , float y, boolean facingRight, Monsters source){
-    return new Bubble(myWorld, x, y, facingRight, source);
+    return new ShootBombAttack(new BubbleState(),myWorld, x, y, facingRight, source);
   }
   
 }

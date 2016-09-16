@@ -125,7 +125,7 @@ public class GameStage extends AbstractStage implements ContactListener {
       if(actor.isHero() && (actorBody.getPosition().y < -50 || actorBody.getPosition().x < -100 || actor.isDead())){
         changeDeadMenu();
       }
-      if(actor.isEnemy() || actor.isAttack() || actor.isBall() || actor.isDetector()){
+      if(actor.isEnemy() || actor.isPuff() || actor.isAttack() || actor.isBall() || actor.isDetector()){
         if(actorBody.getPosition().y < -200 || actorBody.getPosition().x < -100 || actor.isDead()){
           gameActors.removeValue(actor,true);
           suMundo.destroyBody(actorBody);

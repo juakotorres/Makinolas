@@ -15,7 +15,7 @@ public class ThunderBoltState extends SpriteState {
 
   @Override
   public void initializeBody(float x, float y) {
-    myAttack.initializeBody(x, y, 0.5f, 0.5f);    
+    myAttack.initializeBody(x, y);    
   }
 
   @Override

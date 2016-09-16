@@ -12,6 +12,7 @@ import cl.makinolas.atk.actors.AnimatedActor;
 import cl.makinolas.atk.actors.GameActor;
 import cl.makinolas.atk.actors.Hero;
 import cl.makinolas.atk.actors.Monsters;
+import cl.makinolas.atk.actors.attacks.states.SpriteState;
 import cl.makinolas.atk.actors.bosses.IBoss;
 import cl.makinolas.atk.actors.enemies.AttackDetector;
 import cl.makinolas.atk.actors.enemies.Enemy;
@@ -28,9 +29,12 @@ public abstract class Attacks extends AnimatedActor {
   public abstract int getAttackDamage();
   public abstract Monsters getSource();
   public abstract void setDead();
+  protected SpriteState mySpriteState;
+  protected boolean rotated;
   
-  public Attacks(World myWorld, float x , float y, boolean facingRight, Monsters source){
+  public Attacks(World myWorld, float x , float y, boolean facingRight, Monsters source, boolean rotated){
     this.myWorld = myWorld;
+    this.rotated = rotated;
     dead = false;
     mySource = source;
     isFacingRight = !facingRight;
@@ -41,7 +45,7 @@ public abstract class Attacks extends AnimatedActor {
     setAnimation();
   }
   
-  public void initializeBody(float x, float y, float width, float height){
+  public void initializeBody(float x, float y){
     myBodyDefinition = new BodyDef();
     myBodyDefinition.type = BodyDef.BodyType.DynamicBody;
     myBodyDefinition.position.set(new Vector2(x + initialPosition,y));
@@ -49,7 +53,11 @@ public abstract class Attacks extends AnimatedActor {
     Body myBody = myWorld.createBody(myBodyDefinition);
     
     PolygonShape shape = new PolygonShape();
-    shape.setAsBox(width, height);
+    if(!rotated){
+      shape.setAsBox(getBodySize(mySpriteState.getBodyWidth()), getBodySize(mySpriteState.getBodyHeight()));
+    } else {
+      shape.setAsBox(getBodySize(mySpriteState.getBodyHeight()), getBodySize(mySpriteState.getBodyWidth()));
+    }
     
     myBody.setGravityScale(0);
     FixtureDef fixtureDef = new FixtureDef();

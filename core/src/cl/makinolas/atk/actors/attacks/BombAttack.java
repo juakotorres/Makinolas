@@ -9,15 +9,15 @@ public class BombAttack extends Attacks{
 
   protected float accumulator;
   protected float attackTime;
-  protected SpriteState mySpriteState;
   
   public BombAttack(SpriteState spriteState, World myWorld, float x, float y, boolean facingRight, Monsters source) {
-    super(myWorld, x, y, facingRight, source);
+    super(myWorld, x, y, facingRight, source, false);
+    
+    mySpriteState = spriteState;
     
     spriteState.setAttack(this);
     spriteState.initializeBody(x,y); 
     
-    mySpriteState = spriteState;
     xVelocity =0;
     accumulator = 0;
     
@@ -32,7 +32,7 @@ public class BombAttack extends Attacks{
     checkFinish(delta);
   }
   
-  private void checkFinish(float delta) {
+  protected void checkFinish(float delta) {
     accumulator += delta;
     if(accumulator >= attackTime){
       dead = true;

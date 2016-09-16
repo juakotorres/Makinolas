@@ -6,55 +6,61 @@ import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.Animation.PlayMode;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 
-public class EmberState extends SpriteState{
+public class DragonBreathState extends SpriteState{
   
   @Override
   public int getAttackDamage() {
-    return 20;
+    return 60;
   }
   
   @Override
   public void initializeBody(float x, float y) {
     myAttack.initializeBody(x, y);
   }
-  
+
   @Override
   public TextureRegion getTexture() {
-    return new TextureRegion(new Texture(Gdx.files.internal("Attacks/Ember.png")));
+    return new TextureRegion(new Texture(Gdx.files.internal("Attacks/DragonBreath.png")));
   }
-  
+
   @Override
   public int getWidth() {
-    return 18;
+    return 38;
   }
-  
+
   @Override
   public int getHeight() {
-    return 19;
+    return 30;
   }
-  
+
   @Override
   public float getFrameTime() {
-    return 0.2f;
+    return 0.1f;
   }
-  
+
   @Override
   public PlayMode getModeAnimation() {
     return Animation.PlayMode.LOOP;
   }
-  
+
   @Override
   public int getInitialSprite() {
     return 0;
   }
-  
+
   @Override
   public int getFinalSprite() {
-    return 9;
+    return 5;
   }
   
   @Override
-  public float getAttackTime() {
-    return 10 * getFrameTime();
+  public int getBodyWidth() {
+    return getWidth()/2;
   }
+
+  @Override
+  public int getBodyHeight() {
+    return getHeight()/2;
+  }
+  
 }

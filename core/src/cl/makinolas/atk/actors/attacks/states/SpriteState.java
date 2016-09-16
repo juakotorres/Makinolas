@@ -26,4 +26,12 @@ public abstract class SpriteState {
   public abstract PlayMode getModeAnimation();
   public abstract int getInitialSprite();
   public abstract int getFinalSprite();
+
+  public int getBodyWidth() {
+    return getWidth();
+  }
+
+  public int getBodyHeight() {
+    return getHeight();
+  }
 }
