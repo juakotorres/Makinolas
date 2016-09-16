@@ -562,4 +562,12 @@ public class Hero extends Monsters {
     return maxLevelUnlocked;
   }
 
+  public float getStageX(){
+    return myBody.getPosition().x * GameConstants.WORLD_FACTOR;
+  }
+
+  public float getStageY(){
+    return myBody.getPosition().y * GameConstants.WORLD_FACTOR;
+  }
+
 }

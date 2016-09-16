@@ -1,6 +1,7 @@
 package cl.makinolas.atk.actors.items;
 
 import cl.makinolas.atk.actors.Hero;
+import cl.makinolas.atk.actors.fx.FxManager;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 
 public class OranBerry extends Item {
@@ -15,6 +16,7 @@ public class OranBerry extends Item {
     @Override
     public void use(Hero hero) {
         hero.getFriend().setHealth(hero.getHealth()+10);
+        FxManager.getInstance().addFx(FxManager.Fx.GREENFX,hero.getStageX(),hero.getStageY());
     }
 
     @Override

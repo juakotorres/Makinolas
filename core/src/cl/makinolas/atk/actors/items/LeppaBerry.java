@@ -1,6 +1,7 @@
 package cl.makinolas.atk.actors.items;
 
 import cl.makinolas.atk.actors.Hero;
+import cl.makinolas.atk.actors.fx.FxManager;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 
 public class LeppaBerry extends Item {
@@ -15,6 +16,7 @@ public class LeppaBerry extends Item {
     @Override
     public void use(Hero hero) {
         hero.getFriend().setMagic(hero.getFriend().getMagic()+100);
+        FxManager.getInstance().addFx(FxManager.Fx.BLUEFX,hero.getStageX(),hero.getStageY());
     }
 
     @Override

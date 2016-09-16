@@ -2,6 +2,7 @@ package cl.makinolas.atk.stages;
 
 import java.io.IOException;
 
+import cl.makinolas.atk.actors.fx.FxManager;
 import cl.makinolas.atk.actors.ui.BagVis;
 import com.badlogic.gdx.Application;
 import com.badlogic.gdx.Game;
@@ -77,7 +78,8 @@ public class GameStage extends AbstractStage implements ContactListener {
     ui.addActor(bar);
     ui.addActor(group);
     ui.addActor(BagVis.getInstance());
-    
+
+    FxManager.getInstance().setParent(ui);
    
     addListener(new InputController(hero,group));
     accumulator = 0;

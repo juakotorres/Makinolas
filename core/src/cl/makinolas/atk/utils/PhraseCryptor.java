@@ -4,7 +4,7 @@ public class PhraseCryptor implements Cryptor{
 
     public int[] key;
     public int n;
-    private final String alphabet = "0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ:\"{}()[],.-_#@$%&+*/\\;?!=|<>";
+    private final String alphabet = "0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ:\"{}()[],.-_#@$%&+*/\\;?!=|<> ";
 
     public PhraseCryptor(String k) {
         n = k.length();
