@@ -41,7 +41,7 @@ public abstract class Attacks extends AnimatedActor {
     setAnimation();
   }
   
-  protected void initializeBody(float x, float y, float width, float height){
+  public void initializeBody(float x, float y, float width, float height){
     myBodyDefinition = new BodyDef();
     myBodyDefinition.type = BodyDef.BodyType.DynamicBody;
     myBodyDefinition.position.set(new Vector2(x + initialPosition,y));

@@ -3,23 +3,28 @@ package cl.makinolas.atk.actors.attacks;
 import com.badlogic.gdx.physics.box2d.World;
 
 import cl.makinolas.atk.actors.Monsters;
+import cl.makinolas.atk.actors.attacks.states.SpriteState;
 
-public abstract class BombAttack extends Attacks{
+public class BombAttack extends Attacks{
 
   protected float accumulator;
   protected float attackTime;
+  protected SpriteState mySpriteState;
   
-  public BombAttack(World myWorld, float x, float y, boolean facingRight, Monsters source) {
+  public BombAttack(SpriteState spriteState, World myWorld, float x, float y, boolean facingRight, Monsters source) {
     super(myWorld, x, y, facingRight, source);
     
+    spriteState.setAttack(this);
+    spriteState.initializeBody(x,y); 
+    
+    mySpriteState = spriteState;
     xVelocity =0;
     accumulator = 0;
     
     this.initialPosition= (facingRight)? 1f: -1f;
     this.initialPosition *= source.getMonsterWidth() * 3;
     
-    // Guardar animaciones del jugador
-    setAnimation();
+    setSprite();
   }
   
   @Override
@@ -53,6 +58,22 @@ public abstract class BombAttack extends Attacks{
   @Override
   public void setSource(Monsters monsters){
     this.mySource = monsters;
+  }
+
+  @Override
+  public int getAttackDamage() {
+    return mySpriteState.getAttackDamage();
+  }
+
+  protected void setSprite() {
+    setMasterTexture(mySpriteState.getTexture(),mySpriteState.getWidth(),mySpriteState.getHeight());
+    addAttackAnimation(mySpriteState.getFrameTime(), mySpriteState.getModeAnimation(), mySpriteState.getInitialSprite(), mySpriteState.getFinalSprite());
+    attackTime = mySpriteState.getAttackTime();
+  }
+
+  @Override
+  protected void setAnimation() {
+    
   }
    
 }
