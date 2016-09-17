@@ -1,5 +1,6 @@
 package cl.makinolas.atk.stages;
 
+import cl.makinolas.atk.actors.*;
 import com.badlogic.gdx.Application;
 import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
@@ -12,16 +13,12 @@ import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.utils.viewport.FitViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
 
-import cl.makinolas.atk.actors.Background;
-import cl.makinolas.atk.actors.Hero;
-import cl.makinolas.atk.actors.MapInputController;
-import cl.makinolas.atk.actors.Traveler;
 import cl.makinolas.atk.actors.ui.MapStageActor;
 import cl.makinolas.atk.actors.ui.MobileGroup;
 import cl.makinolas.atk.screen.GameScreen;
 import cl.makinolas.atk.screen.ShopScreen;
 
-public class MapStage extends Stage {
+public class MapStage extends Stage implements KeyHandable{
 
     private Traveler traveler;
 
@@ -37,8 +34,8 @@ public class MapStage extends Stage {
         //Adding the actors to the stage (currently just the background, the traveler and the levels)
         addActor(new Background("Background/mapa.png", getCamera()));
 
-        maxAllowed = Hero.getInstance().getMaxLevelUnlocked();
         buildLevels();
+        maxAllowed = Math.min(Hero.getInstance().getMaxLevelUnlocked(),levels.length);
 
         // Add floors
         for (int i = 0; i < levels.length; i++) {
@@ -49,10 +46,10 @@ public class MapStage extends Stage {
         addActor(traveler);
 
         //Input configurations
-        addListener(new MapInputController(this, new MobileGroup(Gdx.app.getType() == Application.ApplicationType.Android)));
+        addListener(new SimpleInputController(this, new MobileGroup(Gdx.app.getType() == Application.ApplicationType.Android)));
         Gdx.input.setInputProcessor(this);
 
-        current = 0;
+        current = maxAllowed - 1;
 
         TextButton shopButton = new TextButton("Enter Shop",  new Skin(Gdx.files.internal("Data/uiskin.json")));
         shopButton.addListener(new ClickListener(){
