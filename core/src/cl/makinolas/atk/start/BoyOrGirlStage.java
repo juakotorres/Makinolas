@@ -5,6 +5,9 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input.Keys;
 import com.badlogic.gdx.Input.TextInputListener;
 import com.badlogic.gdx.graphics.OrthographicCamera;
+import com.badlogic.gdx.scenes.scene2d.InputEvent;
+import com.badlogic.gdx.scenes.scene2d.InputListener;
+import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.utils.viewport.FitViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
 
@@ -13,11 +16,9 @@ import cl.makinolas.atk.actors.Title;
 import cl.makinolas.atk.screen.GameScreen;
 import cl.makinolas.atk.stages.AbstractStage;
 
-public class BoyOrGirlStage extends AbstractStage {
+public class BoyOrGirlStage extends Stage {
 
   private Game myGame;
-  
-  private OrthographicCamera camera;
 
   private TextActor actualText;
   private Title images;
@@ -35,7 +36,6 @@ public class BoyOrGirlStage extends AbstractStage {
     sceneCount = 0;
     lastSelected = 0;
     this.myGame = myGame;
-    myScreen = gameScreen;
     addActor(new Background("Background/SuPuente.jpg", getCamera()));
     
     images = new Title("CharacterImages/Sensei.png",350, 300);
@@ -47,7 +47,6 @@ public class BoyOrGirlStage extends AbstractStage {
     
     actualText = new TextActor(GameText.chooseSexText);
     addActor(actualText);
-    setupCamera();
   }
   
   public void act(float delta){
@@ -60,15 +59,7 @@ public class BoyOrGirlStage extends AbstractStage {
     }
     
     if(Gdx.input.isKeyJustPressed(Keys.Z) && sceneCount == 1){
-      arrow.remove();
-      images.remove();
-      images2.remove();
-      sceneCount = 2;
-      if(lastSelected == 0){
-        mySex = true;
-      } else {
-        mySex = false;
-      }
+      selectSex(lastSelected == 0);
     }
     
     if(sceneCount == 2){
@@ -89,12 +80,26 @@ public class BoyOrGirlStage extends AbstractStage {
       }, "Choose your name", "", "Write your name here");
     }
     
-    if(Gdx.input.isKeyJustPressed(Keys.Z) && actualText.hasFinished() && sceneCount == 0){
+    if((Gdx.input.isKeyJustPressed(Keys.Z) || bottomPressed()) && actualText.hasFinished() && sceneCount == 0){
       sceneCount = 1;
       actualText.remove();    
       images.remove();
       images = new Title("CharacterImages/hombre.png",200, 300);
+      images.addListener(new InputListener(){
+        @Override
+        public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
+          selectSex(true);
+          return true;
+        }
+      });
       images2 = new Title("CharacterImages/mujer.png",400, 300);
+      images2.addListener(new InputListener(){
+        @Override
+        public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
+          selectSex(false);
+          return true;
+        }
+      });
       addActor(images);
       addActor(images2);
       arrow = new Title("CharacterImages/arrow.png", 100, 300);
@@ -110,6 +115,14 @@ public class BoyOrGirlStage extends AbstractStage {
     }
   }
 
+  private void selectSex(boolean s){
+    arrow.remove();
+    images.remove();
+    images2.remove();
+    sceneCount = 2;
+    mySex = s;
+  }
+
   private void changeArrow() {
     int actual = lastSelected;
     if(actual == 0){
@@ -118,19 +131,9 @@ public class BoyOrGirlStage extends AbstractStage {
       arrow.changeCoordinates(300, 300);
     }    
   }
-  
-  private void setupCamera() {
-    camera = new OrthographicCamera(32, 24);
-    camera.position.set(camera.viewportWidth / 2, camera.viewportHeight / 2, 0f);
-    camera.update();
-  }
-  
-  
-  public void changeCamera(float x, float y){
-    camera.position.set(x, y, 0);
-    getCamera().position.set(x * 20, y * 20, 0);
-    getCamera().update();    
-    camera.update();
+
+  private boolean bottomPressed() {
+    return Gdx.input.isTouched() && Gdx.input.getY()>Gdx.graphics.getHeight()*0.7;
   }
   
 }

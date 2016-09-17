@@ -115,6 +115,8 @@ public class PokemonStarter extends Actor {
       
       batch.end();
       renderer.begin(ShapeRenderer.ShapeType.Filled);
+      renderer.setTransformMatrix(batch.getTransformMatrix());
+      renderer.setProjectionMatrix(batch.getProjectionMatrix());
       renderer.setColor(Color.BLACK);
       renderer.rect(cx + 400, cy + 100, 220, 300);
       renderer.end();

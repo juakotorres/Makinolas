@@ -10,6 +10,8 @@ import com.badlogic.gdx.graphics.g2d.NinePatch;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.scenes.scene2d.Actor;
+import com.badlogic.gdx.scenes.scene2d.InputEvent;
+import com.badlogic.gdx.scenes.scene2d.InputListener;
 
 public class TextActor extends Actor {
 
@@ -39,6 +41,20 @@ public class TextActor extends Actor {
     base = new NinePatch(new Texture("Overlays/superdupertextarea.png"),12,12,12,12);
     font = new BitmapFont(Gdx.files.internal("Fonts/normal.fnt"),Gdx.files.internal("Fonts/normal.png"),false);
     renderer = new ShapeRenderer();
+
+    setBounds(0,0,640,120);
+    setPosition(0,0);
+    addListener(new InputListener(){
+      @Override
+      public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
+        count += 1;
+        accumulator = 0;
+        if(count <= holeText.length() / 270){
+          setTexts(holeText, count);
+        }
+        return true;
+      }
+    });
   }
   
   private void setTexts(String paragraph, int i) {
@@ -63,11 +79,12 @@ public class TextActor extends Actor {
       thirdText =  paragraph.substring(180 + partOfText, 270 + partOfText);
     } else {
       thirdText = "";
-    } 
+    }
   }
   
   @Override
   public void act(float delta){
+    super.act(delta);
     accumulator += delta;
     
     if(accumulator <= textTime){
@@ -98,6 +115,8 @@ public class TextActor extends Actor {
     
     batch.end();
     renderer.begin(ShapeRenderer.ShapeType.Filled);
+    renderer.setTransformMatrix(batch.getTransformMatrix());
+    renderer.setProjectionMatrix(batch.getProjectionMatrix());
     renderer.setColor(Color.BLACK);
     renderer.rect(cx, cy, 640, 120);
     renderer.end();

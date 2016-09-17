@@ -9,6 +9,7 @@ import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.Box2DDebugRenderer;
 import com.badlogic.gdx.physics.box2d.World;
 import com.badlogic.gdx.scenes.scene2d.Group;
+import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.utils.viewport.FitViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
 
@@ -27,16 +28,10 @@ import cl.makinolas.atk.stages.AbstractStage;
 import cl.makinolas.atk.stages.MapStage;
 import cl.makinolas.atk.utils.SaveManager;
 
-public class ChooseStage extends AbstractStage {
+public class ChooseStage extends Stage {
 
-  private World suMundo;
-  private float accumulator;
-  private final float frameTime = 1 / 300f;
-  private Group ground, mons, ui;
   private Game myGame;
-  
-  private OrthographicCamera camera;
-  private Box2DDebugRenderer renderer;
+
   private PokemonStarter[] options;
   private int lastSelected;
   private Title arrow;
@@ -50,8 +45,6 @@ public class ChooseStage extends AbstractStage {
     this.myName = myName;
     this.mySex = mySex;
     this.myGame = myGame;
-    myScreen = actualScreen;
-    suMundo = new World(new Vector2(0, -10), true);
     addActor(new Background("CharacterImages/background1.png", getCamera()));
     addActor(new Title("CharacterImages/choosecharacter.png",220 ,400));
     
@@ -68,35 +61,15 @@ public class ChooseStage extends AbstractStage {
     addActor(thirdOption);
     
     options = new PokemonStarter[]{firstOption,secondOption, thirdOption};
-    
-    ground = new Group();
-    addActor(ground);
-    mons = new Group();
-    addActor(mons);
-    ui = new Group();
-    addActor(ui);
 
-    MobileGroup group = new MobileGroup(Gdx.app.getType() == Application.ApplicationType.Android);
+    //MobileGroup group = new MobileGroup(Gdx.app.getType() == Application.ApplicationType.Android);
     Gdx.input.setInputProcessor(this);
 
-    ui.addActor(group);    
-    
-    accumulator = 0;
-    renderer = new Box2DDebugRenderer();
-    setupCamera();
     options[0].isSelected();
   }
   
   public void act(float delta){
     super.act(delta);
-    
-    accumulator += delta;
-    elapsedTime += delta;
-    
-    while(accumulator >= frameTime){
-      suMundo.step(frameTime, 6, 2);
-      accumulator -= frameTime;
-    }
     
     if (Gdx.input.isKeyJustPressed(Keys.LEFT)){
       int last = lastSelected;
@@ -132,25 +105,5 @@ public class ChooseStage extends AbstractStage {
     MapScreen mapScreen = new MapScreen(myGame,new MapStage(new FitViewport(640, 480),myGame));
     myGame.setScreen(mapScreen);
   }
-  
-  @Override
-  public void draw() {
-      super.draw();
-      //bar.drawCustom(getBatch(),getCamera().position.x,getCamera().position.y); //Custom draw for MainBar
-      camera.update();
-      renderer.render(suMundo, camera.combined);
-  }
-  
-  private void setupCamera() {
-    camera = new OrthographicCamera(32, 24);
-    camera.position.set(camera.viewportWidth / 2, camera.viewportHeight / 2, 0f);
-    camera.update();
-  }
 
-  public void changeCamera(float x, float y){
-    camera.position.set(x, y, 0);
-    getCamera().position.set(x * 20, y * 20, 0);
-    getCamera().update();    
-    camera.update();
-  }
 }
