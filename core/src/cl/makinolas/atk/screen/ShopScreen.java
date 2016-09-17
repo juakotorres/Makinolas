@@ -130,7 +130,25 @@ public class ShopScreen extends SimpleScreen implements KeyHandable{
 
     @Override
     public void handleKey(int keycode) {
-        if(keycode == Input.Keys.X)
-            exitShop();
+        switch (keycode){
+            case Input.Keys.X:
+                exitShop();
+                break;
+            case Input.Keys.LEFT:
+                setItemSel(Math.max(itemSel-1,0));
+                break;
+            case Input.Keys.RIGHT:
+                setItemSel(Math.min(itemSel+1,shpItems.size-1));
+                break;
+            case Input.Keys.UP:
+                setItemSel(Math.max(itemSel-3,0));
+                break;
+            case Input.Keys.DOWN:
+                setItemSel(Math.min(itemSel+3,shpItems.size-1));
+                break;
+            case Input.Keys.Z:
+                purchaseItem(1);
+                break;
+        }
     }
 }

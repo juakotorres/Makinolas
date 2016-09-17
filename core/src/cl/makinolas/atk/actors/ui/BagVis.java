@@ -46,16 +46,30 @@ public class BagVis extends Group {
     }
 
     public void handleKey(int keycode){
-        if(selected==-1) return;
         switch (keycode){
             case Input.Keys.A:
+                if(selected==-1) break;
                 inventory.selectItem1(items.get(selected).getName());
+                selectItem(-1);
                 break;
             case Input.Keys.S:
+                if(selected==-1) break;
                 inventory.selectItem2(items.get(selected).getName());
+                selectItem(-1);
+                break;
+            case Input.Keys.LEFT:
+                selectItem(Math.max(selected-1,0));
+                break;
+            case Input.Keys.RIGHT:
+                selectItem(Math.min(selected+1,items.size()-1));
+                break;
+            case Input.Keys.UP:
+                selectItem(Math.max(selected-3,0));
+                break;
+            case Input.Keys.DOWN:
+                selectItem(Math.min(selected+3,items.size()-1));
                 break;
         }
-        selectItem(-1);
     }
 
     private void buildBagBoxes(){
