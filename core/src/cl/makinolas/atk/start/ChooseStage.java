@@ -9,6 +9,8 @@ import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.Box2DDebugRenderer;
 import com.badlogic.gdx.physics.box2d.World;
 import com.badlogic.gdx.scenes.scene2d.Group;
+import com.badlogic.gdx.scenes.scene2d.InputEvent;
+import com.badlogic.gdx.scenes.scene2d.InputListener;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.utils.viewport.FitViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
@@ -51,13 +53,13 @@ public class ChooseStage extends Stage {
     arrow = new Title("CharacterImages/arrow.png", 50, 300);
     addActor(arrow);
     PokemonStarter firstOption = new PokemonStarter("CharacterImages/charmander.png", new Charmander(5),120,300
-        ,"CharacterImages/firetype.png", GameText.charmanderDescription );
+        ,"CharacterImages/firetype.png", GameText.charmanderDescription,0);
     addActor(firstOption);
     PokemonStarter secondOption = new PokemonStarter("CharacterImages/snivy.png", new Snivy(5), 320,300
-        ,"CharacterImages/grasstype.png", GameText.snivyDescription );
+        ,"CharacterImages/grasstype.png", GameText.snivyDescription,1 );
     addActor(secondOption);
     PokemonStarter thirdOption = new PokemonStarter("CharacterImages/totodile.png", new Totodile(5), 220,100,
-        "CharacterImages/watertype.png", GameText.totodileDescription);
+        "CharacterImages/watertype.png", GameText.totodileDescription,2);
     addActor(thirdOption);
     
     options = new PokemonStarter[]{firstOption,secondOption, thirdOption};
@@ -84,6 +86,7 @@ public class ChooseStage extends Stage {
   }
   
   private void changeArrow(int previous, int actual) {
+    lastSelected = actual;
     options[previous].notSelected();
     options[actual].isSelected();
     
@@ -95,6 +98,10 @@ public class ChooseStage extends Stage {
       arrow.changeCoordinates(150, 100);
     }
     
+  }
+
+  public void changeArrow(int actual){
+    changeArrow(lastSelected,actual);
   }
 
   public void setChosenInitial(Friend friend){

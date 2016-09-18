@@ -58,8 +58,19 @@ public class MapStage extends Stage implements KeyHandable{
                 enterShop();
             }
         });
-        shopButton.setPosition(20,20);
+        shopButton.setPosition(20,12);
         addActor(shopButton);
+
+        TextButton startButton = new TextButton("Start",  new Skin(Gdx.files.internal("Data/uiskin.json")));
+        startButton.addListener(new ClickListener(){
+            @Override
+            public void clicked(InputEvent event, float x, float y) {
+                startLevel();
+            }
+        });
+        startButton.setPosition(640-80,12);
+        startButton.setWidth(60);
+        addActor(startButton);
 
         //The initial position of the traveler
         moveToLevel(current);
