@@ -50,7 +50,7 @@ public class GameStage extends AbstractStage implements ContactListener {
     gameActors = new Array<GameActor>();
     suMundo = new World(new Vector2(0, -10), true);
     suMundo.setContactListener(this);
-    addActor(new Background("Background/SuPuente.jpg", getCamera()));
+    addActor(new Background(getLevelBackground(), getCamera()));
 
     ground = new Group();
     addActor(ground);

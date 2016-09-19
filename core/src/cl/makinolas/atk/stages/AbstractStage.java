@@ -34,7 +34,11 @@ public abstract class AbstractStage extends Stage {
   public String getLevelName(){
     return level.levelName;
   }
-  
+
+  public String getLevelBackground(){
+    return level.levelBackground;
+  }
+    
   public Levels getLevel(){
     return level;
   }
