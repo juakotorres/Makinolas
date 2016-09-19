@@ -2,7 +2,6 @@ package cl.makinolas.atk.stages;
 
 import java.io.IOException;
 
-import cl.makinolas.atk.actors.ui.BagVis;
 import com.badlogic.gdx.Application;
 import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
@@ -23,7 +22,7 @@ import cl.makinolas.atk.actors.Background;
 import cl.makinolas.atk.actors.GameActor;
 import cl.makinolas.atk.actors.Hero;
 import cl.makinolas.atk.actors.InputController;
-import cl.makinolas.atk.actors.Portal;
+import cl.makinolas.atk.actors.ui.BagVis;
 import cl.makinolas.atk.actors.ui.MainBar;
 import cl.makinolas.atk.actors.ui.MobileGroup;
 import cl.makinolas.atk.screen.GameScreen;
@@ -62,10 +61,7 @@ public class GameStage extends AbstractStage implements ContactListener {
 
     MobileGroup group = new MobileGroup(Gdx.app.getType() == Application.ApplicationType.Android);
     Gdx.input.setInputProcessor(this);
-    //Portal portal = new Portal(suMundo, new Vector2(49, -6), myGame);
-    /* for easy entering boss 1 */
-    Portal portal = new Portal(suMundo, new Vector2(10, 3), myGame);
-    addGameActor(portal);
+    
     Hero hero =  Hero.getInstance();
     cameraObserver = new CameraPosition();
 

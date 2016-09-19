@@ -15,6 +15,11 @@ public class DroppingAttack extends ShootAttack{
     super(spriteState, myWorld, x, y, facingRight, source, true);
     isDropping();
   }
+  
+  public DroppingAttack(SpriteState spriteState, World myWorld, float x, float y, boolean facingRight, Monsters source, boolean rotate) {
+    super(spriteState, myWorld, x, y, facingRight, source, rotate);
+    isDropping();
+  }
 
   @Override
   public void draw(Batch batch, float alpha){

@@ -20,7 +20,7 @@ public class FallingLeafState extends SpriteState {
   
   @Override
   public TextureRegion getTexture() {
-    return new TextureRegion(new Texture(Gdx.files.internal("Attacks/FallingLeaf.png")));
+    return new TextureRegion(new Texture(Gdx.files.internal("Attacks/fallingLeaf.png")));
   }
   
   @Override
@@ -35,7 +35,7 @@ public class FallingLeafState extends SpriteState {
   
   @Override
   public float getFrameTime() {
-    return 0.2f;
+    return 0.1f;
   }
   
   @Override

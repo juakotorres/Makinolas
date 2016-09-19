@@ -53,4 +53,14 @@ public class WindShurikenState extends SpriteState {
     return 7;
   }
   
+  
+  @Override
+  public int getBodyWidth() {
+    return getWidth()/2;
+  }
+
+  @Override
+  public int getBodyHeight() {
+    return getHeight()/2;
+  }
 }

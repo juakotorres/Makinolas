@@ -6,41 +6,36 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 
-public class BranchAttackState extends SpriteState {
-  
-  @Override
-  public void initializeBody(float x, float y) {
-    myAttack.initializeBody(x, y);    
-  }
+public class TreeState extends SpriteState {
   
   @Override
   public int getAttackDamage() {
-    return 55;
+    return 70;
   }
   
   @Override
   public TextureRegion getTexture() {
-    return new TextureRegion(new Texture(Gdx.files.internal("Attacks/BranchAttack.png")));
+    return new TextureRegion(new Texture(Gdx.files.internal("Attacks/Tree.png")));
   }
   
   @Override
   public int getWidth() {
-    return 37;
+    return 19;
   }
   
   @Override
   public int getHeight() {
-    return 37;
+    return 29;
   }
   
   @Override
   public float getFrameTime() {
-    return 0.1f;
+    return 0.2f;
   }
   
   @Override
   public PlayMode getModeAnimation() {
-    return Animation.PlayMode.LOOP_REVERSED;
+    return Animation.PlayMode.LOOP;
   }
   
   @Override
@@ -50,17 +45,12 @@ public class BranchAttackState extends SpriteState {
   
   @Override
   public int getFinalSprite() {
-    return 7;
+    return 6;
   }
   
   @Override
-  public int getBodyWidth() {
-    return getWidth()/2;
-  }
-
-  @Override
-  public int getBodyHeight() {
-    return getHeight()/2;
+  public float getAttackTime() {
+    return 7 * getFrameTime();
   }
   
 }

@@ -8,16 +8,7 @@ import cl.makinolas.atk.actors.attacks.Attacks;
 public abstract class SpriteState {
   
   protected Attacks myAttack;
-
-  public void setAttack(Attacks attack) {
-   myAttack = attack;    
-  }
   
-  public float getAttackTime(){
-    return 0;
-  }
-
-  public abstract void initializeBody(float x, float y);
   public abstract int getAttackDamage();
   public abstract TextureRegion getTexture();
   public abstract int getWidth();
@@ -34,4 +25,17 @@ public abstract class SpriteState {
   public int getBodyHeight() {
     return getHeight();
   }
+  
+  public void initializeBody(float x, float y){
+    myAttack.initializeBody(x, y);
+  }
+  
+  public void setAttack(Attacks attack) {
+   myAttack = attack;    
+  }
+  
+  public float getAttackTime(){
+    return 0;
+  }
+  
 }

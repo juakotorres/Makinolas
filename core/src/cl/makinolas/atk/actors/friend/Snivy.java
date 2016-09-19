@@ -8,8 +8,8 @@ import com.badlogic.gdx.physics.box2d.World;
 import cl.makinolas.atk.actors.Hero;
 import cl.makinolas.atk.actors.Monsters;
 import cl.makinolas.atk.actors.attacks.Attacks;
-import cl.makinolas.atk.actors.attacks.CloseRangeAttack;
-import cl.makinolas.atk.actors.attacks.states.VineWhipState;
+import cl.makinolas.atk.actors.attacks.ShootAttack;
+import cl.makinolas.atk.actors.attacks.states.BranchAttackState;
 
 public class Snivy extends AbstractFriend {
   
@@ -74,6 +74,6 @@ public class Snivy extends AbstractFriend {
   
   @Override
   public Attacks getFriendAttack(World myWorld, float x , float y, boolean facingRight, Monsters source){
-    return new CloseRangeAttack(new VineWhipState(), myWorld, x, y, facingRight, source);
+    return new ShootAttack(new BranchAttackState(), myWorld, x, y, facingRight, source);
   }
 }

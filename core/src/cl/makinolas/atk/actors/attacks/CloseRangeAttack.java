@@ -8,8 +8,10 @@ import cl.makinolas.atk.actors.attacks.states.SpriteState;
 
 public class CloseRangeAttack extends Attacks {
 
-  private float attackTime;
   private float accumulator;
+  private int actualAnimation;
+  private int[] attackAnimations;
+  private float spriteTime;
   
   public CloseRangeAttack(SpriteState spriteState, World myWorld, float x, float y, boolean facingRight, Monsters source) {
     super(myWorld, x, y, facingRight, source, false);
@@ -20,6 +22,7 @@ public class CloseRangeAttack extends Attacks {
     spriteState.initializeBody(x,y); 
     
     accumulator = 0;
+    spriteTime = spriteState.getFrameTime();
     this.initialPosition= (facingRight)? 2f: -2f;
     this.initialPosition *= source.getMonsterWidth();
     
@@ -28,24 +31,33 @@ public class CloseRangeAttack extends Attacks {
   
   @Override
   public void act(float delta){
-    checkFinish(delta);
+    checkMelee(delta);
     myBody.setTransform(new Vector2((mySource.getBody().getPosition().x + initialPosition * mySource.getMonsterWidth()),mySource.getBody().getPosition().y)
                           , myBody.getAngle());
   }
   
   
-  private void checkFinish(float delta) {
+  private void checkMelee(float delta) {
     accumulator += delta;
-    if(accumulator >= attackTime){
-      dead = true;
+    if(accumulator > spriteTime){
+      if(actualAnimation  < attackAnimations.length) {
+        changeAnimation(attackAnimations[actualAnimation]);
+        accumulator = 0;
+        actualAnimation += 1;
+      } else {
+        dead = true;
+      }
     }
+    
   }
-  
 
   protected void setSprite() {
     setMasterTexture(mySpriteState.getTexture(),mySpriteState.getWidth(),mySpriteState.getHeight());
-    addAttackAnimation(mySpriteState.getFrameTime(), mySpriteState.getModeAnimation(), mySpriteState.getInitialSprite(), mySpriteState.getFinalSprite());
-    attackTime = mySpriteState.getAttackTime();
+    attackAnimations = new int[mySpriteState.getFinalSprite() - mySpriteState.getInitialSprite() + 1];
+    for(int i = 0; i < attackAnimations.length; i++){
+      attackAnimations[i] = addAnimation(mySpriteState.getFrameTime(), mySpriteState.getInitialSprite() + i);
+    }     
+    actualAnimation = 0;
   }
   
   @Override

@@ -1,9 +1,11 @@
 package cl.makinolas.atk.actors.attacks;
 
 import com.badlogic.gdx.physics.box2d.World;
+import com.badlogic.gdx.physics.box2d.WorldManifold;
 
 import cl.makinolas.atk.actors.Monsters;
 import cl.makinolas.atk.actors.attacks.states.SpriteState;
+import cl.makinolas.atk.actors.platform.Platform;
 
 public class BombAttack extends Attacks{
 
@@ -18,7 +20,8 @@ public class BombAttack extends Attacks{
     spriteState.setAttack(this);
     spriteState.initializeBody(x,y); 
     
-    xVelocity =0;
+    xVelocity = 0;
+    yVelocity = -2;
     accumulator = 0;
     
     this.initialPosition= (facingRight)? 1f: -1f;
@@ -29,6 +32,7 @@ public class BombAttack extends Attacks{
   
   @Override
   public void act(float delta){
+    myBody.setLinearVelocity(xVelocity, yVelocity);
     checkFinish(delta);
   }
   
@@ -74,6 +78,11 @@ public class BombAttack extends Attacks{
   @Override
   protected void setAnimation() {
     
+  }
+  
+  @Override
+  public void interactWithPlatform(Platform platform, WorldManifold worldManifold){
+    yVelocity = 0;
   }
    
 }
