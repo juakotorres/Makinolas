@@ -544,7 +544,8 @@ public class Hero extends Monsters {
   public void completeStage(Game myGame){
     AbstractStage myStage = ((AbstractStage) getStage());
     Levels actualLevel = myStage.getLevel();
-
+    
+    myStage.music.dispose();
     int numberOfLevel = actualLevel.ordinal() + 2;
     if(maxLevelUnlocked < numberOfLevel)
       maxLevelUnlocked = numberOfLevel;

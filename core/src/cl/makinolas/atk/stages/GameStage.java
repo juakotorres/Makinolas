@@ -52,6 +52,10 @@ public class GameStage extends AbstractStage implements ContactListener {
     suMundo.setContactListener(this);
     addActor(new Background(getLevelBackground(), getCamera()));
 
+    music = Gdx.audio.newMusic(Gdx.files.internal(getLevelMusic()));
+    music.setLooping(true); 
+    music.play();
+    
     ground = new Group();
     addActor(ground);
     mons = new Group();

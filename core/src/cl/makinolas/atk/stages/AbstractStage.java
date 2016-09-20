@@ -1,5 +1,6 @@
 package cl.makinolas.atk.stages;
 
+import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.utils.viewport.Viewport;
 
@@ -16,6 +17,7 @@ public abstract class AbstractStage extends Stage {
   protected GameScreen myScreen;
   protected boolean paused;
   public CameraPosition cameraObserver;
+  public Music music;
 
   public AbstractStage(Viewport v) {
     super(v);
@@ -38,12 +40,17 @@ public abstract class AbstractStage extends Stage {
   public String getLevelBackground(){
     return level.levelBackground;
   }
+  
+  public String getLevelMusic(){
+    return level.levelMusic;
+  }
     
   public Levels getLevel(){
     return level;
   }
   
   public void changeDeadMenu() {
+    music.dispose();
     myScreen.mainMenu();
   }
 
