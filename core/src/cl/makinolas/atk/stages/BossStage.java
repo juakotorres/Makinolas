@@ -1,22 +1,34 @@
 package cl.makinolas.atk.stages;
 
-import cl.makinolas.atk.actors.*;
-import cl.makinolas.atk.actors.bosses.OldMewtwoBoss;
-import cl.makinolas.atk.actors.ui.MainBar;
-import cl.makinolas.atk.actors.ui.MobileGroup;
-import cl.makinolas.atk.screen.GameScreen;
-import cl.makinolas.atk.utils.LevelReader;
+import java.io.IOException;
+
 import com.badlogic.gdx.Application;
 import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.math.Vector2;
-import com.badlogic.gdx.physics.box2d.*;
+import com.badlogic.gdx.physics.box2d.Body;
+import com.badlogic.gdx.physics.box2d.Box2DDebugRenderer;
+import com.badlogic.gdx.physics.box2d.Contact;
+import com.badlogic.gdx.physics.box2d.ContactImpulse;
+import com.badlogic.gdx.physics.box2d.ContactListener;
+import com.badlogic.gdx.physics.box2d.Manifold;
+import com.badlogic.gdx.physics.box2d.World;
 import com.badlogic.gdx.scenes.scene2d.Group;
 import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.viewport.Viewport;
 
-import java.io.IOException;
+import cl.makinolas.atk.actors.Background;
+import cl.makinolas.atk.actors.GameActor;
+import cl.makinolas.atk.actors.Hero;
+import cl.makinolas.atk.actors.InputController;
+import cl.makinolas.atk.actors.Portal;
+import cl.makinolas.atk.actors.Title;
+import cl.makinolas.atk.actors.bosses.OldMewtwoBoss;
+import cl.makinolas.atk.actors.ui.MainBar;
+import cl.makinolas.atk.actors.ui.MobileGroup;
+import cl.makinolas.atk.screen.GameScreen;
+import cl.makinolas.atk.utils.LevelReader;
 
 public class BossStage extends AbstractStage implements ContactListener {
 
@@ -43,8 +55,12 @@ public class BossStage extends AbstractStage implements ContactListener {
     suMundo = new World(new Vector2(0, -10), true);
     suMundo.setContactListener(this);
 
-    addActor(new Background("Background/SuPuente.jpg", getCamera()));
-
+    addActor(new Background(getLevelBackground(), getCamera()));
+    
+    music = Gdx.audio.newMusic(Gdx.files.internal(getLevelMusic()));
+    music.setLooping(true);  
+    music.play();
+    
     ground = new Group();
     addActor(ground);
     mons = new Group();
@@ -120,7 +136,7 @@ public class BossStage extends AbstractStage implements ContactListener {
       if(actor.isHero() && actor.isDead()){
         changeDeadMenu();
       }
-      if(actor.isMonster() || actor.isAttack() || actor.isDetector()){
+      if(actor.isMonster() || actor.isPuff() || actor.isBall() || actor.isAttack() || actor.isDetector()){
         Body actorBody = actor.getBody();
         if(actorBody.getPosition().y < -200 || actorBody.getPosition().x < -100 || actorBody.getPosition().x > 200 || actor.isDead()){
           gameActors.removeValue(actor,true);
@@ -143,6 +159,7 @@ public class BossStage extends AbstractStage implements ContactListener {
   private void checkBossAlive() {
     if(bossDefeated){
       Portal portal = new Portal(suMundo, new Vector2(10, 3), myGame);
+      music.dispose();
       addGameActor(portal); 
       bossDefeated = false;
     }    

@@ -4,23 +4,19 @@ import cl.makinolas.atk.actors.Monsters;
 
 public class MeleeAttack extends Attacks {
   
-  private Monsters source;
-  private boolean dead;
-  
   public MeleeAttack(Monsters monster){
+    super(null, 0, 0, false, monster, false);
     xVelocity =0;
-    source = monster;
-    dead = false;
   }
   
   @Override
   public int getAttackDamage() {
-    return source.getMeleeDamage();
+    return mySource.getMeleeDamage();
   }
   
   @Override
   public Monsters getSource() {
-    return source;
+    return mySource;
   }
   
   @Override
@@ -40,7 +36,12 @@ public class MeleeAttack extends Attacks {
   
   @Override
   public void setSource(Monsters monsters){
-    this.source = monsters;
+    this.mySource = monsters;
+  }
+
+  @Override
+  protected void setAnimation() {
+    
   }
 
   

@@ -8,7 +8,8 @@ import com.badlogic.gdx.physics.box2d.World;
 import cl.makinolas.atk.actors.Hero;
 import cl.makinolas.atk.actors.Monsters;
 import cl.makinolas.atk.actors.attacks.Attacks;
-import cl.makinolas.atk.actors.attacks.Poison_Sting;
+import cl.makinolas.atk.actors.attacks.ShootAttack;
+import cl.makinolas.atk.actors.attacks.states.Poison_StingState;
 
 public class Weedle extends AbstractFriend {
   
@@ -73,6 +74,6 @@ public class Weedle extends AbstractFriend {
   
   @Override
   public Attacks getFriendAttack(World myWorld, float x , float y, boolean facingRight, Monsters source){
-    return new Poison_Sting(myWorld, x, y, facingRight, source);
+    return new ShootAttack(new Poison_StingState(), myWorld, x, y, facingRight, source);
   }
 }

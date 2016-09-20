@@ -74,5 +74,9 @@ public abstract class GameActor extends Actor{
     return false;
   }
 
+  public boolean isPuff() {
+    return false;
+  }
+
   
 }

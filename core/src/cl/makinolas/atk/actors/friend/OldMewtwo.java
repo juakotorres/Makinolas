@@ -8,7 +8,8 @@ import com.badlogic.gdx.physics.box2d.World;
 import cl.makinolas.atk.actors.Hero;
 import cl.makinolas.atk.actors.Monsters;
 import cl.makinolas.atk.actors.attacks.Attacks;
-import cl.makinolas.atk.actors.attacks.BlueBeam;
+import cl.makinolas.atk.actors.attacks.ShootAttack;
+import cl.makinolas.atk.actors.attacks.states.BlueBeamState;
 //
 public class OldMewtwo extends AbstractFriend {
   
@@ -38,7 +39,7 @@ public class OldMewtwo extends AbstractFriend {
   
   @Override
   public Attacks getFriendAttack(World myWorld, float x , float y, boolean facingRight, Monsters source){
-    return new BlueBeam(myWorld, x, y, facingRight, source);
+    return new ShootAttack(new BlueBeamState(),myWorld, x, y, facingRight, source);
   }
   
 }

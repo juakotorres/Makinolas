@@ -8,7 +8,8 @@ import com.badlogic.gdx.physics.box2d.World;
 import cl.makinolas.atk.actors.Hero;
 import cl.makinolas.atk.actors.Monsters;
 import cl.makinolas.atk.actors.attacks.Attacks;
-import cl.makinolas.atk.actors.attacks.Tornado;
+import cl.makinolas.atk.actors.attacks.BombAttack;
+import cl.makinolas.atk.actors.attacks.states.TornadoState;
 
 public class Zubat extends AbstractFriend {
   
@@ -73,6 +74,6 @@ public class Zubat extends AbstractFriend {
   
   @Override
   public Attacks getFriendAttack(World myWorld, float x , float y, boolean facingRight, Monsters source){
-    return new Tornado(myWorld, x, y, facingRight, source);
+    return new BombAttack(new TornadoState(), myWorld, x, y, facingRight, source);
   }
 }

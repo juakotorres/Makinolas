@@ -9,7 +9,8 @@ import com.badlogic.gdx.physics.box2d.World;
 import cl.makinolas.atk.actors.Hero;
 import cl.makinolas.atk.actors.Monsters;
 import cl.makinolas.atk.actors.attacks.Attacks;
-import cl.makinolas.atk.actors.attacks.DragonBreath;
+import cl.makinolas.atk.actors.attacks.ShootAttack;
+import cl.makinolas.atk.actors.attacks.states.DragonBreathState;
 import cl.makinolas.atk.actors.enemies.Enemy;
 import cl.makinolas.atk.actors.enemies.FlyWaveAndDropEnemy;
 import cl.makinolas.atk.actors.enemies.FollowerEnemy;
@@ -393,7 +394,7 @@ public abstract class AbstractFriend implements Friend {
   
   @Override
   public Attacks getFriendAttack(World myWorld, float x , float y, boolean facingRight, Monsters source){
-    return new DragonBreath(myWorld, x, y, facingRight, source);
+    return new ShootAttack(new DragonBreathState(), myWorld, x, y, facingRight, source);
   }
   
   @Override

@@ -8,7 +8,8 @@ import com.badlogic.gdx.physics.box2d.World;
 import cl.makinolas.atk.actors.Hero;
 import cl.makinolas.atk.actors.Monsters;
 import cl.makinolas.atk.actors.attacks.Attacks;
-import cl.makinolas.atk.actors.attacks.ThunderBolt;
+import cl.makinolas.atk.actors.attacks.BombAttack;
+import cl.makinolas.atk.actors.attacks.states.ThunderBoltState;
 
 public class Magnemite extends AbstractFriend {
   
@@ -73,7 +74,7 @@ public class Magnemite extends AbstractFriend {
   
   @Override
   public Attacks getFriendAttack(World myWorld, float x , float y, boolean facingRight, Monsters source){
-    return new ThunderBolt(myWorld, x, y, facingRight, source);
+    return new BombAttack(new ThunderBoltState(), myWorld, x, y, facingRight, source);
   }
   
 }

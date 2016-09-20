@@ -16,32 +16,22 @@ import cl.makinolas.atk.actors.platform.Platform;
 
 public class AquaAttack extends Attacks {
   
-  private BodyDef myBodyDefinition; 
-  private Monsters mySource;
   private int[] attackAnimations;
   private int actualAnimation;
   protected final float spriteTime = 1 / 5f;
   protected float accumulator;
   private float initialPosition;
-  private World myWorld;
-  private boolean dead;
   private int[] spriteWidth;
   private int[] spriteHeight;
   
   public AquaAttack(World myWorld, float x , float y, boolean facingRight, Monsters source){
-    
-    this.myWorld = myWorld;
+    super(myWorld, x, y, facingRight, source, false);
     
     spriteWidth = new int[]{24, 24, 25, 26, 26, 29, 29};
     spriteHeight = new int[]{18, 18, 26, 37, 37, 52, 52};
-    dead = false;
-    mySource = source;
     accumulator = 0;
-    isFacingRight = !facingRight;
     this.xVelocity = (facingRight)? 8: -8;
     this.initialPosition= (facingRight)? 1f: -1f;
-    
-    setAnimation();
     
     myBodyDefinition = new BodyDef();
     myBodyDefinition.type = BodyDef.BodyType.DynamicBody;
