@@ -16,6 +16,8 @@ public class Title extends Actor {
     xPosition = x;
     yPosition = y;
     backgroundImage = new TextureRegion(new Texture(Gdx.files.internal(pathImage)));
+    setBounds(0,0,backgroundImage.getRegionWidth(),backgroundImage.getRegionHeight());
+    setPosition(x-backgroundImage.getRegionWidth()/2,y-backgroundImage.getRegionHeight()/2);
   }
   
   @Override

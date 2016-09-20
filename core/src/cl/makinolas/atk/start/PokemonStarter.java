@@ -10,6 +10,8 @@ import com.badlogic.gdx.scenes.scene2d.Actor;
 
 import cl.makinolas.atk.actors.friend.Friend;
 import cl.makinolas.atk.utils.Formulas;
+import com.badlogic.gdx.scenes.scene2d.InputEvent;
+import com.badlogic.gdx.scenes.scene2d.InputListener;
 
 public class PokemonStarter extends Actor {
   
@@ -29,8 +31,8 @@ public class PokemonStarter extends Actor {
   private String fourthText;
   private boolean drawStats;
 
-  public PokemonStarter(String imagePath, Friend friend, int xPosition, int yPosition,
-                        String typeImagePath, String description) {
+  public PokemonStarter(String imagePath, final Friend friend, int xPosition, int yPosition,
+                        String typeImagePath, String description, final int pos) {
     
     drawStats = false;
     this.friend = friend;
@@ -46,7 +48,16 @@ public class PokemonStarter extends Actor {
     base = new NinePatch(new Texture("Overlays/superdupertextarea.png"),12,12,12,12);
     font = new BitmapFont(Gdx.files.internal("Fonts/normal.fnt"),Gdx.files.internal("Fonts/normal.png"),false);
     renderer = new ShapeRenderer();
-    
+    setBounds(0,0,width,height);
+    setPosition(xPosition-width/2,yPosition-height/2);
+    addListener(new InputListener(){
+      @Override
+      public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
+        if(drawStats) ((ChooseStage) getStage()).setChosenInitial(friend);
+        else ((ChooseStage) getStage()).changeArrow(pos);
+        return true;
+      }
+    });
   }
   
   public void isSelected(){
@@ -74,9 +85,9 @@ public class PokemonStarter extends Actor {
   private void setTexts(String paragraph, int i) {
     int partOfText = i * 270;
     if(paragraph.length() < 30 + partOfText){
-      firstText = paragraph.substring(0 + partOfText);
+      firstText = paragraph.substring(partOfText);
     } else {
-      firstText = paragraph.substring(0 + partOfText, 30 + partOfText);
+      firstText = paragraph.substring(partOfText, 30 + partOfText);
     }
     
     if(paragraph.length() < 60 + partOfText && paragraph.length() > 30 + partOfText){
@@ -115,6 +126,8 @@ public class PokemonStarter extends Actor {
       
       batch.end();
       renderer.begin(ShapeRenderer.ShapeType.Filled);
+      renderer.setTransformMatrix(batch.getTransformMatrix());
+      renderer.setProjectionMatrix(batch.getProjectionMatrix());
       renderer.setColor(Color.BLACK);
       renderer.rect(cx + 400, cy + 100, 220, 300);
       renderer.end();

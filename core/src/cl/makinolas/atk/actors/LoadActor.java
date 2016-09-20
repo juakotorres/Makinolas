@@ -19,8 +19,6 @@ import cl.makinolas.atk.utils.SaveManager;
 
 public class LoadActor extends Actor {
 
-  private int xPosition;
-  private int yPosition;
   private String fileName;
   private String trainerName;
   private String[] myFriends;
@@ -41,8 +39,6 @@ public class LoadActor extends Actor {
     
     this.myStage = stage;
     this.fileName = fileName;
-    this.xPosition = xPosition;
-    this.yPosition = yPosition;
     
     if(!noFile){
       myFriends = new String[SaveManager.getInstance().getSaveInstance().friends.length];
@@ -60,16 +56,20 @@ public class LoadActor extends Actor {
     font = new BitmapFont(Gdx.files.internal("Fonts/normal.fnt"),Gdx.files.internal("Fonts/normal.png"),false);
     font.setColor(Color.RED);
     renderer = new ShapeRenderer();
+    setBounds(0,0,500,100);
+    setPosition(xPosition,yPosition);
   }
   
   @Override
   public void draw(Batch batch, float alpha){
-    float cx = xPosition;
-    float cy = yPosition;
+    float cx = getX();
+    float cy = getY();
     float friendPosition = 100;
     
     batch.end();
     renderer.begin(ShapeRenderer.ShapeType.Filled);
+    renderer.setTransformMatrix(batch.getTransformMatrix());
+    renderer.setProjectionMatrix(batch.getProjectionMatrix());
     renderer.setColor(Color.BROWN);
     renderer.rect(cx, cy, 500, 100);
     renderer.end();

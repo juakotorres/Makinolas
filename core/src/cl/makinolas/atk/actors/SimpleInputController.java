@@ -6,18 +6,19 @@ import cl.makinolas.atk.stages.MapStage;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.InputListener;
 
-public class MapInputController extends InputListener implements MobileKeyListener{
+public class SimpleInputController extends InputListener implements MobileKeyListener{
     
-    private MapStage myMap;
+    private KeyHandable handable;
     
-    public MapInputController(MapStage map, MobileGroup mob){
-        myMap = map;
-        mob.setMobileKeyListener(this);
+    public SimpleInputController(KeyHandable hd, MobileGroup mob){
+        handable = hd;
+        if(mob!=null)
+            mob.setMobileKeyListener(this);
     }
 
     @Override
     public boolean keyDown(InputEvent event, int keycode) {
-        myMap.handleKey(keycode);
+        handable.handleKey(keycode);
         return true;
     }
 

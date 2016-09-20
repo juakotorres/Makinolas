@@ -10,6 +10,8 @@ import com.badlogic.gdx.physics.box2d.Box2DDebugRenderer;
 import com.badlogic.gdx.physics.box2d.World;
 import com.badlogic.gdx.scenes.scene2d.Group;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
+import com.badlogic.gdx.scenes.scene2d.InputListener;
+import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
@@ -25,17 +27,10 @@ import cl.makinolas.atk.screen.MapScreen;
 import cl.makinolas.atk.screen.MenuScreen;
 import cl.makinolas.atk.start.StartingJourneyStage;
 
-public class LoadStage extends AbstractStage{
-  
+public class LoadStage extends Stage {
 
-  private World suMundo;
-  private float accumulator;
-  private final float frameTime = 1 / 300f;
-  private Group ground, mons, ui;
   private Game myGame;
-  
-  private OrthographicCamera camera;
-  private Box2DDebugRenderer renderer;
+
   private LoadActor[] options;
   private int lastSelected;
   private Title arrow;
@@ -45,17 +40,30 @@ public class LoadStage extends AbstractStage{
     
     lastSelected = 0;
     this.myGame = myGame;
-    myScreen = actualScreen;
-    suMundo = new World(new Vector2(0, -10), true);
+    //myScreen = actualScreen;
     addActor(new Background("Background/Wood.png", getCamera()));
     addActor(new Title("Background/LoadFiles.png",220 ,400));
     
     arrow = new Title("CharacterImages/arrow.png", 50, 300);
     addActor(arrow);
     LoadActor firstSave = new LoadActor("Save 1", "ATK.sav", 80, 250, this);
+    firstSave.addListener(new InputListener(){
+      @Override
+      public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
+        options[0].loadMap();
+        return true;
+      }
+    });
     addActor(firstSave);
     
     LoadActor secondSave = new LoadActor("Save 2", "ATK2.sav", 80, 140, this);
+    secondSave.addListener(new InputListener(){
+      @Override
+      public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
+        options[1].loadMap();
+        return true;
+      }
+    });
     addActor(secondSave);
     
     TextButton menuButton = new TextButton("Back to menu",  new Skin(Gdx.files.internal("Data/uiskin.json")));
@@ -70,22 +78,11 @@ public class LoadStage extends AbstractStage{
     addActor(menuButton);
     
     options = new LoadActor[]{firstSave,secondSave};
-    
-    ground = new Group();
-    addActor(ground);
-    mons = new Group();
-    addActor(mons);
-    ui = new Group();
-    addActor(ui);
 
-    MobileGroup group = new MobileGroup(Gdx.app.getType() == Application.ApplicationType.Android);
+    //MobileGroup group = new MobileGroup(Gdx.app.getType() == Application.ApplicationType.Android);
     Gdx.input.setInputProcessor(this);
 
-    ui.addActor(group);    
-    
-    accumulator = 0;
-    renderer = new Box2DDebugRenderer();
-    setupCamera();
+    //setupCamera();
   }
   
   protected void MainMenu() {
@@ -101,20 +98,12 @@ public class LoadStage extends AbstractStage{
 
   public void act(float delta){
     super.act(delta);
-    
-    accumulator += delta;
-    elapsedTime += delta;
-    
-    while(accumulator >= frameTime){
-      suMundo.step(frameTime, 6, 2);
-      accumulator -= frameTime;
-    }
-    
-    if (Gdx.input.isKeyJustPressed(Keys.LEFT)){
+
+    if (Gdx.input.isKeyJustPressed(Keys.UP)){
       int last = lastSelected;
       lastSelected = (lastSelected == 0)? 1 : (lastSelected - 1);
       changeArrow(last, lastSelected);
-    } if (Gdx.input.isKeyJustPressed(Keys.RIGHT)){
+    } if (Gdx.input.isKeyJustPressed(Keys.DOWN)){
       int last = lastSelected;
       lastSelected = (lastSelected == 1)? 0 : (lastSelected + 1);
       changeArrow(last, lastSelected);
@@ -132,32 +121,12 @@ public class LoadStage extends AbstractStage{
     }
     
   }
-  
-  @Override
-  public void draw() {
-      super.draw();
-      //bar.drawCustom(getBatch(),getCamera().position.x,getCamera().position.y); //Custom draw for MainBar
-      camera.update();
-      renderer.render(suMundo, camera.combined);
-  }
-  
-  private void setupCamera() {
-    camera = new OrthographicCamera(32, 24);
-    camera.position.set(camera.viewportWidth / 2, camera.viewportHeight / 2, 0f);
-    camera.update();
-  }
-
-  public void changeCamera(float x, float y){
-    camera.position.set(x, y, 0);
-    getCamera().position.set(x * 20, y * 20, 0);
-    getCamera().update();    
-    camera.update();
-  }
 
   public void startJourney() {
     GameScreen gameScreen = new GameScreen(myGame);
     gameScreen.setStage(new StartingJourneyStage(new FitViewport(640,480), gameScreen, myGame));
-    myGame.setScreen(gameScreen);    
+    myGame.setScreen(gameScreen);
   }
-  
+
+
 }

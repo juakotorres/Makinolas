@@ -1,5 +1,6 @@
 package cl.makinolas.atk.actors.items;
 
+import cl.makinolas.atk.actors.fx.FxManager;
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.Vector2;
@@ -82,6 +83,7 @@ public class BallActor extends GameActor {
             if(captureTime <= 0) {
                 setDead();
                 listener.onBroke(captureX,captureY);
+                FxManager.getInstance().addFx(FxManager.Fx.REDFX,captureX*20,captureY*20);
             }
         }
     }
