@@ -63,6 +63,7 @@ public class Hero extends Monsters {
   private boolean inertia;
   private boolean hasEvolved;
   private int maxLevelUnlocked = 1;
+  private JumpState state;
 
   private Hero() {
 
@@ -99,6 +100,10 @@ public class Hero extends Monsters {
     // Guardar animaciones del jugador
     setAnimation();
     changeAnimation(walkAnimation);
+    state = new OnGround();
+    myBodyDefinition.fixedRotation = true;
+    
+    
   }
   
   private void loadFriends() {
@@ -168,6 +173,9 @@ public class Hero extends Monsters {
     checkEvolution();
     checkAccumulatingJump();
     giveMagic();
+    
+    if (isJumping == true)
+    	state.countFrames();
     
   }
   
@@ -272,6 +280,7 @@ public class Hero extends Monsters {
     for(int i = 0; i < worldManifold.getNumberOfContactPoints(); i++){
       if(worldManifold.getPoints()[i].y < myBody.getPosition().y && (worldManifold.getNormal().y > 0.95 || worldManifold.getNormal().y < -0.95)){
         isJumping = false;
+        setState(new OnGround());
       }
     }
   }
@@ -427,28 +436,19 @@ public class Hero extends Monsters {
 
 
   public void jump(int button) {
-    jumpButton = button;
-    if(!isJumping){
-      isAccumulatingJump = true;
-    }
+	isJumping = true;
+	state.restarCount();
+    state.jump();
   }
   
   public void isNotPressingSpace() {
-    if(!isJumping && jumpButton == 1){
-      myBody.applyLinearImpulse(0, getImpulse(jumpAccumulator), myBody.getPosition().x, myBody.getPosition().y, true);
-      isJumping = true;
-      jumpAccumulator = 3;
-      isAccumulatingJump = false;
-    }
+	  isJumping = false;
+    
+
   }
   
   public void isNotPressingUp() {
-    if(!isJumping && jumpButton == 2){
-      myBody.applyLinearImpulse(0, getImpulse(jumpAccumulator), myBody.getPosition().x, myBody.getPosition().y, true);
-      isJumping = true;
-      jumpAccumulator = 3;
-      isAccumulatingJump = false;
-    }    
+    
   }
 
   private void increaseJumpAccumulator() {
@@ -569,5 +569,14 @@ public class Hero extends Monsters {
   public float getStageY(){
     return myBody.getPosition().y * GameConstants.WORLD_FACTOR;
   }
+
+public void setState(JumpState state) {
+	this.state = state;
+	
+}
+
+public void setSpeed(float x, float y) {
+	myBody.setLinearVelocity(x, y);
+}
 
 }
