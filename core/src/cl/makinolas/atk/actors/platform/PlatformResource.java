@@ -45,6 +45,7 @@ public class PlatformResource {
         textCodes.put("SPR",platAtlas.createSprite("SnowPrettyRightCorner"));
         textCodes.put("SGR",platAtlas.createSprite("SnowWithoutGrassRounded"));
         textCodes.put("P",platAtlas.createSprite("ClassicUp")); //legacy
+        textCodes.put("ZFL",platAtlas.createSprite("Flame"));
     }
 
     public static PlatformResource getInstance() {

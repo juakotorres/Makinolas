@@ -29,7 +29,7 @@ public class GameStage extends AbstractStage implements ContactListener {
   private float accumulator;
   private final float frameTime = 1 / 300f;
   private Array<GameActor> gameActors;
-  private Group ground, mons, ui;
+  private Group ground, mons, ui, deco;
   private MainBar bar;
   private BagVis bagVis;
 
@@ -49,7 +49,9 @@ public class GameStage extends AbstractStage implements ContactListener {
     music = Gdx.audio.newMusic(Gdx.files.internal(getLevelMusic()));
     music.setLooping(true); 
     music.play();
-    
+
+    deco = new Group();
+    addActor(deco);
     ground = new Group();
     addActor(ground);
     mons = new Group();
@@ -97,6 +99,7 @@ public class GameStage extends AbstractStage implements ContactListener {
     } catch (IOException e) {
       e.printStackTrace();
     }
+    deco.addActor(reader.getDecorations());
   }
 
   private void setupCamera() {

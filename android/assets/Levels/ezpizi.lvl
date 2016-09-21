@@ -6,6 +6,9 @@ CU,27,4,13,1
 CU,40,1,25,2
 %P,63,4
 %S,4,4
+%I,6,10,Use [<-] [->] to move
+%I,16,10,Use [space] to jump
+%I,28,12,Use [Z] [X] to attack
 CU,65,1,4,14
 %E,Eevee,11,3,1
 %E,Eevee,22,3,1

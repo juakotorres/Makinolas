@@ -13,9 +13,13 @@ public class Title extends Actor {
   private float yPosition; 
   
   public Title(String pathImage, float x, float y){
+    this(new TextureRegion(new Texture(Gdx.files.internal(pathImage))),x,y);
+  }
+
+  public Title(TextureRegion reg, float x, float y){
     xPosition = x;
     yPosition = y;
-    backgroundImage = new TextureRegion(new Texture(Gdx.files.internal(pathImage)));
+    backgroundImage = reg;
     setBounds(0,0,backgroundImage.getRegionWidth(),backgroundImage.getRegionHeight());
     setPosition(x-backgroundImage.getRegionWidth()/2,y-backgroundImage.getRegionHeight()/2);
   }
