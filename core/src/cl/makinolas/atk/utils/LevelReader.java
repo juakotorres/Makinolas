@@ -4,11 +4,13 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 
+import cl.makinolas.atk.actors.platform.Sign;
 import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.files.FileHandle;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.World;
+import com.badlogic.gdx.scenes.scene2d.Group;
 import com.badlogic.gdx.utils.Array;
 
 import cl.makinolas.atk.actors.GameActor;
@@ -24,49 +26,54 @@ public class LevelReader {
     private Game game;
     private Vector2 heroPos;
     private AbstractStage gameStage;
+    private Group decorations;
 
-    private LevelReader(){
-        heroPos = new Vector2(2,3);
+    private LevelReader() {
+        heroPos = new Vector2(2, 3);
+        decorations = new Group();
     }
 
     public static LevelReader getInstance() {
         return reader;
     }
 
-    public void setWorld(World w){
+    public void setWorld(World w) {
         world = w;
     }
 
-    public void setGame(Game g){
+    public void setGame(Game g) {
         game = g;
     }
-    
-    public void setStage(AbstractStage stage){
-      gameStage = stage;
+
+    public void setStage(AbstractStage stage) {
+        gameStage = stage;
     }
 
     public Array<GameActor> loadLevel(String name) throws IOException {
-        FileHandle handler = Gdx.files.internal("Levels/"+name+".lvl");
+        FileHandle handler = Gdx.files.internal("Levels/" + name + ".lvl");
         BufferedReader reader = new BufferedReader(new InputStreamReader(handler.read()), 2048);
 
         Array<GameActor> platforms = new Array<GameActor>();
         String line = reader.readLine();
-        while(line!=null){
+        while (line != null) {
             String[] comps = line.split(",");
-            switch (comps[0]){
+            switch (comps[0]) {
                 case "#":
                     break;
                 case "%P":
-                    platforms.add(new Portal(world,Integer.parseInt(comps[1]),Integer.parseInt(comps[2]),game));
+                    platforms.add(new Portal(world, Integer.parseInt(comps[1]), Integer.parseInt(comps[2]), game));
                     break;
                 case "%S":
-                    heroPos = new Vector2(Integer.parseInt(comps[1])*1.8f,Integer.parseInt(comps[2])*1.8f);
+                    heroPos = new Vector2(Integer.parseInt(comps[1]) * 1.8f, Integer.parseInt(comps[2]) * 1.8f);
                     break;
                 case "%E":
-                    new EnemyCreator(gameStage, comps[1], Integer.parseInt(comps[2])*1.8f,Integer.parseInt(comps[3])*1.8f, Integer.parseInt(comps[4]));
+                    new EnemyCreator(gameStage, comps[1], Integer.parseInt(comps[2]) * 1.8f, Integer.parseInt(comps[3]) * 1.8f, Integer.parseInt(comps[4]));
+                    break;
+                case "%I":
+                    decorations.addActor(new Sign(comps[3], Integer.parseInt(comps[1]), Integer.parseInt(comps[2])));
                     break;
                 default:
-                    if(comps[0].length()<=3)
+                    if (comps[0].length() <= 3)
                         platforms.add(parsePlatform(comps));
                     break;
                 //Add other cases
@@ -78,10 +85,15 @@ public class LevelReader {
     }
 
     private GameActor parsePlatform(String[] comps) {
-        return new Platform(world,comps[0],Integer.parseInt(comps[1]),Integer.parseInt(comps[2]),Integer.parseInt(comps[3]),Integer.parseInt(comps[4]));
+        return new Platform(world, comps[0], Integer.parseInt(comps[1]), Integer.parseInt(comps[2]), Integer.parseInt(comps[3]), Integer.parseInt(comps[4]));
     }
 
     public Vector2 getHeroPosition() {
         return heroPos;
     }
+
+    public Group getDecorations(){
+        return decorations;
+    }
+
 }

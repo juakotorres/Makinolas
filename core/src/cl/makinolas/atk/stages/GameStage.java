@@ -37,7 +37,7 @@ public class GameStage extends AbstractStage implements ContactListener {
   private float accumulator;
   private final float frameTime = 1 / 300f;
   private Array<GameActor> gameActors;
-  private Group ground, mons, ui;
+  private Group ground, mons, ui, deco;
   private MainBar bar;
   private BagVis bagVis;
 
@@ -54,6 +54,8 @@ public class GameStage extends AbstractStage implements ContactListener {
     suMundo.setContactListener(this);
     addActor(new Background("Background/SuPuente.jpg", getCamera()));
 
+    deco = new Group();
+    addActor(deco);
     ground = new Group();
     addActor(ground);
     mons = new Group();
@@ -104,6 +106,7 @@ public class GameStage extends AbstractStage implements ContactListener {
     } catch (IOException e) {
       e.printStackTrace();
     }
+    deco.addActor(reader.getDecorations());
   }
 
   private void setupCamera() {
