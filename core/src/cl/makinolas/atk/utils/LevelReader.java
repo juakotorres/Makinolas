@@ -4,6 +4,9 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 
+import cl.makinolas.atk.GameConstants;
+import cl.makinolas.atk.actors.Title;
+import cl.makinolas.atk.actors.platform.PlatformResource;
 import cl.makinolas.atk.actors.platform.Sign;
 import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
@@ -71,6 +74,10 @@ public class LevelReader {
                     break;
                 case "%I":
                     decorations.addActor(new Sign(comps[3], Integer.parseInt(comps[1]), Integer.parseInt(comps[2])));
+                    break;
+                case "%D":
+                    decorations.addActor(new Title(PlatformResource.getInstance().getRegionWithCode(comps[1]),
+                            Integer.parseInt(comps[2])* GameConstants.WORLD_FACTOR,Integer.parseInt(comps[3])* GameConstants.WORLD_FACTOR));
                     break;
                 default:
                     if (comps[0].length() <= 3)
