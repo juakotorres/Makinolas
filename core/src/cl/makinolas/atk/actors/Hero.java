@@ -27,6 +27,7 @@ import cl.makinolas.atk.screen.MapScreen;
 import cl.makinolas.atk.stages.AbstractStage;
 import cl.makinolas.atk.stages.Levels;
 import cl.makinolas.atk.stages.MapStage;
+import cl.makinolas.atk.stages.OnWall;
 import cl.makinolas.atk.start.GameText;
 import cl.makinolas.atk.utils.Formulas;
 import cl.makinolas.atk.utils.SaveDoesNotExistException;
@@ -64,6 +65,7 @@ public class Hero extends Monsters {
   private boolean hasEvolved;
   private int maxLevelUnlocked = 1;
   private JumpState state;
+  private boolean onWall = false;
 
   private Hero() {
 
@@ -281,6 +283,13 @@ public class Hero extends Monsters {
       if(worldManifold.getPoints()[i].y < myBody.getPosition().y && (worldManifold.getNormal().y > 0.95 || worldManifold.getNormal().y < -0.95)){
         isJumping = false;
         setState(new OnGround());
+        onWall = false;
+      }
+      else {
+    	  isJumping = false;
+    	  if (!onWall)
+    		  setState(new OnWall());
+    	  onWall = true;
       }
     }
   }
