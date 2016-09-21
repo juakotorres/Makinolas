@@ -101,6 +101,8 @@ public class Hero extends Monsters {
     setAnimation();
     changeAnimation(walkAnimation);
     state = new OnGround();
+    myBodyDefinition.fixedRotation = true;
+    
     
   }
   
