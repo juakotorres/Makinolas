@@ -121,7 +121,7 @@ public class Hero extends Monsters {
         addAllie(MonsterFactory.getInstance().getHeroFriend("Kakuna", 6));
       } else {
         for(int i = 0; i < friends.length; i++){
-          addAllie(MonsterFactory.getInstance().getHeroFriend(friends[i].name, friends[i].level));
+          addAllie(MonsterFactory.getInstance().getHeroFriend(friends[i].name, friends[i].level, friends[i].exp));
         }
       }
     } else {
@@ -522,6 +522,7 @@ public class Hero extends Monsters {
       friends[i] = new FriendDescriptor();
       friends[i].name = ally.getName();
       friends[i].level = ally.getLevel();
+      friends[i].exp = (int) ally.getNextExperience();
     }
     return friends;
   }

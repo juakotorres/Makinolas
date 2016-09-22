@@ -397,11 +397,15 @@ public class MonsterFactory {
     return map.get(nameFriend.toLowerCase()).giveLongRangeEnemy(level, position); 
   }
   
+  public Friend getHeroFriend(String nameFriend, int level, double exp){
+    Friend f = map.get(nameFriend.toLowerCase()).giveFriend(level);
+    f.setExp(exp);
+    return f;
+  }
+
   public Friend getHeroFriend(String nameFriend, int level){
     return map.get(nameFriend.toLowerCase()).giveFriend(level);
   }
-
-
 
 
 
