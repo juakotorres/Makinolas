@@ -52,7 +52,7 @@ public class BossStage extends AbstractStage implements ContactListener {
     this.myGame = myGame;
     myScreen = actualScreen;
     gameActors = new Array<GameActor>();
-    suMundo = new World(new Vector2(0, -10), true);
+    suMundo = new World(new Vector2(0, -16), true);
     suMundo.setContactListener(this);
 
     addActor(new Background(getLevelBackground(), getCamera()));

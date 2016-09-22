@@ -87,7 +87,7 @@ public class InputController extends InputListener implements MobileKeyListener{
                 hero.isNotPressingSpace();
                 break;
             case Input.Keys.UP:
-                hero.isNotPressingUp();
+                hero.isNotPressingSpace();
                 break;
               
         }
@@ -124,7 +124,7 @@ public class InputController extends InputListener implements MobileKeyListener{
                 hero.moveHorizontal(-1,true);
                 break;
             case UP:
-                hero.isNotPressingUp();
+                hero.isNotPressingSpace();
                 break;
         default:
           break;
