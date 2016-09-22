@@ -42,7 +42,7 @@ public class GameStage extends AbstractStage implements ContactListener {
     levelName = getLevelName();
     myScreen = actualScreen;
     gameActors = new Array<GameActor>();
-    suMundo = new World(new Vector2(0, -16), true);
+    suMundo = new World(new Vector2(0, -12), true);
     suMundo.setContactListener(this);
     addActor(new Background(getLevelBackground(), getCamera()));
 

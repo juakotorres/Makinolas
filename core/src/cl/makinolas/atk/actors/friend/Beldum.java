@@ -8,22 +8,22 @@ import com.badlogic.gdx.physics.box2d.World;
 import cl.makinolas.atk.actors.Monsters;
 import cl.makinolas.atk.actors.attacks.Attacks;
 import cl.makinolas.atk.actors.attacks.BombAttack;
-import cl.makinolas.atk.actors.attacks.states.ThunderBoltState;
+import cl.makinolas.atk.actors.attacks.states.TornadoState;
 
-public class Magnemite extends AbstractFriend {
+public class Beldum extends AbstractFriend {
   
-  private TextureRegion[][] faces;
+private TextureRegion[][] faces;
   
-  public Magnemite() {
-    friend = Enemies.MAGNEMITE;
-    faces = new TextureRegion(new Texture(Gdx.files.internal("Actors/Magnemite_faces.png"))).split(40,40);
-    setTexture(new TextureRegion(new Texture(Gdx.files.internal("Actors/Magnemite.png"))));
-    setCutSprites(20,22);
+  public Beldum() {
+    friend = Enemies.BELDUM;
+    faces = new TextureRegion(new Texture(Gdx.files.internal("Actors/Beldum_faces.png"))).split(40,40);
+    setTexture(new TextureRegion(new Texture(Gdx.files.internal("Actors/Beldum.png"))));
+    setCutSprites(30,28);
     setWalkAnimation(1,2,3,2);
     setHurtAnimation(0);
-    setMeleeAnimation(4,4);
+    setMeleeAnimation(4,6);
     setIdleAnimation(1,2,3,2);
-    setSpecialAnimation(5,6);
+    setSpecialAnimation(4,6);
     setFaceSprite(faces[0][0]);
     initLevel(10);
     initDead();
@@ -31,7 +31,7 @@ public class Magnemite extends AbstractFriend {
     setMaxMagic(1000);
   }
   
-  public Magnemite(int level){
+  public Beldum(int level){
     this();
     initLevel(level);
   }
@@ -41,44 +41,44 @@ public class Magnemite extends AbstractFriend {
    this.level = new Level(level);
    setStats();
    setHealth(getMaxHealth());
-   new Evolution(this.level, 30, 1);
+   new Evolution(this.level, 20, 1);
    new Evolution(this.level, 45, 2);
   }
   
   @Override
   protected void evolve(int numberOfLevel){
     if (numberOfLevel == 1 && getActualEvolution() < 1){
-      friend = Enemies.MAGNETON;
-      setTexture(new TextureRegion(new Texture(Gdx.files.internal("Actors/Magneton.png"))));
-      setCutSprites(29,32);
-      setIdleAnimation(1,2,3,2);
-      setSpecialAnimation(5,6);
+      friend = Enemies.METANG;
+      setTexture(new TextureRegion(new Texture(Gdx.files.internal("Actors/Metang.png"))));
+      setCutSprites(39,31);
       setWalkAnimation(1,2,3,2);
       setHurtAnimation(0);
-      setMeleeAnimation(4,4);
+      setMeleeAnimation(4,10);
+      setIdleAnimation(1,2,3,2);
+      setSpecialAnimation(11,13);
       setFaceSprite(faces[0][1]);
       setActualEvolution(1);
       setStats();
       setMaxMagic(1000);
     } else if (numberOfLevel == 2 && getActualEvolution() < 2){
-      friend = Enemies.MAGNEZONE;
-      setTexture(new TextureRegion(new Texture(Gdx.files.internal("Actors/Magnezone.png"))));
-      setCutSprites(31,30);
-      setIdleAnimation(1,2,3,2);
-      setSpecialAnimation(4);
-      setWalkAnimation(1,2,3,2);
+      friend = Enemies.METAGROSS;
+      setTexture(new TextureRegion(new Texture(Gdx.files.internal("Actors/Metagross.png"))));
+      setCutSprites(50,32);
+      setWalkAnimation(3,4,5,4);
       setHurtAnimation(0);
-      setMeleeAnimation(4,4);
+      setMeleeAnimation(6,7);
+      setIdleAnimation(1,2);
+      setSpecialAnimation(1,2);
       setFaceSprite(faces[0][2]);
       setActualEvolution(2);
       setStats();
-      setMaxMagic(1000);      
+      setMaxMagic(1000);
     }
   }
   
   @Override
   public Attacks getFriendAttack(World myWorld, float x , float y, boolean facingRight, Monsters source){
-    return new BombAttack(new ThunderBoltState(), myWorld, x, y, facingRight, source);
+    return new BombAttack(new TornadoState(), myWorld, x, y, facingRight, source);
   }
   
 }

@@ -35,16 +35,15 @@ public abstract class AbstractFriend implements Friend {
   private boolean dead;
   private TextureRegion friendTexture;
   private int[] cutSprites;
+  private int[][] idleAnimation;
   private int[][] walkingAnimation;
   private int[][] hurtAnimation;
   private int[][] meleeAnimation;
+  private int[][] specialAnimation;
   private TextureRegion faceSprite;
   protected Level level;
   private int actualEvolution;
   public Enemies friend;
-  
-  public AbstractFriend(Hero hero){
-  }
   
   protected void setCutSprites(int width, int height){
     this.cutSprites = new int[]{width, height};
@@ -78,6 +77,20 @@ public abstract class AbstractFriend implements Friend {
     }
   }
   
+  protected void setIdleAnimation(int beginIdleAnimation, int endIdleAnimation){
+    this.idleAnimation = new int[endIdleAnimation - beginIdleAnimation + 1][];
+    for (int i = beginIdleAnimation; i <= endIdleAnimation; i++ ){
+      this.idleAnimation[i - beginIdleAnimation] = new int[]{0,i};
+    }
+  }
+  
+  protected void setSpecialAnimation(int beginSpecialAnimation, int endSpecialAnimation){
+    this.specialAnimation = new int[endSpecialAnimation - beginSpecialAnimation + 1][];
+    for (int i = beginSpecialAnimation; i <= endSpecialAnimation; i++ ){
+      this.specialAnimation[i - beginSpecialAnimation] = new int[]{0,i};
+    }
+  }
+  
   protected void setMeleeAnimation(int... positions){
     this.meleeAnimation = new int[positions.length][];
     for (int i = 0; i < positions.length; i++ ){
@@ -96,6 +109,20 @@ public abstract class AbstractFriend implements Friend {
     this.hurtAnimation = new int[positions.length][];
     for (int i = 0; i < positions.length; i++ ){
       this.hurtAnimation[i] = new int[]{0,positions[i]};
+    }
+  }
+  
+  protected void setIdleAnimation(int... positions){
+    this.idleAnimation = new int[positions.length][];
+    for (int i = 0; i < positions.length; i++ ){
+      this.idleAnimation[i] = new int[]{0,positions[i]};
+    }
+  }
+  
+  protected void setSpecialAnimation(int... positions){
+    this.specialAnimation = new int[positions.length][];
+    for (int i = 0; i < positions.length; i++ ){
+      this.specialAnimation[i] = new int[]{0,positions[i]};
     }
   }
   
@@ -234,6 +261,16 @@ public abstract class AbstractFriend implements Friend {
   @Override
   public int[][] getMeleeAnimation() {
     return meleeAnimation;
+  }
+  
+  @Override
+  public int[][] getIdleAnimation() {
+    return idleAnimation;
+  }
+  
+  @Override
+  public int[][] getSpecialAnimation() {
+    return specialAnimation;
   }
   
   @Override

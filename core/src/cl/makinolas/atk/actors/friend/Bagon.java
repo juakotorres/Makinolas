@@ -5,7 +5,6 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.physics.box2d.World;
 
-import cl.makinolas.atk.actors.Hero;
 import cl.makinolas.atk.actors.Monsters;
 import cl.makinolas.atk.actors.attacks.Attacks;
 import cl.makinolas.atk.actors.attacks.ShootAttack;
@@ -15,15 +14,16 @@ public class Bagon extends AbstractFriend {
   
   private TextureRegion[][] faces;
   
-  public Bagon(Hero hero) {
-    super(hero);
+  public Bagon() {
     friend = Enemies.BAGON;
     faces = new TextureRegion(new Texture(Gdx.files.internal("Actors/Bagon_faces.png"))).split(40,40);
     setTexture(new TextureRegion(new Texture(Gdx.files.internal("Actors/Bagon.png"))));
     setCutSprites(25,26);
+    setIdleAnimation(1,2);
     setWalkAnimation(3,4,5,4);
     setHurtAnimation(0);
     setMeleeAnimation(6,9);
+    setSpecialAnimation(10,11);
     setFaceSprite(faces[0][0]);
     initLevel(10);
     initDead();
@@ -32,7 +32,7 @@ public class Bagon extends AbstractFriend {
   }
   
   public Bagon(int level){
-    this(Hero.getInstance());
+    this();
     initLevel(level);
   }
   
@@ -51,9 +51,11 @@ public class Bagon extends AbstractFriend {
       friend = Enemies.SHELGON;
       setTexture(new TextureRegion(new Texture(Gdx.files.internal("Actors/Shelgon.png"))));
       setCutSprites(28,29);
+      setIdleAnimation(1,2);
       setWalkAnimation(3,4,5,4);
       setHurtAnimation(0);
       setMeleeAnimation(6,9);
+      setSpecialAnimation(10,11);
       setFaceSprite(faces[0][1]);
       setActualEvolution(1);
       setStats();
@@ -62,9 +64,11 @@ public class Bagon extends AbstractFriend {
       friend = Enemies.SALAMENCE;
       setTexture(new TextureRegion(new Texture(Gdx.files.internal("Actors/Salamence.png"))));
       setCutSprites(55,48);
+      setIdleAnimation(1,2);
       setWalkAnimation(3,4);
       setHurtAnimation(0);
       setMeleeAnimation(5,9);
+      setSpecialAnimation(10,11);
       setFaceSprite(faces[0][2]);
       setActualEvolution(2);
       setStats();

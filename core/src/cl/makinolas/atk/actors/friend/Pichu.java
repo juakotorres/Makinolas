@@ -5,7 +5,6 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.physics.box2d.World;
 
-import cl.makinolas.atk.actors.Hero;
 import cl.makinolas.atk.actors.Monsters;
 import cl.makinolas.atk.actors.attacks.Attacks;
 import cl.makinolas.atk.actors.attacks.BombAttack;
@@ -15,8 +14,7 @@ public class Pichu extends AbstractFriend {
   
   private TextureRegion[][] faces;
   
-  public Pichu(Hero hero) {
-    super(hero);
+  public Pichu() {
     friend = Enemies.PICHU;
     faces = new TextureRegion(new Texture(Gdx.files.internal("Actors/Pichu_faces.png"))).split(40,40);
     setTexture(new TextureRegion(new Texture(Gdx.files.internal("Actors/Pichu.png"))));
@@ -24,6 +22,8 @@ public class Pichu extends AbstractFriend {
                   new int[][]{new int[]{0,4},new int[]{0,5}},
                   new int[][]{new int[]{0,3}});
     setMeleeAnimation(2,2);
+    setIdleAnimation(0,1);
+    setSpecialAnimation(2);
     setFaceSprite(faces[0][0]);
     initLevel(5);
     initDead();
@@ -32,7 +32,7 @@ public class Pichu extends AbstractFriend {
   }
   
   public Pichu(int level){
-    this(Hero.getInstance());
+    this();
     initLevel(level);
   }
   
@@ -53,6 +53,8 @@ public class Pichu extends AbstractFriend {
           new int[][]{new int[]{0,3},new int[]{0,4},new int[]{0,5},new int[]{0,4}},
           new int[][]{new int[]{0,0}});
       setMeleeAnimation(1,2);
+      setIdleAnimation(1,2);
+      setSpecialAnimation(6,7);
       setFaceSprite(faces[0][1]);
       setActualEvolution(1);
       setStats();
@@ -64,6 +66,8 @@ public class Pichu extends AbstractFriend {
           new int[][]{new int[]{0,1},new int[]{0,2},new int[]{0,3},new int[]{0,2}},
           new int[][]{new int[]{0,0}});
       setMeleeAnimation(4,4);
+      setIdleAnimation(1,2,3,2);
+      setSpecialAnimation(5,6);
       setFaceSprite(faces[0][2]);
       setActualEvolution(2);
       setStats();

@@ -37,7 +37,7 @@ public class OldMewtwoBoss extends Boss {
     maxHealth = 50;
     width = 39;
     height = 33;
-    parent = new OldMewtwo(Hero.getInstance());
+    parent = new OldMewtwo();
     nextEnemyAttackAt = enemyAttack;
     isAttacking = true;
     isLaunchingAttack = false;

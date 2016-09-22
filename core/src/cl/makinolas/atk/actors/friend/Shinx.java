@@ -4,14 +4,11 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 
-import cl.makinolas.atk.actors.Hero;
-
 public class Shinx extends AbstractFriend{
   
   private TextureRegion[][] faces;
   
-  public Shinx(Hero hero) {
-    super(hero);
+  public Shinx() {
     friend = Enemies.SHINX;
     faces = new TextureRegion(new Texture(Gdx.files.internal("Actors/Shinx_faces.png"))).split(40,40);
     setTexture(new TextureRegion(new Texture(Gdx.files.internal("Actors/Shinx.png"))));
@@ -19,6 +16,8 @@ public class Shinx extends AbstractFriend{
                   new int[][]{new int[]{0,0},new int[]{0,1},new int[]{0,2},new int[]{0,1}},
                   new int[][]{new int[]{0,4}});
     setMeleeAnimation(3,3);
+    setIdleAnimation(0,1,2,1);
+    setSpecialAnimation(3);
     setFaceSprite(faces[0][0]);
     initLevel(5);
     initDead();
@@ -27,7 +26,7 @@ public class Shinx extends AbstractFriend{
   }
   
   public Shinx(int level){
-    this(Hero.getInstance());
+    this();
     initLevel(level);
   }
   
@@ -49,6 +48,8 @@ public class Shinx extends AbstractFriend{
           new int[][]{new int[]{0,2},new int[]{0,3},new int[]{0,4},new int[]{0,3}},
           new int[][]{new int[]{0,7}});
       setMeleeAnimation(5,6);
+      setIdleAnimation(0,1);
+      setSpecialAnimation(5,6);
       setFaceSprite(faces[0][1]);
       setActualEvolution(1);
       setStats();
@@ -60,6 +61,8 @@ public class Shinx extends AbstractFriend{
           new int[][]{new int[]{0,2},new int[]{0,3},new int[]{0,4},new int[]{0,3}},
           new int[][]{new int[]{0,7}});
       setMeleeAnimation(5,6);
+      setIdleAnimation(0,1);
+      setSpecialAnimation(5,6);
       setFaceSprite(faces[0][2]);
       setActualEvolution(2);
       setStats();

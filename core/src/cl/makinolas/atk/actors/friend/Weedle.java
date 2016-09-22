@@ -5,7 +5,6 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.physics.box2d.World;
 
-import cl.makinolas.atk.actors.Hero;
 import cl.makinolas.atk.actors.Monsters;
 import cl.makinolas.atk.actors.attacks.Attacks;
 import cl.makinolas.atk.actors.attacks.ShootAttack;
@@ -15,15 +14,16 @@ public class Weedle extends AbstractFriend {
   
   private TextureRegion[][] faces;
   
-  public Weedle(Hero hero) {
-    super(hero);
+  public Weedle() {
     friend = Enemies.WEEDLE;
     faces = new TextureRegion(new Texture(Gdx.files.internal("Actors/Weedle_faces.png"))).split(40,40);
     setTexture(new TextureRegion(new Texture(Gdx.files.internal("Actors/Weedle.png"))));
     setAnimations(new int[]{30,24},
-                  new int[][]{new int[]{0,1},new int[]{0,2}, new int[]{0,3}, new int[]{0,2}}, 
+                  new int[][]{new int[]{0,3},new int[]{0,4}, new int[]{0,5}}, 
                   new int[][]{new int[]{0,0}});
     setMeleeAnimation(6,7);
+    setIdleAnimation(1,2);
+    setSpecialAnimation(8,9);
     setFaceSprite(faces[0][0]);
     initLevel(3);
     initDead();
@@ -32,7 +32,7 @@ public class Weedle extends AbstractFriend {
   }
   
   public Weedle(int level){
-    this(Hero.getInstance());
+    this();
     initLevel(level);
   }
   
@@ -54,6 +54,8 @@ public class Weedle extends AbstractFriend {
       setWalkAnimation(3,4);
       setHurtAnimation(0);
       setMeleeAnimation(4,9);
+      setIdleAnimation(1);
+      setSpecialAnimation(10);
       setFaceSprite(faces[0][1]);
       setActualEvolution(1);
       setStats();
@@ -65,6 +67,8 @@ public class Weedle extends AbstractFriend {
           new int[][]{new int[]{0,1},new int[]{0,2},new int[]{0,3},new int[]{0,2}},
           new int[][]{new int[]{0,0}});
       setMeleeAnimation(7,10);
+      setIdleAnimation(1,2,3,2);
+      setSpecialAnimation(11);
       setFaceSprite(faces[0][2]);
       setActualEvolution(2);
       setStats();

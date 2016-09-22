@@ -5,6 +5,7 @@ import java.util.HashMap;
 import cl.makinolas.atk.actors.Hero;
 import cl.makinolas.atk.actors.friend.AbstractFriend;
 import cl.makinolas.atk.actors.friend.Bagon;
+import cl.makinolas.atk.actors.friend.Beldum;
 import cl.makinolas.atk.actors.friend.Charmander;
 import cl.makinolas.atk.actors.friend.Eevee;
 import cl.makinolas.atk.actors.friend.Friend;
@@ -60,6 +61,9 @@ public class MonsterFactory {
     map.put("bagon", EnemyFunction.Bagon);
     map.put("shelgon", EnemyFunction.Shelgon);
     map.put("salamence", EnemyFunction.Salamence);
+    map.put("beldum", EnemyFunction.Beldum);
+    map.put("metang", EnemyFunction.Metang);
+    map.put("metagross", EnemyFunction.Metagross);
     map.put("shinx", EnemyFunction.Shinx);
     map.put("luxio", EnemyFunction.Luxio);
     map.put("luxray", EnemyFunction.Luxray);
@@ -268,6 +272,24 @@ public class MonsterFactory {
       @Override
       public Friend giveFriend(int level) {
         return getEvolution(new Bagon(level), 2);
+      }
+    },
+    Beldum{
+      @Override
+      public Friend giveFriend(int level) {
+        return new Beldum(level);
+      }
+    },
+    Metang{
+      @Override
+      public Friend giveFriend(int level) {
+        return getEvolution(new Beldum(level), 1);
+      }
+    },
+    Metagross{
+      @Override
+      public Friend giveFriend(int level) {
+        return getEvolution(new Beldum(level), 2);
       }
     },
     Shinx{

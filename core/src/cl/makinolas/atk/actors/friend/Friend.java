@@ -18,9 +18,11 @@ public interface Friend {
   public boolean getDead();
   public void isDead();
   public Attacks getFriendAttack(World myWorld, float x , float y, boolean facingRight, Monsters source);
+  public int[][] getIdleAnimation();
   public int[][] getHurtAnimation();
   public int[][] getWalkAnimation();
   public int[][] getMeleeAnimation();
+  public int[][] getSpecialAnimation();
   public int getMeleeFrame();
   public TextureRegion getTexture();
   public int getWidth();

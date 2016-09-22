@@ -5,7 +5,6 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.physics.box2d.World;
 
-import cl.makinolas.atk.actors.Hero;
 import cl.makinolas.atk.actors.Monsters;
 import cl.makinolas.atk.actors.attacks.AquaAttack;
 import cl.makinolas.atk.actors.attacks.Attacks;
@@ -14,8 +13,7 @@ public class Gible extends AbstractFriend {
   
   private TextureRegion[][] faces;
   
-  public Gible(Hero hero) {
-    super(hero);
+  public Gible() {
     friend = Enemies.GIBLE;
     faces = new TextureRegion(new Texture(Gdx.files.internal("Actors/Gible_faces.png"))).split(40,40);
     setTexture(new TextureRegion(new Texture(Gdx.files.internal("Actors/gible.png"))));
@@ -23,6 +21,8 @@ public class Gible extends AbstractFriend {
                   new int[][]{new int[]{0,4},new int[]{0,5},new int[]{0,6},new int[]{0,5}},
                   new int[][]{new int[]{0,0}});
     setMeleeAnimation(7,9);
+    setIdleAnimation(1,3);
+    setSpecialAnimation(10,11);
     setFaceSprite(faces[0][0]);
     initLevel(5);
     initDead();
@@ -31,7 +31,7 @@ public class Gible extends AbstractFriend {
   }
 
   public Gible(int level){
-    this(Hero.getInstance());
+    this();
     initLevel(level);
   }
   
@@ -53,6 +53,8 @@ public class Gible extends AbstractFriend {
           new int[][]{new int[]{0,4},new int[]{0,5},new int[]{0,6},new int[]{0,5}},
           new int[][]{new int[]{0,0}});
       setMeleeAnimation(7,9);
+      setIdleAnimation(1,3);
+      setSpecialAnimation(10);
       setFaceSprite(faces[0][1]);
       setActualEvolution(1);
       setStats();
@@ -64,6 +66,8 @@ public class Gible extends AbstractFriend {
           new int[][]{new int[]{0,4},new int[]{0,5},new int[]{0,6},new int[]{0,5}},
           new int[][]{new int[]{0,0}});
       setMeleeAnimation(7,10);
+      setIdleAnimation(1,3);
+      setSpecialAnimation(11,12);
       setFaceSprite(faces[0][2]);
       setActualEvolution(2);
       setStats();
