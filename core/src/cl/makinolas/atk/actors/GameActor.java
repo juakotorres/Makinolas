@@ -13,7 +13,7 @@ import cl.makinolas.atk.actors.platform.Platform;
 
 public abstract class GameActor extends Actor{
   
-  protected Body myBody;
+  public Body myBody;
   
   protected void setBody(Body givenBody){
     this.myBody = givenBody;

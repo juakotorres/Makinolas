@@ -49,7 +49,6 @@ public class Hero extends Monsters {
   private boolean dead;
   private float jumpAccumulator;
   private boolean isAccumulatingJump;
-  private int jumpButton;
   private World myWorld;
   private int walkAnimation;
   private int hurtAnimation;
@@ -283,12 +282,15 @@ public class Hero extends Monsters {
       if(worldManifold.getPoints()[i].y < myBody.getPosition().y && (worldManifold.getNormal().y > 0.95 || worldManifold.getNormal().y < -0.95)){
         isJumping = false;
         setState(new OnGround());
+        myBody.setGravityScale(1);
         onWall = false;
       }
       else {
     	  isJumping = false;
     	  if (!onWall)
     		  setState(new OnWall());
+    	  else
+    		  myBody.setGravityScale(1);
     	  onWall = true;
       }
     }
@@ -452,12 +454,9 @@ public class Hero extends Monsters {
   
   public void isNotPressingSpace() {
 	  isJumping = false;
+	  state.release();
     
 
-  }
-  
-  public void isNotPressingUp() {
-    
   }
 
   private void increaseJumpAccumulator() {

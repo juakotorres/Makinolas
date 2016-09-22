@@ -16,7 +16,7 @@ public class JumpState {
 	}
 	
 	public void firstJump() {
-		return;
+		
 	}
 	
 	public void secondJump() {
@@ -28,21 +28,21 @@ public class JumpState {
 	}
 	
 	public void jump() {
-		if (frames > 60)
-			secondJump();
-		firstJump();
+		
+		this.firstJump();
 	}
 	
 	public void countFrames() {
-		if (frames > 10) {
+		frames++; 
+		if (frames > 30)
 			this.secondJump();
-			Hero.getInstance().setState(new NullState());
-		}
-		frames = (frames+1);
 	}
 	
 	public void restarCount() {
 		frames = 0;
+	}
+	public void release() {
+		
 	}
 
 }
