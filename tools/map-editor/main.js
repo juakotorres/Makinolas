@@ -45,21 +45,64 @@ var MainController = function($scope){
     self.platforms.sort(function(a,b){return a.name.localeCompare(b.name)});
 
     self.pokemons = [
-        {name:"Bagon",img:"Bagon.png"},
-        {name:"Charmander",img:"Charmander.png"},
-        {name:"Eevee",img:"Eevee.png"},
-        {name:"Gastly",img:"Gastly.png"},
-        {name:"Gible",img:"Gible.png"},
-        {name:"Jigglypuff",img:"Jigglypuff.png"},
-        {name:"Magnemite",img:"Magnemite.png"},
-        {name:"Mareep",img:"Mareep.png"},
-        {name:"Pichu",img:"Pichu.png"},
-        {name:"Scyther",img:"Scyther.png"},
-        {name:"Shinx",img:"Shinx.png"},
-        {name:"Snivy",img:"Snivy.png"},
-        {name:"Totodile",img:"Totodile.png"},
-        {name:"Weedle",img:"Weedle.png"},
-        {name:"Zubat",img:"Zubat.png"}
+        {name:"Ampharos",img:"Ampharos.png"},
+        {name:"Arcanine",img:"Arcanine.png"},
+        {name:"Beedrill",img:"Beedrill.png"},
+        {name:"Beldum",img:"Beldum.png"},
+        {name:"Butterfree",img:"Butterfree.png"},
+        {name:"CastformC",img:"CastformC.png"},
+        {name:"CastformN",img:"CastformN.png"},
+        {name:"CastformS",img:"CastformS.png"},
+        {name:"CastformW",img:"CastformW.png"},
+        {name:"Caterpie",img:"Caterpie.png"},
+        {name:"Charizard",img:"Charizard.png"},
+        {name:"Charmeleon",img:"Charmeleon.png"},
+        {name:"Crobat",img:"Crobat.png"},
+        {name:"Croconaw",img:"Croconaw.png"},
+        {name:"Cubone",img:"Cubone.png"},
+        {name:"Drapion",img:"Drapion.png"},
+        {name:"Feraligatr",img:"Feraligatr.png"},
+        {name:"Flaffy",img:"Flaffy.png"},
+        {name:"Gabite",img:"Gabite.png"},
+        {name:"Garchomp",img:"Garchomp.png"},
+        {name:"Gengar",img:"Gengar.png"},
+        {name:"Geodude",img:"Geodude.png"},
+        {name:"Gligar",img:"Gligar.png"},
+        {name:"Gliscor",img:"Gliscor.png"},
+        {name:"Golbat",img:"Golbat.png"},
+        {name:"Golem",img:"Golem.png"},
+        {name:"Graveler",img:"Graveler.png"},
+        {name:"Growlithe",img:"Growlithe.png"},
+        {name:"Gyarados",img:"Gyarados.png"},
+        {name:"Haunter",img:"Haunter.png"},
+        {name:"Igglybuff",img:"Igglybuff.png"},
+        {name:"Kakuna",img:"Kakuna.png"},
+        {name:"Kangaskhan",img:"Kangaskhan.png"},
+        {name:"Luxray",img:"Luxray.png"},
+        {name:"Magikarp",img:"Magikarp.png"},
+        {name:"Magneton",img:"Magneton.png"},
+        {name:"Magnezone",img:"Magnezone.png"},
+        {name:"Marowak",img:"Marowak.png"},
+        {name:"Masquerain",img:"Masquerain.png"},
+        {name:"Metagross",img:"Metagross.png"},
+        {name:"Metang",img:"Metang.png"},
+        {name:"Metapod",img:"Metapod.png"},
+        {name:"Ninetales",img:"Ninetales.png"},
+        {name:"Pikachu",img:"Pikachu.png"},
+        {name:"Raichu",img:"Raichu.png"},
+        {name:"Rotom",img:"Rotom.png"},
+        {name:"Salamence",img:"Salamence.png"},
+        {name:"Sandshrew",img:"Sandshrew.png"},
+        {name:"Sandslash",img:"Sandslash.png"},
+        {name:"Scyzor",img:"Scyzor.png"},
+        {name:"Serperior",img:"Serperior.png"},
+        {name:"Servine",img:"Servine.png"},
+        {name:"Shelgon",img:"Shelgon.png"},
+        {name:"Skorupi",img:"Skorupi.png"},
+        {name:"Spiritomb",img:"Spiritomb.png"},
+        {name:"Surskit",img:"Surskit.png"},
+        {name:"Vulpix",img:"Vulpix.png"},
+        {name:"Wigglytuff",img:"Wigglytuff.png"}
     ];
 
     self.map = {};
@@ -94,13 +137,15 @@ var MainController = function($scope){
         self.ctx.beginPath();
         self.ctx.lineWidth = 1;
         self.ctx.strokeStyle = "#ccc";
-        for(var i=0; i<150; i++){
+        let width = 300;
+        let height = 40;
+        for(var i=0; i<width; i++){
             self.ctx.moveTo(35*i,0);
-            self.ctx.lineTo(35*i,700);
+            self.ctx.lineTo(35*i,35*height);
         }
-        for(var i=0; i<20; i++){
+        for(var i=0; i<height; i++){
             self.ctx.moveTo(0,35*i);
-            self.ctx.lineTo(5250,35*i);
+            self.ctx.lineTo(35*width,35*i);
         }
         self.ctx.stroke();
     }
