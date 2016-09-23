@@ -15,6 +15,7 @@ import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.*;
+import com.badlogic.gdx.utils.Array;
 
 public class Enemy extends Monsters {
   
@@ -30,8 +31,10 @@ public class Enemy extends Monsters {
   private int hurtAnimation;
   private final float hurtTime = 1 / 4f;
   private final float meleeTime = 2f;
+  private final float groundTime = 0.5f;
   private float meleeAccumulator;
   private float accumulator;
+  private float groundAcc;
   private float inflictorVelocity;
   private int level;
   private Enemies type;
@@ -40,7 +43,16 @@ public class Enemy extends Monsters {
   private float countMeleeFrames;
   private int[] attackAnimations;
   private int actualAnimation;
-  
+  private boolean viewGround = true;
+
+  private RayCastCallback rayListener = new RayCastCallback() {
+    @Override
+    public float reportRayFixture(Fixture fixture, Vector2 point, Vector2 normal, float fraction) {
+      viewGround = true;
+      return 0;
+    }
+  };
+
   /**
    * Constructor for Enemy
    * @param myWorld Box2D World
@@ -114,12 +126,27 @@ public class Enemy extends Monsters {
       myBody.setLinearVelocity(0,0);
       return;
     }
+    if(!viewGround){
+      flip();
+      viewGround = true;
+    }
     myBody.setLinearVelocity(vx, myBody.getLinearVelocity().y);
     //myBody.applyForce(1, 1, 10, 10, true);
     checkDamage(delta, inflictorVelocity);
     
     checkHeroNear(delta);
     checkMelee(delta);
+    checkGround(delta);
+
+  }
+
+  private void checkGround(float delta) {
+    groundAcc += delta;
+    if(groundAcc > groundTime) {
+      viewGround = false;
+      myWorld.rayCast(rayListener, myBody.getPosition().x, myBody.getPosition().y, myBody.getPosition().x + vx, myBody.getPosition().y - 1);
+      groundAcc = 0;
+    }
   }
 
   private void checkMelee(float delta) {
