@@ -6,18 +6,23 @@ import cl.makinolas.atk.actors.Hero;
 import cl.makinolas.atk.actors.friend.AbstractFriend;
 import cl.makinolas.atk.actors.friend.Bagon;
 import cl.makinolas.atk.actors.friend.Beldum;
+import cl.makinolas.atk.actors.friend.Caterpie;
 import cl.makinolas.atk.actors.friend.Charmander;
+import cl.makinolas.atk.actors.friend.Cubone;
 import cl.makinolas.atk.actors.friend.Eevee;
 import cl.makinolas.atk.actors.friend.Friend;
 import cl.makinolas.atk.actors.friend.Gastly;
 import cl.makinolas.atk.actors.friend.Gible;
 import cl.makinolas.atk.actors.friend.Igglybuff;
+import cl.makinolas.atk.actors.friend.Kangaskhan;
 import cl.makinolas.atk.actors.friend.Magnemite;
 import cl.makinolas.atk.actors.friend.Mareep;
 import cl.makinolas.atk.actors.friend.Pichu;
+import cl.makinolas.atk.actors.friend.Rotom;
 import cl.makinolas.atk.actors.friend.Scyther;
 import cl.makinolas.atk.actors.friend.Shinx;
 import cl.makinolas.atk.actors.friend.Snivy;
+import cl.makinolas.atk.actors.friend.Surskit;
 import cl.makinolas.atk.actors.friend.Totodile;
 import cl.makinolas.atk.actors.friend.Weedle;
 import cl.makinolas.atk.actors.friend.Zubat;
@@ -32,6 +37,9 @@ public class MonsterFactory {
     map.put("charmander", EnemyFunction.Charmander);
     map.put("charmeleon", EnemyFunction.Charmeleon);
     map.put("charizard", EnemyFunction.Charizard);
+    map.put("caterpie", EnemyFunction.Caterpie);
+    map.put("metapod", EnemyFunction.Metapod);
+    map.put("butterfree", EnemyFunction.Butterfree);
     map.put("weedle", EnemyFunction.Weedle);
     map.put("kakuna", EnemyFunction.Kakuna);
     map.put("beedrill", EnemyFunction.Beedrill);
@@ -46,6 +54,9 @@ public class MonsterFactory {
     map.put("gastly", EnemyFunction.Gastly);
     map.put("haunter", EnemyFunction.Haunter);
     map.put("gengar", EnemyFunction.Gengar);
+    map.put("cubone", EnemyFunction.Cubone);
+    map.put("marowak", EnemyFunction.Marowak);
+    map.put("kangaskhan", EnemyFunction.Kangaskhan);
     map.put("scyther", EnemyFunction.Scyther);
     map.put("eevee", EnemyFunction.Eevee);
     map.put("totodile", EnemyFunction.Totodile);
@@ -58,6 +69,8 @@ public class MonsterFactory {
     map.put("flaaffy", EnemyFunction.Flaaffy);
     map.put("ampharos", EnemyFunction.Ampharos);
     map.put("scizor", EnemyFunction.Scizor);
+    map.put("surskit", EnemyFunction.Surskit);
+    map.put("masquerain", EnemyFunction.Masquerain);
     map.put("bagon", EnemyFunction.Bagon);
     map.put("shelgon", EnemyFunction.Shelgon);
     map.put("salamence", EnemyFunction.Salamence);
@@ -71,6 +84,7 @@ public class MonsterFactory {
     map.put("gabite", EnemyFunction.Gabite);
     map.put("garchomp", EnemyFunction.Garchomp);
     map.put("magnezone", EnemyFunction.Magnezone);
+    map.put("rotom", EnemyFunction.Rotom);
     map.put("snivy", EnemyFunction.Snivy);
     map.put("servine", EnemyFunction.Servine);
     map.put("serperior", EnemyFunction.Serperior);
@@ -98,6 +112,24 @@ public class MonsterFactory {
       @Override
       public Friend giveFriend(int level) {
         return getEvolution(new Charmander(level), 2);
+      }
+    },
+    Caterpie{
+      @Override
+      public Friend giveFriend(int level) {
+        return new Caterpie(level);
+      }
+    },
+    Metapod{
+      @Override
+      public Friend giveFriend(int level) {
+        return getEvolution(new Caterpie(level), 1);
+      }
+    },
+    Butterfree{
+      @Override
+      public Friend giveFriend(int level) {
+        return getEvolution(new Caterpie(level), 2);
       }
     },
     Weedle{
@@ -184,6 +216,24 @@ public class MonsterFactory {
         return getEvolution(new Gastly(level), 2);
       }      
     },
+    Cubone{
+      @Override
+      public Friend giveFriend(int level) {
+        return new Cubone(level);
+      }      
+    },
+    Marowak{
+      @Override
+      public Friend giveFriend(int level) {
+        return getEvolution(new Cubone(level), 1);
+      }      
+    },
+    Kangaskhan{
+      @Override
+      public Friend giveFriend(int level) {
+        return new Kangaskhan(level);
+      }      
+    },
     Scyther{
       @Override
       public Friend giveFriend(int level) {
@@ -254,6 +304,18 @@ public class MonsterFactory {
       @Override
       public Friend giveFriend(int level) {
         return getEvolution(new Scyther(level), 1);
+      }
+    },
+    Surskit{
+      @Override
+      public Friend giveFriend(int level) {
+        return new Surskit(level);
+      }
+    },
+    Masquerain{
+      @Override
+      public Friend giveFriend(int level) {
+        return getEvolution(new Surskit(level), 1);
       }
     },
     Bagon{
@@ -332,6 +394,12 @@ public class MonsterFactory {
       @Override
       public Friend giveFriend(int level) {
         return getEvolution(new Magnemite(level), 2);
+      }
+    },
+    Rotom{
+      @Override
+      public Friend giveFriend(int level) {
+        return new Rotom(level);
       }
     },
     Snivy{
