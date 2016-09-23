@@ -2,7 +2,6 @@ package cl.makinolas.atk.actors;
 
 import cl.makinolas.atk.actors.ui.MobileGroup;
 import cl.makinolas.atk.actors.ui.MobileKeyListener;
-import cl.makinolas.atk.stages.MapStage;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.InputListener;
 

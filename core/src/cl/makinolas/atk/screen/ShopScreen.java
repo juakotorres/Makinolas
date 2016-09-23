@@ -13,8 +13,7 @@ import com.badlogic.gdx.Input;
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
-import com.badlogic.gdx.math.Matrix4;
-import com.badlogic.gdx.scenes.scene2d.Group;
+
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.InputListener;
 import com.badlogic.gdx.scenes.scene2d.Stage;
@@ -24,7 +23,6 @@ import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.viewport.FitViewport;
-
 
 public class ShopScreen extends SimpleScreen implements KeyHandable{
 
@@ -84,7 +82,6 @@ public class ShopScreen extends SimpleScreen implements KeyHandable{
     }
 
     private void createShopItems() {
-        Inventory inventory = Hero.getInstance().getInventory();
         shpItems = new Array<>();
         for(int i = 0; i < items.length; i++) {
             ShopItem item = new ShopItem(sps[i],prices[i],items[i]);

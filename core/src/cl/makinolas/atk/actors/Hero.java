@@ -273,6 +273,7 @@ public class Hero extends Monsters {
     }
   }
 
+  @Deprecated
   private float getImpulse(float impulse) {
     return getBody().getMass()*impulse; // El 12 se busc� por testing.
   }

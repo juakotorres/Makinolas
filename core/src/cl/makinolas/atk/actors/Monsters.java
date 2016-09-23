@@ -56,5 +56,6 @@ public abstract class Monsters extends AnimatedActor {
   public boolean isEnemy() {
     return false;
   }
+
 }
 

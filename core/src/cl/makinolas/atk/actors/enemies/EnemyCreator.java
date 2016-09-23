@@ -22,10 +22,10 @@ public class EnemyCreator implements Observer{
   public EnemyCreator(AbstractStage stage, String enemy, float positionX, float positionY, int enemyThinker) {
     stage.cameraObserver.addObserver(this);
     this.stage = stage;
-    enemyType = enemy;
+    this.enemyType = enemy;
     this.positionX = positionX;
-    firstSpawn = false;
-    enemyDead = true;
+    this.firstSpawn = false;
+    this.enemyDead = true;
     this.positionY = positionY;
     this.enemyThinker = enemyThinker;
   }
@@ -53,7 +53,7 @@ public class EnemyCreator implements Observer{
   private Enemy chooseEnemyThinker() {
     switch(enemyThinker){
       case 2:
-        actualEnemy = MonsterFactory.getInstance().giveStayAndShootEnemy(enemyType, 5, (int) (positionX), (int) (positionY + 2));  
+        actualEnemy = MonsterFactory.getInstance().giveStayAndShootEnemy(enemyType, 5, (int) (positionX), (int) (positionY + 2));
         break;
       case 3:
         actualEnemy = MonsterFactory.getInstance().giveFlyWaveAndDropEnemy(enemyType, 5, (int) (positionX), (int) (positionY + 2));
