@@ -12,18 +12,23 @@ import cl.makinolas.atk.actors.friend.Cubone;
 import cl.makinolas.atk.actors.friend.Eevee;
 import cl.makinolas.atk.actors.friend.Friend;
 import cl.makinolas.atk.actors.friend.Gastly;
+import cl.makinolas.atk.actors.friend.Geodude;
 import cl.makinolas.atk.actors.friend.Gible;
 import cl.makinolas.atk.actors.friend.Igglybuff;
 import cl.makinolas.atk.actors.friend.Kangaskhan;
+import cl.makinolas.atk.actors.friend.Magikarp;
 import cl.makinolas.atk.actors.friend.Magnemite;
 import cl.makinolas.atk.actors.friend.Mareep;
 import cl.makinolas.atk.actors.friend.Pichu;
 import cl.makinolas.atk.actors.friend.Rotom;
+import cl.makinolas.atk.actors.friend.Sandshrew;
 import cl.makinolas.atk.actors.friend.Scyther;
 import cl.makinolas.atk.actors.friend.Shinx;
+import cl.makinolas.atk.actors.friend.Skorupi;
 import cl.makinolas.atk.actors.friend.Snivy;
 import cl.makinolas.atk.actors.friend.Surskit;
 import cl.makinolas.atk.actors.friend.Totodile;
+import cl.makinolas.atk.actors.friend.Vulpix;
 import cl.makinolas.atk.actors.friend.Weedle;
 import cl.makinolas.atk.actors.friend.Zubat;
 
@@ -45,10 +50,17 @@ public class MonsterFactory {
     map.put("beedrill", EnemyFunction.Beedrill);
     map.put("pikachu", EnemyFunction.Pikachu);
     map.put("raichu", EnemyFunction.Raichu);
+    map.put("sandshrew", EnemyFunction.Sandshrew);
+    map.put("sandslash", EnemyFunction.Sandslash);
+    map.put("vulpix", EnemyFunction.Vulpix);
+    map.put("ninetales", EnemyFunction.Ninetales);
     map.put("jigglypuff", EnemyFunction.Jigglypuff);
     map.put("wigglytuff", EnemyFunction.Wigglytuff);
     map.put("zubat", EnemyFunction.Zubat);
     map.put("golbat", EnemyFunction.Golbat);
+    map.put("geodude", EnemyFunction.Geodude);
+    map.put("graveler", EnemyFunction.Graveler);
+    map.put("golem", EnemyFunction.Golem);
     map.put("magnemite", EnemyFunction.Magnemite);
     map.put("magneton", EnemyFunction.Magneton);
     map.put("gastly", EnemyFunction.Gastly);
@@ -58,6 +70,8 @@ public class MonsterFactory {
     map.put("marowak", EnemyFunction.Marowak);
     map.put("kangaskhan", EnemyFunction.Kangaskhan);
     map.put("scyther", EnemyFunction.Scyther);
+    map.put("magikarp", EnemyFunction.Magikarp);
+    map.put("gyarados", EnemyFunction.Gyarados);
     map.put("eevee", EnemyFunction.Eevee);
     map.put("totodile", EnemyFunction.Totodile);
     map.put("croconaw", EnemyFunction.Croconaw);
@@ -83,6 +97,8 @@ public class MonsterFactory {
     map.put("gible", EnemyFunction.Gible);
     map.put("gabite", EnemyFunction.Gabite);
     map.put("garchomp", EnemyFunction.Garchomp);
+    map.put("skorupi", EnemyFunction.Skorupi);
+    map.put("drapion", EnemyFunction.Drapion);
     map.put("magnezone", EnemyFunction.Magnezone);
     map.put("rotom", EnemyFunction.Rotom);
     map.put("snivy", EnemyFunction.Snivy);
@@ -162,6 +178,30 @@ public class MonsterFactory {
         return getEvolution(new Pichu(level), 2); 
       }
     },
+    Sandshrew{
+      @Override
+      public Friend giveFriend(int level) {
+        return new Sandshrew(level);
+      }
+    },
+    Sandslash{
+      @Override
+      public Friend giveFriend(int level) {
+        return getEvolution(new Sandshrew(level), 1); 
+      }
+    },
+    Vulpix{
+      @Override
+      public Friend giveFriend(int level) {
+        return new Vulpix(level);
+      }
+    },
+    Ninetales{
+      @Override
+      public Friend giveFriend(int level) {
+        return getEvolution(new Vulpix(level), 1);
+      }
+    },
     Jigglypuff{
       @Override
       public Friend giveFriend(int level) {
@@ -184,6 +224,24 @@ public class MonsterFactory {
       @Override
       public Friend giveFriend(int level) {
         return getEvolution(new Zubat(level), 1);
+      }
+    },
+    Geodude{
+      @Override
+      public Friend giveFriend(int level) {
+        return new Geodude(level);
+      }
+    },
+    Graveler{
+      @Override
+      public Friend giveFriend(int level) {
+        return getEvolution(new Geodude(level), 1);
+      }
+    },
+    Golem{
+      @Override
+      public Friend giveFriend(int level) {
+        return getEvolution(new Geodude(level), 2);
       }
     },
     Magnemite{
@@ -238,6 +296,18 @@ public class MonsterFactory {
       @Override
       public Friend giveFriend(int level) {
         return new Scyther(level);
+      }
+    },
+    Magikarp{
+      @Override
+      public Friend giveFriend(int level) {
+        return new Magikarp(level);
+      }
+    },
+    Gyarados{
+      @Override
+      public Friend giveFriend(int level) {
+        return getEvolution(new Magikarp(level), 1);
       }
     },
     Eevee{
@@ -388,6 +458,18 @@ public class MonsterFactory {
       @Override
       public Friend giveFriend(int level) {
         return getEvolution(new Gible(level), 2);
+      }
+    },
+    Skorupi{
+      @Override
+      public Friend giveFriend(int level) {
+        return new Skorupi(level);
+      }
+    },
+    Drapion{
+      @Override
+      public Friend giveFriend(int level) {
+        return getEvolution(new Skorupi(level), 1);
       }
     },
     Magnezone{
