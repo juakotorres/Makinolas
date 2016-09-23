@@ -5,7 +5,6 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.physics.box2d.World;
 
-import cl.makinolas.atk.actors.Hero;
 import cl.makinolas.atk.actors.Monsters;
 import cl.makinolas.atk.actors.attacks.Attacks;
 import cl.makinolas.atk.actors.attacks.ShootAttack;
@@ -15,8 +14,7 @@ public class Snivy extends AbstractFriend {
   
   private TextureRegion[][] faces;
   
-  public Snivy(Hero hero) {
-    super(hero);
+  public Snivy() {
     friend = Enemies.SNIVY;
     faces = new TextureRegion(new Texture(Gdx.files.internal("Actors/Snivy_faces.png"))).split(40,40);
     setTexture(new TextureRegion(new Texture(Gdx.files.internal("Actors/Snivy.png"))));
@@ -24,6 +22,8 @@ public class Snivy extends AbstractFriend {
     setWalkAnimation(3,4,5,4);
     setHurtAnimation(0);
     setMeleeAnimation(6,8);
+    setIdleAnimation(1,2);
+    setSpecialAnimation(6,8);
     setFaceSprite(faces[0][0]);
     initLevel(10);
     initDead();
@@ -32,7 +32,7 @@ public class Snivy extends AbstractFriend {
   }
   
   public Snivy(int level){
-    this(Hero.getInstance());
+    this();
     initLevel(level);
   }
   
@@ -54,6 +54,8 @@ public class Snivy extends AbstractFriend {
       setWalkAnimation(2,3,4,3);
       setHurtAnimation(0);
       setMeleeAnimation(5,7);
+      setIdleAnimation(1);
+      setSpecialAnimation(8,9);
       setFaceSprite(faces[0][1]);
       setActualEvolution(1);
       setStats();
@@ -65,6 +67,8 @@ public class Snivy extends AbstractFriend {
       setWalkAnimation(2,3);
       setHurtAnimation(0);
       setMeleeAnimation(4,5);
+      setIdleAnimation(1);
+      setSpecialAnimation(6,7);
       setFaceSprite(faces[0][2]);
       setActualEvolution(2);
       setStats();

@@ -5,7 +5,6 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.physics.box2d.World;
 
-import cl.makinolas.atk.actors.Hero;
 import cl.makinolas.atk.actors.Monsters;
 import cl.makinolas.atk.actors.attacks.Attacks;
 import cl.makinolas.atk.actors.attacks.BombAttack;
@@ -15,8 +14,7 @@ public class Magnemite extends AbstractFriend {
   
   private TextureRegion[][] faces;
   
-  public Magnemite(Hero hero) {
-    super(hero);
+  public Magnemite() {
     friend = Enemies.MAGNEMITE;
     faces = new TextureRegion(new Texture(Gdx.files.internal("Actors/Magnemite_faces.png"))).split(40,40);
     setTexture(new TextureRegion(new Texture(Gdx.files.internal("Actors/Magnemite.png"))));
@@ -24,6 +22,8 @@ public class Magnemite extends AbstractFriend {
     setWalkAnimation(1,2,3,2);
     setHurtAnimation(0);
     setMeleeAnimation(4,4);
+    setIdleAnimation(1,2,3,2);
+    setSpecialAnimation(5,6);
     setFaceSprite(faces[0][0]);
     initLevel(10);
     initDead();
@@ -32,7 +32,7 @@ public class Magnemite extends AbstractFriend {
   }
   
   public Magnemite(int level){
-    this(Hero.getInstance());
+    this();
     initLevel(level);
   }
   
@@ -51,6 +51,8 @@ public class Magnemite extends AbstractFriend {
       friend = Enemies.MAGNETON;
       setTexture(new TextureRegion(new Texture(Gdx.files.internal("Actors/Magneton.png"))));
       setCutSprites(29,32);
+      setIdleAnimation(1,2,3,2);
+      setSpecialAnimation(5,6);
       setWalkAnimation(1,2,3,2);
       setHurtAnimation(0);
       setMeleeAnimation(4,4);
@@ -62,6 +64,8 @@ public class Magnemite extends AbstractFriend {
       friend = Enemies.MAGNEZONE;
       setTexture(new TextureRegion(new Texture(Gdx.files.internal("Actors/Magnezone.png"))));
       setCutSprites(31,30);
+      setIdleAnimation(1,2,3,2);
+      setSpecialAnimation(4);
       setWalkAnimation(1,2,3,2);
       setHurtAnimation(0);
       setMeleeAnimation(4,4);

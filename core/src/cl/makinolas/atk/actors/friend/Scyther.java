@@ -5,7 +5,6 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.physics.box2d.World;
 
-import cl.makinolas.atk.actors.Hero;
 import cl.makinolas.atk.actors.Monsters;
 import cl.makinolas.atk.actors.attacks.Attacks;
 import cl.makinolas.atk.actors.attacks.CloseRangeAttack;
@@ -15,8 +14,7 @@ public class Scyther extends AbstractFriend {
   
   private TextureRegion[][] faces;
   
-  public Scyther(Hero hero) {
-    super(hero);
+  public Scyther() {
     friend = Enemies.SCYTHER;
     faces = new TextureRegion(new Texture(Gdx.files.internal("Actors/Scyther_faces.png"))).split(40,40);
     setTexture(new TextureRegion(new Texture(Gdx.files.internal("Actors/Scyther.png"))));
@@ -24,6 +22,8 @@ public class Scyther extends AbstractFriend {
                   new int[][]{new int[]{0,3},new int[]{0,4},new int[]{0,5},new int[]{0,4}},
                   new int[][]{new int[]{0,0}});
     setMeleeAnimation(6,8);
+    setIdleAnimation(1,2);
+    setSpecialAnimation(9,10);
     setFaceSprite(faces[0][0]);
     initLevel(5);
     initDead();
@@ -32,7 +32,7 @@ public class Scyther extends AbstractFriend {
   }
   
   public Scyther(int level){
-    this(Hero.getInstance());
+    this();
     initLevel(level);
   }
   
@@ -53,6 +53,8 @@ public class Scyther extends AbstractFriend {
           new int[][]{new int[]{0,3},new int[]{0,4},new int[]{0,5},new int[]{0,4}},
           new int[][]{new int[]{0,0}});
       setMeleeAnimation(6,10);
+      setIdleAnimation(1,2);
+      setSpecialAnimation(11,12);
       setFaceSprite(faces[0][1]);
       setActualEvolution(1);
       setStats();

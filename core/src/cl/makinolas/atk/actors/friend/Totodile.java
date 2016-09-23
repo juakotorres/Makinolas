@@ -5,7 +5,6 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.physics.box2d.World;
 
-import cl.makinolas.atk.actors.Hero;
 import cl.makinolas.atk.actors.Monsters;
 import cl.makinolas.atk.actors.attacks.Attacks;
 import cl.makinolas.atk.actors.attacks.ShootBombAttack;
@@ -15,8 +14,7 @@ public class Totodile extends AbstractFriend {
   
   private TextureRegion[][] faces;
   
-  public Totodile(Hero hero) {
-    super(hero);
+  public Totodile() {
     friend = Enemies.TOTODILE;
     faces = new TextureRegion(new Texture(Gdx.files.internal("Actors/Totodile_faces.png"))).split(40,40);
     setTexture(new TextureRegion(new Texture(Gdx.files.internal("Actors/Totodile.png"))));
@@ -24,6 +22,8 @@ public class Totodile extends AbstractFriend {
                   new int[][]{new int[]{0,4},new int[]{0,5},new int[]{0,6},new int[]{0,5}},
                   new int[][]{new int[]{0,0}});
     setMeleeAnimation(7,11);
+    setIdleAnimation(1,2,3);
+    setSpecialAnimation(12,14);
     setFaceSprite(faces[0][0]);
     initLevel(5);
     initDead();
@@ -32,7 +32,7 @@ public class Totodile extends AbstractFriend {
   }
   
   public Totodile(int level){
-    this(Hero.getInstance());
+    this();
     initLevel(level);
   }
   
@@ -54,6 +54,8 @@ public class Totodile extends AbstractFriend {
           new int[][]{new int[]{0,3},new int[]{0,4},new int[]{0,5},new int[]{0,4}},
           new int[][]{new int[]{0,0}});
       setMeleeAnimation(6,8);
+      setIdleAnimation(1,2);
+      setSpecialAnimation(9,10);
       setFaceSprite(faces[0][1]);
       setActualEvolution(1);
       setStats();
@@ -65,6 +67,8 @@ public class Totodile extends AbstractFriend {
           new int[][]{new int[]{0,3},new int[]{0,4},new int[]{0,5},new int[]{0,4}},
           new int[][]{new int[]{0,0}});
       setMeleeAnimation(6,8);
+      setIdleAnimation(1,2);
+      setSpecialAnimation(9,11);
       setFaceSprite(faces[0][2]);
       setActualEvolution(2);
       setStats();

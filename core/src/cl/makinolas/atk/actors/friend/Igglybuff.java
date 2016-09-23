@@ -4,14 +4,11 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 
-import cl.makinolas.atk.actors.Hero;
-
 public class Igglybuff extends AbstractFriend {
   
   private TextureRegion[][] faces;
   
-  public Igglybuff(Hero hero) {
-    super(hero);
+  public Igglybuff() {
     friend = Enemies.IGGLYBUFF;
     faces = new TextureRegion(new Texture(Gdx.files.internal("Actors/Igglypuff_faces.png"))).split(40,40);
     setTexture(new TextureRegion(new Texture(Gdx.files.internal("Actors/Igglypuff.png"))));
@@ -19,6 +16,8 @@ public class Igglybuff extends AbstractFriend {
                   new int[][]{new int[]{0,3},new int[]{0,4},new int[]{0,5}},
                   new int[][]{new int[]{0,0}});
     setMeleeAnimation(6,8);
+    setIdleAnimation(1,2);
+    setSpecialAnimation(9,11);
     setFaceSprite(faces[0][0]);
     initLevel(5);
     initDead();
@@ -27,7 +26,7 @@ public class Igglybuff extends AbstractFriend {
   }
   
   public Igglybuff(int level){
-    this(Hero.getInstance());
+    this();
     initLevel(level);
   }
   
@@ -48,6 +47,8 @@ public class Igglybuff extends AbstractFriend {
           new int[][]{new int[]{0,3},new int[]{0,4},new int[]{0,5}},
           new int[][]{new int[]{0,0}});
       setMeleeAnimation(6,7);
+      setIdleAnimation(1,2);
+      setSpecialAnimation(8,10);
       setFaceSprite(faces[0][1]);
       setActualEvolution(1);
       setStats();
@@ -59,6 +60,8 @@ public class Igglybuff extends AbstractFriend {
           new int[][]{new int[]{0,2},new int[]{0,3},new int[]{0,4},new int[]{0,3}},
           new int[][]{new int[]{0,0}});
       setMeleeAnimation(6,8);
+      setIdleAnimation(1,2);
+      setSpecialAnimation(9,11);
       setFaceSprite(faces[0][2]);
       setActualEvolution(2);
       setStats();

@@ -5,7 +5,6 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.physics.box2d.World;
 
-import cl.makinolas.atk.actors.Hero;
 import cl.makinolas.atk.actors.Monsters;
 import cl.makinolas.atk.actors.attacks.Attacks;
 import cl.makinolas.atk.actors.attacks.BombAttack;
@@ -15,8 +14,7 @@ public class Zubat extends AbstractFriend {
   
   private TextureRegion[][] faces;
   
-  public Zubat(Hero hero) {
-    super(hero);
+  public Zubat() {
     friend = Enemies.ZUBAT;
     faces = new TextureRegion(new Texture(Gdx.files.internal("Actors/Zubat_faces.png"))).split(40,40);
     setTexture(new TextureRegion(new Texture(Gdx.files.internal("Actors/Zubat.png"))));
@@ -24,6 +22,8 @@ public class Zubat extends AbstractFriend {
     setWalkAnimation(1,2,3,2);
     setHurtAnimation(0);
     setMeleeAnimation(4,6);
+    setIdleAnimation(1,2,3,2);
+    setSpecialAnimation(7);
     setFaceSprite(faces[0][0]);
     initLevel(10);
     initDead();
@@ -32,7 +32,7 @@ public class Zubat extends AbstractFriend {
   }
   
   public Zubat(int level){
-    this(Hero.getInstance());
+    this();
     initLevel(level);
   }
   
@@ -54,6 +54,8 @@ public class Zubat extends AbstractFriend {
       setWalkAnimation(1,2,3,2);
       setHurtAnimation(0);
       setMeleeAnimation(4,4);
+      setIdleAnimation(1,2,3,2);
+      setSpecialAnimation(4);
       setFaceSprite(faces[0][1]);
       setActualEvolution(1);
       setStats();
@@ -65,6 +67,8 @@ public class Zubat extends AbstractFriend {
       setWalkAnimation(1,2,3,2);
       setHurtAnimation(0);
       setMeleeAnimation(4,7);
+      setIdleAnimation(1,2,3,2);
+      setSpecialAnimation(8,10);
       setFaceSprite(faces[0][2]);
       setActualEvolution(2);
       setStats();

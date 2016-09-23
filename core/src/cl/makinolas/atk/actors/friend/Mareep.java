@@ -4,14 +4,11 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 
-import cl.makinolas.atk.actors.Hero;
-
 public class Mareep extends AbstractFriend {
   
   private TextureRegion[][] faces;
   
-  public Mareep(Hero hero) {
-    super(hero);
+  public Mareep() {
     friend = Enemies.MAREEP;
     faces = new TextureRegion(new Texture(Gdx.files.internal("Actors/Mareep_faces.png"))).split(40,40);
     setTexture(new TextureRegion(new Texture(Gdx.files.internal("Actors/Mareep.png"))));
@@ -19,6 +16,8 @@ public class Mareep extends AbstractFriend {
                   new int[][]{new int[]{0,1},new int[]{0,2},new int[]{0,3}},
                   new int[][]{new int[]{0,0}});
     setMeleeAnimation(4,6);
+    setIdleAnimation(1,2,3);
+    setSpecialAnimation(7);
     setFaceSprite(faces[0][0]);
     initLevel(5);
     initDead();
@@ -27,7 +26,7 @@ public class Mareep extends AbstractFriend {
   }
   
   public Mareep(int level){
-    this(Hero.getInstance());
+    this();
     initLevel(level);
   }
   
@@ -49,6 +48,8 @@ public class Mareep extends AbstractFriend {
           new int[][]{new int[]{0,1},new int[]{0,2},new int[]{0,3},new int[]{0,2}},
           new int[][]{new int[]{0,0}});
       setMeleeAnimation(4,7);
+      setIdleAnimation(1,2,3,2);
+      setSpecialAnimation(8,9);
       setFaceSprite(faces[0][1]);
       setActualEvolution(1);
       setStats();
@@ -60,6 +61,8 @@ public class Mareep extends AbstractFriend {
           new int[][]{new int[]{0,4},new int[]{0,5},new int[]{0,6},new int[]{0,5}},
           new int[][]{new int[]{0,0}});
       setMeleeAnimation(7,8);
+      setIdleAnimation(1,2,3);
+      setSpecialAnimation(9,12);
       setFaceSprite(faces[0][2]);
       setActualEvolution(2);
       setStats();

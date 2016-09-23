@@ -5,7 +5,6 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.physics.box2d.World;
 
-import cl.makinolas.atk.actors.Hero;
 import cl.makinolas.atk.actors.Monsters;
 import cl.makinolas.atk.actors.attacks.Attacks;
 import cl.makinolas.atk.actors.attacks.ShootAttack;
@@ -15,8 +14,7 @@ public class OldMewtwo extends AbstractFriend {
   
  private TextureRegion[][] faces;
   
-  public OldMewtwo(Hero hero) {
-    super(hero);
+  public OldMewtwo() {
     friend = Enemies.MEWTWO;
     faces = new TextureRegion(new Texture(Gdx.files.internal("Actors/Mewtwo_faces.png"))).split(40,40);
     setTexture(new TextureRegion(new Texture(Gdx.files.internal("Actors/Mewtwo.png"))));
@@ -24,6 +22,8 @@ public class OldMewtwo extends AbstractFriend {
     setWalkAnimation(3,4);
     setHurtAnimation(0);
     setMeleeAnimation(5,9);
+    setIdleAnimation(1,2);
+    setSpecialAnimation(5,9);
     setFaceSprite(faces[0][0]);
     initLevel(30);
     initDead();

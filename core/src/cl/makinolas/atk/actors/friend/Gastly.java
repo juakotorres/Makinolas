@@ -5,7 +5,6 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.physics.box2d.World;
 
-import cl.makinolas.atk.actors.Hero;
 import cl.makinolas.atk.actors.Monsters;
 import cl.makinolas.atk.actors.attacks.Attacks;
 import cl.makinolas.atk.actors.attacks.ShootAttack;
@@ -15,8 +14,7 @@ public class Gastly extends AbstractFriend {
   
  private TextureRegion[][] faces;
   
-  public Gastly(Hero hero) {
-    super(hero);
+  public Gastly() {
     friend = Enemies.GASTLY;
     faces = new TextureRegion(new Texture(Gdx.files.internal("Actors/Gastly_faces.png"))).split(40,40);
     setTexture(new TextureRegion(new Texture(Gdx.files.internal("Actors/Gastly.png"))));
@@ -24,6 +22,8 @@ public class Gastly extends AbstractFriend {
                   new int[][]{new int[]{0,1},new int[]{0,2},new int[]{0,3}},
                   new int[][]{new int[]{0,0}});
     setMeleeAnimation(4,5);
+    setIdleAnimation(1,3);
+    setSpecialAnimation(4,5);
     setFaceSprite(faces[0][0]);
     initLevel(5);
     initDead();
@@ -31,13 +31,8 @@ public class Gastly extends AbstractFriend {
     setMaxMagic(1000);
   }
   
-  public Gastly(int level, Hero hero){
-    this(hero);
-    initLevel(level);
-  }
-  
   public Gastly(int level){
-    this(Hero.getInstance());
+    this();
     initLevel(level);
   }
   
@@ -55,9 +50,11 @@ public class Gastly extends AbstractFriend {
       friend = Enemies.HAUNTER;
       setTexture(new TextureRegion(new Texture(Gdx.files.internal("Actors/Haunter.png"))));
       setAnimations(new int[]{46,36},
-          new int[][]{new int[]{0,2},new int[]{0,3},new int[]{0,4},new int[]{0,3}},
+          new int[][]{new int[]{0,3},new int[]{0,4},new int[]{0,5},new int[]{0,4}},
           new int[][]{new int[]{0,0}});
       setMeleeAnimation(6,10);
+      setIdleAnimation(1,2);
+      setSpecialAnimation(11,13);
       setFaceSprite(faces[0][1]);
       setActualEvolution(1);
       setStats();
@@ -67,9 +64,11 @@ public class Gastly extends AbstractFriend {
       friend = Enemies.GENGAR;
       setTexture(new TextureRegion(new Texture(Gdx.files.internal("Actors/Gengar.png"))));
       setCutSprites(41,28);
+      setIdleAnimation(1,3);
       setWalkAnimation(4,5,6,5);
       setHurtAnimation(0);
       setMeleeAnimation(7,8,9);
+      setSpecialAnimation(1,3);
       setFaceSprite(faces[0][2]);
       setActualEvolution(2);
       setStats();
