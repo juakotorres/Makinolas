@@ -1,5 +1,6 @@
 package cl.makinolas.atk.actors;
 
+import cl.makinolas.atk.actors.items.ItemActor;
 import com.badlogic.gdx.Game;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.Body;
@@ -571,13 +572,17 @@ public class Hero extends Monsters {
     return myBody.getPosition().y * GameConstants.WORLD_FACTOR;
   }
 
-public void setState(JumpState state) {
-	this.state = state;
-	
-}
+  public void setState(JumpState state) {
+      this.state = state;
 
-public void setSpeed(float x, float y) {
-	myBody.setLinearVelocity(x, y);
-}
+  }
 
+  public void setSpeed(float x, float y) {
+      myBody.setLinearVelocity(x, y);
+  }
+
+  @Override
+  public void interactWithItem(ItemActor item) {
+    item.interactWithHero(this,null);
+  }
 }

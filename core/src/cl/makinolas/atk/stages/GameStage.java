@@ -117,13 +117,12 @@ public class GameStage extends AbstractStage implements ContactListener {
   
   @Override
   public void act(float delta){
-    super.act(delta);
     for(GameActor actor : gameActors){
       Body actorBody = actor.getBody();
       if(actor.isHero() && (actorBody.getPosition().y < -50 || actorBody.getPosition().x < -100 || actor.isDead())){
         changeDeadMenu();
       }
-      if(actor.isEnemy() || actor.isPuff() || actor.isAttack() || actor.isBall() || actor.isDetector()){
+      if(actor.isEnemy() || actor.isPuff() || actor.isAttack() || actor.isBall() || actor.isItem() || actor.isDetector()){
         if(actorBody.getPosition().y < -200 || actorBody.getPosition().x < -100 || actor.isDead()){
           gameActors.removeValue(actor,true);
           suMundo.destroyBody(actorBody);
@@ -133,6 +132,7 @@ public class GameStage extends AbstractStage implements ContactListener {
     }
     
     if(!paused) {
+      super.act(delta); // move to first line in case of errors
       accumulator += delta;
       elapsedTime += delta;
 
