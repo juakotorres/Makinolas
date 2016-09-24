@@ -31,10 +31,10 @@ public class Enemy extends Monsters {
   private int hurtAnimation;
   private final float hurtTime = 1 / 4f;
   private final float meleeTime = 2f;
-  private final float groundTime = 0.5f;
+  protected final float groundTime = 0.5f;
   private float meleeAccumulator;
   private float accumulator;
-  private float groundAcc;
+  protected float groundAcc;
   private float inflictorVelocity;
   private int level;
   private Enemies type;
@@ -43,9 +43,9 @@ public class Enemy extends Monsters {
   private float countMeleeFrames;
   private int[] attackAnimations;
   private int actualAnimation;
-  private boolean viewGround = true;
+  protected boolean viewGround = true;
 
-  private RayCastCallback rayListener = new RayCastCallback() {
+  protected RayCastCallback rayListener = new RayCastCallback() {
     @Override
     public float reportRayFixture(Fixture fixture, Vector2 point, Vector2 normal, float fraction) {
       viewGround = true;
@@ -140,11 +140,11 @@ public class Enemy extends Monsters {
 
   }
 
-  private void checkGround(float delta) {
+  protected void checkGround(float delta) {
     groundAcc += delta;
     if(groundAcc > groundTime) {
       viewGround = false;
-      myWorld.rayCast(rayListener, myBody.getPosition().x, myBody.getPosition().y, myBody.getPosition().x + vx, myBody.getPosition().y - 1);
+      myWorld.rayCast(rayListener, myBody.getPosition().x, myBody.getPosition().y, myBody.getPosition().x + vx, myBody.getPosition().y - 2);
       groundAcc = 0;
     }
   }
