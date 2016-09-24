@@ -17,6 +17,7 @@ public interface Friend {
   public int getMagic();
   public boolean getDead();
   public void isDead();
+  public void setExp(double d);
   public Attacks getFriendAttack(World myWorld, float x , float y, boolean facingRight, Monsters source);
   public int[][] getIdleAnimation();
   public int[][] getHurtAnimation();

@@ -33,6 +33,11 @@ public class JumperEnemy extends Enemy {
   public void act(float delta){ 
     myBody.setLinearVelocity(vx, myBody.getLinearVelocity().y);
 
+    if(!viewGround){
+      flip();
+      viewGround = true;
+    }
+
     checkDamage(delta, 0);
     accumulatorAttack += delta; 
     
@@ -40,6 +45,20 @@ public class JumperEnemy extends Enemy {
       GameActor attack = parent.getFriendAttack(myWorld, myBody.getPosition().x - 0.5f, myBody.getPosition().y, isFacingRight, this);
       ((AbstractStage) getStage()).addGameActor(attack);
       accumulatorAttack = 0;
+    }
+
+    checkGround(delta);
+  }
+
+  @Override
+  protected void checkGround(float delta) {
+    if(!isJumping) {
+        groundAcc += delta;
+        if(groundAcc > groundTime) {
+            viewGround = false;
+            myWorld.rayCast(rayListener, myBody.getPosition().x, myBody.getPosition().y, myBody.getPosition().x + vx*2, myBody.getPosition().y - 3);
+            groundAcc = 0;
+        }
     }
   }
 

@@ -1,11 +1,17 @@
 package cl.makinolas.atk.actors.items;
 
+import cl.makinolas.atk.stages.AbstractStage;
+import com.badlogic.gdx.physics.box2d.World;
+import com.badlogic.gdx.scenes.scene2d.Group;
+import com.badlogic.gdx.scenes.scene2d.Stage;
+
 import java.util.HashMap;
 
 public class ItemFinder {
 
     private static ItemFinder instance = new ItemFinder();
     private static HashMap<String,Class<? extends Item>> map;
+    private String[] droppableItems = {"LeppaBerry","OranBerry"};
 
     private ItemFinder(){
         Class<? extends Item>[] itemClasses = new Class[]{Potion.class, OranBerry.class, LeppaBerry.class, MaxPotion.class,
@@ -27,4 +33,12 @@ public class ItemFinder {
             return null;
         }
     }
+
+    public void requestDrop(float x, float y, Stage parent, World world){
+        int r = (int) (Math.random()*50);
+        if(r < 6){
+            ((AbstractStage) parent).addGameActor(new ItemActor(itemForName(droppableItems[r/3]),world,x,y));
+        }
+    }
+
 }

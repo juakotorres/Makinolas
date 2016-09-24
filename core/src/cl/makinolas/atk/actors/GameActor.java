@@ -1,5 +1,6 @@
 package cl.makinolas.atk.actors;
 
+import cl.makinolas.atk.actors.items.ItemActor;
 import com.badlogic.gdx.physics.box2d.Body;
 import com.badlogic.gdx.physics.box2d.WorldManifold;
 import com.badlogic.gdx.scenes.scene2d.Actor;
@@ -19,23 +20,23 @@ public abstract class GameActor extends Actor{
     this.myBody = givenBody;
     myBody.setUserData(this);
   }
-  
-  public boolean isHero(){
+
+  public boolean isHero() {
     return false;
   }
-  
-  public boolean isPlatform(){
+
+  public boolean isPlatform() {
     return false;
   }
-  
-  public Body getBody(){
+
+  public Body getBody() {
     return myBody;
   }
 
   public boolean isAttack() {
     return false;
   }
-  
+
   public boolean isMonster() {
     return false;
   }
@@ -43,7 +44,11 @@ public abstract class GameActor extends Actor{
   public boolean isBall() {
     return false;
   }
-  
+
+  public boolean isItem() {
+    return false;
+  }
+
   public boolean isDead(){
     return false;
   }
@@ -69,6 +74,8 @@ public abstract class GameActor extends Actor{
   public void interactWithBoss(IBoss boss) {  }
 
   public void interactWithBall(BallActor ball){}
+
+  public void interactWithItem(ItemActor item) {}
 
   public boolean isEnemy() {
     return false;

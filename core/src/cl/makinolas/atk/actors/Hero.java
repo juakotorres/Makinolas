@@ -1,5 +1,6 @@
 package cl.makinolas.atk.actors;
 
+import cl.makinolas.atk.actors.items.ItemActor;
 import com.badlogic.gdx.Game;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.Body;
@@ -122,7 +123,7 @@ public class Hero extends Monsters {
         addAllie(MonsterFactory.getInstance().getHeroFriend("Kakuna", 6));
       } else {
         for(int i = 0; i < friends.length; i++){
-          addAllie(MonsterFactory.getInstance().getHeroFriend(friends[i].name, friends[i].level));
+          addAllie(MonsterFactory.getInstance().getHeroFriend(friends[i].name, friends[i].level, friends[i].exp));
         }
       }
     } else {
@@ -530,6 +531,7 @@ public class Hero extends Monsters {
       friends[i] = new FriendDescriptor();
       friends[i].name = ally.getName();
       friends[i].level = ally.getLevel();
+      friends[i].exp = (int) ally.getNextExperience();
     }
     return friends;
   }
@@ -578,13 +580,17 @@ public class Hero extends Monsters {
     return myBody.getPosition().y * GameConstants.WORLD_FACTOR;
   }
 
-public void setState(JumpState state) {
-	this.state = state;
-	
-}
+  public void setState(JumpState state) {
+      this.state = state;
 
-public void setSpeed(float x, float y) {
-	myBody.setLinearVelocity(x, y);
-}
+  }
 
+  public void setSpeed(float x, float y) {
+      myBody.setLinearVelocity(x, y);
+  }
+
+  @Override
+  public void interactWithItem(ItemActor item) {
+    item.interactWithHero(this,null);
+  }
 }

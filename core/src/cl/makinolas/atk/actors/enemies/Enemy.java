@@ -6,6 +6,7 @@ import cl.makinolas.atk.actors.attacks.Attacks;
 import cl.makinolas.atk.actors.friend.Enemies;
 import cl.makinolas.atk.actors.friend.Friend;
 import cl.makinolas.atk.actors.items.BallActor;
+import cl.makinolas.atk.actors.items.ItemFinder;
 import cl.makinolas.atk.actors.platform.Platform;
 import cl.makinolas.atk.actors.ui.MainBar;
 import cl.makinolas.atk.utils.Formulas;
@@ -30,8 +31,10 @@ public class Enemy extends Monsters {
   private int hurtAnimation;
   private final float hurtTime = 1 / 4f;
   private final float meleeTime = 2f;
+  protected final float groundTime = 0.5f;
   private float meleeAccumulator;
   private float accumulator;
+  protected float groundAcc;
   private float inflictorVelocity;
   private int level;
   private Enemies type;
@@ -40,7 +43,16 @@ public class Enemy extends Monsters {
   private float countMeleeFrames;
   private int[] attackAnimations;
   private int actualAnimation;
-  
+  protected boolean viewGround = true;
+
+  protected RayCastCallback rayListener = new RayCastCallback() {
+    @Override
+    public float reportRayFixture(Fixture fixture, Vector2 point, Vector2 normal, float fraction) {
+      viewGround = true;
+      return 0;
+    }
+  };
+
   /**
    * Constructor for Enemy
    * @param myWorld Box2D World
@@ -114,12 +126,27 @@ public class Enemy extends Monsters {
       myBody.setLinearVelocity(0,0);
       return;
     }
+    if(!viewGround){
+      flip();
+      viewGround = true;
+    }
     myBody.setLinearVelocity(vx, myBody.getLinearVelocity().y);
     //myBody.applyForce(1, 1, 10, 10, true);
     checkDamage(delta, inflictorVelocity);
     
     checkHeroNear(delta);
     checkMelee(delta);
+    checkGround(delta);
+
+  }
+
+  protected void checkGround(float delta) {
+    groundAcc += delta;
+    if(groundAcc > groundTime) {
+      viewGround = false;
+      myWorld.rayCast(rayListener, myBody.getPosition().x, myBody.getPosition().y, myBody.getPosition().x + vx, myBody.getPosition().y - 2);
+      groundAcc = 0;
+    }
   }
 
   private void checkMelee(float delta) {
@@ -198,6 +225,7 @@ public class Enemy extends Monsters {
     if(health <= 0){
       source.gainExperience(getLevel(), type);
       Hero.getInstance().earnMoney(getLevel(), type);
+      ItemFinder.getInstance().requestDrop(myBody.getPosition().x,myBody.getPosition().y,getStage(),myWorld);
       setDead();     
     }
 

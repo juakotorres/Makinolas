@@ -143,7 +143,12 @@ public abstract class AbstractFriend implements Friend {
       this.meleeAnimation[i - beginMeleeAnimation] = new int[]{0,i};
     }
   }
-  
+
+  @Override
+  public void setExp(double d) {
+    level.nextExpLevel = d;
+  }
+
   protected void setFaceSprite(TextureRegion faceSprite){
     this.faceSprite = faceSprite;
   }
