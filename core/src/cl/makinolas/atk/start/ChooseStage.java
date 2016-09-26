@@ -1,16 +1,8 @@
 package cl.makinolas.atk.start;
 
-import com.badlogic.gdx.Application;
 import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input.Keys;
-import com.badlogic.gdx.graphics.OrthographicCamera;
-import com.badlogic.gdx.math.Vector2;
-import com.badlogic.gdx.physics.box2d.Box2DDebugRenderer;
-import com.badlogic.gdx.physics.box2d.World;
-import com.badlogic.gdx.scenes.scene2d.Group;
-import com.badlogic.gdx.scenes.scene2d.InputEvent;
-import com.badlogic.gdx.scenes.scene2d.InputListener;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.utils.viewport.FitViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
@@ -23,11 +15,11 @@ import cl.makinolas.atk.actors.friend.Friend;
 import cl.makinolas.atk.actors.friend.Snivy;
 import cl.makinolas.atk.actors.friend.Totodile;
 import cl.makinolas.atk.actors.ui.MainBar;
-import cl.makinolas.atk.actors.ui.MobileGroup;
+
 import cl.makinolas.atk.screen.GameScreen;
 import cl.makinolas.atk.screen.MapScreen;
-import cl.makinolas.atk.stages.AbstractStage;
 import cl.makinolas.atk.stages.MapStage;
+
 import cl.makinolas.atk.utils.SaveManager;
 
 public class ChooseStage extends Stage {

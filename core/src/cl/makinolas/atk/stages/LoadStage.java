@@ -1,14 +1,8 @@
 package cl.makinolas.atk.stages;
 
-import com.badlogic.gdx.Application;
 import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input.Keys;
-import com.badlogic.gdx.graphics.OrthographicCamera;
-import com.badlogic.gdx.math.Vector2;
-import com.badlogic.gdx.physics.box2d.Box2DDebugRenderer;
-import com.badlogic.gdx.physics.box2d.World;
-import com.badlogic.gdx.scenes.scene2d.Group;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.InputListener;
 import com.badlogic.gdx.scenes.scene2d.Stage;
@@ -21,7 +15,6 @@ import com.badlogic.gdx.utils.viewport.Viewport;
 import cl.makinolas.atk.actors.Background;
 import cl.makinolas.atk.actors.LoadActor;
 import cl.makinolas.atk.actors.Title;
-import cl.makinolas.atk.actors.ui.MobileGroup;
 import cl.makinolas.atk.screen.GameScreen;
 import cl.makinolas.atk.screen.MapScreen;
 import cl.makinolas.atk.screen.MenuScreen;

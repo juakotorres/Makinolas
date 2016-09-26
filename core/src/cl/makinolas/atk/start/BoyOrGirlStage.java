@@ -4,7 +4,6 @@ import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input.Keys;
 import com.badlogic.gdx.Input.TextInputListener;
-import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.InputListener;
 import com.badlogic.gdx.scenes.scene2d.Stage;
@@ -14,7 +13,6 @@ import com.badlogic.gdx.utils.viewport.Viewport;
 import cl.makinolas.atk.actors.Background;
 import cl.makinolas.atk.actors.Title;
 import cl.makinolas.atk.screen.GameScreen;
-import cl.makinolas.atk.stages.AbstractStage;
 
 public class BoyOrGirlStage extends Stage {
 
