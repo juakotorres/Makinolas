@@ -37,5 +37,8 @@ public abstract class SpriteState {
   public float getAttackTime(){
     return 0;
   }
+  public int getEndOfInitialAnimation() {
+    return -1;
+  }
   
 }

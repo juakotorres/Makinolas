@@ -34,8 +34,18 @@ public class BoneAttackState extends SpriteState {
   }
   
   @Override
+  public int getBodyWidth() {
+    return 20;
+  }
+  
+  @Override
+  public int getBodyHeight() {
+    return 20;
+  }
+  
+  @Override
   public float getFrameTime() {
-    return 0.2f;
+    return 0.1f;
   }
   
   @Override
@@ -56,6 +66,11 @@ public class BoneAttackState extends SpriteState {
   @Override
   public float getAttackTime() {
     return 6 * getFrameTime();
+  }
+  
+  @Override
+  public int getEndOfInitialAnimation() {
+    return 1;
   }
   
 }
