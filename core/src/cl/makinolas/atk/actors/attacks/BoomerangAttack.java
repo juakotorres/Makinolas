@@ -2,7 +2,9 @@ package cl.makinolas.atk.actors.attacks;
 
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.World;
+import com.badlogic.gdx.physics.box2d.WorldManifold;
 
+import cl.makinolas.atk.actors.Hero;
 import cl.makinolas.atk.actors.Monsters;
 import cl.makinolas.atk.actors.attacks.states.SpriteState;
 
@@ -14,7 +16,10 @@ public class BoomerangAttack extends ShootAttack {
   private int endOfInitialAnimation;
   private float spriteTime;
   private float bankVelocity;
+  private float returningVelocity;
   private boolean initialAnimation;
+  private boolean isReturning;
+  private Vector2 heroReturningPosition;
     
   public BoomerangAttack(SpriteState spriteState, World myWorld, float x, float y, boolean facingRight, Monsters source, boolean rotated) {
     super(spriteState, myWorld, x, y, facingRight, source, rotated);
@@ -24,6 +29,9 @@ public class BoomerangAttack extends ShootAttack {
     xVelocity = 0;
     spriteTime = spriteState.getFrameTime();
     initialAnimation = true;
+    isReturning = false;
+    
+    
     this.initialPosition = 2;
     this.initialPosition *= source.getMonsterWidth();
   }
@@ -51,16 +59,30 @@ public class BoomerangAttack extends ShootAttack {
         accumulator = 0;
         actualAnimation += 1;
         bankVelocity =  Math.abs(bankVelocity) * (mySource.facingRight()? 1:-1);
+        isFacingRight = mySource.facingRight();
         xVelocity = bankVelocity;
       } else {
         changeAnimation(attackAnimations[actualAnimation]);
-        xVelocity -= 0.5 * (isFacingRight? -1:1);
+        xVelocity -= 0.5 * (isFacingRight? 1:-1);
         accumulator = 0;
         actualAnimation = (actualAnimation == attackAnimations.length - 1)? endOfInitialAnimation + 1: actualAnimation + 1 ;
       }
       
-      if(bankVelocity * xVelocity < 0){
+      if(!isReturning && bankVelocity * xVelocity < 0){
+        isReturning = true;
+        heroReturningPosition = Hero.getInstance().getBody().getPosition();
+        returningVelocity = Math.abs(xVelocity);
+      }
+      
+      if(isReturning){
+        returningVelocity += 1;
+        float xDiff = Math.abs(heroReturningPosition.x - myBody.getPosition().x);
+        float yDiff = Math.abs(heroReturningPosition.y - myBody.getPosition().y);
+        float xPercentage = xDiff / (xDiff + yDiff);
+        float yPercentage = yDiff / (xDiff + yDiff);
         
+        xVelocity = xPercentage * returningVelocity * Math.signum(heroReturningPosition.x - myBody.getPosition().x);
+        yVelocity = yPercentage * returningVelocity * Math.signum(heroReturningPosition.y - myBody.getPosition().y);
       }
     }
     
@@ -75,6 +97,15 @@ public class BoomerangAttack extends ShootAttack {
     }     
     actualAnimation = 0;
     endOfInitialAnimation = mySpriteState.getEndOfInitialAnimation();
+  }
+  
+  @Override
+  public void manageInteractWithMonster(Monsters monster, WorldManifold worldManifold){
+    if(!initialAnimation && monster.equals(mySource)){
+      dead = true;
+    } else {
+      monster.damage(monster.getAttackDamage(this), this);    
+    }
   }
   
 }

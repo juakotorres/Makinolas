@@ -83,6 +83,10 @@ public abstract class Attacks extends AnimatedActor {
     return true;
   }
   
+  public void manageInteractWithMonster(Monsters monster, WorldManifold worldManifold) {
+    monster.damage(monster.getAttackDamage(this), this);    
+  }
+  
   @Override
   public void interact(GameActor actor, WorldManifold worldManifold){
     actor.interactWithAttack(this, worldManifold);
@@ -90,12 +94,12 @@ public abstract class Attacks extends AnimatedActor {
   
   @Override
   public void interactWithHero(Hero hero, WorldManifold worldManifold){
-    hero.damage(hero.getAttackDamage(this), this);
+    manageInteractWithMonster(hero, worldManifold);
   }
-  
+
   @Override
   public void interactWithEnemy(Enemy enemy, WorldManifold worldManifold){
-    enemy.damage(enemy.getAttackDamage(this), this);
+    manageInteractWithMonster(enemy, worldManifold);
   }
   
   @Override
