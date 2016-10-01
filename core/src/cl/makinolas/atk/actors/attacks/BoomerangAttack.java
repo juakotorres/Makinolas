@@ -104,7 +104,7 @@ public class BoomerangAttack extends ShootAttack {
     if(!initialAnimation && monster.equals(mySource)){
       dead = true;
     } else {
-      monster.damage(monster.getAttackDamage(this), this);    
+      monster.damage(getAttackDamage(monster), this);    
     }
   }
   

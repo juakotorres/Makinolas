@@ -17,6 +17,7 @@ import cl.makinolas.atk.actors.bosses.IBoss;
 import cl.makinolas.atk.actors.enemies.AttackDetector;
 import cl.makinolas.atk.actors.enemies.Enemy;
 import cl.makinolas.atk.actors.platform.Platform;
+import cl.makinolas.atk.utils.Formulas;
 
 public abstract class Attacks extends AnimatedActor {
 	protected float xVelocity;
@@ -83,8 +84,16 @@ public abstract class Attacks extends AnimatedActor {
     return true;
   }
   
+  protected int getAttackDamage(Monsters monster){
+    return mySpriteState.getTypeAttack(monster);
+  }
+  
   public void manageInteractWithMonster(Monsters monster, WorldManifold worldManifold) {
-    monster.damage(monster.getAttackDamage(this), this);    
+    monster.damage(getAttackDamage(monster), this);    
+  }
+  
+  public void manageInteractWithMonster(Monsters monster) {
+    monster.damage(getAttackDamage(monster), this);    
   }
   
   @Override
@@ -104,7 +113,7 @@ public abstract class Attacks extends AnimatedActor {
   
   @Override
   public void interactWithBoss(IBoss boss){
-    boss.getBoss().damage(boss.getBoss().getAttackDamage(this), this);
+    manageInteractWithMonster(boss.getBoss());
   }
   
   @Override
@@ -126,5 +135,21 @@ public abstract class Attacks extends AnimatedActor {
   public void isDropping(){
     yVelocity = -3;
     xVelocity = 0;
+  }
+  
+  public int getPhysicalAttackDamage(Monsters monster) {
+    int attackStat = getSource().getMyself().getAttack();
+    int level1 = getSource().getMyself().getLevel();
+    int defenseStat = monster.getMyself().getDefense();
+    int level2 = monster.getMyself().getLevel();
+    return Formulas.getDamage(attackStat, level1, defenseStat, level2, getAttackDamage());
+  }
+  
+  public int getSpecialAttackDamage(Monsters monster) {
+    int spAttackStat = getSource().getMyself().getSpecialAttack();
+    int level1 = getSource().getMyself().getLevel();
+    int spDefenseStat = monster.getMyself().getSpecialDefense();
+    int level2 = monster.getMyself().getLevel();
+    return Formulas.getDamage(spAttackStat, level1, spDefenseStat, level2, getAttackDamage());
   }
 }

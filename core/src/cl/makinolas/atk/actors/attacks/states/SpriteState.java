@@ -3,6 +3,7 @@ package cl.makinolas.atk.actors.attacks.states;
 import com.badlogic.gdx.graphics.g2d.Animation.PlayMode;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 
+import cl.makinolas.atk.actors.Monsters;
 import cl.makinolas.atk.actors.attacks.Attacks;
 
 public abstract class SpriteState {
@@ -40,5 +41,7 @@ public abstract class SpriteState {
   public int getEndOfInitialAnimation() {
     return -1;
   }
-  
+  public int getTypeAttack(Monsters monster){
+    return myAttack.getPhysicalAttackDamage(monster);
+  }
 }

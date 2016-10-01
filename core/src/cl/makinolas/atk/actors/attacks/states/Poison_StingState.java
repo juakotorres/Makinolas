@@ -4,6 +4,9 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.Animation.PlayMode;
+
+import cl.makinolas.atk.actors.Monsters;
+
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 
 public class Poison_StingState extends SpriteState{
@@ -53,5 +56,9 @@ public class Poison_StingState extends SpriteState{
     return 0;
   }
 
+  @Override
+  public int getTypeAttack(Monsters monster) {
+    return myAttack.getPhysicalAttackDamage(monster);
+  }
 
 }

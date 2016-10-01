@@ -95,7 +95,7 @@ public abstract class Boss extends Monsters implements IBoss{
   
   @Override
   public void interactWithAttack(Attacks attack, WorldManifold worldManifold){
-    this.damage(getAttackDamage(attack), attack);
+    attack.manageInteractWithMonster(this);
   }
   
   @Override
