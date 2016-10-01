@@ -1,8 +1,5 @@
 package cl.makinolas.atk.actors.attacks;
 
-import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.graphics.Texture;
-import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.Body;
 import com.badlogic.gdx.physics.box2d.BodyDef;
@@ -12,6 +9,7 @@ import com.badlogic.gdx.physics.box2d.World;
 import com.badlogic.gdx.physics.box2d.WorldManifold;
 
 import cl.makinolas.atk.actors.Monsters;
+import cl.makinolas.atk.actors.attacks.states.AquaAttackState;
 import cl.makinolas.atk.actors.platform.Platform;
 
 public class AquaAttack extends Attacks {
@@ -33,9 +31,15 @@ public class AquaAttack extends Attacks {
     this.xVelocity = (facingRight)? 8: -8;
     this.initialPosition= (facingRight)? 1f: -1f;
     
+    mySpriteState = new AquaAttackState();
+    
+    mySpriteState.setAttack(this); 
+    
     myBodyDefinition = new BodyDef();
     myBodyDefinition.type = BodyDef.BodyType.DynamicBody;
     setSizeCollider(new Vector2(x + initialPosition * source.getMonsterWidth() * 2, y), true);
+    
+    setSprite();
   }
   
   private void setSizeCollider(Vector2 position, boolean first) {
@@ -67,9 +71,9 @@ public class AquaAttack extends Attacks {
     return spriteWidth[actualAnimation];
   }
 
-  protected void setAnimation(){
+  protected void setSprite(){
     attackAnimations = new int[7];
-    setMasterTexture(new TextureRegion(new Texture(Gdx.files.internal("Attacks/AquaAttack.png"))),39,69);
+    setMasterTexture(mySpriteState.getTexture(),mySpriteState.getWidth(),mySpriteState.getHeight());
     for(int i = 0; i < 7; i++){
       attackAnimations[i] = addAnimation(0.2f, i);
     }  
@@ -96,7 +100,7 @@ public class AquaAttack extends Attacks {
   
   @Override
   public int getAttackDamage() {
-    return 90;
+    return mySpriteState.getAttackDamage();
   }
   
   @Override
@@ -121,6 +125,12 @@ public class AquaAttack extends Attacks {
   @Override
   public void setSource(Monsters monsters){
     this.mySource = monsters;
+  }
+
+  @Override
+  protected void setAnimation() {
+    // TODO Auto-generated method stub
+    
   }
 
   

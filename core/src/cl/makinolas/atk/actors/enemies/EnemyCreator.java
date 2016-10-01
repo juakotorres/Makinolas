@@ -33,8 +33,9 @@ public class EnemyCreator implements Observer{
   @Override
   public void update(Observable o, Object arg) {
     float cameraPositionX = ((CameraPosition) o).getPositionX();
+    float cameraPositionY = ((CameraPosition) o).getPositionY();
     
-    if (Math.abs(cameraPositionX - positionX) < 24 && !firstSpawn){
+    if (Math.abs(cameraPositionX - positionX) < 24 && Math.abs(cameraPositionY - positionY) < 24 && !firstSpawn){
       firstSpawn = true;  
       stage.addGameActor(chooseEnemyThinker());
     } else if(firstSpawn && enemyDead && Math.abs(cameraPositionX - positionX) > 24){ 
@@ -42,7 +43,7 @@ public class EnemyCreator implements Observer{
     } else if (firstSpawn && !enemyDead){
       Vector2 enemyPosition = actualEnemy.getBody().getPosition();
 
-      if(Math.abs(cameraPositionX - enemyPosition.x) > 30){
+      if(Math.abs(cameraPositionX - enemyPosition.x) > 30 || Math.abs(cameraPositionY - positionY) > 30){
         actualEnemy.setDead();
         enemyDead = true;
       }      

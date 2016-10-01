@@ -3,6 +3,12 @@ package cl.makinolas.atk.actors.friend;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
+import com.badlogic.gdx.physics.box2d.World;
+
+import cl.makinolas.atk.actors.Monsters;
+import cl.makinolas.atk.actors.attacks.Attacks;
+import cl.makinolas.atk.actors.attacks.BoomerangAttack;
+import cl.makinolas.atk.actors.attacks.states.BoneAttackState;
 
 public class Cubone extends AbstractFriend {
 
@@ -56,4 +62,8 @@ public class Cubone extends AbstractFriend {
     }
   }
   
+  @Override
+  public Attacks getFriendAttack(World myWorld, float x , float y, boolean facingRight, Monsters source){
+    return new BoomerangAttack(new BoneAttackState(), myWorld, x, y, facingRight, source, false);
+  }
 }

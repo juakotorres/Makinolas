@@ -5,7 +5,9 @@ public enum Levels {
   FIRSTSTAGE("FirstStage", false, 28, 18, "Background/SandOcean.png", "Music/Sanctuary.mp3"),
   LEVEL2("Electric_Campament", false, 28, 16, "Background/AbandonedMansion.jpg", "Music/Sanctuary.mp3"),
   LEVEL3("UpAndDown", false, 26, 16, "Background/Night.png", "Music/Freesia.mp3"),
-  BOSSLEVEL1("bossstage1", true, 24, 16, "Background/SuPuente.jpg", "Music/Never-Gonna-Give-You-Up.mp3");
+  BOSSLEVEL1("bossstage1", true, 24, 16, "Background/SuPuente.jpg", "Music/Never-Gonna-Give-You-Up.mp3"),
+  LEVEL4("DownLevel", false, 24,18, "Background/OldRuins1.1.png", "Music/Sanctuary.mp3"),
+  LEVEL5("cuito_maincra", false, 24,14, "Background/SandOcean2.1.png", "Music/Sanctuary.mp3");
   
   public String levelName;
   public boolean bossLevel;

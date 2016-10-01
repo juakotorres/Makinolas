@@ -1,34 +1,34 @@
 package cl.makinolas.atk.actors.attacks.states;
 
+import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.Animation.PlayMode;
 
 import cl.makinolas.atk.actors.Monsters;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
-import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 
-public class TreeState extends SpriteState {
+public class AquaAttackState extends SpriteState {
   
   @Override
   public int getAttackDamage() {
-    return 70;
+    return 90;
   }
   
   @Override
   public TextureRegion getTexture() {
-    return new TextureRegion(new Texture(Gdx.files.internal("Attacks/Tree.png")));
+    return new TextureRegion(new Texture(Gdx.files.internal("Attacks/AquaAttack.png")));
   }
   
   @Override
   public int getWidth() {
-    return 19;
+    return 39;
   }
   
   @Override
   public int getHeight() {
-    return 29;
+    return 69;
   }
   
   @Override
@@ -52,34 +52,8 @@ public class TreeState extends SpriteState {
   }
   
   @Override
-  public float getAttackTime() {
-    return 7 * getFrameTime();
-  }
-  
-  @Override
   public int getTypeAttack(Monsters monster) {
-    return myAttack.getPhysicalAttackDamage(monster);
+    return myAttack.getSpecialAttackDamage(monster);
   }
-  
-  @Override
-  public int getBodyWidth() {
-    return 6;
-  }
-
-  @Override
-  public int getBodyHeight() {
-    return 4;
-  }
-  
-  @Override
-  public float getYVelocity() {
-    return -10;
-  }
-  
-  @Override
-  public float getXVelocity() {
-    return 0;
-  }
-  
   
 }
