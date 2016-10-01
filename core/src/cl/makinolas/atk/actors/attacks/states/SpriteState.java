@@ -38,10 +38,24 @@ public abstract class SpriteState {
   public float getAttackTime(){
     return 0;
   }
+  
   public int getEndOfInitialAnimation() {
     return -1;
   }
+  
   public int getTypeAttack(Monsters monster){
     return myAttack.getPhysicalAttackDamage(monster);
+  }
+  
+  public float getYVelocity() {
+    return 0;
+  }
+  
+  public float getXVelocity() {
+    return 0;
+  }
+  
+  public boolean oneTimeVelocity() {
+    return false;
   }
 }

@@ -56,4 +56,24 @@ public class MineState extends SpriteState {
     return myAttack.getPhysicalAttackDamage(monster);
   }
   
+  @Override
+  public int getBodyWidth() {
+    return 6;
+  }
+
+  @Override
+  public int getBodyHeight() {
+    return 4;
+  }
+  
+  @Override
+  public float getYVelocity() {
+    return -10;
+  }
+  
+  @Override
+  public float getXVelocity() {
+    return 0;
+  }
+  
 }

@@ -56,4 +56,29 @@ public class ExplosionState extends SpriteState {
     return myAttack.getPhysicalAttackDamage(monster);
   }
   
+  @Override
+  public int getBodyWidth() {
+    return 6;
+  }
+
+  @Override
+  public int getBodyHeight() {
+    return 4;
+  }
+  
+  @Override
+  public float getYVelocity() {
+    return 8;
+  }
+  
+  @Override
+  public float getXVelocity() {
+    return 8;
+  }
+
+  @Override
+  public boolean oneTimeVelocity() {
+    return true;
+  }
+  
 }

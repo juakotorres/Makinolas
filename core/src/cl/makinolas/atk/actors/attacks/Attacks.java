@@ -55,9 +55,9 @@ public abstract class Attacks extends AnimatedActor {
     
     PolygonShape shape = new PolygonShape();
     if(!rotated){
-      shape.setAsBox(getBodySize(mySpriteState.getBodyWidth()), getBodySize(mySpriteState.getBodyHeight()));
+      shape.setAsBox(getBodySize(getBodyWidth()), getBodySize(getBodyHeight()));
     } else {
-      shape.setAsBox(getBodySize(mySpriteState.getBodyHeight()), getBodySize(mySpriteState.getBodyWidth()));
+      shape.setAsBox(getBodySize(getBodyHeight()), getBodySize(getBodyWidth()));
     }
     
     myBody.setGravityScale(0);
@@ -72,6 +72,14 @@ public abstract class Attacks extends AnimatedActor {
     // Guardar body.
     setBody(myBody);
   }
+  
+  protected int getBodyWidth() {
+    return mySpriteState.getBodyWidth();
+  }
+  
+  protected int getBodyHeight() {
+    return mySpriteState.getBodyHeight();
+  } 
   
   protected abstract void setAnimation();
   
@@ -89,7 +97,7 @@ public abstract class Attacks extends AnimatedActor {
   }
   
   public void manageInteractWithMonster(Monsters monster, WorldManifold worldManifold) {
-    monster.damage(getAttackDamage(monster), this);    
+    manageInteractWithMonster(monster);
   }
   
   public void manageInteractWithMonster(Monsters monster) {
