@@ -6,6 +6,8 @@ import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.Animation.PlayMode;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 
+import cl.makinolas.atk.actors.Monsters;
+
 public class AcidState extends SpriteState {
   
   @Override
@@ -51,6 +53,11 @@ public class AcidState extends SpriteState {
   @Override
   public int getFinalSprite() {
     return 2;
+  }
+
+  @Override
+  public int getTypeAttack(Monsters monster) {
+    return myAttack.getSpecialAttackDamage(monster);
   }
   
 }

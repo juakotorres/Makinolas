@@ -254,7 +254,7 @@ public class Enemy extends Monsters {
   @Override
   public void interactWithAttack(Attacks attack, WorldManifold worldManifold){
     if(free)
-      this.damage(getAttackDamage(attack), attack);
+      attack.manageInteractWithMonster(this, worldManifold);
   }
   
   @Override

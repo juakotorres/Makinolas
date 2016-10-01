@@ -70,7 +70,7 @@ public class JumperEnemy extends Enemy {
   public void jump() {
     if(!isJumping){
       isJumping = true;
-      myBody.applyLinearImpulse(0, 8, myBody.getPosition().x, myBody.getPosition().y, true);
+      myBody.applyLinearImpulse(0, 10, myBody.getPosition().x, myBody.getPosition().y, true);
     }
   }
   

@@ -276,7 +276,7 @@ public class Hero extends Monsters {
 
   @Deprecated
   private float getImpulse(float impulse) {
-    return getBody().getMass()*impulse; // El 12 se busc� por testing.
+    return getBody().getMass()*impulse; // El 12 se busco por testing.
   }
 
   public void landedPlatform(WorldManifold worldManifold, Platform platform){
@@ -400,7 +400,7 @@ public class Hero extends Monsters {
   
   @Override
   public void interactWithAttack(Attacks attack, WorldManifold worldManifold){
-    this.damage(getAttackDamage(attack), attack);
+    attack.manageInteractWithMonster(this, worldManifold);
   }
 
   @Override

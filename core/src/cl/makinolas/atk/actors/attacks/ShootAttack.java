@@ -23,7 +23,6 @@ public class ShootAttack extends Attacks {
     setSprite();
   }
   
-  
   @Override
   public void act(float delta){
     myBody.setLinearVelocity(xVelocity, yVelocity);

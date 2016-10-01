@@ -1,6 +1,9 @@
 package cl.makinolas.atk.actors.attacks.states;
 
 import com.badlogic.gdx.graphics.g2d.Animation.PlayMode;
+
+import cl.makinolas.atk.actors.Monsters;
+
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Animation;
@@ -46,6 +49,11 @@ public class IceRockState extends SpriteState {
   @Override
   public int getFinalSprite() {
     return 3;
+  }
+  
+  @Override
+  public int getTypeAttack(Monsters monster) {
+    return myAttack.getPhysicalAttackDamage(monster);
   }
   
 }

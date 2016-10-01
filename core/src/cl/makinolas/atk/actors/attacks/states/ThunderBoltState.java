@@ -4,6 +4,9 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.Animation.PlayMode;
+
+import cl.makinolas.atk.actors.Monsters;
+
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 
 public class ThunderBoltState extends SpriteState {
@@ -58,4 +61,8 @@ public class ThunderBoltState extends SpriteState {
     return 5 * getFrameTime(); 
   }
 
+  @Override
+  public int getTypeAttack(Monsters monster) {
+    return myAttack.getSpecialAttackDamage(monster);
+  }
 }

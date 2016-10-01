@@ -1,12 +1,19 @@
 package cl.makinolas.atk.actors.attacks;
 
 import cl.makinolas.atk.actors.Monsters;
+import cl.makinolas.atk.actors.attacks.states.NullSpriteState;
+import cl.makinolas.atk.actors.attacks.states.SpriteState;
 
 public class MeleeAttack extends Attacks {
   
   public MeleeAttack(Monsters monster){
     super(null, 0, 0, false, monster, false);
     xVelocity =0;
+    
+    SpriteState spriteState = new NullSpriteState();
+    mySpriteState = spriteState;
+    
+    spriteState.setAttack(this);
   }
   
   @Override

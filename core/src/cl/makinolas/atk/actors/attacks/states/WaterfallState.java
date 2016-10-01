@@ -6,6 +6,8 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 
+import cl.makinolas.atk.actors.Monsters;
+
 public class WaterfallState extends SpriteState {
   
   @Override
@@ -51,6 +53,11 @@ public class WaterfallState extends SpriteState {
   @Override
   public float getAttackTime() {
     return 4 * getFrameTime();
+  }
+
+  @Override
+  public int getTypeAttack(Monsters monster) {
+    return myAttack.getPhysicalAttackDamage(monster);
   }
   
 }

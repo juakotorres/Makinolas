@@ -17,6 +17,7 @@ import cl.makinolas.atk.actors.bosses.IBoss;
 import cl.makinolas.atk.actors.enemies.AttackDetector;
 import cl.makinolas.atk.actors.enemies.Enemy;
 import cl.makinolas.atk.actors.platform.Platform;
+import cl.makinolas.atk.utils.Formulas;
 
 public abstract class Attacks extends AnimatedActor {
 	protected float xVelocity;
@@ -54,9 +55,9 @@ public abstract class Attacks extends AnimatedActor {
     
     PolygonShape shape = new PolygonShape();
     if(!rotated){
-      shape.setAsBox(getBodySize(mySpriteState.getBodyWidth()), getBodySize(mySpriteState.getBodyHeight()));
+      shape.setAsBox(getBodySize(getBodyWidth()), getBodySize(getBodyHeight()));
     } else {
-      shape.setAsBox(getBodySize(mySpriteState.getBodyHeight()), getBodySize(mySpriteState.getBodyWidth()));
+      shape.setAsBox(getBodySize(getBodyHeight()), getBodySize(getBodyWidth()));
     }
     
     myBody.setGravityScale(0);
@@ -72,6 +73,14 @@ public abstract class Attacks extends AnimatedActor {
     setBody(myBody);
   }
   
+  protected int getBodyWidth() {
+    return mySpriteState.getBodyWidth();
+  }
+  
+  protected int getBodyHeight() {
+    return mySpriteState.getBodyHeight();
+  } 
+  
   protected abstract void setAnimation();
   
   public  float getXVelocity() {
@@ -83,6 +92,20 @@ public abstract class Attacks extends AnimatedActor {
     return true;
   }
   
+  protected int getAttackDamage(Monsters monster){
+    System.out.println("Source: " + monster.getMyself().getName());
+    System.out.println("mySpriteState: " + mySpriteState);
+    return mySpriteState.getTypeAttack(monster);
+  }
+  
+  public void manageInteractWithMonster(Monsters monster, WorldManifold worldManifold) {
+    manageInteractWithMonster(monster);
+  }
+  
+  public void manageInteractWithMonster(Monsters monster) {
+    monster.damage(getAttackDamage(monster), this);    
+  }
+  
   @Override
   public void interact(GameActor actor, WorldManifold worldManifold){
     actor.interactWithAttack(this, worldManifold);
@@ -90,17 +113,17 @@ public abstract class Attacks extends AnimatedActor {
   
   @Override
   public void interactWithHero(Hero hero, WorldManifold worldManifold){
-    hero.damage(hero.getAttackDamage(this), this);
+    manageInteractWithMonster(hero, worldManifold);
   }
-  
+
   @Override
   public void interactWithEnemy(Enemy enemy, WorldManifold worldManifold){
-    enemy.damage(enemy.getAttackDamage(this), this);
+    manageInteractWithMonster(enemy, worldManifold);
   }
   
   @Override
   public void interactWithBoss(IBoss boss){
-    boss.getBoss().damage(boss.getBoss().getAttackDamage(this), this);
+    manageInteractWithMonster(boss.getBoss());
   }
   
   @Override
@@ -122,5 +145,21 @@ public abstract class Attacks extends AnimatedActor {
   public void isDropping(){
     yVelocity = -3;
     xVelocity = 0;
+  }
+  
+  public int getPhysicalAttackDamage(Monsters monster) {
+    int attackStat = getSource().getMyself().getAttack();
+    int level1 = getSource().getMyself().getLevel();
+    int defenseStat = monster.getMyself().getDefense();
+    int level2 = monster.getMyself().getLevel();
+    return Formulas.getDamage(attackStat, level1, defenseStat, level2, getAttackDamage());
+  }
+  
+  public int getSpecialAttackDamage(Monsters monster) {
+    int spAttackStat = getSource().getMyself().getSpecialAttack();
+    int level1 = getSource().getMyself().getLevel();
+    int spDefenseStat = monster.getMyself().getSpecialDefense();
+    int level2 = monster.getMyself().getLevel();
+    return Formulas.getDamage(spAttackStat, level1, spDefenseStat, level2, getAttackDamage());
   }
 }

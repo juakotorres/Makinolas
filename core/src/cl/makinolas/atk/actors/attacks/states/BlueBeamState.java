@@ -4,6 +4,9 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.Animation.PlayMode;
+
+import cl.makinolas.atk.actors.Monsters;
+
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 
 public class BlueBeamState extends SpriteState {
@@ -51,6 +54,11 @@ public class BlueBeamState extends SpriteState {
   @Override
   public int getFinalSprite() {
     return 3;
+  }
+  
+  @Override
+  public int getTypeAttack(Monsters monster) {
+    return myAttack.getSpecialAttackDamage(monster);
   }
   
 }
