@@ -40,11 +40,52 @@ var MainController = function($scope){
 
     self.modifiers = ["Stay","Normal","Stay and Shot","Fly wave and drop","Jumper","Follower","Fly Melee","Melee"];
 
-    self.decorations = [{"name":"ZFL",img:"Flame.png"}];
+    self.decorations = [
+        {"name":"ZFL",img:"Flame.png"},
+        {name:"SAS",img:"SnowArrowSign.png"},
+        {name:"SCS",img:"SnowCrossSign.png"},
+        {name:"SNM",img:"SnowMan.png"},
+        {name:"SPT",img:"SnowPineTree.png"},
+        {name:"SQS",img:"SnowQuestionSign.png"},
+        {name:"SST",img:"SnowSquareTree.png"},
+        {name:"SSs",img:"SnowStairs.png"},
+        {name:"Tb1",img:"Tubo1.png"},
+        {name:"vl1",img:"valla1.png"},
+        {name:"vl2",img:"valla2.png"},
+        {name:"vl3",img:"valla3.png"},
+        {name:"AuT",img:"AutumnTree.png"},
+        {name:"BCc",img:"BigCactus.png"},
+        {name:"BST",img:"BonsaiSakuraTree.png"},
+        {name:"CoT",img:"CoconutTree.png"},
+        {name:"CuB",img:"CuteBush.png"},
+        {name:"CuT",img:"CuteTree.png"},
+        {name:"NST",img:"NormalSakuraTree.png"},
+        {name:"PiT",img:"PineTree.png"},
+        {name:"SmT",img:"SmallTree.png"},
+        {name:"SpT",img:"SpringTree.png"},
+        {name:"tr1",img:"tree-1.png"},
+        {name:"tr2",img:"tree-2.png"},
+        {name:"tro",img:"tree-ornament.png"}
+    ];
 
     self.platforms.sort(function(a,b){return a.name.localeCompare(b.name)});
 
     self.pokemons = [
+        {name:"Bagon",img:"Bagon.png"},
+        {name:"Charmander",img:"Charmander.png"},
+        {name:"Eevee",img:"Eevee.png"},
+        {name:"Gastly",img:"Gastly.png"},
+        {name:"Gible",img:"Gible.png"},
+        {name:"Jigglypuff",img:"Jigglypuff.png"},
+        {name:"Magnemite",img:"Magnemite.png"},
+        {name:"Mareep",img:"Mareep.png"},
+        {name:"Pichu",img:"Pichu.png"},
+        {name:"Scyther",img:"Scyther.png"},
+        {name:"Shinx",img:"Shinx.png"},
+        {name:"Snivy",img:"Snivy.png"},
+        {name:"Totodile",img:"Totodile.png"},
+        {name:"Weedle",img:"Weedle.png"},
+        {name:"Zubat",img:"Zubat.png"},
         {name:"Ampharos",img:"Ampharos.png"},
         {name:"Arcanine",img:"Arcanine.png"},
         {name:"Beedrill",img:"Beedrill.png"},
