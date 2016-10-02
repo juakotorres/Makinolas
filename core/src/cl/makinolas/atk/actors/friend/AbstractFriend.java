@@ -213,33 +213,38 @@ public abstract class AbstractFriend implements Friend {
   }
   
   @Override
-  public Enemy returnEnemy(World myWorld, int positionX, int positionY) {
+  public Enemy returnEnemy(World myWorld, int positionX, int positionY, boolean facingRight) {
     return new Enemy(myWorld, friendTexture, cutSprites,
-                walkingAnimation, hurtAnimation,  getHealth(), positionX, positionY, getLevel(), friend, this);
+                walkingAnimation, hurtAnimation,  getHealth(),
+                positionX, positionY, facingRight, getLevel(), friend, this);
   }
   
   @Override
-  public Enemy returnStayAndShootEnemy(World myWorld, int positionX, int positionY) {
+  public Enemy returnStayAndShootEnemy(World myWorld, int positionX, int positionY, boolean facingRight) {
     return new StayAndShootEnemy(myWorld, friendTexture, cutSprites,
-                walkingAnimation, hurtAnimation,  getHealth(), positionX, positionY, getLevel(), friend, this);
+                walkingAnimation, hurtAnimation,  getHealth(),
+                positionX, positionY, facingRight, getLevel(), friend, this);
   }
   
   @Override
-  public Enemy returnFlyWaveAndDropEnemy(World myWorld, int positionX, int positionY) {
+  public Enemy returnFlyWaveAndDropEnemy(World myWorld, int positionX, int positionY, boolean facingRight) {
     return new FlyWaveAndDropEnemy(myWorld, friendTexture, cutSprites,
-                walkingAnimation, hurtAnimation,  getHealth(), positionX, positionY, getLevel(), friend, this);
+                walkingAnimation, hurtAnimation,  getHealth(),
+                positionX, positionY, facingRight, getLevel(), friend, this);
   }
   
   @Override
-  public Enemy returnJumperEnemy(World myWorld, int positionX, int positionY) {
+  public Enemy returnJumperEnemy(World myWorld, int positionX, int positionY, boolean facingRight) {
     return new JumperEnemy(myWorld, friendTexture, cutSprites,
-                walkingAnimation, hurtAnimation,  getHealth(), positionX, positionY, getLevel(), friend, this);
+                walkingAnimation, hurtAnimation,  getHealth(),
+                positionX, positionY, facingRight, getLevel(), friend, this);
   }
   
   @Override
-  public Enemy returnFollowerEnemy(World myWorld, int positionX, int positionY) {
+  public Enemy returnFollowerEnemy(World myWorld, int positionX, int positionY, boolean facingRight) {
     return new FollowerEnemy(myWorld, friendTexture, cutSprites,
-                walkingAnimation, hurtAnimation,  getHealth(), positionX, positionY, getLevel(), friend, this);
+                walkingAnimation, hurtAnimation,  getHealth(),
+                positionX, positionY, facingRight, getLevel(), friend, this);
   }
   
   @Override

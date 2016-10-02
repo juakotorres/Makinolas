@@ -10,7 +10,7 @@ public class LongRangeEnemy extends Enemy {
 
 	public LongRangeEnemy(World myWorld, TextureRegion friendTexture, int[] cutSprites, int[][] walkingAnimation,
 			int[][] hurtAnimation, int health, int heroPosition, int level, Enemies friend, Friend parent) {
-		super(myWorld, friendTexture,cutSprites,walkingAnimation,hurtAnimation,health,heroPosition,3,level,friend, parent);
+		super(myWorld, friendTexture,cutSprites,walkingAnimation,hurtAnimation,health,heroPosition,3,true, level,friend, parent);
 	}
 
 }

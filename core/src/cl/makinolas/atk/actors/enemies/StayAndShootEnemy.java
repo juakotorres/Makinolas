@@ -15,14 +15,17 @@ public class StayAndShootEnemy extends Enemy {
   private final float attackTime = 1.5f;
   private float accumulatorAttack;
   private boolean arrived;
+  private boolean inicialLooking;
   
   public StayAndShootEnemy(World myWorld, TextureRegion enemyTexture, int[] cutSprite, int[][] numberOfSprite,
-      int[][] numberOfHurtSprites, int givenHealth, int positionX, int positionY, int level, Enemies type,
+      int[][] numberOfHurtSprites, int givenHealth, int positionX, int positionY,
+      boolean facingRight, int level, Enemies type,
       Friend parent) {
-    super(myWorld, enemyTexture, cutSprite, numberOfSprite, numberOfHurtSprites, givenHealth, positionX, positionY, level,
+    super(myWorld, enemyTexture, cutSprite, numberOfSprite, numberOfHurtSprites, givenHealth, positionX, positionY, facingRight, level,
         type, parent);
     
     arrived = false;
+    inicialLooking = facingRight;
   }
   
   
@@ -43,8 +46,14 @@ public class StayAndShootEnemy extends Enemy {
   }
   
   @Override
+  public void flip(){
+    
+  }
+  
+  
+  @Override
   public void interactWithPlatform(Platform platform, WorldManifold worldManifold) {
     arrived = true;
-    
+    isFacingRight = inicialLooking;    
   } 
 }

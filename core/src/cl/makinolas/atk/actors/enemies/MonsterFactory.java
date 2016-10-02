@@ -575,24 +575,24 @@ public class MonsterFactory {
       return friend;
     }
     
-    protected Enemy giveEnemy(int level, int positionX, int positionY){
-      return giveFriend(level).returnEnemy(Hero.getInstance().getMyWorld(), positionX, positionY);
+    protected Enemy giveEnemy(int level, int positionX, int positionY, boolean facingRight){
+      return giveFriend(level).returnEnemy(Hero.getInstance().getMyWorld(), positionX, positionY, facingRight);
     }
     
-    protected Enemy giveStayAndShootEnemy(int level, int positionX, int positionY) {
-      return giveFriend(level).returnStayAndShootEnemy(Hero.getInstance().getMyWorld(), positionX, positionY);
+    protected Enemy giveStayAndShootEnemy(int level, int positionX, int positionY, boolean facingRight) {
+      return giveFriend(level).returnStayAndShootEnemy(Hero.getInstance().getMyWorld(), positionX, positionY, facingRight);
     }
     
-    protected Enemy giveFlyWaveAndDropEnemy(int level, int positionX, int positionY) {
-      return giveFriend(level).returnFlyWaveAndDropEnemy(Hero.getInstance().getMyWorld(), positionX, positionY);
+    protected Enemy giveFlyWaveAndDropEnemy(int level, int positionX, int positionY, boolean facingRight) {
+      return giveFriend(level).returnFlyWaveAndDropEnemy(Hero.getInstance().getMyWorld(), positionX, positionY, facingRight);
     }
     
-    protected Enemy giveJumperEnemy(int level, int positionX, int positionY) {
-      return giveFriend(level).returnJumperEnemy(Hero.getInstance().getMyWorld(), positionX, positionY);
+    protected Enemy giveJumperEnemy(int level, int positionX, int positionY, boolean facingRight) {
+      return giveFriend(level).returnJumperEnemy(Hero.getInstance().getMyWorld(), positionX, positionY, facingRight);
     }
     
-    protected Enemy giveFollowerEnemy(int level, int positionX, int positionY) {
-      return giveFriend(level).returnFollowerEnemy(Hero.getInstance().getMyWorld(), positionX, positionY);
+    protected Enemy giveFollowerEnemy(int level, int positionX, int positionY, boolean facingRight) {
+      return giveFriend(level).returnFollowerEnemy(Hero.getInstance().getMyWorld(), positionX, positionY, facingRight);
     }
     
     protected Enemy givePhysicalEnemy(int level, int position){
@@ -608,24 +608,24 @@ public class MonsterFactory {
 
   }
   
-  public Enemy giveClassicEnemy(String nameFriend, int level, int positionX, int positionY){
-    return map.get(nameFriend.toLowerCase()).giveEnemy(level, positionX, positionY); 
+  public Enemy giveClassicEnemy(String nameFriend, int level, int positionX, int positionY, boolean facingRight){
+    return map.get(nameFriend.toLowerCase()).giveEnemy(level, positionX, positionY, facingRight); 
   }
   
-  public Enemy giveStayAndShootEnemy(String nameFriend, int level, int positionX, int positionY) {
-    return map.get(nameFriend.toLowerCase()).giveStayAndShootEnemy(level, positionX, positionY); 
+  public Enemy giveStayAndShootEnemy(String nameFriend, int level, int positionX, int positionY, boolean facingRight) {
+    return map.get(nameFriend.toLowerCase()).giveStayAndShootEnemy(level, positionX, positionY, facingRight); 
   }
   
-  public Enemy giveFlyWaveAndDropEnemy(String nameFriend, int level, int positionX, int positionY) {
-    return map.get(nameFriend.toLowerCase()).giveFlyWaveAndDropEnemy(level, positionX, positionY); 
+  public Enemy giveFlyWaveAndDropEnemy(String nameFriend, int level, int positionX, int positionY, boolean facingRight) {
+    return map.get(nameFriend.toLowerCase()).giveFlyWaveAndDropEnemy(level, positionX, positionY, facingRight); 
   }
   
-  public Enemy giveJumperEnemy(String nameFriend, int level, int positionX, int positionY) {
-    return map.get(nameFriend.toLowerCase()).giveJumperEnemy(level, positionX, positionY); 
+  public Enemy giveJumperEnemy(String nameFriend, int level, int positionX, int positionY, boolean facingRight) {
+    return map.get(nameFriend.toLowerCase()).giveJumperEnemy(level, positionX, positionY, facingRight); 
   }
   
-  public Enemy giveFollowerEnemy(String nameFriend, int level, int positionX, int positionY) {
-    return map.get(nameFriend.toLowerCase()).giveFollowerEnemy(level, positionX, positionY); 
+  public Enemy giveFollowerEnemy(String nameFriend, int level, int positionX, int positionY, boolean facingRight) {
+    return map.get(nameFriend.toLowerCase()).giveFollowerEnemy(level, positionX, positionY, facingRight); 
   }
   
   public Enemy givePhysicalEnemy(String nameFriend, int level, int position){

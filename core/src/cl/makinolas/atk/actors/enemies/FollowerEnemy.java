@@ -17,9 +17,9 @@ public class FollowerEnemy extends Enemy {
   private float vy;
   
   public FollowerEnemy(World myWorld, TextureRegion enemyTexture, int[] cutSprite, int[][] numberOfSprite,
-      int[][] numberOfHurtSprites, int givenHealth, int positionX, int positionY, int level, Enemies type,
+      int[][] numberOfHurtSprites, int givenHealth, int positionX, int positionY, boolean facingRight, int level, Enemies type,
       Friend parent) {
-    super(myWorld, enemyTexture, cutSprite, numberOfSprite, numberOfHurtSprites, givenHealth, positionX, positionY, level,
+    super(myWorld, enemyTexture, cutSprite, numberOfSprite, numberOfHurtSprites, givenHealth, positionX, positionY, facingRight, level,
         type, parent);
     
     accumulatorAttack = 0;

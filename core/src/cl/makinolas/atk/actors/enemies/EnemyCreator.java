@@ -18,8 +18,10 @@ public class EnemyCreator implements Observer{
   private int enemyThinker;
   private Enemy actualEnemy;
   private boolean enemyDead;
+  private boolean facingRight;
   
-  public EnemyCreator(AbstractStage stage, String enemy, float positionX, float positionY, int enemyThinker) {
+  public EnemyCreator(AbstractStage stage, String enemy, float positionX,
+                      float positionY, int enemyThinker, boolean facingRight) {
     stage.cameraObserver.addObserver(this);
     this.stage = stage;
     this.enemyType = enemy;
@@ -28,6 +30,7 @@ public class EnemyCreator implements Observer{
     this.enemyDead = true;
     this.positionY = positionY;
     this.enemyThinker = enemyThinker;
+    this.facingRight = facingRight;
   }
 
   @Override
@@ -54,20 +57,20 @@ public class EnemyCreator implements Observer{
   private Enemy chooseEnemyThinker() {
     switch(enemyThinker){
       case 2:
-        actualEnemy = MonsterFactory.getInstance().giveStayAndShootEnemy(enemyType, 5, (int) (positionX), (int) (positionY + 2));
+        actualEnemy = MonsterFactory.getInstance().giveStayAndShootEnemy(enemyType, 5, (int) (positionX), (int) (positionY + 2), facingRight);
         break;
       case 3:
-        actualEnemy = MonsterFactory.getInstance().giveFlyWaveAndDropEnemy(enemyType, 5, (int) (positionX), (int) (positionY + 2));
+        actualEnemy = MonsterFactory.getInstance().giveFlyWaveAndDropEnemy(enemyType, 5, (int) (positionX), (int) (positionY + 2), facingRight);
         break;
       case 4:
-        actualEnemy =  MonsterFactory.getInstance().giveJumperEnemy(enemyType, 5, (int) (positionX), (int) (positionY + 2));
+        actualEnemy =  MonsterFactory.getInstance().giveJumperEnemy(enemyType, 5, (int) (positionX), (int) (positionY + 2), facingRight);
         ((JumperEnemy) actualEnemy).initDetector(stage);
         break;
       case 5:
-        actualEnemy =  MonsterFactory.getInstance().giveFollowerEnemy(enemyType, 5, (int) (positionX), (int) (positionY + 2));
+        actualEnemy =  MonsterFactory.getInstance().giveFollowerEnemy(enemyType, 5, (int) (positionX), (int) (positionY + 2), facingRight);
         break;
       default:
-        actualEnemy = MonsterFactory.getInstance().giveClassicEnemy(enemyType, 5, (int) (positionX), (int) (positionY + 2));
+        actualEnemy = MonsterFactory.getInstance().giveClassicEnemy(enemyType, 5, (int) (positionX), (int) (positionY + 2), facingRight);
         break;
     }
     enemyDead = false;
