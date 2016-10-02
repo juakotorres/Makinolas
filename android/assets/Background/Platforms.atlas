@@ -1,0 +1,909 @@
+
+Platforms.png
+size: 2048,1024
+format: RGBA8888
+filter: Nearest,Nearest
+repeat: none
+Ampharos
+  rotate: false
+  xy: 1180, 373
+  size: 25, 34
+  orig: 25, 34
+  offset: 0, 0
+  index: -1
+Arcanine
+  rotate: false
+  xy: 1781, 833
+  size: 35, 30
+  orig: 35, 30
+  offset: 0, 0
+  index: -1
+AutumnTree
+  rotate: false
+  xy: 1535, 585
+  size: 96, 120
+  orig: 96, 120
+  offset: 0, 0
+  index: -1
+Bagon
+  rotate: false
+  xy: 381, 282
+  size: 25, 26
+  orig: 25, 26
+  offset: 0, 0
+  index: -1
+Beedrill
+  rotate: false
+  xy: 242, 218
+  size: 35, 28
+  orig: 35, 28
+  offset: 0, 0
+  index: -1
+Beldum
+  rotate: false
+  xy: 279, 213
+  size: 30, 28
+  orig: 30, 28
+  offset: 0, 0
+  index: -1
+BigCactus
+  rotate: false
+  xy: 1769, 935
+  size: 60, 87
+  orig: 60, 87
+  offset: 0, 0
+  index: -1
+BonsaiSakuraTree
+  rotate: false
+  xy: 1535, 707
+  size: 108, 113
+  orig: 108, 113
+  offset: 0, 0
+  index: -1
+Butterfree
+  rotate: false
+  xy: 1583, 478
+  size: 27, 28
+  orig: 27, 28
+  offset: 0, 0
+  index: -1
+CastformC
+  rotate: false
+  xy: 343, 222
+  size: 22, 23
+  orig: 22, 23
+  offset: 0, 0
+  index: -1
+CastformN
+  rotate: false
+  xy: 443, 363
+  size: 13, 17
+  orig: 13, 17
+  offset: 0, 0
+  index: -1
+CastformS
+  rotate: false
+  xy: 1657, 688
+  size: 18, 21
+  orig: 18, 21
+  offset: 0, 0
+  index: -1
+CastformW
+  rotate: false
+  xy: 138, 59
+  size: 20, 24
+  orig: 20, 24
+  offset: 0, 0
+  index: -1
+Caterpie
+  rotate: false
+  xy: 1755, 753
+  size: 24, 22
+  orig: 24, 22
+  offset: 0, 0
+  index: -1
+Charizard
+  rotate: false
+  xy: 1818, 831
+  size: 32, 32
+  orig: 32, 32
+  offset: 0, 0
+  index: -1
+Charmander
+  rotate: false
+  xy: 1633, 683
+  size: 22, 22
+  orig: 22, 22
+  offset: 0, 0
+  index: -1
+Charmeleon
+  rotate: false
+  xy: 1810, 902
+  size: 34, 31
+  orig: 34, 31
+  offset: 0, 0
+  index: -1
+ClassicPrettyLeftCorner
+  rotate: false
+  xy: 487, 390
+  size: 35, 35
+  orig: 35, 35
+  offset: 0, 0
+  index: -1
+ClassicPrettyRightCorner
+  rotate: false
+  xy: 1405, 493
+  size: 35, 35
+  orig: 35, 35
+  offset: 0, 0
+  index: -1
+ClassicRoundedLeftCorner
+  rotate: false
+  xy: 524, 390
+  size: 35, 35
+  orig: 35, 35
+  offset: 0, 0
+  index: -1
+ClassicRoundedRightCorner
+  rotate: false
+  xy: 1442, 493
+  size: 35, 35
+  orig: 35, 35
+  offset: 0, 0
+  index: -1
+ClassicSimpleLeftCorner
+  rotate: false
+  xy: 561, 390
+  size: 35, 35
+  orig: 35, 35
+  offset: 0, 0
+  index: -1
+ClassicSimpleRightCorner
+  rotate: false
+  xy: 1479, 493
+  size: 35, 35
+  orig: 35, 35
+  offset: 0, 0
+  index: -1
+ClassicUp
+  rotate: false
+  xy: 1738, 865
+  size: 35, 35
+  orig: 35, 35
+  offset: 0, 0
+  index: -1
+ClassicWithoutGrass
+  rotate: false
+  xy: 1941, 987
+  size: 35, 35
+  orig: 35, 35
+  offset: 0, 0
+  index: -1
+ClassicWithoutGrassRounded
+  rotate: false
+  xy: 1978, 987
+  size: 35, 35
+  orig: 35, 35
+  offset: 0, 0
+  index: -1
+CoconutTree
+  rotate: false
+  xy: 1667, 902
+  size: 100, 120
+  orig: 100, 120
+  offset: 0, 0
+  index: -1
+Crobat
+  rotate: false
+  xy: 1913, 958
+  size: 26, 28
+  orig: 26, 28
+  offset: 0, 0
+  index: -1
+Croconaw
+  rotate: false
+  xy: 1612, 478
+  size: 27, 28
+  orig: 27, 28
+  offset: 0, 0
+  index: -1
+CrossBox
+  rotate: false
+  xy: 1775, 865
+  size: 35, 35
+  orig: 35, 35
+  offset: 0, 0
+  index: -1
+Cubone
+  rotate: false
+  xy: 1780, 722
+  size: 25, 24
+  orig: 25, 24
+  offset: 0, 0
+  index: -1
+CuteBush
+  rotate: false
+  xy: 177, 225
+  size: 63, 58
+  orig: 63, 58
+  offset: 0, 0
+  index: -1
+CuteTree
+  rotate: false
+  xy: 1077, 409
+  size: 127, 119
+  orig: 127, 119
+  offset: 0, 0
+  index: -1
+Drapion
+  rotate: false
+  xy: 1897, 988
+  size: 42, 34
+  orig: 42, 34
+  offset: 0, 0
+  index: -1
+Eevee
+  rotate: false
+  xy: 307, 185
+  size: 29, 24
+  orig: 29, 24
+  offset: 0, 0
+  index: -1
+Feraligatr
+  rotate: false
+  xy: 64, 2
+  size: 38, 37
+  orig: 38, 37
+  offset: 0, 0
+  index: -1
+Flaffy
+  rotate: false
+  xy: 342, 247
+  size: 25, 25
+  orig: 25, 25
+  offset: 0, 0
+  index: -1
+Flame
+  rotate: false
+  xy: 598, 391
+  size: 14, 34
+  orig: 14, 34
+  offset: 0, 0
+  index: -1
+FreezePrettyLeftCorner
+  rotate: false
+  xy: 414, 325
+  size: 35, 35
+  orig: 35, 35
+  offset: 0, 0
+  index: -1
+FreezePrettyRightCorner
+  rotate: false
+  xy: 1207, 376
+  size: 35, 35
+  orig: 35, 35
+  offset: 0, 0
+  index: -1
+FreezeRoundedLeftCorner
+  rotate: false
+  xy: 1244, 376
+  size: 35, 35
+  orig: 35, 35
+  offset: 0, 0
+  index: -1
+FreezeRoundedRightCorner
+  rotate: false
+  xy: 242, 248
+  size: 35, 35
+  orig: 35, 35
+  offset: 0, 0
+  index: -1
+FreezeSimpleLeftCorner
+  rotate: false
+  xy: 1645, 785
+  size: 35, 35
+  orig: 35, 35
+  offset: 0, 0
+  index: -1
+FreezeSimpleRightCorner
+  rotate: false
+  xy: 1645, 748
+  size: 35, 35
+  orig: 35, 35
+  offset: 0, 0
+  index: -1
+FreezeUp
+  rotate: false
+  xy: 1645, 711
+  size: 35, 35
+  orig: 35, 35
+  offset: 0, 0
+  index: -1
+FreezeWithoutGrass
+  rotate: false
+  xy: 1682, 796
+  size: 35, 35
+  orig: 35, 35
+  offset: 0, 0
+  index: -1
+FreezeWithoutGrassRounded
+  rotate: false
+  xy: 1682, 759
+  size: 35, 35
+  orig: 35, 35
+  offset: 0, 0
+  index: -1
+Gabite
+  rotate: false
+  xy: 1139, 373
+  size: 39, 34
+  orig: 39, 34
+  offset: 0, 0
+  index: -1
+Garchomp
+  rotate: false
+  xy: 1298, 436
+  size: 43, 40
+  orig: 43, 40
+  offset: 0, 0
+  index: -1
+Gastly
+  rotate: false
+  xy: 311, 211
+  size: 30, 30
+  orig: 30, 30
+  offset: 0, 0
+  index: -1
+Gengar
+  rotate: false
+  xy: 1738, 835
+  size: 41, 28
+  orig: 41, 28
+  offset: 0, 0
+  index: -1
+Geodude
+  rotate: false
+  xy: 1298, 411
+  size: 37, 23
+  orig: 37, 23
+  offset: 0, 0
+  index: -1
+Gible
+  rotate: false
+  xy: 2015, 961
+  size: 31, 29
+  orig: 31, 29
+  offset: 0, 0
+  index: -1
+Gligar
+  rotate: false
+  xy: 166, 107
+  size: 36, 32
+  orig: 36, 32
+  offset: 0, 0
+  index: -1
+Gliscor
+  rotate: false
+  xy: 1719, 797
+  size: 30, 34
+  orig: 30, 34
+  offset: 0, 0
+  index: -1
+Golbat
+  rotate: false
+  xy: 1343, 444
+  size: 20, 32
+  orig: 20, 32
+  offset: 0, 0
+  index: -1
+Golem
+  rotate: false
+  xy: 1753, 777
+  size: 26, 25
+  orig: 26, 25
+  offset: 0, 0
+  index: -1
+Graveler
+  rotate: false
+  xy: 310, 243
+  size: 30, 29
+  orig: 30, 29
+  offset: 0, 0
+  index: -1
+Growlithe
+  rotate: false
+  xy: 1817, 802
+  size: 32, 27
+  orig: 32, 27
+  offset: 0, 0
+  index: -1
+Gyarados
+  rotate: false
+  xy: 1667, 833
+  size: 69, 67
+  orig: 69, 67
+  offset: 0, 0
+  index: -1
+Haunter
+  rotate: false
+  xy: 1357, 492
+  size: 46, 36
+  orig: 46, 36
+  offset: 0, 0
+  index: -1
+Igglybuff
+  rotate: false
+  xy: 266, 285
+  size: 17, 18
+  orig: 17, 18
+  offset: 0, 0
+  index: -1
+Jigglypuff
+  rotate: false
+  xy: 1755, 730
+  size: 23, 21
+  orig: 23, 21
+  offset: 0, 0
+  index: -1
+Kakuna
+  rotate: false
+  xy: 354, 276
+  size: 25, 27
+  orig: 25, 27
+  offset: 0, 0
+  index: -1
+Kangaskhan
+  rotate: false
+  xy: 1719, 763
+  size: 32, 32
+  orig: 32, 32
+  offset: 0, 0
+  index: -1
+LineBox
+  rotate: false
+  xy: 1682, 722
+  size: 35, 35
+  orig: 35, 35
+  offset: 0, 0
+  index: -1
+Luxray
+  rotate: false
+  xy: 1978, 952
+  size: 33, 33
+  orig: 33, 33
+  offset: 0, 0
+  index: -1
+Magikarp
+  rotate: false
+  xy: 1553, 482
+  size: 28, 24
+  orig: 28, 24
+  offset: 0, 0
+  index: -1
+Magnemite
+  rotate: false
+  xy: 1633, 588
+  size: 20, 22
+  orig: 20, 22
+  offset: 0, 0
+  index: -1
+Magneton
+  rotate: false
+  xy: 279, 243
+  size: 29, 32
+  orig: 29, 32
+  offset: 0, 0
+  index: -1
+Magnezone
+  rotate: false
+  xy: 2015, 992
+  size: 31, 30
+  orig: 31, 30
+  offset: 0, 0
+  index: -1
+Mareep
+  rotate: false
+  xy: 1365, 439
+  size: 29, 21
+  orig: 29, 21
+  offset: 0, 0
+  index: -1
+Marowak
+  rotate: false
+  xy: 321, 274
+  size: 31, 29
+  orig: 31, 29
+  offset: 0, 0
+  index: -1
+Masquerain
+  rotate: false
+  xy: 1781, 774
+  size: 30, 26
+  orig: 30, 26
+  offset: 0, 0
+  index: -1
+Metagross
+  rotate: false
+  xy: 166, 141
+  size: 50, 32
+  orig: 50, 32
+  offset: 0, 0
+  index: -1
+Metang
+  rotate: false
+  xy: 1769, 902
+  size: 39, 31
+  orig: 39, 31
+  offset: 0, 0
+  index: -1
+Metapod
+  rotate: false
+  xy: 285, 277
+  size: 34, 26
+  orig: 34, 26
+  offset: 0, 0
+  index: -1
+Ninetales
+  rotate: false
+  xy: 414, 298
+  size: 29, 25
+  orig: 29, 25
+  offset: 0, 0
+  index: -1
+NormalSakuraTree
+  rotate: false
+  xy: 1206, 413
+  size: 90, 115
+  orig: 90, 115
+  offset: 0, 0
+  index: -1
+Pichu
+  rotate: false
+  xy: 204, 111
+  size: 27, 28
+  orig: 27, 28
+  offset: 0, 0
+  index: -1
+Pikachu
+  rotate: false
+  xy: 242, 191
+  size: 31, 25
+  orig: 31, 25
+  offset: 0, 0
+  index: -1
+PineTree
+  rotate: false
+  xy: 177, 285
+  size: 87, 140
+  orig: 87, 140
+  offset: 0, 0
+  index: -1
+Raichu
+  rotate: false
+  xy: 1719, 731
+  size: 34, 30
+  orig: 34, 30
+  offset: 0, 0
+  index: -1
+Rotom
+  rotate: false
+  xy: 1813, 775
+  size: 30, 25
+  orig: 30, 25
+  offset: 0, 0
+  index: -1
+Salamence
+  rotate: false
+  xy: 166, 175
+  size: 55, 48
+  orig: 55, 48
+  offset: 0, 0
+  index: -1
+Sandshrew
+  rotate: false
+  xy: 1781, 748
+  size: 26, 24
+  orig: 26, 24
+  offset: 0, 0
+  index: -1
+Sandslash
+  rotate: false
+  xy: 2013, 927
+  size: 33, 32
+  orig: 33, 32
+  offset: 0, 0
+  index: -1
+Scyther
+  rotate: false
+  xy: 1831, 947
+  size: 43, 35
+  orig: 43, 35
+  offset: 0, 0
+  index: -1
+Scyzor
+  rotate: false
+  xy: 1941, 951
+  size: 35, 34
+  orig: 35, 34
+  offset: 0, 0
+  index: -1
+Serperior
+  rotate: false
+  xy: 1298, 478
+  size: 57, 50
+  orig: 57, 50
+  offset: 0, 0
+  index: -1
+Servine
+  rotate: false
+  xy: 1781, 802
+  size: 34, 29
+  orig: 34, 29
+  offset: 0, 0
+  index: -1
+Shelgon
+  rotate: false
+  xy: 1751, 804
+  size: 28, 29
+  orig: 28, 29
+  offset: 0, 0
+  index: -1
+Shinx
+  rotate: false
+  xy: 1365, 462
+  size: 29, 28
+  orig: 29, 28
+  offset: 0, 0
+  index: -1
+Skorupi
+  rotate: false
+  xy: 108, 32
+  size: 27, 21
+  orig: 27, 21
+  offset: 0, 0
+  index: -1
+SmallTree
+  rotate: false
+  xy: 2, 6
+  size: 60, 90
+  orig: 60, 90
+  offset: 0, 0
+  index: -1
+Snivy
+  rotate: false
+  xy: 1633, 636
+  size: 22, 21
+  orig: 22, 21
+  offset: 0, 0
+  index: -1
+SnowArrowSign
+  rotate: false
+  xy: 443, 382
+  size: 42, 43
+  orig: 42, 43
+  offset: 0, 0
+  index: -1
+SnowCrossSign
+  rotate: false
+  xy: 368, 310
+  size: 44, 50
+  orig: 44, 50
+  offset: 0, 0
+  index: -1
+SnowMan
+  rotate: false
+  xy: 2, 98
+  size: 115, 125
+  orig: 115, 125
+  offset: 0, 0
+  index: -1
+SnowPineTree
+  rotate: false
+  xy: 1535, 822
+  size: 130, 200
+  orig: 130, 200
+  offset: 0, 0
+  index: -1
+SnowPrettyLeftCorner
+  rotate: false
+  xy: 1876, 947
+  size: 35, 35
+  orig: 35, 35
+  offset: 0, 0
+  index: -1
+SnowPrettyRightCorner
+  rotate: false
+  xy: 1812, 865
+  size: 35, 35
+  orig: 35, 35
+  offset: 0, 0
+  index: -1
+SnowQuestionSign
+  rotate: false
+  xy: 64, 41
+  size: 42, 55
+  orig: 42, 55
+  offset: 0, 0
+  index: -1
+SnowRoundedLeftCorner
+  rotate: false
+  xy: 1846, 910
+  size: 35, 35
+  orig: 35, 35
+  offset: 0, 0
+  index: -1
+SnowRoundedRightCorner
+  rotate: false
+  xy: 1883, 910
+  size: 35, 35
+  orig: 35, 35
+  offset: 0, 0
+  index: -1
+SnowSimpleLeftCorner
+  rotate: false
+  xy: 1849, 873
+  size: 35, 35
+  orig: 35, 35
+  offset: 0, 0
+  index: -1
+SnowSimpleRightCorner
+  rotate: false
+  xy: 1886, 873
+  size: 35, 35
+  orig: 35, 35
+  offset: 0, 0
+  index: -1
+SnowSquareTree
+  rotate: false
+  xy: 2, 225
+  size: 173, 200
+  orig: 173, 200
+  offset: 0, 0
+  index: -1
+SnowStairs
+  rotate: false
+  xy: 119, 113
+  size: 45, 110
+  orig: 45, 110
+  offset: 0, 0
+  index: -1
+SnowUp
+  rotate: false
+  xy: 1852, 836
+  size: 35, 35
+  orig: 35, 35
+  offset: 0, 0
+  index: -1
+SnowWithoutGrassRounded
+  rotate: false
+  xy: 1889, 836
+  size: 35, 35
+  orig: 35, 35
+  offset: 0, 0
+  index: -1
+Spiritomb
+  rotate: false
+  xy: 223, 199
+  size: 17, 24
+  orig: 17, 24
+  offset: 0, 0
+  index: -1
+SpringTree
+  rotate: false
+  xy: 266, 305
+  size: 100, 120
+  orig: 100, 120
+  offset: 0, 0
+  index: -1
+Surskit
+  rotate: false
+  xy: 1633, 659
+  size: 22, 22
+  orig: 22, 22
+  offset: 0, 0
+  index: -1
+Totodile
+  rotate: false
+  xy: 119, 85
+  size: 29, 26
+  orig: 29, 26
+  offset: 0, 0
+  index: -1
+Tubo1
+  rotate: false
+  xy: 368, 362
+  size: 73, 63
+  orig: 73, 63
+  offset: 0, 0
+  index: -1
+Vulpix
+  rotate: false
+  xy: 1633, 612
+  size: 21, 22
+  orig: 21, 22
+  offset: 0, 0
+  index: -1
+Weedle
+  rotate: false
+  xy: 275, 187
+  size: 30, 24
+  orig: 30, 24
+  offset: 0, 0
+  index: -1
+Wigglytuff
+  rotate: false
+  xy: 104, 5
+  size: 26, 25
+  orig: 26, 25
+  offset: 0, 0
+  index: -1
+YellowBlock
+  rotate: false
+  xy: 1516, 493
+  size: 35, 35
+  orig: 35, 35
+  offset: 0, 0
+  index: -1
+Zubat
+  rotate: false
+  xy: 108, 55
+  size: 28, 28
+  orig: 28, 28
+  offset: 0, 0
+  index: -1
+portal
+  rotate: false
+  xy: 1553, 508
+  size: 35, 35
+  orig: 35, 35
+  offset: 0, 0
+  index: -1
+start
+  rotate: false
+  xy: 1590, 508
+  size: 35, 35
+  orig: 35, 35
+  offset: 0, 0
+  index: -1
+tree-1
+  rotate: false
+  xy: 1077, 530
+  size: 456, 492
+  orig: 456, 492
+  offset: 0, 0
+  index: -1
+tree-2
+  rotate: false
+  xy: 619, 372
+  size: 456, 650
+  orig: 456, 650
+  offset: 0, 0
+  index: -1
+tree-ornament
+  rotate: false
+  xy: 2, 427
+  size: 615, 595
+  orig: 615, 595
+  offset: 0, 0
+  index: -1
+valla1
+  rotate: false
+  xy: 1077, 372
+  size: 60, 35
+  orig: 60, 35
+  offset: 0, 0
+  index: -1
+valla2
+  rotate: false
+  xy: 1535, 545
+  size: 88, 38
+  orig: 88, 38
+  offset: 0, 0
+  index: -1
+valla3
+  rotate: false
+  xy: 1831, 984
+  size: 64, 38
+  orig: 64, 38
+  offset: 0, 0
+  index: -1

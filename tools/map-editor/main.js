@@ -40,7 +40,33 @@ var MainController = function($scope){
 
     self.modifiers = ["Stay","Normal","Stay and Shot","Fly wave and drop","Jumper","Follower","Fly Melee","Melee"];
 
-    self.decorations = [{"name":"ZFL",img:"Flame.png"}];
+    self.decorations = [
+        {"name":"ZFL",img:"Flame.png"},
+        {name:"SAS",img:"SnowArrowSign.png"},
+        {name:"SCS",img:"SnowCrossSign.png"},
+        {name:"SNM",img:"SnowMan.png"},
+        {name:"SPT",img:"SnowPineTree.png"},
+        {name:"SQS",img:"SnowQuestionSign.png"},
+        {name:"SST",img:"SnowSquareTree.png"},
+        {name:"SSs",img:"SnowStairs.png"},
+        {name:"Tb1",img:"Tubo1.png"},
+        {name:"vl1",img:"valla1.png"},
+        {name:"vl2",img:"valla2.png"},
+        {name:"vl3",img:"valla3.png"},
+        {name:"AuT",img:"AutumnTree.png"},
+        {name:"BCc",img:"BigCactus.png"},
+        {name:"BST",img:"BonsaiSakuraTree.png"},
+        {name:"CoT",img:"CoconutTree.png"},
+        {name:"CuB",img:"CuteBush.png"},
+        {name:"CuT",img:"CuteTree.png"},
+        {name:"NST",img:"NormalSakuraTree.png"},
+        {name:"PiT",img:"PineTree.png"},
+        {name:"SmT",img:"SmallTree.png"},
+        {name:"SpT",img:"SpringTree.png"},
+        {name:"tr1",img:"tree-1.png"},
+        {name:"tr2",img:"tree-2.png"},
+        {name:"tro",img:"tree-ornament.png"}
+    ];
 
     self.platforms.sort(function(a,b){return a.name.localeCompare(b.name)});
 
