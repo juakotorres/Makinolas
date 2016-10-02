@@ -4,7 +4,10 @@ import java.util.Observable;
 import java.util.Observer;
 
 import com.badlogic.gdx.math.Vector2;
+import com.badlogic.gdx.utils.Array;
 
+import cl.makinolas.atk.actors.Hero;
+import cl.makinolas.atk.actors.friend.Friend;
 import cl.makinolas.atk.stages.AbstractStage;
 import cl.makinolas.atk.stages.CameraPosition;
 
@@ -19,6 +22,7 @@ public class EnemyCreator implements Observer{
   private Enemy actualEnemy;
   private boolean enemyDead;
   private boolean facingRight;
+  private int newLevel;
   
   public EnemyCreator(AbstractStage stage, String enemy, float positionX,
                       float positionY, int enemyThinker, boolean facingRight) {
@@ -31,6 +35,7 @@ public class EnemyCreator implements Observer{
     this.positionY = positionY;
     this.enemyThinker = enemyThinker;
     this.facingRight = facingRight;
+    newLevel = maxLevelOfAllies(Hero.getInstance().getAllies());
   }
 
   @Override
@@ -57,23 +62,32 @@ public class EnemyCreator implements Observer{
   private Enemy chooseEnemyThinker() {
     switch(enemyThinker){
       case 2:
-        actualEnemy = MonsterFactory.getInstance().giveStayAndShootEnemy(enemyType, 5, (int) (positionX), (int) (positionY + 2), facingRight);
+        actualEnemy = MonsterFactory.getInstance().giveStayAndShootEnemy(enemyType, newLevel, (int) (positionX), (int) (positionY + 2), facingRight);
         break;
       case 3:
-        actualEnemy = MonsterFactory.getInstance().giveFlyWaveAndDropEnemy(enemyType, 5, (int) (positionX), (int) (positionY + 2), facingRight);
+        actualEnemy = MonsterFactory.getInstance().giveFlyWaveAndDropEnemy(enemyType, newLevel, (int) (positionX), (int) (positionY + 2), facingRight);
         break;
       case 4:
-        actualEnemy =  MonsterFactory.getInstance().giveJumperEnemy(enemyType, 5, (int) (positionX), (int) (positionY + 2), facingRight);
+        actualEnemy =  MonsterFactory.getInstance().giveJumperEnemy(enemyType, newLevel, (int) (positionX), (int) (positionY + 2), facingRight);
         ((JumperEnemy) actualEnemy).initDetector(stage);
         break;
       case 5:
-        actualEnemy =  MonsterFactory.getInstance().giveFollowerEnemy(enemyType, 5, (int) (positionX), (int) (positionY + 2), facingRight);
+        actualEnemy =  MonsterFactory.getInstance().giveFollowerEnemy(enemyType, newLevel, (int) (positionX), (int) (positionY + 2), facingRight);
         break;
       default:
-        actualEnemy = MonsterFactory.getInstance().giveClassicEnemy(enemyType, 5, (int) (positionX), (int) (positionY + 2), facingRight);
+        actualEnemy = MonsterFactory.getInstance().giveClassicEnemy(enemyType, newLevel, (int) (positionX), (int) (positionY + 2), facingRight);
         break;
     }
     enemyDead = false;
     return actualEnemy;
+  }
+
+  private int maxLevelOfAllies(Array<Friend> allies) {
+    int maxLevel = allies.get(0).getLevel();
+    for(Friend ally : allies){
+      if(maxLevel < ally.getLevel())
+        maxLevel = ally.getLevel();
+    }
+    return maxLevel;
   } 
 }

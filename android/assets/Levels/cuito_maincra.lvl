@@ -22,10 +22,10 @@ BC,17,14,1,1
 BC,17,15,1,1
 BC,17,16,1,1
 BC,17,17,1,1
-%E,Magikarp,4,17,2,false
-%E,Magikarp,10,17,2,false
-%E,Magikarp,17,17,2,false
-%E,Haunter,7,14,1,false
+%E,Magikarp,4.5,17,2,false
+%E,Magikarp,11,17,2,false
+%E,Magikarp,18.1,18,2,false
+%E,Haunter,9,14,1,false
 %E,Haunter,14,14,1,false
 CPR,21,13,1,1
 CPL,27,13,1,1
@@ -127,7 +127,7 @@ CG,26,2,1,1
 %E,Metapod,12,-4,5,false
 %E,Magikarp,24,9,2,false
 %E,Gengar,21,4,1,false
-%E,Magikarp,8,9,2,false
+%E,Magikarp,8,9,2,true
 %D,ZFL,8,5,0
 %D,ZFL,10,2,0
 %D,ZFL,12,-1,0
