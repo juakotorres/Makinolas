@@ -71,6 +71,21 @@ var MainController = function($scope){
     self.platforms.sort(function(a,b){return a.name.localeCompare(b.name)});
 
     self.pokemons = [
+        {name:"Bagon",img:"Bagon.png"},
+        {name:"Charmander",img:"Charmander.png"},
+        {name:"Eevee",img:"Eevee.png"},
+        {name:"Gastly",img:"Gastly.png"},
+        {name:"Gible",img:"Gible.png"},
+        {name:"Jigglypuff",img:"Jigglypuff.png"},
+        {name:"Magnemite",img:"Magnemite.png"},
+        {name:"Mareep",img:"Mareep.png"},
+        {name:"Pichu",img:"Pichu.png"},
+        {name:"Scyther",img:"Scyther.png"},
+        {name:"Shinx",img:"Shinx.png"},
+        {name:"Snivy",img:"Snivy.png"},
+        {name:"Totodile",img:"Totodile.png"},
+        {name:"Weedle",img:"Weedle.png"},
+        {name:"Zubat",img:"Zubat.png"},
         {name:"Ampharos",img:"Ampharos.png"},
         {name:"Arcanine",img:"Arcanine.png"},
         {name:"Beedrill",img:"Beedrill.png"},
