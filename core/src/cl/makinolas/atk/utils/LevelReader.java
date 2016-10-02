@@ -70,7 +70,7 @@ public class LevelReader {
                     heroPos = new Vector2(Integer.parseInt(comps[1]) * 1.8f, Integer.parseInt(comps[2]) * 1.8f);
                     break;
                 case "%E":
-                    new EnemyCreator(gameStage, comps[1], Integer.parseInt(comps[2]) * 1.8f, Integer.parseInt(comps[3]) * 1.8f, Integer.parseInt(comps[4]));
+                    new EnemyCreator(gameStage, comps[1], Float.parseFloat(comps[2]) * 1.8f, Float.parseFloat(comps[3]) * 1.8f, Integer.parseInt(comps[4]), Boolean.parseBoolean(comps[5]));
                     break;
                 case "%I":
                     decorations.addActor(new Sign(comps[3], Integer.parseInt(comps[1]), Integer.parseInt(comps[2])));
