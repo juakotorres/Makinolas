@@ -45,6 +45,10 @@ public class FollowerEnemy extends Enemy {
   }
 
   private void checkHeroPosition(float delta) {
+    if(!Hero.getInstance().hasBody()){
+      return;
+    }
+    
     Vector2 heroPosition = Hero.getInstance().getBody().getPosition();
     Vector2 myPosition = getBody().getPosition();
     

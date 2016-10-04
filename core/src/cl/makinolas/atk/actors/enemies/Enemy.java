@@ -337,6 +337,9 @@ public class Enemy extends Monsters {
   public void landedPlatform(WorldManifold worldManifold, Platform platform) {}
   
   private void checkHeroNear(float delta) {
+    if(!Hero.getInstance().hasBody()){
+      return;
+    }
     Vector2 heroPosition = Hero.getInstance().getBody().getPosition();
     meleeAccumulator += delta;
     if(Math.abs(heroPosition.x - getBody().getPosition().x) < 3
