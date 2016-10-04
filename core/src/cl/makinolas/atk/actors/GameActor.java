@@ -1,6 +1,5 @@
 package cl.makinolas.atk.actors;
 
-import cl.makinolas.atk.actors.items.ItemActor;
 import com.badlogic.gdx.physics.box2d.Body;
 import com.badlogic.gdx.physics.box2d.WorldManifold;
 import com.badlogic.gdx.scenes.scene2d.Actor;
@@ -10,7 +9,9 @@ import cl.makinolas.atk.actors.bosses.IBoss;
 import cl.makinolas.atk.actors.enemies.AttackDetector;
 import cl.makinolas.atk.actors.enemies.Enemy;
 import cl.makinolas.atk.actors.items.BallActor;
+import cl.makinolas.atk.actors.items.ItemActor;
 import cl.makinolas.atk.actors.platform.Platform;
+import cl.makinolas.atk.minigames.MinigameCharacter;
 
 public abstract class GameActor extends Actor{
   
@@ -76,6 +77,8 @@ public abstract class GameActor extends Actor{
   public void interactWithBall(BallActor ball){}
 
   public void interactWithItem(ItemActor item) {}
+  
+  public void interactWithMinigameCharacter(MinigameCharacter minigameCharacter, WorldManifold worldManifold) {}
 
   public boolean isEnemy() {
     return false;
@@ -84,6 +87,17 @@ public abstract class GameActor extends Actor{
   public boolean isPuff() {
     return false;
   }
+
+  public void setState(JumpState state) {}
+
+  public void setSpeed(float x, float y) {}
+
+  public boolean isMinigameCharacter() {
+    return false;
+  }
+
+
+
 
   
 }

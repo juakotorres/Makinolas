@@ -1,15 +1,20 @@
 package cl.makinolas.atk.actors;
 
 public class JumpState {
-	protected Hero hero;
+	protected GameActor hero;
 	private int frames;
 	
 	protected JumpState() {
 		hero = Hero.getInstance();
 	}
-	public void setHero(Hero hero) {
-		this.hero= hero;
+	
+	protected JumpState(GameActor actor) {
+	  hero = actor;
 	}
+	
+	public void setHero(GameActor hero) {
+		this.hero= hero;
+  }
 	
 	protected void changeState(JumpState state) {
 		hero.setState(state);

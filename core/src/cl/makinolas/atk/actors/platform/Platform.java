@@ -14,6 +14,7 @@ import cl.makinolas.atk.actors.GameActor;
 import cl.makinolas.atk.actors.Hero;
 import cl.makinolas.atk.actors.attacks.Attacks;
 import cl.makinolas.atk.actors.enemies.Enemy;
+import cl.makinolas.atk.minigames.MinigameCharacter;
 
 public class Platform extends GameActor {
   
@@ -97,4 +98,10 @@ public class Platform extends GameActor {
   public void interactWithEnemy(Enemy enemy, WorldManifold worldManifold){
     enemy.landedPlatform(worldManifold, this);
   }
+  
+  @Override
+  public void interactWithMinigameCharacter(MinigameCharacter minigameCharacter, WorldManifold worldManifold) {
+    minigameCharacter.landedPlatform(worldManifold, this);
+  }
+
 }

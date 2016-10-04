@@ -1,6 +1,5 @@
 package cl.makinolas.atk.screen;
 
-import cl.makinolas.atk.stages.MapStage;
 import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
@@ -10,7 +9,10 @@ import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.utils.viewport.FitViewport;
 
+import cl.makinolas.atk.minigames.MinigameStage;
+import cl.makinolas.atk.stages.Levels;
 import cl.makinolas.atk.stages.LoadStage;
+import cl.makinolas.atk.stages.MapStage;
 import cl.makinolas.atk.stages.MenuStage;
 import cl.makinolas.atk.start.StartingJourneyStage;
 
@@ -36,14 +38,29 @@ public class MenuScreen extends SimpleScreen {
           loadGame();
       }
     });
+    TextButton minigameButton = new TextButton("Minigame",  new Skin(Gdx.files.internal("Data/uiskin.json")));
+    minigameButton.addListener(new ClickListener(){
+      @Override
+      public void clicked(InputEvent event, float x, float y) {
+          minigame();
+      }
+    });
     TextButton optionButton = new TextButton("Options",  new Skin(Gdx.files.internal("Data/uiskin.json")));
 
     loadButton.setPosition(280, 200);
-    optionButton.setPosition(280, 160);
+    optionButton.setPosition(280, 120);
+    minigameButton.setPosition(280, 160);
+    stage.addActor(minigameButton);
     stage.addActor(loadButton);
     stage.addActor(optionButton);
   }
   
+  protected void minigame() {
+    GameScreen gameScreen = new GameScreen(myGame);
+    gameScreen.setStage(new MinigameStage(new FitViewport(640,480), gameScreen, myGame));
+    myGame.setScreen(gameScreen);
+  }
+
   protected void loadMap(){
     MapScreen mapScreen = new MapScreen(myGame,new MapStage(new FitViewport(640, 480),myGame));
     myGame.setScreen(mapScreen);
