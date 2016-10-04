@@ -7,9 +7,9 @@ public class OnGround extends JumpState {
 	}
 	
 	public void firstJump() {
-		Hero.getInstance().myBody.setGravityScale(0.3f);
-		Hero.getInstance().setSpeed(Hero.getInstance().getBody().getLinearVelocity().x,15);
-		Hero.getInstance().setState(new OnAir());
+	  hero.myBody.setGravityScale(0.3f);
+	  hero.setSpeed(hero.getBody().getLinearVelocity().x,15f);
+	  hero.setState(new OnAir());
 	}
 	
 	

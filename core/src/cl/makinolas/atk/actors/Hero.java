@@ -457,8 +457,6 @@ public class Hero extends Monsters {
   public void isNotPressingSpace() {
 	  isJumping = false;
 	  state.release();
-    
-
   }
 
   private void increaseJumpAccumulator() {
@@ -581,11 +579,12 @@ public class Hero extends Monsters {
     return myBody.getPosition().y * GameConstants.WORLD_FACTOR;
   }
 
+  @Override
   public void setState(JumpState state) {
       this.state = state;
-
   }
 
+  @Override
   public void setSpeed(float x, float y) {
       myBody.setLinearVelocity(x, y);
   }
