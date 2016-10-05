@@ -4,6 +4,7 @@ import com.badlogic.gdx.Application;
 import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.OrthographicCamera;
+import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.Body;
 import com.badlogic.gdx.physics.box2d.Box2DDebugRenderer;
@@ -18,7 +19,6 @@ import com.badlogic.gdx.utils.viewport.Viewport;
 
 import cl.makinolas.atk.actors.Background;
 import cl.makinolas.atk.actors.GameActor;
-import cl.makinolas.atk.actors.Hero;
 import cl.makinolas.atk.actors.fx.FxManager;
 import cl.makinolas.atk.actors.platform.Platform;
 import cl.makinolas.atk.actors.ui.BagVis;
@@ -39,6 +39,8 @@ public class MinigameStage extends AbstractStage implements ContactListener{
   private BagVis bagVis;
   private Platform initialPlatform;
   private MinigameCharacter hero;
+  private BitmapFont large = new BitmapFont(Gdx.files.internal("Fonts/large.fnt"),Gdx.files.internal("Fonts/large.png"),false);
+  private float score;
 
   private OrthographicCamera camera;
   private Box2DDebugRenderer renderer;
@@ -107,6 +109,9 @@ public class MinigameStage extends AbstractStage implements ContactListener{
   
   @Override
   public void act(float delta){
+    
+    score += delta * 100;
+    
     for(GameActor actor : gameActors){
       Body actorBody = actor.getBody();
       if(actor.isMinigameCharacter() && actor.isDead()){
@@ -138,6 +143,10 @@ public class MinigameStage extends AbstractStage implements ContactListener{
   @Override
   public void draw() {
       super.draw();
+      
+      getBatch().begin();
+      large.draw(getBatch(), "SCORE : " + (int) score, 100 + getCamera().position.x ,  300);
+      getBatch().end();
       camera.update();
       renderer.render(suMundo, camera.combined);
   }

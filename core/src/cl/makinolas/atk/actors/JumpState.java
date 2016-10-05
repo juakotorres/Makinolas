@@ -1,5 +1,7 @@
 package cl.makinolas.atk.actors;
 
+import cl.makinolas.atk.minigames.MinigameCharacter;
+
 public class JumpState {
 	protected GameActor hero;
 	private int frames;
@@ -49,5 +51,7 @@ public class JumpState {
 	public void release() {
 		
 	}
+
+  public void setAnimation(MinigameCharacter minigameCharacter, float delta) {}
 
 }

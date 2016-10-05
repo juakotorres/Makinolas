@@ -1,5 +1,7 @@
 package cl.makinolas.atk.actors;
 
+import cl.makinolas.atk.minigames.MinigameCharacter;
+
 public class OnGround extends JumpState {
 	
 	public OnGround() {
@@ -12,6 +14,8 @@ public class OnGround extends JumpState {
 	  hero.setState(new OnAir());
 	}
 	
-	
-	
+	@Override
+  public void setAnimation(MinigameCharacter minigameCharacter, float delta) {
+    minigameCharacter.onGroundAnimation(delta);
+  }
 }

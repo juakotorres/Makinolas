@@ -1,5 +1,7 @@
 package cl.makinolas.atk.actors;
 
+import cl.makinolas.atk.minigames.MinigameCharacter;
+
 public class OnAir extends JumpState {
 	public void secondJump() {
 		hero.myBody.setGravityScale(1);
@@ -9,5 +11,10 @@ public class OnAir extends JumpState {
 	
 	public void release() {
 		hero.setState(new NullState(hero));
+	}
+	
+	@Override
+  public void setAnimation(MinigameCharacter minigameCharacter, float delta) {
+	  minigameCharacter.onAirAnimation(delta);
 	}
 }

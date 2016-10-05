@@ -36,8 +36,8 @@ public class PlatformCreator extends Actor implements Observer{
     
     if (Math.abs(cameraPositionX - lastXPosition * 1.8f) < 20){
       int newXPosition = (lastXPosition) +  (int)(Math.random()*3 + 2);
-      int newYPosition = lastYPosition>3? ((int) (Math.random()*5) + (lastYPosition - 3)): (int) (Math.random()*3);
-      int width = (int) (Math.random()*7 + 3);
+      int newYPosition = lastYPosition>3? ((int) (Math.random()*5) + (lastYPosition - 2)): (int) (Math.random()*4);
+      int width = (int) (Math.random()*8 + 2);
       ground.addActor(new Platform(myWorld, "CU", newXPosition , newYPosition, width , 1));
       this.lastXPosition = newXPosition + width;    
       this.lastYPosition = newYPosition;
