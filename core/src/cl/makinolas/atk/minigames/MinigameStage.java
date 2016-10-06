@@ -86,7 +86,7 @@ public class MinigameStage extends AbstractStage implements ContactListener{
     addListener(new MinigameInputController(hero,group));
     accumulator = 0;
     renderer = new Box2DDebugRenderer();
-    setupCamera();
+    //setupCamera();
   }
 
   public void addGameActor(GameActor actor) {
@@ -101,16 +101,14 @@ public class MinigameStage extends AbstractStage implements ContactListener{
   }
   
   public void changeCamera(float x, float y){
-    camera.position.set((x + 7), 7, 0);
+    //camera.position.set((x + 7), 7, 0);
     getCamera().position.set((x + 7) * 20, 7* 20, 0);
     getCamera().update();    
-    camera.update();
+    //camera.update();
   }
   
   @Override
   public void act(float delta){
-    
-    score += delta * 100;
     
     for(GameActor actor : gameActors){
       Body actorBody = actor.getBody();
@@ -128,6 +126,8 @@ public class MinigameStage extends AbstractStage implements ContactListener{
     
     if(!paused) {
       super.act(delta); // move to first line in case of errors
+      
+      score += delta * 100;
       accumulator += delta;
       elapsedTime += delta;
 
@@ -147,8 +147,8 @@ public class MinigameStage extends AbstractStage implements ContactListener{
       getBatch().begin();
       large.draw(getBatch(), "SCORE : " + (int) score, 100 + getCamera().position.x ,  300);
       getBatch().end();
-      camera.update();
-      renderer.render(suMundo, camera.combined);
+      //camera.update();
+      //renderer.render(suMundo, camera.combined);
   }
 
   @Override

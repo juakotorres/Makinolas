@@ -1,11 +1,11 @@
 package cl.makinolas.atk.actors.items;
 
-import cl.makinolas.atk.stages.AbstractStage;
+import java.util.HashMap;
+
 import com.badlogic.gdx.physics.box2d.World;
-import com.badlogic.gdx.scenes.scene2d.Group;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 
-import java.util.HashMap;
+import cl.makinolas.atk.stages.AbstractStage;
 
 public class ItemFinder {
 
