@@ -1,5 +1,6 @@
 package cl.makinolas.atk.minigames;
 
+import cl.makinolas.atk.utils.SaveManager;
 import com.badlogic.gdx.Application;
 import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
@@ -40,7 +41,9 @@ public class MinigameStage extends AbstractStage implements ContactListener{
   private Platform initialPlatform;
   private MinigameCharacter hero;
   private BitmapFont large = new BitmapFont(Gdx.files.internal("Fonts/large.fnt"),Gdx.files.internal("Fonts/large.png"),false);
+  private BitmapFont normal = new BitmapFont(Gdx.files.internal("Fonts/normal.fnt"),Gdx.files.internal("Fonts/normal.png"),false);
   private float score;
+  private int hgsc;
 
   private OrthographicCamera camera;
   private Box2DDebugRenderer renderer;
@@ -54,6 +57,7 @@ public class MinigameStage extends AbstractStage implements ContactListener{
     suMundo.setContactListener(this);
     initialPlatform =  new Platform(suMundo, "CU", 0, 0, 20, 1);
     addActor(new Background("Background/OldRuins1.1.png", getCamera()));
+    hgsc = SaveManager.getInstance().getHighscore();
 
     music = Gdx.audio.newMusic(Gdx.files.internal("Music/Freesia.mp3"));
     music.setLooping(true); 
@@ -68,7 +72,7 @@ public class MinigameStage extends AbstractStage implements ContactListener{
     ui = new Group();
     addActor(ui);
 
-    MobileGroup group = new MobileGroup(Gdx.app.getType() == Application.ApplicationType.Android);
+    MobileGroup group = new MobileGroup(false);
     Gdx.input.setInputProcessor(this);
     
     cameraObserver = new CameraPosition();
@@ -113,6 +117,7 @@ public class MinigameStage extends AbstractStage implements ContactListener{
     for(GameActor actor : gameActors){
       Body actorBody = actor.getBody();
       if(actor.isMinigameCharacter() && actor.isDead()){
+        SaveManager.getInstance().setHighscore((int) score);
         changeDeadMenu();
       }
       if(actor.isEnemy() || actor.isPuff() || actor.isAttack() || actor.isBall() || actor.isItem() || actor.isDetector()){
@@ -146,6 +151,7 @@ public class MinigameStage extends AbstractStage implements ContactListener{
       
       getBatch().begin();
       large.draw(getBatch(), "SCORE : " + (int) score, 100 + getCamera().position.x ,  300);
+      normal.draw(getBatch(), "Highscore : "+hgsc, 140 + getCamera().position.x ,  280);
       getBatch().end();
       //camera.update();
       //renderer.render(suMundo, camera.combined);

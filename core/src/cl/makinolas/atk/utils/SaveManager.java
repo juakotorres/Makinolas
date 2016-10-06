@@ -1,6 +1,7 @@
 package cl.makinolas.atk.utils;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.Preferences;
 import com.badlogic.gdx.files.FileHandle;
 import com.badlogic.gdx.utils.Json;
 import com.badlogic.gdx.utils.JsonWriter;
@@ -75,5 +76,16 @@ public class SaveManager {
         save2.sex = save.sex;
         //System.out.println(GameText.savePath);
         SaveManager.getInstance().saveData(save2,GameText.savePath);
+    }
+
+    public int getHighscore(){
+        Preferences pref = Gdx.app.getPreferences("ATK");
+        return pref.getInteger("highscore",0);
+    }
+
+    public void setHighscore(int k){
+        Preferences pref = Gdx.app.getPreferences("ATK");
+        pref.putInteger("highscore",k);
+        pref.flush();
     }
 }

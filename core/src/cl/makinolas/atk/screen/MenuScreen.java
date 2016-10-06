@@ -47,9 +47,12 @@ public class MenuScreen extends SimpleScreen {
     });
     TextButton optionButton = new TextButton("Options",  new Skin(Gdx.files.internal("Data/uiskin.json")));
 
-    loadButton.setPosition(280, 200);
-    optionButton.setPosition(280, 120);
-    minigameButton.setPosition(280, 160);
+    loadButton.setPosition(270, 200);
+    optionButton.setPosition(270, 120);
+    minigameButton.setPosition(270, 160);
+    loadButton.setWidth(100);
+    optionButton.setWidth(100);
+    minigameButton.setWidth(100);
     stage.addActor(minigameButton);
     stage.addActor(loadButton);
     stage.addActor(optionButton);
