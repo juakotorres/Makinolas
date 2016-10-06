@@ -2,6 +2,7 @@ package cl.makinolas.atk.minigames;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.Body;
@@ -10,6 +11,7 @@ import com.badlogic.gdx.physics.box2d.PolygonShape;
 import com.badlogic.gdx.physics.box2d.World;
 import com.badlogic.gdx.physics.box2d.WorldManifold;
 
+import cl.makinolas.atk.GameConstants;
 import cl.makinolas.atk.actors.AnimatedActor;
 import cl.makinolas.atk.actors.GameActor;
 import cl.makinolas.atk.actors.JumpState;
@@ -29,7 +31,6 @@ public class MinigameCharacter extends AnimatedActor{
   private boolean onWall = false;
   private World myWorld;
   private boolean isJumping;
-  private boolean inertia;
   private float vx;
   private boolean dead;
   private float accumulator;
@@ -53,7 +54,6 @@ public class MinigameCharacter extends AnimatedActor{
     dead = false;
     accumulator = 0;
     accumulator2 = 0;
-    inertia = false;
     this.myWorld = myWorld;
     actualFriend = new MinigameFriend();
     jumpAccumulator = 0;
@@ -146,6 +146,15 @@ public class MinigameCharacter extends AnimatedActor{
   // This is used to get body width and height.
   private float getBodySize(int size){
     return (0.5f*size)/22;
+  }
+  
+  @Override
+  public void draw(Batch batch, float alpha){
+      Vector2 myPosition = myBody.getPosition();
+      TextureRegion actualSprite = getActualSprite();
+      batch.draw(actualSprite, myPosition.x * GameConstants.WORLD_FACTOR + (isTextureJump? -2f:0f) - actualSprite.getRegionWidth() / 2 , myPosition.y * GameConstants.WORLD_FACTOR  + (isTextureJump? 10f:0f) - actualSprite.getRegionHeight() / 2,
+              actualSprite.getRegionWidth() / 2, actualSprite.getRegionHeight() / 2, actualSprite.getRegionWidth(), actualSprite.getRegionHeight(),
+              ((isFacingRight)?-1:1)*getScaleX(), getScaleY(), 0);
   }
   
   /*public void moveHorizontal(int i, boolean restitutive) {
