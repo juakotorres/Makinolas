@@ -117,7 +117,8 @@ public class MinigameStage extends AbstractStage implements ContactListener{
     for(GameActor actor : gameActors){
       Body actorBody = actor.getBody();
       if(actor.isMinigameCharacter() && actor.isDead()){
-        SaveManager.getInstance().setHighscore((int) score);
+        if(score>hgsc)
+          SaveManager.getInstance().setHighscore((int) score);
         changeDeadMenu();
       }
       if(actor.isEnemy() || actor.isPuff() || actor.isAttack() || actor.isBall() || actor.isItem() || actor.isDetector()){
