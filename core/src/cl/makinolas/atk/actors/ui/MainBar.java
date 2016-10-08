@@ -1,5 +1,6 @@
 package cl.makinolas.atk.actors.ui;
 
+import com.badlogic.gdx.Application;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.Texture;
@@ -25,17 +26,19 @@ public class MainBar extends Group{
     private BitmapFont font;
     private ShapeRenderer renderer;
     private ImageCuad itemA, itemS;
+    private boolean isMobile;
 
     private MainBar(){
         hero = Hero.getInstance();
+        isMobile = Gdx.app.getType() == Application.ApplicationType.Android;
         setBars();
         base = new Sprite(new Texture(Gdx.files.internal("Overlays/bar_base.png")));
         base.setRegionWidth(640); //Full width
         font = new BitmapFont(Gdx.files.internal("Fonts/normal.fnt"),Gdx.files.internal("Fonts/normal.png"),false);
         renderer = new ShapeRenderer();
         friend = new FriendImage();
-        itemA = new ImageCuad(hero.getInventory().getSelItem1().getItem().getImage(),"A",font);
-        itemS = new ImageCuad(hero.getInventory().getSelItem2().getItem().getImage(),"S",font);
+        itemA = new ImageCuad(hero.getInventory().getSelItem1().getItem().getImage(),"A",font,isMobile);
+        itemS = new ImageCuad(hero.getInventory().getSelItem2().getItem().getImage(),"S",font,isMobile);
         //updateTeam();
     }
 
@@ -95,11 +98,17 @@ public class MainBar extends Group{
             friendImage.draw(batch,1);
         }
         //ImageCuads
-        itemA.setPosition(cx+540,cy+6);
+        if(isMobile)
+            itemA.setPosition(cx+584,cy+50+80*2);
+        else
+            itemA.setPosition(cx+540,cy+6);
         itemA.setRegion(hero.getInventory().getSelItem1().getItem().getImage());
         itemA.setRightLabel(""+hero.getInventory().getSelItem1().getQuantity());
         itemA.draw(batch,1);
-        itemS.setPosition(cx+580,cy+6);
+        if(isMobile)
+            itemS.setPosition(cx+584,cy+50+80*3);
+        else
+            itemS.setPosition(cx+580,cy+6);
         itemS.setRegion(hero.getInventory().getSelItem2().getItem().getImage());
         itemS.setRightLabel(""+hero.getInventory().getSelItem2().getQuantity());
         itemS.draw(batch,1);

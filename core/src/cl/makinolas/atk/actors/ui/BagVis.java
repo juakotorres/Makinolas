@@ -72,6 +72,17 @@ public class BagVis extends Group {
         }
     }
 
+    public void handleKey(MobileGroup.MobileKeys key){
+        switch (key){
+            case ITEM1:
+                handleKey(Input.Keys.A);
+                break;
+            case ITEM2:
+                handleKey(Input.Keys.S);
+                break;
+        }
+    }
+
     private void buildBagBoxes(){
         int c = 0;
         items = new ArrayList<>(inventory.getItems().size());

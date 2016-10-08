@@ -18,7 +18,18 @@ public class MinigameInputController extends InputListener implements MobileKeyL
       mob.setMobileKeyListener(this);
   }
 
-  @Override
+    @Override
+    public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
+        hero.jump(1);
+        return true;
+    }
+
+    @Override
+    public void touchUp(InputEvent event, float x, float y, int pointer, int button) {
+        hero.isNotPressingSpace();
+    }
+
+    @Override
   public boolean keyDown(InputEvent event, int keycode) {
       if(!((AbstractStage) hero.getStage()).isPaused()) {
           switch (keycode) {

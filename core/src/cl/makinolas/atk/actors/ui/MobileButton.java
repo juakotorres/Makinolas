@@ -2,6 +2,7 @@ package cl.makinolas.atk.actors.ui;
 
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
+import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.InputListener;
@@ -15,7 +16,7 @@ public class MobileButton extends Actor {
         fixedX = x;
         fixedY = y;
         region = reg;
-        setBounds(-4,-4,76,76);
+        setBounds(0,0,80,80);
         addListener(new InputListener(){
             @Override
             public void touchUp(InputEvent event, float x, float y, int pointer, int button) {
@@ -27,6 +28,7 @@ public class MobileButton extends Actor {
                 return true;
             }
         });
+        //setDebug(true);
     }
 
     @Override
@@ -37,8 +39,6 @@ public class MobileButton extends Actor {
 
     @Override
     public void draw(Batch batch, float parentAlpha) {
-        batch.setColor(1,1,1,0.5f);
-        batch.draw(region,getX(),getY());
-        batch.setColor(1,1,1,1);
+        batch.draw(region,getX()+16,getY()+16);
     }
 }
