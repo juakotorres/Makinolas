@@ -149,6 +149,18 @@ var MainController = function($scope){
     self.map = {};
     self.prefix = "";
 
+    self.showing = {
+        required: true,
+        pokemons: true,
+        rectangular: true,
+        modifiers: true,
+        decorations: false
+    };
+
+    self.toggleShow = (name) => {
+        self.showing[name] = !self.showing[name];
+    };
+
     self.selName = "BL";
     self.levelName = "level1"
     self.uniqueTool = false;

@@ -20,30 +20,40 @@
         <div id="platform-bars">
             <br>
             <pre>Code Selected: {{selName}}</pre><br>
-            <pre>Required:</pre>
+            <pre ng-click="toggleShow('required')">Required:</pre>
+            <div ng-show="showing.required">
             <a ng-repeat="plt in required" ng-click="setSel(plt.name,true)" class="img-btn">
                 <img src="platforms/{{plt.img}}" alt="img" id="im-{{plt.name}}">
             </a>
+            </div>
             <br><br>
-            <pre>Rectangular:</pre>
+            <pre ng-click="toggleShow('rectangular')">Rectangular:</pre>
+            <div ng-show="showing.rectangular">
             <a ng-repeat="plt in platforms" ng-click="setSel(plt.name,false)" class="img-btn">
                 <img src="platforms/{{plt.img}}" alt="img" id="im-{{plt.name}}">
             </a>
+            </div>
             <br><br>
-            <pre>Pokemon:</pre>
+            <pre ng-click="toggleShow('pokemon')">Pokemon:</pre>
+            <div ng-show="showing.pokemon">
             <a ng-repeat="plt in pokemons" ng-click="setSel(plt.name,true,false,'%E')" class="img-btn">
                 <img src="platforms/{{plt.img}}" alt="img" id="im-{{plt.name}}">
             </a>
+            </div>
             <br><br>
-            <pre>Modifiers:</pre>
+            <pre ng-click="toggleShow('modifiers')">Modifiers:</pre>
+            <div ng-show="showing.modifiers">
             <button ng-repeat="plt in modifiers" ng-click="setSel($index,false,true)" style="width: 100%;">
                 {{$index+". "+plt}}
             </button>
+            </div>
             <br><br>
-            <pre>Decoration:</pre>
+            <pre ng-click="toggleShow('decorations')">Decorations:</pre>
+            <div ng-show="showing.decorations">
             <a ng-repeat="plt in decorations" ng-click="setSel(plt.name,true,false,'%D')" class="img-btn">
                 <img src="platforms/{{plt.img}}" alt="img" id="im-{{plt.name}}">
             </a>
+            </div>
             <br><br>
         </div>
         <div id="canvas-container">
