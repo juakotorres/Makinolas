@@ -89,27 +89,49 @@ public class InputController extends InputListener implements MobileKeyListener{
             case Input.Keys.UP:
                 hero.isNotPressingSpace();
                 break;
-              
         }
         return true;
     }
 
     @Override
     public void onMobileKeyDown(MobileGroup.MobileKeys key) {
-        if(((AbstractStage) hero.getStage()).isPaused()) return;
-        switch(key){
-            case LEFT:
-                hero.moveHorizontal(-1,false);
-                break;
-            case RIGHT:
-                hero.moveHorizontal(1,false);
-                break;
-            case UP:
-                hero.jump(1);
-                break;
-            case A:
-                hero.attackPrimary();
-                break;
+        if(!((AbstractStage) hero.getStage()).isPaused()) {
+            switch (key) {
+                case LEFT:
+                    hero.moveHorizontal(-1, false);
+                    break;
+                case RIGHT:
+                    hero.moveHorizontal(1, false);
+                    break;
+                case UP:
+                    hero.jump(1);
+                    break;
+                case A:
+                    hero.attackPrimary();
+                    break;
+                case ITEM1:
+                    hero.getInventory().useSelItem1();
+                    break;
+                case ITEM2:
+                    hero.getInventory().useSelItem2();
+                    break;
+                case CHG:
+                    hero.nextAllie();
+                    break;
+                case PAUSE:
+                    ((AbstractStage) hero.getStage()).togglePause();
+                    break;
+            }
+        }
+        else{
+            switch (key) {
+                case PAUSE:
+                    ((AbstractStage) hero.getStage()).togglePause();
+                    break;
+                default:
+                    BagVis.getInstance().handleKey(key);
+                    break;
+            }
         }
     }
 

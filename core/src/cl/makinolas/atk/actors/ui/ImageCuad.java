@@ -1,5 +1,6 @@
 package cl.makinolas.atk.actors.ui;
 
+import com.badlogic.gdx.Application;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Batch;
@@ -12,17 +13,19 @@ public class ImageCuad extends Actor {
     private TextureRegion region, base;
     private String rightLabel, leftLabel;
     private BitmapFont font;
+    private boolean drawBase;
 
-    public ImageCuad(TextureRegion reg, String r, String l, BitmapFont f){
+    public ImageCuad(TextureRegion reg, String r, String l, BitmapFont f,boolean mobile){
         region = reg;
         rightLabel = r;
         leftLabel = l;
         font = f;
+        drawBase = !mobile;
         base = new TextureRegion(new Texture(Gdx.files.internal("Overlays/items.png"))).split(32,32)[2][3];
     }
 
-    public ImageCuad(TextureRegion reg, String t, BitmapFont f){
-        this(reg,"",t,f);
+    public ImageCuad(TextureRegion reg, String t, BitmapFont f,boolean mobile){
+        this(reg,"",t,f,mobile);
     }
 
 
@@ -40,7 +43,9 @@ public class ImageCuad extends Actor {
 
     @Override
     public void draw(Batch batch, float parentAlpha) {
-        batch.draw(base,getX(),getY());
+        //if(Gdx.app.getType()== Application.ApplicationType.Android)
+        if(drawBase)
+            batch.draw(base,getX(),getY());
         batch.draw(region,getX(),getY());
         font.draw(batch,leftLabel,getX(),getY()+12);
         font.draw(batch,rightLabel,getX()+24,getY()+12);
