@@ -28,7 +28,7 @@ public class MobileButton extends Actor {
                 return true;
             }
         });
-        setDebug(true);
+        //setDebug(true);
     }
 
     @Override
