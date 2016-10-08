@@ -21,16 +21,7 @@ public class MenuScreen extends SimpleScreen {
 
   public MenuScreen(Game game){
     super(game, new MenuStage(new FitViewport(640,480)));
-    
-    /*
-    TextButton shopButton = new TextButton("Enter Shop",  new Skin(Gdx.files.internal("Data/uiskin.json")));
-    shopButton.addListener(new ClickListener(){
-      @Override
-      public void clicked(InputEvent event, float x, float y) {
-        enterShop();
-      }
-    });
-    */
+
     TextButton loadButton = new TextButton("Begin Game",  new Skin(Gdx.files.internal("Data/uiskin.json")));
     loadButton.addListener(new ClickListener(){
       @Override
@@ -64,10 +55,11 @@ public class MenuScreen extends SimpleScreen {
     myGame.setScreen(gameScreen);
   }
 
+  /*@deprecated
   protected void loadMap(){
     MapScreen mapScreen = new MapScreen(myGame,new MapStage(new FitViewport(640, 480),myGame));
     myGame.setScreen(mapScreen);
-  }
+  }*/
 
   protected void loadGame() {
     GameScreen gameScreen = new GameScreen(myGame);
@@ -75,6 +67,7 @@ public class MenuScreen extends SimpleScreen {
     myGame.setScreen(gameScreen);
   }
 
+  /*
   private void startGame() {
     GameScreen gameScreen = new GameScreen(myGame);
     // previous to go to first stage
@@ -82,13 +75,13 @@ public class MenuScreen extends SimpleScreen {
     // go to begin story
     gameScreen.setStage(new StartingJourneyStage(new FitViewport(640,480), gameScreen, myGame));
     myGame.setScreen(gameScreen);
-  }
+  }*/
 
   @Override
   public void render(float delta) {
     super.render(delta);
-    if(Gdx.input.isKeyPressed(Input.Keys.ENTER))
-      startGame();
+    if(Gdx.input.isKeyPressed(Input.Keys.Z))
+      loadGame();
   }
   
 }

@@ -151,7 +151,7 @@ public class GameStage extends AbstractStage implements ContactListener {
   public void draw() {
       super.draw();
       camera.update();
-      renderer.render(suMundo, camera.combined);
+      //renderer.render(suMundo, camera.combined);
   }
 
   @Override

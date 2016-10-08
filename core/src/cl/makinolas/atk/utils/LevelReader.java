@@ -57,6 +57,7 @@ public class LevelReader {
         BufferedReader reader = new BufferedReader(new InputStreamReader(handler.read()), 2048);
 
         Array<GameActor> platforms = new Array<GameActor>();
+        decorations.clearChildren();
         String line = reader.readLine();
         while (line != null) {
             String[] comps = line.split(",");
