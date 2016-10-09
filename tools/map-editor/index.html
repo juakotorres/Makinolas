@@ -2,15 +2,21 @@
 <head>
     <title>ATK Map Editor</title>
     <meta charset="UTF-8">
-    <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.0.4/angular.js"></script>
+    <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.1.4/angular.js"></script>
     <link rel="stylesheet" href="main.css">
     <script src="main.js"></script>
 </head>
 <body ng-controller="MainController">
     <div id="header">
-        <h3>ATK Map Editor</h3>
-        <span>Nombre: </span>
-        <input type="text" ng-model="levelName">
+        <div class="titlearea">
+            <h3>ATK Map Editor</h3>
+            <span>Nombre: </span>
+            <input type="text" ng-model="levelName">
+        </div>
+        <div class="infoarea">
+            <span class="topst clickable" ng-class="{'selected': selecting}" ng-click="setSelect()">Selecting</span>
+            <span class="topst" ng-class="{'selected': !selecting}">Building</span>
+        </div>
         <div class="pull-right">
             <button ng-click="clearAll()">Borrar Todo</button>
             <button ng-click="downloadLevel()">Download Level</button>
@@ -34,8 +40,8 @@
             </a>
             </div>
             <br><br>
-            <pre ng-click="toggleShow('pokemon')">Pokemon:</pre>
-            <div ng-show="showing.pokemon">
+            <pre ng-click="toggleShow('pokemons')">Pokemon:</pre>
+            <div ng-show="showing.pokemons">
             <a ng-repeat="plt in pokemons" ng-click="setSel('%E,'+plt.name,plt.img)" class="img-btn">
                 <img src="platforms/{{plt.img}}" alt="img" id="im-{{plt.name}}">
             </a>
@@ -59,10 +65,19 @@
         <div id="canvas-container">
             <div id="main-canvas" ng-mousedown="mouseDown($event)" ng-mouseup="mouseUp($event)">
                 <div ng-repeat="block in rblocks" class="map-rimg" style="top: {{block.y*35}}px; left: {{block.x*35}}px;
-                width: {{block.width*35}}px; height: {{block.height*35}}px; background: url('platforms/{{block.img}}')"></div>
+                width: {{block.width*35}}px; height: {{block.height*35}}px; background: url('platforms/{{block.img}}')"
+                ng-click="openRInfo($index)"></div>
                 <img ng-repeat="block in blocks" class="map-img" src="platforms/{{block.img}}"
-                    style="top: {{block.y*35}}px; left: {{block.x*35}}px;"/>
+                    style="top: {{block.y*35}}px; left: {{block.x*35}}px;" ng-click="openInfo($index)"/>
             </div>
+        </div>
+        <div class="info" ng-show="infoOpened">
+            <h3>Propiedades</h3>
+            <div ng-repeat="(key,v) in selectedBlock track by key">
+                <span class="lbl">{{key}} : </span><input type="text" ng-model="selectedBlock[key]">
+            </div>
+            <button ng-click="closeInfo()">Close</button>
+            <button class="red" ng-click="deleteElement()">Delete</button>
         </div>
     </div>
 </body>

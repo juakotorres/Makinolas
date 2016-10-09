@@ -166,20 +166,28 @@ var MainController = function($scope){
     self.selName = "BL";
     self.levelName = "level1"
     self.uniqueTool = false;
+    self.selecting = true;
     self.startX = 0;
     self.startY = 0;
 
     self.setSel = (nm, img, unq) => {
+        self.selecting = false;
         self.selName = nm;
         self.selImg = img
         self.uniqueTool = (unq==null);
     };
 
+    self.setSelect = () => {
+        self.selecting = true;
+    };
+
     self.clearAll = () => {
         self.blocks = [];
+        self.rblocks = [];
     };
 
     self.mouseDown = (event) => {
+        if(self.selecting) return;
         let cx = ~~((event.offsetX+16)/35);
         let cy = ~~((event.offsetY+16)/35);
 
@@ -207,10 +215,11 @@ var MainController = function($scope){
         }
     };
 
-    self.mouseUp = function(event){
+    self.mouseUp = (event) => {
+        if(self.selecting) return;
         if(!self.uniqueTool){
-            let cx = ~~((event.offsetX+16)/35);
-            let cy = ~~((event.offsetY+16)/35);
+            let cx = ~~((event.offsetX+35)/35);
+            let cy = ~~((event.offsetY+35)/35);
             self.rblocks.push({
                 name: self.selName,
                 img: self.selImg,
@@ -221,6 +230,32 @@ var MainController = function($scope){
             });
         }
     };
+
+    self.openInfo = (index) => {
+        self.infoOpened = true;
+        self.selectedBlock = self.blocks[index];
+        self.selectedIndex = index;
+        self.selectedRectangle = false;
+    };
+
+    self.openRInfo = (index) => {
+        self.infoOpened = true;
+        self.selectedBlock = self.rblocks[index];
+        self.selectedIndex = index;
+        self.selectedRectangle = true;
+     };
+
+     self.closeInfo = () => {
+        self.infoOpened = false;
+     };
+
+     self.deleteElement = () => {
+        if(self.selectedRectangle)
+            self.rblocks.splice(self.selectedIndex,1);
+        else
+            self.blocks.splice(self.selectedIndex,1);
+        self.closeInfo();
+     };
 
     self.downloadLevel = function(){
         var builder = "#ATK Map Editor\n";
@@ -234,28 +269,6 @@ var MainController = function($scope){
             }
         }
         download(self.levelName+".lvl",builder);
-    };
-
-    self.deleteBlock = function(x,y){
-        console.log(x+","+y);
-        console.log(self.map);
-        for(var coords in self.map){
-            var comps = coords.split(",").map(function(e){return parseInt(e)});
-            if(comps.length == 2 && comps[0]==x && comps[1]==y){
-                self.map[coords] = null;
-                self.ctx.clearRect(x*35,(20-y)*35,35,35);
-                break;
-            }
-            else{
-                if(comps[0]<=x && comps[0]+comps[2]>=x && comps[1]<=y && comps[1]+comps[3]>=y){
-                    self.map[coords] = null;
-                    console.log("borrado");
-                    self.ctx.clearRect(comps[0]*35,(20-comps[1]-comps[3]+1)*35,35*comps[2],35*comps[3]);
-                    self.drawBaseLines();
-                    break;
-                }
-            }
-        }
     };
 
 };
