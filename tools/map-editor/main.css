@@ -42,7 +42,34 @@
     margin-right: 8px;
 }
 
-#canvas{
+#main-canvas{
     width: 10500px;
     height: 1400px;
+}
+
+button{
+    margin: 1px 2px;
+    padding: 4px;
+    border: none;
+    background: #ddd;
+    box-shadow: #666 1px 1px 4px;
+}
+
+button:hover{
+    background: #acf;
+}
+
+pre{
+    margin-left: 4px;
+}
+
+img.map-img{
+    position: absolute;
+    display: block;
+}
+
+.map-rimg{
+    position: absolute;
+    display: block;
+    background-repeat: repeat;
 }

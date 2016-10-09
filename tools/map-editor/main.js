@@ -1,3 +1,5 @@
+"use strict";
+
 var MainController = function($scope){
     var self = $scope;
 
@@ -68,7 +70,7 @@ var MainController = function($scope){
         {name:"tro",img:"tree-ornament.png"}
     ];
 
-    self.platforms.sort(function(a,b){return a.name.localeCompare(b.name)});
+    self.platforms.sort((a,b) => {return a.name.localeCompare(b.name)});
 
     self.pokemons = [
         {name:"Bagon",img:"Bagon.png"},
@@ -146,14 +148,14 @@ var MainController = function($scope){
         {name:"Wigglytuff",img:"Wigglytuff.png"}
     ];
 
-    self.map = {};
+    self.blocks = [];
+    self.rblocks = [];
     self.prefix = "";
 
     self.showing = {
         required: true,
         pokemons: true,
         rectangular: true,
-        modifiers: true,
         decorations: false
     };
 
@@ -164,85 +166,59 @@ var MainController = function($scope){
     self.selName = "BL";
     self.levelName = "level1"
     self.uniqueTool = false;
-    self.modifierTool = false;
-    self.deleteTool = false;
     self.startX = 0;
     self.startY = 0;
 
-    self.setSel = function(nm, unq, mod, prfx){
+    self.setSel = (nm, img, unq) => {
         self.selName = nm;
-        self.uniqueTool = unq;
-        if(mod == null) mod = false;
-        self.modifierTool = mod;
-        self.deleteTool = false;
-        self.prefix = prfx;
+        self.selImg = img
+        self.uniqueTool = (unq==null);
     };
 
-    self.setDel = function(){
-        self.deleteTool = true;
-    }
+    self.clearAll = () => {
+        self.blocks = [];
+    };
 
-    self.cv = document.getElementById("canvas");
-    self.ctx = self.cv.getContext("2d");
-    self.ctx.font = "10px Arial";
+    self.mouseDown = (event) => {
+        let cx = ~~((event.offsetX+16)/35);
+        let cy = ~~((event.offsetY+16)/35);
 
-    self.drawBaseLines = function(){
-        self.ctx.beginPath();
-        self.ctx.lineWidth = 1;
-        self.ctx.strokeStyle = "#ccc";
-        let width = 300;
-        let height = 40;
-        for(var i=0; i<width; i++){
-            self.ctx.moveTo(35*i,0);
-            self.ctx.lineTo(35*i,35*height);
-        }
-        for(var i=0; i<height; i++){
-            self.ctx.moveTo(0,35*i);
-            self.ctx.lineTo(35*width,35*i);
-        }
-        self.ctx.stroke();
-    }
-
-    self.drawBaseLines();
-
-    self.cv.onmousedown = function(event){
-        var x = ~~(event.layerX/35);
-        var y = ~~(event.layerY/35);
         if(self.deleteTool){
             self.deleteBlock(x,20-y);
         }
         else if(self.uniqueTool){
-            self.ctx.drawImage(document.getElementById("im-"+self.selName),x*35,y*35);
-            if(self.selName.charAt(0) == "%")
-                self.map[""+x+","+(20-y)] = self.selName+",0";
-            else
-                self.map[""+x+","+(20-y)] = self.prefix+","+self.selName+",0";
+            self.blocks.push({
+                name: self.selName,
+                img: self.selImg,
+                x: cx,
+                y: cy
+            });
         }
-        else if(self.modifierTool){
-            if(self.map[""+x+","+(20-y)] != null){
+        /*else if(self.modifierTool){
+            /* if(self.map[""+x+","+(20-y)] != null){
                 var comps = self.map[""+x+","+(20-y)].split(",");
                 self.map[""+x+","+(20-y)] =  comps[0]+","+comps[1]+","+self.selName;
                 self.ctx.fillText(self.selName,x*35,y*35+10);
             }
-        }
+        }*/
         else{
-            self.startX = x;
-            self.startY = y;
+            self.startX = cx;
+            self.startY = cy;
         }
     };
 
-    self.cv.onmouseup = function(event){
-        if(!self.uniqueTool && !self.deleteTool && !self.modifierTool){
-            var lastX = ~~(event.layerX/35);
-            var lastY = ~~(event.layerY/35);
-            var tag = ""+Math.min(self.startX,lastX)+","+Math.min(20-self.startY,20-lastY)+","+
-                            (Math.abs(self.startX-lastX)+1)+","+(Math.abs(self.startY-lastY)+1);
-            self.map[tag] = self.selName;
-            for(var x=self.startX; x<=lastX; x++){
-                for(var y=self.startY; y<=lastY; y++){
-                    self.ctx.drawImage(document.getElementById("im-"+self.selName),x*35,y*35);
-                }
-            }
+    self.mouseUp = function(event){
+        if(!self.uniqueTool){
+            let cx = ~~((event.offsetX+16)/35);
+            let cy = ~~((event.offsetY+16)/35);
+            self.rblocks.push({
+                name: self.selName,
+                img: self.selImg,
+                x: Math.min(cx,self.startX),
+                y: Math.min(cy,self.startY),
+                width: Math.abs(cx-self.startX),
+                height: Math.abs(cy-self.startY)
+            });
         }
     };
 
