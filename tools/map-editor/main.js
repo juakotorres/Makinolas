@@ -1,3 +1,5 @@
+"use strict";
+
 var MainController = function($scope){
     var self = $scope;
 
@@ -68,7 +70,7 @@ var MainController = function($scope){
         {name:"tro",img:"tree-ornament.png"}
     ];
 
-    self.platforms.sort(function(a,b){return a.name.localeCompare(b.name)});
+    self.platforms.sort((a,b) => {return a.name.localeCompare(b.name)});
 
     self.pokemons = [
         {name:"Bagon",img:"Bagon.png"},
@@ -146,97 +148,127 @@ var MainController = function($scope){
         {name:"Wigglytuff",img:"Wigglytuff.png"}
     ];
 
-    self.map = {};
+    self.blocks = [];
+    self.rblocks = [];
     self.prefix = "";
+
+    self.showing = {
+        required: true,
+        pokemons: true,
+        rectangular: true,
+        decorations: false
+    };
+
+    self.toggleShow = (name) => {
+        self.showing[name] = !self.showing[name];
+    };
 
     self.selName = "BL";
     self.levelName = "level1"
     self.uniqueTool = false;
-    self.modifierTool = false;
-    self.deleteTool = false;
+    self.selecting = true;
     self.startX = 0;
     self.startY = 0;
 
-    self.setSel = function(nm, unq, mod, prfx){
+    self.setSel = (nm, img, unq) => {
+        self.selecting = false;
+        self.closeInfo();
         self.selName = nm;
-        self.uniqueTool = unq;
-        if(mod == null) mod = false;
-        self.modifierTool = mod;
-        self.deleteTool = false;
-        self.prefix = prfx;
+        self.selImg = img
+        self.uniqueTool = (unq==null);
     };
 
-    self.setDel = function(){
-        self.deleteTool = true;
-    }
+    self.setSelect = () => {
+        self.selecting = true;
+    };
 
-    self.cv = document.getElementById("canvas");
-    self.ctx = self.cv.getContext("2d");
-    self.ctx.font = "10px Arial";
+    self.clearAll = () => {
+        self.blocks = [];
+        self.rblocks = [];
+    };
 
-    self.drawBaseLines = function(){
-        self.ctx.beginPath();
-        self.ctx.lineWidth = 1;
-        self.ctx.strokeStyle = "#ccc";
-        let width = 300;
-        let height = 40;
-        for(var i=0; i<width; i++){
-            self.ctx.moveTo(35*i,0);
-            self.ctx.lineTo(35*i,35*height);
-        }
-        for(var i=0; i<height; i++){
-            self.ctx.moveTo(0,35*i);
-            self.ctx.lineTo(35*width,35*i);
-        }
-        self.ctx.stroke();
-    }
+    self.mouseDown = (event) => {
+        if(self.selecting) return;
+        let cx = ~~((event.offsetX+16)/35);
+        let cy = 39 - (~~((event.offsetY+28)/35));
 
-    self.drawBaseLines();
-
-    self.cv.onmousedown = function(event){
-        var x = ~~(event.layerX/35);
-        var y = ~~(event.layerY/35);
-        if(self.deleteTool){
-            self.deleteBlock(x,20-y);
-        }
-        else if(self.uniqueTool){
-            self.ctx.drawImage(document.getElementById("im-"+self.selName),x*35,y*35);
-            if(self.selName.charAt(0) == "%")
-                self.map[""+x+","+(20-y)] = self.selName+",0";
-            else
-                self.map[""+x+","+(20-y)] = self.prefix+","+self.selName+",0";
-        }
-        else if(self.modifierTool){
-            if(self.map[""+x+","+(20-y)] != null){
-                var comps = self.map[""+x+","+(20-y)].split(",");
-                self.map[""+x+","+(20-y)] =  comps[0]+","+comps[1]+","+self.selName;
-                self.ctx.fillText(self.selName,x*35,y*35+10);
-            }
+        if(self.uniqueTool){
+            self.blocks.push({
+                name: self.selName,
+                img: self.selImg,
+                x: cx,
+                y: cy,
+                flip: false
+            });
         }
         else{
-            self.startX = x;
-            self.startY = y;
+            self.startX = cx;
+            self.startY = cy;
         }
     };
 
-    self.cv.onmouseup = function(event){
-        if(!self.uniqueTool && !self.deleteTool && !self.modifierTool){
-            var lastX = ~~(event.layerX/35);
-            var lastY = ~~(event.layerY/35);
-            var tag = ""+Math.min(self.startX,lastX)+","+Math.min(20-self.startY,20-lastY)+","+
-                            (Math.abs(self.startX-lastX)+1)+","+(Math.abs(self.startY-lastY)+1);
-            self.map[tag] = self.selName;
-            for(var x=self.startX; x<=lastX; x++){
-                for(var y=self.startY; y<=lastY; y++){
-                    self.ctx.drawImage(document.getElementById("im-"+self.selName),x*35,y*35);
-                }
-            }
+    self.mouseUp = (event) => {
+        if(self.selecting) return;
+        if(!self.uniqueTool){
+            let cx = ~~((event.offsetX+35)/35);
+            let cy = 39 - (~~((event.offsetY+35)/35));
+            self.rblocks.push({
+                name: self.selName,
+                img: self.selImg,
+                x: Math.min(cx,self.startX),
+                y: Math.min(cy,self.startY),
+                width: Math.abs(cx-self.startX),
+                height: Math.abs(cy-self.startY)
+            });
         }
     };
 
-    self.downloadLevel = function(){
+    self.openInfo = (index) => {
+        self.infoOpened = true;
+        self.selectedBlock = self.blocks[index];
+        self.selectedIndex = index;
+        self.selectedRectangle = false;
+        if(self.selectedBlock.name.indexOf("%E")!=-1){
+            self.selectedTemplate = [{name: "x",type: "number"},{name: "y", type: "number"},{name: "flip", type: "checkbox"}];
+        }
+        else{
+            self.selectedTemplate = [{name: "x",type: "number"},{name: "y", type: "number"}];
+        }
+    };
+
+    self.openRInfo = (index) => {
+        self.infoOpened = true;
+        self.selectedBlock = self.rblocks[index];
+        self.selectedIndex = index;
+        self.selectedRectangle = true;
+        self.selectedTemplate = [{name: "x",type: "number"},{name: "y", type: "number"},
+                {name: "width", type: "number"},{name: "height", type: "number"}];
+     };
+
+     self.closeInfo = () => {
+        self.infoOpened = false;
+     };
+
+     self.deleteElement = () => {
+        if(self.selectedRectangle)
+            self.rblocks.splice(self.selectedIndex,1);
+        else
+            self.blocks.splice(self.selectedIndex,1);
+        self.closeInfo();
+     };
+
+    self.downloadLevel = () => {
         var builder = "#ATK Map Editor\n";
-        for(var coords in self.map){
+        self.rblocks.forEach((b) => {
+            builder += b.name+","+b.x+","+b.y+","+b.width+","+b.height+"\n";
+        });
+        self.blocks.forEach((b) => {
+            builder += b.name+","+b.x+","+b.y;
+            if(b.modifier != null) builder += ","+self.modifiers.indexOf(b.modifier);
+            builder += ","+b.flip;
+            builder += "\n";
+        });
+        /*for(var coords in self.map){
             if(self.map[coords]!=null){
                 var comps = self.map[coords].split(",");
                 if(comps.length>2)
@@ -244,30 +276,68 @@ var MainController = function($scope){
                 else
                     builder += comps[0]+","+coords+"\n";
             }
-        }
+        }*/
         download(self.levelName+".lvl",builder);
     };
 
-    self.deleteBlock = function(x,y){
-        console.log(x+","+y);
-        console.log(self.map);
-        for(var coords in self.map){
-            var comps = coords.split(",").map(function(e){return parseInt(e)});
-            if(comps.length == 2 && comps[0]==x && comps[1]==y){
-                self.map[coords] = null;
-                self.ctx.clearRect(x*35,(20-y)*35,35,35);
-                break;
-            }
-            else{
-                if(comps[0]<=x && comps[0]+comps[2]>=x && comps[1]<=y && comps[1]+comps[3]>=y){
-                    self.map[coords] = null;
-                    console.log("borrado");
-                    self.ctx.clearRect(comps[0]*35,(20-comps[1]-comps[3]+1)*35,35*comps[2],35*comps[3]);
-                    self.drawBaseLines();
-                    break;
-                }
-            }
-        }
+    self.loadLevel = () => {
+        let file = document.getElementById("load").files[0];
+        let fr = new FileReader();
+        fr.onload = function(progress){
+            self.blocks = [];
+            self.rblocks = [];
+            this.result.split("\n").forEach((line) => {
+                let comps = line.split(",");
+                if(comps.length < 2) ;
+                else if(comps[0] == "%E")
+                    self.blocks.push({
+                        name: "%E,"+comps[1],
+                        img: self.getImg(comps[1]),
+                        x: +comps[2],
+                        y: +comps[3],
+                        modifier: self.modifiers[+comps[4]],
+                        flip: comps[5] == true
+                    });
+                else if(comps[0].indexOf("%S")!=-1 || comps[0].indexOf("%P")!=-1)
+                    self.blocks.push({
+                        name: comps[0],
+                        img: self.getImg(comps[0]),
+                        x: +comps[1],
+                        y: +comps[2]
+                    });
+                else if(comps[0].indexOf("%D")!=-1)
+                    self.blocks.push({
+                        name: comps[0]+","+comps[1],
+                        img: self.getImg(comps[1]),
+                        x: +comps[2],
+                        y: +comps[3]
+                    });
+                else
+                    self.rblocks.push({
+                        name: comps[0],
+                        img: self.getImg(comps[0]),
+                        x: +comps[1],
+                        y: +comps[2],
+                        width: +comps[3],
+                        height: +comps[4]
+                    });
+            });
+            console.log(self.blocks);
+            console.log(self.rblocks);
+            $scope.$apply();
+        };
+        fr.readAsText(file);
+    };
+
+    self.getImg = (name) => {
+        let r = self.required.filter((e) => {return e.name == name});
+        if(r.length > 0) return r[0].img;
+        let p = self.pokemons.filter((e) => {return e.name == name});
+        if(p.length > 0) return p[0].img;
+        let pl = self.platforms.filter((e) => {return e.name == name});
+        if(pl.length > 0) return pl[0].img;
+        let d = self.decorations.filter((e) => {return e.name == name});
+        if(d.length > 0) return d[0].img;
     };
 
 };

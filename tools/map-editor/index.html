@@ -2,17 +2,25 @@
 <head>
     <title>ATK Map Editor</title>
     <meta charset="UTF-8">
-    <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.0.4/angular.js"></script>
+    <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.1.4/angular.js"></script>
     <link rel="stylesheet" href="main.css">
     <script src="main.js"></script>
 </head>
 <body ng-controller="MainController">
     <div id="header">
-        <h3>ATK Map Editor</h3>
-        <span>Nombre: </span>
-        <input type="text" ng-model="levelName">
+        <div class="titlearea">
+            <h3>ATK Map Editor</h3>
+            <span>Nombre: </span>
+            <input type="text" ng-model="levelName">
+        </div>
+        <div class="infoarea">
+            <span class="topst clickable" ng-class="{'selected': selecting}" ng-click="setSelect()">Selecting</span>
+            <span class="topst" ng-class="{'selected': !selecting}">Building</span>
+        </div>
         <div class="pull-right">
-            <button ng-click="setDel()">Borrar</button>
+            <input type="file" id="load">
+            <button ng-click="loadLevel()">Load Level</button>
+            <button ng-click="clearAll()">Borrar Todo</button>
             <button ng-click="downloadLevel()">Download Level</button>
         </div>
     </div>
@@ -20,34 +28,62 @@
         <div id="platform-bars">
             <br>
             <pre>Code Selected: {{selName}}</pre><br>
-            <pre>Required:</pre>
-            <a ng-repeat="plt in required" ng-click="setSel(plt.name,true)" class="img-btn">
+            <pre ng-click="toggleShow('required')">Required:</pre>
+            <div ng-show="showing.required">
+            <a ng-repeat="plt in required" ng-click="setSel(plt.name,plt.img)" class="img-btn">
                 <img src="platforms/{{plt.img}}" alt="img" id="im-{{plt.name}}">
             </a>
+            </div>
             <br><br>
-            <pre>Rectangular:</pre>
-            <a ng-repeat="plt in platforms" ng-click="setSel(plt.name,false)" class="img-btn">
+            <pre ng-click="toggleShow('rectangular')">Rectangular:</pre>
+            <div ng-show="showing.rectangular">
+            <a ng-repeat="plt in platforms" ng-click="setSel(plt.name,plt.img,true)" class="img-btn">
                 <img src="platforms/{{plt.img}}" alt="img" id="im-{{plt.name}}">
             </a>
+            </div>
             <br><br>
-            <pre>Pokemon:</pre>
-            <a ng-repeat="plt in pokemons" ng-click="setSel(plt.name,true,false,'%E')" class="img-btn">
+            <pre ng-click="toggleShow('pokemons')">Pokemon:</pre>
+            <div ng-show="showing.pokemons">
+            <a ng-repeat="plt in pokemons" ng-click="setSel('%E,'+plt.name,plt.img)" class="img-btn">
                 <img src="platforms/{{plt.img}}" alt="img" id="im-{{plt.name}}">
             </a>
+            </div>
             <br><br>
-            <pre>Modifiers:</pre>
-            <button ng-repeat="plt in modifiers" ng-click="setSel($index,false,true)" style="width: 100%;">
+            <!--<pre ng-click="toggleShow('modifiers')">Modifiers:</pre>
+            <div ng-show="showing.modifiers">
+            <button ng-repeat="plt in modifiers" ng-click="setSel($index,false)" style="width: 100%;">
                 {{$index+". "+plt}}
             </button>
-            <br><br>
-            <pre>Decoration:</pre>
-            <a ng-repeat="plt in decorations" ng-click="setSel(plt.name,true,false,'%D')" class="img-btn">
+            </div>
+            <br><br>-->
+            <pre ng-click="toggleShow('decorations')">Decorations:</pre>
+            <div ng-show="showing.decorations">
+            <a ng-repeat="plt in decorations" ng-click="setSel('%D,'+plt.name,plt.img)" class="img-btn">
                 <img src="platforms/{{plt.img}}" alt="img" id="im-{{plt.name}}">
             </a>
+            </div>
             <br><br>
         </div>
         <div id="canvas-container">
-            <canvas id="canvas" width="10500" height="1400"></canvas>
+            <div id="main-canvas" ng-mousedown="mouseDown($event)" ng-mouseup="mouseUp($event)">
+                <div ng-repeat="block in rblocks" class="map-rimg" style="top: {{(39-block.y-block.height)*35}}px; left: {{block.x*35}}px;
+                width: {{block.width*35}}px; height: {{block.height*35}}px; background: url('platforms/{{block.img}}')"
+                ng-click="openRInfo($index)"></div>
+                <img ng-repeat="block in blocks" class="map-img" src="platforms/{{block.img}}"
+                    style="top: {{(38-block.y)*35}}px; left: {{block.x*35}}px;" ng-click="openInfo($index)"/>
+            </div>
+        </div>
+        <div class="info" ng-show="infoOpened">
+            <h3>Propiedades</h3>
+            <div ng-repeat="key in selectedTemplate">
+                <span class="lbl">{{key.name}}:</span><input type="{{key.type}}" ng-model="selectedBlock[key.name]">
+            </div>
+            <div ng-show="selectedBlock.name.indexOf('%E')!=-1">
+                <span class="lbl">Modifier:</span>
+                <select ng-model="selectedBlock.modifier" ng-options="x for x in modifiers"></select>
+            </div>
+            <button ng-click="closeInfo()">Close</button>
+            <button class="red" ng-click="deleteElement()">Delete</button>
         </div>
     </div>
 </body>
