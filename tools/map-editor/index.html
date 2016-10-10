@@ -18,6 +18,8 @@
             <span class="topst" ng-class="{'selected': !selecting}">Building</span>
         </div>
         <div class="pull-right">
+            <input type="file" id="load">
+            <button ng-click="loadLevel()">Load Level</button>
             <button ng-click="clearAll()">Borrar Todo</button>
             <button ng-click="downloadLevel()">Download Level</button>
         </div>
@@ -64,11 +66,11 @@
         </div>
         <div id="canvas-container">
             <div id="main-canvas" ng-mousedown="mouseDown($event)" ng-mouseup="mouseUp($event)">
-                <div ng-repeat="block in rblocks" class="map-rimg" style="top: {{(39-block.y)*35}}px; left: {{block.x*35}}px;
+                <div ng-repeat="block in rblocks" class="map-rimg" style="top: {{(39-block.y-block.height)*35}}px; left: {{block.x*35}}px;
                 width: {{block.width*35}}px; height: {{block.height*35}}px; background: url('platforms/{{block.img}}')"
                 ng-click="openRInfo($index)"></div>
                 <img ng-repeat="block in blocks" class="map-img" src="platforms/{{block.img}}"
-                    style="top: {{(39-block.y)*35}}px; left: {{block.x*35}}px;" ng-click="openInfo($index)"/>
+                    style="top: {{(38-block.y)*35}}px; left: {{block.x*35}}px;" ng-click="openInfo($index)"/>
             </div>
         </div>
         <div class="info" ng-show="infoOpened">

@@ -22,7 +22,7 @@ body{
 }
 
 #platform-bars{
-    width: 15vw;
+    width: 19vw;
     height: 85vh;
     background: #ccc;
     display: inline-block;
@@ -37,6 +37,7 @@ body{
     display: inline-block;
     position: absolute;
     right: 10px;
+    border: 1px solid black;
 }
 
 .img-btn{

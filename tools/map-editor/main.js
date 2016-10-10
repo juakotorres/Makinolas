@@ -190,7 +190,7 @@ var MainController = function($scope){
     self.mouseDown = (event) => {
         if(self.selecting) return;
         let cx = ~~((event.offsetX+16)/35);
-        let cy = 39 - (~~((event.offsetY+16)/35));
+        let cy = 39 - (~~((event.offsetY+28)/35));
 
         if(self.uniqueTool){
             self.blocks.push({
@@ -216,7 +216,7 @@ var MainController = function($scope){
                 name: self.selName,
                 img: self.selImg,
                 x: Math.min(cx,self.startX),
-                y: Math.max(cy,self.startY),
+                y: Math.min(cy,self.startY),
                 width: Math.abs(cx-self.startX),
                 height: Math.abs(cy-self.startY)
             });
@@ -278,6 +278,66 @@ var MainController = function($scope){
             }
         }*/
         download(self.levelName+".lvl",builder);
+    };
+
+    self.loadLevel = () => {
+        let file = document.getElementById("load").files[0];
+        let fr = new FileReader();
+        fr.onload = function(progress){
+            self.blocks = [];
+            self.rblocks = [];
+            this.result.split("\n").forEach((line) => {
+                let comps = line.split(",");
+                if(comps.length < 2) ;
+                else if(comps[0] == "%E")
+                    self.blocks.push({
+                        name: "%E,"+comps[1],
+                        img: self.getImg(comps[1]),
+                        x: +comps[2],
+                        y: +comps[3],
+                        modifier: self.modifiers[+comps[4]],
+                        flip: comps[5] == true
+                    });
+                else if(comps[0].indexOf("%S")!=-1 || comps[0].indexOf("%P")!=-1)
+                    self.blocks.push({
+                        name: comps[0],
+                        img: self.getImg(comps[0]),
+                        x: +comps[1],
+                        y: +comps[2]
+                    });
+                else if(comps[0].indexOf("%D")!=-1)
+                    self.blocks.push({
+                        name: comps[0]+","+comps[1],
+                        img: self.getImg(comps[1]),
+                        x: +comps[2],
+                        y: +comps[3]
+                    });
+                else
+                    self.rblocks.push({
+                        name: comps[0],
+                        img: self.getImg(comps[0]),
+                        x: +comps[1],
+                        y: +comps[2],
+                        width: +comps[3],
+                        height: +comps[4]
+                    });
+            });
+            console.log(self.blocks);
+            console.log(self.rblocks);
+            $scope.$apply();
+        };
+        fr.readAsText(file);
+    };
+
+    self.getImg = (name) => {
+        let r = self.required.filter((e) => {return e.name == name});
+        if(r.length > 0) return r[0].img;
+        let p = self.pokemons.filter((e) => {return e.name == name});
+        if(p.length > 0) return p[0].img;
+        let pl = self.platforms.filter((e) => {return e.name == name});
+        if(pl.length > 0) return pl[0].img;
+        let d = self.decorations.filter((e) => {return e.name == name});
+        if(d.length > 0) return d[0].img;
     };
 
 };
