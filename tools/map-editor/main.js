@@ -190,12 +190,9 @@ var MainController = function($scope){
     self.mouseDown = (event) => {
         if(self.selecting) return;
         let cx = ~~((event.offsetX+16)/35);
-        let cy = ~~((event.offsetY+16)/35);
+        let cy = 39 - (~~((event.offsetY+16)/35));
 
-        if(self.deleteTool){
-            self.deleteBlock(x,20-y);
-        }
-        else if(self.uniqueTool){
+        if(self.uniqueTool){
             self.blocks.push({
                 name: self.selName,
                 img: self.selImg,
@@ -214,12 +211,12 @@ var MainController = function($scope){
         if(self.selecting) return;
         if(!self.uniqueTool){
             let cx = ~~((event.offsetX+35)/35);
-            let cy = ~~((event.offsetY+35)/35);
+            let cy = 39 - (~~((event.offsetY+35)/35));
             self.rblocks.push({
                 name: self.selName,
                 img: self.selImg,
                 x: Math.min(cx,self.startX),
-                y: Math.min(cy,self.startY),
+                y: Math.max(cy,self.startY),
                 width: Math.abs(cx-self.startX),
                 height: Math.abs(cy-self.startY)
             });
