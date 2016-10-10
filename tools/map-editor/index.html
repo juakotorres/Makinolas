@@ -73,8 +73,12 @@
         </div>
         <div class="info" ng-show="infoOpened">
             <h3>Propiedades</h3>
-            <div ng-repeat="(key,v) in selectedBlock track by key">
-                <span class="lbl">{{key}} : </span><input type="text" ng-model="selectedBlock[key]">
+            <div ng-repeat="key in selectedTemplate">
+                <span class="lbl">{{key.name}}:</span><input type="{{key.type}}" ng-model="selectedBlock[key.name]">
+            </div>
+            <div ng-show="selectedBlock.name.indexOf('%E')!=-1">
+                <span class="lbl">Modifier:</span>
+                <select ng-model="selectedBlock.modifier" ng-options="x for x in modifiers"></select>
             </div>
             <button ng-click="closeInfo()">Close</button>
             <button class="red" ng-click="deleteElement()">Delete</button>

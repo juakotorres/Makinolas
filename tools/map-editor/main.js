@@ -172,6 +172,7 @@ var MainController = function($scope){
 
     self.setSel = (nm, img, unq) => {
         self.selecting = false;
+        self.closeInfo();
         self.selName = nm;
         self.selImg = img
         self.uniqueTool = (unq==null);
@@ -199,16 +200,10 @@ var MainController = function($scope){
                 name: self.selName,
                 img: self.selImg,
                 x: cx,
-                y: cy
+                y: cy,
+                flip: false
             });
         }
-        /*else if(self.modifierTool){
-            /* if(self.map[""+x+","+(20-y)] != null){
-                var comps = self.map[""+x+","+(20-y)].split(",");
-                self.map[""+x+","+(20-y)] =  comps[0]+","+comps[1]+","+self.selName;
-                self.ctx.fillText(self.selName,x*35,y*35+10);
-            }
-        }*/
         else{
             self.startX = cx;
             self.startY = cy;
@@ -236,6 +231,12 @@ var MainController = function($scope){
         self.selectedBlock = self.blocks[index];
         self.selectedIndex = index;
         self.selectedRectangle = false;
+        if(self.selectedBlock.name.indexOf("%E")!=-1){
+            self.selectedTemplate = [{name: "x",type: "number"},{name: "y", type: "number"},{name: "flip", type: "checkbox"}];
+        }
+        else{
+            self.selectedTemplate = [{name: "x",type: "number"},{name: "y", type: "number"}];
+        }
     };
 
     self.openRInfo = (index) => {
@@ -243,6 +244,8 @@ var MainController = function($scope){
         self.selectedBlock = self.rblocks[index];
         self.selectedIndex = index;
         self.selectedRectangle = true;
+        self.selectedTemplate = [{name: "x",type: "number"},{name: "y", type: "number"},
+                {name: "width", type: "number"},{name: "height", type: "number"}];
      };
 
      self.closeInfo = () => {
@@ -257,9 +260,18 @@ var MainController = function($scope){
         self.closeInfo();
      };
 
-    self.downloadLevel = function(){
+    self.downloadLevel = () => {
         var builder = "#ATK Map Editor\n";
-        for(var coords in self.map){
+        self.rblocks.forEach((b) => {
+            builder += b.name+","+b.x+","+b.y+","+b.width+","+b.height+"\n";
+        });
+        self.blocks.forEach((b) => {
+            builder += b.name+","+b.x+","+b.y;
+            if(b.modifier != null) builder += ","+self.modifiers.indexOf(b.modifier);
+            builder += ","+b.flip;
+            builder += "\n";
+        });
+        /*for(var coords in self.map){
             if(self.map[coords]!=null){
                 var comps = self.map[coords].split(",");
                 if(comps.length>2)
@@ -267,7 +279,7 @@ var MainController = function($scope){
                 else
                     builder += comps[0]+","+coords+"\n";
             }
-        }
+        }*/
         download(self.levelName+".lvl",builder);
     };
 
