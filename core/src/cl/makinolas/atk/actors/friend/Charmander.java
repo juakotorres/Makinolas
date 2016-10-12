@@ -1,5 +1,7 @@
 package cl.makinolas.atk.actors.friend;
 
+import cl.makinolas.atk.actors.attacks.ParabolicAttack;
+import cl.makinolas.atk.actors.attacks.states.FireballState;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
@@ -79,7 +81,7 @@ public class Charmander extends AbstractFriend {
   
   @Override
   public Attacks getFriendAttack(World myWorld, float x , float y, boolean facingRight, Monsters source){
-    return new BombAttack(new EmberState(),myWorld, x, y, facingRight, source);
+    return new ParabolicAttack(new FireballState(),myWorld, x, y, facingRight, source);
   }
   
 }
