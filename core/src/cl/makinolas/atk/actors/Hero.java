@@ -1,6 +1,7 @@
 package cl.makinolas.atk.actors;
 
 import cl.makinolas.atk.actors.items.ItemActor;
+import cl.makinolas.atk.stages.*;
 import com.badlogic.gdx.Game;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.Body;
@@ -25,10 +26,6 @@ import cl.makinolas.atk.actors.items.Inventory;
 import cl.makinolas.atk.actors.platform.Platform;
 import cl.makinolas.atk.actors.ui.MainBar;
 import cl.makinolas.atk.screen.MapScreen;
-import cl.makinolas.atk.stages.AbstractStage;
-import cl.makinolas.atk.stages.Levels;
-import cl.makinolas.atk.stages.MapStage;
-import cl.makinolas.atk.stages.OnWall;
 import cl.makinolas.atk.start.GameText;
 import cl.makinolas.atk.utils.Formulas;
 import cl.makinolas.atk.utils.SaveDoesNotExistException;
@@ -66,6 +63,7 @@ public class Hero extends Monsters {
   private boolean[] levelsUnlocked;
   private JumpState state;
   private boolean onWall = false;
+  private Spot currentSpot;
 
   private Hero() {
 
@@ -119,6 +117,18 @@ public class Hero extends Monsters {
     if(SaveManager.getInstance().hasSaveInstance()){
       FriendDescriptor[] friends = SaveManager.getInstance().getSaveInstance().friends;
       levelsUnlocked = SaveManager.getInstance().getSaveInstance().levelsUnlocked;
+
+      if(Levels.values().length > levelsUnlocked.length){
+        boolean[] newlevels = new boolean[Levels.values().length];
+        for(int i = 0; i < Levels.values().length; i++){
+          if(i < levelsUnlocked.length)
+            newlevels[i] = levelsUnlocked[i];
+          else
+            newlevels[i] = false;
+        }
+        levelsUnlocked = newlevels;
+      }
+
       if(friends.length == 0){
         addAllie(MonsterFactory.getInstance().getHeroFriend("Kakuna", 6));
       } else {
@@ -550,11 +560,16 @@ public class Hero extends Monsters {
     return myBody != null;
   }
 
+  public void setSpot(Spot spot){
+    currentSpot = spot;
+  }
+
   public void completeStage(Game myGame){
     AbstractStage myStage = ((AbstractStage) getStage());
     Levels actualLevel = myStage.getLevel();
     
     myStage.music.dispose();
+
     int[] levels = actualLevel.unlockableLevels;
     for(int level : levels){
       levelsUnlocked[level] = true;
@@ -563,7 +578,7 @@ public class Hero extends Monsters {
 
     vx = 0;
 
-    MapScreen mapScreen = new MapScreen(myGame,new MapStage(new FitViewport(640, 480),myGame));
+    MapScreen mapScreen = new MapScreen(myGame,new MapStage(new FitViewport(640, 480),myGame, currentSpot));
     myGame.setScreen(mapScreen);
   }
 
