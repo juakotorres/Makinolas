@@ -23,9 +23,10 @@ public class MapStage extends Stage implements KeyHandable{
     private Traveler traveler;
 
     private Levels[] levels;
-    private int current = 0;
-    private int maxAllowed = 3;
+    private Spot current;
+    private boolean[] levelsAllowed;
     private Game myGame;
+    private boolean[] unlockedStages;
 
     public MapStage(Viewport v, Game game) {
         super(v);
@@ -35,11 +36,12 @@ public class MapStage extends Stage implements KeyHandable{
         addActor(new Background("Background/mapa.png", getCamera()));
 
         buildLevels();
-        maxAllowed = Math.min(Hero.getInstance().getMaxLevelUnlocked(),levels.length);
+        levelsAllowed = Hero.getInstance().getLevelsUnlocked();
 
+        unlockedStages = Hero.getInstance().getLevelsUnlocked();
         // Add floors
         for (int i = 0; i < levels.length; i++) {
-            addActor(new MapStageActor(i, maxAllowed<=i, this, levels[i].mapx, levels[i].mapy));
+            addActor(new MapStageActor(Levels.values()[i].levelSpot, !unlockedStages[i], this, levels[i].mapx, levels[i].mapy));
         }
 
         traveler = new Traveler();
@@ -49,7 +51,7 @@ public class MapStage extends Stage implements KeyHandable{
         addListener(new SimpleInputController(this, new MobileGroup(Gdx.app.getType() == Application.ApplicationType.Android)));
         Gdx.input.setInputProcessor(this);
 
-        current = maxAllowed - 1;
+        current = Levels.LEVEL1.levelSpot;
 
         TextButton shopButton = new TextButton("Enter Shop",  new Skin(Gdx.files.internal("Data/uiskin.json")));
         shopButton.addListener(new ClickListener(){
@@ -76,9 +78,9 @@ public class MapStage extends Stage implements KeyHandable{
         moveToLevel(current);
     }
 
-    public void moveToLevel(int c) {
-        current = c;
-        traveler.setPosition(levels[c].mapx*20, levels[c].mapy*20);
+    public void moveToLevel(Spot currentSpot) {
+        current = currentSpot;
+        traveler.setPosition(currentSpot.getXPosition()*20, currentSpot.getYPosition()*20);
     }
 
     private void buildLevels() {
@@ -87,15 +89,8 @@ public class MapStage extends Stage implements KeyHandable{
 
     //public int getCurrentLevel(){return current;}
 
-    public void nextLevel(){
-        moveToLevel(current+1);
-    }
-
-    public void prevLevel(){
-        moveToLevel(current-1);
-    }
-
     public void handleKey(int keycode){
+        Spot auxiliarSpot = current;
         if(keycode == Input.Keys.Z){
             startLevel();
             return;
@@ -103,8 +98,21 @@ public class MapStage extends Stage implements KeyHandable{
         else if(keycode == Input.Keys.X){
             enterShop();
             return;
+        } else if(keycode == Input.Keys.UP){
+            auxiliarSpot = current.UpMove();
+        } else if(keycode == Input.Keys.DOWN){
+            auxiliarSpot = current.DownMove();
+        } else if(keycode == Input.Keys.LEFT){
+            auxiliarSpot = current.LeftMove();
+        } else if(keycode == Input.Keys.RIGHT) {
+          auxiliarSpot = current.RightMove();
         }
-        int keynext = -1;
+
+        if(unlockedStages[auxiliarSpot.getLevel().ordinal()])
+          current = auxiliarSpot;
+
+        moveToLevel(current);
+        /*int keynext = -1;
         int keyprev = -1;
         if(current > 0){
             if(levels[current].mapx > levels[current-1].mapx) keyprev = Input.Keys.LEFT;
@@ -121,7 +129,7 @@ public class MapStage extends Stage implements KeyHandable{
         if(keycode == keyprev)
             prevLevel();
         else if(keycode == keynext)
-            nextLevel();
+            nextLevel();*/
     }
 
     private void enterShop() {
@@ -130,10 +138,10 @@ public class MapStage extends Stage implements KeyHandable{
 
     public void startLevel(){
         GameScreen gameScreen = new GameScreen(myGame);
-        if(!levels[current].bossLevel)
-            gameScreen.setStage(new GameStage(new FitViewport(640,480), gameScreen, myGame, levels[current]));
+        if(!current.getLevel().bossLevel)
+            gameScreen.setStage(new GameStage(new FitViewport(640,480), gameScreen, myGame, current.getLevel()));
         else
-            gameScreen.setStage(new BossStage(new FitViewport(640,480), gameScreen, myGame, levels[current]));
+            gameScreen.setStage(new BossStage(new FitViewport(640,480), gameScreen, myGame, current.getLevel()));
         myGame.setScreen(gameScreen);
     }
 
