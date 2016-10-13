@@ -63,7 +63,7 @@ public class Hero extends Monsters {
   private int vx;
   private boolean inertia;
   private boolean hasEvolved;
-  private int maxLevelUnlocked = 1;
+  private boolean[] levelsUnlocked;
   private JumpState state;
   private boolean onWall = false;
 
@@ -118,7 +118,7 @@ public class Hero extends Monsters {
     }
     if(SaveManager.getInstance().hasSaveInstance()){
       FriendDescriptor[] friends = SaveManager.getInstance().getSaveInstance().friends;
-      maxLevelUnlocked = Math.max(SaveManager.getInstance().getSaveInstance().maxLevel,1);
+      levelsUnlocked = SaveManager.getInstance().getSaveInstance().levelsUnlocked;
       if(friends.length == 0){
         addAllie(MonsterFactory.getInstance().getHeroFriend("Kakuna", 6));
       } else {
@@ -176,7 +176,7 @@ public class Hero extends Monsters {
     checkAccumulatingJump();
     giveMagic();
     
-    if (isJumping == true)
+    if (isJumping)
     	state.countFrames();
     
   }
@@ -555,10 +555,10 @@ public class Hero extends Monsters {
     Levels actualLevel = myStage.getLevel();
     
     myStage.music.dispose();
-    int numberOfLevel = actualLevel.ordinal() + 2;
-    if(maxLevelUnlocked < numberOfLevel)
-      maxLevelUnlocked = numberOfLevel;
-
+    int[] levels = actualLevel.unlockableLevels;
+    for(int level : levels){
+      levelsUnlocked[level] = true;
+    }
     SaveManager.getInstance().saveState();
 
     vx = 0;
@@ -567,8 +567,10 @@ public class Hero extends Monsters {
     myGame.setScreen(mapScreen);
   }
 
-  public int getMaxLevelUnlocked() {
-    return maxLevelUnlocked;
+
+
+  public boolean[] getLevelsUnlocked() {
+    return levelsUnlocked;
   }
 
   public float getStageX(){
