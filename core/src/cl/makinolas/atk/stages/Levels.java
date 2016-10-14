@@ -57,7 +57,7 @@ public enum Levels {
           "Background/SandOcean2.1.png",
           "Music/Sanctuary.mp3",
           new Spot(24, 14,  BOSSLEVEL1.levelSpot, new NullSpot(), new NullSpot(), new NullSpot())),
-  LEVEL6("fibonacci_confirmed",
+  LEVEL6("Fibonacci_confirmed",
           false,
           22,
           18,
