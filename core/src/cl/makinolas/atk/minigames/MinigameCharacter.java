@@ -129,6 +129,9 @@ public class MinigameCharacter extends AnimatedActor{
     return true;
   }
 
+  @Override
+  public void endInteraction(GameActor actor2, WorldManifold worldManifold) {}
+
   private void setSizeCollider(Vector2 position, boolean first) {
     myBodyDefinition.position.set(position);
     Body myBody = myWorld.createBody(myBodyDefinition);

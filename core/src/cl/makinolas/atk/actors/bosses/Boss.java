@@ -103,6 +103,9 @@ public abstract class Boss extends Monsters implements IBoss{
     interactWithHero2(hero);
     hero.interactWithMonster(this);
   }
+
+  @Override
+  public void endInteraction(GameActor actor2, WorldManifold worldManifold){}
   
   private float getBodySize(int size){
     return (0.5f*size)/22;

@@ -64,6 +64,7 @@ public class Hero extends Monsters {
   private JumpState state;
   private boolean onWall = false;
   private Spot currentSpot;
+  private Vector2 platformSpeed;
 
   private Hero() {
 
@@ -79,6 +80,7 @@ public class Hero extends Monsters {
     jumpAccumulator = 3;
     accumulator = 0;
     vx = 0;
+    platformSpeed = new Vector2(0,0);
     inertia = false;
 
     // Set team for player;
@@ -176,8 +178,9 @@ public class Hero extends Monsters {
   @Override
   public void act(float delta){
     checkChangingAllie();
-    myBody.setLinearVelocity(vx, myBody.getLinearVelocity().y);
-    
+
+    myBody.setLinearVelocity(vx + platformSpeed.x, myBody.getLinearVelocity().y);
+
     ((AbstractStage) getStage()).changeCamera(myBody.getPosition().x , myBody.getPosition().y );
     
     checkDamage(delta);
@@ -188,9 +191,12 @@ public class Hero extends Monsters {
     
     if (isJumping)
     	state.countFrames();
-    
   }
-  
+
+  public void setMovablePLatformSpeed(float vX, float vY) {
+    this.platformSpeed = new Vector2(vX, vY);
+  }
+
   private void checkAccumulatingJump() {
    if(isAccumulatingJump && !isJumping){
      increaseJumpAccumulator();
@@ -405,7 +411,7 @@ public class Hero extends Monsters {
   
   @Override
   public void interactWithPlatform(Platform platform, WorldManifold worldManifold){
-    landedPlatform(worldManifold, platform);
+    platform.interactWithHero(this, worldManifold);
   }
   
   @Override
@@ -433,6 +439,8 @@ public class Hero extends Monsters {
   public void interactWithPortal(Portal portal){
     portal.completeStage();
   }
+
+  public void endPlatformInteraction(Platform platform, WorldManifold worldManifold) { platform.endHeroInteraction(this, worldManifold);}
 
   @Override
   public float getMonsterWidth() {
@@ -607,7 +615,14 @@ public class Hero extends Monsters {
   }
 
   @Override
+  public void endInteraction(GameActor actor2, WorldManifold worldManifold) {
+    actor2.endHeroInteraction(this, worldManifold);
+  }
+
+  @Override
   public void interactWithItem(ItemActor item) {
     item.interactWithHero(this,null);
   }
+
+
 }

@@ -56,7 +56,7 @@ public class Platform extends GameActor {
     shape.setAsBox(widthTiles * TILE_FACTOR /2, heightTiles * TILE_FACTOR / 2);
     ///
     myBody.setGravityScale(1);
-    myBody.createFixture(shape, 0.5f).setFriction(0);
+    myBody.createFixture(shape, 0.5f).setFriction(1);
     myBody.resetMassData();
     shape.dispose();
 
@@ -104,6 +104,11 @@ public class Platform extends GameActor {
   @Override
   public void interactWithMinigameCharacter(MinigameCharacter minigameCharacter, WorldManifold worldManifold) {
     minigameCharacter.landedPlatform(worldManifold, this);
+  }
+
+  @Override
+  public void endInteraction(GameActor actor2, WorldManifold worldManifold) {
+    actor2.endPlatformInteraction(this, worldManifold);
   }
 
 }
