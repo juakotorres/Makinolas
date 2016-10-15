@@ -119,7 +119,7 @@ public class GameStage extends AbstractStage implements ContactListener {
   public void act(float delta){
     for(GameActor actor : gameActors){
       Body actorBody = actor.getBody();
-      if(actor.isHero() && (actorBody.getPosition().y < -50 || actorBody.getPosition().x < -100 || actor.isDead())){
+      if(actor.isHero() && (actorBody.getPosition().y < -200 || actorBody.getPosition().x < -100 || actor.isDead())){
         changeDeadMenu();
       }
       if(actor.isEnemy() || actor.isPuff() || actor.isAttack() || actor.isBall() || actor.isItem() || actor.isDetector()){
