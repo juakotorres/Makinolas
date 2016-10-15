@@ -106,4 +106,9 @@ public class Platform extends GameActor {
     minigameCharacter.landedPlatform(worldManifold, this);
   }
 
+  @Override
+  public void endInteraction(GameActor actor2, WorldManifold worldManifold) {
+    actor2.endPlatformInteraction(this, worldManifold);
+  }
+
 }

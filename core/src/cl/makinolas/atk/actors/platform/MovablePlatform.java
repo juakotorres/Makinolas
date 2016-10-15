@@ -1,18 +1,18 @@
 package cl.makinolas.atk.actors.platform;
 
 import cl.makinolas.atk.GameConstants;
+import cl.makinolas.atk.actors.Hero;
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.math.Vector2;
-import com.badlogic.gdx.physics.box2d.Body;
-import com.badlogic.gdx.physics.box2d.BodyDef;
-import com.badlogic.gdx.physics.box2d.PolygonShape;
-import com.badlogic.gdx.physics.box2d.World;
+import com.badlogic.gdx.physics.box2d.*;
+import com.sun.corba.se.impl.orbutil.HexOutputStream;
 
 public class MovablePlatform extends Platform {
 
   private int fXp, fYp, iXp, iYp;
   private float myWp, myHp;
   private float vY, vX;
+  private boolean heroIsInPlatform;
 
   public MovablePlatform(World myWorld, String textureCode,
                          int x, int finalXPosition,
@@ -20,6 +20,7 @@ public class MovablePlatform extends Platform {
                          int widthTiles, int heightTiles) {
     super(myWorld, textureCode, x, y, widthTiles, heightTiles);
 
+    heroIsInPlatform = false;
     fXp = Math.max(finalXPosition,x);
     fYp = Math.max(finalYPosition,y);
     iXp = Math.min(x, finalXPosition);
@@ -70,6 +71,11 @@ public class MovablePlatform extends Platform {
       vY = -vY;
     }
 
+    if(heroIsInPlatform){
+      Vector2 heroVel = Hero.getInstance().getBody().getLinearVelocity();
+      Hero.getInstance().setMovablePLatformSpeed(vX,vY);
+    }
+
     myBody.setLinearVelocity(vX,vY);
   }
 
@@ -82,5 +88,17 @@ public class MovablePlatform extends Platform {
         batch.draw(region,xp + i*36, yp + j*36,37,37);
       }
     }
+  }
+
+  @Override
+  public void interactWithHero(Hero hero, WorldManifold worldManifold){
+    heroIsInPlatform = true;
+    hero.landedPlatform(worldManifold, this);
+  }
+
+  @Override
+  public void endHeroInteraction(Hero hero, WorldManifold worldManifold) {
+    heroIsInPlatform = false;
+    hero.setMovablePLatformSpeed(0,0);
   }
 }

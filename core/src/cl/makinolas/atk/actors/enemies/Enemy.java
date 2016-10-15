@@ -332,6 +332,9 @@ public class Enemy extends Monsters {
     return true;
   }
 
+  @Override
+  public void endInteraction(GameActor actor2, WorldManifold worldManifold) {}
+
   public void jump() {}
 
   public void landedPlatform(WorldManifold worldManifold, Platform platform) {}

@@ -133,6 +133,9 @@ public abstract class Attacks extends AnimatedActor {
   public void interactWithPlatform(Platform platform, WorldManifold worldManifold){
     this.setDead();
   }
+
+  @Override
+  public void endInteraction(GameActor actor2, WorldManifold worldManifold){}
   
   protected float getBodySize(int size){
     return (0.5f*size)/22;

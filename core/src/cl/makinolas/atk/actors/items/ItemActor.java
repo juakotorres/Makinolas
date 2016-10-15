@@ -75,6 +75,9 @@ public class ItemActor extends GameActor {
     }
 
     @Override
+    public void endInteraction(GameActor actor2, WorldManifold worldManifold) {}
+
+  @Override
     public boolean isItem() {
         return initialized;
     }
