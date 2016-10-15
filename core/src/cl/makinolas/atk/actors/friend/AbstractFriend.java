@@ -197,7 +197,12 @@ public abstract class AbstractFriend implements Friend {
   public boolean getDead(){
     return dead;
   }
-  
+
+  @Override
+  public void setDead(boolean dead) {
+    this.dead = dead;
+  }
+
   @Override
   public void isDead(){
     dead = true;
