@@ -15,6 +15,7 @@ public interface Friend {
   public void setMagic(int magic);
   public int getMaxMagic();
   public int getMagic();
+  public void setDead(boolean dead);
   public boolean getDead();
   public void isDead();
   public void setExp(double d);

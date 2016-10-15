@@ -1,6 +1,7 @@
 package cl.makinolas.atk.stages;
 
 import cl.makinolas.atk.actors.*;
+import cl.makinolas.atk.screen.PokeCenterScreen;
 import com.badlogic.gdx.Application;
 import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
@@ -61,6 +62,16 @@ public class MapStage extends Stage implements KeyHandable{
         shopButton.setPosition(20,12);
         addActor(shopButton);
 
+        TextButton centerButton = new TextButton("Enter PokeCenter",  new Skin(Gdx.files.internal("Data/uiskin.json")));
+        centerButton.addListener(new ClickListener(){
+            @Override
+            public void clicked(InputEvent event, float x, float y) {
+                enterCenter();
+            }
+        });
+        centerButton.setPosition(160,12);
+        addActor(centerButton);
+
         TextButton startButton = new TextButton("Start",  new Skin(Gdx.files.internal("Data/uiskin.json")));
         startButton.addListener(new ClickListener(){
             @Override
@@ -114,6 +125,10 @@ public class MapStage extends Stage implements KeyHandable{
 
     private void enterShop() {
         myGame.setScreen(new ShopScreen(myGame));
+    }
+
+    private void enterCenter() {
+        myGame.setScreen(new PokeCenterScreen(myGame));
     }
 
     public void startLevel(){

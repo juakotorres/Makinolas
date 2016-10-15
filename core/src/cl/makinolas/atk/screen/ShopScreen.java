@@ -26,8 +26,8 @@ import com.badlogic.gdx.utils.viewport.FitViewport;
 
 public class ShopScreen extends SimpleScreen implements KeyHandable{
 
-    private String[] items = {"PokeBall","GreatBall","UltraBall","Potion","Max Potion","MasterBall"};
-    private int[] prices = {200,400,800,200,1000,10};
+    private String[] items = {"PokeBall","GreatBall","UltraBall","Potion","MaxPotion","MasterBall"};
+    private int[] prices = {200,400,800,200,100,10};
     private TextureRegion[] sps = {Ball.BallType.POKEBALL.texture, Ball.BallType.GREATBALL.texture,
             Ball.BallType.ULTRABALL.texture, Item.textures[1][0],Item.textures[1][3], Ball.BallType.MASTERBALL.texture};
     private int itemSel = -1;
