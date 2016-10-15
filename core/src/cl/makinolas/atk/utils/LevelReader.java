@@ -78,10 +78,15 @@ public class LevelReader {
                     decorations.addActor(new Title(PlatformResource.getInstance().getRegionWithCode(comps[1]),
                             Integer.parseInt(comps[2])* GameConstants.WORLD_FACTOR,Integer.parseInt(comps[3])* GameConstants.WORLD_FACTOR));
                     break;
+                case "%BreakP":
+                    platforms.add(new BreakablePlatform(world, Integer.parseInt(comps[1]),
+                        Integer.parseInt(comps[2])));
+                    break;
                 case "%MoveP":
                     platforms.add(new MovablePlatform(world, comps[1], Integer.parseInt(comps[2]),
                         Integer.parseInt(comps[3]), Integer.parseInt(comps[4]), Integer.parseInt(comps[5]),
                         Integer.parseInt(comps[6]), Integer.parseInt(comps[7])));
+                    break;
                 default:
                     if (comps[0].length() <= 3)
                         platforms.add(parsePlatform(comps));
