@@ -13,7 +13,7 @@ public class BreakablePlatform extends Platform {
   private boolean isBroken;
   private TextureRegion[][] mySprite;
   private int actualSprite;
-  private float timeSprite = 1/3f;
+  private float timeSprite = 1/5f;
   private float recoverTime = 3f;
   private float recovering;
   private float accumulator;
