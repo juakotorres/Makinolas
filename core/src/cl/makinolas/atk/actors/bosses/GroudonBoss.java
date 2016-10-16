@@ -4,8 +4,10 @@ import cl.makinolas.atk.GameConstants;
 import cl.makinolas.atk.actors.GameActor;
 import cl.makinolas.atk.actors.HBarFliped;
 import cl.makinolas.atk.actors.Hero;
+import cl.makinolas.atk.actors.attacks.BombAttack;
 import cl.makinolas.atk.actors.attacks.CloseRangeAttack;
 import cl.makinolas.atk.actors.attacks.DirectionAttack;
+import cl.makinolas.atk.actors.attacks.DroppingAttack;
 import cl.makinolas.atk.actors.attacks.states.FireWallState;
 import cl.makinolas.atk.actors.attacks.states.TRockState;
 import cl.makinolas.atk.actors.friend.OldMewtwo;
@@ -29,11 +31,14 @@ public class GroudonBoss extends Boss {
     private Hero hero;
     private float nextEnemyAttackAt, nextRockAt;
     private int numRocks;
+    private float jumpTime;
+    private int jumpDirection;
 
     public GroudonBoss(World myWorld, Hero hero) {
 
-        health = 300;
-        maxHealth = 300;
+        health = 150;
+        maxHealth = 150;
+        jumpDirection = 1;
         width = 39;
         height = 33;
         parent = new OldMewtwo();
@@ -54,7 +59,7 @@ public class GroudonBoss extends Boss {
         // Definición del cuerpo del jugador.
         BodyDef myBodyDefinition = new BodyDef();
         myBodyDefinition.type = BodyDef.BodyType.DynamicBody;
-        myBodyDefinition.position.set(new Vector2(16,4));
+        myBodyDefinition.position.set(new Vector2(24,4));
 
         // Forma del collider del jugador.
         Body myBody = myWorld.createBody(myBodyDefinition);
@@ -85,24 +90,28 @@ public class GroudonBoss extends Boss {
         super.act(delta);
 
         if(state == State.IDLE){
+            myBody.setLinearVelocity(0,myBody.getLinearVelocity().y);
             nextEnemyAttackAt -= delta;
             if(nextEnemyAttackAt < 0){
                 nextEnemyAttackAt = (float) (Math.random()*2+0.5);
                 float r = (float) Math.random();
                 if(r<0.4f) {
-                    numRocks = (int) (8 - 6*health/maxHealth);
-                    System.out.println(numRocks);
+                    numRocks = (int) (8 - 7*health/maxHealth);
                     nextRockAt = 0;
                     state = State.THROWING_ROCKS;
                 }
                 else if(r < 0.8f)
                     state = State.FIREWALL;
-                else
+                else {
+                    jumpTime = (jumpDirection + 1)/2;
+                    jumpDirection *= -1;
                     state = State.JUMPING;
+                }
             }
         }
         else if(state == State.FIREWALL) {
             generateFirewalls();
+            health = (int) Math.min(maxHealth,health+5);
             state = State.IDLE;
         }
         else if(state == State.THROWING_ROCKS){
@@ -116,16 +125,22 @@ public class GroudonBoss extends Boss {
             }
         }
         else if(state == State.JUMPING){
-            state = State.IDLE;
+            jumpTime += jumpDirection * delta;
+            //System.out.println(jumpTime);
+            if(jumpTime >= 1 || jumpTime <= 0) {
+                jumpTime = (jumpDirection + 1)/2;
+                myBody.setAwake(true);
+                isFacingRight = !isFacingRight;
+                state = State.IDLE;
+            }
+            myBody.setTransform(new Vector2(4+jumpTime*20,2 + 16*jumpTime*(1-jumpTime)),0);
         }
     }
 
     private void generateFirewalls() {
         Vector2 pos = myBody.getPosition();
-        GameActor wall1 = new CloseRangeAttack(new FireWallState(),myWorld,pos.x-1,pos.y,false,this);
-        GameActor wall2 = new CloseRangeAttack(new FireWallState(),myWorld, (float) (pos.x-2-10*Math.random()),pos.y,false,this);
-        ((AbstractStage) getStage()).addGameActor(wall1);
-        ((AbstractStage) getStage()).addGameActor(wall2);
+        GameActor wall = new BombAttack(new FireWallState(),myWorld,pos.x+1-2*jumpDirection,pos.y,false,this);
+        ((AbstractStage) getStage()).addGameActor(wall);
     }
 
     private void throwRock() {

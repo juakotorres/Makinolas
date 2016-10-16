@@ -11,7 +11,7 @@ public class TRockState extends SpriteState {
 
     @Override
     public int getAttackDamage() {
-        return 35;
+        return 15;
     }
 
     @Override
