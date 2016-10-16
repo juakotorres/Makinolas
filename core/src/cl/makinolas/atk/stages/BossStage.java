@@ -2,6 +2,7 @@ package cl.makinolas.atk.stages;
 
 import java.io.IOException;
 
+import cl.makinolas.atk.actors.bosses.GroudonBoss;
 import com.badlogic.gdx.Application;
 import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
@@ -75,7 +76,7 @@ public class BossStage extends AbstractStage implements ContactListener {
     createPlatforms(myGame);
     
     bossDefeated = false;
-    GameActor enemy = new OldMewtwoBoss(suMundo, hero);
+    GameActor enemy = new GroudonBoss(suMundo, hero);
     addGameActor(enemy);
     
     addActor(new Title("Overlays/bossBar2.png", 550,200));
