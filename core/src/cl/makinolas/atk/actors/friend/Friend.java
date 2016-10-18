@@ -44,13 +44,6 @@ public interface Friend {
 
   int getCatchRate();
 
-  int getIVHp();
-  int getIVAttack();
-  int getIVDefense();
-  int getIVSpecialAttack();
-  int getIVSpecialDefense();
-  int getIVSpeed();
-
   public Enemy returnLongRangeEnemy(World myWorld, int heroPosition);
   public Enemy returnPhysicalEnemy(World myWorld, int heroPosition);
   public String getName();

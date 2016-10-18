@@ -420,11 +420,6 @@ public abstract class AbstractFriend implements Friend {
   }
 
   @Override
-  public int getIVHp(){
-    return getIVStat(6);
-  }
-  
-  @Override
   public void setHealth(int health){
     this.health = health > hp? hp:health;
     if(this.health <= 0){
@@ -482,26 +477,6 @@ public abstract class AbstractFriend implements Friend {
   }
 
   @Override
-  public int getIVAttack(){
-    return getIVStat(5);
-  }
-
-  @Override
-  public int getIVDefense(){
-    return getIVStat(4);
-  }
-
-  @Override
-  public int getIVSpecialAttack(){
-    return getIVStat(3);
-  }
-
-  @Override
-  public int getIVSpecialDefense(){
-    return getIVStat(2);
-  }
-
-  @Override
   public int getCatchRate(){
     return friend.catchRate;
   }
@@ -541,11 +516,6 @@ public abstract class AbstractFriend implements Friend {
   @Override
   public int getSpeed(){
     return speed;
-  }
-
-  @Override
-  public int getIVSpeed(){
-    return getIVStat(1);
   }
 
   public void forceEvolve(int numberOfEvolution){
