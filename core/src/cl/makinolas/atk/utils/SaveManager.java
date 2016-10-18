@@ -56,6 +56,7 @@ public class SaveManager {
     public void startGameSave(Friend friend, String myName, boolean mySex){
       SaveInstance saveInstance = new SaveInstance();
       FriendDescriptor fd = new FriendDescriptor();
+      fd.individualValue = friend.getIvs();
       fd.name = friend.getName();
       fd.level = 5;
       saveInstance.friends = new FriendDescriptor[]{fd};

@@ -40,10 +40,17 @@ public interface Friend {
   public int getDefense();
   public int getSpecialAttack();
   public int getSpecialDefense();
+  public int getSpeed();
 
   int getCatchRate();
 
-  public int getSpeed();
+  int getIVHp();
+  int getIVAttack();
+  int getIVDefense();
+  int getIVSpecialAttack();
+  int getIVSpecialDefense();
+  int getIVSpeed();
+
   public Enemy returnLongRangeEnemy(World myWorld, int heroPosition);
   public Enemy returnPhysicalEnemy(World myWorld, int heroPosition);
   public String getName();
@@ -51,4 +58,7 @@ public interface Friend {
   public Enemy returnFlyWaveAndDropEnemy(World myWorld, int positionX, int positionY, boolean facingRight);
   public Enemy returnJumperEnemy(World myWorld, int positionX, int positionY, boolean facingRight);
   public Enemy returnFollowerEnemy(World myWorld, int positionX, int positionY, boolean facingRight);
+
+  void setIvs(int individualValue);
+  int getIvs();
 }

@@ -153,7 +153,8 @@ public abstract class Attacks extends AnimatedActor {
     int level1 = getSource().getMyself().getLevel();
     int defenseStat = monster.getMyself().getDefense();
     int level2 = monster.getMyself().getLevel();
-    return Formulas.getDamage(attackStat, level1, defenseStat, level2, getAttackDamage());
+    return Formulas.getDamage(attackStat, getSource().getMyself().getIVAttack(),
+        level1, defenseStat, monster.getMyself().getIVDefense(), level2, getAttackDamage());
   }
   
   public int getSpecialAttackDamage(Monsters monster) {
@@ -161,6 +162,7 @@ public abstract class Attacks extends AnimatedActor {
     int level1 = getSource().getMyself().getLevel();
     int spDefenseStat = monster.getMyself().getSpecialDefense();
     int level2 = monster.getMyself().getLevel();
-    return Formulas.getDamage(spAttackStat, level1, spDefenseStat, level2, getAttackDamage());
+    return Formulas.getDamage(spAttackStat, getSource().getMyself().getIVSpecialAttack(),
+        level1, spDefenseStat, monster.getMyself().getIVSpecialDefense(), level2, getAttackDamage());
   }
 }

@@ -144,12 +144,12 @@ public class PokemonStarter extends Actor {
       font.draw(batch,"Sp. Attack",cx + 420,cy + 260);
       font.draw(batch,"Sp. Defense",cx + 420,cy + 240);
       font.draw(batch,"Speed",cx + 420,cy + 220);
-      font.draw(batch,"" + Formulas.getHpStat(friend.getMaxHealth(), 5),cx + 550,cy + 320);
-      font.draw(batch,"" + Formulas.getOtherStat(friend.getAttack(), 5),cx + 550,cy + 300);
-      font.draw(batch,"" + Formulas.getOtherStat(friend.getDefense(), 5),cx + 550,cy + 280);
-      font.draw(batch,"" + Formulas.getOtherStat(friend.getSpecialAttack(), 5),cx + 550,cy + 260);
-      font.draw(batch,"" + Formulas.getOtherStat(friend.getSpecialDefense(), 5),cx + 550,cy + 240);
-      font.draw(batch,"" + Formulas.getOtherStat(friend.getSpeed(), 5),cx + 550,cy + 220);
+      font.draw(batch,"" + Formulas.getHpStatWithIV(friend.getMaxHealth(), 5, friend.getIVHp()),cx + 550,cy + 320);
+      font.draw(batch,"" + Formulas.getOtherStatWithIV(friend.getAttack(), 5, friend.getIVAttack()),cx + 550,cy + 300);
+      font.draw(batch,"" + Formulas.getOtherStatWithIV(friend.getDefense(), 5, friend.getIVDefense()),cx + 550,cy + 280);
+      font.draw(batch,"" + Formulas.getOtherStatWithIV(friend.getSpecialAttack(), 5, friend.getIVSpecialAttack()),cx + 550,cy + 260);
+      font.draw(batch,"" + Formulas.getOtherStatWithIV(friend.getSpecialDefense(), 5, friend.getIVSpecialDefense()),cx + 550,cy + 240);
+      font.draw(batch,"" + Formulas.getOtherStatWithIV(friend.getSpeed(), 5, friend.getIVSpeed()),cx + 550,cy + 220);
       
       batch.draw(typeImage, cx + 420
           , cy + 340 );

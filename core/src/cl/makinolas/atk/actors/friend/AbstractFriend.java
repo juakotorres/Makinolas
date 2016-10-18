@@ -3,6 +3,7 @@ package cl.makinolas.atk.actors.friend;
 import java.util.Observable;
 import java.util.Observer;
 
+import com.badlogic.gdx.graphics.Cursor;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.physics.box2d.World;
 
@@ -25,6 +26,7 @@ public abstract class AbstractFriend implements Friend {
   
   private int health;
   private int hp;
+  private int ivs;
   private int attack;
   private int defense;
   private int spAttack;
@@ -416,6 +418,11 @@ public abstract class AbstractFriend implements Friend {
   public int getMaxHealth(){
     return hp;
   }
+
+  @Override
+  public int getIVHp(){
+    return getIVStat(6);
+  }
   
   @Override
   public void setHealth(int health){
@@ -426,12 +433,12 @@ public abstract class AbstractFriend implements Friend {
   }
 
   protected void setStats(){
-    this.hp = Formulas.getHpStat(friend.hpBase , level.level);
-    this.attack = Formulas.getOtherStat(friend.attackBase, level.level);
-    this.defense = Formulas.getOtherStat(friend.defenseBase, level.level);
-    this.spAttack = Formulas.getOtherStat(friend.spAttackBase, level.level);
-    this.spDefense = Formulas.getOtherStat(friend.spDefenseBase, level.level);
-    this.speed = Formulas.getOtherStat(friend.speedBase, level.level);
+    this.hp = Formulas.getHpStatWithIV(friend.hpBase , level.level, getIVStat(6));
+    this.attack = Formulas.getOtherStatWithIV(friend.attackBase, level.level, getIVStat(5));
+    this.defense = Formulas.getOtherStatWithIV(friend.defenseBase, level.level, getIVStat(4));
+    this.spAttack = Formulas.getOtherStatWithIV(friend.spAttackBase, level.level, getIVStat(3));
+    this.spDefense = Formulas.getOtherStatWithIV(friend.spDefenseBase, level.level, getIVStat(2));
+    this.speed = Formulas.getOtherStatWithIV(friend.speedBase, level.level, getIVStat(1));
   }
   
   @Override
@@ -475,19 +482,86 @@ public abstract class AbstractFriend implements Friend {
   }
 
   @Override
+  public int getIVAttack(){
+    return getIVStat(5);
+  }
+
+  @Override
+  public int getIVDefense(){
+    return getIVStat(4);
+  }
+
+  @Override
+  public int getIVSpecialAttack(){
+    return getIVStat(3);
+  }
+
+  @Override
+  public int getIVSpecialDefense(){
+    return getIVStat(2);
+  }
+
+  @Override
   public int getCatchRate(){
     return friend.catchRate;
+  }
+
+  /**
+   * HP -> 6
+   * Attack -> 5
+   * Defense -> 4
+   * Special Attack -> 3
+   * Special Defense -> 2
+   * Speed -> 1
+   * @param id specified with values above
+   * @return individual value for the id stat
+   */
+  protected int getIVStat(int id){
+    int ivStat = ivs;
+    int mask = 0x0000001F;
+    ivStat = ivStat >> (id - 1) * 5;
+    ivStat = ivStat & mask;
+    return ivStat;
+  }
+
+  protected void newMonster(){
+    ivs = newIVs();
+  }
+
+  private int newIVs(){
+    int ivs = 0;
+    for(int i = 0; i < 30; i++) {
+      int n = Math.random() > 0.5 ? 1 : 0;
+      ivs = ivs | n;
+      ivs = ivs << 1;
+    }
+    return ivs;
   }
   
   @Override
   public int getSpeed(){
     return speed;
   }
-  
+
+  @Override
+  public int getIVSpeed(){
+    return getIVStat(1);
+  }
+
   public void forceEvolve(int numberOfEvolution){
     this.evolve(numberOfEvolution);
     setStats();
     setHealth(getMaxHealth());
+  }
+
+  @Override
+  public void setIvs(int individualValue){
+    ivs = individualValue;
+  }
+
+  @Override
+  public int getIvs(){
+    return ivs;
   }
   
   @Override

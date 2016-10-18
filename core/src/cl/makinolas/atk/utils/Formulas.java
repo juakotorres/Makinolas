@@ -18,9 +18,9 @@ public class Formulas {
   }
   
   // damage formula
-  public static int getDamage(int attack1, int level1, int defense2, int level2, int attackBaseDamage){
-    double attack = getOtherStat(attack1, level1);
-    double defense = getOtherStat(defense2, level2);
+  public static int getDamage(int attack1, int ivAttack, int level1, int defense2, int ivDefense, int level2, int attackBaseDamage){
+    double attack = getOtherStatWithIV(attack1, level1, ivAttack);
+    double defense = getOtherStatWithIV(defense2, level2, ivDefense);
     
     double randomMultiplier = Math.random()* 0.15 + 0.85;
     double criticalRandomizer = Math.random();
@@ -37,12 +37,22 @@ public class Formulas {
   
   // stats formula
   public static int getOtherStat(int baseStat, int level){
-    return (((2 * baseStat) * level) / 100) + 5;    
+    return (((2 * baseStat) * level) / 100) + 5;
   }
   
   // hp formula
   public static int getHpStat(int baseStat, int level){
-    return (((2 * baseStat) * level) / 100) + level + 10;    
+    return (((2 * baseStat) * level) / 100) + level + 10;
+  }
+
+  // stats formula
+  public static int getOtherStatWithIV(int baseStat, int level, int iv){
+    return (((2 * baseStat + iv) * level) / 100) + 5;
+  }
+
+  // hp formula
+  public static int getHpStatWithIV(int baseStat, int level, int iv){
+    return (((2 * baseStat + iv) * level) / 100) + level + 10;
   }
 
 
