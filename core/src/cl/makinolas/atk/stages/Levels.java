@@ -8,7 +8,8 @@ public enum Levels {
           "Background/SuPuente.jpg",  // imagen de fondo
           "Music/Sanctuary.mp3" ,     // musica de la etapa
           new Spot(28,20 , new NullSpot(), new NullSpot(), new NullSpot(), new NullSpot()), // etapas de alrededor (recordar agregar etapas de alrededor)
-          1), // etapas que se desboquean al completar esta
+          1,
+          8), // etapas que se desboquean al completar esta
   FIRSTSTAGE("FirstStage",
           false,
           28,
@@ -57,13 +58,28 @@ public enum Levels {
           "Background/SandOcean2.1.png",
           "Music/Sanctuary.mp3",
           new Spot(24, 14,  BOSSLEVEL1.levelSpot, new NullSpot(), new NullSpot(), new NullSpot())),
-  LEVEL6("fibonacci_confirmed",
+  LEVEL6("Fibonacci_confirmed",
           false,
           22,
           18,
           "Background/OldRuins1.1.png",
           "Music/06-first-battle.mp3",
-          new Spot(22, 18,  new NullSpot(), new NullSpot(), LEVEL4.levelSpot, new NullSpot()));
+          new Spot(22, 18,  new NullSpot(), new NullSpot(), LEVEL4.levelSpot, new NullSpot())),
+  LEVEL8("level2",
+      false,
+      26,
+      20,
+      "Background/SuPuente.jpg",
+      "Music/Freesia.mp3",
+      new Spot(26, 20,  new NullSpot(), new NullSpot(), LEVEL1.levelSpot, new NullSpot()),
+      9),
+  LEVEL9("level3",
+      false,
+      26,
+      22,
+      "Background/SuPuente.jpg",
+      "Music/Freesia.mp3",
+      new Spot(26, 22,  new NullSpot(), LEVEL8.levelSpot, new NullSpot(), new NullSpot()));
 
 
 

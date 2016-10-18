@@ -1,6 +1,7 @@
 package cl.makinolas.atk.stages;
 
 import cl.makinolas.atk.actors.*;
+import cl.makinolas.atk.screen.PokeCenterScreen;
 import com.badlogic.gdx.Application;
 import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
@@ -24,11 +25,10 @@ public class MapStage extends Stage implements KeyHandable{
 
     private Levels[] levels;
     private Spot current;
-    private boolean[] levelsAllowed;
     private Game myGame;
     private boolean[] unlockedStages;
 
-    public MapStage(Viewport v, Game game) {
+    public MapStage(Viewport v, Game game, Spot mySpot) {
         super(v);
         myGame = game;
 
@@ -36,7 +36,6 @@ public class MapStage extends Stage implements KeyHandable{
         addActor(new Background("Background/mapa.png", getCamera()));
 
         buildLevels();
-        levelsAllowed = Hero.getInstance().getLevelsUnlocked();
 
         unlockedStages = Hero.getInstance().getLevelsUnlocked();
         // Add floors
@@ -51,7 +50,7 @@ public class MapStage extends Stage implements KeyHandable{
         addListener(new SimpleInputController(this, new MobileGroup(Gdx.app.getType() == Application.ApplicationType.Android)));
         Gdx.input.setInputProcessor(this);
 
-        current = Levels.LEVEL1.levelSpot;
+        current = mySpot;
 
         TextButton shopButton = new TextButton("Enter Shop",  new Skin(Gdx.files.internal("Data/uiskin.json")));
         shopButton.addListener(new ClickListener(){
@@ -62,6 +61,16 @@ public class MapStage extends Stage implements KeyHandable{
         });
         shopButton.setPosition(20,12);
         addActor(shopButton);
+
+        TextButton centerButton = new TextButton("Enter PokeCenter",  new Skin(Gdx.files.internal("Data/uiskin.json")));
+        centerButton.addListener(new ClickListener(){
+            @Override
+            public void clicked(InputEvent event, float x, float y) {
+                enterCenter();
+            }
+        });
+        centerButton.setPosition(160,12);
+        addActor(centerButton);
 
         TextButton startButton = new TextButton("Start",  new Skin(Gdx.files.internal("Data/uiskin.json")));
         startButton.addListener(new ClickListener(){
@@ -112,31 +121,18 @@ public class MapStage extends Stage implements KeyHandable{
           current = auxiliarSpot;
 
         moveToLevel(current);
-        /*int keynext = -1;
-        int keyprev = -1;
-        if(current > 0){
-            if(levels[current].mapx > levels[current-1].mapx) keyprev = Input.Keys.LEFT;
-            else if(levels[current].mapx < levels[current-1].mapx) keyprev = Input.Keys.RIGHT;
-            else if(levels[current].mapy < levels[current-1].mapy) keyprev = Input.Keys.UP;
-            else if(levels[current].mapy > levels[current-1].mapy) keyprev = Input.Keys.DOWN;
-        }
-        if(current < maxAllowed-1){
-            if(levels[current].mapx > levels[current+1].mapx) keynext = Input.Keys.LEFT;
-            else if(levels[current].mapx < levels[current+1].mapx) keynext = Input.Keys.RIGHT;
-            else if(levels[current].mapy < levels[current+1].mapy) keynext = Input.Keys.UP;
-            else if(levels[current].mapy > levels[current+1].mapy) keynext = Input.Keys.DOWN;
-        }
-        if(keycode == keyprev)
-            prevLevel();
-        else if(keycode == keynext)
-            nextLevel();*/
     }
 
     private void enterShop() {
         myGame.setScreen(new ShopScreen(myGame));
     }
 
+    private void enterCenter() {
+        myGame.setScreen(new PokeCenterScreen(myGame));
+    }
+
     public void startLevel(){
+        Hero.getInstance().setSpot(current);
         GameScreen gameScreen = new GameScreen(myGame);
         if(!current.getLevel().bossLevel)
             gameScreen.setStage(new GameStage(new FitViewport(640,480), gameScreen, myGame, current.getLevel()));

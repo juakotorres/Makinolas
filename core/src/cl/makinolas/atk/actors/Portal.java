@@ -71,6 +71,9 @@ public class Portal extends AnimatedActor{
     completeStage();
   }
 
+  @Override
+  public void endInteraction(GameActor actor2, WorldManifold worldManifold) {}
+
 
   public void completeStage() {
     Hero.getInstance().completeStage(myGame);

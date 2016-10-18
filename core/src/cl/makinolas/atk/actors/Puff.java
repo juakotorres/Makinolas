@@ -109,5 +109,9 @@ public class Puff extends AnimatedActor {
   public boolean isPuff() {
     return true;
   }
-  
+
+  @Override
+  public void endInteraction(GameActor actor2, WorldManifold worldManifold) {
+  }
+
 }

@@ -15,6 +15,7 @@ public interface Friend {
   public void setMagic(int magic);
   public int getMaxMagic();
   public int getMagic();
+  public void setDead(boolean dead);
   public boolean getDead();
   public void isDead();
   public void setExp(double d);
@@ -39,6 +40,9 @@ public interface Friend {
   public int getDefense();
   public int getSpecialAttack();
   public int getSpecialDefense();
+
+  int getCatchRate();
+
   public int getSpeed();
   public Enemy returnLongRangeEnemy(World myWorld, int heroPosition);
   public Enemy returnPhysicalEnemy(World myWorld, int heroPosition);

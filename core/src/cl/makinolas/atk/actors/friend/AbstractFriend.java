@@ -197,7 +197,12 @@ public abstract class AbstractFriend implements Friend {
   public boolean getDead(){
     return dead;
   }
-  
+
+  @Override
+  public void setDead(boolean dead) {
+    this.dead = dead;
+  }
+
   @Override
   public void isDead(){
     dead = true;
@@ -383,7 +388,7 @@ public abstract class AbstractFriend implements Friend {
     @Override
     public void update(Observable o, Object arg) {
       float newLevel = ((Level) o).getLevel();
-      if(newLevel >= evolLevel && !evolved){
+      if(newLevel >= evolLevel && getActualEvolution() < numberOfEvolution && getActualEvolution() + 1 == numberOfEvolution){
        evolve(this.numberOfEvolution);
        Hero.getInstance().evolved();
        evolved = true;
@@ -467,6 +472,11 @@ public abstract class AbstractFriend implements Friend {
   @Override
   public int getSpecialDefense(){
     return spDefense;
+  }
+
+  @Override
+  public int getCatchRate(){
+    return friend.catchRate;
   }
   
   @Override

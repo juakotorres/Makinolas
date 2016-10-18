@@ -18,11 +18,10 @@ import cl.makinolas.atk.minigames.MinigameCharacter;
 
 public class Platform extends GameActor {
   
-  private BodyDef myBodyDefinition;
-  private int xp, yp, wp, hp;
-  private TextureRegion region;
-  private static final float TILE_FACTOR = 1.8f;
-
+  protected BodyDef myBodyDefinition;
+  int xp, yp, wp, hp;
+  TextureRegion region;
+  static final float TILE_FACTOR = 1.8f;
 
   /**
    * Creates a new platform object.
@@ -34,23 +33,7 @@ public class Platform extends GameActor {
      */
   public Platform(World myWorld, String textureCode, int x, int y, int widthTiles, int heightTiles) {
     
-    // Definici�n del cuerpo del jugador.
-    myBodyDefinition = new BodyDef();
-    myBodyDefinition.position.set(new Vector2(x*TILE_FACTOR + widthTiles * TILE_FACTOR /2, y*TILE_FACTOR + heightTiles * TILE_FACTOR / 2));
-    
-    // Forma del collider del jugador.
-    Body myBody = myWorld.createBody(myBodyDefinition);
-    
-    PolygonShape shape = new PolygonShape();
-    shape.setAsBox(widthTiles * TILE_FACTOR /2, heightTiles * TILE_FACTOR / 2);
-    ///
-    myBody.setGravityScale(1);
-    myBody.createFixture(shape, 0.5f).setFriction(0);
-    myBody.resetMassData();
-    shape.dispose();
-    
-    // Guardar body.
-    setBody(myBody);
+    setPlatformBody(myWorld, x, y, widthTiles, heightTiles);
 
     xp = (int) (x * TILE_FACTOR * GameConstants.WORLD_FACTOR);
     yp = (int) (y * TILE_FACTOR* GameConstants.WORLD_FACTOR);
@@ -61,6 +44,25 @@ public class Platform extends GameActor {
 
   }
 
+  protected void setPlatformBody(World myWorld, int x, int y, int widthTiles, int heightTiles){
+    // Definici�n del cuerpo del jugador.
+    myBodyDefinition = new BodyDef();
+    myBodyDefinition.position.set(new Vector2(x*TILE_FACTOR + widthTiles * TILE_FACTOR /2, y*TILE_FACTOR + heightTiles * TILE_FACTOR / 2));
+
+    // Forma del collider del jugador.
+    Body myBody = myWorld.createBody(myBodyDefinition);
+
+    PolygonShape shape = new PolygonShape();
+    shape.setAsBox(widthTiles * TILE_FACTOR /2, heightTiles * TILE_FACTOR / 2);
+    ///
+    myBody.setGravityScale(1);
+    myBody.createFixture(shape, 0.5f).setFriction(0);
+    myBody.resetMassData();
+    shape.dispose();
+
+    // Guardar body.
+    setBody(myBody);
+  }
   public Platform(World myWorld, int x, int y, int widthTiles){
       this(myWorld,"CU",x,y,widthTiles,1);
   }
@@ -102,6 +104,11 @@ public class Platform extends GameActor {
   @Override
   public void interactWithMinigameCharacter(MinigameCharacter minigameCharacter, WorldManifold worldManifold) {
     minigameCharacter.landedPlatform(worldManifold, this);
+  }
+
+  @Override
+  public void endInteraction(GameActor actor2, WorldManifold worldManifold) {
+    actor2.endPlatformInteraction(this, worldManifold);
   }
 
 }
