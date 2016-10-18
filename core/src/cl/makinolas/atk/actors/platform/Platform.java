@@ -36,13 +36,14 @@ public class Platform extends GameActor {
     
     // Definici�n del cuerpo del jugador.
     myBodyDefinition = new BodyDef();
-    myBodyDefinition.position.set(new Vector2(x*TILE_FACTOR + widthTiles * TILE_FACTOR /2, y*TILE_FACTOR + heightTiles * TILE_FACTOR / 2));
+    //cambie width -1
+    myBodyDefinition.position.set(new Vector2(x*TILE_FACTOR + (widthTiles) * TILE_FACTOR /2, y*TILE_FACTOR + (heightTiles) * TILE_FACTOR / 2));
     
     // Forma del collider del jugador.
     Body myBody = myWorld.createBody(myBodyDefinition);
     
     PolygonShape shape = new PolygonShape();
-    shape.setAsBox(widthTiles * TILE_FACTOR /2, heightTiles * TILE_FACTOR / 2);
+    shape.setAsBox((widthTiles)* TILE_FACTOR /2, heightTiles * TILE_FACTOR / 2);
     ///
     myBody.setGravityScale(1);
     myBody.createFixture(shape, 0.5f).setFriction(0);
@@ -51,8 +52,9 @@ public class Platform extends GameActor {
     
     // Guardar body.
     setBody(myBody);
+    
 
-    xp = (int) (x * TILE_FACTOR * GameConstants.WORLD_FACTOR);
+    xp = (int) (x * TILE_FACTOR * GameConstants.WORLD_FACTOR)-5;
     yp = (int) (y * TILE_FACTOR* GameConstants.WORLD_FACTOR);
     wp = widthTiles;
     hp = heightTiles;
