@@ -1,5 +1,6 @@
 package cl.makinolas.atk.actors;
 
+import cl.makinolas.atk.actors.friend.Enemies;
 import cl.makinolas.atk.actors.ui.BagVis;
 import cl.makinolas.atk.actors.ui.MobileGroup;
 import cl.makinolas.atk.actors.ui.MobileKeyListener;
@@ -39,6 +40,9 @@ public class InputController extends InputListener implements MobileKeyListener{
                     break;
                 case Input.Keys.S:
                     hero.getInventory().useSelItem2();
+                    break;
+                case Input.Keys.H:
+                    hero.gainExp(10000, Enemies.SALAMENCE);
                     break;
                 case Input.Keys.Z:
                     hero.attackPrimary();
