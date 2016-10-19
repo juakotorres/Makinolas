@@ -6,7 +6,7 @@ import com.badlogic.gdx.backends.lwjgl.LwjglApplicationConfiguration;
 import cl.makinolas.atk.Main;
 
 /**
- * Launcher used for PC
+ * Launcher used for PC use
  */
 public class DesktopLauncher {
 	public static void main (String[] arg) {
