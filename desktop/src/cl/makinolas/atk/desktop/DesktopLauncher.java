@@ -11,7 +11,6 @@ public class DesktopLauncher {
 		config.width = 640;
 		config.height = 480;
 		new LwjglApplication(new Main(), config);
-		
 	}
 }
 
