@@ -22,8 +22,21 @@ public class OptionsStage extends Stage {
 		
 	    addActor(new Title("Background/atk.png", 320, 350 ));
 	    
+	    // Buttons
 	    TextButton menuButton = new TextButton("Back to menu",  new Skin(Gdx.files.internal("Data/uiskin.json")));
+	    TextButton soundButton = new TextButton("*Sound - Slider bar",  new Skin(Gdx.files.internal("Data/uiskin.json")));
+	    TextButton brightnessButton = new TextButton("*Brightness - Slider bar",  new Skin(Gdx.files.internal("Data/uiskin.json")));
+	    TextButton windowedButton = new TextButton("*Windowed",  new Skin(Gdx.files.internal("Data/uiskin.json")));
+	    TextButton fullscreenButton = new TextButton("*Full Screen",  new Skin(Gdx.files.internal("Data/uiskin.json")));
+	    
+	    // Positions
 	    menuButton.setPosition(500, 50);
+	    soundButton.setPosition(270, 200);
+	    brightnessButton.setPosition(270, 160);
+	    windowedButton.setPosition(270, 120);
+	    fullscreenButton.setPosition(270, 80);
+	    
+	    // Listeners
 	    menuButton.addListener(new ClickListener(){
 	        @Override
 	        public void clicked(InputEvent event, float x, float y) {
@@ -31,12 +44,41 @@ public class OptionsStage extends Stage {
 	        }
 	    });
 	    
+	    windowedButton.addListener(new ClickListener(){
+	        @Override
+	        public void clicked(InputEvent event, float x, float y) {
+	          windowed();
+	        }
+	    });
+	    
+	    fullscreenButton.addListener(new ClickListener(){
+	        @Override
+	        public void clicked(InputEvent event, float x, float y) {
+	          fullscreen();
+	        }
+	    });
+	    
+	    // Add to screen
 	    addActor(menuButton);
+	    addActor(soundButton);
+	    addActor(brightnessButton);
+	    addActor(windowedButton);
+	    addActor(fullscreenButton);
 	    
 	}
 	
+	// Listener methods
+	
 	protected void MainMenu() {
 	    MenuScreen menuScreen = new MenuScreen(myGame);
-	    myGame.setScreen(menuScreen);
-	  }
+	    myGame.setScreen(menuScreen);	    
+	}
+	
+	protected void windowed() {
+		Gdx.graphics.setWindowedMode(640, 480);
+	}
+	
+	protected void fullscreen() {
+		Gdx.graphics.setFullscreenMode(Gdx.graphics.getDisplayMode());
+	}
 }
