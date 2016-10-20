@@ -57,6 +57,8 @@ public class SaveManager {
       SaveInstance saveInstance = new SaveInstance();
       FriendDescriptor fd = new FriendDescriptor();
       fd.individualValue = friend.getIvs();
+      fd.ev1 = friend.getEv1();
+      fd.ev2 = friend.getEv2();
       fd.name = friend.getName();
       fd.level = 5;
       saveInstance.friends = new FriendDescriptor[]{fd};

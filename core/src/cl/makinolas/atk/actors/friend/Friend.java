@@ -54,4 +54,14 @@ public interface Friend {
 
   void setIvs(int individualValue);
   int getIvs();
+  void setEvs(int effortValue1, int effortValue2);
+  int getEv1();
+  int getEv2();
+  void addHpEv(int n);
+  void addAttackEv(int n);
+  void addDefenseEv(int n);
+  void addSpAttackEv(int n);
+  void addSpDefenseEv(int n);
+  void addSpeedEv(int n);
+
 }

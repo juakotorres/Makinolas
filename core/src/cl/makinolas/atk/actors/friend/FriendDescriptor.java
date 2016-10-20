@@ -6,5 +6,7 @@ public class FriendDescriptor {
   public int level;
   public int exp;
   public int individualValue;
+  public int ev1;
+  public int ev2;
   
 }

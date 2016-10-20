@@ -636,10 +636,11 @@ public class MonsterFactory {
     return map.get(nameFriend.toLowerCase()).giveLongRangeEnemy(level, position); 
   }
   
-  public Friend getHeroFriend(String nameFriend, int level, double exp, int individualValue){
+  public Friend getHeroFriend(String nameFriend, int level, double exp, int individualValue, int ev1, int ev2){
     Friend f = map.get(nameFriend.toLowerCase()).giveFriend(level);
     f.setExp(exp);
     f.setIvs(individualValue);
+    f.setEvs(ev1, ev2);
     return f;
   }
 

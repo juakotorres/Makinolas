@@ -43,14 +43,14 @@ public class Formulas {
   }
 
   // stats formula
-  public static int getOtherStatWithIV(int baseStat, int level, int iv){
-    return (int) ((double)((2 * baseStat + iv) * level) / 100) + 5;
+  public static int getOtherStatWithIV(int baseStat, int level, int iv, int evStat){
+    return (int) ((double)((2 * baseStat + iv + ((double)evStat)/4) * level) / 100) + 5;
   }
 
   // hp formula
-  public static int getHpStatWithIV(int baseStat, int level, int iv){
+  public static int getHpStatWithIV(int baseStat, int level, int iv, int evStat){
 
-    return (int) ((double) ((2 * baseStat + iv) * level) / 100) + level + 10;
+    return (int) ((double) ((2 * baseStat + iv + ((double)evStat)/4) * level) / 100) + level + 10;
   }
 
 
