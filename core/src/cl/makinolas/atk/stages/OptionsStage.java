@@ -16,13 +16,11 @@ import cl.makinolas.atk.screen.GameScreen;
 import cl.makinolas.atk.screen.MenuScreen;
 
 public class OptionsStage extends AbstractStage {
-	private Game myGame;
 	private Slider volumeSlider;
 	private Slider brightnessSlider;
 	
 	public OptionsStage(Viewport v, GameScreen gameScreen, Game myGame) {
 		super(v);
-		this.myGame = myGame;
 		
 	    addActor(new Title("Background/atk.png", 320, 350));
 	    addActor(new Background("Background/MenuBackground.jpg", getCamera()));
@@ -30,15 +28,16 @@ public class OptionsStage extends AbstractStage {
 	    	music = Gdx.audio.newMusic(Gdx.files.internal("Music/Never-Gonna-Give-You-Up.mp3"));
 	    music.setLooping(true);
 	    music.play();
+	    Skin sharedSkin = new Skin(Gdx.files.internal("Data/uiskin.json"));
 	    
 	    // Buttons
-	    TextButton menuButton = new TextButton("Back to menu", new Skin(Gdx.files.internal("Data/uiskin.json")));
-	    TextButton soundButton = new TextButton("*Volume", new Skin(Gdx.files.internal("Data/uiskin.json")));
-	    TextButton brightnessButton = new TextButton("*Brightness", new Skin(Gdx.files.internal("Data/uiskin.json")));
-	    TextButton windowedButton = new TextButton("Windowed", new Skin(Gdx.files.internal("Data/uiskin.json")));
-	    TextButton fullscreenButton = new TextButton("Full Screen", new Skin(Gdx.files.internal("Data/uiskin.json")));
-	    volumeSlider = new Slider(0.0f, 1.0f, 0.1f, false, new Skin(Gdx.files.internal("Data/uiskin.json")));
-	    brightnessSlider = new Slider(0.0f, 1.0f, 0.1f, false, new Skin(Gdx.files.internal("Data/uiskin.json")));
+	    TextButton menuButton = new TextButton("Back to menu", sharedSkin);
+	    TextButton soundButton = new TextButton("*Volume", sharedSkin);
+	    TextButton brightnessButton = new TextButton("*Brightness", sharedSkin);
+	    TextButton windowedButton = new TextButton("Windowed", sharedSkin);
+	    TextButton fullscreenButton = new TextButton("Full Screen", sharedSkin);
+	    volumeSlider = new Slider(0.0f, 1.0f, 0.1f, false, sharedSkin);
+	    brightnessSlider = new Slider(0.0f, 1.0f, 0.1f, false, sharedSkin);
 	    
 	    // Positions
 	    menuButton.setPosition(500, 50);
@@ -54,21 +53,23 @@ public class OptionsStage extends AbstractStage {
 	    menuButton.addListener(new ClickListener(){
 	        @Override
 	        public void clicked(InputEvent event, float x, float y) {
-	          MainMenu();
+	        	music.stop();
+	  	    	MenuScreen menuScreen = new MenuScreen(myGame);
+	  	    	myGame.setScreen(menuScreen);	  
 	        }
 	    });
 	    
 	    windowedButton.addListener(new ClickListener(){
 	        @Override
 	        public void clicked(InputEvent event, float x, float y) {
-	          windowed();
+	        	Gdx.graphics.setWindowedMode(640, 480);
 	        }
 	    });
 	    
 	    fullscreenButton.addListener(new ClickListener(){
 	        @Override
 	        public void clicked(InputEvent event, float x, float y) {
-	          fullscreen();
+	        	Gdx.graphics.setFullscreenMode(Gdx.graphics.getDisplayMode());
 	        }
 	    });
 	    
@@ -82,28 +83,28 @@ public class OptionsStage extends AbstractStage {
 	    volumeSlider.addListener(new ClickListener(){
 	        @Override
 	        public void clicked(InputEvent event, float x, float y) {
-	          setVolume();
+	        	music.setVolume(volumeSlider.getPercent());
 	        }
 	    });
 	    
 	    volumeSlider.addListener(new DragListener(){
 	        @Override
 	        public void drag(InputEvent event, float x, float y, int pointer) {
-	          setVolume();
+	        	music.setVolume(volumeSlider.getPercent());
 	        }
 	    });
 	    
 	    brightnessSlider.addListener(new ClickListener(){
 	        @Override
 	        public void clicked(InputEvent event, float x, float y) {
-	          setBrightness();
+	        	System.out.println("TODO: Implementar brillo");
 	        }
 	    });
 	    
 	    brightnessSlider.addListener(new DragListener(){
 	        @Override
 	        public void drag(InputEvent event, float x, float y, int pointer) {
-	          setBrightness();
+	        	System.out.println("TODO: Implementar brillo");
 	        }
 	    });
 	    
@@ -115,34 +116,6 @@ public class OptionsStage extends AbstractStage {
 	    addActor(brightnessSlider);
 	    addActor(windowedButton);
 	    addActor(fullscreenButton);	    
-	}
-	
-	// Listener methods
-	
-	protected void MainMenu() {
-		music.stop();
-	    MenuScreen menuScreen = new MenuScreen(myGame);
-	    myGame.setScreen(menuScreen);	    
-	}
-	
-	protected void windowed() {
-		Gdx.graphics.setWindowedMode(640, 480);
-	}
-	
-	protected void fullscreen() {
-		Gdx.graphics.setFullscreenMode(Gdx.graphics.getDisplayMode());
-	}
-	
-	protected void startMusic() {
-		music.play();
-	}
-	
-	protected void setVolume() {
-		music.setVolume(volumeSlider.getPercent());
-	}
-	
-	protected void setBrightness() {
-		System.out.println("TODO: Implementar brillo");
 	}
 
 	@Override
