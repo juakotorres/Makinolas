@@ -23,37 +23,29 @@ import com.badlogic.gdx.physics.box2d.World;
 
 public class GroudonBoss extends Boss {
 
-    private float vx;
-    private enum State {IDLE, THROWING_ROCKS, JUMPING, FIREWALL};
-    private State state;
     private float maxHealth;
     private World myWorld;
     private Hero hero;
-    private float nextEnemyAttackAt, nextRockAt;
+    private float nextRockAt;
     private int numRocks;
     private float jumpTime;
     private int jumpDirection;
 
     public GroudonBoss(World myWorld, Hero hero) {
-
+        super();
         health = 150;
         maxHealth = 150;
         jumpDirection = 1;
         width = 39;
         height = 33;
-        parent = new OldMewtwo();
-        nextEnemyAttackAt = 1f;
         isAttacking = true;
-        isLaunchingAttack = false;
         isFacingRight = false;
         vx = 0;
-        state = State.IDLE;
+        parent = new OldMewtwo();
         this.hero = hero;
         healthBar = new HBarFliped(health, health, 20, 133, new TextureRegion( new Texture(Gdx.files.internal("Overlays/bar_green.png"))));
         isDamaged = false;
         dead = false;
-        accumulator = 0;
-        accumulatorAttack = 0;
         this.myWorld = myWorld;
 
         // Definición del cuerpo del jugador.
@@ -79,62 +71,59 @@ public class GroudonBoss extends Boss {
         setAnimation(new TextureRegion(new Texture(Gdx.files.internal("Actors/Groudon.png"))), 64, 55);
         hurtAnimation = addAnimation(0.2f, 2);
         walkAnimation = addAnimation(0.2f, 3,4,5,6);
-        attackAnimation = addAnimation(0.2f, 7,8);
-        secondaryAttackAnimation = addAnimation(0.2f, 2);
         changeAnimation(walkAnimation);
-
     }
 
     @Override
-    public void act(float delta) {
-        super.act(delta);
-
-        if(state == State.IDLE){
-            myBody.setLinearVelocity(0,myBody.getLinearVelocity().y);
-            nextEnemyAttackAt -= delta;
-            if(nextEnemyAttackAt < 0){
-                nextEnemyAttackAt = (float) (Math.random()*2+0.5);
-                float r = (float) Math.random();
-                if(r<0.4f) {
-                    numRocks = (int) (8 - 7*health/maxHealth);
-                    nextRockAt = 0;
-                    state = State.THROWING_ROCKS;
-                }
-                else if(r < 0.8f)
-                    state = State.FIREWALL;
-                else {
-                    jumpTime = (jumpDirection + 1)/2;
-                    jumpDirection *= -1;
-                    state = State.JUMPING;
+    public void defineStates() {
+        RandomProcessor processor = new RandomProcessor(1.5f);
+        setProcessor(processor);
+        BossState fireball = new BossState(processor){
+            @Override
+            public void act(float delta) {
+                generateFirewalls();
+                health = (int) Math.min(maxHealth,health+5);
+                goBack();
+            }
+        };
+        BossState rocks = new BossState(processor){
+            @Override
+            public void onChoose() {
+                numRocks = (int) (8 - 7*health/maxHealth);
+                nextRockAt = 0;
+            }
+            @Override
+            public void act(float delta) {
+                nextRockAt -= delta;
+                if(nextRockAt <= 0){
+                    nextRockAt = 0.5f;
+                    throwRock();
+                    numRocks--;
+                    if(numRocks <= 0)
+                        goBack();
                 }
             }
-        }
-        else if(state == State.FIREWALL) {
-            generateFirewalls();
-            health = (int) Math.min(maxHealth,health+5);
-            state = State.IDLE;
-        }
-        else if(state == State.THROWING_ROCKS){
-            nextRockAt -= delta;
-            if(nextRockAt <= 0){
-                nextRockAt = 0.5f;
-                throwRock();
-                numRocks--;
-                if(numRocks <= 0)
-                    state = State.IDLE;
-            }
-        }
-        else if(state == State.JUMPING){
-            jumpTime += jumpDirection * delta;
-            //System.out.println(jumpTime);
-            if(jumpTime >= 1 || jumpTime <= 0) {
+        };
+        BossState jump = new BossState(processor){
+            @Override
+            public void onChoose() {
                 jumpTime = (jumpDirection + 1)/2;
-                myBody.setAwake(true);
-                isFacingRight = !isFacingRight;
-                state = State.IDLE;
+                jumpDirection *= -1;
             }
-            myBody.setTransform(new Vector2(4+jumpTime*20,2 + 16*jumpTime*(1-jumpTime)),0);
-        }
+            @Override
+            public void act(float delta) {
+                jumpTime += jumpDirection * delta;
+                if(jumpTime >= 1 || jumpTime <= 0) {
+                    jumpTime = (jumpDirection + 1)/2;
+                    myBody.setAwake(true);
+                    isFacingRight = !isFacingRight;
+                    goBack();
+                }
+                myBody.setTransform(new Vector2(4+jumpTime*20,2 + 16*jumpTime*(1-jumpTime)),0);
+            }
+        };
+        processor.addStates(fireball,rocks,jump);
+        processor.setProbabilities(0.4f,0.4f,0.2f);
     }
 
     private void generateFirewalls() {
