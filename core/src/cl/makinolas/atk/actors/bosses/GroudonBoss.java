@@ -10,6 +10,7 @@ import cl.makinolas.atk.actors.attacks.DirectionAttack;
 import cl.makinolas.atk.actors.attacks.DroppingAttack;
 import cl.makinolas.atk.actors.attacks.states.FireWallState;
 import cl.makinolas.atk.actors.attacks.states.TRockState;
+import cl.makinolas.atk.actors.friend.Groudon;
 import cl.makinolas.atk.actors.friend.OldMewtwo;
 import cl.makinolas.atk.stages.AbstractStage;
 import com.badlogic.gdx.Gdx;
@@ -33,7 +34,7 @@ public class GroudonBoss extends Boss {
 
     public GroudonBoss(World myWorld, Hero hero) {
         super();
-        health = 150;
+        health = 200;
         maxHealth = 150;
         jumpDirection = 1;
         width = 39;
@@ -41,7 +42,7 @@ public class GroudonBoss extends Boss {
         isAttacking = true;
         isFacingRight = false;
         vx = 0;
-        parent = new OldMewtwo();
+        parent = new Groudon();
         this.hero = hero;
         healthBar = new HBarFliped(health, health, 20, 133, new TextureRegion( new Texture(Gdx.files.internal("Overlays/bar_green.png"))));
         isDamaged = false;
@@ -83,6 +84,7 @@ public class GroudonBoss extends Boss {
             public void act(float delta) {
                 generateFirewalls();
                 health = (int) Math.min(maxHealth,health+5);
+                healthBar.setCurrent(health);
                 goBack();
             }
         };
