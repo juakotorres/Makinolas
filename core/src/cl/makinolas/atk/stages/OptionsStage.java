@@ -16,7 +16,7 @@ import cl.makinolas.atk.screen.GameScreen;
 import cl.makinolas.atk.screen.MenuScreen;
 
 public class OptionsStage extends AbstractStage {
-	private Slider volumeSlider;
+	private static Slider volumeSlider;
 	private Slider brightnessSlider;
 	
 	public OptionsStage(Viewport v, GameScreen gameScreen, Game myGame) {
@@ -121,5 +121,9 @@ public class OptionsStage extends AbstractStage {
 	@Override
 	public void changeCamera(float x, float y) {
 		// Does nothing here
+	}
+	
+	public static float getMusicVolume() {
+		return volumeSlider.getPercent();
 	}
 }

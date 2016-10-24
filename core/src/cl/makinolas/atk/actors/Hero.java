@@ -576,7 +576,7 @@ public class Hero extends Monsters {
     AbstractStage myStage = ((AbstractStage) getStage());
     Levels actualLevel = myStage.getLevel();
     
-    myStage.music.dispose();
+    AbstractStage.music.stop();
 
     int[] levels = actualLevel.unlockableLevels;
     for(int level : levels){
