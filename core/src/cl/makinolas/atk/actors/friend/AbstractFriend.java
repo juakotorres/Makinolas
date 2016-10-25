@@ -46,7 +46,7 @@ public abstract class AbstractFriend implements Friend {
   protected Level level;
   private int actualEvolution;
   public Enemies friend;
-  public ArrayList<IType> type;
+  public ArrayList<IType> type = new ArrayList<IType>();
   
   protected void setCutSprites(int width, int height){
     this.cutSprites = new int[]{width, height};
@@ -506,6 +506,11 @@ public abstract class AbstractFriend implements Friend {
   @Override
   public void addType(IType type){
 	  this.type.add(type);
+  }
+  
+  @Override
+  public void resetType(){
+	  this.type = new ArrayList<IType>();
   }
   
 }

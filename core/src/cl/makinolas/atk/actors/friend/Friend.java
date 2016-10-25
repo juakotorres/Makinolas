@@ -45,6 +45,7 @@ public interface Friend {
   public int getSpecialDefense();
   public ArrayList<IType> getType();
   public void addType(IType type);
+  public void resetType();
 
   int getCatchRate();
 

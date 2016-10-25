@@ -9,7 +9,10 @@ import cl.makinolas.atk.actors.Monsters;
 import cl.makinolas.atk.actors.attacks.Attacks;
 import cl.makinolas.atk.actors.attacks.CloseRangeAttack;
 import cl.makinolas.atk.actors.attacks.states.VineWhipState;
+import cl.makinolas.atk.types.BugType;
+import cl.makinolas.atk.types.FlyingType;
 import cl.makinolas.atk.types.IType;
+import cl.makinolas.atk.types.SteelType;
 
 public class Scyther extends AbstractFriend {
   
@@ -30,6 +33,8 @@ public class Scyther extends AbstractFriend {
     initDead();
     setActualEvolution(0);
     setMaxMagic(1000);
+    addType(new BugType());
+    addType(new FlyingType());
   }
   
   public Scyther(int level){
@@ -60,6 +65,9 @@ public class Scyther extends AbstractFriend {
       setActualEvolution(1);
       setStats();
       setMaxMagic(1000);
+      resetType();
+      addType(new BugType());
+      addType(new SteelType());      
     } 
   }
   

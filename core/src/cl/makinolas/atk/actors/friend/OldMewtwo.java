@@ -10,6 +10,7 @@ import cl.makinolas.atk.actors.attacks.Attacks;
 import cl.makinolas.atk.actors.attacks.ShootAttack;
 import cl.makinolas.atk.actors.attacks.states.BlueBeamState;
 import cl.makinolas.atk.types.IType;
+import cl.makinolas.atk.types.PsychicType;
 //
 public class OldMewtwo extends AbstractFriend {
   
@@ -31,6 +32,7 @@ public class OldMewtwo extends AbstractFriend {
     setActualEvolution(0);
     setStats();
     setMaxMagic(1000);
+    addType(new PsychicType());
   }
   
   @Override

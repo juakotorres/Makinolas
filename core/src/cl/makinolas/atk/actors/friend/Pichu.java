@@ -9,6 +9,7 @@ import cl.makinolas.atk.actors.Monsters;
 import cl.makinolas.atk.actors.attacks.Attacks;
 import cl.makinolas.atk.actors.attacks.BombAttack;
 import cl.makinolas.atk.actors.attacks.states.ThunderBoltState;
+import cl.makinolas.atk.types.ElectricType;
 import cl.makinolas.atk.types.IType;
 
 public class Pichu extends AbstractFriend {
@@ -30,6 +31,7 @@ public class Pichu extends AbstractFriend {
     initDead();
     setActualEvolution(0);
     setMaxMagic(1000);
+    addType(new ElectricType());
   }
   
   public Pichu(int level){
