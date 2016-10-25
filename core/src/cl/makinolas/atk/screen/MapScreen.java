@@ -1,5 +1,6 @@
 package cl.makinolas.atk.screen;
 
+import cl.makinolas.atk.stages.Levels;
 import cl.makinolas.atk.stages.MapStage;
 import com.badlogic.gdx.Game;
 import com.badlogic.gdx.scenes.scene2d.Stage;
@@ -12,7 +13,7 @@ public class MapScreen extends SimpleScreen {
     }
 
     public MapScreen(Game game){
-        super(game, new MapStage(new FitViewport(640, 480),game));
+        super(game, new MapStage(new FitViewport(640, 480),game, Levels.LEVEL1.levelSpot));
     }
 
 }

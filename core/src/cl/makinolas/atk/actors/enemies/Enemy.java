@@ -217,6 +217,7 @@ public class Enemy extends Monsters {
     healthBar.setCurrent(health);
     if(health <= 0){
       source.gainExperience(getLevel(), type);
+      source.gainEffortValues(type);
       Hero.getInstance().earnMoney(getLevel(), type);
       ItemFinder.getInstance().requestDrop(myBody.getPosition().x,myBody.getPosition().y,getStage(),myWorld);
       setDead();     
@@ -269,7 +270,7 @@ public class Enemy extends Monsters {
 
   @Override
   public void interactWithBall(BallActor ball) {
-    if(free && Formulas.checkCatch(ball.getType().catchability/100f,0.9f,health,100)){
+    if(free && Formulas.checkCatch(ball.getType().catchability/100f,parent.getCatchRate(),health,parent.getMaxHealth())){
       ball.roll(3, new BallActor.BrokeListener() {
         @Override
         public void onBroke(float x, float y) {
@@ -331,6 +332,9 @@ public class Enemy extends Monsters {
   public boolean isEnemy(){
     return true;
   }
+
+  @Override
+  public void endInteraction(GameActor actor2, WorldManifold worldManifold) {}
 
   public void jump() {}
 

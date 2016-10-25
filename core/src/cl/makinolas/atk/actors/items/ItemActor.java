@@ -3,7 +3,6 @@ package cl.makinolas.atk.actors.items;
 import cl.makinolas.atk.actors.GameActor;
 import cl.makinolas.atk.actors.Hero;
 import com.badlogic.gdx.graphics.g2d.Batch;
-import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.*;
 
@@ -75,6 +74,9 @@ public class ItemActor extends GameActor {
     }
 
     @Override
+    public void endInteraction(GameActor actor2, WorldManifold worldManifold) {}
+
+  @Override
     public boolean isItem() {
         return initialized;
     }

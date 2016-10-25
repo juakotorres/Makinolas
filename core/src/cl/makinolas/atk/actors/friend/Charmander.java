@@ -9,8 +9,6 @@ import com.badlogic.gdx.physics.box2d.World;
 
 import cl.makinolas.atk.actors.Monsters;
 import cl.makinolas.atk.actors.attacks.Attacks;
-import cl.makinolas.atk.actors.attacks.BombAttack;
-import cl.makinolas.atk.actors.attacks.states.EmberState;
 
 public class Charmander extends AbstractFriend {
   
@@ -29,6 +27,7 @@ public class Charmander extends AbstractFriend {
     setFaceSprite(faces[0][0]);
     initLevel(5);
     initDead();
+    newMonster();
     setActualEvolution(0);
     setMaxMagic(1000);
   }

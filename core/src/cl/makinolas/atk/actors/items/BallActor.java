@@ -60,6 +60,9 @@ public class BallActor extends GameActor {
     }
 
     @Override
+    public void endInteraction(GameActor actor2, WorldManifold worldManifold) {}
+
+    @Override
     public void interactWithEnemy(Enemy enemy, WorldManifold worldManifold) {
         enemy.interactWithBall(this);
     }

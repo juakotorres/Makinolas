@@ -3,6 +3,7 @@ package cl.makinolas.atk.actors;
 import cl.makinolas.atk.actors.attacks.Attacks;
 import cl.makinolas.atk.actors.attacks.MeleeAttack;
 import cl.makinolas.atk.actors.friend.Enemies;
+import cl.makinolas.atk.actors.friend.EvStates.EvState;
 import cl.makinolas.atk.actors.friend.Friend;
 
 public abstract class Monsters extends AnimatedActor {
@@ -48,5 +49,11 @@ public abstract class Monsters extends AnimatedActor {
     return false;
   }
 
+  public void gainEffortValues(Enemies type) {
+    EvState[] states = type.evState;
+    for(EvState actualState : states){
+      actualState.addEffortValue(this);
+    }
+  }
 }
 
