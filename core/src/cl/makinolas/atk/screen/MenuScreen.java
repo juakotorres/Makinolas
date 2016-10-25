@@ -37,16 +37,26 @@ public class MenuScreen extends SimpleScreen {
       }
     });
     TextButton optionButton = new TextButton("Options",  new Skin(Gdx.files.internal("Data/uiskin.json")));
+    TextButton newGame = new TextButton("New Game",  new Skin(Gdx.files.internal("Data/uiskin.json")));
+    newGame.addListener(new ClickListener(){
+      @Override
+      public void clicked(InputEvent event, float x, float y) {
+        loadGame();
+      }
+    });
 
     loadButton.setPosition(270, 200);
     optionButton.setPosition(270, 120);
     minigameButton.setPosition(270, 160);
+    newGame.setPosition(270, 80);
+    newGame.setWidth(100);
     loadButton.setWidth(100);
     optionButton.setWidth(100);
     minigameButton.setWidth(100);
     stage.addActor(minigameButton);
     stage.addActor(loadButton);
     stage.addActor(optionButton);
+    stage.addActor(newGame);
   }
   
   protected void minigame() {

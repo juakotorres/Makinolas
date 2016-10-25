@@ -77,6 +77,8 @@ public class LoadStage extends Stage {
 
     //setupCamera();
   }
+
+
   
   protected void MainMenu() {
     MenuScreen menuScreen = new MenuScreen(myGame);
