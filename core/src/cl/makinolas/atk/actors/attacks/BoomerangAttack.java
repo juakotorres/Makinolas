@@ -6,6 +6,7 @@ import com.badlogic.gdx.physics.box2d.WorldManifold;
 
 import cl.makinolas.atk.actors.Monsters;
 import cl.makinolas.atk.actors.attacks.states.SpriteState;
+import cl.makinolas.atk.types.IType;
 
 public class BoomerangAttack extends ShootAttack {
   
@@ -20,8 +21,8 @@ public class BoomerangAttack extends ShootAttack {
   private boolean isReturning;
   private Vector2 sourceReturningPosition;
     
-  public BoomerangAttack(SpriteState spriteState, World myWorld, float x, float y, boolean facingRight, Monsters source, boolean rotated) {
-    super(spriteState, myWorld, x, y, facingRight, source, rotated);
+  public BoomerangAttack(SpriteState spriteState, World myWorld, float x, float y, boolean facingRight, Monsters source, boolean rotated, IType type) {
+    super(spriteState, myWorld, x, y, facingRight, source, rotated, type);
     
     accumulator = 0;
     bankVelocity = xVelocity;

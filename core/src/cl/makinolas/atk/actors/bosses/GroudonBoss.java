@@ -13,6 +13,9 @@ import cl.makinolas.atk.actors.attacks.states.TRockState;
 import cl.makinolas.atk.actors.friend.Groudon;
 import cl.makinolas.atk.actors.friend.OldMewtwo;
 import cl.makinolas.atk.stages.AbstractStage;
+import cl.makinolas.atk.types.FireType;
+import cl.makinolas.atk.types.RockType;
+
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
@@ -130,14 +133,14 @@ public class GroudonBoss extends Boss {
 
     private void generateFirewalls() {
         Vector2 pos = myBody.getPosition();
-        GameActor wall = new BombAttack(new FireWallState(),myWorld,pos.x+1-2*jumpDirection,pos.y,false,this);
+        GameActor wall = new BombAttack(new FireWallState(),myWorld,pos.x+1-2*jumpDirection,pos.y,false,this, new FireType());
         ((AbstractStage) getStage()).addGameActor(wall);
     }
 
     private void throwRock() {
         Vector2 pos = myBody.getPosition();
         GameActor rock = new DirectionAttack(new TRockState(),myWorld,pos.x-1,pos.y+3,
-                hero.getBody().getPosition().x,hero.getBody().getPosition().y,300,this);
+                hero.getBody().getPosition().x,hero.getBody().getPosition().y,300,this, new RockType());
         ((AbstractStage) getStage()).addGameActor(rock);
     }
 

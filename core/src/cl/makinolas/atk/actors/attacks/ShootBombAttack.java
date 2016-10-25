@@ -6,12 +6,13 @@ import com.badlogic.gdx.physics.box2d.WorldManifold;
 import cl.makinolas.atk.actors.Monsters;
 import cl.makinolas.atk.actors.attacks.states.SpriteState;
 import cl.makinolas.atk.actors.platform.Platform;
+import cl.makinolas.atk.types.IType;
 
 public class ShootBombAttack extends BombAttack{
 
   public ShootBombAttack(SpriteState spriteState, World myWorld, float x, float y, boolean facingRight,
-      Monsters source) {
-    super(spriteState, myWorld, x, y, facingRight, source);
+      Monsters source, IType type) {
+    super(spriteState, myWorld, x, y, facingRight, source, type);
     this.xVelocity = (facingRight)? 10: -10;
   }
   

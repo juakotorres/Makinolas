@@ -18,6 +18,8 @@ import cl.makinolas.atk.actors.attacks.ShootAttack;
 import cl.makinolas.atk.actors.attacks.states.BlueBeamState;
 import cl.makinolas.atk.actors.friend.OldMewtwo;
 import cl.makinolas.atk.stages.AbstractStage;
+import cl.makinolas.atk.types.FireType;
+import cl.makinolas.atk.types.WaterType;
 
 public abstract class OldMewtwoBoss extends Boss {
   
@@ -118,11 +120,11 @@ public abstract class OldMewtwoBoss extends Boss {
   }
   
   private void finalAttack() {
-    GameActor fireball = new DroppingAttack(new BlueBeamState(), myWorld,4,10,isFacingRight, this);
-    GameActor fireball2 = new DroppingAttack(new BlueBeamState(), myWorld, 9,10,isFacingRight, this);
-    GameActor fireball3 = new DroppingAttack(new BlueBeamState(), myWorld, 14,10,isFacingRight, this);
-    GameActor fireball4 = new DroppingAttack(new BlueBeamState(), myWorld, 19,10,isFacingRight, this);
-    GameActor fireball5 = new DroppingAttack(new BlueBeamState(), myWorld, 24,10,isFacingRight, this);
+    GameActor fireball = new DroppingAttack(new BlueBeamState(), myWorld,4,10,isFacingRight, this, new FireType());
+    GameActor fireball2 = new DroppingAttack(new BlueBeamState(), myWorld, 9,10,isFacingRight, this, new FireType());
+    GameActor fireball3 = new DroppingAttack(new BlueBeamState(), myWorld, 14,10,isFacingRight, this, new FireType());
+    GameActor fireball4 = new DroppingAttack(new BlueBeamState(), myWorld, 19,10,isFacingRight, this, new FireType());
+    GameActor fireball5 = new DroppingAttack(new BlueBeamState(), myWorld, 24,10,isFacingRight, this, new FireType());
     ((AbstractStage) getStage()).addGameActor(fireball);   
     ((AbstractStage) getStage()).addGameActor(fireball2);  
     ((AbstractStage) getStage()).addGameActor(fireball3);  
@@ -131,12 +133,12 @@ public abstract class OldMewtwoBoss extends Boss {
   }
 
   private void secondaryAttack() {
-    GameActor fireball = new AquaAttack(myWorld, myBody.getPosition().x,myBody.getPosition().y,isFacingRight, this);
+    GameActor fireball = new AquaAttack(myWorld, myBody.getPosition().x,myBody.getPosition().y,isFacingRight, this, new WaterType());
     ((AbstractStage) getStage()).addGameActor(fireball);
   }
 
   private void primaryAttack(){
-    GameActor fireball = new ShootAttack(new BlueBeamState(), myWorld, myBody.getPosition().x,myBody.getPosition().y,isFacingRight, this);
+    GameActor fireball = new ShootAttack(new BlueBeamState(), myWorld, myBody.getPosition().x,myBody.getPosition().y,isFacingRight, this, new FireType());
     ((AbstractStage) getStage()).addGameActor(fireball);
   }
   
