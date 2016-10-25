@@ -9,6 +9,7 @@ import cl.makinolas.atk.actors.Monsters;
 import cl.makinolas.atk.actors.attacks.Attacks;
 import cl.makinolas.atk.actors.attacks.ShootAttack;
 import cl.makinolas.atk.actors.attacks.states.BranchAttackState;
+import cl.makinolas.atk.types.GrassType;
 import cl.makinolas.atk.types.IType;
 
 public class Snivy extends AbstractFriend {
@@ -30,6 +31,7 @@ public class Snivy extends AbstractFriend {
     initDead();
     setActualEvolution(0);
     setMaxMagic(1000);
+    addType(new GrassType());
   }
   
   public Snivy(int level){

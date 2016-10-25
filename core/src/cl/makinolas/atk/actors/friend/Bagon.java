@@ -83,7 +83,8 @@ public class Bagon extends AbstractFriend {
   }
   
   @Override
-  public Attacks getFriendAttack(World myWorld, float x , float y, boolean facingRight, Monsters source, IType type){
-    return new ShootAttack(new DragonBreathState(), myWorld, x, y, facingRight, source, type);
+  public Attacks getFriendAttack(World myWorld, float x , float y, boolean facingRight, Monsters source){
+    return new ShootAttack(new DragonBreathState(), myWorld, x, y, facingRight, source, new DragonType());
   }
+
 }

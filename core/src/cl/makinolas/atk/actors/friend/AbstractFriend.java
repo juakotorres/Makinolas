@@ -20,6 +20,7 @@ import cl.makinolas.atk.actors.enemies.LongRangeEnemy;
 import cl.makinolas.atk.actors.enemies.PhysicalEnemy;
 import cl.makinolas.atk.actors.enemies.StayAndShootEnemy;
 import cl.makinolas.atk.actors.ui.MainBar;
+import cl.makinolas.atk.types.DragonType;
 import cl.makinolas.atk.types.IType;
 import cl.makinolas.atk.utils.Formulas;
 
@@ -448,8 +449,8 @@ public abstract class AbstractFriend implements Friend {
   }
   
   @Override
-  public Attacks getFriendAttack(World myWorld, float x , float y, boolean facingRight, Monsters source, IType type){
-    return new ShootAttack(new DragonBreathState(), myWorld, x, y, facingRight, source, type);
+  public Attacks getFriendAttack(World myWorld, float x , float y, boolean facingRight, Monsters source){
+    return new ShootAttack(new DragonBreathState(), myWorld, x, y, facingRight, source, new DragonType());
   }
   
   @Override
@@ -511,6 +512,11 @@ public abstract class AbstractFriend implements Friend {
   @Override
   public void resetType(){
 	  this.type = new ArrayList<IType>();
+  }
+  
+  @Override
+  public IType getTypeofAttack() {
+  	return new DragonType();
   }
   
 }

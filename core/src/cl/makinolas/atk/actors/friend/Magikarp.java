@@ -69,7 +69,10 @@ public class Magikarp extends AbstractFriend {
   
   
   @Override
-  public Attacks getFriendAttack(World myWorld, float x , float y, boolean facingRight, Monsters source, IType type){
-    return new ShootAttack(new WindShurikenState(), myWorld, x, y, facingRight, source, false, type);
+  public Attacks getFriendAttack(World myWorld, float x , float y, boolean facingRight, Monsters source){
+    return new ShootAttack(new WindShurikenState(), myWorld, x, y, facingRight, source, false, new WaterType());
   }
+  
+  
+  
 }

@@ -34,7 +34,7 @@ public class FlyWaveAndDropEnemy extends Enemy {
     accumulatorAttack += delta; 
     
     if(accumulatorAttack > attackTime){
-      Attacks attack = parent.getFriendAttack(myWorld, myBody.getPosition().x, myBody.getPosition().y - 1f, isFacingRight, this, parent.getType());
+      Attacks attack = parent.getFriendAttack(myWorld, myBody.getPosition().x, myBody.getPosition().y - 1f, isFacingRight, this, parent.getTypeofAttack());
       attack.isDropping();
       attack.setSource(this);
       ((AbstractStage) getStage()).addGameActor(attack);

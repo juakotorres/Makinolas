@@ -22,7 +22,7 @@ public interface Friend {
   public boolean getDead();
   public void isDead();
   public void setExp(double d);
-  public Attacks getFriendAttack(World myWorld, float x , float y, boolean facingRight, Monsters source, IType type);
+  public Attacks getFriendAttack(World myWorld, float x , float y, boolean facingRight, Monsters source);
   public int[][] getIdleAnimation();
   public int[][] getHurtAnimation();
   public int[][] getWalkAnimation();
@@ -46,6 +46,7 @@ public interface Friend {
   public ArrayList<IType> getType();
   public void addType(IType type);
   public void resetType();
+  public IType getTypeofAttack();
 
   int getCatchRate();
 
