@@ -3,11 +3,12 @@ package cl.makinolas.atk.actors.attacks;
 import cl.makinolas.atk.actors.Monsters;
 import cl.makinolas.atk.actors.attacks.states.NullSpriteState;
 import cl.makinolas.atk.actors.attacks.states.SpriteState;
+import cl.makinolas.atk.types.NormalType;
 
 public class MeleeAttack extends Attacks {
   
   public MeleeAttack(Monsters monster){
-    super(null, 0, 0, false, monster, false);
+    super(null, 0, 0, false, monster, false, new NormalType());
     xVelocity =0;
     
     SpriteState spriteState = new NullSpriteState();

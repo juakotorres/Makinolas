@@ -4,16 +4,17 @@ import com.badlogic.gdx.physics.box2d.World;
 
 import cl.makinolas.atk.actors.Monsters;
 import cl.makinolas.atk.actors.attacks.states.SpriteState;
+import cl.makinolas.atk.types.IType;
 
 public class ShootAttack extends Attacks {
   
-  public ShootAttack(SpriteState spriteState, World myWorld, float x , float y, boolean facingRight, Monsters source){
-    this(spriteState, myWorld, x, y, facingRight, source, false);
+  public ShootAttack(SpriteState spriteState, World myWorld, float x , float y, boolean facingRight, Monsters source, IType type){
+    this(spriteState, myWorld, x, y, facingRight, source, false, type);
   }
   
   public ShootAttack(SpriteState spriteState, World myWorld, float x , float y, boolean facingRight, 
-                      Monsters source, boolean rotated){
-    super(myWorld, x, y, facingRight, source, rotated);
+                      Monsters source, boolean rotated, IType type){
+    super(myWorld, x, y, facingRight, source, rotated, type);
     
     mySpriteState = spriteState;
     
