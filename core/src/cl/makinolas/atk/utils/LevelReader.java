@@ -28,6 +28,7 @@ public class LevelReader {
     private Vector2 heroPos;
     private AbstractStage gameStage;
     private Group decorations;
+    private String boss;
 
     private LevelReader() {
         heroPos = new Vector2(2, 3);
@@ -56,6 +57,7 @@ public class LevelReader {
 
         Array<GameActor> platforms = new Array<GameActor>();
         decorations.clearChildren();
+        boss = "";
         String line = reader.readLine();
         while (line != null) {
             String[] comps = line.split(",");
@@ -77,6 +79,9 @@ public class LevelReader {
                 case "%D":
                     decorations.addActor(new Title(PlatformResource.getInstance().getRegionWithCode(comps[1]),
                             Integer.parseInt(comps[2])* GameConstants.WORLD_FACTOR,Integer.parseInt(comps[3])* GameConstants.WORLD_FACTOR));
+                    break;
+                case "%B":
+                    boss = comps[1];
                     break;
                 case "%BreakP":
                     platforms.add(new BreakablePlatform(world, Integer.parseInt(comps[1]),
@@ -111,4 +116,7 @@ public class LevelReader {
         return decorations;
     }
 
+    public String getBoss() {
+        return boss;
+    }
 }

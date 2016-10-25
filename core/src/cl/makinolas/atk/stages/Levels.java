@@ -69,7 +69,7 @@ public enum Levels {
       false,
       26,
       20,
-      "Background/SuPuente.jpg",
+      "Background/Pradera.png",
       "Music/Freesia.mp3",
       new Spot(26, 20,  new NullSpot(), new NullSpot(), LEVEL1.levelSpot, new NullSpot()),
       9),

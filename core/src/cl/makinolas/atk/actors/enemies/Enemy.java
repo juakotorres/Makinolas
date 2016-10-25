@@ -217,6 +217,7 @@ public class Enemy extends Monsters {
     healthBar.setCurrent(health);
     if(health <= 0){
       source.gainExperience(getLevel(), type);
+      source.gainEffortValues(type);
       Hero.getInstance().earnMoney(getLevel(), type);
       ItemFinder.getInstance().requestDrop(myBody.getPosition().x,myBody.getPosition().y,getStage(),myWorld);
       setDead();     
