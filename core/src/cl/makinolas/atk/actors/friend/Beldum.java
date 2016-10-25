@@ -4,6 +4,9 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 
+import cl.makinolas.atk.types.PsychicType;
+import cl.makinolas.atk.types.SteelType;
+
 public class Beldum extends AbstractFriend {
   
   private TextureRegion[][] faces;
@@ -23,6 +26,8 @@ public class Beldum extends AbstractFriend {
     initDead();
     setActualEvolution(0);
     setMaxMagic(1000);
+    addType(new SteelType());
+    addType(new PsychicType());
   }
   
   public Beldum(int level){

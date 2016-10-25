@@ -4,6 +4,8 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 
+import cl.makinolas.atk.types.NormalType;
+
 public class Castform extends AbstractFriend {
 
   private TextureRegion[][] faces;
@@ -23,6 +25,7 @@ public class Castform extends AbstractFriend {
     initDead();
     setActualEvolution(0);
     setMaxMagic(1000);
+    addType(new NormalType());
   }
   
   public Castform(int level){

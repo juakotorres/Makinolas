@@ -1,6 +1,6 @@
 package cl.makinolas.atk.types;
 
-public class DragonType extends AbstractType implements IType {
+public class SteelType extends AbstractType implements IType {
 
 	@Override
 	public void attackWith(IType type) {

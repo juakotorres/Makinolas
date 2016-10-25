@@ -9,6 +9,8 @@ import cl.makinolas.atk.actors.Monsters;
 import cl.makinolas.atk.actors.attacks.Attacks;
 import cl.makinolas.atk.actors.attacks.DroppingAttack;
 import cl.makinolas.atk.actors.attacks.states.FallingLeafState;
+import cl.makinolas.atk.types.BugType;
+import cl.makinolas.atk.types.FlyingType;
 import cl.makinolas.atk.types.IType;
 
 public class Caterpie extends AbstractFriend {
@@ -30,6 +32,7 @@ public class Caterpie extends AbstractFriend {
     initDead();
     setActualEvolution(0);
     setMaxMagic(1000);
+    addType(new BugType());
   }
   
   public Caterpie(int level){
@@ -74,6 +77,7 @@ public class Caterpie extends AbstractFriend {
       setActualEvolution(2);
       setStats();
       setMaxMagic(1000);
+      addType(new FlyingType());
     }
   }
   
