@@ -74,4 +74,84 @@ public abstract class AbstractType implements IType{
 		return 1;
 	}
 	
+	@Override
+	public double monsterHasAttackedFromBug() {
+		return 1;
+	}
+
+	@Override
+	public double monsterHasAttackedFromDark() {
+		return 1;
+	}
+
+	@Override
+	public double monsterHasAttackedFromDragon() {
+		return 1;
+	}
+
+	@Override
+	public double monsterHasAttackedFromElectric() {
+		return 1;
+	}
+
+	@Override
+	public double monsterHasAttackedFromFairy() {
+		return 1;
+	}
+
+	@Override
+	public double monsterHasAttackedFromFire() {
+		return 1;
+	}
+
+	@Override
+	public double monsterHasAttackedFromFlying() {
+		return 1;
+	}
+
+	@Override
+	public double monsterHasAttackedFromGhost() {
+		return 1;
+	}
+
+	@Override
+	public double monsterHasAttackedFromGrass() {
+		return 1;
+	}
+
+	@Override
+	public double monsterHasAttackedFromGround() {
+		return 1;
+	}
+
+	@Override
+	public double monsterHasAttackedFromNormal() {
+		return 1;
+	}
+
+	@Override
+	public double monsterHasAttackedFromPoison() {
+		return 1;
+	}
+
+	@Override
+	public double monsterHasAttackedFromPsychic() {
+		return 1;
+	}
+
+	@Override
+	public double monsterHasAttackedFromRock() {
+		return 1;
+	}
+
+	@Override
+	public double monsterHasAttackedFromSteel() {
+		return 1;
+	}
+
+	@Override
+	public double monsterHasAttackedFromWater() {
+		return 1;
+	}
+	
 }

@@ -4,12 +4,12 @@ public class SteelType extends AbstractType implements IType {
 
 	@Override
 	public double attackFromType(IType type) {
-		return this.steelPokemonAttacks(type);
+		return type.steelPokemonAttacks(this);
 	}
 
 	@Override
 	public double attackToType(IType type) {
-		return 0;
+		return type.monsterHasAttackedFromSteel();
 	}
 
 	@Override

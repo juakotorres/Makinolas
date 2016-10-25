@@ -4,12 +4,12 @@ public class WaterType extends AbstractType implements IType {
 
 	@Override
 	public double attackFromType(IType type) {
-		return this.waterPokemonAttacks(type);
+		return type.waterPokemonAttacks(this);
 	}
 
 	@Override
 	public double attackToType(IType type) {
-		return 0;
+		return type.monsterHasAttackedFromWater();
 	}
 
 	@Override

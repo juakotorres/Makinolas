@@ -4,17 +4,42 @@ public class DarkType extends AbstractType implements IType {
 
 	@Override
 	public double attackFromType(IType type) {
-		return this.darkPokemonAttacks(type);
+		return type.darkPokemonAttacks(this);
 	}
 
 	@Override
 	public double attackToType(IType type) {
-		return 0;
+		return type.monsterHasAttackedFromDark();
 	}
 
 	@Override
 	public double darkPokemonAttacks(IType type) {
 		return 1.5;
+	}
+	
+	@Override
+	public double monsterHasAttackedFromBug() {
+		return 2;
+	}
+
+	@Override
+	public double monsterHasAttackedFromDark() {
+		return 0.5;
+	}
+
+	@Override
+	public double monsterHasAttackedFromFairy() {
+		return 2;
+	}
+
+	@Override
+	public double monsterHasAttackedFromGhost() {
+		return 0.5;
+	}
+
+	@Override
+	public double monsterHasAttackedFromPsychic() {
+		return 0;
 	}
 
 }

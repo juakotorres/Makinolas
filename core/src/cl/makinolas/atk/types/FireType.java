@@ -4,12 +4,12 @@ public class FireType extends AbstractType implements IType {
 
 	@Override
 	public double attackFromType(IType type) {
-		return this.firePokemonAttacks(type);
+		return type.firePokemonAttacks(this);
 	}
 
 	@Override
 	public double attackToType(IType type) {
-		return 0;
+		return type.monsterHasAttackedFromFire();
 	}
 
 	@Override

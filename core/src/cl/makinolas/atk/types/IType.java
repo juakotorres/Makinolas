@@ -22,6 +22,25 @@ public interface IType {
 	public double rockPokemonAttacks(IType type) ;
 	public double steelPokemonAttacks(IType type) ;
 	public double waterPokemonAttacks(IType type);
+
+	public double monsterHasAttackedFromBug();
+	public double monsterHasAttackedFromDark();
+	public double monsterHasAttackedFromDragon();
+	public double monsterHasAttackedFromElectric();
+	public double monsterHasAttackedFromFairy();
+	public double monsterHasAttackedFromFire();
+	public double monsterHasAttackedFromFlying();
+	public double monsterHasAttackedFromGhost();
+	public double monsterHasAttackedFromGrass();
+	public double monsterHasAttackedFromGround();
+	public double monsterHasAttackedFromNormal();
+	public double monsterHasAttackedFromPoison();
+	public double monsterHasAttackedFromPsychic();
+	public double monsterHasAttackedFromRock();
+	public double monsterHasAttackedFromSteel();
+	public double monsterHasAttackedFromWater();
+	
+	
 	
 	
 }

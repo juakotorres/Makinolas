@@ -4,12 +4,12 @@ public class RockType extends AbstractType implements IType {
 
 	@Override
 	public double attackFromType(IType type) {
-		return this.rockPokemonAttacks(type);
+		return type.rockPokemonAttacks(this);
 	}
 
 	@Override
 	public double attackToType(IType type) {
-		return 0;
+		return type.monsterHasAttackedFromRock();
 	}
 
 	@Override
