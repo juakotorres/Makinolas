@@ -77,14 +77,25 @@ public enum Enemies {
   SNIVY(28, 45, 45, 45, 55, 45, 55, 63, new EvSpeedState(1)),
   SERVINE(145, 45, 60, 60, 75, 60, 75, 83, new EvSpeedState(2)),
   SERPERIOR(238, 45, 75, 75, 95, 75, 95, 113, new EvSpeedState(3)),
+  
   /*agregados*/
+  
+  ELEKID(53, 45, 45, 63, 37, 65, 55, 95, new EvSpeedState(1)),
+  ELECTABUZZ(127, 45, 65, 83, 57, 95, 85, 105, new EvSpeedState(2)),
+  ELECTIVIRE(270, 45, 75, 123, 67, 95, 85, 95, new EvSpeedState(3)),
+  
+  MAGBY(47, 45, 45, 75, 47, 70, 55, 83, new EvSpeedState(1)),
+  MAGMAR(136, 45, 65, 95, 57, 100, 85, 93, new EvSpeedState(2)),
+  MAGMORTAR(270, 45, 75, 95, 67, 125, 95, 83, new EvSpeedState(3)),
   
   LARVITAR(60, 45, 50, 64, 50, 45, 50, 41, new EvSpeedState(1)),
   PUPITAR(144, 45, 70, 84, 70, 65, 70, 51, new EvSpeedState(2)),
   TYRANITAR(270, 45, 100, 134, 110, 95, 100, 61, new EvSpeedState(3)),
-  PIPLUP(),
   
-  EMPOLEON(),
+  PIPLUP(62, 45, 53, 51, 53, 61, 56, 40, new EvSpeedState(1)),
+  PRINPLUP(142, 45, 64, 66, 68, 81, 76, 50, new EvSpeedState(2)),
+  EMPOLEON(240, 45, 84, 86, 88, 111, 101, 60, new EvSpeedState(3)),
+  
   AXEW(60, 75, 46, 87, 60, 30, 40, 57, new EvSpeedState(1)),
   FRAXURE(144, 60, 66, 117, 70, 40, 50, 67, new EvSpeedState(2)),
   HAXORUS(270, 45, 76, 147, 90, 60, 70, 97, new EvSpeedState(3));
