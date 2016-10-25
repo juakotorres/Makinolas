@@ -2,7 +2,9 @@ package cl.makinolas.atk.stages;
 
 import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
+import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.Slider;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
@@ -19,7 +21,7 @@ public class OptionsStage extends AbstractStage {
 	private static Slider volumeSlider;
 	private Slider brightnessSlider;
 	
-	public OptionsStage(Viewport v, GameScreen gameScreen, Game myGame) {
+	public OptionsStage(Viewport v, GameScreen gameScreen, final Game myGame) {
 		super(v);
 		
 	    addActor(new Title("Background/atk.png", 320, 350));
@@ -29,25 +31,32 @@ public class OptionsStage extends AbstractStage {
 	    music.setLooping(true);
 	    music.play();
 	    Skin sharedSkin = new Skin(Gdx.files.internal("Data/uiskin.json"));
-	    
+
 	    // Buttons
 	    TextButton menuButton = new TextButton("Back to menu", sharedSkin);
-	    TextButton soundButton = new TextButton("*Volume", sharedSkin);
-	    TextButton brightnessButton = new TextButton("*Brightness", sharedSkin);
 	    TextButton windowedButton = new TextButton("Windowed", sharedSkin);
 	    TextButton fullscreenButton = new TextButton("Full Screen", sharedSkin);
+
+	    // Labels
+	    Label soundLabel = new Label("Music Volume", sharedSkin);
+	    Label brightnessLabel = new Label("*Brightness", sharedSkin);
+	    soundLabel.setColor(Color.BLACK);
+	    brightnessLabel.setColor(Color.BLACK);
+
+	    // Sliders
 	    volumeSlider = new Slider(0.0f, 1.0f, 0.1f, false, sharedSkin);
 	    brightnessSlider = new Slider(0.0f, 1.0f, 0.1f, false, sharedSkin);
-	    
+
 	    // Positions
 	    menuButton.setPosition(500, 50);
-	    soundButton.setPosition(270, 200);
-	    volumeSlider.setPosition(370, 200);
+	    soundLabel.setPosition(200, 200);
+	    brightnessLabel.setPosition(200, 160);
+	    volumeSlider.setPosition(320, 200);
 	    volumeSlider.setValue(music.getVolume());
-	    brightnessButton.setPosition(270, 160);
-	    brightnessSlider.setPosition(370, 160);
-	    windowedButton.setPosition(270, 120);
-	    fullscreenButton.setPosition(270, 80);
+	    brightnessSlider.setPosition(320, 160);
+	    
+	    windowedButton.setPosition(230, 120);
+	    fullscreenButton.setPosition(350, 120);
 	    
 	    // Listeners
 	    menuButton.addListener(new ClickListener(){
@@ -73,13 +82,6 @@ public class OptionsStage extends AbstractStage {
 	        }
 	    });
 	    
-	    brightnessButton.addListener(new ClickListener(){
-	        @Override
-	        public void clicked(InputEvent event, float x, float y) {
-	          // Nothing yet
-	        }
-	    });
-	    
 	    volumeSlider.addListener(new ClickListener(){
 	        @Override
 	        public void clicked(InputEvent event, float x, float y) {
@@ -97,6 +99,7 @@ public class OptionsStage extends AbstractStage {
 	    brightnessSlider.addListener(new ClickListener(){
 	        @Override
 	        public void clicked(InputEvent event, float x, float y) {
+	        	// TODO Brightness on click
 	        	System.out.println("TODO: Implementar brillo");
 	        }
 	    });
@@ -104,15 +107,16 @@ public class OptionsStage extends AbstractStage {
 	    brightnessSlider.addListener(new DragListener(){
 	        @Override
 	        public void drag(InputEvent event, float x, float y, int pointer) {
+	        	// TODO Brightness on drag
 	        	System.out.println("TODO: Implementar brillo");
 	        }
 	    });
 	    
 	    // Add to screen
 	    addActor(menuButton);
-	    addActor(soundButton);
+	    addActor(soundLabel);
 	    addActor(volumeSlider);
-	    addActor(brightnessButton);
+	    addActor(brightnessLabel);
 	    addActor(brightnessSlider);
 	    addActor(windowedButton);
 	    addActor(fullscreenButton);	    
