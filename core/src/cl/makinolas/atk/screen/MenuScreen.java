@@ -10,12 +10,9 @@ import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.utils.viewport.FitViewport;
 
 import cl.makinolas.atk.minigames.MinigameStage;
-import cl.makinolas.atk.stages.Levels;
 import cl.makinolas.atk.stages.LoadStage;
-import cl.makinolas.atk.stages.MapStage;
 import cl.makinolas.atk.stages.MenuStage;
-import cl.makinolas.atk.start.StartingJourneyStage;
-
+import cl.makinolas.atk.stages.OptionsStage;
 
 public class MenuScreen extends SimpleScreen {
 
@@ -37,6 +34,12 @@ public class MenuScreen extends SimpleScreen {
       }
     });
     TextButton optionButton = new TextButton("Options",  new Skin(Gdx.files.internal("Data/uiskin.json")));
+    optionButton.addListener(new ClickListener(){
+      @Override
+      public void clicked(InputEvent event, float x, float y) {
+          options();
+      }
+    });
 
     loadButton.setPosition(270, 200);
     optionButton.setPosition(270, 120);
@@ -47,6 +50,12 @@ public class MenuScreen extends SimpleScreen {
     stage.addActor(minigameButton);
     stage.addActor(loadButton);
     stage.addActor(optionButton);
+  }
+  
+  protected void options() {
+	GameScreen gameScreen = new GameScreen(myGame);
+	gameScreen.setStage(new OptionsStage(new FitViewport(640,480), gameScreen, myGame));
+	myGame.setScreen(gameScreen);
   }
   
   protected void minigame() {
