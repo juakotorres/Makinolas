@@ -27,6 +27,7 @@ public class OldMewtwo extends AbstractFriend {
     setFaceSprite(faces[0][0]);
     initLevel(30);
     initDead();
+    newMonster();
     setActualEvolution(0);
     setStats();
     setMaxMagic(1000);
