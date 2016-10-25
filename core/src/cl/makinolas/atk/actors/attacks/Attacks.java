@@ -1,5 +1,7 @@
 package cl.makinolas.atk.actors.attacks;
 
+import java.util.ArrayList;
+
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.Body;
 import com.badlogic.gdx.physics.box2d.BodyDef;
@@ -159,13 +161,17 @@ public abstract class Attacks extends AnimatedActor {
     int attackStat = getSource().getMyself().getAttack();
     int level1 = getSource().getMyself().getLevel();
     int defenseStat = monster.getMyself().getDefense();
-    return Formulas.getDamage(attackStat, level1, defenseStat, getAttackDamage());
+    ArrayList<IType> typeFriendSource = getSource().getMyself().getType();
+    ArrayList<IType> typeFriendMonster = monster.getMyself().getType();
+    return Formulas.getDamage(attackStat, level1, defenseStat, getAttackDamage(), typeFriendSource, typeFriendMonster, this.type);
   }
   
   public int getSpecialAttackDamage(Monsters monster) {
     int spAttackStat = getSource().getMyself().getSpecialAttack();
     int level1 = getSource().getMyself().getLevel();
     int spDefenseStat = monster.getMyself().getSpecialDefense();
-    return Formulas.getDamage(spAttackStat, level1, spDefenseStat, getAttackDamage());
+    ArrayList<IType> typeFriendSource = getSource().getMyself().getType();
+    ArrayList<IType> typeFriendMonster = monster.getMyself().getType();
+    return Formulas.getDamage(spAttackStat, level1, spDefenseStat, getAttackDamage(), typeFriendSource, typeFriendMonster, this.type);
   }
 }

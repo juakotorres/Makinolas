@@ -3,15 +3,18 @@ package cl.makinolas.atk.types;
 public class PsychicType extends AbstractType implements IType {
 
 	@Override
-	public void attackFromType(IType type) {
-		// TODO Auto-generated method stub
-
+	public double attackFromType(IType type) {
+		return this.psychicPokemonAttacks(type);
 	}
 
 	@Override
-	public void attackWith(IType type) {
-		// TODO Auto-generated method stub
+	public double attackToType(IType type) {
+		return 0;
+	}
 
+	@Override
+	public double psychicPokemonAttacks(IType type) {
+		return 1.5;
 	}
 
 }
