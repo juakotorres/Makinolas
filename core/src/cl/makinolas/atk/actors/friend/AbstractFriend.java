@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.Observable;
 import java.util.Observer;
 
+import com.badlogic.gdx.graphics.Cursor;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.physics.box2d.World;
 
@@ -28,6 +29,7 @@ public abstract class AbstractFriend implements Friend {
   
   private int health;
   private int hp;
+  private int ivs;
   private int attack;
   private int defense;
   private int spAttack;
@@ -49,6 +51,16 @@ public abstract class AbstractFriend implements Friend {
   public Enemies friend;
   public ArrayList<IType> type = new ArrayList<IType>();
   
+  private int evs1;
+  private int evs2;
+  private int totalEvs;
+  private int evHp;
+  private int evAttack;
+  private int evDefense;
+  private int evSpAttack;
+  private int evSpDefense;
+  private int evSpeed;
+
   protected void setCutSprites(int width, int height){
     this.cutSprites = new int[]{width, height};
   }
@@ -420,7 +432,7 @@ public abstract class AbstractFriend implements Friend {
   public int getMaxHealth(){
     return hp;
   }
-  
+
   @Override
   public void setHealth(int health){
     this.health = health > hp? hp:health;
@@ -430,12 +442,12 @@ public abstract class AbstractFriend implements Friend {
   }
 
   protected void setStats(){
-    this.hp = Formulas.getHpStat(friend.hpBase , level.level);
-    this.attack = Formulas.getOtherStat(friend.attackBase, level.level);
-    this.defense = Formulas.getOtherStat(friend.defenseBase, level.level);
-    this.spAttack = Formulas.getOtherStat(friend.spAttackBase, level.level);
-    this.spDefense = Formulas.getOtherStat(friend.spDefenseBase, level.level);
-    this.speed = Formulas.getOtherStat(friend.speedBase, level.level);
+    this.hp = Formulas.getHpStatWithIV(friend.hpBase , level.level, getIVStat(6), evHp);
+    this.attack = Formulas.getOtherStatWithIV(friend.attackBase, level.level, getIVStat(5), evAttack);
+    this.defense = Formulas.getOtherStatWithIV(friend.defenseBase, level.level, getIVStat(4), evDefense);
+    this.spAttack = Formulas.getOtherStatWithIV(friend.spAttackBase, level.level, getIVStat(3), evSpAttack);
+    this.spDefense = Formulas.getOtherStatWithIV(friend.spDefenseBase, level.level, getIVStat(2), evSpDefense);
+    this.speed = Formulas.getOtherStatWithIV(friend.speedBase, level.level, getIVStat(1), evSpeed);
   }
   
   @Override
@@ -482,23 +494,75 @@ public abstract class AbstractFriend implements Friend {
   public int getCatchRate(){
     return friend.catchRate;
   }
+
+  /**
+   * HP -> 6
+   * Attack -> 5
+   * Defense -> 4
+   * Special Attack -> 3
+   * Special Defense -> 2
+   * Speed -> 1
+   * @param id specified with values above
+   * @return individual value for the id stat
+   */
+  protected int getIVStat(int id){
+    return (ivs >> (id - 1) * 5) & 0x0000001F;
+    /*int ivStat = ivs;
+    int mask = 0x0000001F;
+    ivStat = ivStat >> (id - 1) * 5;
+    ivStat = ivStat & mask;
+    return ivStat;*/
+  }
+
+  protected void newMonster(){
+    ivs = newIVs();
+    evs1 = 0;
+    evs2 = 0;
+    totalEvs = 0;
+    evHp = 0;
+    evAttack = 0;
+    evDefense = 0;
+    evSpAttack = 0;
+    evSpDefense = 0;
+    evSpeed = 0;
+  }
+
+  private int newIVs(){
+    int ivs = 0;
+    for(int i = 0; i < 30; i++) {
+      int n = Math.random() > 0.5 ? 1 : 0;
+      ivs = ivs | n;
+      ivs = ivs << 1;
+    }
+    return ivs;
+  }
   
   @Override
   public int getSpeed(){
     return speed;
   }
-  
+
   public void forceEvolve(int numberOfEvolution){
     this.evolve(numberOfEvolution);
     setStats();
     setHealth(getMaxHealth());
+  }
+
+  @Override
+  public void setIvs(int individualValue){
+    ivs = individualValue;
+  }
+
+  @Override
+  public int getIvs(){
+    return ivs;
   }
   
   @Override
   public String getName(){
     return this.getFriend().toString();
   }
-  
+
   @Override
   public ArrayList<IType> getType(){
     return this.type;
@@ -519,4 +583,104 @@ public abstract class AbstractFriend implements Friend {
   	return new DragonType();
   }
   
+
+  @Override
+  public void setEvs(int ev1, int ev2){
+    evs1 = ev1;
+    evs2 = ev2;
+
+    shiftEvs1(ev1, ev2);
+    totalEvs = evHp + evAttack + evDefense + evSpAttack + evSpDefense + evSpeed;
+  }
+
+  /**
+   * [Hp|At|Df]
+   * [SpAt|SpDf|Speed]
+   * @param ev1 first effort value
+   * @param ev2 second effort value
+   *
+   */
+  private void shiftEvs1(int ev1, int ev2) {
+    int mask = 0x000000FF;
+    evDefense = ev1 & mask;
+    evSpeed = ev2 & mask;
+    ev1 >>= 8;
+    ev2 >>= 8;
+    evAttack = ev1 & mask;
+    evSpDefense = ev2 & mask;
+    ev1 >>= 8;
+    ev2 >>= 8;
+    evHp = ev1 & mask;
+    evSpAttack = ev2 & mask;
+  }
+
+  @Override
+  public int getEv1(){
+    return ((((evs1 | evHp) << 8) | evAttack) << 8) | evDefense;
+  }
+
+  @Override
+  public int getEv2(){
+    return ((((evs2 | evSpAttack) << 8) | evSpDefense) << 8) | evSpeed;
+  }
+
+  @Override
+  public void addHpEv(int n){
+    int sum = (totalEvs + n > 510)? 510-totalEvs : n;
+    if(evHp < 255){
+      int posibleSum = (evHp + sum > 255)? 255-evHp: sum;
+      evHp += posibleSum;
+      totalEvs += posibleSum;
+    }
+  }
+
+  @Override
+  public void addAttackEv(int n){
+    int sum = (totalEvs + n > 510)? 510-totalEvs : n;
+    if(evAttack < 255){
+      int posibleSum = (evAttack + sum > 255)? 255-evAttack: sum;
+      evAttack += posibleSum;
+      totalEvs += posibleSum;
+    }
+  }
+
+  @Override
+  public void addDefenseEv(int n){
+    int sum = (totalEvs + n > 510)? 510-totalEvs : n;
+    if(evDefense < 255){
+      int posibleSum = (evDefense + sum > 255)? 255-evDefense: sum;
+      evDefense += posibleSum;
+      totalEvs += posibleSum;
+    }
+  }
+
+  @Override
+  public void addSpAttackEv(int n){
+    int sum = (totalEvs + n > 510)? 510-totalEvs : n;
+    if(evSpAttack < 255) {
+      int posibleSum = (evSpAttack + sum > 255) ? 255 - evSpAttack : sum;
+      evSpAttack += posibleSum;
+      totalEvs += posibleSum;
+    }
+  }
+
+  @Override
+  public void addSpDefenseEv(int n){
+    int sum = (totalEvs + n > 510)? 510-totalEvs : n;
+    if(evSpDefense < 255){
+      int posibleSum = (evSpDefense + sum > 255)? 255-evSpDefense: sum;
+      evSpDefense += posibleSum;
+      totalEvs += posibleSum;
+    }
+  }
+
+  @Override
+  public void addSpeedEv(int n){
+    int sum = (totalEvs + n > 510)? 510-totalEvs : n;
+    if(evSpeed < 255){
+      int posibleSum = (evSpeed + sum > 255)? 255-evSpeed: sum;
+      evSpeed += posibleSum;
+      totalEvs += posibleSum;
+    }
+  }
 }

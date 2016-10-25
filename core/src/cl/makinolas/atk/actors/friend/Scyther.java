@@ -10,8 +10,10 @@ import cl.makinolas.atk.actors.attacks.Attacks;
 import cl.makinolas.atk.actors.attacks.CloseRangeAttack;
 import cl.makinolas.atk.actors.attacks.states.VineWhipState;
 import cl.makinolas.atk.types.BugType;
+import cl.makinolas.atk.types.ElectricType;
 import cl.makinolas.atk.types.FlyingType;
 import cl.makinolas.atk.types.IType;
+import cl.makinolas.atk.types.NormalType;
 import cl.makinolas.atk.types.SteelType;
 
 public class Scyther extends AbstractFriend {
@@ -31,6 +33,7 @@ public class Scyther extends AbstractFriend {
     setFaceSprite(faces[0][0]);
     initLevel(5);
     initDead();
+    newMonster();
     setActualEvolution(0);
     setMaxMagic(1000);
     addType(new BugType());
@@ -72,8 +75,13 @@ public class Scyther extends AbstractFriend {
   }
   
   @Override
-  public Attacks getFriendAttack(World myWorld, float x , float y, boolean facingRight, Monsters source, IType type){
-    return new CloseRangeAttack(new VineWhipState(), myWorld, x, y, facingRight, source, type);
+  public Attacks getFriendAttack(World myWorld, float x , float y, boolean facingRight, Monsters source){
+    return new CloseRangeAttack(new VineWhipState(), myWorld, x, y, facingRight, source, new NormalType());
+  }
+  
+  @Override
+  public IType getTypeofAttack() {
+  	return new NormalType();
   }
   
 }

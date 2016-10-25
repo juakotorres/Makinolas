@@ -21,9 +21,14 @@ import cl.makinolas.atk.stages.AbstractStage;
 import cl.makinolas.atk.types.FireType;
 import cl.makinolas.atk.types.WaterType;
 
-public class OldMewtwoBoss extends Boss {
+public abstract class OldMewtwoBoss extends Boss {
   
   private final float enemyAttack = 2f;
+  private boolean isLaunchingAttack;
+  private final float accumulator;
+  private final float accumulatorAttack;
+  private final int attackAnimation;
+  private final int secondaryAttackAnimation;
   private float nextEnemyAttackAt;
   private World myWorld;
   private int currentAttack;

@@ -10,8 +10,10 @@ import cl.makinolas.atk.actors.attacks.Attacks;
 import cl.makinolas.atk.actors.attacks.BombAttack;
 import cl.makinolas.atk.actors.attacks.states.TornadoState;
 import cl.makinolas.atk.types.FlyingType;
+import cl.makinolas.atk.types.GrassType;
 import cl.makinolas.atk.types.IType;
 import cl.makinolas.atk.types.PoisonType;
+import cl.makinolas.atk.types.PsychicType;
 
 public class Zubat extends AbstractFriend {
   
@@ -30,6 +32,7 @@ public class Zubat extends AbstractFriend {
     setFaceSprite(faces[0][0]);
     initLevel(10);
     initDead();
+    newMonster();
     setActualEvolution(0);
     setMaxMagic(1000);
     addType(new PoisonType());
@@ -82,7 +85,13 @@ public class Zubat extends AbstractFriend {
   }
   
   @Override
-  public Attacks getFriendAttack(World myWorld, float x , float y, boolean facingRight, Monsters source, IType type){
-    return new BombAttack(new TornadoState(), myWorld, x, y, facingRight, source, type);
+  public Attacks getFriendAttack(World myWorld, float x , float y, boolean facingRight, Monsters source){
+    return new BombAttack(new TornadoState(), myWorld, x, y, facingRight, source, new PsychicType());
   }
+  
+  @Override
+  public IType getTypeofAttack() {
+  	return new PsychicType();
+  }
+  
 }

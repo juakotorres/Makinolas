@@ -11,6 +11,7 @@ import cl.makinolas.atk.actors.attacks.ShootAttack;
 import cl.makinolas.atk.actors.attacks.states.BlueBeamState;
 import cl.makinolas.atk.types.IType;
 import cl.makinolas.atk.types.PsychicType;
+import cl.makinolas.atk.types.WaterType;
 //
 public class OldMewtwo extends AbstractFriend {
   
@@ -29,6 +30,7 @@ public class OldMewtwo extends AbstractFriend {
     setFaceSprite(faces[0][0]);
     initLevel(30);
     initDead();
+    newMonster();
     setActualEvolution(0);
     setStats();
     setMaxMagic(1000);
@@ -41,8 +43,13 @@ public class OldMewtwo extends AbstractFriend {
   }
   
   @Override
-  public Attacks getFriendAttack(World myWorld, float x , float y, boolean facingRight, Monsters source, IType type){
-    return new ShootAttack(new BlueBeamState(),myWorld, x, y, facingRight, source, type);
+  public Attacks getFriendAttack(World myWorld, float x , float y, boolean facingRight, Monsters source){
+    return new ShootAttack(new BlueBeamState(),myWorld, x, y, facingRight, source, new PsychicType());
+  }
+  
+  @Override
+  public IType getTypeofAttack() {
+  	return new PsychicType();
   }
   
 }

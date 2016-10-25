@@ -12,6 +12,7 @@ import cl.makinolas.atk.actors.attacks.states.ThunderBoltState;
 import cl.makinolas.atk.types.ElectricType;
 import cl.makinolas.atk.types.IType;
 import cl.makinolas.atk.types.SteelType;
+import cl.makinolas.atk.types.WaterType;
 
 public class Magnemite extends AbstractFriend {
   
@@ -30,6 +31,7 @@ public class Magnemite extends AbstractFriend {
     setFaceSprite(faces[0][0]);
     initLevel(10);
     initDead();
+    newMonster();
     setActualEvolution(0);
     setMaxMagic(1000);
     addType(new ElectricType());
@@ -82,8 +84,13 @@ public class Magnemite extends AbstractFriend {
   }
   
   @Override
-  public Attacks getFriendAttack(World myWorld, float x , float y, boolean facingRight, Monsters source, IType type){
-    return new BombAttack(new ThunderBoltState(), myWorld, x, y, facingRight, source, type);
+  public Attacks getFriendAttack(World myWorld, float x , float y, boolean facingRight, Monsters source){
+    return new BombAttack(new ThunderBoltState(), myWorld, x, y, facingRight, source, new ElectricType());
+  }
+  
+  @Override
+  public IType getTypeofAttack() {
+  	return new ElectricType();
   }
   
 }
