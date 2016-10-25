@@ -9,8 +9,6 @@ import com.badlogic.gdx.physics.box2d.World;
 
 import cl.makinolas.atk.actors.Monsters;
 import cl.makinolas.atk.actors.attacks.Attacks;
-import cl.makinolas.atk.actors.attacks.BombAttack;
-import cl.makinolas.atk.actors.attacks.states.EmberState;
 
 public class Charmander extends AbstractFriend {
   
