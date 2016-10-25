@@ -96,8 +96,9 @@ public abstract class GameActor extends Actor{
     return false;
   }
 
+  public abstract void endInteraction(GameActor actor2, WorldManifold worldManifold);
 
+  public void endHeroInteraction(Hero hero, WorldManifold worldManifold) {}
 
-
-  
+  public void endPlatformInteraction(Platform platform, WorldManifold worldManifold) {}
 }

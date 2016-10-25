@@ -74,6 +74,9 @@ public class AttackDetector extends GameActor{
     detected(attacks);
   }
 
+  @Override
+  public void endInteraction(GameActor actor2, WorldManifold worldManifold) {}
+
   public void detected(Attacks attacks) {
     if(!attacks.getSource().isEnemy()){
       attackDetected = true;    

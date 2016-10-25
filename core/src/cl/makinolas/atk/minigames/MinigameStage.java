@@ -1,7 +1,6 @@
 package cl.makinolas.atk.minigames;
 
 import cl.makinolas.atk.utils.SaveManager;
-import com.badlogic.gdx.Application;
 import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.OrthographicCamera;
