@@ -17,6 +17,7 @@ import cl.makinolas.atk.actors.bosses.IBoss;
 import cl.makinolas.atk.actors.enemies.AttackDetector;
 import cl.makinolas.atk.actors.enemies.Enemy;
 import cl.makinolas.atk.actors.platform.Platform;
+import cl.makinolas.atk.types.IType;
 import cl.makinolas.atk.utils.Formulas;
 
 public abstract class Attacks extends AnimatedActor {
@@ -32,8 +33,9 @@ public abstract class Attacks extends AnimatedActor {
   public abstract void setDead();
   protected SpriteState mySpriteState;
   protected boolean rotated;
+  protected IType type;
   
-  public Attacks(World myWorld, float x , float y, boolean facingRight, Monsters source, boolean rotated){
+  public Attacks(World myWorld, float x , float y, boolean facingRight, Monsters source, boolean rotated, IType type){
     this.myWorld = myWorld;
     this.rotated = rotated;
     dead = false;
@@ -41,6 +43,7 @@ public abstract class Attacks extends AnimatedActor {
     isFacingRight = !facingRight;
     this.xVelocity = (facingRight)? 10: -10;
     this.initialPosition= (facingRight)? .5f: -.5f;
+    this.type = type;
     
     // Guardar animaciones del jugador
     setAnimation();
@@ -90,6 +93,10 @@ public abstract class Attacks extends AnimatedActor {
   @Override
   public boolean isAttack(){
     return true;
+  }
+  
+  public IType getType(){
+	  return this.type;
   }
   
   protected int getAttackDamage(Monsters monster){

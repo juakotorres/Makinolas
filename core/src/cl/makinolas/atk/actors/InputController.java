@@ -41,9 +41,6 @@ public class InputController extends InputListener implements MobileKeyListener{
                 case Input.Keys.S:
                     hero.getInventory().useSelItem2();
                     break;
-                case Input.Keys.H:
-                    hero.gainExp(10000, Enemies.SALAMENCE);
-                    break;
                 case Input.Keys.Z:
                     hero.attackPrimary();
                     break;

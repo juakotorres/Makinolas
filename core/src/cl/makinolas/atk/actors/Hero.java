@@ -486,7 +486,7 @@ public class Hero extends Monsters {
   public void attackPrimary() {
     if(actualFriend.getMagic() >= 100){
       actualFriend.setMagic(actualFriend.getMagic() - 100);
-      GameActor fireball = actualFriend.getFriendAttack(myWorld, myBody.getPosition().x,myBody.getPosition().y,isFacingRight, this);
+      GameActor fireball = actualFriend.getFriendAttack(myWorld, myBody.getPosition().x,myBody.getPosition().y,isFacingRight, this, parent.getType());
       ((AbstractStage) getStage()).addGameActor(fireball);
     }
   }

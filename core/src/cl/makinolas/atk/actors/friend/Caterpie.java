@@ -9,6 +9,7 @@ import cl.makinolas.atk.actors.Monsters;
 import cl.makinolas.atk.actors.attacks.Attacks;
 import cl.makinolas.atk.actors.attacks.DroppingAttack;
 import cl.makinolas.atk.actors.attacks.states.FallingLeafState;
+import cl.makinolas.atk.types.IType;
 
 public class Caterpie extends AbstractFriend {
 
@@ -78,8 +79,8 @@ public class Caterpie extends AbstractFriend {
   
   
   @Override
-  public Attacks getFriendAttack(World myWorld, float x , float y, boolean facingRight, Monsters source){
-    return new DroppingAttack(new FallingLeafState(), myWorld, x, y, facingRight, source, true);
+  public Attacks getFriendAttack(World myWorld, float x , float y, boolean facingRight, Monsters source, IType type){
+    return new DroppingAttack(new FallingLeafState(), myWorld, x, y, facingRight, source, true, type);
   }
   
 }

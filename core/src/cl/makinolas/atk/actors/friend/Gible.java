@@ -8,6 +8,7 @@ import com.badlogic.gdx.physics.box2d.World;
 import cl.makinolas.atk.actors.Monsters;
 import cl.makinolas.atk.actors.attacks.AquaAttack;
 import cl.makinolas.atk.actors.attacks.Attacks;
+import cl.makinolas.atk.types.IType;
 
 public class Gible extends AbstractFriend {
   
@@ -76,8 +77,8 @@ public class Gible extends AbstractFriend {
   }
   
   @Override
-  public Attacks getFriendAttack(World myWorld, float x , float y, boolean facingRight, Monsters source){
-    return new AquaAttack(myWorld, x, y, facingRight, source);
+  public Attacks getFriendAttack(World myWorld, float x , float y, boolean facingRight, Monsters source, IType type){
+    return new AquaAttack(myWorld, x, y, facingRight, source, type);
   }
   
   

@@ -9,6 +9,7 @@ import cl.makinolas.atk.actors.Monsters;
 import cl.makinolas.atk.actors.attacks.Attacks;
 import cl.makinolas.atk.actors.attacks.ShootAttack;
 import cl.makinolas.atk.actors.attacks.states.WindShurikenState;
+import cl.makinolas.atk.types.IType;
 
 public class Magikarp extends AbstractFriend {
 
@@ -64,7 +65,7 @@ public class Magikarp extends AbstractFriend {
   
   
   @Override
-  public Attacks getFriendAttack(World myWorld, float x , float y, boolean facingRight, Monsters source){
-    return new ShootAttack(new WindShurikenState(), myWorld, x, y, facingRight, source, false);
+  public Attacks getFriendAttack(World myWorld, float x , float y, boolean facingRight, Monsters source, IType type){
+    return new ShootAttack(new WindShurikenState(), myWorld, x, y, facingRight, source, false, type);
   }
 }

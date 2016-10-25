@@ -11,6 +11,7 @@ import com.badlogic.gdx.physics.box2d.WorldManifold;
 import cl.makinolas.atk.actors.Monsters;
 import cl.makinolas.atk.actors.attacks.states.AquaAttackState;
 import cl.makinolas.atk.actors.platform.Platform;
+import cl.makinolas.atk.types.IType;
 
 public class AquaAttack extends Attacks {
   
@@ -22,8 +23,8 @@ public class AquaAttack extends Attacks {
   private int[] spriteWidth;
   private int[] spriteHeight;
   
-  public AquaAttack(World myWorld, float x , float y, boolean facingRight, Monsters source){
-    super(myWorld, x, y, facingRight, source, false);
+  public AquaAttack(World myWorld, float x , float y, boolean facingRight, Monsters source, IType type){
+    super(myWorld, x, y, facingRight, source, false, type);
     
     spriteWidth = new int[]{24, 24, 25, 26, 26, 29, 29};
     spriteHeight = new int[]{18, 18, 26, 37, 37, 52, 52};

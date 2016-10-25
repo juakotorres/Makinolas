@@ -1,5 +1,6 @@
 package cl.makinolas.atk.actors.friend;
 
+import java.util.ArrayList;
 import java.util.Observable;
 import java.util.Observer;
 
@@ -19,6 +20,7 @@ import cl.makinolas.atk.actors.enemies.LongRangeEnemy;
 import cl.makinolas.atk.actors.enemies.PhysicalEnemy;
 import cl.makinolas.atk.actors.enemies.StayAndShootEnemy;
 import cl.makinolas.atk.actors.ui.MainBar;
+import cl.makinolas.atk.types.IType;
 import cl.makinolas.atk.utils.Formulas;
 
 public abstract class AbstractFriend implements Friend {
@@ -44,6 +46,7 @@ public abstract class AbstractFriend implements Friend {
   protected Level level;
   private int actualEvolution;
   public Enemies friend;
+  public ArrayList<IType> type;
   
   protected void setCutSprites(int width, int height){
     this.cutSprites = new int[]{width, height};
@@ -445,12 +448,12 @@ public abstract class AbstractFriend implements Friend {
   }
   
   @Override
-  public Attacks getFriendAttack(World myWorld, float x , float y, boolean facingRight, Monsters source){
-    return new ShootAttack(new DragonBreathState(), myWorld, x, y, facingRight, source);
+  public Attacks getFriendAttack(World myWorld, float x , float y, boolean facingRight, Monsters source, IType type){
+    return new ShootAttack(new DragonBreathState(), myWorld, x, y, facingRight, source, type);
   }
   
   @Override
-  public Enemies getType(){
+  public Enemies getFriend(){
     return friend;
   }
   
@@ -492,6 +495,17 @@ public abstract class AbstractFriend implements Friend {
   
   @Override
   public String getName(){
-    return this.getType().toString();
+    return this.getFriend().toString();
   }
+  
+  @Override
+  public ArrayList<IType> getType(){
+    return this.type;
+  }
+  
+  @Override
+  public void addType(IType type){
+	  this.type.add(type);
+  }
+  
 }

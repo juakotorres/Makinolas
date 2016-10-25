@@ -9,6 +9,7 @@ import cl.makinolas.atk.actors.Monsters;
 import cl.makinolas.atk.actors.attacks.Attacks;
 import cl.makinolas.atk.actors.attacks.BoomerangAttack;
 import cl.makinolas.atk.actors.attacks.states.BoneAttackState;
+import cl.makinolas.atk.types.IType;
 
 public class Cubone extends AbstractFriend {
 
@@ -63,7 +64,7 @@ public class Cubone extends AbstractFriend {
   }
   
   @Override
-  public Attacks getFriendAttack(World myWorld, float x , float y, boolean facingRight, Monsters source){
-    return new BoomerangAttack(new BoneAttackState(), myWorld, x, y, facingRight, source, false);
+  public Attacks getFriendAttack(World myWorld, float x , float y, boolean facingRight, Monsters source, IType type){
+    return new BoomerangAttack(new BoneAttackState(), myWorld, x, y, facingRight, source, false, type);
   }
 }

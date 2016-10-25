@@ -9,6 +9,7 @@ import cl.makinolas.atk.actors.Monsters;
 import cl.makinolas.atk.actors.attacks.Attacks;
 import cl.makinolas.atk.actors.attacks.ShootAttack;
 import cl.makinolas.atk.actors.attacks.states.Poison_StingState;
+import cl.makinolas.atk.types.IType;
 
 public class Weedle extends AbstractFriend {
   
@@ -77,7 +78,7 @@ public class Weedle extends AbstractFriend {
   }
   
   @Override
-  public Attacks getFriendAttack(World myWorld, float x , float y, boolean facingRight, Monsters source){
-    return new ShootAttack(new Poison_StingState(), myWorld, x, y, facingRight, source);
+  public Attacks getFriendAttack(World myWorld, float x , float y, boolean facingRight, Monsters source, IType type){
+    return new ShootAttack(new Poison_StingState(), myWorld, x, y, facingRight, source, type);
   }
 }

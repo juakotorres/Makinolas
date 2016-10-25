@@ -9,6 +9,7 @@ import cl.makinolas.atk.actors.Monsters;
 import cl.makinolas.atk.actors.attacks.Attacks;
 import cl.makinolas.atk.actors.attacks.CloseRangeAttack;
 import cl.makinolas.atk.actors.attacks.states.VineWhipState;
+import cl.makinolas.atk.types.IType;
 
 public class Scyther extends AbstractFriend {
   
@@ -63,8 +64,8 @@ public class Scyther extends AbstractFriend {
   }
   
   @Override
-  public Attacks getFriendAttack(World myWorld, float x , float y, boolean facingRight, Monsters source){
-    return new CloseRangeAttack(new VineWhipState(), myWorld, x, y, facingRight, source);
+  public Attacks getFriendAttack(World myWorld, float x , float y, boolean facingRight, Monsters source, IType type){
+    return new CloseRangeAttack(new VineWhipState(), myWorld, x, y, facingRight, source, type);
   }
   
 }

@@ -9,6 +9,7 @@ import cl.makinolas.atk.actors.Monsters;
 import cl.makinolas.atk.actors.attacks.Attacks;
 import cl.makinolas.atk.actors.attacks.BombAttack;
 import cl.makinolas.atk.actors.attacks.states.ThunderBoltState;
+import cl.makinolas.atk.types.IType;
 
 public class Pichu extends AbstractFriend {
   
@@ -76,9 +77,9 @@ public class Pichu extends AbstractFriend {
   }
   
   @Override
-  public Attacks getFriendAttack(World myWorld, float x , float y, boolean facingRight, Monsters source){
-    return new BombAttack(new ThunderBoltState(), myWorld, x, y, facingRight, source);
+  public Attacks getFriendAttack(World myWorld, float x , float y, boolean facingRight, Monsters source, IType type){
+    return new BombAttack(new ThunderBoltState(), myWorld, x, y, facingRight, source, type);
   }
   
-  
+ 
 }
