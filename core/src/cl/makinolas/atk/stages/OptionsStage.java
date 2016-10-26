@@ -18,8 +18,9 @@ import cl.makinolas.atk.screen.GameScreen;
 import cl.makinolas.atk.screen.MenuScreen;
 
 public class OptionsStage extends AbstractStage {
-	private static Slider volumeSlider;
-	private Slider brightnessSlider;
+	private static Skin sharedSkin = new Skin(Gdx.files.internal("Data/uiskin.json"));
+	private static Slider volumeSlider = new Slider(0.0f, 1.0f, 0.1f, false, sharedSkin);;
+	private static Slider brightnessSlider = new Slider(0.0f, 0.5f, 0.05f, false, sharedSkin);;
 	
 	public OptionsStage(Viewport v, GameScreen gameScreen, final Game myGame) {
 		super(v);
@@ -30,7 +31,7 @@ public class OptionsStage extends AbstractStage {
 	    	music = Gdx.audio.newMusic(Gdx.files.internal("Music/Never-Gonna-Give-You-Up.mp3"));
 	    music.setLooping(true);
 	    music.play();
-	    Skin sharedSkin = new Skin(Gdx.files.internal("Data/uiskin.json"));
+	    
 
 	    // Buttons
 	    TextButton menuButton = new TextButton("Back to menu", sharedSkin);
@@ -45,7 +46,7 @@ public class OptionsStage extends AbstractStage {
 
 	    // Sliders
 	    volumeSlider = new Slider(0.0f, 1.0f, 0.1f, false, sharedSkin);
-	    brightnessSlider = new Slider(0.0f, 1.0f, 0.1f, false, sharedSkin);
+	    brightnessSlider = new Slider(0.0f, 0.5f, 0.05f, false, sharedSkin);
 
 	    // Positions
 	    menuButton.setPosition(500, 50);
@@ -128,6 +129,12 @@ public class OptionsStage extends AbstractStage {
 	}
 	
 	public static float getMusicVolume() {
-		return volumeSlider.getPercent();
+		return 1.0f;
+		//return volumeSlider.getPercent();
+	}
+
+	public static float getBrightness() {
+		//return 0.4f;
+		return 0.5f - brightnessSlider.getValue();
 	}
 }
