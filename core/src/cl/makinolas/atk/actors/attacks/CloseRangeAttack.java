@@ -14,8 +14,8 @@ public class CloseRangeAttack extends Attacks {
   private int[] attackAnimations;
   private float spriteTime;
   
-  public CloseRangeAttack(SpriteState spriteState, World myWorld, float x, float y, boolean facingRight, Monsters source, IType type) {
-    super(myWorld, x, y, facingRight, source, false, type);
+  public CloseRangeAttack(SpriteState spriteState, World myWorld, float x, float y, boolean facingRight, Monsters source) {
+    super(myWorld, x, y, facingRight, source, false);
     
     mySpriteState = spriteState;
     

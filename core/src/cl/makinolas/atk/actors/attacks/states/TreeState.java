@@ -3,6 +3,8 @@ package cl.makinolas.atk.actors.attacks.states;
 import com.badlogic.gdx.graphics.g2d.Animation.PlayMode;
 
 import cl.makinolas.atk.actors.Monsters;
+import cl.makinolas.atk.types.GrassType;
+import cl.makinolas.atk.types.IType;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
@@ -80,6 +82,11 @@ public class TreeState extends SpriteState {
   public float getXVelocity() {
     return 0;
   }
+
+@Override
+public IType getType() {
+	return new GrassType();
+}
   
   
 }

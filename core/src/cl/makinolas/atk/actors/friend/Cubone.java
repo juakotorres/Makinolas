@@ -70,12 +70,7 @@ public class Cubone extends AbstractFriend {
   
   @Override
   public Attacks getFriendAttack(World myWorld, float x , float y, boolean facingRight, Monsters source){
-    return new BoomerangAttack(new BoneAttackState(), myWorld, x, y, facingRight, source, false, new NormalType());
-  }
-  
-  @Override
-  public IType getTypeofAttack() {
-  	return new NormalType();
+    return new BoomerangAttack(new BoneAttackState(), myWorld, x, y, facingRight, source, false);
   }
   
 }

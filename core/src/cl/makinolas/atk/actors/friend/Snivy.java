@@ -83,12 +83,7 @@ public class Snivy extends AbstractFriend {
   
   @Override
   public Attacks getFriendAttack(World myWorld, float x , float y, boolean facingRight, Monsters source){
-    return new ShootAttack(new BranchAttackState(), myWorld, x, y, facingRight, source, false, new GrassType());
+    return new ShootAttack(new BranchAttackState(), myWorld, x, y, facingRight, source, false);
   }
-  
-  @Override
-  public IType getTypeofAttack() {
-  	return new GrassType();
-  }
-  
+
 }

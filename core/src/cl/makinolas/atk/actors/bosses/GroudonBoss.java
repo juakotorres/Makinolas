@@ -133,14 +133,14 @@ public class GroudonBoss extends Boss {
 
     private void generateFirewalls() {
         Vector2 pos = myBody.getPosition();
-        GameActor wall = new BombAttack(new FireWallState(),myWorld,pos.x+1-2*jumpDirection,pos.y,false,this, new FireType());
+        GameActor wall = new BombAttack(new FireWallState(),myWorld,pos.x+1-2*jumpDirection,pos.y,false,this);
         ((AbstractStage) getStage()).addGameActor(wall);
     }
 
     private void throwRock() {
         Vector2 pos = myBody.getPosition();
         GameActor rock = new DirectionAttack(new TRockState(),myWorld,pos.x-1,pos.y+3,
-                hero.getBody().getPosition().x,hero.getBody().getPosition().y,300,this, new RockType());
+                hero.getBody().getPosition().x,hero.getBody().getPosition().y,300,this);
         ((AbstractStage) getStage()).addGameActor(rock);
     }
 

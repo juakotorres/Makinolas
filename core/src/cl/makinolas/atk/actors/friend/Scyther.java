@@ -76,12 +76,7 @@ public class Scyther extends AbstractFriend {
   
   @Override
   public Attacks getFriendAttack(World myWorld, float x , float y, boolean facingRight, Monsters source){
-    return new CloseRangeAttack(new VineWhipState(), myWorld, x, y, facingRight, source, new NormalType());
-  }
-  
-  @Override
-  public IType getTypeofAttack() {
-  	return new NormalType();
+    return new CloseRangeAttack(new VineWhipState(), myWorld, x, y, facingRight, source);
   }
   
 }

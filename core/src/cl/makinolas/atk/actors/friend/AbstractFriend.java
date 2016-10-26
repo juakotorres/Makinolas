@@ -462,7 +462,7 @@ public abstract class AbstractFriend implements Friend {
   
   @Override
   public Attacks getFriendAttack(World myWorld, float x , float y, boolean facingRight, Monsters source){
-    return new ShootAttack(new DragonBreathState(), myWorld, x, y, facingRight, source, new DragonType());
+    return new ShootAttack(new DragonBreathState(), myWorld, x, y, facingRight, source);
   }
   
   @Override
@@ -576,13 +576,7 @@ public abstract class AbstractFriend implements Friend {
   @Override
   public void resetType(){
 	  this.type = new ArrayList<IType>();
-  }
-  
-  @Override
-  public IType getTypeofAttack() {
-  	return new DragonType();
-  }
-  
+  }  
 
   @Override
   public void setEvs(int ev1, int ev2){

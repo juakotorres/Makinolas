@@ -87,12 +87,7 @@ public class Charmander extends AbstractFriend {
   
   @Override
   public Attacks getFriendAttack(World myWorld, float x , float y, boolean facingRight, Monsters source){
-    return new ParabolicAttack(new FireballState(),myWorld, x, y, facingRight, source, new FireType());
-  }
-  
-  @Override
-  public IType getTypeofAttack() {
-  	return new FireType();
+    return new ParabolicAttack(new FireballState(),myWorld, x, y, facingRight, source);
   }
   
 }

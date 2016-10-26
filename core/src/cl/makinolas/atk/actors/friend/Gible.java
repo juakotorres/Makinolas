@@ -85,12 +85,7 @@ public class Gible extends AbstractFriend {
   
   @Override
   public Attacks getFriendAttack(World myWorld, float x , float y, boolean facingRight, Monsters source){
-    return new AquaAttack(myWorld, x, y, facingRight, source, new WaterType());
-  }
-  
-  @Override
-  public IType getTypeofAttack() {
-  	return new WaterType();
+    return new AquaAttack(myWorld, x, y, facingRight, source);
   }
   
 }
