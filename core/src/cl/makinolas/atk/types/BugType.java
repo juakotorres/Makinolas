@@ -16,6 +16,11 @@ public class BugType extends AbstractType implements IType {
 	public double bugPokemonAttacks(IType type) {
 		return 1.5;
 	}
+	
+	@Override
+	public double monsterHasAttackedFromFight() {
+		return 0.5;
+	}
 
 	@Override
 	public double monsterHasAttackedFromFire() {

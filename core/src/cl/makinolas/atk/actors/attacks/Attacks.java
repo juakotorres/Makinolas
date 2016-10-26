@@ -35,9 +35,8 @@ public abstract class Attacks extends AnimatedActor {
   public abstract void setDead();
   protected SpriteState mySpriteState;
   protected boolean rotated;
-  protected IType type;
   
-  public Attacks(World myWorld, float x , float y, boolean facingRight, Monsters source, boolean rotated, IType type){
+  public Attacks(World myWorld, float x , float y, boolean facingRight, Monsters source, boolean rotated){
     this.myWorld = myWorld;
     this.rotated = rotated;
     dead = false;
@@ -45,7 +44,6 @@ public abstract class Attacks extends AnimatedActor {
     isFacingRight = !facingRight;
     this.xVelocity = (facingRight)? 10: -10;
     this.initialPosition= (facingRight)? .5f: -.5f;
-    this.type = type;
     
     // Guardar animaciones del jugador
     setAnimation();
@@ -95,10 +93,6 @@ public abstract class Attacks extends AnimatedActor {
   @Override
   public boolean isAttack(){
     return true;
-  }
-  
-  public IType getType(){
-	  return this.type;
   }
   
   protected int getAttackDamage(Monsters monster){
@@ -163,7 +157,7 @@ public abstract class Attacks extends AnimatedActor {
     int defenseStat = monster.getMyself().getDefense();
     ArrayList<IType> typeFriendSource = getSource().getMyself().getType();
     ArrayList<IType> typeFriendMonster = monster.getMyself().getType();
-    return Formulas.getDamage(attackStat, level1, defenseStat, getAttackDamage(), typeFriendSource, typeFriendMonster, this.type);
+    return Formulas.getDamage(attackStat, level1, defenseStat, getAttackDamage(), typeFriendSource, typeFriendMonster, this.mySpriteState.getType());
   }
   
   public int getSpecialAttackDamage(Monsters monster) {
@@ -172,6 +166,6 @@ public abstract class Attacks extends AnimatedActor {
     int spDefenseStat = monster.getMyself().getSpecialDefense();
     ArrayList<IType> typeFriendSource = getSource().getMyself().getType();
     ArrayList<IType> typeFriendMonster = monster.getMyself().getType();
-    return Formulas.getDamage(spAttackStat, level1, spDefenseStat, getAttackDamage(), typeFriendSource, typeFriendMonster, this.type);
+    return Formulas.getDamage(spAttackStat, level1, spDefenseStat, getAttackDamage(), typeFriendSource, typeFriendMonster, this.mySpriteState.getType());
   }
 }

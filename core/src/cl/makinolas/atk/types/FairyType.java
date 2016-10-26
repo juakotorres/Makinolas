@@ -16,5 +16,35 @@ public class FairyType extends AbstractType implements IType {
 	public double fairyPokemonAttacks(IType type) {
 		return 1.5;
 	}
+	
+	@Override
+	public double monsterHasAttackedFromBug() {
+		return 0.5;
+	}
+
+	@Override
+	public double monsterHasAttackedFromDark() {
+		return 0.5;
+	}
+
+	@Override
+	public double monsterHasAttackedFromDragon() {
+		return 0;
+	}
+
+	@Override
+	public double monsterHasAttackedFromFight() {
+		return 0.5;
+	}
+
+	@Override
+	public double monsterHasAttackedFromPoison() {
+		return 2;
+	}
+
+	@Override
+	public double monsterHasAttackedFromSteel() {
+		return 2;
+	}
 
 }

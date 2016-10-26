@@ -17,4 +17,29 @@ public class PsychicType extends AbstractType implements IType {
 		return 1.5;
 	}
 
+	@Override
+	public double monsterHasAttackedFromBug() {
+		return 2;
+	}
+
+	@Override
+	public double monsterHasAttackedFromDark() {
+		return 2;
+	}
+	
+	@Override
+	public double monsterHasAttackedFromFight() {
+		return 0.5;
+	}
+
+	@Override
+	public double monsterHasAttackedFromGhost() {
+		return 2;
+	}
+
+	@Override
+	public double monsterHasAttackedFromPsychic() {
+		return 0.5;
+	}
+	
 }

@@ -16,4 +16,15 @@ public class NormalType extends AbstractType implements IType {
 	public double normalPokemonAttacks(IType type) {
 		return 1.5;
 	}
+	
+	@Override
+	public double monsterHasAttackedFromFight() {
+		return 2;
+	}
+
+	@Override
+	public double monsterHasAttackedFromGhost() {
+		return 0;
+	}
+
 }

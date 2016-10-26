@@ -11,8 +11,8 @@ import cl.makinolas.atk.types.IType;
 public class ShootBombAttack extends BombAttack{
 
   public ShootBombAttack(SpriteState spriteState, World myWorld, float x, float y, boolean facingRight,
-      Monsters source, IType type) {
-    super(spriteState, myWorld, x, y, facingRight, source, type);
+      Monsters source) {
+    super(spriteState, myWorld, x, y, facingRight, source);
     this.xVelocity = (facingRight)? 10: -10;
   }
   

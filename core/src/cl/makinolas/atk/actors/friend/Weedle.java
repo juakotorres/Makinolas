@@ -85,12 +85,7 @@ public class Weedle extends AbstractFriend {
   
   @Override
   public Attacks getFriendAttack(World myWorld, float x , float y, boolean facingRight, Monsters source){
-    return new ShootAttack(new Poison_StingState(), myWorld, x, y, facingRight, source, new PoisonType());
-  }
- 
-  @Override
-  public IType getTypeofAttack() {
-  	return new PoisonType();
+    return new ShootAttack(new Poison_StingState(), myWorld, x, y, facingRight, source);
   }
   
 }

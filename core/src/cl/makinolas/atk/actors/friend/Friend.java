@@ -46,7 +46,6 @@ public interface Friend {
   public ArrayList<IType> getType();
   public void addType(IType type);
   public void resetType();
-  public IType getTypeofAttack();
   public int getSpeed();
 
 

@@ -85,12 +85,7 @@ public class Gastly extends AbstractFriend {
   
   @Override
   public Attacks getFriendAttack(World myWorld, float x , float y, boolean facingRight, Monsters source){
-    return new ShootAttack(new AcidState(),myWorld, x, y, facingRight, source, new PoisonType());
+    return new ShootAttack(new AcidState(),myWorld, x, y, facingRight, source);
   }
-  
-  @Override
-  public IType getTypeofAttack() {
-  	return new PoisonType();
-  }
-  
+
 }

@@ -12,13 +12,13 @@ import cl.makinolas.atk.types.IType;
 
 public class DroppingAttack extends ShootAttack{
 
-  public DroppingAttack(SpriteState spriteState, World myWorld, float x, float y, boolean facingRight, Monsters source, IType type) {
-    super(spriteState, myWorld, x, y, facingRight, source, true, type);
+  public DroppingAttack(SpriteState spriteState, World myWorld, float x, float y, boolean facingRight, Monsters source) {
+    super(spriteState, myWorld, x, y, facingRight, source, true);
     isDropping();
   }
   
-  public DroppingAttack(SpriteState spriteState, World myWorld, float x, float y, boolean facingRight, Monsters source, boolean rotate, IType type) {
-    super(spriteState, myWorld, x, y, facingRight, source, rotate, type);
+  public DroppingAttack(SpriteState spriteState, World myWorld, float x, float y, boolean facingRight, Monsters source, boolean rotate) {
+    super(spriteState, myWorld, x, y, facingRight, source, rotate);
     isDropping();
   }
 
