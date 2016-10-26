@@ -19,19 +19,18 @@ import cl.makinolas.atk.screen.MenuScreen;
 
 public class OptionsStage extends AbstractStage {
 	private static Skin sharedSkin = new Skin(Gdx.files.internal("Data/uiskin.json"));
-	private static Slider volumeSlider = new Slider(0.0f, 1.0f, 0.1f, false, sharedSkin);;
-	private static Slider brightnessSlider = new Slider(0.0f, 0.5f, 0.05f, false, sharedSkin);;
+	private static Slider volumeSlider = new Slider(0.0f, 1.0f, 0.05f, false, sharedSkin);
+	private static Slider brightnessSlider = new Slider(0.0f, 0.3f, 0.025f, false, sharedSkin);
 	
 	public OptionsStage(Viewport v, GameScreen gameScreen, final Game myGame) {
 		super(v);
-		
+
 	    addActor(new Title("Background/atk.png", 320, 350));
 	    addActor(new Background("Background/MenuBackground.jpg", getCamera()));
 	    if (music == null)
 	    	music = Gdx.audio.newMusic(Gdx.files.internal("Music/Never-Gonna-Give-You-Up.mp3"));
 	    music.setLooping(true);
 	    music.play();
-	    
 
 	    // Buttons
 	    TextButton menuButton = new TextButton("Back to menu", sharedSkin);
@@ -40,13 +39,9 @@ public class OptionsStage extends AbstractStage {
 
 	    // Labels
 	    Label soundLabel = new Label("Music Volume", sharedSkin);
-	    Label brightnessLabel = new Label("*Brightness", sharedSkin);
+	    Label brightnessLabel = new Label("Brightness", sharedSkin);
 	    soundLabel.setColor(Color.BLACK);
 	    brightnessLabel.setColor(Color.BLACK);
-
-	    // Sliders
-	    volumeSlider = new Slider(0.0f, 1.0f, 0.1f, false, sharedSkin);
-	    brightnessSlider = new Slider(0.0f, 0.5f, 0.05f, false, sharedSkin);
 
 	    // Positions
 	    menuButton.setPosition(500, 50);
@@ -55,6 +50,7 @@ public class OptionsStage extends AbstractStage {
 	    volumeSlider.setPosition(320, 200);
 	    volumeSlider.setValue(music.getVolume());
 	    brightnessSlider.setPosition(320, 160);
+	    brightnessSlider.setValue(brightnessSlider.getValue());
 	    
 	    windowedButton.setPosition(230, 120);
 	    fullscreenButton.setPosition(350, 120);
@@ -97,22 +93,6 @@ public class OptionsStage extends AbstractStage {
 	        }
 	    });
 	    
-	    brightnessSlider.addListener(new ClickListener(){
-	        @Override
-	        public void clicked(InputEvent event, float x, float y) {
-	        	// TODO Brightness on click
-	        	System.out.println("TODO: Implementar brillo");
-	        }
-	    });
-	    
-	    brightnessSlider.addListener(new DragListener(){
-	        @Override
-	        public void drag(InputEvent event, float x, float y, int pointer) {
-	        	// TODO Brightness on drag
-	        	System.out.println("TODO: Implementar brillo");
-	        }
-	    });
-	    
 	    // Add to screen
 	    addActor(menuButton);
 	    addActor(soundLabel);
@@ -129,12 +109,10 @@ public class OptionsStage extends AbstractStage {
 	}
 	
 	public static float getMusicVolume() {
-		return 1.0f;
-		//return volumeSlider.getPercent();
+		return volumeSlider.getValue();
 	}
 
 	public static float getBrightness() {
-		//return 0.4f;
-		return 0.5f - brightnessSlider.getValue();
+		return brightnessSlider.getMaxValue() - brightnessSlider.getValue();
 	}
 }
