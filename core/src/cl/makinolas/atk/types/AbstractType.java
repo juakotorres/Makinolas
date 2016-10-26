@@ -30,6 +30,10 @@ public abstract class AbstractType implements IType{
 		return 1;
 	}
 	
+	public double fightPokemonAttacks(IType type) {
+		return 1;
+	}
+	
 	public double firePokemonAttacks(IType type) {
 		return 1;
 	}
@@ -47,6 +51,10 @@ public abstract class AbstractType implements IType{
 	}
 	
 	public double groundPokemonAttacks(IType type) {
+		return 1;
+	}
+	
+	public double icePokemonAttacks(IType type) {
 		return 1;
 	}
 	
@@ -98,6 +106,11 @@ public abstract class AbstractType implements IType{
 	public double monsterHasAttackedFromFairy() {
 		return 1;
 	}
+	
+	@Override
+	public double monsterHasAttackedFromFight() {
+		return 1;
+	}
 
 	@Override
 	public double monsterHasAttackedFromFire() {
@@ -121,6 +134,11 @@ public abstract class AbstractType implements IType{
 
 	@Override
 	public double monsterHasAttackedFromGround() {
+		return 1;
+	}
+	
+	@Override
+	public double monsterHasAttackedFromIce() {
 		return 1;
 	}
 

@@ -16,5 +16,40 @@ public class PoisonType extends AbstractType implements IType {
 	public double poisonPokemonAttacks(IType type) {
 		return 1.5;
 	}
+	
+	@Override
+	public double monsterHasAttackedFromBug() {
+		return 0.5;
+	}
+
+	@Override
+	public double monsterHasAttackedFromFairy() {
+		return 0.5;
+	}
+	
+	@Override
+	public double monsterHasAttackedFromFight() {
+		return 0.5;
+	}
+
+	@Override
+	public double monsterHasAttackedFromGrass() {
+		return 0.5;
+	}
+
+	@Override
+	public double monsterHasAttackedFromGround() {
+		return 2;
+	}
+
+	@Override
+	public double monsterHasAttackedFromPoison() {
+		return 0.5;
+	}
+
+	@Override
+	public double monsterHasAttackedFromPsychic() {
+		return 2;
+	}
 
 }

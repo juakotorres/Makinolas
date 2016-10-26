@@ -16,5 +16,35 @@ public class GroundType extends AbstractType implements IType {
 	public double groundPokemonAttacks(IType type) {
 		return 1.5;
 	}
+	
+	@Override
+	public double monsterHasAttackedFromElectric() {
+		return 0;
+	}
+
+	@Override
+	public double monsterHasAttackedFromGrass() {
+		return 2;
+	}
+
+	@Override
+	public double monsterHasAttackedFromIce() {
+		return 2;
+	}
+
+	@Override
+	public double monsterHasAttackedFromPoison() {
+		return 0.5;
+	}
+
+	@Override
+	public double monsterHasAttackedFromRock() {
+		return 0.5;
+	}
+
+	@Override
+	public double monsterHasAttackedFromWater() {
+		return 2;
+	}
 
 }

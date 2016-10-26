@@ -41,6 +41,11 @@ public class DragonType extends AbstractType implements IType {
 	public double monsterHasAttackedFromGrass() {
 		return 0.5;
 	}
+	
+	@Override
+	public double monsterHasAttackedFromIce() {
+		return 2;
+	}
 
 	@Override
 	public double monsterHasAttackedFromWater() {

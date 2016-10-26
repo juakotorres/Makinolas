@@ -46,6 +46,11 @@ public class GrassType extends AbstractType implements IType {
 	public double monsterHasAttackedFromGround() {
 		return 0.5;
 	}
+	
+	@Override
+	public double monsterHasAttackedFromIce() {
+		return 2;
+	}
 
 	@Override
 	public double monsterHasAttackedFromPoison() {

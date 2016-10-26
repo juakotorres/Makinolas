@@ -16,5 +16,40 @@ public class FlyingType extends AbstractType implements IType {
 	public double flyingPokemonAttacks(IType type) {
 		return 1.5;
 	}
+	
+	@Override
+	public double monsterHasAttackedFromBug() {
+		return 0.5;
+	}
+	
+	@Override
+	public double monsterHasAttackedFromElectric() {
+		return 2;
+	}
+
+	@Override
+	public double monsterHasAttackedFromFight() {
+		return 0.5;
+	}
+	
+	@Override
+	public double monsterHasAttackedFromGrass() {
+		return 0.5;
+	}
+
+	@Override
+	public double monsterHasAttackedFromGround() {
+		return 0;
+	}
+	
+	@Override
+	public double monsterHasAttackedFromIce() {
+		return 2;
+	}
+	
+	@Override
+	public double monsterHasAttackedFromRock() {
+		return 2;
+	}
 
 }
