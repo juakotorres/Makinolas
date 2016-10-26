@@ -4,6 +4,10 @@ import cl.makinolas.atk.actors.Monsters;
 import cl.makinolas.atk.actors.attacks.Attacks;
 import cl.makinolas.atk.actors.attacks.ShootAttack;
 import cl.makinolas.atk.actors.attacks.states.BlueBeamState;
+import cl.makinolas.atk.types.ElectricType;
+import cl.makinolas.atk.types.IType;
+import cl.makinolas.atk.types.WaterType;
+
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
@@ -36,7 +40,12 @@ public class Groudon extends AbstractFriend {
 
     @Override
     public Attacks getFriendAttack(World myWorld, float x , float y, boolean facingRight, Monsters source){
-        return new ShootAttack(new BlueBeamState(),myWorld, x, y, facingRight, source);
+        return new ShootAttack(new BlueBeamState(),myWorld, x, y, facingRight, source, new WaterType());
+    }
+    
+    @Override
+    public IType getTypeofAttack() {
+    	return new WaterType();
     }
 
 }

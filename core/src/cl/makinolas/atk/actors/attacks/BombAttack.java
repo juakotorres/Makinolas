@@ -6,14 +6,15 @@ import com.badlogic.gdx.physics.box2d.WorldManifold;
 import cl.makinolas.atk.actors.Monsters;
 import cl.makinolas.atk.actors.attacks.states.SpriteState;
 import cl.makinolas.atk.actors.platform.Platform;
+import cl.makinolas.atk.types.IType;
 
 public class BombAttack extends Attacks{
 
   protected float accumulator;
   protected float attackTime;
   
-  public BombAttack(SpriteState spriteState, World myWorld, float x, float y, boolean facingRight, Monsters source) {
-    super(myWorld, x, y, facingRight, source, false);
+  public BombAttack(SpriteState spriteState, World myWorld, float x, float y, boolean facingRight, Monsters source, IType type) {
+    super(myWorld, x, y, facingRight, source, false, type);
     
     mySpriteState = spriteState;
     

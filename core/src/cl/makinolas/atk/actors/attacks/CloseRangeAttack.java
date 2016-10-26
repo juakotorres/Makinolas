@@ -5,6 +5,7 @@ import com.badlogic.gdx.physics.box2d.World;
 
 import cl.makinolas.atk.actors.Monsters;
 import cl.makinolas.atk.actors.attacks.states.SpriteState;
+import cl.makinolas.atk.types.IType;
 
 public class CloseRangeAttack extends Attacks {
 
@@ -13,8 +14,8 @@ public class CloseRangeAttack extends Attacks {
   private int[] attackAnimations;
   private float spriteTime;
   
-  public CloseRangeAttack(SpriteState spriteState, World myWorld, float x, float y, boolean facingRight, Monsters source) {
-    super(myWorld, x, y, facingRight, source, false);
+  public CloseRangeAttack(SpriteState spriteState, World myWorld, float x, float y, boolean facingRight, Monsters source, IType type) {
+    super(myWorld, x, y, facingRight, source, false, type);
     
     mySpriteState = spriteState;
     

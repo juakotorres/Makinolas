@@ -8,16 +8,17 @@ import com.badlogic.gdx.physics.box2d.World;
 import cl.makinolas.atk.GameConstants;
 import cl.makinolas.atk.actors.Monsters;
 import cl.makinolas.atk.actors.attacks.states.SpriteState;
+import cl.makinolas.atk.types.IType;
 
 public class DroppingAttack extends ShootAttack{
 
-  public DroppingAttack(SpriteState spriteState, World myWorld, float x, float y, boolean facingRight, Monsters source) {
-    super(spriteState, myWorld, x, y, facingRight, source, true);
+  public DroppingAttack(SpriteState spriteState, World myWorld, float x, float y, boolean facingRight, Monsters source, IType type) {
+    super(spriteState, myWorld, x, y, facingRight, source, true, type);
     isDropping();
   }
   
-  public DroppingAttack(SpriteState spriteState, World myWorld, float x, float y, boolean facingRight, Monsters source, boolean rotate) {
-    super(spriteState, myWorld, x, y, facingRight, source, rotate);
+  public DroppingAttack(SpriteState spriteState, World myWorld, float x, float y, boolean facingRight, Monsters source, boolean rotate, IType type) {
+    super(spriteState, myWorld, x, y, facingRight, source, rotate, type);
     isDropping();
   }
 

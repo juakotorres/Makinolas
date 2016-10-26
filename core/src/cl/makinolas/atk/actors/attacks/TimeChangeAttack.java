@@ -6,6 +6,7 @@ import com.badlogic.gdx.physics.box2d.WorldManifold;
 import cl.makinolas.atk.actors.Monsters;
 import cl.makinolas.atk.actors.attacks.states.SpriteState;
 import cl.makinolas.atk.actors.platform.Platform;
+import cl.makinolas.atk.types.IType;
 
 public class TimeChangeAttack extends Attacks {
   
@@ -19,8 +20,8 @@ public class TimeChangeAttack extends Attacks {
   private boolean firstTime;
   private boolean isMoving;
   
-  public TimeChangeAttack(SpriteState spriteState, World myWorld, float x, float y, boolean facingRight, Monsters source, boolean rotated) {
-    super(myWorld, x, y, facingRight, source, rotated);
+  public TimeChangeAttack(SpriteState spriteState, World myWorld, float x, float y, boolean facingRight, Monsters source, boolean rotated,  IType type) {
+    super(myWorld, x, y, facingRight, source, rotated, type);
     
     mySpriteState = spriteState;
     
