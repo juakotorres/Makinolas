@@ -20,6 +20,7 @@ public class PiplupTODO extends AbstractFriend {
 	
 	public PiplupTODO(){
 		friend = Enemies.PIPLUP;
+		faces = new TextureRegion(new Texture(Gdx.files.internal("Actors/Piplup_faces.png"))).split(40,40);
 		/* aquí yace todo lo relacionado con los sprites */
 	    setFaceSprite(faces[0][0]);
 	    initLevel(10);

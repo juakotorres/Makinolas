@@ -18,6 +18,7 @@ public class MagbyTODO extends AbstractFriend {
 	  
 	  public MagbyTODO() {
 	    friend = Enemies.MAGBY;
+	    faces = new TextureRegion(new Texture(Gdx.files.internal("Actors/Magby_faces.png"))).split(40,40);
         /* texturas */
 	    setFaceSprite(faces[0][0]);
 	    initLevel(10);

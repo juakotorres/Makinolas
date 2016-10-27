@@ -18,6 +18,7 @@ public class ElekidTODO extends AbstractFriend {
 	
 	public ElekidTODO(){
 		friend = Enemies.ELEKID;
+		faces = new TextureRegion(new Texture(Gdx.files.internal("Actors/Elekid_faces.png"))).split(40,40);
 		/* aquí yace todo lo relacionado con los sprites */
 	    setFaceSprite(faces[0][0]);
 	    initLevel(10);

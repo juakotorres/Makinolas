@@ -9,8 +9,6 @@ import cl.makinolas.atk.actors.Monsters;
 import cl.makinolas.atk.actors.attacks.Attacks;
 import cl.makinolas.atk.actors.attacks.ShootAttack;
 import cl.makinolas.atk.actors.attacks.states.DragonBreathState;
-import cl.makinolas.atk.actors.friend.AbstractFriend.Evolution;
-import cl.makinolas.atk.actors.friend.AbstractFriend.Level;
 import cl.makinolas.atk.types.DragonType;
 
 
@@ -20,6 +18,7 @@ public class AxewTODO extends AbstractFriend {
 	
 	public AxewTODO(){
 		friend = Enemies.AXEW;
+		faces = new TextureRegion(new Texture(Gdx.files.internal("Actors/Axew_faces.png"))).split(40,40);
 		/* aquí yace todo lo relacionado con los sprites */
 	    setFaceSprite(faces[0][0]);
 	    initLevel(10);
