@@ -19,6 +19,7 @@ public class MagbyTODO extends AbstractFriend {
 	  public MagbyTODO() {
 	    friend = Enemies.MAGBY;
 	    faces = new TextureRegion(new Texture(Gdx.files.internal("Actors/Magby_faces.png"))).split(40,40);
+	    setTexture(new TextureRegion(new Texture(Gdx.files.internal("Actors/Magby.png"))));
         /* texturas */
 	    setFaceSprite(faces[0][0]);
 	    initLevel(10);
@@ -47,6 +48,7 @@ public class MagbyTODO extends AbstractFriend {
 	  protected void evolve(int numberOfLevel){
 	    if (numberOfLevel == 1 && getActualEvolution() < 1){
 	      friend = Enemies.MAGMAR;
+	      setTexture(new TextureRegion(new Texture(Gdx.files.internal("Actors/Magmar.png"))));
 	      /* texturas */
 	      setFaceSprite(faces[0][1]);
 	      setActualEvolution(1);
@@ -54,6 +56,7 @@ public class MagbyTODO extends AbstractFriend {
 	      setMaxMagic(1000);
 	    } else if (numberOfLevel == 2 && getActualEvolution() < 2){
 	      friend = Enemies.MAGMORTAR;
+	      setTexture(new TextureRegion(new Texture(Gdx.files.internal("Actors/Magmortar.png"))));
 	      /* texturas */
 	      setFaceSprite(faces[0][2]);
 	      setActualEvolution(2);
