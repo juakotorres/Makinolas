@@ -4,6 +4,10 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 
+import cl.makinolas.atk.types.BugType;
+import cl.makinolas.atk.types.FlyingType;
+import cl.makinolas.atk.types.WaterType;
+
 public class Surskit extends AbstractFriend {
   
   private TextureRegion[][] faces;
@@ -21,8 +25,11 @@ public class Surskit extends AbstractFriend {
     setFaceSprite(faces[0][0]);
     initLevel(10);
     initDead();
+    newMonster();
     setActualEvolution(0);
     setMaxMagic(1000);
+    addType(new BugType());
+    addType(new WaterType());
   }
   
   public Surskit(int level){
@@ -53,6 +60,9 @@ public class Surskit extends AbstractFriend {
       setActualEvolution(1);
       setStats();
       setMaxMagic(1000);
+      resetType();
+      addType(new BugType());
+      addType(new FlyingType());
     }
   }
 }

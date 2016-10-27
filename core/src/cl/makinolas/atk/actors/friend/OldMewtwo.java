@@ -9,6 +9,9 @@ import cl.makinolas.atk.actors.Monsters;
 import cl.makinolas.atk.actors.attacks.Attacks;
 import cl.makinolas.atk.actors.attacks.ShootAttack;
 import cl.makinolas.atk.actors.attacks.states.BlueBeamState;
+import cl.makinolas.atk.types.IType;
+import cl.makinolas.atk.types.PsychicType;
+import cl.makinolas.atk.types.WaterType;
 //
 public class OldMewtwo extends AbstractFriend {
   
@@ -27,9 +30,11 @@ public class OldMewtwo extends AbstractFriend {
     setFaceSprite(faces[0][0]);
     initLevel(30);
     initDead();
+    newMonster();
     setActualEvolution(0);
     setStats();
     setMaxMagic(1000);
+    addType(new PsychicType());
   }
   
   @Override

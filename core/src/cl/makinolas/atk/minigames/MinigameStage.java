@@ -27,6 +27,7 @@ import cl.makinolas.atk.actors.ui.MobileGroup;
 import cl.makinolas.atk.screen.GameScreen;
 import cl.makinolas.atk.stages.AbstractStage;
 import cl.makinolas.atk.stages.CameraPosition;
+import cl.makinolas.atk.stages.OptionsStage;
 
 public class MinigameStage extends AbstractStage implements ContactListener{
   
@@ -49,7 +50,7 @@ public class MinigameStage extends AbstractStage implements ContactListener{
   
   public MinigameStage(Viewport v, GameScreen actualScreen, Game myGame){
     super(v);
-    
+
     myScreen = actualScreen;
     gameActors = new Array<GameActor>();
     suMundo = new World(new Vector2(0, -30), true);
@@ -59,6 +60,7 @@ public class MinigameStage extends AbstractStage implements ContactListener{
     hgsc = SaveManager.getInstance().getHighscore();
 
     music = Gdx.audio.newMusic(Gdx.files.internal("Music/Freesia.mp3"));
+    music.setVolume(OptionsStage.getMusicVolume());
     music.setLooping(true); 
     music.play();
 

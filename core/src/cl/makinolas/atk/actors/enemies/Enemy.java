@@ -192,7 +192,10 @@ public class Enemy extends Monsters {
   
   @Override
   public void draw(Batch batch, float alpha){
-    if(!free) return;
+    if(!free){
+    	myBody.setActive(false);
+    	return;
+    }
     super.draw(batch,alpha);
     Vector2 myPosition = myBody.getPosition();
     batch.draw(healthBar.getSprite(), myPosition.x * GameConstants.WORLD_FACTOR - getActualSprite().getRegionWidth() / 2 ,
@@ -217,6 +220,7 @@ public class Enemy extends Monsters {
     healthBar.setCurrent(health);
     if(health <= 0){
       source.gainExperience(getLevel(), type);
+      source.gainEffortValues(type);
       Hero.getInstance().earnMoney(getLevel(), type);
       ItemFinder.getInstance().requestDrop(myBody.getPosition().x,myBody.getPosition().y,getStage(),myWorld);
       setDead();     
@@ -270,22 +274,23 @@ public class Enemy extends Monsters {
   @Override
   public void interactWithBall(BallActor ball) {
     if(free && Formulas.checkCatch(ball.getType().catchability/100f,parent.getCatchRate(),health,parent.getMaxHealth())){
+      setDead();
+      free = false;
+      myBody.setLinearVelocity(0, 0);
       ball.roll(3, new BallActor.BrokeListener() {
         @Override
         public void onBroke(float x, float y) {
-          setDead();
           Hero.getInstance().addAllie(parent);
           MainBar.getInstance().updateTeam();
         }
       });
-      free = false;
-      myBody.setLinearVelocity(0,0);
     }
     else if(free){
       ball.roll(2, new BallActor.BrokeListener() {
         @Override
         public void onBroke(float x, float y) {
           free = true;
+          myBody.setActive(true);
           myBody.setTransform(x,y,0);
         }
       });
@@ -357,8 +362,10 @@ public class Enemy extends Monsters {
   public void setDead(){
     dead = true;
   }
-  
 
+  public boolean isFree() {
+	return free;
+  }
 }
 
 

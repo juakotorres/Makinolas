@@ -4,6 +4,9 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 
+import cl.makinolas.atk.types.FairyType;
+import cl.makinolas.atk.types.NormalType;
+
 public class Igglybuff extends AbstractFriend {
   
   private TextureRegion[][] faces;
@@ -21,8 +24,11 @@ public class Igglybuff extends AbstractFriend {
     setFaceSprite(faces[0][0]);
     initLevel(5);
     initDead();
+    newMonster();
     setActualEvolution(0);
     setMaxMagic(1000);
+    addType(new NormalType());
+    addType(new FairyType());
   }
   
   public Igglybuff(int level){

@@ -47,6 +47,7 @@ public class GameStage extends AbstractStage implements ContactListener {
     addActor(new Background(getLevelBackground(), getCamera()));
 
     music = Gdx.audio.newMusic(Gdx.files.internal(getLevelMusic()));
+    music.setVolume(OptionsStage.getMusicVolume());
     music.setLooping(true); 
     music.play();
 
