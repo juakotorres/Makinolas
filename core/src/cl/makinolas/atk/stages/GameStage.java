@@ -47,6 +47,7 @@ public class GameStage extends AbstractStage implements ContactListener {
     addActor(new Background(getLevelBackground(), getCamera()));
 
     music = Gdx.audio.newMusic(Gdx.files.internal(getLevelMusic()));
+    music.setVolume(OptionsStage.getMusicVolume());
     music.setLooping(true); 
     music.play();
 
@@ -119,7 +120,7 @@ public class GameStage extends AbstractStage implements ContactListener {
   public void act(float delta){
     for(GameActor actor : gameActors){
       Body actorBody = actor.getBody();
-      if(actor.isHero() && (actorBody.getPosition().y < -50 || actorBody.getPosition().x < -100 || actor.isDead())){
+      if(actor.isHero() && (actorBody.getPosition().y < -200 || actorBody.getPosition().x < -100 || actor.isDead())){
         changeDeadMenu();
       }
       if(actor.isEnemy() || actor.isPuff() || actor.isAttack() || actor.isBall() || actor.isItem() || actor.isDetector()){
@@ -151,7 +152,7 @@ public class GameStage extends AbstractStage implements ContactListener {
   public void draw() {
       super.draw();
       camera.update();
-      //renderer.render(suMundo, camera.combined);
+      renderer.render(suMundo, camera.combined);
   }
 
   @Override
@@ -178,7 +179,11 @@ public class GameStage extends AbstractStage implements ContactListener {
 
   @Override
   public void endContact(Contact contact) {
-    
+
+    GameActor actor1 = (GameActor) contact.getFixtureA().getBody().getUserData();
+    GameActor actor2 = (GameActor) contact.getFixtureB().getBody().getUserData();
+
+    actor1.endInteraction(actor2, contact.getWorldManifold());
   }
 
   @Override

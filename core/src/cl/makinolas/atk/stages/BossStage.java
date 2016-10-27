@@ -2,6 +2,8 @@ package cl.makinolas.atk.stages;
 
 import java.io.IOException;
 
+import cl.makinolas.atk.actors.bosses.BossFinder;
+import cl.makinolas.atk.actors.bosses.GroudonBoss;
 import com.badlogic.gdx.Application;
 import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
@@ -52,12 +54,13 @@ public class BossStage extends AbstractStage implements ContactListener {
     this.myGame = myGame;
     myScreen = actualScreen;
     gameActors = new Array<GameActor>();
-    suMundo = new World(new Vector2(0, -16), true);
+    suMundo = new World(new Vector2(0, -30), true);
     suMundo.setContactListener(this);
 
     addActor(new Background(getLevelBackground(), getCamera()));
     
     music = Gdx.audio.newMusic(Gdx.files.internal(getLevelMusic()));
+    music.setVolume(OptionsStage.getMusicVolume());
     music.setLooping(true);  
     music.play();
     
@@ -75,8 +78,6 @@ public class BossStage extends AbstractStage implements ContactListener {
     createPlatforms(myGame);
     
     bossDefeated = false;
-    GameActor enemy = new OldMewtwoBoss(suMundo, hero);
-    addGameActor(enemy);
     
     addActor(new Title("Overlays/bossBar2.png", 550,200));
     
@@ -109,6 +110,12 @@ public class BossStage extends AbstractStage implements ContactListener {
     } catch (IOException e) {
       e.printStackTrace();
     }
+    createBoss(reader.getBoss());
+  }
+
+  private void createBoss(String name){
+    GameActor enemy = BossFinder.getInstance().create(name,suMundo,Hero.getInstance());
+    addGameActor(enemy);
   }
 
   private void setupCamera() {
@@ -159,7 +166,7 @@ public class BossStage extends AbstractStage implements ContactListener {
   private void checkBossAlive() {
     if(bossDefeated){
       Portal portal = new Portal(suMundo, new Vector2(10, 3), myGame);
-      music.dispose();
+      music.stop();
       addGameActor(portal); 
       bossDefeated = false;
     }    

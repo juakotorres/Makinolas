@@ -12,6 +12,7 @@ public class SaveInstance {
     public String name;
     public boolean sex; // M true, F false
     public ItemDescriptor[] items;
-    public int money, maxLevel;
+    public int money;
+    public boolean[] levelsUnlocked;
 
 }

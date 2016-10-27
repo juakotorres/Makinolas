@@ -11,6 +11,7 @@ import com.badlogic.gdx.physics.box2d.WorldManifold;
 import cl.makinolas.atk.actors.Monsters;
 import cl.makinolas.atk.actors.attacks.states.AquaAttackState;
 import cl.makinolas.atk.actors.platform.Platform;
+import cl.makinolas.atk.types.IType;
 
 public class AquaAttack extends Attacks {
   

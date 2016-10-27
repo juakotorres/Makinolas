@@ -17,7 +17,7 @@ public abstract class AbstractStage extends Stage {
   protected GameScreen myScreen;
   protected boolean paused;
   public CameraPosition cameraObserver;
-  public Music music;
+  public static Music music;
 
   public AbstractStage(Viewport v) {
     super(v);
@@ -50,7 +50,7 @@ public abstract class AbstractStage extends Stage {
   }
   
   public void changeDeadMenu() {
-    music.dispose();
+    music.stop();
     myScreen.mainMenu();
   }
 

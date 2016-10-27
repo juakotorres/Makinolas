@@ -1,6 +1,7 @@
 package cl.makinolas.atk.actors.ui;
 
 import cl.makinolas.atk.stages.MapStage;
+import cl.makinolas.atk.stages.Spot;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
@@ -14,7 +15,7 @@ public class MapStageActor extends Actor {
     private TextureRegion floorlock = new TextureRegion(new Texture("Overlays/mapstagelock.png"));
     private boolean locked;
 
-    public MapStageActor(final int lvl, final boolean lck, final MapStage master, int x, int y){
+    public MapStageActor(final Spot lvl, final boolean lck, final MapStage master, int x, int y){
         locked = lck;
         addListener(new InputListener(){
             @Override

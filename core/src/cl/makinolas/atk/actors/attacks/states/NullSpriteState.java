@@ -3,6 +3,9 @@ package cl.makinolas.atk.actors.attacks.states;
 import com.badlogic.gdx.graphics.g2d.Animation.PlayMode;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 
+import cl.makinolas.atk.types.IType;
+import cl.makinolas.atk.types.NormalType;
+
 public class NullSpriteState extends SpriteState {
   
   @Override
@@ -44,5 +47,10 @@ public class NullSpriteState extends SpriteState {
   public int getFinalSprite() {
     return 0;
   }
+
+@Override
+public IType getType() {
+	return new NormalType();
+}
   
 }

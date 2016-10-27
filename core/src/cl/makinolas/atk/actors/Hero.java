@@ -1,6 +1,7 @@
 package cl.makinolas.atk.actors;
 
 import cl.makinolas.atk.actors.items.ItemActor;
+import cl.makinolas.atk.stages.*;
 import com.badlogic.gdx.Game;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.Body;
@@ -25,10 +26,6 @@ import cl.makinolas.atk.actors.items.Inventory;
 import cl.makinolas.atk.actors.platform.Platform;
 import cl.makinolas.atk.actors.ui.MainBar;
 import cl.makinolas.atk.screen.MapScreen;
-import cl.makinolas.atk.stages.AbstractStage;
-import cl.makinolas.atk.stages.Levels;
-import cl.makinolas.atk.stages.MapStage;
-import cl.makinolas.atk.stages.OnWall;
 import cl.makinolas.atk.start.GameText;
 import cl.makinolas.atk.utils.Formulas;
 import cl.makinolas.atk.utils.SaveDoesNotExistException;
@@ -63,9 +60,11 @@ public class Hero extends Monsters {
   private int vx;
   private boolean inertia;
   private boolean hasEvolved;
-  private int maxLevelUnlocked = 1;
+  private boolean[] levelsUnlocked;
   private JumpState state;
   private boolean onWall = false;
+  private Spot currentSpot;
+  private Vector2 platformSpeed;
 
   private Hero() {
 
@@ -81,6 +80,7 @@ public class Hero extends Monsters {
     jumpAccumulator = 3;
     accumulator = 0;
     vx = 0;
+    platformSpeed = new Vector2(0,0);
     inertia = false;
 
     // Set team for player;
@@ -118,12 +118,26 @@ public class Hero extends Monsters {
     }
     if(SaveManager.getInstance().hasSaveInstance()){
       FriendDescriptor[] friends = SaveManager.getInstance().getSaveInstance().friends;
-      maxLevelUnlocked = Math.max(SaveManager.getInstance().getSaveInstance().maxLevel,1);
+      levelsUnlocked = SaveManager.getInstance().getSaveInstance().levelsUnlocked;
+
+      if(Levels.values().length > levelsUnlocked.length){
+        boolean[] newlevels = new boolean[Levels.values().length];
+        for(int i = 0; i < Levels.values().length; i++){
+          if(i < levelsUnlocked.length)
+            newlevels[i] = levelsUnlocked[i];
+          else
+            newlevels[i] = false;
+        }
+        levelsUnlocked = newlevels;
+      }
+
       if(friends.length == 0){
         addAllie(MonsterFactory.getInstance().getHeroFriend("Kakuna", 6));
       } else {
         for(int i = 0; i < friends.length; i++){
-          addAllie(MonsterFactory.getInstance().getHeroFriend(friends[i].name, friends[i].level, friends[i].exp));
+          addAllie(MonsterFactory.getInstance().getHeroFriend(friends[i].name, friends[i].level,
+                                                              friends[i].exp, friends[i].individualValue,
+                                                              friends[i].ev1, friends[i].ev2));
         }
       }
     } else {
@@ -166,8 +180,9 @@ public class Hero extends Monsters {
   @Override
   public void act(float delta){
     checkChangingAllie();
-    myBody.setLinearVelocity(vx, myBody.getLinearVelocity().y);
-    
+
+    myBody.setLinearVelocity(vx + platformSpeed.x, myBody.getLinearVelocity().y);
+
     ((AbstractStage) getStage()).changeCamera(myBody.getPosition().x , myBody.getPosition().y );
     
     checkDamage(delta);
@@ -176,11 +191,14 @@ public class Hero extends Monsters {
     checkAccumulatingJump();
     giveMagic();
     
-    if (isJumping == true)
+    if (isJumping)
     	state.countFrames();
-    
   }
-  
+
+  public void setMovablePLatformSpeed(float vX, float vY) {
+    this.platformSpeed = new Vector2(vX, vY);
+  }
+
   private void checkAccumulatingJump() {
    if(isAccumulatingJump && !isJumping){
      increaseJumpAccumulator();
@@ -395,7 +413,7 @@ public class Hero extends Monsters {
   
   @Override
   public void interactWithPlatform(Platform platform, WorldManifold worldManifold){
-    landedPlatform(worldManifold, platform);
+    platform.interactWithHero(this, worldManifold);
   }
   
   @Override
@@ -423,6 +441,8 @@ public class Hero extends Monsters {
   public void interactWithPortal(Portal portal){
     portal.completeStage();
   }
+
+  public void endPlatformInteraction(Platform platform, WorldManifold worldManifold) { platform.endHeroInteraction(this, worldManifold);}
 
   @Override
   public float getMonsterWidth() {
@@ -528,6 +548,9 @@ public class Hero extends Monsters {
     for(int i = 0; i < allies.size; i++){
       Friend ally = allies.get(i);
       friends[i] = new FriendDescriptor();
+      friends[i].individualValue = ally.getIvs();
+      friends[i].ev1 = ally.getEv1();
+      friends[i].ev2 = ally.getEv2();
       friends[i].name = ally.getName();
       friends[i].level = ally.getLevel();
       friends[i].exp = (int) ally.getNextExperience();
@@ -550,25 +573,32 @@ public class Hero extends Monsters {
     return myBody != null;
   }
 
+  public void setSpot(Spot spot){
+    currentSpot = spot;
+  }
+
   public void completeStage(Game myGame){
     AbstractStage myStage = ((AbstractStage) getStage());
     Levels actualLevel = myStage.getLevel();
     
-    myStage.music.dispose();
-    int numberOfLevel = actualLevel.ordinal() + 2;
-    if(maxLevelUnlocked < numberOfLevel)
-      maxLevelUnlocked = numberOfLevel;
+    AbstractStage.music.stop();
 
+    int[] levels = actualLevel.unlockableLevels;
+    for(int level : levels){
+      levelsUnlocked[level] = true;
+    }
     SaveManager.getInstance().saveState();
 
     vx = 0;
 
-    MapScreen mapScreen = new MapScreen(myGame,new MapStage(new FitViewport(640, 480),myGame));
+    MapScreen mapScreen = new MapScreen(myGame,new MapStage(new FitViewport(640, 480),myGame, currentSpot));
     myGame.setScreen(mapScreen);
   }
 
-  public int getMaxLevelUnlocked() {
-    return maxLevelUnlocked;
+
+
+  public boolean[] getLevelsUnlocked() {
+    return levelsUnlocked;
   }
 
   public float getStageX(){
@@ -590,7 +620,14 @@ public class Hero extends Monsters {
   }
 
   @Override
+  public void endInteraction(GameActor actor2, WorldManifold worldManifold) {
+    actor2.endHeroInteraction(this, worldManifold);
+  }
+
+  @Override
   public void interactWithItem(ItemActor item) {
     item.interactWithHero(this,null);
   }
+
+
 }
