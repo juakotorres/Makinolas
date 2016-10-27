@@ -13,6 +13,7 @@ import cl.makinolas.atk.stages.OptionsStage;
 public abstract class SimpleScreen implements Screen {
     protected Stage stage;
     protected Game myGame;
+    private ShapeRenderer shapeRenderer = new ShapeRenderer();
     
     public SimpleScreen() {}
 
@@ -67,7 +68,6 @@ public abstract class SimpleScreen implements Screen {
      */
     public void renderBlackRectangle(float brightness) {
     	Gdx.gl.glEnable(GL20.GL_BLEND);
-        ShapeRenderer shapeRenderer = new ShapeRenderer();
         shapeRenderer.begin(ShapeType.Filled);
         shapeRenderer.setColor(0, 0, 0, brightness);
         shapeRenderer.rect(0, 0, Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
