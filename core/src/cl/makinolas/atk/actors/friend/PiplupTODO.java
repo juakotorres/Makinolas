@@ -24,12 +24,12 @@ public class PiplupTODO extends AbstractFriend {
 		setTexture(new TextureRegion(new Texture(Gdx.files.internal("Actors/Piplup.png"))));
 		/* aquí yace todo lo relacionado con los sprites */
 		
-	    /*setCutSprites(30,28);
-	    setWalkAnimation(1,2,3,2);
+	    setCutSprites(25,33);
+	    setWalkAnimation(1,2,3,4);
 	    setHurtAnimation(0);
-	    setMeleeAnimation(4,6);
+	    setMeleeAnimation(5,6,7);
 	    setIdleAnimation(1,2,3,2);
-	    setSpecialAnimation(4,6);*/
+	    setSpecialAnimation(8,9);
 		
 	    setFaceSprite(faces[0][0]);
 	    initLevel(5);
