@@ -71,4 +71,7 @@ public interface Friend {
   void addSpDefenseEv(int n);
   void addSpeedEv(int n);
 
+  void weatherEffect(int newAttack, int newDefense, int newHp, int newSpAttack,
+		int newSpDefense, int newSpeed);
+
 }
