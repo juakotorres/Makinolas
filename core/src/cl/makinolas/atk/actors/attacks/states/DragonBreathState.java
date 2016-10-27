@@ -6,6 +6,8 @@ import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.Animation.PlayMode;
 
 import cl.makinolas.atk.actors.Monsters;
+import cl.makinolas.atk.types.DragonType;
+import cl.makinolas.atk.types.IType;
 
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 
@@ -70,5 +72,10 @@ public class DragonBreathState extends SpriteState{
   public int getTypeAttack(Monsters monster) {
     return myAttack.getSpecialAttackDamage(monster);
   }
+
+@Override
+public IType getType() {
+	return new DragonType();
+}
   
 }

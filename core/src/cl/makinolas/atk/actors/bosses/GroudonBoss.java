@@ -13,6 +13,9 @@ import cl.makinolas.atk.actors.attacks.states.TRockState;
 import cl.makinolas.atk.actors.friend.Groudon;
 import cl.makinolas.atk.actors.friend.OldMewtwo;
 import cl.makinolas.atk.stages.AbstractStage;
+import cl.makinolas.atk.types.FireType;
+import cl.makinolas.atk.types.RockType;
+
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;

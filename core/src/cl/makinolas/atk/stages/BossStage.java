@@ -60,6 +60,7 @@ public class BossStage extends AbstractStage implements ContactListener {
     addActor(new Background(getLevelBackground(), getCamera()));
     
     music = Gdx.audio.newMusic(Gdx.files.internal(getLevelMusic()));
+    music.setVolume(OptionsStage.getMusicVolume());
     music.setLooping(true);  
     music.play();
     
@@ -165,7 +166,7 @@ public class BossStage extends AbstractStage implements ContactListener {
   private void checkBossAlive() {
     if(bossDefeated){
       Portal portal = new Portal(suMundo, new Vector2(10, 3), myGame);
-      music.dispose();
+      music.stop();
       addGameActor(portal); 
       bossDefeated = false;
     }    

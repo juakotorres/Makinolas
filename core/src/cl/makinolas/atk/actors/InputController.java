@@ -1,5 +1,6 @@
 package cl.makinolas.atk.actors;
 
+import cl.makinolas.atk.actors.friend.Enemies;
 import cl.makinolas.atk.actors.ui.BagVis;
 import cl.makinolas.atk.actors.ui.MobileGroup;
 import cl.makinolas.atk.actors.ui.MobileKeyListener;

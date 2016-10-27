@@ -1,6 +1,9 @@
 package cl.makinolas.atk.actors.attacks.states;
 
 import cl.makinolas.atk.actors.Monsters;
+import cl.makinolas.atk.types.IType;
+import cl.makinolas.atk.types.RockType;
+
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Animation;
@@ -53,5 +56,10 @@ public class TRockState extends SpriteState {
     public int getTypeAttack(Monsters monster) {
         return myAttack.getPhysicalAttackDamage(monster);
     }
+
+	@Override
+	public IType getType() {
+		return new RockType();
+	}
 
 }
