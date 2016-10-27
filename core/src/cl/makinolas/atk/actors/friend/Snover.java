@@ -21,9 +21,18 @@ public class Snover extends AbstractFriend {
 	public Snover(){
 		friend = Enemies.SNOVER;
 		faces = new TextureRegion(new Texture(Gdx.files.internal("Actors/Snover_faces.png"))).split(40,40);
+		setTexture(new TextureRegion(new Texture(Gdx.files.internal("Actors/Snover.png"))));
 		/* aquí yace todo lo relacionado con los sprites */
+		
+	    /*setCutSprites(30,28);
+	    setWalkAnimation(1,2,3,2);
+	    setHurtAnimation(0);
+	    setMeleeAnimation(4,6);
+	    setIdleAnimation(1,2,3,2);
+	    setSpecialAnimation(4,6);*/
+		
 	    setFaceSprite(faces[0][0]);
-	    initLevel(10);
+	    initLevel(5);
 	    initDead();
 	    newMonster();
 	    setActualEvolution(0);
@@ -50,7 +59,16 @@ public class Snover extends AbstractFriend {
 	protected void evolve(int numberOfLevel) {
 		if (numberOfLevel == 1 && getActualEvolution() < 1) {
 			friend = Enemies.ABOMASNOW;
+			setTexture(new TextureRegion(new Texture(Gdx.files.internal("Actors/Abomasnow.png"))));
 			/* texturas */
+			
+		    /*setCutSprites(30,28);
+		    setWalkAnimation(1,2,3,2);
+		    setHurtAnimation(0);
+		    setMeleeAnimation(4,6);
+		    setIdleAnimation(1,2,3,2);
+		    setSpecialAnimation(4,6);*/
+			
 		    setFaceSprite(faces[0][1]);
 		    setActualEvolution(1);
 		    setStats();

@@ -21,9 +21,18 @@ public class Croagunk extends AbstractFriend {
 	public Croagunk(){
 		friend = Enemies.CROAGUNK;
 		faces = new TextureRegion(new Texture(Gdx.files.internal("Actors/Croagunk_faces.png"))).split(40,40);
+		setTexture(new TextureRegion(new Texture(Gdx.files.internal("Actors/Croagunk.png"))));
 		/* aquí yace todo lo relacionado con los sprites */
+		
+	    /*setCutSprites(30,28);
+	    setWalkAnimation(1,2,3,2);
+	    setHurtAnimation(0);
+	    setMeleeAnimation(4,6);
+	    setIdleAnimation(1,2,3,2);
+	    setSpecialAnimation(4,6);*/
+		
 	    setFaceSprite(faces[0][0]);
-	    initLevel(10);
+	    initLevel(5);
 	    initDead();
 	    newMonster();
 	    setActualEvolution(0);
@@ -50,7 +59,16 @@ public class Croagunk extends AbstractFriend {
 	protected void evolve(int numberOfLevel) {
 		if (numberOfLevel == 1 && getActualEvolution() < 1) {
 			friend = Enemies.TOXICROAK;
+			setTexture(new TextureRegion(new Texture(Gdx.files.internal("Actors/Toxicroak.png"))));
 			/* texturas */
+			
+		    /*setCutSprites(30,28);
+		    setWalkAnimation(1,2,3,2);
+		    setHurtAnimation(0);
+		    setMeleeAnimation(4,6);
+		    setIdleAnimation(1,2,3,2);
+		    setSpecialAnimation(4,6);*/
+			
 		    setFaceSprite(faces[0][1]);
 		    setActualEvolution(1);
 		    setStats();
