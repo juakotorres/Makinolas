@@ -12,6 +12,9 @@ import cl.makinolas.atk.actors.attacks.states.DragonBreathState;
 import cl.makinolas.atk.actors.attacks.states.RockState;
 import cl.makinolas.atk.actors.friend.AbstractFriend.Evolution;
 import cl.makinolas.atk.actors.friend.AbstractFriend.Level;
+import cl.makinolas.atk.types.DarkType;
+import cl.makinolas.atk.types.GroundType;
+import cl.makinolas.atk.types.RockType;
 
 public class LarvitarTODO extends AbstractFriend {
 
@@ -26,6 +29,8 @@ public class LarvitarTODO extends AbstractFriend {
 	    newMonster();
 	    setActualEvolution(0);
 	    setMaxMagic(1000);
+	    addType(new RockType());
+	    addType(new GroundType());
 	}
 	
 	public LarvitarTODO(int level){
@@ -59,6 +64,9 @@ public class LarvitarTODO extends AbstractFriend {
 		    setActualEvolution(2);
 		    setStats();
 		    setMaxMagic(1000);
+		    resetType();
+		    addType(new RockType());
+		    addType(new DarkType());
 		}
 	}
 	

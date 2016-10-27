@@ -5,10 +5,14 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.physics.box2d.World;
 
+
+
 import cl.makinolas.atk.actors.Monsters;
 import cl.makinolas.atk.actors.attacks.Attacks;
 import cl.makinolas.atk.actors.attacks.ShootBombAttack;
 import cl.makinolas.atk.actors.attacks.states.BubbleState;
+import cl.makinolas.atk.types.SteelType;
+import cl.makinolas.atk.types.WaterType;
 
 public class PiplupTODO extends AbstractFriend {
 
@@ -23,6 +27,8 @@ public class PiplupTODO extends AbstractFriend {
 	    newMonster();
 	    setActualEvolution(0);
 	    setMaxMagic(1000);
+	    addType(new WaterType());
+	    
 	}
 
 	public PiplupTODO(int level){
@@ -56,6 +62,7 @@ public class PiplupTODO extends AbstractFriend {
 		    setActualEvolution(2);
 		    setStats();
 		    setMaxMagic(1000);
+		    addType(new SteelType());
 		}
 	}
 	

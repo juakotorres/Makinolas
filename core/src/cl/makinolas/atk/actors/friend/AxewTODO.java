@@ -11,6 +11,7 @@ import cl.makinolas.atk.actors.attacks.ShootAttack;
 import cl.makinolas.atk.actors.attacks.states.DragonBreathState;
 import cl.makinolas.atk.actors.friend.AbstractFriend.Evolution;
 import cl.makinolas.atk.actors.friend.AbstractFriend.Level;
+import cl.makinolas.atk.types.DragonType;
 
 
 public class AxewTODO extends AbstractFriend {
@@ -26,6 +27,7 @@ public class AxewTODO extends AbstractFriend {
 	    newMonster();
 	    setActualEvolution(0);
 	    setMaxMagic(1000);
+	    addType(new DragonType());
 	}
 	
 	public AxewTODO(int level){

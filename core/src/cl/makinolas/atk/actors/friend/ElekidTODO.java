@@ -9,8 +9,8 @@ import cl.makinolas.atk.actors.Monsters;
 import cl.makinolas.atk.actors.attacks.Attacks;
 import cl.makinolas.atk.actors.attacks.BombAttack;
 import cl.makinolas.atk.actors.attacks.states.ThunderBoltState;
-import cl.makinolas.atk.actors.friend.AbstractFriend.Evolution;
-import cl.makinolas.atk.actors.friend.AbstractFriend.Level;
+import cl.makinolas.atk.types.ElectricType;
+
 
 public class ElekidTODO extends AbstractFriend {
 	
@@ -25,6 +25,7 @@ public class ElekidTODO extends AbstractFriend {
 	    newMonster();
 	    setActualEvolution(0);
 	    setMaxMagic(1000);
+	    addType(new ElectricType());
 	}
 
 	public ElekidTODO(int level){
