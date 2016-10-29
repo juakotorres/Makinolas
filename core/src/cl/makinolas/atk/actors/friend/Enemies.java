@@ -60,6 +60,7 @@ public enum Enemies {
   BELDUM(60, 3, 40, 55, 80, 35, 60, 30, new EvDefenseState(1)),
   METANG(147, 3, 60, 75, 100, 55, 80, 50, new EvDefenseState(2)),
   METAGROSS(270, 3, 80, 135, 130, 95, 90, 70, new EvDefenseState(3)),
+  GROUDON(302,3,100,150,140,100,90,90, new EvAttackState(3)),
   SHINX(53, 235, 45, 65, 34, 40, 34, 45, new EvAttackState(1)),
   LUXIO(127, 120, 60, 85, 49, 60, 49, 60, new EvAttackState(2)),
   LUXRAY(235, 45, 80, 120, 79, 95, 79, 70, new EvAttackState(3)),
