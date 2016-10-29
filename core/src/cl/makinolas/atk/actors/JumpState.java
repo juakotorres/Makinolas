@@ -53,5 +53,4 @@ public class JumpState {
 	}
 
   public void setAnimation(MinigameCharacter minigameCharacter, float delta) {}
-
 }

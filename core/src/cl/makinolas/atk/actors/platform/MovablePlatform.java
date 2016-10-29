@@ -98,6 +98,7 @@ public class MovablePlatform extends Platform {
 
   @Override
   public void endHeroInteraction(Hero hero, WorldManifold worldManifold) {
+    hero.isNotInPlatform();
     heroIsInPlatform = false;
     hero.setMovablePLatformSpeed(0,0);
   }

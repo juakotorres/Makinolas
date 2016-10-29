@@ -1,14 +1,12 @@
 package cl.makinolas.atk.actors.enemies;
 
-import com.badlogic.gdx.graphics.g2d.TextureRegion;
-import com.badlogic.gdx.physics.box2d.World;
-import com.badlogic.gdx.physics.box2d.WorldManifold;
-
 import cl.makinolas.atk.actors.GameActor;
 import cl.makinolas.atk.actors.friend.Enemies;
 import cl.makinolas.atk.actors.friend.Friend;
 import cl.makinolas.atk.actors.platform.Platform;
 import cl.makinolas.atk.stages.AbstractStage;
+import com.badlogic.gdx.physics.box2d.World;
+import com.badlogic.gdx.physics.box2d.WorldManifold;
 
 public class JumperEnemy extends Enemy {
   
@@ -17,10 +15,9 @@ public class JumperEnemy extends Enemy {
   private AttackDetector attackDetector;
   private boolean isJumping;
 
-  public JumperEnemy(World myWorld, TextureRegion enemyTexture, int[] cutSprite, int[][] numberOfSprite,
-      int[][] numberOfHurtSprites, int givenHealth, int positionX, int positionY, boolean facingRight, int level, Enemies type,
+  public JumperEnemy(World myWorld, int givenHealth, int positionX, int positionY, boolean facingRight, int level, Enemies type,
       Friend parent) {
-    super(myWorld, enemyTexture, cutSprite, numberOfSprite, numberOfHurtSprites, givenHealth, positionX, positionY, facingRight, level,
+    super(myWorld, givenHealth, positionX, positionY, facingRight, level,
         type, parent);
     
     accumulatorAttack = 0;
@@ -38,7 +35,7 @@ public class JumperEnemy extends Enemy {
       viewGround = true;
     }
 
-    checkDamage(delta, 0);
+    checkState(delta);
     accumulatorAttack += delta; 
     
     if(accumulatorAttack > attackTime){

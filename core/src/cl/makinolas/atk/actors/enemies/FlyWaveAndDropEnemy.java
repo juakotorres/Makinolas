@@ -1,12 +1,10 @@
 package cl.makinolas.atk.actors.enemies;
 
-import com.badlogic.gdx.graphics.g2d.TextureRegion;
-import com.badlogic.gdx.physics.box2d.World;
-
 import cl.makinolas.atk.actors.attacks.Attacks;
 import cl.makinolas.atk.actors.friend.Enemies;
 import cl.makinolas.atk.actors.friend.Friend;
 import cl.makinolas.atk.stages.AbstractStage;
+import com.badlogic.gdx.physics.box2d.World;
 
 public class FlyWaveAndDropEnemy extends Enemy {
 
@@ -14,10 +12,9 @@ public class FlyWaveAndDropEnemy extends Enemy {
   private float accumulatorAttack;
   private float flyingAccumulator;
   
-  public FlyWaveAndDropEnemy(World myWorld, TextureRegion enemyTexture, int[] cutSprite, int[][] numberOfSprite,
-      int[][] numberOfHurtSprites, int givenHealth, int positionX, int positionY, boolean facingRight, int level, Enemies type,
+  public FlyWaveAndDropEnemy(World myWorld, int givenHealth, int positionX, int positionY, boolean facingRight, int level, Enemies type,
       Friend parent) {
-    super(myWorld, enemyTexture, cutSprite, numberOfSprite, numberOfHurtSprites, givenHealth, positionX, positionY, facingRight, level,
+    super(myWorld, givenHealth, positionX, positionY, facingRight, level,
         type, parent);
     
     accumulatorAttack = 0;
@@ -30,7 +27,7 @@ public class FlyWaveAndDropEnemy extends Enemy {
     flyingAccumulator += delta;
     myBody.setLinearVelocity(vx, (float) (6*Math.sin(4*flyingAccumulator)));
     
-    checkDamage(delta, 0);
+    checkState(delta);
     accumulatorAttack += delta; 
     
     if(accumulatorAttack > attackTime){

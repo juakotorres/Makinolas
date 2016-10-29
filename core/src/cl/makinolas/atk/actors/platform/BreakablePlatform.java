@@ -79,6 +79,7 @@ public class BreakablePlatform extends Platform {
 
   @Override
   public void endHeroInteraction(Hero hero, WorldManifold worldManifold) {
+    hero.isNotInPlatform();
     heroIsInPlatform = false;
   }
 

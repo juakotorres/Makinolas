@@ -230,48 +230,41 @@ public abstract class AbstractFriend implements Friend {
   
   @Override
   public Enemy returnEnemy(World myWorld, int positionX, int positionY, boolean facingRight) {
-    return new Enemy(myWorld, friendTexture, cutSprites,
-                walkingAnimation, hurtAnimation,  getHealth(),
+    return new Enemy(myWorld, getHealth(),
                 positionX, positionY, facingRight, getLevel(), friend, this);
   }
   
   @Override
   public Enemy returnStayAndShootEnemy(World myWorld, int positionX, int positionY, boolean facingRight) {
-    return new StayAndShootEnemy(myWorld, friendTexture, cutSprites,
-                walkingAnimation, hurtAnimation,  getHealth(),
+    return new StayAndShootEnemy(myWorld, getHealth(),
                 positionX, positionY, facingRight, getLevel(), friend, this);
   }
   
   @Override
   public Enemy returnFlyWaveAndDropEnemy(World myWorld, int positionX, int positionY, boolean facingRight) {
-    return new FlyWaveAndDropEnemy(myWorld, friendTexture, cutSprites,
-                walkingAnimation, hurtAnimation,  getHealth(),
+    return new FlyWaveAndDropEnemy(myWorld, getHealth(),
                 positionX, positionY, facingRight, getLevel(), friend, this);
   }
   
   @Override
   public Enemy returnJumperEnemy(World myWorld, int positionX, int positionY, boolean facingRight) {
-    return new JumperEnemy(myWorld, friendTexture, cutSprites,
-                walkingAnimation, hurtAnimation,  getHealth(),
+    return new JumperEnemy(myWorld, getHealth(),
                 positionX, positionY, facingRight, getLevel(), friend, this);
   }
   
   @Override
   public Enemy returnFollowerEnemy(World myWorld, int positionX, int positionY, boolean facingRight) {
-    return new FollowerEnemy(myWorld, friendTexture, cutSprites,
-                walkingAnimation, hurtAnimation,  getHealth(),
+    return new FollowerEnemy(myWorld, getHealth(),
                 positionX, positionY, facingRight, getLevel(), friend, this);
   }
   
   @Override
   public Enemy returnLongRangeEnemy(World myWorld, int heroPosition) {
-    return new LongRangeEnemy(myWorld, friendTexture, cutSprites, 
-                walkingAnimation, hurtAnimation,  getHealth(), heroPosition, getLevel(), friend,this);
+    return new LongRangeEnemy(myWorld, getHealth(), heroPosition, getLevel(), friend,this);
   }
   @Override
   public Enemy returnPhysicalEnemy(World myWorld, int heroPosition) {
-    return new PhysicalEnemy(myWorld, friendTexture, cutSprites, 
-                walkingAnimation, hurtAnimation,  getHealth(), heroPosition, getLevel(), friend,this);
+    return new PhysicalEnemy(myWorld, getHealth(), heroPosition, getLevel(), friend,this);
   }
   
   @Override

@@ -12,4 +12,5 @@ public class NullState extends JumpState {
 	 public void setAnimation(MinigameCharacter minigameCharacter, float delta) {
 	   minigameCharacter.onAirAnimation(delta);
 	}
+
 }

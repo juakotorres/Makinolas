@@ -111,4 +111,7 @@ public class Platform extends GameActor {
     actor2.endPlatformInteraction(this, worldManifold);
   }
 
+  @Override
+  public void endHeroInteraction(Hero hero, WorldManifold worldManifold) { hero.isNotInPlatform();}
+
 }

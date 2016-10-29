@@ -1,14 +1,12 @@
 package cl.makinolas.atk.actors.enemies;
 
-import com.badlogic.gdx.graphics.g2d.TextureRegion;
-import com.badlogic.gdx.physics.box2d.World;
-import com.badlogic.gdx.physics.box2d.WorldManifold;
-
 import cl.makinolas.atk.actors.GameActor;
 import cl.makinolas.atk.actors.friend.Enemies;
 import cl.makinolas.atk.actors.friend.Friend;
 import cl.makinolas.atk.actors.platform.Platform;
 import cl.makinolas.atk.stages.AbstractStage;
+import com.badlogic.gdx.physics.box2d.World;
+import com.badlogic.gdx.physics.box2d.WorldManifold;
 
 public class StayAndShootEnemy extends Enemy {
 
@@ -17,11 +15,10 @@ public class StayAndShootEnemy extends Enemy {
   private boolean arrived;
   private boolean inicialLooking;
   
-  public StayAndShootEnemy(World myWorld, TextureRegion enemyTexture, int[] cutSprite, int[][] numberOfSprite,
-      int[][] numberOfHurtSprites, int givenHealth, int positionX, int positionY,
+  public StayAndShootEnemy(World myWorld, int givenHealth, int positionX, int positionY,
       boolean facingRight, int level, Enemies type,
       Friend parent) {
-    super(myWorld, enemyTexture, cutSprite, numberOfSprite, numberOfHurtSprites, givenHealth, positionX, positionY, facingRight, level,
+    super(myWorld, givenHealth, positionX, positionY, facingRight, level,
         type, parent);
     
     arrived = false;
@@ -31,7 +28,7 @@ public class StayAndShootEnemy extends Enemy {
   
   @Override
   public void act(float delta){     
-    checkDamage(delta, 0);
+    checkState(delta);
     accumulatorAttack += delta; 
     
     if(arrived){

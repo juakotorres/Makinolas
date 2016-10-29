@@ -1,7 +1,13 @@
 package cl.makinolas.atk.actors.enemies;
 
 import cl.makinolas.atk.GameConstants;
-import cl.makinolas.atk.actors.*;
+import cl.makinolas.atk.actors.AnimationStates.AnimationState;
+import cl.makinolas.atk.actors.AnimationStates.BlockedState;
+import cl.makinolas.atk.actors.AnimationStates.UnBlockedState;
+import cl.makinolas.atk.actors.GameActor;
+import cl.makinolas.atk.actors.HBar;
+import cl.makinolas.atk.actors.Hero;
+import cl.makinolas.atk.actors.Monsters;
 import cl.makinolas.atk.actors.attacks.Attacks;
 import cl.makinolas.atk.actors.friend.Enemies;
 import cl.makinolas.atk.actors.friend.Friend;
@@ -23,27 +29,22 @@ public class Enemy extends Monsters {
   private int health;
   private HBar healthBar;
   private boolean isDamaged;
-  private int width;
-  private int height;
   private int meleeDamage;
   private boolean dead, free;
-  private int walkAnimation;
-  private int hurtAnimation;
-  private final float hurtTime = 1 / 4f;
   private final float meleeTime = 2f;
   protected final float groundTime = 0.5f;
   private float meleeAccumulator;
   private float accumulator;
   protected float groundAcc;
-  private float inflictorVelocity;
   private int level;
   private Enemies type;
   protected World myWorld;
-  protected final float spriteTime = 1 / 5f;
-  private float countMeleeFrames;
-  private int[] attackAnimations;
-  private int actualAnimation;
   protected boolean viewGround = true;
+  private AnimationState damageState;
+  private AnimationState walkingState;
+  private AnimationState attackState;
+  private AnimationState idleState;
+  private AnimationState currentState;
 
   protected RayCastCallback rayListener = new RayCastCallback() {
     @Override
@@ -53,29 +54,22 @@ public class Enemy extends Monsters {
     }
   };
 
+
   /**
    * Constructor for Enemy
    * @param myWorld Box2D World
-   * @param enemyTexture SpriteSheet of enemy animations
-   * @param cutSprite dimensions of sprites [width, height]
-   * @param numberOfSprite [[3], [0,0] , [0,1] , [0,2]] 3 Sprites for animation, (0,0) -> (0,1) -> (0,2)
    * @param facingRight 
    */
-  public Enemy(World myWorld, TextureRegion enemyTexture,
-               int[] cutSprite, int[][] numberOfSprite
-               , int[][] numberOfHurtSprites, int givenHealth
+  public Enemy(World myWorld, int givenHealth
                , int positionX, int positionY, boolean facingRight,
                int level, Enemies type, Friend parent) {
     
     this.myWorld = myWorld;
     health = givenHealth;
-    width = cutSprite[0];
-    height = cutSprite[1];
-    inflictorVelocity = 0;
     meleeAccumulator = 0;
     this.type = type;
     isAttacking = false;
-    healthBar = new HBar(givenHealth, health, cutSprite[0], 4, new TextureRegion( new Texture(Gdx.files.internal("Overlays/bar_green.png"))));
+    healthBar = new HBar(givenHealth, health, parent.getWidth(), 4, new TextureRegion( new Texture(Gdx.files.internal("Overlays/bar_green.png"))));
     isDamaged = false;
     dead = false;
     free = true;
@@ -106,11 +100,7 @@ public class Enemy extends Monsters {
     setBody(myBody);
     
     // Guardar animaciones del jugador
-    setAnimation(enemyTexture, cutSprite);
-    hurtAnimation = addAnimation(0.2f,  numberOfHurtSprites);
-    walkAnimation = addAnimation(0.2f, numberOfSprite);
-    changeAnimation(walkAnimation);
-   
+    setAnimation();
   }
   
   @Override
@@ -125,12 +115,38 @@ public class Enemy extends Monsters {
     }
     myBody.setLinearVelocity(vx, myBody.getLinearVelocity().y);
     //myBody.applyForce(1, 1, 10, 10, true);
-    checkDamage(delta, inflictorVelocity);
-    
-    checkHeroNear(delta);
-    checkMelee(delta);
-    checkGround(delta);
 
+
+    checkHeroNear(delta);
+    checkGround(delta);
+    checkState(delta);
+
+  }
+
+  protected void checkState(float delta) {
+    currentState.act(delta);
+    if(isDamaged){
+      if(currentState.finished()){
+        isDamaged = false;
+        changeStateBackToNormal();
+      }
+    } else if(isAttacking){
+      if(currentState.finished()){
+        isAttacking = false;
+        changeStateBackToNormal();
+      }
+
+    }
+    if(currentState.finished())
+      changeState(currentState);
+    changeAnimation(currentState.getActualAnimation());
+  }
+
+  private void changeStateBackToNormal() {
+    if(vx != 0)
+      changeState(walkingState);
+    else
+      changeState(idleState);
   }
 
   protected void checkGround(float delta) {
@@ -142,52 +158,32 @@ public class Enemy extends Monsters {
     }
   }
 
-  private void checkMelee(float delta) {
-    if(isAttacking){
-      countMeleeFrames += delta;
-      if(countMeleeFrames > spriteTime){
-        if(actualAnimation  < attackAnimations.length) {
-          changeAnimation(attackAnimations[actualAnimation]);
-          countMeleeFrames = 0;
-          actualAnimation += 1;
-        } else {
-          isAttacking = false;
-          countMeleeFrames = 0;
-          actualAnimation = 0;
-        }
-      }
-    }
-    else if(!isDamaged){
-      countMeleeFrames = 0;
-      isAttacking = false;
-      actualAnimation = 0;
-      changeAnimation(walkAnimation);
-    } else {
-      countMeleeFrames = 0;
-    }
-    
-  }
+  private void setAnimation(){
+    setMasterTexture(parent.getTexture(),parent.getWidth(), parent.getHeight());
+    setMasterTexture(parent.getTexture(),parent.getWidth(),parent.getHeight());
 
-  protected void checkDamage(float delta, float inflictorVel) {
-    if(isDamaged){
-      myBody.setLinearVelocity(new Vector2(inflictorVel,0));
-      accumulator += delta;
-      if(accumulator > hurtTime){
-        isDamaged = false;
-        changeAnimation(walkAnimation);
-        accumulator = 0;
-      }
-    }    
-  }
-
-  private void setAnimation(TextureRegion enemySprites, int[] cutSprite){
-    setMasterTexture(enemySprites,cutSprite[0],cutSprite[1]);
-    attackAnimations = new int[parent.getMeleeAnimation().length];
-    countMeleeFrames = 0;
+    int[] walkAnimation = new int[parent.getWalkAnimation().length];
+    int[] hurtAnimation = new int[parent.getHurtAnimation().length];
+    int[] attackAnimation = new int[parent.getMeleeAnimation().length];
+    int[] idleAnimation = new int[parent.getIdleAnimation().length];
     for(int i = 0; i < parent.getMeleeAnimation().length; i++){
-      attackAnimations[i] = addAnimation(0.2f, parent.getMeleeAnimation()[i][1]);
-    }  
-    actualAnimation = 0;
+      attackAnimation[i] = addAnimation(0.2f, parent.getMeleeAnimation()[i][1]);
+    }
+    for(int i = 0; i < parent.getIdleAnimation().length; i++){
+      idleAnimation[i] = addAnimation(0.2f, parent.getIdleAnimation()[i][1]);
+    }
+    for(int i = 0; i < parent.getWalkAnimation().length; i++){
+      walkAnimation[i] = addAnimation(0.2f, parent.getWalkAnimation()[i][1]);
+    }
+    for(int i = 0; i < parent.getHurtAnimation().length; i++){
+      hurtAnimation[i] = addAnimation(0.2f, parent.getHurtAnimation()[i][1]);
+    }
+
+    attackState = new BlockedState(this, 0.2f, attackAnimation);
+    idleState = new UnBlockedState(this, 0.2f, idleAnimation);
+    walkingState = new UnBlockedState(this, 0.2f, walkAnimation);
+    damageState = new BlockedState(this, 0.2f, hurtAnimation);
+    changeStateBackToNormal();
   }
   
   @Override
@@ -209,10 +205,11 @@ public class Enemy extends Monsters {
     } else {
       health -= damage;
     }
-    isDamaged = true;
-    changeAnimation(hurtAnimation);
+    if(!currentState.getBlocked() || currentState.finished()) {
+      isDamaged = true;
+      changeState(damageState);
+    }
     Monsters source = inflictor.getSource();
-    inflictorVelocity = inflictor.getXVelocity();
     inflictor.setDead();
     healthBar.setCurrent(health);
     if(health <= 0){
@@ -223,6 +220,11 @@ public class Enemy extends Monsters {
       setDead();     
     }
 
+  }
+
+  private void changeState(AnimationState state) {
+    currentState = state;
+    currentState.reset();
   }
   
   private int getLevel() {
@@ -265,7 +267,7 @@ public class Enemy extends Monsters {
 
   @Override
   public float getMonsterWidth() {
-    return getBodySize(width);
+    return getBodySize(parent.getWidth());
   }
 
   @Override
@@ -297,7 +299,7 @@ public class Enemy extends Monsters {
 
   @Override
   public float getMonsterHeight() {
-    return getBodySize(height);
+    return getBodySize(parent.getHeight());
   }
 
   @Override
@@ -350,11 +352,14 @@ public class Enemy extends Monsters {
         && Math.abs(heroPosition.y - getBody().getPosition().y) < 1
         && !isAttacking
         && meleeAccumulator > meleeTime){
-      isAttacking = true;
-      meleeAccumulator = 0;
+      if(!currentState.getBlocked() || currentState.finished()) {
+        isAttacking = true;
+        meleeAccumulator = 0;
+        changeState(attackState);
+      }
     }
   }
-  
+
   public void setDead(){
     dead = true;
   }
