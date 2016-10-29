@@ -70,7 +70,6 @@ public class PlatformResource {
         textCodes.put("tr1",platAtlas.createSprite("tree-1.png"));
         textCodes.put("tr2",platAtlas.createSprite("tree-2.png"));
         textCodes.put("tro",platAtlas.createSprite("tree-ornament.png"));
-        textCodes.put("WT",platAtlas.createSprite("Water"));
     }
 
     public static PlatformResource getInstance() {
