@@ -7,9 +7,12 @@ import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.Body;
 import com.badlogic.gdx.physics.box2d.BodyDef;
+import com.badlogic.gdx.physics.box2d.MassData;
 import com.badlogic.gdx.physics.box2d.PolygonShape;
 import com.badlogic.gdx.physics.box2d.World;
 import com.badlogic.gdx.physics.box2d.WorldManifold;
+import com.badlogic.gdx.physics.box2d.BodyDef.BodyType;
+import com.badlogic.gdx.physics.box2d.FixtureDef;
 
 import cl.makinolas.atk.GameConstants;
 import cl.makinolas.atk.actors.GameActor;
@@ -22,11 +25,7 @@ public class WaterPlatform extends GameActor {
 	protected BodyDef myBodyDefinition;
 	int xp, yp, wp, hp;
 
-
-	
-    
 	public WaterPlatform(World myWorld, int x, int y) {
-		
 		
 		texture = new TextureRegion(new Texture(Gdx.files.internal("Background/Water.png")));
 
@@ -36,9 +35,11 @@ public class WaterPlatform extends GameActor {
 	    Body myBody = myWorld.createBody(myBodyDefinition);
 	    PolygonShape shape = new PolygonShape();
 	    shape.setAsBox(1 * TILE_FACTOR /2, 1 * TILE_FACTOR / 2);
-	    myBody.setGravityScale(1);
-	    myBody.createFixture(shape, 0.5f).setFriction(0);
-	    myBody.resetMassData();
+
+	    FixtureDef fixture= new FixtureDef();
+	    fixture.isSensor=true;
+	    fixture.shape=shape;
+	    myBody.createFixture(fixture);
 	    shape.dispose();
 	    setBody(myBody);
 	    
