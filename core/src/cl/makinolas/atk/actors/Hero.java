@@ -53,8 +53,10 @@ public class Hero extends Monsters {
   private final float hurtTime = 1 / 4f;
   private float accumulator;
   private Array<Friend> allies;
+  private Array<Friend> backupAllies;
   private Friend actualFriend;
   private int indexFriend;
+  private int backupIndexFriend;
   private BodyDef myBodyDefinition;
   private Inventory inventory;
   private int vx;
@@ -85,6 +87,8 @@ public class Hero extends Monsters {
 
     // Set team for player;
     allies = new Array<Friend>();
+    backupAllies = new Array<Friend>();
+    backupIndexFriend = 0;
     loadFriends();
 
     //Inventory uses loaded data
@@ -107,7 +111,10 @@ public class Hero extends Monsters {
     
     
   }
-  
+  /* Aqui se hace un intento fallido de arreglar el bug del sabe al parecer,
+   * consiste en que cuando no se puede cargar el archivo, se agregaran dos
+   * personajes (pokemones kakuna y Scyther) para poder jugar con ellos. 
+   * */
   private void loadFriends() {
     try {
       SaveManager.getInstance().loadData(GameText.savePath);
@@ -118,6 +125,7 @@ public class Hero extends Monsters {
     }
     if(SaveManager.getInstance().hasSaveInstance()){
       FriendDescriptor[] friends = SaveManager.getInstance().getSaveInstance().friends;
+      
       levelsUnlocked = SaveManager.getInstance().getSaveInstance().levelsUnlocked;
 
       if(Levels.values().length > levelsUnlocked.length){
@@ -173,8 +181,61 @@ public class Hero extends Monsters {
   public void addAllie(Friend friend) {
     if(allies.size<4)
       allies.add(friend);
+    else{
+      backupAllies.add(friend);    	
+    }
   }
-
+  
+  
+  /*
+   * changeAlliesTeam debe intercambiar durante la partida un pokemon dentro del equipo por uno de los atrapados 
+   * (pero que no son utilizables en la version final del juego), es solo un test, y posiblemente sirva para 
+   * estudiar mejor ciertos experimentos en las otras fases del proyecto (como probar tipos de pokemon).
+   *  
+  */
+  
+  //BORRAR
+  public void changeAlliesTeam(int index){
+	if(!isJumping ){
+	  System.out.println("changeAlliesTeam , isjumping " + !isJumping + "getDead " + actualFriend.getDead() + " name " + actualFriend.getName());
+      GameActor puff = new Puff(myWorld, myBody.getPosition().x,myBody.getPosition().y,isFacingRight, this);
+      ((AbstractStage) getStage()).addGameActor(puff);
+      allies.set(indexFriend, actualFriend);
+      actualFriend = backupAllies.get(index);
+      backupAllies.set(index, allies.get(indexFriend));
+      allies.set(indexFriend, actualFriend);
+      //indexFriend = index;
+      backupIndexFriend = index;
+      parent = actualFriend;
+      MainBar.getInstance().setBars();
+      setSizeCollider(getBody().getPosition(), false);
+      setAnimation();
+	}
+  }
+  
+//BORRAR
+  public void foo(){
+	for(int i = 1; i <= backupAllies.size; i++){
+	  int j = (backupIndexFriend - i + backupAllies.size) % backupAllies.size;
+	  if(!backupAllies.get(j).getDead()){
+		  changeAlliesTeam(j);
+		  break;
+	  }
+	}
+  }
+  
+  /*
+   * swapTeamAllies(i,j) intercambia la posicion i el arreglo de pokemon jugables (allies)
+   * con el pokemon de la posicion j del arreglo de pokemon no jugables durante una partida
+   * (backupAllies) 
+  */
+  //MODIFICAR PARA POSIBLEMENTE ACTUALIZAR LA PANTALLA LUEGO DE EL INTERCAMBIO
+  public void swapTeamAllies( int i, int j){
+	  Friend auxfriend = backupAllies.get(j);
+	  backupAllies.set(j, allies.get(i));
+	  allies.set(i, auxfriend);
+  }
+  
   @Override
   public void act(float delta){
     checkChangingAllie();
@@ -365,6 +426,7 @@ public class Hero extends Monsters {
   
   private void setNewAllie(int index){
     if(!isJumping || actualFriend.getDead()){
+      System.out.println("setNewAllie, isjumping " + !isJumping + "getDead " + actualFriend.getDead() + " name " + actualFriend.getName());
       GameActor puff = new Puff(myWorld, myBody.getPosition().x,myBody.getPosition().y,isFacingRight, this);
       ((AbstractStage) getStage()).addGameActor(puff);
       allies.set(indexFriend, actualFriend);
@@ -535,6 +597,8 @@ public class Hero extends Monsters {
       }
     }
   }
+  
+  
 
   @Override
   public float getXDirection(){
@@ -542,9 +606,9 @@ public class Hero extends Monsters {
   }
 
   public FriendDescriptor[] saveMyFriends() {
-    FriendDescriptor[] friends = new FriendDescriptor[allies.size];
-    for(int i = 0; i < allies.size; i++){
-      Friend ally = allies.get(i);
+    FriendDescriptor[] friends = new FriendDescriptor[allies.size + backupAllies.size];
+    for(int i = 0; i < (allies.size + backupAllies.size) ; i++){
+      Friend ally = (i < allies.size)? allies.get(i): backupAllies.get(i-allies.size);
       friends[i] = new FriendDescriptor();
       friends[i].name = ally.getName();
       friends[i].level = ally.getLevel();
@@ -552,8 +616,12 @@ public class Hero extends Monsters {
     }
     return friends;
   }
+  
   public Array<Friend> getAllies(){
     return allies;
+  }
+  public Array<Friend> getBackupAllies() {
+	return backupAllies;
   }
 
   public int getIndexFriend(){
@@ -623,6 +691,7 @@ public class Hero extends Monsters {
   public void interactWithItem(ItemActor item) {
     item.interactWithHero(this,null);
   }
+  
 
 
 }
