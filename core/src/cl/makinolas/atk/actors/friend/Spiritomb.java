@@ -4,6 +4,9 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 
+import cl.makinolas.atk.types.DarkType;
+import cl.makinolas.atk.types.GhostType;
+
 public class Spiritomb extends AbstractFriend {
 
   private TextureRegion[][] faces;
@@ -21,8 +24,11 @@ public class Spiritomb extends AbstractFriend {
     setFaceSprite(faces[0][0]);
     initLevel(10);
     initDead();
+    newMonster();
     setActualEvolution(0);
     setMaxMagic(1000);
+    addType(new GhostType());
+    addType(new DarkType());
   }
   
   public Spiritomb(int level){

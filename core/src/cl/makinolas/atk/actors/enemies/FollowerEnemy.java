@@ -35,7 +35,7 @@ public class FollowerEnemy extends Enemy {
     checkHeroPosition(delta);
     accumulatorAttack += delta; 
     
-    if(accumulatorAttack > attackTime){
+    if(accumulatorAttack > attackTime && super.isFree()){
       Attacks attack = parent.getFriendAttack(myWorld, myBody.getPosition().x, myBody.getPosition().y - 1f, isFacingRight, this);
       attack.isDropping();
       attack.setSource(this);

@@ -18,38 +18,33 @@ public abstract class Boss extends Monsters implements IBoss{
   protected int health;
   protected HBarFliped healthBar;
   protected boolean isDamaged;
-  protected boolean isLaunchingAttack;
+  protected float vx;
   protected int width;
   protected int height;
   protected boolean dead;
   protected int walkAnimation;
   protected int hurtAnimation;
-  protected int attackAnimation;
-  protected int secondaryAttackAnimation;
-  protected final float hurtTime = 1 / 4f;
-  protected float accumulator;
-  protected float accumulatorAttack = 0;
-  
-  
+  private float hurtAcc;
+  protected StateProcessor processor;
+
+  public void setProcessor(StateProcessor sp){
+    processor = sp;
+  }
+
+  public abstract void defineStates();
+
+  public Boss(){
+    defineStates();
+  }
+
   @Override
-  public void act(float delta){         
-    if(isDamaged && !isLaunchingAttack){
-      accumulator += delta;
-      if(accumulator > hurtTime){
-        isDamaged = false;
-        changeAnimation(walkAnimation);
-        accumulator = 0;
-      }
-    } else if (isLaunchingAttack){
-      accumulatorAttack += delta;
-      if(accumulatorAttack > hurtTime){
-        isLaunchingAttack = false;
-        isDamaged = false;
-        changeAnimation(walkAnimation);
-        accumulatorAttack = 0;
-        accumulator = 0;
-      }
-    }
+  public void act(float delta){
+    myBody.setLinearVelocity(vx, myBody.getLinearVelocity().y);
+    if(processor!=null)
+      processor.act(delta);
+    hurtAcc -= delta;
+    if(hurtAcc<=0)
+      changeAnimation(walkAnimation);
   }
   
   
@@ -70,6 +65,7 @@ public abstract class Boss extends Monsters implements IBoss{
       }
       isDamaged = true;
       changeAnimation(hurtAnimation);
+      hurtAcc = 0.25f;
       inflictor.setDead();
       healthBar.setCurrent(health);
       if(health <= 0){

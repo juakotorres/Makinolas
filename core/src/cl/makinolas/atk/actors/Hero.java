@@ -143,7 +143,9 @@ public class Hero extends Monsters {
         addAllie(MonsterFactory.getInstance().getHeroFriend("Kakuna", 6));
       } else {
         for(int i = 0; i < friends.length; i++){
-          addAllie(MonsterFactory.getInstance().getHeroFriend(friends[i].name, friends[i].level, friends[i].exp));
+          addAllie(MonsterFactory.getInstance().getHeroFriend(friends[i].name, friends[i].level,
+                                                              friends[i].exp, friends[i].individualValue,
+                                                              friends[i].ev1, friends[i].ev2));
         }
       }
     } else {
@@ -610,6 +612,9 @@ public class Hero extends Monsters {
     for(int i = 0; i < (allies.size + backupAllies.size) ; i++){
       Friend ally = (i < allies.size)? allies.get(i): backupAllies.get(i-allies.size);
       friends[i] = new FriendDescriptor();
+      friends[i].individualValue = ally.getIvs();
+      friends[i].ev1 = ally.getEv1();
+      friends[i].ev2 = ally.getEv2();
       friends[i].name = ally.getName();
       friends[i].level = ally.getLevel();
       friends[i].exp = (int) ally.getNextExperience();
@@ -644,7 +649,7 @@ public class Hero extends Monsters {
     AbstractStage myStage = ((AbstractStage) getStage());
     Levels actualLevel = myStage.getLevel();
     
-    myStage.music.dispose();
+    AbstractStage.music.stop();
 
     int[] levels = actualLevel.unlockableLevels;
     for(int level : levels){
