@@ -21,7 +21,7 @@ public class Formulas {
   }
   
   // damage formula
-  public static int getDamage(int attack1, int level1, int defense2, int attackBaseDamage, ArrayList<IType> typeFriendSource, ArrayList<IType> typeFriendMonster, IType type){
+  public static int getDamage(int attack1, int level1, int defense2, int attackBaseDamage, ArrayList<IType> typeFriendSource, ArrayList<IType> typeFriendMonster, IType type, int criticModificator){
 
     double randomMultiplier = Math.random()* 0.15 + 0.85;
     double criticalRandomizer = Math.random();
@@ -37,14 +37,24 @@ public class Formulas {
     	efectivity = efectivity * type.attackToType(auxType);
     }
     
-    if( criticalRandomizer < 1/16){
-      critical = 1.5;
+    if( criticalRandomizer < getCritical(criticModificator)){
+      critical = 1.33;
+      System.out.println("Critical Hit!");
     }
 
     return (int) (critical*extra*efectivity*randomMultiplier*(2+(0.2*(double)level1+1)*(double)attack1)*(double)attackBaseDamage*(1/(25*(double)defense2)));
   }
   
-  // stats formula
+  private static double getCritical(int criticModificator) {
+	  switch (criticModificator) {
+		  case 1: return 0.0625;
+		  case 2: return 0.125;
+		  case 3: return 0.5;
+		  default: return 1;
+	  }
+}
+
+// stats formula
   public static int getOtherStat(int baseStat, int level){
     return (((2 * baseStat) * level) / 100) + 5;
   }
