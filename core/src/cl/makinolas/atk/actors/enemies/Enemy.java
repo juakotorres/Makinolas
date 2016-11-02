@@ -5,6 +5,7 @@ import cl.makinolas.atk.actors.*;
 import cl.makinolas.atk.actors.attacks.Attacks;
 import cl.makinolas.atk.actors.friend.Enemies;
 import cl.makinolas.atk.actors.friend.Friend;
+import cl.makinolas.atk.actors.fx.FxManager;
 import cl.makinolas.atk.actors.items.BallActor;
 import cl.makinolas.atk.actors.items.ItemFinder;
 import cl.makinolas.atk.actors.platform.Platform;
@@ -250,8 +251,9 @@ public class Enemy extends Monsters {
   
   @Override
   public void interactWithAttack(Attacks attack, WorldManifold worldManifold){
-    if(free)
+    if(free){
       attack.manageInteractWithMonster(this, worldManifold);
+    }
   }
   
   @Override
@@ -365,6 +367,11 @@ public class Enemy extends Monsters {
 
   public boolean isFree() {
 	return free;
+  }
+  
+  public void CriticalDamage() {
+		System.out.println("Critic Damage to Enemy!");
+		FxManager.getInstance().addFx(FxManager.Fx.CRITICAL,  Hero.getInstance().getStageX()+this.getX(), Hero.getInstance().getStageY()+this.getY());
   }
 }
 

@@ -164,7 +164,7 @@ public abstract class Attacks extends AnimatedActor {
     ArrayList<IType> typeFriendSource = getSource().getMyself().getType();
     ArrayList<IType> typeFriendMonster = monster.getMyself().getType();
     
-    return Formulas.getDamage(attackStat, level1, defenseStat, getAttackDamage(), typeFriendSource, typeFriendMonster, this.mySpriteState.getType(), criticModificator);
+    return Formulas.getDamage(monster, attackStat, level1, defenseStat, getAttackDamage(), typeFriendSource, typeFriendMonster, this.mySpriteState.getType(), criticModificator);
   }
 
 public int getSpecialAttackDamage(Monsters monster) {
@@ -176,7 +176,7 @@ public int getSpecialAttackDamage(Monsters monster) {
     ArrayList<IType> typeFriendSource = getSource().getMyself().getType();
     ArrayList<IType> typeFriendMonster = monster.getMyself().getType();
     
-    return Formulas.getDamage(spAttackStat, level1, spDefenseStat, getAttackDamage(), typeFriendSource, typeFriendMonster, this.mySpriteState.getType(), criticModificator);
+    return Formulas.getDamage(monster, spAttackStat, level1, spDefenseStat, getAttackDamage(), typeFriendSource, typeFriendMonster, this.mySpriteState.getType(), criticModificator);
   }
   
 }

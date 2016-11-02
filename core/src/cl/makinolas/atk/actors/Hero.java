@@ -9,17 +9,22 @@ import com.badlogic.gdx.physics.box2d.BodyDef;
 import com.badlogic.gdx.physics.box2d.PolygonShape;
 import com.badlogic.gdx.physics.box2d.World;
 import com.badlogic.gdx.physics.box2d.WorldManifold;
+import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.viewport.FitViewport;
 
 import cl.makinolas.atk.GameConstants;
 import cl.makinolas.atk.actors.attacks.Attacks;
+import cl.makinolas.atk.actors.attacks.ShootAttack;
+import cl.makinolas.atk.actors.attacks.states.DragonBreathState;
 import cl.makinolas.atk.actors.bosses.IBoss;
 import cl.makinolas.atk.actors.enemies.Enemy;
 import cl.makinolas.atk.actors.enemies.MonsterFactory;
 import cl.makinolas.atk.actors.friend.Enemies;
 import cl.makinolas.atk.actors.friend.Friend;
 import cl.makinolas.atk.actors.friend.FriendDescriptor;
+import cl.makinolas.atk.actors.fx.FxManager;
+import cl.makinolas.atk.actors.fx.FxManager.Fx;
 import cl.makinolas.atk.actors.items.Ball;
 import cl.makinolas.atk.actors.items.BallActor;
 import cl.makinolas.atk.actors.items.Inventory;
@@ -418,7 +423,7 @@ public class Hero extends Monsters {
   
   @Override
   public void interactWithAttack(Attacks attack, WorldManifold worldManifold){
-    attack.manageInteractWithMonster(this, worldManifold);
+    attack.manageInteractWithMonster(this, worldManifold);    
   }
 
   @Override
@@ -627,6 +632,13 @@ public class Hero extends Monsters {
   @Override
   public void interactWithItem(ItemActor item) {
     item.interactWithHero(this,null);
+  }
+  
+  public void CriticalDamage() {
+		System.out.println("Critic Damage to Hero!");
+		System.out.println(this.getStageX());
+		System.out.println(this.getStageY());
+		FxManager.getInstance().addFx(FxManager.Fx.CRITICAL,  this.getStageX(),this.getStageY());
   }
 
 
