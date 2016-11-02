@@ -9,6 +9,7 @@ import cl.makinolas.atk.actors.items.BallActor;
 import cl.makinolas.atk.actors.items.ItemFinder;
 import cl.makinolas.atk.actors.platform.Platform;
 import cl.makinolas.atk.actors.ui.MainBar;
+import cl.makinolas.atk.audio.GDXSoundEffectsEnemy;
 import cl.makinolas.atk.utils.Formulas;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
@@ -44,6 +45,7 @@ public class Enemy extends Monsters {
   private int[] attackAnimations;
   private int actualAnimation;
   protected boolean viewGround = true;
+  private GDXSoundEffectsEnemy mplayer=new GDXSoundEffectsEnemy();
 
   protected RayCastCallback rayListener = new RayCastCallback() {
     @Override
@@ -170,6 +172,7 @@ public class Enemy extends Monsters {
 
   protected void checkDamage(float delta, float inflictorVel) {
     if(isDamaged){
+      mplayer.PlayExplotion();
       myBody.setLinearVelocity(new Vector2(inflictorVel,0));
       accumulator += delta;
       if(accumulator > hurtTime){
@@ -216,6 +219,7 @@ public class Enemy extends Monsters {
     inflictor.setDead();
     healthBar.setCurrent(health);
     if(health <= 0){
+      mplayer.PlayExplotionEnd();
       source.gainExperience(getLevel(), type);
       Hero.getInstance().earnMoney(getLevel(), type);
       ItemFinder.getInstance().requestDrop(myBody.getPosition().x,myBody.getPosition().y,getStage(),myWorld);

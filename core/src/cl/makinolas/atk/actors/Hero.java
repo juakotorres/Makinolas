@@ -24,6 +24,7 @@ import cl.makinolas.atk.actors.items.BallActor;
 import cl.makinolas.atk.actors.items.Inventory;
 import cl.makinolas.atk.actors.platform.Platform;
 import cl.makinolas.atk.actors.ui.MainBar;
+import cl.makinolas.atk.audio.GDXSoundEffectsHero;
 import cl.makinolas.atk.screen.MapScreen;
 import cl.makinolas.atk.stages.AbstractStage;
 import cl.makinolas.atk.stages.Levels;
@@ -38,6 +39,7 @@ import cl.makinolas.atk.utils.SaveManager;
 public class Hero extends Monsters {
 
   public static Hero player = new Hero();
+
   private boolean changing;
   private int changeIndex;
   private boolean isJumping;
@@ -66,6 +68,7 @@ public class Hero extends Monsters {
   private boolean[] levelsUnlocked;
   private JumpState state;
   private boolean onWall = false;
+  private GDXSoundEffectsHero mplayer=new GDXSoundEffectsHero();
 
   private Hero() {
 
@@ -167,7 +170,6 @@ public class Hero extends Monsters {
   public void act(float delta){
     checkChangingAllie();
     myBody.setLinearVelocity(vx, myBody.getLinearVelocity().y);
-    
     ((AbstractStage) getStage()).changeCamera(myBody.getPosition().x , myBody.getPosition().y );
     
     checkDamage(delta);
@@ -175,10 +177,9 @@ public class Hero extends Monsters {
     checkEvolution();
     checkAccumulatingJump();
     giveMagic();
-    
+
     if (isJumping)
     	state.countFrames();
-    
   }
   
   private void checkAccumulatingJump() {
@@ -416,11 +417,14 @@ public class Hero extends Monsters {
   }
 
   public void interactWithMonster(Monsters monster) {
+	  /*heroe es golpeado por mounstruo falta sonido*/
+	
     meleeAttack(monster, isAttacking);  
   }
   
   @Override
   public void interactWithPortal(Portal portal){
+	mplayer.PlayEnd();
     portal.completeStage();
   }
 
@@ -452,6 +456,7 @@ public class Hero extends Monsters {
 	isJumping = true;
 	state.restarCount();
     state.jump();
+    
   }
   
   public void isNotPressingSpace() {
@@ -467,6 +472,7 @@ public class Hero extends Monsters {
 
   public void attackPrimary() {
     if(actualFriend.getMagic() >= 100){
+       mplayer.PlayProyectileSound();
       actualFriend.setMagic(actualFriend.getMagic() - 100);
       GameActor fireball = actualFriend.getFriendAttack(myWorld, myBody.getPosition().x,myBody.getPosition().y,isFacingRight, this);
       ((AbstractStage) getStage()).addGameActor(fireball);
@@ -475,6 +481,7 @@ public class Hero extends Monsters {
 
   public void attackSecondary() {
     if(!isAttacking){
+      mplayer.PlayClaw();
       isAttacking = true;
     }
   }
@@ -492,6 +499,7 @@ public class Hero extends Monsters {
   }
 
   public void throwBall(Ball.BallType type) {
+	  
     BallActor ball = new BallActor(type, myWorld, myBody.getPosition().x + ((isFacingRight)?0.6f:-0.6f)*actualFriend.getWidth()/ GameConstants.WORLD_FACTOR,
             myBody.getPosition().y);
     ball.setThrowImpulse((isFacingRight)?1:-1);
@@ -553,8 +561,7 @@ public class Hero extends Monsters {
   public void completeStage(Game myGame){
     AbstractStage myStage = ((AbstractStage) getStage());
     Levels actualLevel = myStage.getLevel();
-    
-    myStage.music.dispose();
+    myStage.musicplayer.StopMusic();
     int[] levels = actualLevel.unlockableLevels;
     for(int level : levels){
       levelsUnlocked[level] = true;
@@ -588,6 +595,7 @@ public class Hero extends Monsters {
 
   @Override
   public void setSpeed(float x, float y) {
+	  mplayer.PlayJumpSound();
       myBody.setLinearVelocity(x, y);
   }
 

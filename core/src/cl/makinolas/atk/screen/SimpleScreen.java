@@ -10,8 +10,9 @@ public abstract class SimpleScreen implements Screen {
 
     protected Stage stage;
     protected Game myGame;
-
+ 
     public SimpleScreen(Game g, Stage s){
+
         myGame = g;
         stage = s;
         Gdx.input.setInputProcessor(stage);

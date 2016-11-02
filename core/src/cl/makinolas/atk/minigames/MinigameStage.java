@@ -25,6 +25,7 @@ import cl.makinolas.atk.actors.platform.Platform;
 import cl.makinolas.atk.actors.ui.BagVis;
 import cl.makinolas.atk.actors.ui.MainBar;
 import cl.makinolas.atk.actors.ui.MobileGroup;
+import cl.makinolas.atk.audio.GDXMusicPlayer;
 import cl.makinolas.atk.screen.GameScreen;
 import cl.makinolas.atk.stages.AbstractStage;
 import cl.makinolas.atk.stages.CameraPosition;
@@ -50,7 +51,7 @@ public class MinigameStage extends AbstractStage implements ContactListener{
   
   public MinigameStage(Viewport v, GameScreen actualScreen, Game myGame){
     super(v);
-    
+    musicplayer=new GDXMusicPlayer();
     myScreen = actualScreen;
     gameActors = new Array<GameActor>();
     suMundo = new World(new Vector2(0, -30), true);
@@ -59,10 +60,7 @@ public class MinigameStage extends AbstractStage implements ContactListener{
     addActor(new Background("Background/OldRuins1.1.png", getCamera()));
     hgsc = SaveManager.getInstance().getHighscore();
 
-    music = Gdx.audio.newMusic(Gdx.files.internal("Music/Freesia.mp3"));
-    music.setLooping(true); 
-    music.play();
-
+    musicplayer.PlayLooped("Music/Freesia.mp3");
     deco = new Group();
     addActor(deco);
     ground = new Group();

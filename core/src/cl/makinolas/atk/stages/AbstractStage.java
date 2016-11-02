@@ -7,6 +7,7 @@ import com.badlogic.gdx.utils.viewport.Viewport;
 import cl.makinolas.atk.actors.GameActor;
 import cl.makinolas.atk.actors.Hero;
 import cl.makinolas.atk.actors.friend.Friend;
+import cl.makinolas.atk.audio.GDXMusicPlayer;
 import cl.makinolas.atk.screen.GameScreen;
 
 public abstract class AbstractStage extends Stage {
@@ -17,7 +18,8 @@ public abstract class AbstractStage extends Stage {
   protected GameScreen myScreen;
   protected boolean paused;
   public CameraPosition cameraObserver;
-  public Music music;
+  public GDXMusicPlayer musicplayer;
+  
 
   public AbstractStage(Viewport v) {
     super(v);
@@ -50,7 +52,7 @@ public abstract class AbstractStage extends Stage {
   }
   
   public void changeDeadMenu() {
-    music.dispose();
+    musicplayer.StopMusic();
     myScreen.mainMenu();
   }
 
