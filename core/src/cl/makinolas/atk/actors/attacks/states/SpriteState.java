@@ -19,7 +19,7 @@ public abstract class SpriteState {
   public abstract PlayMode getModeAnimation();
   public abstract int getInitialSprite();
   public abstract int getFinalSprite();
-  public abstract IType getType() ;
+  public abstract IType getType();
   
   public int getBodyWidth() {
     return getWidth();
@@ -59,6 +59,10 @@ public abstract class SpriteState {
   
   public boolean oneTimeVelocity() {
     return false;
+  }
+  
+  public int getCriticalChance(){
+	  return 1;
   }
 
 }

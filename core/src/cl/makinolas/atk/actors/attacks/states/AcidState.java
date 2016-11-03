@@ -14,7 +14,7 @@ public class AcidState extends SpriteState {
   
   @Override
   public int getAttackDamage() {
-    return 20;
+    return 40;
   }
 
   @Override
