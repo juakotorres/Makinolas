@@ -635,9 +635,6 @@ public class Hero extends Monsters {
   }
   
   public void CriticalDamage() {
-		System.out.println("Critic Damage to Hero!");
-		System.out.println(this.getStageX());
-		System.out.println(this.getStageY());
 		FxManager.getInstance().addFx(FxManager.Fx.CRITICAL,  this.getStageX(),this.getStageY());
   }
 
