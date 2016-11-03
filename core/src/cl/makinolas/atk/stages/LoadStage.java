@@ -20,44 +20,61 @@ import cl.makinolas.atk.screen.MapScreen;
 import cl.makinolas.atk.screen.MenuScreen;
 import cl.makinolas.atk.start.StartingJourneyStage;
 
+import java.util.ArrayList;
+
 public class LoadStage extends Stage {
 
   private Game myGame;
 
   private LoadActor[] options;
+  int k = 0;
   private int lastSelected;
   private Title arrow;
   
   public LoadStage(Viewport v, GameScreen actualScreen, Game myGame) {
     super(v);
-    
+
     lastSelected = 0;
     this.myGame = myGame;
+    ArrayList<LoadActor> load = new ArrayList<LoadActor>();
     //myScreen = actualScreen;
     addActor(new Background("Background/Wood.png", getCamera()));
     addActor(new Title("Background/LoadFiles.png",220 ,400));
     
     arrow = new Title("CharacterImages/arrow.png", 50, 300);
     addActor(arrow);
-    LoadActor firstSave = new LoadActor("Save 1", "ATK.sav", 80, 250, this);
+    LoadActor firstSave = new LoadActor("Save 1", "ATK.sav", 80, 250, this,3);
     firstSave.addListener(new InputListener(){
       @Override
       public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
-        options[0].loadMap();
+        options[k].loadMap();
         return true;
       }
     });
+
     addActor(firstSave);
     
-    LoadActor secondSave = new LoadActor("Save 2", "ATK2.sav", 80, 140, this);
+    LoadActor secondSave = new LoadActor("Save 2", "ATK2.sav", 80, 150, this,3);
     secondSave.addListener(new InputListener(){
       @Override
       public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
-        options[1].loadMap();
+        options[k].loadMap();
         return true;
       }
     });
     addActor(secondSave);
+
+
+    LoadActor secondSave2 = new LoadActor("Save 2", "ATK2.sav", 80, 40, this,3);
+    secondSave2.addListener(new InputListener(){
+      @Override
+      public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
+        options[k].loadMap();
+        return true;
+      }
+    });
+    addActor(secondSave2);
+
     
     TextButton menuButton = new TextButton("Back to menu",  new Skin(Gdx.files.internal("Data/uiskin.json")));
     menuButton.setPosition(500, 50);
@@ -69,8 +86,13 @@ public class LoadStage extends Stage {
     });
     
     addActor(menuButton);
-    
-    options = new LoadActor[]{firstSave,secondSave};
+
+    load.add(firstSave);
+    load.add(secondSave);
+    options = new LoadActor[load.size()];
+    for (int i = 0; i < load.size();i++) {
+      options[i] = load.get(i);
+    }
 
     //MobileGroup group = new MobileGroup(Gdx.app.getType() == Application.ApplicationType.Android);
     Gdx.input.setInputProcessor(this);
