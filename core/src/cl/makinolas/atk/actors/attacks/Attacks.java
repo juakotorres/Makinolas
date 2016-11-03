@@ -99,6 +99,10 @@ public abstract class Attacks extends AnimatedActor {
     return mySpriteState.getTypeAttack(monster);
   }
   
+  private int getCriticValue() {
+	return mySpriteState.getCriticalChance();
+  }
+  
   public void manageInteractWithMonster(Monsters monster, WorldManifold worldManifold) {
     manageInteractWithMonster(monster);
   }
@@ -155,17 +159,32 @@ public abstract class Attacks extends AnimatedActor {
     int attackStat = getSource().getMyself().getAttack();
     int level1 = getSource().getMyself().getLevel();
     int defenseStat = monster.getMyself().getDefense();
+    int criticModificator = getSource().getMyself().getCriticModificator() + getCriticValue();
+    
     ArrayList<IType> typeFriendSource = getSource().getMyself().getType();
     ArrayList<IType> typeFriendMonster = monster.getMyself().getType();
-    return Formulas.getDamage(attackStat, level1, defenseStat, getAttackDamage(), typeFriendSource, typeFriendMonster, this.mySpriteState.getType());
+    
+    if(getSource().isEnemy() && monster.isEnemy()){
+    	return 0;
+    }
+    
+    return Formulas.getDamage(monster, attackStat, level1, defenseStat, getAttackDamage(), typeFriendSource, typeFriendMonster, this.mySpriteState.getType(), criticModificator);
   }
-  
-  public int getSpecialAttackDamage(Monsters monster) {
+
+public int getSpecialAttackDamage(Monsters monster) {
     int spAttackStat = getSource().getMyself().getSpecialAttack();
     int level1 = getSource().getMyself().getLevel();
     int spDefenseStat = monster.getMyself().getSpecialDefense();
+    int criticModificator = getSource().getMyself().getCriticModificator() + getCriticValue();
+    
     ArrayList<IType> typeFriendSource = getSource().getMyself().getType();
     ArrayList<IType> typeFriendMonster = monster.getMyself().getType();
-    return Formulas.getDamage(spAttackStat, level1, spDefenseStat, getAttackDamage(), typeFriendSource, typeFriendMonster, this.mySpriteState.getType());
+    
+    if(getSource().isEnemy() && monster.isEnemy()){
+    	return 0;
+    }
+    
+    return Formulas.getDamage(monster, spAttackStat, level1, spDefenseStat, getAttackDamage(), typeFriendSource, typeFriendMonster, this.mySpriteState.getType(), criticModificator);
   }
+  
 }
