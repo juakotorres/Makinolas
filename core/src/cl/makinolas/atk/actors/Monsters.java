@@ -4,6 +4,7 @@ import cl.makinolas.atk.actors.attacks.Attacks;
 import cl.makinolas.atk.actors.attacks.MeleeAttack;
 import cl.makinolas.atk.actors.friend.Enemies;
 import cl.makinolas.atk.actors.friend.EvStates.EvState;
+import cl.makinolas.atk.actors.fx.FxManager;
 import cl.makinolas.atk.actors.friend.Friend;
 
 public abstract class Monsters extends AnimatedActor {
@@ -13,6 +14,7 @@ public abstract class Monsters extends AnimatedActor {
   public abstract int getMeleeDamage();
   protected Friend parent;
   public abstract float getXDirection();
+  public abstract void CriticalDamage();
 
   
   @Override
@@ -55,5 +57,6 @@ public abstract class Monsters extends AnimatedActor {
       actualState.addEffortValue(this);
     }
   }
+
 }
 
