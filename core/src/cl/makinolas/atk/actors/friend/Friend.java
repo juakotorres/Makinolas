@@ -70,6 +70,7 @@ public interface Friend {
   void addSpAttackEv(int n);
   void addSpDefenseEv(int n);
   void addSpeedEv(int n);
+public int getCriticModificator();
 
   void weatherEffect(int newAttack, int newDefense, int newHp, int newSpAttack,
 		int newSpDefense, int newSpeed);

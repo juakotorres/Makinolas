@@ -4,6 +4,7 @@ import cl.makinolas.atk.actors.Background;
 import cl.makinolas.atk.actors.GameActor;
 import cl.makinolas.atk.actors.Hero;
 import cl.makinolas.atk.actors.InputController;
+import cl.makinolas.atk.actors.SimpleImageActor;
 import cl.makinolas.atk.actors.fx.FxManager;
 import cl.makinolas.atk.actors.ui.BagVis;
 import cl.makinolas.atk.actors.ui.MainBar;
@@ -87,7 +88,7 @@ public class GameStage extends AbstractStage implements ContactListener {
     mons.addActor(actor);
     gameActors.add(actor);
   }
-
+  
   private void createPlatforms(Game g) {
     LevelReader reader = LevelReader.getInstance();   
     reader.setWorld(suMundo);

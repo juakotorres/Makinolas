@@ -60,6 +60,7 @@ public abstract class AbstractFriend implements Friend {
   private int evSpAttack;
   private int evSpDefense;
   private int evSpeed;
+  private int criticModificator;
 
   protected void setCutSprites(int width, int height){
     this.cutSprites = new int[]{width, height};
@@ -525,6 +526,7 @@ public abstract class AbstractFriend implements Friend {
     evSpAttack = 0;
     evSpDefense = 0;
     evSpeed = 0;
+    criticModificator = 0;
   }
 
   private int newIVs(){
@@ -541,6 +543,11 @@ public abstract class AbstractFriend implements Friend {
   public int getSpeed(){
     return speed;
   }
+  
+	@Override
+	public int getCriticModificator() {
+		return criticModificator;
+	}
 
   public void forceEvolve(int numberOfEvolution){
     this.evolve(numberOfEvolution);

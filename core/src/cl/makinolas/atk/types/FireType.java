@@ -59,7 +59,7 @@ public class FireType extends AbstractType implements IType {
 
 	@Override
 	public double monsterHasAttackedFromWater() {
-		return 2;
+		return  2;
 	}
 
 }
