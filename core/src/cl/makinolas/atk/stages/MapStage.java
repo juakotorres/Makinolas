@@ -18,6 +18,7 @@ import cl.makinolas.atk.actors.ui.MapStageActor;
 import cl.makinolas.atk.actors.ui.MobileGroup;
 import cl.makinolas.atk.screen.GameScreen;
 import cl.makinolas.atk.screen.ShopScreen;
+import cl.makinolas.atk.screen.PokeComputerScreen;
 
 public class MapStage extends Stage implements KeyHandable{
 
@@ -71,6 +72,16 @@ public class MapStage extends Stage implements KeyHandable{
         });
         centerButton.setPosition(160,12);
         addActor(centerButton);
+        
+        TextButton computerButton = new TextButton("Enter PokeComputer",  new Skin(Gdx.files.internal("Data/uiskin.json")));
+        computerButton.addListener(new ClickListener(){
+            @Override
+            public void clicked(InputEvent event, float x, float y) {
+                enterComputer();
+            }
+        });
+        computerButton.setPosition(350,12);
+        addActor(computerButton);
 
         TextButton startButton = new TextButton("Start",  new Skin(Gdx.files.internal("Data/uiskin.json")));
         startButton.addListener(new ClickListener(){
@@ -129,6 +140,10 @@ public class MapStage extends Stage implements KeyHandable{
 
     private void enterCenter() {
         myGame.setScreen(new PokeCenterScreen(myGame));
+    }
+    
+    private void enterComputer() {
+        myGame.setScreen(new PokeComputerScreen(myGame));
     }
 
     public void startLevel(){
