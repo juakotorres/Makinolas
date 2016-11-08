@@ -75,4 +75,5 @@ public class AxewTODO extends AbstractFriend {
 	  // TODO Auto-generated method stub
 	  return DragonBreathState.magicRequirement;
 	}
+
 }

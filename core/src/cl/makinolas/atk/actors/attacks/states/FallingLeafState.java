@@ -74,5 +74,10 @@ public class FallingLeafState extends SpriteState {
 public IType getType() {
 	return new GrassType();
 }
+
+@Override
+public int getCriticalChance(){
+	  return 2;
+}
   
 }

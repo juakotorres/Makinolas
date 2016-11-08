@@ -80,6 +80,4 @@ public IType getType() {
 	return new GrassType();
 }
   
-  
-  
 }
