@@ -72,7 +72,7 @@ public class Magby extends AbstractFriend {
 	    } else if (numberOfLevel == 2 && getActualEvolution() < 2){
 	      friend = Enemies.MAGMORTAR;
 	      setTexture(new TextureRegion(new Texture(Gdx.files.internal("Actors/Magmortar.png"))));
-		  setCutSprites(30,33);
+		  setCutSprites(35,40);
 		  setWalkAnimation(3,4,5,4);
 		  setHurtAnimation(0);
 		  setMeleeAnimation(8,9);
