@@ -5,6 +5,7 @@ import cl.makinolas.atk.actors.attacks.MeleeAttack;
 import cl.makinolas.atk.actors.friend.Enemies;
 import cl.makinolas.atk.actors.friend.EvStates.EvState;
 import cl.makinolas.atk.actors.fx.FxManager;
+import cl.makinolas.atk.modifiers.IModifier;
 import cl.makinolas.atk.actors.friend.Friend;
 
 public abstract class Monsters extends AnimatedActor {
@@ -56,6 +57,10 @@ public abstract class Monsters extends AnimatedActor {
     for(EvState actualState : states){
       actualState.addEffortValue(this);
     }
+  }
+  
+  public void getModifier(IModifier modify, int prob){
+	  modify.affect(this, prob);
   }
 
 }

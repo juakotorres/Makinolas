@@ -684,4 +684,9 @@ public abstract class AbstractFriend implements Friend {
       totalEvs += posibleSum;
     }
   }
+  
+  public void setCriticModificator(int val){
+	  this.criticModificator = val;
+  }
+  
 }

@@ -70,6 +70,6 @@ public interface Friend {
   void addSpAttackEv(int n);
   void addSpDefenseEv(int n);
   void addSpeedEv(int n);
-public int getCriticModificator();
-
+  int getCriticModificator();
+  void setCriticModificator(int val);
 }
