@@ -63,4 +63,10 @@ public class SlashState extends SpriteState {
 public IType getType() {
 	return new NormalType();
 }
+
+@Override
+public int getCriticalChance(){
+	  return 2;
+}
+
 }

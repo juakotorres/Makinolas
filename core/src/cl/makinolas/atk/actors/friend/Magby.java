@@ -25,7 +25,7 @@ public class Magby extends AbstractFriend {
 	    setWalkAnimation(1,2,3,4);
 	    setHurtAnimation(0);
 	    setMeleeAnimation(5,6,7);
-	    setIdleAnimation(1,2,3,2);
+	    setIdleAnimation(2);
 	    setSpecialAnimation(8,9);
 	    
 	    setFaceSprite(faces[0][0]);
