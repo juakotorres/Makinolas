@@ -25,16 +25,16 @@ public class WaterPlatform extends GameActor {
 	protected BodyDef myBodyDefinition;
 	int xp, yp, wp, hp;
 
-	public WaterPlatform(World myWorld, int x, int y) {
+	public WaterPlatform(World myWorld, int x, int y, int widthTiles, int heightTiles) {
 		
 		texture = new TextureRegion(new Texture(Gdx.files.internal("Background/Water.gif")));
 
 		myBodyDefinition = new BodyDef();
-	    myBodyDefinition.position.set(new Vector2(x*TILE_FACTOR + 1 * TILE_FACTOR /2, y*TILE_FACTOR + 1 * TILE_FACTOR / 2));
+	    myBodyDefinition.position.set(new Vector2(x*TILE_FACTOR + widthTiles * TILE_FACTOR /2, y*TILE_FACTOR + heightTiles * TILE_FACTOR / 2));
 
 	    Body myBody = myWorld.createBody(myBodyDefinition);
 	    PolygonShape shape = new PolygonShape();
-	    shape.setAsBox(1 * TILE_FACTOR /2, 1 * TILE_FACTOR / 2);
+	    shape.setAsBox(widthTiles * TILE_FACTOR /2, heightTiles * TILE_FACTOR / 2);
 
 	    FixtureDef fixture= new FixtureDef();
 	    fixture.isSensor=true;
@@ -45,28 +45,28 @@ public class WaterPlatform extends GameActor {
 	    
 	    xp = (int) (x * TILE_FACTOR * GameConstants.WORLD_FACTOR);
 	    yp = (int) (y * TILE_FACTOR* GameConstants.WORLD_FACTOR);
-	    wp = 1;
-	    hp = 1;
+	    wp = widthTiles;
+	    hp = heightTiles;
 	  }
 	    
 	
 	@Override
 	public void interactWithHero(Hero hero, WorldManifold worldManifold){	    
-	    
-	    System.out.println("HOLA");
-	  }
+		System.out.println("Entrando agua");
+
+	}
 	
 	@Override
-	  public void endHeroInteraction(Hero hero, WorldManifold worldManifold) {
-	    System.out.println("CHAO");
-	  }
+	public void endHeroInteraction(Hero hero, WorldManifold worldManifold) {
+		System.out.println("Saliendo agua");
+	
+	}
 	
 	@Override
-	  public void act(float delta) {
+	public void act(float delta) {
 	   
 	        
-	  }
-	
+	}
 	
 	@Override
 	public void draw(Batch batch, float parentAlpha) {
@@ -80,16 +80,13 @@ public class WaterPlatform extends GameActor {
 
 	@Override
 	public void interact(GameActor actor2, WorldManifold worldManifold) {
-		System.out.println("Entrando agua");
+		actor2.interactWithWater(this, worldManifold);
+	
 	}
-
 
 	@Override
 	public void endInteraction(GameActor actor2, WorldManifold worldManifold) {
-		System.out.println("Saliendo agua");
+		actor2.endWaterInteraction(this, worldManifold);
 		
 	}
-
-	
-
 }
