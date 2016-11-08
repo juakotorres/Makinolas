@@ -8,22 +8,23 @@ import com.badlogic.gdx.physics.box2d.World;
 import cl.makinolas.atk.actors.Monsters;
 import cl.makinolas.atk.actors.attacks.Attacks;
 import cl.makinolas.atk.actors.attacks.ShootAttack;
-import cl.makinolas.atk.actors.attacks.states.RockState;
-import cl.makinolas.atk.types.DarkType;
-import cl.makinolas.atk.types.GroundType;
-import cl.makinolas.atk.types.RockType;
+import cl.makinolas.atk.actors.attacks.states.Poison_StingState;
+import cl.makinolas.atk.actors.friend.AbstractFriend.Evolution;
+import cl.makinolas.atk.actors.friend.AbstractFriend.Level;
+import cl.makinolas.atk.types.FightType;
+import cl.makinolas.atk.types.PoisonType;
 
-public class LarvitarTODO extends AbstractFriend {
+public class Croagunk extends AbstractFriend {
 
 	private TextureRegion[][] faces;
 	
-	public LarvitarTODO(){
-		friend = Enemies.LARVITAR;
-		faces = new TextureRegion(new Texture(Gdx.files.internal("Actors/Larvitar_faces.png"))).split(40,40);
-		setTexture(new TextureRegion(new Texture(Gdx.files.internal("Actors/Larvitar.png"))));
+	public Croagunk(){
+		friend = Enemies.CROAGUNK;
+		faces = new TextureRegion(new Texture(Gdx.files.internal("Actors/Croagunk_faces.png"))).split(40,40);
+		setTexture(new TextureRegion(new Texture(Gdx.files.internal("Actors/Croagunk.png"))));
 		/* aquí yace todo lo relacionado con los sprites */
 		
-		/*setCutSprites(30,28);
+	    /*setCutSprites(30,28);
 	    setWalkAnimation(1,2,3,2);
 	    setHurtAnimation(0);
 	    setMeleeAnimation(4,6);
@@ -36,11 +37,11 @@ public class LarvitarTODO extends AbstractFriend {
 	    newMonster();
 	    setActualEvolution(0);
 	    setMaxMagic(1000);
-	    addType(new RockType());
-	    addType(new GroundType());
+	    addType(new PoisonType());
+	    addType(new FightType());
 	}
 	
-	public LarvitarTODO(int level){
+	public Croagunk(int level){
 		this();
 		initLevel(level);
 	}
@@ -57,11 +58,11 @@ public class LarvitarTODO extends AbstractFriend {
 	@Override
 	protected void evolve(int numberOfLevel) {
 		if (numberOfLevel == 1 && getActualEvolution() < 1) {
-			friend = Enemies.PUPITAR;
-			setTexture(new TextureRegion(new Texture(Gdx.files.internal("Actors/Pupitar.png"))));
+			friend = Enemies.TOXICROAK;
+			setTexture(new TextureRegion(new Texture(Gdx.files.internal("Actors/Toxicroak.png"))));
 			/* texturas */
 			
-			/*setCutSprites(30,28);
+		    /*setCutSprites(30,28);
 		    setWalkAnimation(1,2,3,2);
 		    setHurtAnimation(0);
 		    setMeleeAnimation(4,6);
@@ -72,31 +73,12 @@ public class LarvitarTODO extends AbstractFriend {
 		    setActualEvolution(1);
 		    setStats();
 		    setMaxMagic(1000);
-			
-		} else if (numberOfLevel == 2 && getActualEvolution() < 2) {
-			setTexture(new TextureRegion(new Texture(Gdx.files.internal("Actors/Tyranitar.png"))));
-			friend = Enemies.TYRANITAR;
-			/* texturas */
-			
-			/*setCutSprites(30,28);
-		    setWalkAnimation(1,2,3,2);
-		    setHurtAnimation(0);
-		    setMeleeAnimation(4,6);
-		    setIdleAnimation(1,2,3,2);
-		    setSpecialAnimation(4,6);*/
-			
-		    setFaceSprite(faces[0][2]);
-		    setActualEvolution(2);
-		    setStats();
-		    setMaxMagic(1000);
-		    resetType();
-		    addType(new RockType());
-		    addType(new DarkType());
 		}
 	}
 	
 	@Override
 	public Attacks getFriendAttack(World myWorld, float x , float y, boolean facingRight, Monsters source){
-	    return new ShootAttack(new RockState(), myWorld, x, y, facingRight, source);
+	    return new ShootAttack(new Poison_StingState(), myWorld, x, y, facingRight, source);
 	}
+
 }
