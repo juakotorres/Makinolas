@@ -67,6 +67,8 @@ public class Hero extends Monsters {
   private boolean onWall = false;
   private Spot currentSpot;
   private Vector2 platformSpeed;
+  private long cooldownTimer;
+  private long gcd; // Global Cool Down in millis
 
   private Hero() {
 
@@ -109,6 +111,8 @@ public class Hero extends Monsters {
     state = new OnGround();
     myBodyDefinition.fixedRotation = true;
     
+    gcd = 500;
+    cooldownTimer = 0;
     
   }
   /* Aqui se hace un intento fallido de arreglar el bug del sabe al parecer,
@@ -547,12 +551,13 @@ public class Hero extends Monsters {
     }    
   }
 
-  // TODO Implementar cooldown aquí?
+  // FIXME El gcd no es global, depende del tipo de ataque
   public void attackPrimary() {
-    if(actualFriend.getMagic() >= 100){
+    if(cooldownTimer < System.currentTimeMillis() && actualFriend.getMagic() >= 100){
       actualFriend.setMagic(actualFriend.getMagic() - 100);
       GameActor fireball = actualFriend.getFriendAttack(myWorld, myBody.getPosition().x,myBody.getPosition().y,isFacingRight, this);
       ((AbstractStage) getStage()).addGameActor(fireball);
+      cooldownTimer = System.currentTimeMillis() + gcd;
     }
   }
 
