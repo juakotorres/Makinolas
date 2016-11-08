@@ -57,7 +57,7 @@ public class Magby extends AbstractFriend {
 	      friend = Enemies.MAGMAR;
 	      setTexture(new TextureRegion(new Texture(Gdx.files.internal("Actors/Magmar.png"))));
 	      
-		  setCutSprites(36,33);
+		  setCutSprites(38,33);
 		  setWalkAnimation(3,4,5,4);
 		  setHurtAnimation(0);
 		  setMeleeAnimation(6,7,8);
