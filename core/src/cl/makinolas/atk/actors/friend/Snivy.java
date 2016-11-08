@@ -9,7 +9,6 @@ import cl.makinolas.atk.actors.Monsters;
 import cl.makinolas.atk.actors.attacks.Attacks;
 import cl.makinolas.atk.actors.attacks.ShootAttack;
 import cl.makinolas.atk.actors.attacks.states.BranchAttackState;
-import cl.makinolas.atk.actors.attacks.states.ThunderBoltState;
 import cl.makinolas.atk.types.ElectricType;
 import cl.makinolas.atk.types.GrassType;
 import cl.makinolas.atk.types.IType;

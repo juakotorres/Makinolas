@@ -15,7 +15,7 @@ public class FallingLeafState extends SpriteState {
   
   public static int magicRequirement = 60;
 
-@Override
+  @Override
   public void initializeBody(float x, float y) {
     myAttack.initializeBody(x, y);    
   }

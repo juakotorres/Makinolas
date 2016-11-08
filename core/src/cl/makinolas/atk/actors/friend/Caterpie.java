@@ -8,7 +8,6 @@ import com.badlogic.gdx.physics.box2d.World;
 import cl.makinolas.atk.actors.Monsters;
 import cl.makinolas.atk.actors.attacks.Attacks;
 import cl.makinolas.atk.actors.attacks.DroppingAttack;
-import cl.makinolas.atk.actors.attacks.states.DragonBreathState;
 import cl.makinolas.atk.actors.attacks.states.FallingLeafState;
 import cl.makinolas.atk.types.BugType;
 import cl.makinolas.atk.types.DragonType;

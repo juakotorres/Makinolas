@@ -8,7 +8,6 @@ import com.badlogic.gdx.physics.box2d.World;
 import cl.makinolas.atk.actors.Monsters;
 import cl.makinolas.atk.actors.attacks.Attacks;
 import cl.makinolas.atk.actors.attacks.ShootAttack;
-import cl.makinolas.atk.actors.attacks.states.ThunderBoltState;
 import cl.makinolas.atk.actors.attacks.states.WindShurikenState;
 import cl.makinolas.atk.types.FlyingType;
 import cl.makinolas.atk.types.GrassType;

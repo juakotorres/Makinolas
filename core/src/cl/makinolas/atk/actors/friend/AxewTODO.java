@@ -20,7 +20,7 @@ public class AxewTODO extends AbstractFriend {
 		friend = Enemies.AXEW;
 		faces = new TextureRegion(new Texture(Gdx.files.internal("Actors/Axew_faces.png"))).split(40,40);
 		setTexture(new TextureRegion(new Texture(Gdx.files.internal("Actors/Axew.png"))));
-		/* aqu� yace todo lo relacionado con los sprites */
+		/* aqui yace todo lo relacionado con los sprites */
 		
 	    /*setCutSprites(30,28);
 	    setWalkAnimation(1,2,3,2);

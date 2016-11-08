@@ -11,7 +11,6 @@ import cl.makinolas.atk.actors.Monsters;
 import cl.makinolas.atk.actors.attacks.Attacks;
 import cl.makinolas.atk.actors.attacks.ShootBombAttack;
 import cl.makinolas.atk.actors.attacks.states.BubbleState;
-import cl.makinolas.atk.actors.attacks.states.ThunderBoltState;
 import cl.makinolas.atk.types.SteelType;
 import cl.makinolas.atk.types.WaterType;
 
@@ -23,7 +22,7 @@ public class PiplupTODO extends AbstractFriend {
 		friend = Enemies.PIPLUP;
 		faces = new TextureRegion(new Texture(Gdx.files.internal("Actors/Piplup_faces.png"))).split(40,40);
 		setTexture(new TextureRegion(new Texture(Gdx.files.internal("Actors/Piplup.png"))));
-		/* aqu� yace todo lo relacionado con los sprites */
+		/* aqui yace todo lo relacionado con los sprites */
 	    setFaceSprite(faces[0][0]);
 	    initLevel(5);
 	    initDead();
