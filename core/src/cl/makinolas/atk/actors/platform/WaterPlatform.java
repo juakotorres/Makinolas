@@ -27,7 +27,7 @@ public class WaterPlatform extends GameActor {
 
 	public WaterPlatform(World myWorld, int x, int y) {
 		
-		texture = new TextureRegion(new Texture(Gdx.files.internal("Background/Water.png")));
+		texture = new TextureRegion(new Texture(Gdx.files.internal("Background/Water.gif")));
 
 		myBodyDefinition = new BodyDef();
 	    myBodyDefinition.position.set(new Vector2(x*TILE_FACTOR + 1 * TILE_FACTOR /2, y*TILE_FACTOR + 1 * TILE_FACTOR / 2));
@@ -80,13 +80,13 @@ public class WaterPlatform extends GameActor {
 
 	@Override
 	public void interact(GameActor actor2, WorldManifold worldManifold) {
-		System.out.println("interact");
+		System.out.println("Entrando agua");
 	}
 
 
 	@Override
 	public void endInteraction(GameActor actor2, WorldManifold worldManifold) {
-		// TODO Auto-generated method stub
+		System.out.println("Saliendo agua");
 		
 	}
 
