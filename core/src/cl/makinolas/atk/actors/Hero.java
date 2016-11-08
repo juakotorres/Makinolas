@@ -9,14 +9,11 @@ import com.badlogic.gdx.physics.box2d.BodyDef;
 import com.badlogic.gdx.physics.box2d.PolygonShape;
 import com.badlogic.gdx.physics.box2d.World;
 import com.badlogic.gdx.physics.box2d.WorldManifold;
-import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.viewport.FitViewport;
 
 import cl.makinolas.atk.GameConstants;
 import cl.makinolas.atk.actors.attacks.Attacks;
-import cl.makinolas.atk.actors.attacks.ShootAttack;
-import cl.makinolas.atk.actors.attacks.states.DragonBreathState;
 import cl.makinolas.atk.actors.bosses.IBoss;
 import cl.makinolas.atk.actors.enemies.Enemy;
 import cl.makinolas.atk.actors.enemies.MonsterFactory;
@@ -24,7 +21,6 @@ import cl.makinolas.atk.actors.friend.Enemies;
 import cl.makinolas.atk.actors.friend.Friend;
 import cl.makinolas.atk.actors.friend.FriendDescriptor;
 import cl.makinolas.atk.actors.fx.FxManager;
-import cl.makinolas.atk.actors.fx.FxManager.Fx;
 import cl.makinolas.atk.actors.items.Ball;
 import cl.makinolas.atk.actors.items.BallActor;
 import cl.makinolas.atk.actors.items.Inventory;
@@ -35,7 +31,6 @@ import cl.makinolas.atk.start.GameText;
 import cl.makinolas.atk.utils.Formulas;
 import cl.makinolas.atk.utils.SaveDoesNotExistException;
 import cl.makinolas.atk.utils.SaveManager;
-
 
 public class Hero extends Monsters {
 
@@ -552,6 +547,7 @@ public class Hero extends Monsters {
     }    
   }
 
+  // TODO Implementar cooldown aquí?
   public void attackPrimary() {
     if(actualFriend.getMagic() >= 100){
       actualFriend.setMagic(actualFriend.getMagic() - 100);
