@@ -73,7 +73,7 @@ public class Hero extends Monsters {
   private Spot currentSpot;
   private Vector2 platformSpeed;
 
-  private Hero() {
+  protected Hero() {
 
     isJumping = false;
     isFacingRight = false;

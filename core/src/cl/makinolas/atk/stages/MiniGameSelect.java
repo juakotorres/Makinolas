@@ -1,5 +1,6 @@
 package cl.makinolas.atk.stages;
 
+import cl.makinolas.atk.gamemodes.SurvivalModeStage;
 import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Color;
@@ -53,19 +54,22 @@ public class MiniGameSelect extends AbstractStage {
 	        }
 	    });
 	    
-	    pikachuRunnerButton.addListener(new ClickListener(){
-	        @Override
-	        public void clicked(InputEvent event, float x, float y) {
-	          GameScreen gameScreen = new GameScreen(myGame);
-	          gameScreen.setStage(new MinigameStage(new FitViewport(640,480), gameScreen, myGame));
-	          myGame.setScreen(gameScreen);
-	        }
-	    });
+	    pikachuRunnerButton.addListener(new ClickListener() {
+											@Override
+											public void clicked(InputEvent event, float x, float y) {
+												GameScreen gameScreen = new GameScreen(myGame);
+												gameScreen.setStage(new MinigameStage(new FitViewport(640, 480), gameScreen, myGame));
+												myGame.setScreen(gameScreen);
+											}
+										});
 	    
 	    survivalButton.addListener(new ClickListener(){
 	        @Override
 	        public void clicked(InputEvent event, float x, float y) {
 	        	//setStage( survival...)
+					GameScreen gameScreen = new GameScreen(myGame);
+					gameScreen.setStage(new SurvivalModeStage(new FitViewport(640,480),gameScreen,myGame));
+					myGame.setScreen(gameScreen);
 	        }
 	    });
 	    

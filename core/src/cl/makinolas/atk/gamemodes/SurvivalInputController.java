@@ -1,24 +1,22 @@
-package cl.makinolas.atk.actors;
+package cl.makinolas.atk.gamemodes;
 
-import cl.makinolas.atk.actors.friend.Enemies;
+import cl.makinolas.atk.actors.Hero;
+import cl.makinolas.atk.actors.InputController;
 import cl.makinolas.atk.actors.ui.BagVis;
 import cl.makinolas.atk.actors.ui.MobileGroup;
-import cl.makinolas.atk.actors.ui.MobileKeyListener;
 import cl.makinolas.atk.stages.AbstractStage;
 import cl.makinolas.atk.utils.SaveManager;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
-import com.badlogic.gdx.scenes.scene2d.InputListener;
 
-public class InputController extends InputListener implements MobileKeyListener{
+/**
+ * Created by belisariops on 11/8/16.
+ */
+public class SurvivalInputController extends InputController {
+    public SurvivalInputController(Hero h, MobileGroup mob) {
+            super(h,mob);
 
-    protected Hero hero;
-
-    public InputController(Hero h, MobileGroup mob){
-        hero = h;
-        mob.setMobileKeyListener(this);
     }
-
     @Override
     public boolean keyDown(InputEvent event, int keycode) {
         if(!((AbstractStage) hero.getStage()).isPaused()) {
@@ -36,10 +34,10 @@ public class InputController extends InputListener implements MobileKeyListener{
                     hero.jump(2);
                     break;
                 case Input.Keys.A:
-                    hero.getInventory().useSelItem1();
+                    //hero.getInventory().useSelItem1();
                     break;
                 case Input.Keys.S:
-                    hero.getInventory().useSelItem2();
+                    //hero.getInventory().useSelItem2();
                     break;
                 case Input.Keys.Z:
                     hero.attackPrimary();
@@ -48,30 +46,25 @@ public class InputController extends InputListener implements MobileKeyListener{
                     hero.attackSecondary();
                     break;
                 case Input.Keys.NUM_1:
-                    hero.prevAllie();
+                    //hero.prevAllie();
                     break;
                 case Input.Keys.NUM_2:
-                    hero.nextAllie();
+                    //hero.nextAllie();
                     break;
-                    
-                //BORRAR!!!!!!!!!!!!!!!!!!!!
-                case Input.Keys.NUM_3:
-                	hero.foo();
-                	break;
-                	
-                	
+
+
                 case Input.Keys.NUM_8:
                     SaveManager.getInstance().saveState();
                     break;
                 case Input.Keys.P:
-                    ((AbstractStage) hero.getStage()).togglePause();
+                    //((AbstractStage) hero.getStage()).togglePause();
                     break;
             }
         }
         else{
             switch (keycode) {
                 case Input.Keys.P:
-                    ((AbstractStage) hero.getStage()).togglePause();
+                    //((AbstractStage) hero.getStage()).togglePause();
                     break;
                 default:
                     BagVis.getInstance().handleKey(keycode);
@@ -118,23 +111,23 @@ public class InputController extends InputListener implements MobileKeyListener{
                     hero.attackPrimary();
                     break;
                 case ITEM1:
-                    hero.getInventory().useSelItem1();
+                    //hero.getInventory().useSelItem1();
                     break;
                 case ITEM2:
-                    hero.getInventory().useSelItem2();
+                    //hero.getInventory().useSelItem2();
                     break;
                 case CHG:
-                    hero.nextAllie();
+                    //hero.nextAllie();
                     break;
                 case PAUSE:
-                    ((AbstractStage) hero.getStage()).togglePause();
+                    //((AbstractStage) hero.getStage()).togglePause();
                     break;
             }
         }
         else{
             switch (key) {
                 case PAUSE:
-                    ((AbstractStage) hero.getStage()).togglePause();
+                    //((AbstractStage) hero.getStage()).togglePause();
                     break;
                 default:
                     BagVis.getInstance().handleKey(key);
@@ -156,8 +149,8 @@ public class InputController extends InputListener implements MobileKeyListener{
             case UP:
                 hero.isNotPressingSpace();
                 break;
-        default:
-          break;
+            default:
+                break;
         }
     }
 }
