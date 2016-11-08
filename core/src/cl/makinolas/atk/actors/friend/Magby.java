@@ -12,11 +12,11 @@ import cl.makinolas.atk.types.FireType;
 import cl.makinolas.atk.actors.Monsters;
 import cl.makinolas.atk.actors.attacks.Attacks;
 
-public class MagbyTODO extends AbstractFriend {
+public class Magby extends AbstractFriend {
 
 	  private TextureRegion[][] faces;
 	  
-	  public MagbyTODO() {
+	  public Magby() {
 	    friend = Enemies.MAGBY;
 	    faces = new TextureRegion(new Texture(Gdx.files.internal("Actors/Magby_faces.png"))).split(40,40);
 	    setTexture(new TextureRegion(new Texture(Gdx.files.internal("Actors/Magby.png"))));
@@ -37,7 +37,7 @@ public class MagbyTODO extends AbstractFriend {
 	    addType(new FireType());
 	  }
 	  
-	  public MagbyTODO(int level){
+	  public Magby(int level){
 	    this();
 	    initLevel(level);
 	  }

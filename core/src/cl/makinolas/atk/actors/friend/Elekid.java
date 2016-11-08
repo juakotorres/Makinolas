@@ -12,22 +12,22 @@ import cl.makinolas.atk.actors.attacks.states.ThunderBoltState;
 import cl.makinolas.atk.types.ElectricType;
 
 
-public class ElekidTODO extends AbstractFriend {
+public class Elekid extends AbstractFriend {
 	
 	private TextureRegion[][] faces;
 	
-	public ElekidTODO(){
+	public Elekid(){
 		friend = Enemies.ELEKID;
 		faces = new TextureRegion(new Texture(Gdx.files.internal("Actors/Elekid_faces.png"))).split(40,40);
 		setTexture(new TextureRegion(new Texture(Gdx.files.internal("Actors/Elekid.png"))));
 		/* aquí yace todo lo relacionado con los sprites */
 		
-	    /*setCutSprites(30,28);
-	    setWalkAnimation(1,2,3,2);
+	    setCutSprites(35,35);
+	    setWalkAnimation(3,4,5,4);
 	    setHurtAnimation(0);
-	    setMeleeAnimation(4,6);
-	    setIdleAnimation(1,2,3,2);
-	    setSpecialAnimation(4,6);*/
+	    setMeleeAnimation(6,7,8,9);
+	    setIdleAnimation(1,2,1);
+	    setSpecialAnimation(10);
 		
 	    setFaceSprite(faces[0][0]);
 	    initLevel(5);
@@ -38,7 +38,7 @@ public class ElekidTODO extends AbstractFriend {
 	    addType(new ElectricType());
 	}
 
-	public ElekidTODO(int level){
+	public Elekid(int level){
 		this();
 		initLevel(level);
 	}
@@ -57,14 +57,13 @@ public class ElekidTODO extends AbstractFriend {
 		if (numberOfLevel == 1 && getActualEvolution() < 1) {
 			friend = Enemies.ELECTABUZZ;
 			setTexture(new TextureRegion(new Texture(Gdx.files.internal("Actors/Electabuzz.png"))));
-			/* texturas */
 			
-		    /*setCutSprites(30,28);
+		    setCutSprites(32,35);
 		    setWalkAnimation(1,2,3,2);
 		    setHurtAnimation(0);
-		    setMeleeAnimation(4,6);
+		    setMeleeAnimation(4,5,6,7);
 		    setIdleAnimation(1,2,3,2);
-		    setSpecialAnimation(4,6);*/
+		    setSpecialAnimation(8);
 			
 		    setFaceSprite(faces[0][1]);
 		    setActualEvolution(1);
@@ -74,14 +73,13 @@ public class ElekidTODO extends AbstractFriend {
 		} else if (numberOfLevel == 2 && getActualEvolution() < 2) {
 			friend = Enemies.ELECTIVIRE;
 			setTexture(new TextureRegion(new Texture(Gdx.files.internal("Actors/Electivire.png"))));
-			/* texturas */
 			
-		    /*setCutSprites(30,28);
-		    setWalkAnimation(1,2,3,2);
+			setCutSprites(37,35);
+		    setWalkAnimation(4,5,6,5);
 		    setHurtAnimation(0);
-		    setMeleeAnimation(4,6);
+		    setMeleeAnimation(7,8,9);
 		    setIdleAnimation(1,2,3,2);
-		    setSpecialAnimation(4,6);*/
+		    setSpecialAnimation(10,11);
 			
 		    setFaceSprite(faces[0][2]);
 		    setActualEvolution(2);
