@@ -8,6 +8,7 @@ import com.badlogic.gdx.physics.box2d.World;
 import cl.makinolas.atk.actors.Monsters;
 import cl.makinolas.atk.actors.attacks.Attacks;
 import cl.makinolas.atk.actors.attacks.BombAttack;
+import cl.makinolas.atk.actors.attacks.states.ThunderBoltState;
 import cl.makinolas.atk.actors.attacks.states.TornadoState;
 import cl.makinolas.atk.types.FlyingType;
 import cl.makinolas.atk.types.GrassType;
@@ -87,6 +88,12 @@ public class Zubat extends AbstractFriend {
   @Override
   public Attacks getFriendAttack(World myWorld, float x , float y, boolean facingRight, Monsters source){
     return new BombAttack(new TornadoState(), myWorld, x, y, facingRight, source);
+  }
+  
+  @Override
+  public int getAttackMagicRequirement() {
+	// TODO Auto-generated method stub
+	return TornadoState.magicRequirement;
   }
   
 }

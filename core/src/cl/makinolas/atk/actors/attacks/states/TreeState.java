@@ -12,6 +12,8 @@ import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 
 public class TreeState extends SpriteState {
+	
+  public static int magicRequirement = 100;
   
   @Override
   public int getAttackDamage() {

@@ -8,6 +8,7 @@ import com.badlogic.gdx.physics.box2d.World;
 import cl.makinolas.atk.actors.Monsters;
 import cl.makinolas.atk.actors.attacks.Attacks;
 import cl.makinolas.atk.actors.attacks.DroppingAttack;
+import cl.makinolas.atk.actors.attacks.states.DragonBreathState;
 import cl.makinolas.atk.actors.attacks.states.FallingLeafState;
 import cl.makinolas.atk.types.BugType;
 import cl.makinolas.atk.types.DragonType;
@@ -88,6 +89,12 @@ public class Caterpie extends AbstractFriend {
   @Override
   public Attacks getFriendAttack(World myWorld, float x , float y, boolean facingRight, Monsters source){
     return new DroppingAttack(new FallingLeafState(), myWorld, x, y, facingRight, source, true);
+  }
+  
+  @Override
+  public int getAttackMagicRequirement() {
+	// TODO Auto-generated method stub
+	return FallingLeafState.magicRequirement;
   }
 
 }

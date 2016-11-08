@@ -11,6 +11,7 @@ import cl.makinolas.atk.actors.Monsters;
 import cl.makinolas.atk.actors.attacks.Attacks;
 import cl.makinolas.atk.actors.attacks.ShootBombAttack;
 import cl.makinolas.atk.actors.attacks.states.BubbleState;
+import cl.makinolas.atk.actors.attacks.states.ThunderBoltState;
 import cl.makinolas.atk.types.SteelType;
 import cl.makinolas.atk.types.WaterType;
 
@@ -20,7 +21,7 @@ public class PiplupTODO extends AbstractFriend {
 	
 	public PiplupTODO(){
 		friend = Enemies.PIPLUP;
-		/* aquí yace todo lo relacionado con los sprites */
+		/* aquï¿½ yace todo lo relacionado con los sprites */
 	    setFaceSprite(faces[0][0]);
 	    initLevel(10);
 	    initDead();
@@ -70,6 +71,12 @@ public class PiplupTODO extends AbstractFriend {
 	@Override
 	public Attacks getFriendAttack(World myWorld, float x , float y, boolean facingRight, Monsters source) {
 		return new ShootBombAttack(new BubbleState(), myWorld, x, y, facingRight, source);
+	}
+	
+	@Override
+	public int getAttackMagicRequirement() {
+		// TODO Auto-generated method stub
+		return BubbleState.magicRequirement;
 	}
 
 }

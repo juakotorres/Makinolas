@@ -9,6 +9,7 @@ import cl.makinolas.atk.actors.Monsters;
 import cl.makinolas.atk.actors.attacks.Attacks;
 import cl.makinolas.atk.actors.attacks.ShootAttack;
 import cl.makinolas.atk.actors.attacks.states.DragonBreathState;
+import cl.makinolas.atk.actors.attacks.states.ThunderBoltState;
 import cl.makinolas.atk.actors.friend.AbstractFriend.Evolution;
 import cl.makinolas.atk.actors.friend.AbstractFriend.Level;
 import cl.makinolas.atk.types.DragonType;
@@ -20,7 +21,7 @@ public class AxewTODO extends AbstractFriend {
 	
 	public AxewTODO(){
 		friend = Enemies.AXEW;
-		/* aquí yace todo lo relacionado con los sprites */
+		/* aquï¿½ yace todo lo relacionado con los sprites */
 	    setFaceSprite(faces[0][0]);
 	    initLevel(10);
 	    initDead();
@@ -67,5 +68,11 @@ public class AxewTODO extends AbstractFriend {
 	@Override
 	public Attacks getFriendAttack(World myWorld, float x , float y, boolean facingRight, Monsters source){
 	    return new ShootAttack(new DragonBreathState(), myWorld, x, y, facingRight, source);
+	}
+	
+	@Override
+	public int getAttackMagicRequirement() {
+	  // TODO Auto-generated method stub
+	  return DragonBreathState.magicRequirement;
 	}
 }

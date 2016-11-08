@@ -10,6 +10,7 @@ import cl.makinolas.atk.actors.attacks.Attacks;
 import cl.makinolas.atk.actors.attacks.ShootAttack;
 import cl.makinolas.atk.actors.attacks.states.DragonBreathState;
 import cl.makinolas.atk.actors.attacks.states.RockState;
+import cl.makinolas.atk.actors.attacks.states.ThunderBoltState;
 import cl.makinolas.atk.actors.friend.AbstractFriend.Evolution;
 import cl.makinolas.atk.actors.friend.AbstractFriend.Level;
 import cl.makinolas.atk.types.DarkType;
@@ -22,7 +23,7 @@ public class LarvitarTODO extends AbstractFriend {
 	
 	public LarvitarTODO(){
 		friend = Enemies.LARVITAR;
-		/* aquí yace todo lo relacionado con los sprites */
+		/* aquï¿½ yace todo lo relacionado con los sprites */
 	    setFaceSprite(faces[0][0]);
 	    initLevel(10);
 	    initDead();
@@ -73,5 +74,11 @@ public class LarvitarTODO extends AbstractFriend {
 	@Override
 	public Attacks getFriendAttack(World myWorld, float x , float y, boolean facingRight, Monsters source){
 	    return new ShootAttack(new RockState(), myWorld, x, y, facingRight, source);
+	}
+	
+	@Override
+	public int getAttackMagicRequirement() {
+	  // TODO Auto-generated method stub
+	  return RockState.magicRequirement;
 	}
 }

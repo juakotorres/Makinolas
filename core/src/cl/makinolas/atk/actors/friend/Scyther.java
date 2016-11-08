@@ -8,6 +8,7 @@ import com.badlogic.gdx.physics.box2d.World;
 import cl.makinolas.atk.actors.Monsters;
 import cl.makinolas.atk.actors.attacks.Attacks;
 import cl.makinolas.atk.actors.attacks.CloseRangeAttack;
+import cl.makinolas.atk.actors.attacks.states.ThunderBoltState;
 import cl.makinolas.atk.actors.attacks.states.VineWhipState;
 import cl.makinolas.atk.types.BugType;
 import cl.makinolas.atk.types.ElectricType;
@@ -77,6 +78,12 @@ public class Scyther extends AbstractFriend {
   @Override
   public Attacks getFriendAttack(World myWorld, float x , float y, boolean facingRight, Monsters source){
     return new CloseRangeAttack(new VineWhipState(), myWorld, x, y, facingRight, source);
+  }
+  
+  @Override
+  public int getAttackMagicRequirement() {
+	// TODO Auto-generated method stub
+	return VineWhipState.magicRequirement;
   }
   
 }

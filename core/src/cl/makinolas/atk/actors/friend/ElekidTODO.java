@@ -8,6 +8,7 @@ import com.badlogic.gdx.physics.box2d.World;
 import cl.makinolas.atk.actors.Monsters;
 import cl.makinolas.atk.actors.attacks.Attacks;
 import cl.makinolas.atk.actors.attacks.BombAttack;
+import cl.makinolas.atk.actors.attacks.states.DragonBreathState;
 import cl.makinolas.atk.actors.attacks.states.ThunderBoltState;
 import cl.makinolas.atk.types.ElectricType;
 
@@ -18,7 +19,7 @@ public class ElekidTODO extends AbstractFriend {
 	
 	public ElekidTODO(){
 		friend = Enemies.ELEKID;
-		/* aquí yace todo lo relacionado con los sprites */
+		/* aquï¿½ yace todo lo relacionado con los sprites */
 	    setFaceSprite(faces[0][0]);
 	    initLevel(10);
 	    initDead();
@@ -66,6 +67,12 @@ public class ElekidTODO extends AbstractFriend {
 	@Override
 	public Attacks getFriendAttack(World myWorld, float x , float y, boolean facingRight, Monsters source) {
 		return new BombAttack(new ThunderBoltState(), myWorld, x, y, facingRight, source);
+	}
+	
+	@Override
+	public int getAttackMagicRequirement() {
+	  // TODO Auto-generated method stub
+	  return ThunderBoltState.magicRequirement;
 	}
 	
 }

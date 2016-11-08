@@ -4,6 +4,7 @@ import cl.makinolas.atk.actors.Monsters;
 import cl.makinolas.atk.actors.attacks.Attacks;
 import cl.makinolas.atk.actors.attacks.ShootAttack;
 import cl.makinolas.atk.actors.attacks.states.BlueBeamState;
+import cl.makinolas.atk.actors.attacks.states.ThunderBoltState;
 import cl.makinolas.atk.types.ElectricType;
 import cl.makinolas.atk.types.GroundType;
 import cl.makinolas.atk.types.IType;
@@ -44,6 +45,12 @@ public class Groudon extends AbstractFriend {
     public Attacks getFriendAttack(World myWorld, float x , float y, boolean facingRight, Monsters source){
         return new ShootAttack(new BlueBeamState(),myWorld, x, y, facingRight, source);
     }
+    
+    @Override
+	public int getAttackMagicRequirement() {
+	  // TODO Auto-generated method stub
+	  return BlueBeamState.magicRequirement;
+	}
 
 
 }

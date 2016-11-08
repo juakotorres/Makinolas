@@ -13,7 +13,9 @@ import com.badlogic.gdx.graphics.g2d.TextureRegion;
 
 public class FallingLeafState extends SpriteState {
   
-  @Override
+  public static int magicRequirement = 100;
+
+@Override
   public void initializeBody(float x, float y) {
     myAttack.initializeBody(x, y);    
   }

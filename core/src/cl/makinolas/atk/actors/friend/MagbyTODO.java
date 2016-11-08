@@ -2,6 +2,8 @@ package cl.makinolas.atk.actors.friend;
 
 import cl.makinolas.atk.actors.attacks.ParabolicAttack;
 import cl.makinolas.atk.actors.attacks.states.FireballState;
+import cl.makinolas.atk.actors.attacks.states.ThunderBoltState;
+
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
@@ -65,6 +67,12 @@ public class MagbyTODO extends AbstractFriend {
 	  @Override
 	  public Attacks getFriendAttack(World myWorld, float x , float y, boolean facingRight, Monsters source){
 	    return new ParabolicAttack(new FireballState(),myWorld, x, y, facingRight, source);
+	  }
+	  
+	  @Override
+	  public int getAttackMagicRequirement() {
+		// TODO Auto-generated method stub
+		return FireballState.magicRequirement;
 	  }
 
 }

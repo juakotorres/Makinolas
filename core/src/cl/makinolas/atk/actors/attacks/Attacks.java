@@ -168,4 +168,5 @@ public abstract class Attacks extends AnimatedActor {
     ArrayList<IType> typeFriendMonster = monster.getMyself().getType();
     return Formulas.getDamage(spAttackStat, level1, spDefenseStat, getAttackDamage(), typeFriendSource, typeFriendMonster, this.mySpriteState.getType());
   }
+
 }

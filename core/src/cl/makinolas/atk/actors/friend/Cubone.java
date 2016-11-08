@@ -9,6 +9,7 @@ import cl.makinolas.atk.actors.Monsters;
 import cl.makinolas.atk.actors.attacks.Attacks;
 import cl.makinolas.atk.actors.attacks.BoomerangAttack;
 import cl.makinolas.atk.actors.attacks.states.BoneAttackState;
+import cl.makinolas.atk.actors.attacks.states.DragonBreathState;
 import cl.makinolas.atk.types.FireType;
 import cl.makinolas.atk.types.GroundType;
 import cl.makinolas.atk.types.IType;
@@ -71,6 +72,12 @@ public class Cubone extends AbstractFriend {
   @Override
   public Attacks getFriendAttack(World myWorld, float x , float y, boolean facingRight, Monsters source){
     return new BoomerangAttack(new BoneAttackState(), myWorld, x, y, facingRight, source, false);
+  }
+  
+  @Override
+  public int getAttackMagicRequirement() {
+	// TODO Auto-generated method stub
+	return BoneAttackState.magicRequirement;
   }
   
 }

@@ -11,6 +11,8 @@ import com.badlogic.gdx.graphics.g2d.TextureRegion;
 
 
 public class TRockState extends SpriteState {
+	
+    public static int magicRequirement = 100;
 
     @Override
     public int getAttackDamage() {
