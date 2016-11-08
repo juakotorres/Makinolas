@@ -13,6 +13,10 @@ import com.badlogic.gdx.graphics.g2d.TextureRegion;
 
 public class BranchAttackState extends SpriteState {
   
+  public BranchAttackState() {
+	  super();
+	  cooldown = 100;
+  }
   @Override
   public void initializeBody(float x, float y) {
     myAttack.initializeBody(x, y);    

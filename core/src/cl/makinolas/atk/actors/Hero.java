@@ -68,7 +68,6 @@ public class Hero extends Monsters {
   private Spot currentSpot;
   private Vector2 platformSpeed;
   private long cooldownTimer;
-  private long gcd; // Global Cool Down in millis
 
   private Hero() {
 
@@ -110,8 +109,7 @@ public class Hero extends Monsters {
     changeAnimation(walkAnimation);
     state = new OnGround();
     myBodyDefinition.fixedRotation = true;
-    
-    gcd = 500;
+
     cooldownTimer = 0;
     
   }
@@ -557,7 +555,7 @@ public class Hero extends Monsters {
       actualFriend.setMagic(actualFriend.getMagic() - 100);
       GameActor fireball = actualFriend.getFriendAttack(myWorld, myBody.getPosition().x,myBody.getPosition().y,isFacingRight, this);
       ((AbstractStage) getStage()).addGameActor(fireball);
-      cooldownTimer = System.currentTimeMillis() + gcd;
+      cooldownTimer = System.currentTimeMillis() + ((Attacks)fireball).getSpriteState().getCooldown();
     }
   }
 
