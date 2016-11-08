@@ -8,19 +8,21 @@ import com.badlogic.gdx.physics.box2d.World;
 import cl.makinolas.atk.actors.Monsters;
 import cl.makinolas.atk.actors.attacks.Attacks;
 import cl.makinolas.atk.actors.attacks.ShootAttack;
-import cl.makinolas.atk.actors.attacks.states.DragonBreathState;
-import cl.makinolas.atk.types.DragonType;
+import cl.makinolas.atk.actors.attacks.states.IceRockState;
+import cl.makinolas.atk.actors.friend.AbstractFriend.Evolution;
+import cl.makinolas.atk.actors.friend.AbstractFriend.Level;
+import cl.makinolas.atk.types.GrassType;
+import cl.makinolas.atk.types.IceType;
 
+public class Snover extends AbstractFriend {
 
-public class AxewTODO extends AbstractFriend {
-	
 	private TextureRegion[][] faces;
 	
-	public AxewTODO(){
-		friend = Enemies.AXEW;
-		faces = new TextureRegion(new Texture(Gdx.files.internal("Actors/Axew_faces.png"))).split(40,40);
-		setTexture(new TextureRegion(new Texture(Gdx.files.internal("Actors/Axew.png"))));
-		/* aquï¿½ yace todo lo relacionado con los sprites */
+	public Snover(){
+		friend = Enemies.SNOVER;
+		faces = new TextureRegion(new Texture(Gdx.files.internal("Actors/Snover_faces.png"))).split(40,40);
+		setTexture(new TextureRegion(new Texture(Gdx.files.internal("Actors/Snover.png"))));
+		/* aquí yace todo lo relacionado con los sprites */
 		
 	    /*setCutSprites(30,28);
 	    setWalkAnimation(1,2,3,2);
@@ -35,10 +37,11 @@ public class AxewTODO extends AbstractFriend {
 	    newMonster();
 	    setActualEvolution(0);
 	    setMaxMagic(1000);
-	    addType(new DragonType());
+	    addType(new IceType());
+	    addType(new GrassType());
 	}
 	
-	public AxewTODO(int level){
+	public Snover(int level){
 		this();
 		initLevel(level);
 	}
@@ -48,15 +51,15 @@ public class AxewTODO extends AbstractFriend {
 		this.level = new Level(level);
 		setStats();
 		setHealth(getMaxHealth());
-		new Evolution(this.level, 38, 1);
-		new Evolution(this.level, 48, 2);
+		new Evolution(this.level, 30, 1);
+		new Evolution(this.level, 55, 2);
 	}
 	
 	@Override
 	protected void evolve(int numberOfLevel) {
 		if (numberOfLevel == 1 && getActualEvolution() < 1) {
-			friend = Enemies.FRAXURE;
-			setTexture(new TextureRegion(new Texture(Gdx.files.internal("Actors/Fraxure.png"))));
+			friend = Enemies.ABOMASNOW;
+			setTexture(new TextureRegion(new Texture(Gdx.files.internal("Actors/Abomasnow.png"))));
 			/* texturas */
 			
 		    /*setCutSprites(30,28);
@@ -70,35 +73,12 @@ public class AxewTODO extends AbstractFriend {
 		    setActualEvolution(1);
 		    setStats();
 		    setMaxMagic(1000);
-			
-		} else if (numberOfLevel == 2 && getActualEvolution() < 2) {
-			friend = Enemies.HAXORUS;
-			setTexture(new TextureRegion(new Texture(Gdx.files.internal("Actors/Haxorus.png"))));
-			/* texturas */
-			
-		    /*setCutSprites(30,28);
-		    setWalkAnimation(1,2,3,2);
-		    setHurtAnimation(0);
-		    setMeleeAnimation(4,6);
-		    setIdleAnimation(1,2,3,2);
-		    setSpecialAnimation(4,6);*/
-			
-		    setFaceSprite(faces[0][2]);
-		    setActualEvolution(2);
-		    setStats();
-		    setMaxMagic(1000);
 		}
 	}
 	
 	@Override
 	public Attacks getFriendAttack(World myWorld, float x , float y, boolean facingRight, Monsters source){
-	    return new ShootAttack(new DragonBreathState(), myWorld, x, y, facingRight, source);
-	}
-	
-	@Override
-	public int getAttackMagicRequirement() {
-	  // TODO Auto-generated method stub
-	  return DragonBreathState.magicRequirement;
+	    return new ShootAttack(new IceRockState(), myWorld, x, y, facingRight, source);
 	}
 
 }

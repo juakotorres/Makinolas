@@ -10,9 +10,7 @@ import cl.makinolas.atk.actors.attacks.Attacks;
 import cl.makinolas.atk.actors.attacks.ShootAttack;
 import cl.makinolas.atk.actors.attacks.states.DragonBreathState;
 import cl.makinolas.atk.types.DragonType;
-import cl.makinolas.atk.types.FireType;
 import cl.makinolas.atk.types.FlyingType;
-import cl.makinolas.atk.types.IType;
 
 public class Bagon extends AbstractFriend {
   
