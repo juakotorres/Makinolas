@@ -13,7 +13,7 @@ import com.badlogic.gdx.graphics.g2d.TextureRegion;
 
 public class BubbleState extends SpriteState {
 	
-  public static int magicRequirement = 100;
+  public static int magicRequirement = 45;
   
   @Override
   public int getAttackDamage() {

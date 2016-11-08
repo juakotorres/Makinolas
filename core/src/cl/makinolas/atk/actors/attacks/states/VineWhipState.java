@@ -13,7 +13,7 @@ import com.badlogic.gdx.graphics.g2d.TextureRegion;
 
 public class VineWhipState extends SpriteState {
 	
-  public static int magicRequirement = 100;
+  public static int magicRequirement = 70;
 
   @Override
   public int getAttackDamage() {

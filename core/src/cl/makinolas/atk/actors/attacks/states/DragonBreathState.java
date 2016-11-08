@@ -13,7 +13,7 @@ import com.badlogic.gdx.graphics.g2d.TextureRegion;
 
 public class DragonBreathState extends SpriteState{
   
-  public static int magicRequirement = 200;
+  public static int magicRequirement = 80;
 	
   @Override
   public int getAttackDamage() {

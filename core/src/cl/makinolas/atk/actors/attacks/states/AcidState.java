@@ -12,7 +12,7 @@ import cl.makinolas.atk.types.PoisonType;
 
 public class AcidState extends SpriteState {
 	
-  public static int magicRequirement = 1;
+  public static int magicRequirement = 60;
   
   @Override
   public int getAttackDamage() {

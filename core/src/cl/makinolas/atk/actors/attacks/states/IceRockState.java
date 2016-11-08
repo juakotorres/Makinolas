@@ -13,7 +13,7 @@ import com.badlogic.gdx.graphics.g2d.TextureRegion;
 
 public class IceRockState extends SpriteState {
 	
-  public static int magicRequirement = 100;
+  public static int magicRequirement = 75;
   
   @Override
   public int getAttackDamage() {
