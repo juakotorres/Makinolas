@@ -40,7 +40,7 @@ public class Formulas {
     }
     
     if( criticalRandomizer < getCritical(criticModificator)){
-      critical = 1.33;
+      critical = 1.5;
       monster.CriticalDamage();
       System.out.println("Critical ! Formula");
     }

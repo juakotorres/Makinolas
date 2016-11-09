@@ -58,10 +58,6 @@ public abstract class Monsters extends AnimatedActor {
       actualState.addEffortValue(this);
     }
   }
-  
-  public void getModifier(IModifier modify, int prob){
-	  modify.affect(this, prob);
-  }
 
 }
 

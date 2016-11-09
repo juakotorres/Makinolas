@@ -77,5 +77,6 @@ public class BranchAttackState extends SpriteState {
 public IType getType() {
 	return new GrassType();
 }
-  
+
+
 }
