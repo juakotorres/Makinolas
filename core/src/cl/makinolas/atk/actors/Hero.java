@@ -40,38 +40,38 @@ import cl.makinolas.atk.utils.SaveManager;
 public class Hero extends Monsters {
 
   public static Hero player = new Hero();
-  private boolean changing;
-  private int changeIndex;
-  private boolean isJumping;
-  private boolean isDamaged;
-  private boolean isAttacking;
-  private int[] attackAnimations;
-  private int actualAnimation;
+  protected boolean changing;
+  protected int changeIndex;
+  protected boolean isJumping;
+  protected boolean isDamaged;
+  protected boolean isAttacking;
+  protected int[] attackAnimations;
+  protected int actualAnimation;
   protected final float spriteTime = 1 / 5f;
-  private float countMeleeFrames;
-  private boolean dead;
-  private float jumpAccumulator;
-  private boolean isAccumulatingJump;
-  private World myWorld;
-  private int walkAnimation;
-  private int hurtAnimation;
-  private final float hurtTime = 1 / 4f;
-  private float accumulator;
-  private Array<Friend> allies;
-  private Array<Friend> backupAllies;
-  private Friend actualFriend;
-  private int indexFriend;
-  private int backupIndexFriend;
-  private BodyDef myBodyDefinition;
-  private Inventory inventory;
-  private int vx;
-  private boolean inertia;
-  private boolean hasEvolved;
-  private boolean[] levelsUnlocked;
-  private JumpState state;
-  private boolean onWall = false;
-  private Spot currentSpot;
-  private Vector2 platformSpeed;
+  protected float countMeleeFrames;
+  protected boolean dead;
+  protected float jumpAccumulator;
+  protected boolean isAccumulatingJump;
+  protected World myWorld;
+  protected int walkAnimation;
+  protected int hurtAnimation;
+  protected final float hurtTime = 1 / 4f;
+  protected float accumulator;
+  protected Array<Friend> allies;
+  protected Array<Friend> backupAllies;
+  protected Friend actualFriend;
+  protected int indexFriend;
+  protected int backupIndexFriend;
+  protected BodyDef myBodyDefinition;
+  protected Inventory inventory;
+  protected int vx;
+  protected boolean inertia;
+  protected boolean hasEvolved;
+  protected boolean[] levelsUnlocked;
+  protected JumpState state;
+  protected boolean onWall = false;
+  protected Spot currentSpot;
+  protected Vector2 platformSpeed;
 
   protected Hero() {
 
@@ -382,7 +382,7 @@ public class Hero extends Monsters {
     }
   }
 
-  private void setAnimation(){
+  protected void setAnimation(){
     setMasterTexture(actualFriend.getTexture(),actualFriend.getWidth(),actualFriend.getHeight());
     walkAnimation = addAnimation(0.2f, actualFriend.getWalkAnimation());
     hurtAnimation = addAnimation(0.2f, actualFriend.getHurtAnimation());

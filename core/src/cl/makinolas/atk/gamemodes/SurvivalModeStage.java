@@ -7,9 +7,13 @@ import cl.makinolas.atk.actors.fx.FxManager;
 import cl.makinolas.atk.actors.platform.Platform;
 import cl.makinolas.atk.actors.ui.BagVis;
 import cl.makinolas.atk.actors.ui.MobileGroup;
+import cl.makinolas.atk.minigames.MinigameCharacter;
 import cl.makinolas.atk.minigames.MinigameInputController;
+import cl.makinolas.atk.minigames.PlatformCreator;
 import cl.makinolas.atk.screen.GameScreen;
 import cl.makinolas.atk.stages.AbstractStage;
+import cl.makinolas.atk.stages.CameraPosition;
+import cl.makinolas.atk.utils.SaveManager;
 import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.OrthographicCamera;
@@ -29,7 +33,7 @@ public class SurvivalModeStage extends AbstractStage implements ContactListener{
     private Group ground, mons, ui, deco;
     private SurvivalHero hero;
 
-
+    //Agregar requisitode calidad y restriccion
     public SurvivalModeStage(Viewport v, GameScreen actualScreen, Game game) {
         super(v);
         myScreen = actualScreen;
@@ -40,7 +44,32 @@ public class SurvivalModeStage extends AbstractStage implements ContactListener{
         addActor(new Background("Background/Night.png", getCamera()));
         ground = new Group();
         ground.addActor(initialPlatform);
+        deco = new Group();
+        addActor(deco);
         addActor(ground);
+        mons = new Group();
+        addActor(mons);
+        ui = new Group();
+        addActor(ui);
+
+        MobileGroup group = new MobileGroup(false);
+        Gdx.input.setInputProcessor(this);
+
+        cameraObserver = new CameraPosition();
+
+        ground.addActor(initialPlatform);
+        ground.addActor(new PlatformCreator(survivalWorld, this, 20, 0, ground));
+        hero = new SurvivalHero();
+        hero.setWorld(survivalWorld);
+        //cameraObserver.setPosition(hero.getBody().getPosition().x, hero.getBody().getPosition().y);
+
+        ui.addActor(group);
+        ui.addActor(BagVis.getInstance());
+
+        FxManager.getInstance().setParent(ui);
+        addGameActor(hero);
+        addListener(new SurvivalInputController(hero,group));
+        renderer = new Box2DDebugRenderer();
         /*MobileGroup group = new MobileGroup(false);
         Gdx.input.setInputProcessor(this);
         hero = new SurvivalHero();
@@ -50,6 +79,7 @@ public class SurvivalModeStage extends AbstractStage implements ContactListener{
 
         FxManager.getInstance().setParent(ui);
         addListener(new SurvivalInputController(hero,group));*/
+
     }
 
     @Override
@@ -76,4 +106,13 @@ public class SurvivalModeStage extends AbstractStage implements ContactListener{
     public void postSolve(Contact contact, ContactImpulse impulse) {
 
     }
+
+    @Override
+    public void addGameActor(GameActor actor) {
+        mons.addActor(actor);
+        gameActors.add(actor);
+    }
+
+
+
 }
