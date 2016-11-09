@@ -3,7 +3,6 @@ package cl.makinolas.atk.utils;
 import java.util.ArrayList;
 
 import cl.makinolas.atk.actors.Monsters;
-import cl.makinolas.atk.actors.attacks.Attacks;
 import cl.makinolas.atk.actors.friend.Enemies;
 import cl.makinolas.atk.types.IType;
 

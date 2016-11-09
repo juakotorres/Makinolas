@@ -181,6 +181,7 @@ public int getSpecialAttackDamage(Monsters monster) {
     ArrayList<IType> typeFriendSource = getSource().getMyself().getType();
     ArrayList<IType> typeFriendMonster = monster.getMyself().getType();
     
+    
     if((getSource().isEnemy() && monster.isHero()) || (getSource().isHero() && monster.isEnemy())){
     	return Formulas.getDamage(monster, spAttackStat, level1, spDefenseStat, getAttackDamage(), typeFriendSource, typeFriendMonster, this.mySpriteState.getType(), criticModificator);
     }

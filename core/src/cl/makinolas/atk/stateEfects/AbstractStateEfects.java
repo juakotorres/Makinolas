@@ -1,8 +1,8 @@
-package cl.makinolas.atk.modifiers;
+package cl.makinolas.atk.stateEfects;
 
 import cl.makinolas.atk.actors.Monsters;
 
-public abstract class AbstractModifier implements IModifier {
+public abstract class AbstractStateEfects implements IStateEfects {
 
 	@Override
 	public void affect(Monsters monsters, int prob) {

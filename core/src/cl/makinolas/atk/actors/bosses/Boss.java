@@ -123,5 +123,10 @@ public abstract class Boss extends Monsters implements IBoss{
   }
   
   @Override
+  public boolean isEnemy(){
+	  return true;
+  }
+  
+  @Override
   protected void gainExp(int enemyLevel, Enemies type) {}
 }

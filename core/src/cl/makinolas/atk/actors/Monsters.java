@@ -1,11 +1,17 @@
 package cl.makinolas.atk.actors;
 
+import java.util.ArrayList;
+
+import com.badlogic.gdx.graphics.g2d.Batch;
+import com.badlogic.gdx.graphics.g2d.TextureRegion;
+import com.badlogic.gdx.math.Vector2;
+
+import cl.makinolas.atk.GameConstants;
 import cl.makinolas.atk.actors.attacks.Attacks;
 import cl.makinolas.atk.actors.attacks.MeleeAttack;
 import cl.makinolas.atk.actors.friend.Enemies;
 import cl.makinolas.atk.actors.friend.EvStates.EvState;
-import cl.makinolas.atk.actors.fx.FxManager;
-import cl.makinolas.atk.modifiers.IModifier;
+import cl.makinolas.atk.stateEfects.IStateEfects;
 import cl.makinolas.atk.actors.friend.Friend;
 
 public abstract class Monsters extends AnimatedActor {
@@ -16,7 +22,8 @@ public abstract class Monsters extends AnimatedActor {
   protected Friend parent;
   public abstract float getXDirection();
   public abstract void CriticalDamage();
-
+  
+  private ArrayList<IStateEfects> states;
   
   @Override
   public boolean isMonster(){
@@ -58,6 +65,14 @@ public abstract class Monsters extends AnimatedActor {
       actualState.addEffortValue(this);
     }
   }
+  
+  @Override
+  public void draw(Batch batch, float alpha){
+	  super.draw(batch, alpha);
+	  
+  }
+  
+  
 
 }
 
