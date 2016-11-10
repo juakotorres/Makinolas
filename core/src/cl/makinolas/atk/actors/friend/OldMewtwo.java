@@ -47,4 +47,10 @@ public class OldMewtwo extends AbstractFriend {
     return new ShootAttack(new BlueBeamState(),myWorld, x, y, facingRight, source);
   }
   
+  @Override
+  public int getAttackMagicRequirement() {
+	// TODO Auto-generated method stub
+	return BlueBeamState.magicRequirement;
+  }
+  
 }

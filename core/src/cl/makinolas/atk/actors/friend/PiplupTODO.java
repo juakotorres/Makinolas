@@ -22,8 +22,7 @@ public class PiplupTODO extends AbstractFriend {
 		friend = Enemies.PIPLUP;
 		faces = new TextureRegion(new Texture(Gdx.files.internal("Actors/Piplup_faces.png"))).split(40,40);
 		setTexture(new TextureRegion(new Texture(Gdx.files.internal("Actors/Piplup.png"))));
-		/* aquí yace todo lo relacionado con los sprites */
-		
+		/* aqui yace todo lo relacionado con los sprites */
 	    setFaceSprite(faces[0][0]);
 	    initLevel(5);
 	    initDead();
@@ -91,6 +90,12 @@ public class PiplupTODO extends AbstractFriend {
 	@Override
 	public Attacks getFriendAttack(World myWorld, float x , float y, boolean facingRight, Monsters source) {
 		return new ShootBombAttack(new BubbleState(), myWorld, x, y, facingRight, source);
+	}
+	
+	@Override
+	public int getAttackMagicRequirement() {
+		// TODO Auto-generated method stub
+		return BubbleState.magicRequirement;
 	}
 
 }

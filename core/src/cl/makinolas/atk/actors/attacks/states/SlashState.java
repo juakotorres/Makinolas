@@ -12,6 +12,8 @@ import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 
 public class SlashState extends SpriteState {
+	
+  public static int magicRequirement = 55;
   
   @Override
   public int getAttackDamage() {

@@ -86,4 +86,10 @@ public class Bagon extends AbstractFriend {
     return new ShootAttack(new DragonBreathState(), myWorld, x, y, facingRight, source);
   }
 
+  @Override
+  public int getAttackMagicRequirement() {
+	// TODO Auto-generated method stub
+	return DragonBreathState.magicRequirement;
+  }
+
 }

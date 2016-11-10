@@ -186,5 +186,5 @@ public int getSpecialAttackDamage(Monsters monster) {
     
     return 0;
   }
-  
+
 }
