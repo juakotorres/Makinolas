@@ -31,6 +31,7 @@ public class JumperEnemy extends Enemy {
   
   @Override
   public void act(float delta){ 
+	  super.act(delta);
     myBody.setLinearVelocity(vx, myBody.getLinearVelocity().y);
 
     if(!viewGround){

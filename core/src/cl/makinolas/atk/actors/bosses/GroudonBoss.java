@@ -155,11 +155,4 @@ public class GroudonBoss extends Boss {
         return vx;
     }
 
-	@Override
-	public void CriticalDamage() {
-		Vector2 myPosition = myBody.getPosition();
-		FxManager.getInstance().addFx(FxManager.Fx.CRITICAL,
-				myPosition.x * GameConstants.WORLD_FACTOR - getActualSprite().getRegionWidth() / 2,
-				myPosition.y * GameConstants.WORLD_FACTOR + getActualSprite().getRegionHeight() / 2);
-	}
 }

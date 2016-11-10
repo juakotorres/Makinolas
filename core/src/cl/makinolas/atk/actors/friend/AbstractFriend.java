@@ -685,6 +685,9 @@ public abstract class AbstractFriend implements Friend {
     }
   }
   
+  public void setCriticModificator(int val){
+	  this.criticModificator = val;
+  }
   public int getAttackMagicRequirement() {
 	// TODO Auto-generated method stub
 	return DragonBreathState.magicRequirement;

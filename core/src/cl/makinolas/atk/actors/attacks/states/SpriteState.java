@@ -73,4 +73,11 @@ public long getCooldown() {
 	return cooldown;
 }
 
+public void secondaryEfectsToSource(Monsters monster) {
+	
+}
+public void secondaryEfectsToAfected(Monsters monster) {
+	
+}
+
 }

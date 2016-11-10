@@ -5,11 +5,11 @@ import cl.makinolas.atk.actors.*;
 import cl.makinolas.atk.actors.attacks.Attacks;
 import cl.makinolas.atk.actors.friend.Enemies;
 import cl.makinolas.atk.actors.friend.Friend;
-import cl.makinolas.atk.actors.fx.FxManager;
 import cl.makinolas.atk.actors.items.BallActor;
 import cl.makinolas.atk.actors.items.ItemFinder;
 import cl.makinolas.atk.actors.platform.Platform;
 import cl.makinolas.atk.actors.ui.MainBar;
+import cl.makinolas.atk.stateEfects.CriticalHit;
 import cl.makinolas.atk.audio.GDXSoundEffectsEnemy;
 import cl.makinolas.atk.utils.Formulas;
 import com.badlogic.gdx.Gdx;
@@ -72,6 +72,7 @@ public class Enemy extends Monsters {
 			int[][] numberOfHurtSprites, int givenHealth, int positionX, int positionY, boolean facingRight, int level,
 			Enemies type, Friend parent) {
 
+		super();
 		this.myWorld = myWorld;
 		health = givenHealth;
 		width = cutSprite[0];
@@ -121,6 +122,7 @@ public class Enemy extends Monsters {
 
 	@Override
 	public void act(float delta) {
+		super.act(delta);
 		if (!free) {
 			myBody.setLinearVelocity(0, 0);
 			return;
@@ -382,9 +384,18 @@ public class Enemy extends Monsters {
 	}
 
 	public void CriticalDamage() {
+		  this.addState(new CriticalHit(this), 100);
+	}
+
+	@Override
+	public float getRelativeY() {
 		Vector2 myPosition = myBody.getPosition();
-		FxManager.getInstance().addFx(FxManager.Fx.CRITICAL,
-				myPosition.x * GameConstants.WORLD_FACTOR - getActualSprite().getRegionWidth() / 2,
-				myPosition.y * GameConstants.WORLD_FACTOR + getActualSprite().getRegionHeight() / 2);
+		return myPosition.y * GameConstants.WORLD_FACTOR + getActualSprite().getRegionHeight() / 2;
+	}
+
+	@Override
+	public float getRelativeX() {
+		Vector2 myPosition = myBody.getPosition();
+		return myPosition.x * GameConstants.WORLD_FACTOR - getActualSprite().getRegionWidth() / 2;
 	}
 }

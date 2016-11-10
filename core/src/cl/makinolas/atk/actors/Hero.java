@@ -29,6 +29,7 @@ import cl.makinolas.atk.actors.ui.MainBar;
 import cl.makinolas.atk.audio.GDXSoundEffectsHero;
 import cl.makinolas.atk.screen.MapScreen;
 import cl.makinolas.atk.start.GameText;
+import cl.makinolas.atk.stateEfects.CriticalHit;
 import cl.makinolas.atk.utils.Formulas;
 import cl.makinolas.atk.utils.SaveDoesNotExistException;
 import cl.makinolas.atk.utils.SaveManager;
@@ -77,6 +78,7 @@ public class Hero extends Monsters {
 
   private Hero() {
 
+	  super();
     isJumping = false;
     isFacingRight = false;
     isDamaged = false;
@@ -248,6 +250,7 @@ public class Hero extends Monsters {
   
   @Override
   public void act(float delta){
+	  super.act(delta);
     checkChangingAllie();
 
     myBody.setLinearVelocity(vx + platformSpeed.x, myBody.getLinearVelocity().y);
@@ -733,8 +736,16 @@ public class Hero extends Monsters {
   
 
   public void CriticalDamage() {
-		FxManager.getInstance().addFx(FxManager.Fx.CRITICAL,  this.getStageX(),this.getStageY());
+	  this.addState(new CriticalHit(this), 100);
   }
+@Override
+public float getRelativeY() {
+	return this.getStageY();
+}
+@Override
+public float getRelativeX() {
+	return this.getStageX();
+}
 
 
 
