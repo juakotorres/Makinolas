@@ -10,6 +10,7 @@ import cl.makinolas.atk.types.IType;
 public abstract class SpriteState {
   
   protected Attacks myAttack;
+  protected long cooldown;
   
   public abstract int getAttackDamage();
   public abstract TextureRegion getTexture();
@@ -20,6 +21,10 @@ public abstract class SpriteState {
   public abstract int getInitialSprite();
   public abstract int getFinalSprite();
   public abstract IType getType();
+  
+  public SpriteState() {
+	  cooldown = 500; // Default Value
+  }
   
   public int getBodyWidth() {
     return getWidth();
@@ -64,5 +69,8 @@ public abstract class SpriteState {
   public int getCriticalChance(){
 	  return 1;
   }
+public long getCooldown() {
+	return cooldown;
+}
 
 }
