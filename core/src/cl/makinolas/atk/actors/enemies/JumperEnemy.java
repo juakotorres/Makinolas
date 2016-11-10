@@ -41,10 +41,10 @@ public class JumperEnemy extends Enemy {
     checkDamage(delta, 0);
     accumulatorAttack += delta; 
     
-    if(accumulatorAttack > attackTime){
-      GameActor attack = parent.getFriendAttack(myWorld, myBody.getPosition().x - 0.5f, myBody.getPosition().y, isFacingRight, this);
-      ((AbstractStage) getStage()).addGameActor(attack);
-      accumulatorAttack = 0;
+    if(accumulatorAttack > attackTime && super.isFree()){
+        GameActor attack = parent.getFriendAttack(myWorld, myBody.getPosition().x - 0.5f, myBody.getPosition().y, isFacingRight, this);
+        ((AbstractStage) getStage()).addGameActor(attack);
+        accumulatorAttack = 0;
     }
 
     checkGround(delta);
