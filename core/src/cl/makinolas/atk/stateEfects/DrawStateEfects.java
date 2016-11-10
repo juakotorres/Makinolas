@@ -35,7 +35,7 @@ public class DrawStateEfects {
 	}
 
 	public void draw(Batch batch, float alpha, float xPos, float yPos) {
-        batch.draw(animation.getKeyFrame(acc),xPos-40,yPos-40);		
+        batch.draw(animation.getKeyFrame(acc),xPos-30,yPos-30);		
 	}
 
 }

@@ -10,6 +10,7 @@ import cl.makinolas.atk.actors.items.BallActor;
 import cl.makinolas.atk.actors.items.ItemFinder;
 import cl.makinolas.atk.actors.platform.Platform;
 import cl.makinolas.atk.actors.ui.MainBar;
+import cl.makinolas.atk.stateEfects.CriticalHit;
 import cl.makinolas.atk.utils.Formulas;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
@@ -380,7 +381,7 @@ public class Enemy extends Monsters {
 	}
 
 	public void CriticalDamage() {
-		FxManager.getInstance().addFx(FxManager.Fx.CRITICAL, getRelativeY(), getRelativeX());
+		  this.addState(new CriticalHit(this), 100);
 	}
 
 	@Override

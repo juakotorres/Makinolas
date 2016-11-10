@@ -37,5 +37,11 @@ public abstract class AbstractStateEfects implements IStateEfects {
 			return super.equals(o);
 		}
 	}
+	
+	@Override
+	public void act(float delta){
+		this.drawEfects.act(delta);
+	}
+
 
 }

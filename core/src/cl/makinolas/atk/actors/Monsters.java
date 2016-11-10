@@ -80,7 +80,7 @@ public abstract class Monsters extends AnimatedActor {
       super.act(delta);
       try{
     	  for(IStateEfects state: states){
-    	  state.getDrawStateEfects().act(delta);
+    	  state.act(delta);
     	  }
       }catch(ConcurrentModificationException e){
     	  return;

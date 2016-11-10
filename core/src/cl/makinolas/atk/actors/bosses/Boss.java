@@ -14,6 +14,7 @@ import cl.makinolas.atk.actors.attacks.Attacks;
 import cl.makinolas.atk.actors.friend.Enemies;
 import cl.makinolas.atk.actors.fx.FxManager;
 import cl.makinolas.atk.stages.BossStage;
+import cl.makinolas.atk.stateEfects.CriticalHit;
 
 public abstract class Boss extends Monsters implements IBoss{
   
@@ -134,7 +135,7 @@ public abstract class Boss extends Monsters implements IBoss{
   protected void gainExp(int enemyLevel, Enemies type) {}
   
 	public void CriticalDamage() {
-		FxManager.getInstance().addFx(FxManager.Fx.CRITICAL, getRelativeY(), getRelativeX());
+		  this.addState(new CriticalHit(this), 100);
 	}
 
 	@Override

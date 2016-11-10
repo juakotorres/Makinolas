@@ -32,6 +32,7 @@ import cl.makinolas.atk.actors.platform.Platform;
 import cl.makinolas.atk.actors.ui.MainBar;
 import cl.makinolas.atk.screen.MapScreen;
 import cl.makinolas.atk.start.GameText;
+import cl.makinolas.atk.stateEfects.CriticalHit;
 import cl.makinolas.atk.utils.Formulas;
 import cl.makinolas.atk.utils.SaveDoesNotExistException;
 import cl.makinolas.atk.utils.SaveManager;
@@ -706,16 +707,15 @@ public class Hero extends Monsters {
   
 
   public void CriticalDamage() {
-	  // cambiar por un efecto cuando exista
-		FxManager.getInstance().addFx(FxManager.Fx.CRITICAL,  this.getStageX(),this.getStageY());
+	  this.addState(new CriticalHit(this), 100);
   }
 @Override
 public float getRelativeY() {
-	return this.getStageX();
+	return this.getStageY();
 }
 @Override
 public float getRelativeX() {
-	return this.getStageY();
+	return this.getStageX();
 }
 
 

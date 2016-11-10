@@ -8,7 +8,8 @@ public interface IStateEfects {
 
 	void affect(Monsters monsters, int prob, ArrayList<IStateEfects> states);
 	void affectMonsters();
-	DrawStateEfects getDrawStateEfects();
 	void destroy();
+	void act(float delta);
+	DrawStateEfects getDrawStateEfects();
 
 }

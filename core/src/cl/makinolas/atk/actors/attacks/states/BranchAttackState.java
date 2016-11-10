@@ -3,6 +3,7 @@ package cl.makinolas.atk.actors.attacks.states;
 import com.badlogic.gdx.graphics.g2d.Animation.PlayMode;
 
 import cl.makinolas.atk.actors.Monsters;
+import cl.makinolas.atk.stateEfects.PoisonStateEffects;
 import cl.makinolas.atk.stateEfects.StateEfectsCriticRate;
 import cl.makinolas.atk.types.GrassType;
 import cl.makinolas.atk.types.IType;
@@ -79,13 +80,5 @@ public IType getType() {
 	return new GrassType();
 }
 
-public int getCriticalChance(){
-	  return 1;
-}
-
-@Override
-public void secondaryEfectsToAfected(Monsters monster) {
-	monster.addState(new StateEfectsCriticRate(monster), 100);
-}
 
 }
