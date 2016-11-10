@@ -5,6 +5,7 @@ import com.badlogic.gdx.graphics.g2d.TextureRegion;
 
 import cl.makinolas.atk.actors.Monsters;
 import cl.makinolas.atk.actors.attacks.Attacks;
+import cl.makinolas.atk.types.IType;
 
 public abstract class SpriteState {
   
@@ -18,7 +19,8 @@ public abstract class SpriteState {
   public abstract PlayMode getModeAnimation();
   public abstract int getInitialSprite();
   public abstract int getFinalSprite();
-
+  public abstract IType getType();
+  
   public int getBodyWidth() {
     return getWidth();
   }
@@ -58,4 +60,9 @@ public abstract class SpriteState {
   public boolean oneTimeVelocity() {
     return false;
   }
+  
+  public int getCriticalChance(){
+	  return 1;
+  }
+
 }

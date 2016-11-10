@@ -1,11 +1,13 @@
 package cl.makinolas.atk.stages;
 
 import com.badlogic.gdx.audio.Music;
+import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.utils.viewport.Viewport;
 
 import cl.makinolas.atk.actors.GameActor;
 import cl.makinolas.atk.actors.Hero;
+import cl.makinolas.atk.actors.SimpleImageActor;
 import cl.makinolas.atk.actors.friend.Friend;
 import cl.makinolas.atk.audio.GDXMusicPlayer;
 import cl.makinolas.atk.screen.GameScreen;
@@ -18,6 +20,7 @@ public abstract class AbstractStage extends Stage {
   protected GameScreen myScreen;
   protected boolean paused;
   public CameraPosition cameraObserver;
+
   public GDXMusicPlayer musicplayer;
   
 
@@ -28,7 +31,7 @@ public abstract class AbstractStage extends Stage {
   public void addGameActor(GameActor fireball) {
     this.addGameActor(fireball);
   }
-
+  
   public abstract void changeCamera(float x, float y);
 
   public void addAllie(Friend friend) {
@@ -52,7 +55,9 @@ public abstract class AbstractStage extends Stage {
   }
   
   public void changeDeadMenu() {
+
     musicplayer.StopMusic();
+
     myScreen.mainMenu();
   }
 

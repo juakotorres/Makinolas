@@ -1,5 +1,6 @@
 package cl.makinolas.atk.actors;
 
+import cl.makinolas.atk.actors.friend.Enemies;
 import cl.makinolas.atk.actors.ui.BagVis;
 import cl.makinolas.atk.actors.ui.MobileGroup;
 import cl.makinolas.atk.actors.ui.MobileKeyListener;
@@ -53,6 +54,13 @@ public class InputController extends InputListener implements MobileKeyListener{
                 case Input.Keys.NUM_2:
                     hero.nextAllie();
                     break;
+                    
+                //BORRAR!!!!!!!!!!!!!!!!!!!!
+                case Input.Keys.NUM_3:
+                	hero.foo();
+                	break;
+                	
+                	
                 case Input.Keys.NUM_8:
                     SaveManager.getInstance().saveState();
                     break;

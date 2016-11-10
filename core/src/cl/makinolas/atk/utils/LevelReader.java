@@ -6,8 +6,7 @@ import java.io.InputStreamReader;
 
 import cl.makinolas.atk.GameConstants;
 import cl.makinolas.atk.actors.Title;
-import cl.makinolas.atk.actors.platform.PlatformResource;
-import cl.makinolas.atk.actors.platform.Sign;
+import cl.makinolas.atk.actors.platform.*;
 import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.files.FileHandle;
@@ -19,7 +18,6 @@ import com.badlogic.gdx.utils.Array;
 import cl.makinolas.atk.actors.GameActor;
 import cl.makinolas.atk.actors.Portal;
 import cl.makinolas.atk.actors.enemies.EnemyCreator;
-import cl.makinolas.atk.actors.platform.Platform;
 import cl.makinolas.atk.stages.AbstractStage;
 
 public class LevelReader {
@@ -30,6 +28,7 @@ public class LevelReader {
     private Vector2 heroPos;
     private AbstractStage gameStage;
     private Group decorations;
+    private String boss;
 
     private LevelReader() {
         heroPos = new Vector2(2, 3);
@@ -58,6 +57,7 @@ public class LevelReader {
 
         Array<GameActor> platforms = new Array<GameActor>();
         decorations.clearChildren();
+        boss = "";
         String line = reader.readLine();
         while (line != null) {
             String[] comps = line.split(",");
@@ -80,6 +80,22 @@ public class LevelReader {
                     decorations.addActor(new Title(PlatformResource.getInstance().getRegionWithCode(comps[1]),
                             Integer.parseInt(comps[2])* GameConstants.WORLD_FACTOR,Integer.parseInt(comps[3])* GameConstants.WORLD_FACTOR));
                     break;
+                case "%B":
+                    boss = comps[1];
+                    break;
+                case "%BreakP":
+                    platforms.add(new BreakablePlatform(world, Integer.parseInt(comps[1]),
+                        Integer.parseInt(comps[2])));
+                    break;
+                case "%MoveP":
+                    platforms.add(new MovablePlatform(world, comps[1], Integer.parseInt(comps[2]),
+                        Integer.parseInt(comps[3]), Integer.parseInt(comps[4]), Integer.parseInt(comps[5]),
+                        Integer.parseInt(comps[6]), Integer.parseInt(comps[7])));                    
+                    break;
+                case "%WaterP":
+                	platforms.add(new WaterPlatform(world, Integer.parseInt(comps[1]),
+                			Integer.parseInt(comps[2]), Integer.parseInt(comps[3]), Integer.parseInt(comps[4])));                	
+                	break;
                 default:
                     if (comps[0].length() <= 3)
                         platforms.add(parsePlatform(comps));
@@ -104,4 +120,7 @@ public class LevelReader {
         return decorations;
     }
 
+    public String getBoss() {
+        return boss;
+    }
 }

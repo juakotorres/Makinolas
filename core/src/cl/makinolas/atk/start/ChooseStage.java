@@ -1,5 +1,6 @@
 package cl.makinolas.atk.start;
 
+import cl.makinolas.atk.stages.Levels;
 import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input.Keys;
@@ -101,7 +102,7 @@ public class ChooseStage extends Stage {
     Hero.getInstance().reset();
     MainBar.getInstance().reset();
 
-    MapScreen mapScreen = new MapScreen(myGame,new MapStage(new FitViewport(640, 480),myGame));
+    MapScreen mapScreen = new MapScreen(myGame,new MapStage(new FitViewport(640, 480),myGame, Levels.LEVEL1.levelSpot));
     myGame.setScreen(mapScreen);
   }
 

@@ -11,6 +11,7 @@ import cl.makinolas.atk.actors.enemies.Enemy;
 import cl.makinolas.atk.actors.items.BallActor;
 import cl.makinolas.atk.actors.items.ItemActor;
 import cl.makinolas.atk.actors.platform.Platform;
+import cl.makinolas.atk.actors.platform.WaterPlatform;
 import cl.makinolas.atk.minigames.MinigameCharacter;
 
 public abstract class GameActor extends Actor{
@@ -79,6 +80,8 @@ public abstract class GameActor extends Actor{
   public void interactWithItem(ItemActor item) {}
   
   public void interactWithMinigameCharacter(MinigameCharacter minigameCharacter, WorldManifold worldManifold) {}
+  
+  public void interactWithWater(WaterPlatform waterplatform, WorldManifold worldManifold) {}
 
   public boolean isEnemy() {
     return false;
@@ -96,8 +99,12 @@ public abstract class GameActor extends Actor{
     return false;
   }
 
+  public abstract void endInteraction(GameActor actor2, WorldManifold worldManifold);
 
+  public void endHeroInteraction(Hero hero, WorldManifold worldManifold) {}
 
+  public void endPlatformInteraction(Platform platform, WorldManifold worldManifold) {}
 
+  public void endWaterInteraction(WaterPlatform waterplatform, WorldManifold worldManifold) {}
   
 }

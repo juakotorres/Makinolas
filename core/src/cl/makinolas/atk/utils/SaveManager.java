@@ -1,11 +1,14 @@
 package cl.makinolas.atk.utils;
 
 import cl.makinolas.atk.stages.Levels;
+import cl.makinolas.atk.stages.MenuStage;
+
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Preferences;
 import com.badlogic.gdx.files.FileHandle;
 import com.badlogic.gdx.utils.Json;
 import com.badlogic.gdx.utils.JsonWriter;
+import com.badlogic.gdx.utils.SerializationException;
 
 import cl.makinolas.atk.actors.Hero;
 import cl.makinolas.atk.actors.friend.Friend;
@@ -39,7 +42,13 @@ public class SaveManager {
         Json base = new Json();
         String data = cryptor.decrypt(encData);
         //System.out.println("Loaded:\n"+data);
-        save = base.fromJson(SaveInstance.class,data);
+        try {
+        	save = base.fromJson(SaveInstance.class,data);
+        	MenuStage.setCleanSAV();
+        }
+        catch (SerializationException e) {
+        	MenuStage.setCorruptSAV();
+        }
     }
 
     private void saveData(SaveInstance saved, String path){
@@ -56,6 +65,9 @@ public class SaveManager {
     public void startGameSave(Friend friend, String myName, boolean mySex){
       SaveInstance saveInstance = new SaveInstance();
       FriendDescriptor fd = new FriendDescriptor();
+      fd.individualValue = friend.getIvs();
+      fd.ev1 = friend.getEv1();
+      fd.ev2 = friend.getEv2();
       fd.name = friend.getName();
       fd.level = 5;
       saveInstance.friends = new FriendDescriptor[]{fd};

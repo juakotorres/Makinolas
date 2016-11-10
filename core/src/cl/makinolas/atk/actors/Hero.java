@@ -1,6 +1,7 @@
 package cl.makinolas.atk.actors;
 
 import cl.makinolas.atk.actors.items.ItemActor;
+import cl.makinolas.atk.stages.*;
 import com.badlogic.gdx.Game;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.Body;
@@ -8,9 +9,9 @@ import com.badlogic.gdx.physics.box2d.BodyDef;
 import com.badlogic.gdx.physics.box2d.PolygonShape;
 import com.badlogic.gdx.physics.box2d.World;
 import com.badlogic.gdx.physics.box2d.WorldManifold;
+
 import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.viewport.FitViewport;
-
 import cl.makinolas.atk.GameConstants;
 import cl.makinolas.atk.actors.attacks.Attacks;
 import cl.makinolas.atk.actors.bosses.IBoss;
@@ -19,17 +20,15 @@ import cl.makinolas.atk.actors.enemies.MonsterFactory;
 import cl.makinolas.atk.actors.friend.Enemies;
 import cl.makinolas.atk.actors.friend.Friend;
 import cl.makinolas.atk.actors.friend.FriendDescriptor;
+import cl.makinolas.atk.actors.fx.FxManager;
 import cl.makinolas.atk.actors.items.Ball;
 import cl.makinolas.atk.actors.items.BallActor;
 import cl.makinolas.atk.actors.items.Inventory;
 import cl.makinolas.atk.actors.platform.Platform;
+import cl.makinolas.atk.actors.platform.WaterPlatform;
 import cl.makinolas.atk.actors.ui.MainBar;
 import cl.makinolas.atk.audio.GDXSoundEffectsHero;
 import cl.makinolas.atk.screen.MapScreen;
-import cl.makinolas.atk.stages.AbstractStage;
-import cl.makinolas.atk.stages.Levels;
-import cl.makinolas.atk.stages.MapStage;
-import cl.makinolas.atk.stages.OnWall;
 import cl.makinolas.atk.start.GameText;
 import cl.makinolas.atk.utils.Formulas;
 import cl.makinolas.atk.utils.SaveDoesNotExistException;
@@ -58,8 +57,10 @@ public class Hero extends Monsters {
   private final float hurtTime = 1 / 4f;
   private float accumulator;
   private Array<Friend> allies;
+  private Array<Friend> backupAllies;
   private Friend actualFriend;
   private int indexFriend;
+  private int backupIndexFriend;
   private BodyDef myBodyDefinition;
   private Inventory inventory;
   private int vx;
@@ -72,6 +73,8 @@ public class Hero extends Monsters {
   public GDXSoundEffectsHero Getmplayer(){
 	  return mplayer;
   }
+  private Spot currentSpot;
+  private Vector2 platformSpeed;
 
   private Hero() {
 
@@ -87,10 +90,13 @@ public class Hero extends Monsters {
     jumpAccumulator = 3;
     accumulator = 0;
     vx = 0;
+    platformSpeed = new Vector2(0,0);
     inertia = false;
 
     // Set team for player;
     allies = new Array<Friend>();
+    backupAllies = new Array<Friend>();
+    backupIndexFriend = 0;
     loadFriends();
 
     //Inventory uses loaded data
@@ -113,7 +119,10 @@ public class Hero extends Monsters {
     
     
   }
-  
+  /* Aqui se hace un intento fallido de arreglar el bug del sabe al parecer,
+   * consiste en que cuando no se puede cargar el archivo, se agregaran dos
+   * personajes (pokemones kakuna y Scyther) para poder jugar con ellos. 
+   * */
   private void loadFriends() {
     try {
       SaveManager.getInstance().loadData(GameText.savePath);
@@ -124,12 +133,27 @@ public class Hero extends Monsters {
     }
     if(SaveManager.getInstance().hasSaveInstance()){
       FriendDescriptor[] friends = SaveManager.getInstance().getSaveInstance().friends;
+      
       levelsUnlocked = SaveManager.getInstance().getSaveInstance().levelsUnlocked;
+
+      if(Levels.values().length > levelsUnlocked.length){
+        boolean[] newlevels = new boolean[Levels.values().length];
+        for(int i = 0; i < Levels.values().length; i++){
+          if(i < levelsUnlocked.length)
+            newlevels[i] = levelsUnlocked[i];
+          else
+            newlevels[i] = false;
+        }
+        levelsUnlocked = newlevels;
+      }
+
       if(friends.length == 0){
         addAllie(MonsterFactory.getInstance().getHeroFriend("Kakuna", 6));
       } else {
         for(int i = 0; i < friends.length; i++){
-          addAllie(MonsterFactory.getInstance().getHeroFriend(friends[i].name, friends[i].level, friends[i].exp));
+          addAllie(MonsterFactory.getInstance().getHeroFriend(friends[i].name, friends[i].level,
+                                                              friends[i].exp, friends[i].individualValue,
+                                                              friends[i].ev1, friends[i].ev2));
         }
       }
     } else {
@@ -167,12 +191,68 @@ public class Hero extends Monsters {
   public void addAllie(Friend friend) {
     if(allies.size<4)
       allies.add(friend);
+    else{
+      backupAllies.add(friend);    	
+    }
   }
-
+  
+  
+  /*
+   * changeAlliesTeam debe intercambiar durante la partida un pokemon dentro del equipo por uno de los atrapados 
+   * (pero que no son utilizables en la version final del juego), es solo un test, y posiblemente sirva para 
+   * estudiar mejor ciertos experimentos en las otras fases del proyecto (como probar tipos de pokemon).
+   *  
+  */
+  
+  //BORRAR
+  public void changeAlliesTeam(int index){
+	if(!isJumping ){
+	  System.out.println("changeAlliesTeam , isjumping " + !isJumping + "getDead " + actualFriend.getDead() + " name " + actualFriend.getName());
+      GameActor puff = new Puff(myWorld, myBody.getPosition().x,myBody.getPosition().y,isFacingRight, this);
+      ((AbstractStage) getStage()).addGameActor(puff);
+      allies.set(indexFriend, actualFriend);
+      actualFriend = backupAllies.get(index);
+      backupAllies.set(index, allies.get(indexFriend));
+      allies.set(indexFriend, actualFriend);
+      //indexFriend = index;
+      backupIndexFriend = index;
+      parent = actualFriend;
+      MainBar.getInstance().setBars();
+      setSizeCollider(getBody().getPosition(), false);
+      setAnimation();
+	}
+  }
+  
+//BORRAR
+  public void foo(){
+	for(int i = 1; i <= backupAllies.size; i++){
+	  int j = (backupIndexFriend - i + backupAllies.size) % backupAllies.size;
+	  if(!backupAllies.get(j).getDead()){
+		  changeAlliesTeam(j);
+		  break;
+	  }
+	}
+  }
+  
+  /*
+   * swapTeamAllies(i,j) intercambia la posicion i el arreglo de pokemon jugables (allies)
+   * con el pokemon de la posicion j del arreglo de pokemon no jugables durante una partida
+   * (backupAllies) 
+  */
+  //MODIFICAR PARA POSIBLEMENTE ACTUALIZAR LA PANTALLA LUEGO DE EL INTERCAMBIO
+  public void swapTeamAllies( int i, int j){
+	  Friend auxfriend = backupAllies.get(j);
+	  backupAllies.set(j, allies.get(i));
+	  allies.set(i, auxfriend);
+  }
+  
   @Override
   public void act(float delta){
     checkChangingAllie();
-    myBody.setLinearVelocity(vx, myBody.getLinearVelocity().y);
+
+    myBody.setLinearVelocity(vx + platformSpeed.x, myBody.getLinearVelocity().y);
+
+
     ((AbstractStage) getStage()).changeCamera(myBody.getPosition().x , myBody.getPosition().y );
     
     checkDamage(delta);
@@ -184,7 +264,11 @@ public class Hero extends Monsters {
     if (isJumping)
     	state.countFrames();
   }
-  
+
+  public void setMovablePLatformSpeed(float vX, float vY) {
+    this.platformSpeed = new Vector2(vX, vY);
+  }
+
   private void checkAccumulatingJump() {
    if(isAccumulatingJump && !isJumping){
      increaseJumpAccumulator();
@@ -354,6 +438,7 @@ public class Hero extends Monsters {
   
   private void setNewAllie(int index){
     if(!isJumping || actualFriend.getDead()){
+      System.out.println("setNewAllie, isjumping " + !isJumping + "getDead " + actualFriend.getDead() + " name " + actualFriend.getName());
       GameActor puff = new Puff(myWorld, myBody.getPosition().x,myBody.getPosition().y,isFacingRight, this);
       ((AbstractStage) getStage()).addGameActor(puff);
       allies.set(indexFriend, actualFriend);
@@ -400,12 +485,17 @@ public class Hero extends Monsters {
   
   @Override
   public void interactWithPlatform(Platform platform, WorldManifold worldManifold){
-    landedPlatform(worldManifold, platform);
+    platform.interactWithHero(this, worldManifold);
+  }
+  
+  @Override
+  public void interactWithWater(WaterPlatform waterplatform, WorldManifold worldManifold){
+    waterplatform.interactWithHero(this, worldManifold);
   }
   
   @Override
   public void interactWithAttack(Attacks attack, WorldManifold worldManifold){
-    attack.manageInteractWithMonster(this, worldManifold);
+    attack.manageInteractWithMonster(this, worldManifold);    
   }
 
   @Override
@@ -432,6 +522,12 @@ public class Hero extends Monsters {
     portal.completeStage();
   }
 
+  public void endPlatformInteraction(Platform platform, WorldManifold worldManifold) { platform.endHeroInteraction(this, worldManifold);}
+
+  public void endWaterInteraction(WaterPlatform waterplatform, WorldManifold worldmanifold) {
+	  waterplatform.endHeroInteraction(this, worldmanifold);
+  }
+  
   @Override
   public float getMonsterWidth() {
     return getBodySize(actualFriend.getWidth());
@@ -475,9 +571,10 @@ public class Hero extends Monsters {
   }
 
   public void attackPrimary() {
-    if(actualFriend.getMagic() >= 100){
-       mplayer.PlayProyectileSound();
-      actualFriend.setMagic(actualFriend.getMagic() - 100);
+
+    if(actualFriend.getMagic() >= actualFriend.getAttackMagicRequirement()){
+      actualFriend.setMagic(actualFriend.getMagic() - actualFriend.getAttackMagicRequirement());
+      mplayer.PlayProyectileSound();
       GameActor fireball = actualFriend.getFriendAttack(myWorld, myBody.getPosition().x,myBody.getPosition().y,isFacingRight, this);
       ((AbstractStage) getStage()).addGameActor(fireball);
     }
@@ -529,6 +626,8 @@ public class Hero extends Monsters {
       }
     }
   }
+  
+  
 
   @Override
   public float getXDirection(){
@@ -536,18 +635,25 @@ public class Hero extends Monsters {
   }
 
   public FriendDescriptor[] saveMyFriends() {
-    FriendDescriptor[] friends = new FriendDescriptor[allies.size];
-    for(int i = 0; i < allies.size; i++){
-      Friend ally = allies.get(i);
+    FriendDescriptor[] friends = new FriendDescriptor[allies.size + backupAllies.size];
+    for(int i = 0; i < (allies.size + backupAllies.size) ; i++){
+      Friend ally = (i < allies.size)? allies.get(i): backupAllies.get(i-allies.size);
       friends[i] = new FriendDescriptor();
+      friends[i].individualValue = ally.getIvs();
+      friends[i].ev1 = ally.getEv1();
+      friends[i].ev2 = ally.getEv2();
       friends[i].name = ally.getName();
       friends[i].level = ally.getLevel();
       friends[i].exp = (int) ally.getNextExperience();
     }
     return friends;
   }
+  
   public Array<Friend> getAllies(){
     return allies;
+  }
+  public Array<Friend> getBackupAllies() {
+	return backupAllies;
   }
 
   public int getIndexFriend(){
@@ -562,10 +668,15 @@ public class Hero extends Monsters {
     return myBody != null;
   }
 
+  public void setSpot(Spot spot){
+    currentSpot = spot;
+  }
+
   public void completeStage(Game myGame){
     AbstractStage myStage = ((AbstractStage) getStage());
     Levels actualLevel = myStage.getLevel();
     myStage.musicplayer.StopMusic();
+
     int[] levels = actualLevel.unlockableLevels;
     for(int level : levels){
       levelsUnlocked[level] = true;
@@ -574,7 +685,7 @@ public class Hero extends Monsters {
 
     vx = 0;
 
-    MapScreen mapScreen = new MapScreen(myGame,new MapStage(new FitViewport(640, 480),myGame));
+    MapScreen mapScreen = new MapScreen(myGame,new MapStage(new FitViewport(640, 480),myGame, currentSpot));
     myGame.setScreen(mapScreen);
   }
 
@@ -607,10 +718,24 @@ public class Hero extends Monsters {
   }
 
   @Override
+  public void endInteraction(GameActor actor2, WorldManifold worldManifold) {
+    actor2.endHeroInteraction(this, worldManifold);
+  }
+
+  @Override
   public void interactWithItem(ItemActor item) {
 	  System.out.println(item.getName());
     item.interactWithHero(this,null);
     
 	
   }
+  
+
+  public void CriticalDamage() {
+		FxManager.getInstance().addFx(FxManager.Fx.CRITICAL,  this.getStageX(),this.getStageY());
+  }
+
+
+
 }
+

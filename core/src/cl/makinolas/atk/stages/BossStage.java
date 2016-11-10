@@ -2,6 +2,8 @@ package cl.makinolas.atk.stages;
 
 import java.io.IOException;
 
+import cl.makinolas.atk.actors.bosses.BossFinder;
+import cl.makinolas.atk.actors.bosses.GroudonBoss;
 import com.badlogic.gdx.Application;
 import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
@@ -14,6 +16,7 @@ import com.badlogic.gdx.physics.box2d.ContactImpulse;
 import com.badlogic.gdx.physics.box2d.ContactListener;
 import com.badlogic.gdx.physics.box2d.Manifold;
 import com.badlogic.gdx.physics.box2d.World;
+import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.Group;
 import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.viewport.Viewport;
@@ -23,6 +26,7 @@ import cl.makinolas.atk.actors.GameActor;
 import cl.makinolas.atk.actors.Hero;
 import cl.makinolas.atk.actors.InputController;
 import cl.makinolas.atk.actors.Portal;
+import cl.makinolas.atk.actors.SimpleImageActor;
 import cl.makinolas.atk.actors.Title;
 import cl.makinolas.atk.actors.bosses.OldMewtwoBoss;
 import cl.makinolas.atk.actors.ui.MainBar;
@@ -53,13 +57,14 @@ public class BossStage extends AbstractStage implements ContactListener {
     this.myGame = myGame;
     myScreen = actualScreen;
     gameActors = new Array<GameActor>();
-    suMundo = new World(new Vector2(0, -16), true);
+    suMundo = new World(new Vector2(0, -30), true);
     suMundo.setContactListener(this);
 
     addActor(new Background(getLevelBackground(), getCamera()));
     
+
     musicplayer.PlayLooped(getLevelMusic());
-    
+
     ground = new Group();
     addActor(ground);
     mons = new Group();
@@ -74,8 +79,6 @@ public class BossStage extends AbstractStage implements ContactListener {
     createPlatforms(myGame);
     
     bossDefeated = false;
-    GameActor enemy = new OldMewtwoBoss(suMundo, hero);
-    addGameActor(enemy);
     
     addActor(new Title("Overlays/bossBar2.png", 550,200));
     
@@ -108,6 +111,12 @@ public class BossStage extends AbstractStage implements ContactListener {
     } catch (IOException e) {
       e.printStackTrace();
     }
+    createBoss(reader.getBoss());
+  }
+
+  private void createBoss(String name){
+    GameActor enemy = BossFinder.getInstance().create(name,suMundo,Hero.getInstance());
+    addGameActor(enemy);
   }
 
   private void setupCamera() {

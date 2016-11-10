@@ -59,9 +59,9 @@ public class MainBar extends Group{
 
     public void setBars() {
         Hero h = Hero.getInstance();
-        healthBar = new HBar(h.getFriend().getMaxHealth(),h.getHealth(),150,10,new TextureRegion(new Texture(Gdx.files.internal("Overlays/bar_green.png"))));
-        magicBar = new HBar(h.getFriend().getMaxMagic(),h.getMagic(),150,10,new TextureRegion(new Texture(Gdx.files.internal("Overlays/bar_blue.png"))));
-        xpBar = new HBar((float) h.getFriend().thisLevelExp(), (float) (h.getFriend().thisLevelExp() - h.getFriend().getNextExperience()),150,4,new TextureRegion(new Texture(Gdx.files.internal("Overlays/bar_blue.png"))));
+        healthBar = new HBar(h.getFriend().getMaxHealth(),h.getHealth(),150,10,new TextureRegion(new Texture(Gdx.files.internal("Overlays/bar_green.png"))),true);
+        magicBar = new HBar(h.getFriend().getMaxMagic(),h.getMagic(),150,10,new TextureRegion(new Texture(Gdx.files.internal("Overlays/bar_blue.png"))),true);
+        xpBar = new HBar((float) h.getFriend().thisLevelExp(), (float) (h.getFriend().thisLevelExp() - h.getFriend().getNextExperience()),150,4,new TextureRegion(new Texture(Gdx.files.internal("Overlays/bar_blue.png"))),true);
     }
 
     @Override

@@ -35,6 +35,8 @@ import cl.makinolas.atk.actors.friend.Totodile;
 import cl.makinolas.atk.actors.friend.Vulpix;
 import cl.makinolas.atk.actors.friend.Weedle;
 import cl.makinolas.atk.actors.friend.Zubat;
+import cl.makinolas.atk.actors.friend.Magby;
+import cl.makinolas.atk.actors.friend.Elekid;
 
 public class MonsterFactory {
   
@@ -117,6 +119,12 @@ public class MonsterFactory {
     map.put("snivy", EnemyFunction.Snivy);
     map.put("servine", EnemyFunction.Servine);
     map.put("serperior", EnemyFunction.Serperior);
+    map.put("magby", EnemyFunction.Magby);
+    map.put("magmar", EnemyFunction.Magmar);
+    map.put("magmortar", EnemyFunction.Magmortar);
+    map.put("elekid", EnemyFunction.Elekid);
+    map.put("electabuzz", EnemyFunction.Electabuzz);
+    map.put("electivire", EnemyFunction.Electivire);
   }
   
   public static MonsterFactory getInstance(){
@@ -568,7 +576,45 @@ public class MonsterFactory {
       public Friend giveFriend(int level) {
         return getEvolution(new Snivy(level), 2);
       }
-    };
+    },
+    Magby{
+    	@Override
+    	public Friend giveFriend(int level) {
+    		return new Magby(level);
+    	}
+    },
+    Magmar{
+    	@Override
+    	public Friend giveFriend(int level) {
+    		return getEvolution(new Magby(level), 1);
+    	}
+    },
+    Magmortar{
+    	@Override
+    	public Friend giveFriend(int level) {
+    		return getEvolution(new Magby(level), 2);
+    	}
+    },
+    Elekid{
+    	@Override
+    	public Friend giveFriend(int level) {
+    		return new Elekid(level);
+    	}
+    },
+    Electabuzz{
+    	@Override
+    	public Friend giveFriend(int level) {
+    		return getEvolution(new Elekid(level), 1);
+    	}
+    },
+    Electivire{
+    	@Override
+    	public Friend giveFriend(int level) {
+    		return getEvolution(new Elekid(level), 2);
+    	}
+    }
+    
+    ;
     
     protected Friend getEvolution(AbstractFriend friend, int numberOfEvolution){
       friend.forceEvolve(numberOfEvolution);
@@ -636,9 +682,11 @@ public class MonsterFactory {
     return map.get(nameFriend.toLowerCase()).giveLongRangeEnemy(level, position); 
   }
   
-  public Friend getHeroFriend(String nameFriend, int level, double exp){
+  public Friend getHeroFriend(String nameFriend, int level, double exp, int individualValue, int ev1, int ev2){
     Friend f = map.get(nameFriend.toLowerCase()).giveFriend(level);
     f.setExp(exp);
+    f.setIvs(individualValue);
+    f.setEvs(ev1, ev2);
     return f;
   }
 

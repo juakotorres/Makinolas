@@ -83,7 +83,7 @@ public class LoadStage extends Stage {
   }
 
   public void loadMap(){
-    MapScreen mapScreen = new MapScreen(myGame,new MapStage(new FitViewport(640, 480),myGame));
+    MapScreen mapScreen = new MapScreen(myGame,new MapStage(new FitViewport(640, 480),myGame, Levels.LEVEL1.levelSpot));
     myGame.setScreen(mapScreen);
   }
 

@@ -1,7 +1,6 @@
 package cl.makinolas.atk.minigames;
 
 import cl.makinolas.atk.utils.SaveManager;
-import com.badlogic.gdx.Application;
 import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.OrthographicCamera;
@@ -29,6 +28,7 @@ import cl.makinolas.atk.audio.GDXMusicPlayer;
 import cl.makinolas.atk.screen.GameScreen;
 import cl.makinolas.atk.stages.AbstractStage;
 import cl.makinolas.atk.stages.CameraPosition;
+import cl.makinolas.atk.stages.OptionsStage;
 
 public class MinigameStage extends AbstractStage implements ContactListener{
   
@@ -51,6 +51,7 @@ public class MinigameStage extends AbstractStage implements ContactListener{
   
   public MinigameStage(Viewport v, GameScreen actualScreen, Game myGame){
     super(v);
+
     musicplayer=new GDXMusicPlayer();
     myScreen = actualScreen;
     gameActors = new Array<GameActor>();
@@ -60,7 +61,11 @@ public class MinigameStage extends AbstractStage implements ContactListener{
     addActor(new Background("Background/OldRuins1.1.png", getCamera()));
     hgsc = SaveManager.getInstance().getHighscore();
 
+
     musicplayer.PlayLooped("Music/Freesia.mp3");
+
+
+
     deco = new Group();
     addActor(deco);
     ground = new Group();

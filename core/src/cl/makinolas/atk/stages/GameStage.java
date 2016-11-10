@@ -4,6 +4,7 @@ import cl.makinolas.atk.actors.Background;
 import cl.makinolas.atk.actors.GameActor;
 import cl.makinolas.atk.actors.Hero;
 import cl.makinolas.atk.actors.InputController;
+import cl.makinolas.atk.actors.SimpleImageActor;
 import cl.makinolas.atk.actors.fx.FxManager;
 import cl.makinolas.atk.actors.ui.BagVis;
 import cl.makinolas.atk.actors.ui.MainBar;
@@ -47,9 +48,7 @@ public class GameStage extends AbstractStage implements ContactListener {
     suMundo = new World(new Vector2(0, -30), true);
     suMundo.setContactListener(this);
     addActor(new Background(getLevelBackground(), getCamera()));
-
     musicplayer.PlayLooped(getLevelMusic());
-
     deco = new Group();
     addActor(deco);
     ground = new Group();
@@ -86,7 +85,7 @@ public class GameStage extends AbstractStage implements ContactListener {
     mons.addActor(actor);
     gameActors.add(actor);
   }
-
+  
   private void createPlatforms(Game g) {
     LevelReader reader = LevelReader.getInstance();   
     reader.setWorld(suMundo);
@@ -119,7 +118,7 @@ public class GameStage extends AbstractStage implements ContactListener {
   public void act(float delta){
     for(GameActor actor : gameActors){
       Body actorBody = actor.getBody();
-      if(actor.isHero() && (actorBody.getPosition().y < -50 || actorBody.getPosition().x < -100 || actor.isDead())){
+      if(actor.isHero() && (actorBody.getPosition().y < -200 || actorBody.getPosition().x < -100 || actor.isDead())){
         changeDeadMenu();
       }
       if(actor.isEnemy() || actor.isPuff() || actor.isAttack() || actor.isBall() || actor.isItem() || actor.isDetector()){
@@ -151,7 +150,7 @@ public class GameStage extends AbstractStage implements ContactListener {
   public void draw() {
       super.draw();
       camera.update();
-      //renderer.render(suMundo, camera.combined);
+      renderer.render(suMundo, camera.combined);
   }
 
   @Override
@@ -178,7 +177,11 @@ public class GameStage extends AbstractStage implements ContactListener {
 
   @Override
   public void endContact(Contact contact) {
-    
+
+    GameActor actor1 = (GameActor) contact.getFixtureA().getBody().getUserData();
+    GameActor actor2 = (GameActor) contact.getFixtureB().getBody().getUserData();
+
+    actor1.endInteraction(actor2, contact.getWorldManifold());
   }
 
   @Override

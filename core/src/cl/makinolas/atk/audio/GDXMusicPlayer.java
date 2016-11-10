@@ -32,4 +32,7 @@ public class GDXMusicPlayer {
 			music.stop();
 		}
 	}
+	public void SetVolume(float f){
+		music.setVolume(f);
+	}
 }
