@@ -2,6 +2,9 @@ package cl.makinolas.atk.actors;
 
 import cl.makinolas.atk.actors.items.ItemActor;
 import cl.makinolas.atk.stages.*;
+
+import java.util.ArrayList;
+
 import com.badlogic.gdx.Game;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.Body;
@@ -19,7 +22,6 @@ import cl.makinolas.atk.actors.enemies.MonsterFactory;
 import cl.makinolas.atk.actors.friend.Enemies;
 import cl.makinolas.atk.actors.friend.Friend;
 import cl.makinolas.atk.actors.friend.FriendDescriptor;
-import cl.makinolas.atk.actors.fx.FxManager;
 import cl.makinolas.atk.actors.items.Ball;
 import cl.makinolas.atk.actors.items.BallActor;
 import cl.makinolas.atk.actors.items.Inventory;
@@ -30,6 +32,7 @@ import cl.makinolas.atk.audio.GDXSoundEffectsHero;
 import cl.makinolas.atk.screen.MapScreen;
 import cl.makinolas.atk.start.GameText;
 import cl.makinolas.atk.stateEfects.CriticalHit;
+import cl.makinolas.atk.stateEfects.IStateEfects;
 import cl.makinolas.atk.utils.Formulas;
 import cl.makinolas.atk.utils.SaveDoesNotExistException;
 import cl.makinolas.atk.utils.SaveManager;
@@ -75,10 +78,25 @@ public class Hero extends Monsters {
   private Spot currentSpot;
   private Vector2 platformSpeed;
   private long cooldownTimer;
+  
+  private ArrayList<IStateEfects> statesPokemon1;
+  private ArrayList<IStateEfects> statesPokemon2;
+  private ArrayList<IStateEfects> statesPokemon3;
+  private ArrayList<IStateEfects> statesPokemon4;
+  
+  private ArrayList<ArrayList<IStateEfects>> liststates;
 
   private Hero() {
-
-	  super();
+	 super();
+	  statesPokemon2 = new ArrayList<IStateEfects>();
+	  statesPokemon3 = new ArrayList<IStateEfects>();
+	  statesPokemon4 = new ArrayList<IStateEfects>();
+	 statesPokemon1 = states;
+	 liststates =  new ArrayList<ArrayList<IStateEfects>>();
+	 liststates.add(statesPokemon1);
+	 liststates.add(statesPokemon2);
+	 liststates.add(statesPokemon3);
+	 liststates.add(statesPokemon4);
     isJumping = false;
     isFacingRight = false;
     isDamaged = false;
@@ -447,6 +465,7 @@ public class Hero extends Monsters {
       allies.set(indexFriend, actualFriend);
       actualFriend = allies.get(index);
       indexFriend = index;
+      states = liststates.get(index);
       parent = actualFriend;
       MainBar.getInstance().setBars();
       setSizeCollider(getBody().getPosition(), false);
@@ -616,6 +635,7 @@ public class Hero extends Monsters {
       int j = (indexFriend + i) % allies.size;
       if(!allies.get(j).getDead()) {
         changeAllie(j);
+        
         break;
       }
     }

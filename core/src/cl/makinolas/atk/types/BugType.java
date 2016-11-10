@@ -2,6 +2,10 @@ package cl.makinolas.atk.types;
 
 public class BugType extends AbstractType implements IType {
 
+	public BugType(){
+		this.isBug = true;
+	}
+	
 	@Override
 	public double attackFromType(IType type) {
 		return type.bugPokemonAttacks(this);

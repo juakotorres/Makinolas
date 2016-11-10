@@ -3,8 +3,6 @@ package cl.makinolas.atk.stateEfects;
 import cl.makinolas.atk.actors.Monsters;
 import cl.makinolas.atk.actors.friend.Friend;
 import cl.makinolas.atk.types.IType;
-import cl.makinolas.atk.types.PoisonType;
-import cl.makinolas.atk.types.SteelType;
 
 public class PoisonStateEffects extends AbstractStateEfects {
 
@@ -17,12 +15,13 @@ public class PoisonStateEffects extends AbstractStateEfects {
 		this.monster = monster;
 		this.friend = monster.getMyself();
 		for(IType type: monster.getMyself().getType()){
-			if((type.attackFromType(new PoisonType()) == 0) || (type.attackFromType(new SteelType()) == 0)){
+			if(type.isPoison() || type.isSteel()){
 				noEfect = true;
 				this.drawEfects = new DrawStateEfects("StateImages/Poisoned.png", 64, 64,0f , 8, this);
+				return;
 			}
 		}
-		double rand = 2 + Math.random()*2;
+		double rand = 4 + Math.random()*4;
 		this.drawEfects = new DrawStateEfects("StateImages/Poisoned.png", 64, 64,(float)rand , 8, this);
 	}
 	
@@ -33,13 +32,13 @@ public class PoisonStateEffects extends AbstractStateEfects {
 	
 	@Override
 	public void act(float delta){
+		super.act(delta);
 		if(this.noEfect){
 			return;
 		}
-		super.act(delta);
 		localTime+=delta;
-		if(this.localTime>1){
-			this.localTime--;
+		if(this.localTime>2){
+			this.localTime=-2;
 			this.friend.setHealth(friend.getHealth()-damage);
 			
 		}

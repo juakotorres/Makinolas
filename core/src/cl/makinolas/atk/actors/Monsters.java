@@ -27,7 +27,7 @@ public abstract class Monsters extends AnimatedActor {
   public abstract float getRelativeY();
   public abstract float getRelativeX();
   
-  private ArrayList<IStateEfects> states;
+  protected ArrayList<IStateEfects> states;
   
   public Monsters(){
 	  super();

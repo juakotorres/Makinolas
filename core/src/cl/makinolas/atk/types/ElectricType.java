@@ -2,6 +2,10 @@ package cl.makinolas.atk.types;
 
 public class ElectricType extends AbstractType implements IType {
 
+	public ElectricType() {
+		this.isElectric = true;
+	}
+
 	@Override
 	public double attackFromType(IType type) {
 		return type.electricPokemonAttacks(this);

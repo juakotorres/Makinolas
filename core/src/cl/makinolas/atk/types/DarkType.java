@@ -2,6 +2,10 @@ package cl.makinolas.atk.types;
 
 public class DarkType extends AbstractType implements IType {
 
+	public DarkType(){
+		this.isDark = true;
+	}
+	
 	@Override
 	public double attackFromType(IType type) {
 		return type.darkPokemonAttacks(this);
