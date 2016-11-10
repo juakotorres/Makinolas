@@ -10,6 +10,7 @@ import cl.makinolas.atk.actors.items.BallActor;
 import cl.makinolas.atk.actors.items.ItemFinder;
 import cl.makinolas.atk.actors.platform.Platform;
 import cl.makinolas.atk.actors.ui.MainBar;
+import cl.makinolas.atk.audio.GDXSoundEffectsEnemy;
 import cl.makinolas.atk.utils.Formulas;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
@@ -19,7 +20,6 @@ import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.*;
 
 public class Enemy extends Monsters {
-
 	protected float vx;
 	private int health;
 	private HBar healthBar;
@@ -45,7 +45,7 @@ public class Enemy extends Monsters {
 	private int[] attackAnimations;
 	private int actualAnimation;
 	protected boolean viewGround = true;
-
+	private GDXSoundEffectsEnemy mplayer=new GDXSoundEffectsEnemy();
 	protected RayCastCallback rayListener = new RayCastCallback() {
 		@Override
 		public float reportRayFixture(Fixture fixture, Vector2 point, Vector2 normal, float fraction) {
@@ -226,6 +226,8 @@ public class Enemy extends Monsters {
 		inflictor.setDead();
 		healthBar.setCurrent(health);
 		if (health <= 0) {
+		     Hero.getInstance().getHeroPlayer().StopProyectileSound();
+		    mplayer.PlayExplotionEnd();
 			source.gainExperience(getLevel(), type);
 			source.gainEffortValues(type);
 			Hero.getInstance().earnMoney(getLevel(), type);
@@ -289,11 +291,13 @@ public class Enemy extends Monsters {
 			ball.roll(3, new BallActor.BrokeListener() {
 				@Override
 				public void onBroke(float x, float y) {
+					Hero.getInstance().Getmplayer().playcaptured();
 					Hero.getInstance().addAllie(parent);
 					MainBar.getInstance().updateTeam();
 				}
 			});
 		} else if (free) {
+			Hero.getInstance().Getmplayer().playnotcaptured();
 			ball.roll(2, new BallActor.BrokeListener() {
 				@Override
 				public void onBroke(float x, float y) {

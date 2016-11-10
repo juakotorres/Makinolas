@@ -16,6 +16,7 @@ import com.badlogic.gdx.utils.viewport.Viewport;
 
 import cl.makinolas.atk.actors.ui.MapStageActor;
 import cl.makinolas.atk.actors.ui.MobileGroup;
+import cl.makinolas.atk.audio.GDXMusicPlayer;
 import cl.makinolas.atk.screen.GameScreen;
 import cl.makinolas.atk.screen.ShopScreen;
 import cl.makinolas.atk.screen.PokeComputerScreen;
@@ -23,19 +24,22 @@ import cl.makinolas.atk.screen.PokeComputerScreen;
 public class MapStage extends Stage implements KeyHandable{
 
     private Traveler traveler;
-
+    private GDXMusicPlayer musicplayer;
     private Levels[] levels;
     private Spot current;
     private Game myGame;
+
     private boolean[] unlockedStages;
 
     public MapStage(Viewport v, Game game, Spot mySpot) {
         super(v);
         myGame = game;
-
+        
+    
         //Adding the actors to the stage (currently just the background, the traveler and the levels)
         addActor(new Background("Background/mapa.png", getCamera()));
-
+        musicplayer=new GDXMusicPlayer();
+        musicplayer.PlayLooped("Music/palett.mp3");
         buildLevels();
 
         unlockedStages = Hero.getInstance().getLevelsUnlocked();
@@ -112,6 +116,7 @@ public class MapStage extends Stage implements KeyHandable{
     public void handleKey(int keycode){
         Spot auxiliarSpot = current;
         if(keycode == Input.Keys.Z){
+        	musicplayer.StopMusic();
             startLevel();
             return;
         }

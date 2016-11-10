@@ -11,7 +11,6 @@ import com.badlogic.gdx.physics.box2d.World;
 import com.badlogic.gdx.physics.box2d.WorldManifold;
 import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.viewport.FitViewport;
-
 import cl.makinolas.atk.GameConstants;
 import cl.makinolas.atk.actors.attacks.Attacks;
 import cl.makinolas.atk.actors.bosses.IBoss;
@@ -27,6 +26,7 @@ import cl.makinolas.atk.actors.items.Inventory;
 import cl.makinolas.atk.actors.platform.Platform;
 import cl.makinolas.atk.actors.platform.WaterPlatform;
 import cl.makinolas.atk.actors.ui.MainBar;
+import cl.makinolas.atk.audio.GDXSoundEffectsHero;
 import cl.makinolas.atk.screen.MapScreen;
 import cl.makinolas.atk.start.GameText;
 import cl.makinolas.atk.utils.Formulas;
@@ -36,6 +36,7 @@ import cl.makinolas.atk.utils.SaveManager;
 public class Hero extends Monsters {
 
   public static Hero player = new Hero();
+
   private boolean changing;
   private int changeIndex;
   private boolean isJumping;
@@ -66,6 +67,10 @@ public class Hero extends Monsters {
   private boolean[] levelsUnlocked;
   private JumpState state;
   private boolean onWall = false;
+  private GDXSoundEffectsHero mplayer=new GDXSoundEffectsHero();
+  public GDXSoundEffectsHero Getmplayer(){
+	  return mplayer;
+  }
   private Spot currentSpot;
   private Vector2 platformSpeed;
   private long cooldownTimer;
@@ -247,6 +252,7 @@ public class Hero extends Monsters {
 
     myBody.setLinearVelocity(vx + platformSpeed.x, myBody.getLinearVelocity().y);
 
+
     ((AbstractStage) getStage()).changeCamera(myBody.getPosition().x , myBody.getPosition().y );
     
     checkDamage(delta);
@@ -254,7 +260,7 @@ public class Hero extends Monsters {
     checkEvolution();
     checkAccumulatingJump();
     giveMagic();
-    
+
     if (isJumping)
     	state.countFrames();
   }
@@ -324,6 +330,7 @@ public class Hero extends Monsters {
   }
 
   private void giveMagic() {
+	  //magic sound
     if(actualFriend.getMagic() < 1000){
       actualFriend.setMagic(((actualFriend.getMagic() + 1)%1001));
     } else {
@@ -504,11 +511,14 @@ public class Hero extends Monsters {
   }
 
   public void interactWithMonster(Monsters monster) {
+	  /*heroe es golpeado por mounstruo falta sonido*/
+	
     meleeAttack(monster, isAttacking);  
   }
   
   @Override
   public void interactWithPortal(Portal portal){
+	mplayer.PlayEnd();
     portal.completeStage();
   }
 
@@ -546,6 +556,7 @@ public class Hero extends Monsters {
 	isJumping = true;
 	state.restarCount();
     state.jump();
+    
   }
   
   public void isNotPressingSpace() {
@@ -563,6 +574,7 @@ public class Hero extends Monsters {
   public void attackPrimary() {
     if(cooldownTimer < System.currentTimeMillis() && actualFriend.getMagic() >= actualFriend.getAttackMagicRequirement()){
       actualFriend.setMagic(actualFriend.getMagic() - actualFriend.getAttackMagicRequirement());
+      mplayer.PlayProyectileSound();
       GameActor fireball = actualFriend.getFriendAttack(myWorld, myBody.getPosition().x,myBody.getPosition().y,isFacingRight, this);
       ((AbstractStage) getStage()).addGameActor(fireball);
       cooldownTimer = System.currentTimeMillis() + ((Attacks)fireball).getSpriteState().getCooldown();
@@ -571,6 +583,7 @@ public class Hero extends Monsters {
 
   public void attackSecondary() {
     if(!isAttacking){
+      mplayer.PlayClaw();
       isAttacking = true;
     }
   }
@@ -588,6 +601,7 @@ public class Hero extends Monsters {
   }
 
   public void throwBall(Ball.BallType type) {
+	 mplayer.playthrow();
     BallActor ball = new BallActor(type, myWorld, myBody.getPosition().x + ((isFacingRight)?0.6f:-0.6f)*actualFriend.getWidth()/ GameConstants.WORLD_FACTOR,
             myBody.getPosition().y);
     ball.setThrowImpulse((isFacingRight)?1:-1);
@@ -662,8 +676,7 @@ public class Hero extends Monsters {
   public void completeStage(Game myGame){
     AbstractStage myStage = ((AbstractStage) getStage());
     Levels actualLevel = myStage.getLevel();
-    
-    AbstractStage.music.stop();
+    myStage.musicplayer.StopMusic();
 
     int[] levels = actualLevel.unlockableLevels;
     for(int level : levels){
@@ -682,6 +695,9 @@ public class Hero extends Monsters {
   public boolean[] getLevelsUnlocked() {
     return levelsUnlocked;
   }
+  public GDXSoundEffectsHero getHeroPlayer(){
+	  return mplayer;
+  }
 
   public float getStageX(){
     return myBody.getPosition().x * GameConstants.WORLD_FACTOR;
@@ -698,6 +714,7 @@ public class Hero extends Monsters {
 
   @Override
   public void setSpeed(float x, float y) {
+	  mplayer.PlayJumpSound();
       myBody.setLinearVelocity(x, y);
   }
 
@@ -708,7 +725,10 @@ public class Hero extends Monsters {
 
   @Override
   public void interactWithItem(ItemActor item) {
+	  System.out.println(item.getName());
     item.interactWithHero(this,null);
+    
+	
   }
   
 
