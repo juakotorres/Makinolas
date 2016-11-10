@@ -1,6 +1,7 @@
 package cl.makinolas.atk.actors;
 
 import cl.makinolas.atk.actors.items.ItemActor;
+import cl.makinolas.atk.actors.ui.IHero;
 import cl.makinolas.atk.stages.*;
 import com.badlogic.gdx.Game;
 import com.badlogic.gdx.math.Vector2;
@@ -37,7 +38,7 @@ import cl.makinolas.atk.utils.SaveDoesNotExistException;
 import cl.makinolas.atk.utils.SaveManager;
 
 
-public class Hero extends Monsters {
+public class Hero extends Monsters implements IHero {
 
   public static Hero player = new Hero();
   protected boolean changing;
@@ -382,7 +383,7 @@ public class Hero extends Monsters {
     }
   }
 
-  protected void setAnimation(){
+  public void setAnimation(){
     setMasterTexture(actualFriend.getTexture(),actualFriend.getWidth(),actualFriend.getHeight());
     walkAnimation = addAnimation(0.2f, actualFriend.getWalkAnimation());
     hurtAnimation = addAnimation(0.2f, actualFriend.getHurtAnimation());
@@ -390,7 +391,7 @@ public class Hero extends Monsters {
     countMeleeFrames = 0;
     for(int i = 0; i < actualFriend.getMeleeAnimation().length; i++){
       attackAnimations[i] = addAnimation(0.2f, actualFriend.getMeleeAnimation()[i][1]);
-    }  
+    }
     actualAnimation = 0;
   }
   

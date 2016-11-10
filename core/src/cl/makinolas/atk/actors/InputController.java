@@ -2,6 +2,7 @@ package cl.makinolas.atk.actors;
 
 import cl.makinolas.atk.actors.friend.Enemies;
 import cl.makinolas.atk.actors.ui.BagVis;
+import cl.makinolas.atk.actors.ui.IHero;
 import cl.makinolas.atk.actors.ui.MobileGroup;
 import cl.makinolas.atk.actors.ui.MobileKeyListener;
 import cl.makinolas.atk.stages.AbstractStage;
@@ -12,9 +13,9 @@ import com.badlogic.gdx.scenes.scene2d.InputListener;
 
 public class InputController extends InputListener implements MobileKeyListener{
 
-    protected Hero hero;
+    protected IHero hero;
 
-    public InputController(Hero h, MobileGroup mob){
+    public InputController(IHero h, MobileGroup mob){
         hero = h;
         mob.setMobileKeyListener(this);
     }

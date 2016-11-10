@@ -1,6 +1,5 @@
 package cl.makinolas.atk.gamemodes;
 
-import cl.makinolas.atk.actors.Hero;
 import cl.makinolas.atk.actors.InputController;
 import cl.makinolas.atk.actors.ui.BagVis;
 import cl.makinolas.atk.actors.ui.MobileGroup;
@@ -8,18 +7,17 @@ import cl.makinolas.atk.stages.AbstractStage;
 import cl.makinolas.atk.utils.SaveManager;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
+import com.badlogic.gdx.scenes.scene2d.InputListener;
 
 /**
  * Created by belisariops on 11/8/16.
  */
-public class SurvivalInputController extends InputController {
-    public SurvivalInputController(Hero h, MobileGroup mob) {
-            super(h,mob);
-
+public class SurvivalInputController extends InputListener {
+    SurvivalHero hero;
+    public SurvivalInputController(SurvivalHero h, MobileGroup mob) {
+        hero = h;
     }
-    @Override
     public boolean keyDown(InputEvent event, int keycode) {
-        if(!((AbstractStage) hero.getStage()).isPaused()) {
             switch (keycode) {
                 case Input.Keys.LEFT:
                     hero.moveHorizontal(-1, false);
@@ -59,22 +57,12 @@ public class SurvivalInputController extends InputController {
                 case Input.Keys.P:
                     //((AbstractStage) hero.getStage()).togglePause();
                     break;
-            }
+
         }
-        else{
-            switch (keycode) {
-                case Input.Keys.P:
-                    //((AbstractStage) hero.getStage()).togglePause();
-                    break;
-                default:
-                    BagVis.getInstance().handleKey(keycode);
-                    break;
-            }
-        }
+
         return true;
     }
 
-    @Override
     public boolean keyUp(InputEvent event, int keycode) {
         if(((AbstractStage) hero.getStage()).isPaused()) return true;
         switch (keycode) {
@@ -94,7 +82,6 @@ public class SurvivalInputController extends InputController {
         return true;
     }
 
-    @Override
     public void onMobileKeyDown(MobileGroup.MobileKeys key) {
         if(!((AbstractStage) hero.getStage()).isPaused()) {
             switch (key) {
@@ -136,7 +123,6 @@ public class SurvivalInputController extends InputController {
         }
     }
 
-    @Override
     public void onMobileKeyUp(MobileGroup.MobileKeys k) {
         if(((AbstractStage) hero.getStage()).isPaused()) return;
         switch (k) {
