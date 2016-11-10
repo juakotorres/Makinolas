@@ -80,9 +80,9 @@ public abstract class GameActor extends Actor{
   public void interactWithItem(ItemActor item) {}
   
   public void interactWithMinigameCharacter(MinigameCharacter minigameCharacter, WorldManifold worldManifold) {}
-
-  public void interactWithWater(WaterPlatform waterplatform, WorldManifold worldManifold) {}
   
+  public void interactWithWater(WaterPlatform waterplatform, WorldManifold worldManifold) {}
+
   public boolean isEnemy() {
     return false;
   }
@@ -104,6 +104,7 @@ public abstract class GameActor extends Actor{
   public void endHeroInteraction(Hero hero, WorldManifold worldManifold) {}
 
   public void endPlatformInteraction(Platform platform, WorldManifold worldManifold) {}
-  
+
   public void endWaterInteraction(WaterPlatform waterplatform, WorldManifold worldManifold) {}
+  
 }

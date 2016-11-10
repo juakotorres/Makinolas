@@ -53,6 +53,13 @@ public class InputController extends InputListener implements MobileKeyListener{
                 case Input.Keys.NUM_2:
                     hero.nextAllie();
                     break;
+                    
+                //BORRAR!!!!!!!!!!!!!!!!!!!!
+                case Input.Keys.NUM_3:
+                	hero.foo();
+                	break;
+                	
+                	
                 case Input.Keys.NUM_8:
                     SaveManager.getInstance().saveState();
                     break;
