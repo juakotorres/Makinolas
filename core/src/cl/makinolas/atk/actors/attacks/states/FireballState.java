@@ -12,6 +12,8 @@ import cl.makinolas.atk.types.IType;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 
 public class FireballState extends SpriteState {
+	
+  public static int magicRequirement = 45;
 
   @Override
   public void initializeBody(float x, float y) {

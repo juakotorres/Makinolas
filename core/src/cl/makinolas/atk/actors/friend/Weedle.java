@@ -88,4 +88,10 @@ public class Weedle extends AbstractFriend {
     return new ShootAttack(new Poison_StingState(), myWorld, x, y, facingRight, source);
   }
   
+  @Override
+  public int getAttackMagicRequirement() {
+	// TODO Auto-generated method stub
+	return Poison_StingState.magicRequirement;
+  }
+  
 }

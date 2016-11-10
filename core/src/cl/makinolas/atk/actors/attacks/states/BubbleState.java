@@ -12,6 +12,8 @@ import cl.makinolas.atk.types.WaterType;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 
 public class BubbleState extends SpriteState {
+	
+  public static int magicRequirement = 45;
   
   @Override
   public int getAttackDamage() {

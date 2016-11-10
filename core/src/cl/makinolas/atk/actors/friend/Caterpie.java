@@ -89,5 +89,11 @@ public class Caterpie extends AbstractFriend {
   public Attacks getFriendAttack(World myWorld, float x , float y, boolean facingRight, Monsters source){
     return new DroppingAttack(new FallingLeafState(), myWorld, x, y, facingRight, source, true);
   }
+  
+  @Override
+  public int getAttackMagicRequirement() {
+	// TODO Auto-generated method stub
+	return FallingLeafState.magicRequirement;
+  }
 
 }

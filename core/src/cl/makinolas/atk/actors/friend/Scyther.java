@@ -79,4 +79,10 @@ public class Scyther extends AbstractFriend {
     return new CloseRangeAttack(new VineWhipState(), myWorld, x, y, facingRight, source);
   }
   
+  @Override
+  public int getAttackMagicRequirement() {
+	// TODO Auto-generated method stub
+	return VineWhipState.magicRequirement;
+  }
+  
 }
