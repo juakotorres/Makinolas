@@ -1,6 +1,7 @@
 package cl.makinolas.atk.actors;
 
 import java.util.ArrayList;
+import java.util.ConcurrentModificationException;
 
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
@@ -11,6 +12,7 @@ import cl.makinolas.atk.actors.attacks.Attacks;
 import cl.makinolas.atk.actors.attacks.MeleeAttack;
 import cl.makinolas.atk.actors.friend.Enemies;
 import cl.makinolas.atk.actors.friend.EvStates.EvState;
+import cl.makinolas.atk.stateEfects.DrawStateEfects;
 import cl.makinolas.atk.stateEfects.IStateEfects;
 import cl.makinolas.atk.actors.friend.Friend;
 
@@ -22,8 +24,15 @@ public abstract class Monsters extends AnimatedActor {
   protected Friend parent;
   public abstract float getXDirection();
   public abstract void CriticalDamage();
+  public abstract float getRelativeY();
+  public abstract float getRelativeX();
   
   private ArrayList<IStateEfects> states;
+  
+  public Monsters(){
+	  super();
+	  states = new ArrayList<IStateEfects>();
+  }
   
   @Override
   public boolean isMonster(){
@@ -67,12 +76,33 @@ public abstract class Monsters extends AnimatedActor {
   }
   
   @Override
-  public void draw(Batch batch, float alpha){
-	  super.draw(batch, alpha);
-	  
+  public  void act(float delta) {
+      super.act(delta);
+      try{
+    	  for(IStateEfects state: states){
+    	  state.getDrawStateEfects().act(delta);
+    	  }
+      }catch(ConcurrentModificationException e){
+    	  return;
+      }
   }
   
+  @Override
+  public  void draw(Batch batch, float alpha){
+	  super.draw(batch, alpha);
+	  for(IStateEfects state: states){
+    	  state.getDrawStateEfects().draw(batch, alpha, this.getRelativeX(),this.getRelativeY());
+      } 
+  }  
   
+  public  void addState(IStateEfects state, int prob){
+	  state.affect(this, prob, states);
+  }
+  
+  public  void removeState(IStateEfects state){
+	  
+	  this.states.remove(state);
+  }
 
 }
 

@@ -72,6 +72,7 @@ public class Enemy extends Monsters {
 			int[][] numberOfHurtSprites, int givenHealth, int positionX, int positionY, boolean facingRight, int level,
 			Enemies type, Friend parent) {
 
+		super();
 		this.myWorld = myWorld;
 		health = givenHealth;
 		width = cutSprite[0];
@@ -121,6 +122,7 @@ public class Enemy extends Monsters {
 
 	@Override
 	public void act(float delta) {
+		super.act(delta);
 		if (!free) {
 			myBody.setLinearVelocity(0, 0);
 			return;
@@ -378,9 +380,18 @@ public class Enemy extends Monsters {
 	}
 
 	public void CriticalDamage() {
+		FxManager.getInstance().addFx(FxManager.Fx.CRITICAL, getRelativeY(), getRelativeX());
+	}
+
+	@Override
+	public float getRelativeY() {
 		Vector2 myPosition = myBody.getPosition();
-		FxManager.getInstance().addFx(FxManager.Fx.CRITICAL,
-				myPosition.x * GameConstants.WORLD_FACTOR - getActualSprite().getRegionWidth() / 2,
-				myPosition.y * GameConstants.WORLD_FACTOR + getActualSprite().getRegionHeight() / 2);
+		return myPosition.y * GameConstants.WORLD_FACTOR + getActualSprite().getRegionHeight() / 2;
+	}
+
+	@Override
+	public float getRelativeX() {
+		Vector2 myPosition = myBody.getPosition();
+		return myPosition.x * GameConstants.WORLD_FACTOR - getActualSprite().getRegionWidth() / 2;
 	}
 }

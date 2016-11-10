@@ -26,6 +26,7 @@ public class FlyWaveAndDropEnemy extends Enemy {
   
   @Override
   public void act(float delta){     
+	  super.act(delta);
     
     flyingAccumulator += delta;
     myBody.setLinearVelocity(vx, (float) (6*Math.sin(4*flyingAccumulator)));

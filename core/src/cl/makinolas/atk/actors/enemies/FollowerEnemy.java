@@ -28,6 +28,7 @@ public class FollowerEnemy extends Enemy {
   
   @Override
   public void act(float delta){     
+	  super.act(delta);
     
     myBody.setLinearVelocity(vx * 2, vy);
     

@@ -165,6 +165,8 @@ public abstract class Attacks extends AnimatedActor {
     ArrayList<IType> typeFriendMonster = monster.getMyself().getType();
     
     if((getSource().isEnemy() && monster.isHero()) || (getSource().isHero() && monster.isEnemy())){
+    	this.mySpriteState.secondaryEfectsToAfected(monster);
+    	this.mySpriteState.secondaryEfectsToSource(getSource());
     	return Formulas.getDamage(monster, attackStat, level1, defenseStat, getAttackDamage(), typeFriendSource, typeFriendMonster, this.mySpriteState.getType(), criticModificator);
     }
     
@@ -183,6 +185,8 @@ public int getSpecialAttackDamage(Monsters monster) {
     
     
     if((getSource().isEnemy() && monster.isHero()) || (getSource().isHero() && monster.isEnemy())){
+    	this.mySpriteState.secondaryEfectsToAfected(monster);
+    	this.mySpriteState.secondaryEfectsToSource(getSource());
     	return Formulas.getDamage(monster, spAttackStat, level1, spDefenseStat, getAttackDamage(), typeFriendSource, typeFriendMonster, this.mySpriteState.getType(), criticModificator);
     }
     

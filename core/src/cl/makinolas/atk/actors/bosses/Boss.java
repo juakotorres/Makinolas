@@ -2,6 +2,7 @@ package cl.makinolas.atk.actors.bosses;
 
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
+import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.WorldManifold;
 
 import cl.makinolas.atk.GameConstants;
@@ -11,6 +12,7 @@ import cl.makinolas.atk.actors.Hero;
 import cl.makinolas.atk.actors.Monsters;
 import cl.makinolas.atk.actors.attacks.Attacks;
 import cl.makinolas.atk.actors.friend.Enemies;
+import cl.makinolas.atk.actors.fx.FxManager;
 import cl.makinolas.atk.stages.BossStage;
 
 public abstract class Boss extends Monsters implements IBoss{
@@ -39,6 +41,7 @@ public abstract class Boss extends Monsters implements IBoss{
 
   @Override
   public void act(float delta){
+	  super.act(delta);
     myBody.setLinearVelocity(vx, myBody.getLinearVelocity().y);
     if(processor!=null)
       processor.act(delta);
@@ -129,4 +132,20 @@ public abstract class Boss extends Monsters implements IBoss{
   
   @Override
   protected void gainExp(int enemyLevel, Enemies type) {}
+  
+	public void CriticalDamage() {
+		FxManager.getInstance().addFx(FxManager.Fx.CRITICAL, getRelativeY(), getRelativeX());
+	}
+
+	@Override
+	public float getRelativeY() {
+		Vector2 myPosition = myBody.getPosition();
+		return myPosition.y * GameConstants.WORLD_FACTOR + getActualSprite().getRegionHeight() / 2;
+	}
+
+	@Override
+	public float getRelativeX() {
+		Vector2 myPosition = myBody.getPosition();
+		return myPosition.x * GameConstants.WORLD_FACTOR - getActualSprite().getRegionWidth() / 2;
+	}
 }

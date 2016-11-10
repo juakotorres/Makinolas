@@ -31,6 +31,7 @@ public class StayAndShootEnemy extends Enemy {
   
   @Override
   public void act(float delta){     
+	  super.act(delta);
     checkDamage(delta, 0);
     accumulatorAttack += delta; 
     

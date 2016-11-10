@@ -65,4 +65,11 @@ public abstract class SpriteState {
 	  return 1;
   }
 
+public void secondaryEfectsToSource(Monsters monster) {
+	
+}
+public void secondaryEfectsToAfected(Monsters monster) {
+	
+}
+
 }

@@ -75,6 +75,7 @@ public class Hero extends Monsters {
 
   private Hero() {
 
+	  super();
     isJumping = false;
     isFacingRight = false;
     isDamaged = false;
@@ -245,6 +246,7 @@ public class Hero extends Monsters {
   
   @Override
   public void act(float delta){
+	  super.act(delta);
     checkChangingAllie();
 
     myBody.setLinearVelocity(vx + platformSpeed.x, myBody.getLinearVelocity().y);
@@ -704,8 +706,17 @@ public class Hero extends Monsters {
   
 
   public void CriticalDamage() {
+	  // cambiar por un efecto cuando exista
 		FxManager.getInstance().addFx(FxManager.Fx.CRITICAL,  this.getStageX(),this.getStageY());
   }
+@Override
+public float getRelativeY() {
+	return this.getStageX();
+}
+@Override
+public float getRelativeX() {
+	return this.getStageY();
+}
 
 
 
