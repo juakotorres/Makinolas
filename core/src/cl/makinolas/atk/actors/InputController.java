@@ -60,7 +60,9 @@ public class InputController extends InputListener implements MobileKeyListener{
                 	hero.foo();
                 	break;
                 	
-                	
+                case Input.Keys.H:
+                	hero.gainExp(100, Enemies.EEVEE);
+                	break;
                 case Input.Keys.NUM_8:
                     SaveManager.getInstance().saveState();
                     break;
