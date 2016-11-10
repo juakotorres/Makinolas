@@ -12,6 +12,8 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 
 public class MineState extends SpriteState {
+	
+  public static int magicRequirement = 65;
   
   @Override
   public int getAttackDamage() {

@@ -90,4 +90,10 @@ public class Charmander extends AbstractFriend {
     return new ParabolicAttack(new FireballState(),myWorld, x, y, facingRight, source);
   }
   
+  @Override
+  public int getAttackMagicRequirement() {
+	// TODO Auto-generated method stub
+	return FireballState.magicRequirement;
+  }  
+  
 }

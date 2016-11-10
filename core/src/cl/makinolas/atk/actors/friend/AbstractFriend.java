@@ -684,4 +684,10 @@ public abstract class AbstractFriend implements Friend {
       totalEvs += posibleSum;
     }
   }
+  
+  public int getAttackMagicRequirement() {
+	// TODO Auto-generated method stub
+	return DragonBreathState.magicRequirement;
+  }
+  
 }

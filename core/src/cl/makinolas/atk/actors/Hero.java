@@ -25,6 +25,7 @@ import cl.makinolas.atk.actors.items.Ball;
 import cl.makinolas.atk.actors.items.BallActor;
 import cl.makinolas.atk.actors.items.Inventory;
 import cl.makinolas.atk.actors.platform.Platform;
+import cl.makinolas.atk.actors.platform.WaterPlatform;
 import cl.makinolas.atk.actors.ui.MainBar;
 import cl.makinolas.atk.screen.MapScreen;
 import cl.makinolas.atk.start.GameText;
@@ -481,6 +482,11 @@ public class Hero extends Monsters {
   }
   
   @Override
+  public void interactWithWater(WaterPlatform waterplatform, WorldManifold worldManifold){
+    waterplatform.interactWithHero(this, worldManifold);
+  }
+  
+  @Override
   public void interactWithAttack(Attacks attack, WorldManifold worldManifold){
     attack.manageInteractWithMonster(this, worldManifold);    
   }
@@ -508,6 +514,10 @@ public class Hero extends Monsters {
 
   public void endPlatformInteraction(Platform platform, WorldManifold worldManifold) { platform.endHeroInteraction(this, worldManifold);}
 
+  public void endWaterInteraction(WaterPlatform waterplatform, WorldManifold worldmanifold) {
+	  waterplatform.endHeroInteraction(this, worldmanifold);
+  }
+  
   @Override
   public float getMonsterWidth() {
     return getBodySize(actualFriend.getWidth());
@@ -551,8 +561,8 @@ public class Hero extends Monsters {
 
   // FIXME El gcd no es global, depende del tipo de ataque
   public void attackPrimary() {
-    if(cooldownTimer < System.currentTimeMillis() && actualFriend.getMagic() >= 100){
-      actualFriend.setMagic(actualFriend.getMagic() - 100);
+    if(cooldownTimer < System.currentTimeMillis() && actualFriend.getMagic() >= actualFriend.getAttackMagicRequirement()){
+      actualFriend.setMagic(actualFriend.getMagic() - actualFriend.getAttackMagicRequirement());
       GameActor fireball = actualFriend.getFriendAttack(myWorld, myBody.getPosition().x,myBody.getPosition().y,isFacingRight, this);
       ((AbstractStage) getStage()).addGameActor(fireball);
       cooldownTimer = System.currentTimeMillis() + ((Attacks)fireball).getSpriteState().getCooldown();
@@ -709,3 +719,4 @@ public class Hero extends Monsters {
 
 
 }
+

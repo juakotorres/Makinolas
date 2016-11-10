@@ -190,5 +190,5 @@ public int getSpecialAttackDamage(Monsters monster) {
 public SpriteState getSpriteState() {
 	return mySpriteState;
 }
-  
+
 }
