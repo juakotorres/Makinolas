@@ -14,7 +14,12 @@ public class AcidState extends SpriteState {
 	
   public static int magicRequirement = 60;
   
-  @Override
+  public AcidState() {
+	  super();
+	  cooldown = 150;
+	}
+
+@Override
   public int getAttackDamage() {
     return 40;
   }
