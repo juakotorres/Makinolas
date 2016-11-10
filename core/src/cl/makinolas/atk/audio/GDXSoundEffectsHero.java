@@ -65,13 +65,14 @@ public class GDXSoundEffectsHero {
 			}
 	}
 
-public void playnotcaptured(){
-	if(soundnotCaptured.isPlaying()){
+	public void playnotcaptured(){
+		if(soundnotCaptured.isPlaying()){
 		soundnotCaptured.stop();
 		soundnotCaptured.play();
 		}
 		else{
 			soundnotCaptured.play();
 		}
-}
+	}
+
 }

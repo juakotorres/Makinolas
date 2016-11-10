@@ -275,22 +275,20 @@ public class Enemy extends Monsters {
   @Override
   public void interactWithBall(BallActor ball) {
     if(free && Formulas.checkCatch(ball.getType().catchability/100f,0.9f,health,100)){
-    	//mplayer.playcaptured();
-      
       ball.roll(3, new BallActor.BrokeListener() {
         @Override
         public void onBroke(float x, float y) {
           setDead();
           Hero.getInstance().addAllie(parent);
           MainBar.getInstance().updateTeam();
+          Hero.getInstance().Getmplayer().playcaptured();
         }
       });
       free = false;
       myBody.setLinearVelocity(0,0);
     }
     else if(free){
-    //  mplayer.playnotcaptured();
-    
+    	 Hero.getInstance().Getmplayer().playnotcaptured();
       ball.roll(2, new BallActor.BrokeListener() {
         @Override
         public void onBroke(float x, float y) {
