@@ -17,6 +17,7 @@ public class BranchAttackState extends SpriteState {
 	  super();
 	  cooldown = 100;
   }
+
   @Override
   public void initializeBody(float x, float y) {
     myAttack.initializeBody(x, y);    

@@ -12,7 +12,12 @@ import cl.makinolas.atk.types.PoisonType;
 
 public class AcidState extends SpriteState {
   
-  @Override
+  public AcidState() {
+	  super();
+	  cooldown = 150;
+	}
+
+@Override
   public int getAttackDamage() {
     return 40;
   }
