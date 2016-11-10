@@ -14,6 +14,7 @@ import com.badlogic.gdx.utils.viewport.Viewport;
 
 import cl.makinolas.atk.actors.Background;
 import cl.makinolas.atk.actors.Title;
+import cl.makinolas.atk.audio.GDXMusicPlayer;
 import cl.makinolas.atk.screen.GameScreen;
 import cl.makinolas.atk.screen.MenuScreen;
 
@@ -27,10 +28,8 @@ public class OptionsStage extends AbstractStage {
 
 	    addActor(new Title("Background/atk.png", 320, 350));
 	    addActor(new Background("Background/MenuBackground.jpg", getCamera()));
-	    if (music == null)
-	    	music = Gdx.audio.newMusic(Gdx.files.internal("Music/Never-Gonna-Give-You-Up.mp3"));
-	    music.setLooping(true);
-	    music.play();
+	    musicplayer=new GDXMusicPlayer();
+	    musicplayer.PlayLooped("Music/Never-Gonna-Give-You-Up.mp3");
 
 	    // Buttons
 	    TextButton menuButton = new TextButton("Back to menu", sharedSkin);
@@ -48,7 +47,7 @@ public class OptionsStage extends AbstractStage {
 	    soundLabel.setPosition(200, 200);
 	    brightnessLabel.setPosition(200, 160);
 	    volumeSlider.setPosition(320, 200);
-	    volumeSlider.setValue(music.getVolume());
+	
 	    brightnessSlider.setPosition(320, 160);
 	    brightnessSlider.setValue(brightnessSlider.getValue());
 	    
@@ -59,7 +58,7 @@ public class OptionsStage extends AbstractStage {
 	    menuButton.addListener(new ClickListener(){
 	        @Override
 	        public void clicked(InputEvent event, float x, float y) {
-	        	music.stop();
+	        	musicplayer.StopMusic();
 	  	    	MenuScreen menuScreen = new MenuScreen(myGame);
 	  	    	myGame.setScreen(menuScreen);	  
 	        }
@@ -82,14 +81,14 @@ public class OptionsStage extends AbstractStage {
 	    volumeSlider.addListener(new ClickListener(){
 	        @Override
 	        public void clicked(InputEvent event, float x, float y) {
-	        	music.setVolume(volumeSlider.getPercent());
+	        	musicplayer.SetVolume((volumeSlider.getPercent()));
 	        }
 	    });
 	    
 	    volumeSlider.addListener(new DragListener(){
 	        @Override
 	        public void drag(InputEvent event, float x, float y, int pointer) {
-	        	music.setVolume(volumeSlider.getPercent());
+	        	musicplayer.SetVolume((volumeSlider.getPercent()));
 	        }
 	    });
 	    
