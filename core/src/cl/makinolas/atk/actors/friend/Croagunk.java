@@ -9,8 +9,6 @@ import cl.makinolas.atk.actors.Monsters;
 import cl.makinolas.atk.actors.attacks.Attacks;
 import cl.makinolas.atk.actors.attacks.ShootAttack;
 import cl.makinolas.atk.actors.attacks.states.Poison_StingState;
-import cl.makinolas.atk.actors.friend.AbstractFriend.Evolution;
-import cl.makinolas.atk.actors.friend.AbstractFriend.Level;
 import cl.makinolas.atk.types.FightType;
 import cl.makinolas.atk.types.PoisonType;
 
@@ -22,14 +20,13 @@ public class Croagunk extends AbstractFriend {
 		friend = Enemies.CROAGUNK;
 		faces = new TextureRegion(new Texture(Gdx.files.internal("Actors/Croagunk_faces.png"))).split(40,40);
 		setTexture(new TextureRegion(new Texture(Gdx.files.internal("Actors/Croagunk.png"))));
-		/* aquí yace todo lo relacionado con los sprites */
 		
-	    /*setCutSprites(30,28);
-	    setWalkAnimation(1,2,3,2);
+	    setCutSprites(28,26);
+	    setWalkAnimation(3,4,5,4);
 	    setHurtAnimation(0);
-	    setMeleeAnimation(4,6);
-	    setIdleAnimation(1,2,3,2);
-	    setSpecialAnimation(4,6);*/
+	    setMeleeAnimation(6,7);
+	    setIdleAnimation(1,2);
+	    setSpecialAnimation(8,9,10);
 		
 	    setFaceSprite(faces[0][0]);
 	    initLevel(5);
@@ -60,14 +57,13 @@ public class Croagunk extends AbstractFriend {
 		if (numberOfLevel == 1 && getActualEvolution() < 1) {
 			friend = Enemies.TOXICROAK;
 			setTexture(new TextureRegion(new Texture(Gdx.files.internal("Actors/Toxicroak.png"))));
-			/* texturas */
 			
-		    /*setCutSprites(30,28);
-		    setWalkAnimation(1,2,3,2);
+		    setCutSprites(30,28);
+		    setWalkAnimation(4,5,6,5);
 		    setHurtAnimation(0);
-		    setMeleeAnimation(4,6);
-		    setIdleAnimation(1,2,3,2);
-		    setSpecialAnimation(4,6);*/
+		    setMeleeAnimation(7,8);
+		    setIdleAnimation(1,2,3,2,1);
+		    setSpecialAnimation(7,9);
 			
 		    setFaceSprite(faces[0][1]);
 		    setActualEvolution(1);
