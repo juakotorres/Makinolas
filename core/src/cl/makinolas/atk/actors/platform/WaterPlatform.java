@@ -53,13 +53,16 @@ public class WaterPlatform extends GameActor {
 	@Override
 	public void interactWithHero(Hero hero, WorldManifold worldManifold){	    
 		System.out.println("Entrando agua");
+		
+		hero.getBody().setLinearDamping(5);		
 
 	}
 	
 	@Override
 	public void endHeroInteraction(Hero hero, WorldManifold worldManifold) {
 		System.out.println("Saliendo agua");
-	
+		hero.getBody().setLinearDamping(0);
+
 	}
 	
 	@Override

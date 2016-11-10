@@ -6,6 +6,7 @@ import com.badlogic.gdx.Game;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.Body;
 import com.badlogic.gdx.physics.box2d.BodyDef;
+import com.badlogic.gdx.physics.box2d.Fixture;
 import com.badlogic.gdx.physics.box2d.PolygonShape;
 import com.badlogic.gdx.physics.box2d.World;
 import com.badlogic.gdx.physics.box2d.WorldManifold;
@@ -46,6 +47,7 @@ public class Hero extends Monsters {
   private boolean isJumping;
   private boolean isDamaged;
   private boolean isAttacking;
+  private boolean isInsideWater;
   private int[] attackAnimations;
   private int actualAnimation;
   protected final float spriteTime = 1 / 5f;
@@ -80,6 +82,7 @@ public class Hero extends Monsters {
     isFacingRight = false;
     isDamaged = false;
     isAttacking = false;
+    isInsideWater = false;
     hasEvolved = false;
     dead = false;
     changing = false;
@@ -457,7 +460,7 @@ public class Hero extends Monsters {
     shape.setAsBox(getBodySize(actualFriend.getWidth()), getBodySize(actualFriend.getHeight()));
     myBody.setGravityScale(1);
     myBody.createFixture(shape, 0.5f);
-    myBody.resetMassData();
+    myBody.resetMassData();    
     shape.dispose();
     
     // Change Body.
