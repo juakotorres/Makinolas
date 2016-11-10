@@ -71,6 +71,9 @@ public interface Friend {
   void addSpDefenseEv(int n);
   void addSpeedEv(int n);
   void setCriticModificator(int val);
+  void setAttackiv(int val);
+  int getAttackiv();
   public int getCriticModificator();
   public int getAttackMagicRequirement();
+  
 }

@@ -685,6 +685,14 @@ public abstract class AbstractFriend implements Friend {
     }
   }
   
+  public int getAttackiv(){
+	  return this.evAttack;
+  }
+  
+  public void setAttackiv(int val){
+	  this.evAttack = val;
+  }
+  
   public void setCriticModificator(int val){
 	  this.criticModificator = val;
   }
