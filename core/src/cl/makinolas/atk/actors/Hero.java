@@ -69,6 +69,9 @@ public class Hero extends Monsters {
   private JumpState state;
   private boolean onWall = false;
   private GDXSoundEffectsHero mplayer=new GDXSoundEffectsHero();
+  public GDXSoundEffectsHero Getmplayer(){
+	  return mplayer;
+  }
 
   private Hero() {
 
@@ -243,6 +246,7 @@ public class Hero extends Monsters {
   }
 
   private void giveMagic() {
+	  //magic sound
     if(actualFriend.getMagic() < 1000){
       actualFriend.setMagic(((actualFriend.getMagic() + 1)%1001));
     } else {
@@ -499,7 +503,7 @@ public class Hero extends Monsters {
   }
 
   public void throwBall(Ball.BallType type) {
-	  
+	 mplayer.playthrow();
     BallActor ball = new BallActor(type, myWorld, myBody.getPosition().x + ((isFacingRight)?0.6f:-0.6f)*actualFriend.getWidth()/ GameConstants.WORLD_FACTOR,
             myBody.getPosition().y);
     ball.setThrowImpulse((isFacingRight)?1:-1);
@@ -579,6 +583,9 @@ public class Hero extends Monsters {
   public boolean[] getLevelsUnlocked() {
     return levelsUnlocked;
   }
+  public GDXSoundEffectsHero getHeroPlayer(){
+	  return mplayer;
+  }
 
   public float getStageX(){
     return myBody.getPosition().x * GameConstants.WORLD_FACTOR;
@@ -601,6 +608,9 @@ public class Hero extends Monsters {
 
   @Override
   public void interactWithItem(ItemActor item) {
+	  System.out.println(item.getName());
     item.interactWithHero(this,null);
+    
+	
   }
 }

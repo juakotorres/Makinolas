@@ -219,6 +219,7 @@ public class Enemy extends Monsters {
     inflictor.setDead();
     healthBar.setCurrent(health);
     if(health <= 0){
+      Hero.getInstance().getHeroPlayer().StopProyectileSound();;
       mplayer.PlayExplotionEnd();
       source.gainExperience(getLevel(), type);
       Hero.getInstance().earnMoney(getLevel(), type);
@@ -274,6 +275,8 @@ public class Enemy extends Monsters {
   @Override
   public void interactWithBall(BallActor ball) {
     if(free && Formulas.checkCatch(ball.getType().catchability/100f,0.9f,health,100)){
+    	//mplayer.playcaptured();
+      
       ball.roll(3, new BallActor.BrokeListener() {
         @Override
         public void onBroke(float x, float y) {
@@ -286,6 +289,8 @@ public class Enemy extends Monsters {
       myBody.setLinearVelocity(0,0);
     }
     else if(free){
+    //  mplayer.playnotcaptured();
+    
       ball.roll(2, new BallActor.BrokeListener() {
         @Override
         public void onBroke(float x, float y) {
