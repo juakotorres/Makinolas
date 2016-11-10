@@ -12,6 +12,7 @@ import cl.makinolas.atk.actors.Background;
 import cl.makinolas.atk.actors.Hero;
 import cl.makinolas.atk.actors.Title;
 import cl.makinolas.atk.actors.friend.Charmander;
+import cl.makinolas.atk.actors.friend.Croagunk;
 import cl.makinolas.atk.actors.friend.Elekid;
 import cl.makinolas.atk.actors.friend.Friend;
 import cl.makinolas.atk.actors.friend.Magby;
@@ -47,7 +48,7 @@ public class ChooseStage extends Stage {
     
     arrow = new Title("CharacterImages/arrow.png", 50, 300);
     addActor(arrow);
-    PokemonStarter firstOption = new PokemonStarter("CharacterImages/charmander.png", new Magby(28),120,300
+    PokemonStarter firstOption = new PokemonStarter("CharacterImages/charmander.png", new Croagunk(5),120,300
         ,"CharacterImages/firetype.png", GameText.charmanderDescription,0);
     addActor(firstOption);
     PokemonStarter secondOption = new PokemonStarter("CharacterImages/snivy.png", new Snivy(5), 320,300

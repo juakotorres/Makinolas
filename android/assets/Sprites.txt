@@ -65,3 +65,5 @@ Acid 23x23
 SludgeBomb 42x28
 WaterDragon 60x50
 Elekid 33x35
+Croagunk 28x26
+Toxicroak 30x28
