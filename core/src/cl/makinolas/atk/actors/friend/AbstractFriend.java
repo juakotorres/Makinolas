@@ -8,6 +8,7 @@ import com.badlogic.gdx.graphics.Cursor;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.physics.box2d.World;
 
+import cl.makinolas.atk.actors.GameActor;
 import cl.makinolas.atk.actors.Hero;
 import cl.makinolas.atk.actors.Monsters;
 import cl.makinolas.atk.actors.attacks.Attacks;
@@ -45,6 +46,7 @@ public abstract class AbstractFriend implements Friend {
   private int[][] hurtAnimation;
   private int[][] meleeAnimation;
   private int[][] specialAnimation;
+  private int[][] singAnimation;
   private TextureRegion faceSprite;
   protected Level level;
   private int actualEvolution;
@@ -107,6 +109,13 @@ public abstract class AbstractFriend implements Friend {
       this.specialAnimation[i - beginSpecialAnimation] = new int[]{0,i};
     }
   }
+  
+  protected void setSingAnimation(int beginSpecialAnimation, int endSpecialAnimation){
+	    this.singAnimation = new int[endSpecialAnimation - beginSpecialAnimation + 1][];
+	    for (int i = beginSpecialAnimation; i <= endSpecialAnimation; i++ ){
+	      this.singAnimation[i - beginSpecialAnimation] = new int[]{0,i};
+	    }
+	  }
   
   protected void setMeleeAnimation(int... positions){
     this.meleeAnimation = new int[positions.length][];
@@ -306,6 +315,11 @@ public abstract class AbstractFriend implements Friend {
   }
   
   @Override
+  public int[][] getSingAnimation() {
+    return specialAnimation;
+  }
+  
+  @Override
   public int getMeleeFrame() {
     return meleeAnimation.length;
   }
@@ -494,6 +508,15 @@ public abstract class AbstractFriend implements Friend {
   @Override
   public int getCatchRate(){
     return friend.catchRate;
+  }
+  
+  public boolean secondaryAttack(){
+	  return false;
+  }
+  
+  public GameActor getFriendSecondaryAttack(World myWorld, float f, float y, boolean isFacingRight,
+			Monsters source){
+	  return null;
   }
 
   /**

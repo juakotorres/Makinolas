@@ -1,22 +1,24 @@
 package cl.makinolas.atk.actors.attacks.states;
 
-import cl.makinolas.atk.actors.Monsters;
-import cl.makinolas.atk.stateEfects.BurnedStateEffect;
-import cl.makinolas.atk.types.FireType;
-import cl.makinolas.atk.types.IType;
-
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 
-public class FireWallState extends SpriteState{
+import cl.makinolas.atk.actors.Monsters;
+import cl.makinolas.atk.stateEfects.BurnedStateEffect;
+import cl.makinolas.atk.stateEfects.SleepStateEffect;
+import cl.makinolas.atk.types.IType;
+import cl.makinolas.atk.types.NormalType;
+
+public class SingState extends SpriteState {
+
 
     public static int magicRequirement = 50;
 	
     @Override
     public int getAttackDamage() {
-        return 40;
+        return 0;
     }
 
     @Override
@@ -26,22 +28,22 @@ public class FireWallState extends SpriteState{
 
     @Override
     public TextureRegion getTexture() {
-        return new TextureRegion(new Texture(Gdx.files.internal("Attacks/firewall.png")));
+        return new TextureRegion(new Texture(Gdx.files.internal("Attacks/music.png")));
     }
 
     @Override
     public int getWidth() {
-        return 28;
+        return 256;
     }
 
     @Override
     public int getHeight() {
-        return 34;
+        return 256;
     }
 
     @Override
     public float getFrameTime() {
-        return 0.2f;
+        return 0.4f;
     }
 
     @Override
@@ -71,13 +73,12 @@ public class FireWallState extends SpriteState{
 
 	@Override
 	public IType getType() {
-		return new FireType();
+		return new NormalType();
 	}
 	
 	@Override
 	public void secondaryEfectsToAfected(Monsters monster) {
-		monster.addState(new BurnedStateEffect(monster, myAttack), 20);
+		monster.addState(new SleepStateEffect(monster), 50);
 	}
 
-	
 }

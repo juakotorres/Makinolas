@@ -73,7 +73,7 @@ public IType getType() {
 
 @Override
 public void secondaryEfectsToAfected(Monsters monster) {
-	monster.addState(new BurnedStateEffect(monster), 20);
+	monster.addState(new BurnedStateEffect(monster, myAttack), 20);
 }
 
 

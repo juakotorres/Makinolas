@@ -74,7 +74,7 @@ public IType getType() {
 
 @Override
 public void secondaryEfectsToAfected(Monsters monster) {
-	monster.addState(new PoisonStateEffects(monster), 30);
+	monster.addState(new PoisonStateEffects(monster, myAttack), 30);
 }
 
 
