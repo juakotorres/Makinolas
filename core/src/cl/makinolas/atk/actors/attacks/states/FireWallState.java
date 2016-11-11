@@ -1,6 +1,7 @@
 package cl.makinolas.atk.actors.attacks.states;
 
 import cl.makinolas.atk.actors.Monsters;
+import cl.makinolas.atk.stateEfects.BurnedStateEffect;
 import cl.makinolas.atk.types.FireType;
 import cl.makinolas.atk.types.IType;
 
@@ -72,4 +73,11 @@ public class FireWallState extends SpriteState{
 	public IType getType() {
 		return new FireType();
 	}
+	
+	@Override
+	public void secondaryEfectsToAfected(Monsters monster) {
+		monster.addState(new BurnedStateEffect(monster, myAttack), 20);
+	}
+
+	
 }

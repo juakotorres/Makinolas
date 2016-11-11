@@ -24,12 +24,14 @@ public class Enemy extends Monsters {
 	private int health;
 	private HBar healthBar;
 	private boolean isDamaged;
+	protected boolean isSinging;
 	private int width;
 	private int height;
 	private int meleeDamage;
 	private boolean dead, free;
 	private int walkAnimation;
 	private int hurtAnimation;
+	private int singAnimation;
 	private final float hurtTime = 1 / 4f;
 	private final float meleeTime = 2f;
 	protected final float groundTime = 0.5f;
@@ -84,6 +86,7 @@ public class Enemy extends Monsters {
 		healthBar = new HBar(givenHealth, health, cutSprite[0], 4,
 				new TextureRegion(new Texture(Gdx.files.internal("Overlays/bar_green.png"))));
 		isDamaged = false;
+		isSinging = false;
 		dead = false;
 		free = true;
 		meleeDamage = 45;
@@ -116,6 +119,7 @@ public class Enemy extends Monsters {
 		setAnimation(enemyTexture, cutSprite);
 		hurtAnimation = addAnimation(0.2f, numberOfHurtSprites);
 		walkAnimation = addAnimation(0.2f, numberOfSprite);
+		singAnimation = hurtAnimation;
 		changeAnimation(walkAnimation);
 
 	}
@@ -152,38 +156,41 @@ public class Enemy extends Monsters {
 	}
 
 	private void checkMelee(float delta) {
-		if (isAttacking) {
-			countMeleeFrames += delta;
-			if (countMeleeFrames > spriteTime) {
-				if (actualAnimation < attackAnimations.length) {
-					changeAnimation(attackAnimations[actualAnimation]);
-					countMeleeFrames = 0;
-					actualAnimation += 1;
-				} else {
-					isAttacking = false;
-					countMeleeFrames = 0;
-					actualAnimation = 0;
+		if(!this.isSinging){
+			if (isAttacking) {
+				countMeleeFrames += delta;
+				if (countMeleeFrames > spriteTime) {
+					if (actualAnimation < attackAnimations.length) {
+						changeAnimation(attackAnimations[actualAnimation]);
+						countMeleeFrames = 0;
+						actualAnimation += 1;
+					} else {
+						isAttacking = false;
+						countMeleeFrames = 0;
+						actualAnimation = 0;
+					}
 				}
+			} else if (!isDamaged) {
+				countMeleeFrames = 0;
+				isAttacking = false;
+				actualAnimation = 0;
+				changeAnimation(walkAnimation);
+			} else {
+				countMeleeFrames = 0;
 			}
-		} else if (!isDamaged) {
-			countMeleeFrames = 0;
-			isAttacking = false;
-			actualAnimation = 0;
-			changeAnimation(walkAnimation);
-		} else {
-			countMeleeFrames = 0;
 		}
-
 	}
 
 	protected void checkDamage(float delta, float inflictorVel) {
-		if (isDamaged) {
-			myBody.setLinearVelocity(new Vector2(inflictorVel, 0));
-			accumulator += delta;
-			if (accumulator > hurtTime) {
-				isDamaged = false;
-				changeAnimation(walkAnimation);
-				accumulator = 0;
+		if(!this.isSinging){
+			if (isDamaged) {
+				myBody.setLinearVelocity(new Vector2(inflictorVel, 0));
+				accumulator += delta;
+				if (accumulator > hurtTime) {
+					isDamaged = false;
+					changeAnimation(walkAnimation);
+					accumulator = 0;
+				}
 			}
 		}
 	}
@@ -357,6 +364,17 @@ public class Enemy extends Monsters {
 
 	public void jump() {
 	}
+	
+	@Override
+	public void sing() {
+		isSinging = true;
+		this.changeAnimation(singAnimation);
+	}
+	
+	@Override
+	public void unSing() {
+		isSinging = false;
+	}
 
 	public void landedPlatform(WorldManifold worldManifold, Platform platform) {
 	}
@@ -397,5 +415,15 @@ public class Enemy extends Monsters {
 	public float getRelativeX() {
 		Vector2 myPosition = myBody.getPosition();
 		return myPosition.x * GameConstants.WORLD_FACTOR - getActualSprite().getRegionWidth() / 2;
+	}
+
+	@Override
+	public void sleep() {
+		
+	}
+
+	@Override
+	public void unSleep() {
+		
 	}
 }

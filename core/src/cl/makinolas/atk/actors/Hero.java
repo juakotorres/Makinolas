@@ -2,6 +2,9 @@ package cl.makinolas.atk.actors;
 
 import cl.makinolas.atk.actors.items.ItemActor;
 import cl.makinolas.atk.stages.*;
+
+import java.util.ArrayList;
+
 import com.badlogic.gdx.Game;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.Body;
@@ -19,7 +22,6 @@ import cl.makinolas.atk.actors.enemies.MonsterFactory;
 import cl.makinolas.atk.actors.friend.Enemies;
 import cl.makinolas.atk.actors.friend.Friend;
 import cl.makinolas.atk.actors.friend.FriendDescriptor;
-import cl.makinolas.atk.actors.fx.FxManager;
 import cl.makinolas.atk.actors.items.Ball;
 import cl.makinolas.atk.actors.items.BallActor;
 import cl.makinolas.atk.actors.items.Inventory;
@@ -30,6 +32,7 @@ import cl.makinolas.atk.audio.GDXSoundEffectsHero;
 import cl.makinolas.atk.screen.MapScreen;
 import cl.makinolas.atk.start.GameText;
 import cl.makinolas.atk.stateEfects.CriticalHit;
+import cl.makinolas.atk.stateEfects.IStateEfects;
 import cl.makinolas.atk.utils.Formulas;
 import cl.makinolas.atk.utils.SaveDoesNotExistException;
 import cl.makinolas.atk.utils.SaveManager;
@@ -43,8 +46,9 @@ public class Hero extends Monsters {
   private boolean isJumping;
   private boolean isDamaged;
   private boolean isAttacking;
+  private boolean[] isSinging = {false, false, false, false};
   private int[] attackAnimations;
-  private int actualAnimation;
+  private int actualAnimation[] = {0, 0, 0, 0};
   protected final float spriteTime = 1 / 5f;
   private float countMeleeFrames;
   private boolean dead;
@@ -75,10 +79,25 @@ public class Hero extends Monsters {
   private Spot currentSpot;
   private Vector2 platformSpeed;
   private long cooldownTimer;
+  
+  private ArrayList<IStateEfects> statesPokemon1;
+  private ArrayList<IStateEfects> statesPokemon2;
+  private ArrayList<IStateEfects> statesPokemon3;
+  private ArrayList<IStateEfects> statesPokemon4;
+  
+  private ArrayList<ArrayList<IStateEfects>> liststates;
 
   private Hero() {
-
-	  super();
+	 super();
+	  statesPokemon2 = new ArrayList<IStateEfects>();
+	  statesPokemon3 = new ArrayList<IStateEfects>();
+	  statesPokemon4 = new ArrayList<IStateEfects>();
+	 statesPokemon1 = states;
+	 liststates =  new ArrayList<ArrayList<IStateEfects>>();
+	 liststates.add(statesPokemon1);
+	 liststates.add(statesPokemon2);
+	 liststates.add(statesPokemon3);
+	 liststates.add(statesPokemon4);
     isJumping = false;
     isFacingRight = false;
     isDamaged = false;
@@ -253,7 +272,8 @@ public class Hero extends Monsters {
 	  super.act(delta);
     checkChangingAllie();
 
-    myBody.setLinearVelocity(vx + platformSpeed.x, myBody.getLinearVelocity().y);
+    if(!isSinging[this.getIndexFriend()])
+    	myBody.setLinearVelocity(vx + platformSpeed.x, myBody.getLinearVelocity().y);
 
 
     ((AbstractStage) getStage()).changeCamera(myBody.getPosition().x , myBody.getPosition().y );
@@ -322,14 +342,16 @@ public class Hero extends Monsters {
   }
   
   private void checkDamage(float delta) {
-    if(isDamaged){
-      accumulator += delta;
-      if(accumulator > hurtTime){
-        isDamaged = false;
-        changeAnimation(walkAnimation);
-        accumulator = 0;
-      }
-    }
+	  if(!isSinging[this.getIndexFriend()]){
+	    if(isDamaged){
+	      accumulator += delta;
+	      if(accumulator > hurtTime){
+	        isDamaged = false;
+	        changeAnimation(walkAnimation);
+	        accumulator = 0;
+	      }
+	    }
+	  }
   }
 
   private void giveMagic() {
@@ -345,26 +367,30 @@ public class Hero extends Monsters {
     if(isAttacking){
       countMeleeFrames += delta;
       if(countMeleeFrames > spriteTime){
-        if(actualAnimation  < attackAnimations.length) {
-          changeAnimation(attackAnimations[actualAnimation]);
+        if(actualAnimation[this.getIndexFriend()]  < attackAnimations.length) {
+        	if(!isSinging[this.getIndexFriend()])
+        		changeAnimation(attackAnimations[actualAnimation[this.getIndexFriend()]]);
           countMeleeFrames = 0;
-          actualAnimation += 1;
+          actualAnimation[this.getIndexFriend()] += 1;
         } else {
           isAttacking = false;
           countMeleeFrames = 0;
-          actualAnimation = 0;
+          actualAnimation[this.getIndexFriend()] = 0;
         }
       }
     }
     else if(!isDamaged){
-      countMeleeFrames = 0;
-      isAttacking = false;
-      actualAnimation = 0;
-      changeAnimation(walkAnimation);
-    } else {
-      countMeleeFrames = 0;
+    	if(!isSinging[this.getIndexFriend()]){
+	      countMeleeFrames = 0;
+	      isAttacking = false;
+	      actualAnimation[this.getIndexFriend()] = 0;
+	      changeAnimation(walkAnimation);
+	    }}
+    else {
+	      countMeleeFrames = 0;
+	    }
     }
-  }
+  
 
   @Deprecated
   private float getImpulse(float impulse) {
@@ -399,7 +425,7 @@ public class Hero extends Monsters {
     for(int i = 0; i < actualFriend.getMeleeAnimation().length; i++){
       attackAnimations[i] = addAnimation(0.2f, actualFriend.getMeleeAnimation()[i][1]);
     }  
-    actualAnimation = 0;
+    //actualAnimation[this.getIndexFriend()] = 0;
   }
   
   @Override
@@ -447,6 +473,7 @@ public class Hero extends Monsters {
       allies.set(indexFriend, actualFriend);
       actualFriend = allies.get(index);
       indexFriend = index;
+      states = liststates.get(index);
       parent = actualFriend;
       MainBar.getInstance().setBars();
       setSizeCollider(getBody().getPosition(), false);
@@ -550,15 +577,18 @@ public class Hero extends Monsters {
     if(restitutive && !inertia) return;
     vx += 7*i;
     if(vx!=0)
-      isFacingRight = (vx>0);
+      if(!isSinging[this.getIndexFriend()])
+    	isFacingRight = (vx>0);
     inertia = true;
   }
 
 
   public void jump(int button) {
-	isJumping = true;
-	state.restarCount();
-    state.jump();
+	  if(!isSinging[this.getIndexFriend()]){
+		  isJumping = true;
+		state.restarCount();
+    	state.jump();
+	  }
     
   }
   
@@ -575,17 +605,18 @@ public class Hero extends Monsters {
 
   // FIXME El gcd no es global, depende del tipo de ataque
   public void attackPrimary() {
-    if(cooldownTimer < System.currentTimeMillis() && actualFriend.getMagic() >= actualFriend.getAttackMagicRequirement()){
+    if(!isSinging[this.getIndexFriend()] && cooldownTimer < System.currentTimeMillis() && actualFriend.getMagic() >= actualFriend.getAttackMagicRequirement()){
       actualFriend.setMagic(actualFriend.getMagic() - actualFriend.getAttackMagicRequirement());
       mplayer.PlayProyectileSound();
       GameActor fireball = actualFriend.getFriendAttack(myWorld, myBody.getPosition().x,myBody.getPosition().y,isFacingRight, this);
       ((AbstractStage) getStage()).addGameActor(fireball);
+      ((Attacks) fireball).getSpriteState().secondaryEfectsToSource(this);
       cooldownTimer = System.currentTimeMillis() + ((Attacks)fireball).getSpriteState().getCooldown();
     }
   }
 
   public void attackSecondary() {
-    if(!isAttacking){
+    if(!isAttacking && !isSinging[this.getIndexFriend()]){
       mplayer.PlayClaw();
       isAttacking = true;
     }
@@ -604,18 +635,20 @@ public class Hero extends Monsters {
   }
 
   public void throwBall(Ball.BallType type) {
-	 mplayer.playthrow();
-    BallActor ball = new BallActor(type, myWorld, myBody.getPosition().x + ((isFacingRight)?0.6f:-0.6f)*actualFriend.getWidth()/ GameConstants.WORLD_FACTOR,
-            myBody.getPosition().y);
-    ball.setThrowImpulse((isFacingRight)?1:-1);
-    ((AbstractStage) getStage()).addGameActor(ball);
-  }
+		 mplayer.playthrow();
+	    BallActor ball = new BallActor(type, myWorld, myBody.getPosition().x + ((isFacingRight)?0.6f:-0.6f)*actualFriend.getWidth()/ GameConstants.WORLD_FACTOR,
+	            myBody.getPosition().y);
+	    ball.setThrowImpulse((isFacingRight)?1:-1);
+	    ((AbstractStage) getStage()).addGameActor(ball);
+}
+	  
 
   public void nextAllie() {
     for (int i = 1; i <= allies.size; i++) {
       int j = (indexFriend + i) % allies.size;
       if(!allies.get(j).getDead()) {
         changeAllie(j);
+        
         break;
       }
     }
@@ -745,6 +778,24 @@ public float getRelativeY() {
 @Override
 public float getRelativeX() {
 	return this.getStageX();
+}
+@Override
+public void sing() {
+	this.isSinging[this.getIndexFriend()] = true;
+	this.changeAnimation(hurtAnimation);;
+}
+@Override
+public void unSing() {
+	this.isSinging[this.getIndexFriend()] = false;
+}
+@Override
+public void sleep() {
+	this.isSinging[this.getIndexFriend()] = true;
+	this.changeAnimation(hurtAnimation);;
+}
+@Override
+public void unSleep() {
+	this.isSinging[this.getIndexFriend()] = false;
 }
 
 

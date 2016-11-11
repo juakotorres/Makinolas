@@ -5,6 +5,7 @@ import com.badlogic.gdx.physics.box2d.World;
 import com.badlogic.gdx.physics.box2d.WorldManifold;
 
 import cl.makinolas.atk.actors.GameActor;
+import cl.makinolas.atk.actors.attacks.Attacks;
 import cl.makinolas.atk.actors.friend.Enemies;
 import cl.makinolas.atk.actors.friend.Friend;
 import cl.makinolas.atk.actors.platform.Platform;
@@ -32,8 +33,9 @@ public class JumperEnemy extends Enemy {
   @Override
   public void act(float delta){ 
 	  super.act(delta);
-    myBody.setLinearVelocity(vx, myBody.getLinearVelocity().y);
-
+	  if(!this.isSinging){
+		  myBody.setLinearVelocity(vx, myBody.getLinearVelocity().y);
+	  }
     if(!viewGround){
       flip();
       viewGround = true;
@@ -45,6 +47,7 @@ public class JumperEnemy extends Enemy {
     if(accumulatorAttack > attackTime && super.isFree()){
         GameActor attack = parent.getFriendAttack(myWorld, myBody.getPosition().x - 0.5f, myBody.getPosition().y, isFacingRight, this);
         ((AbstractStage) getStage()).addGameActor(attack);
+       ((Attacks) attack).getSpriteState().secondaryEfectsToSource(this);
         accumulatorAttack = 0;
     }
 

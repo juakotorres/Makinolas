@@ -1,10 +1,9 @@
 package cl.makinolas.atk.stateEfects;
 
 import cl.makinolas.atk.actors.Monsters;
+import cl.makinolas.atk.actors.attacks.Attacks;
 import cl.makinolas.atk.actors.friend.Friend;
 import cl.makinolas.atk.types.IType;
-import cl.makinolas.atk.types.PoisonType;
-import cl.makinolas.atk.types.SteelType;
 
 public class PoisonStateEffects extends AbstractStateEfects {
 
@@ -12,36 +11,39 @@ public class PoisonStateEffects extends AbstractStateEfects {
 	private int damage;
 	private float localTime = 0;
 	private boolean noEfect = false;
+	private Attacks attack;
+
 	
-	public PoisonStateEffects(Monsters monster){
+	public PoisonStateEffects(Monsters monster, Attacks attack){
 		this.monster = monster;
+		this.attack = attack;
 		this.friend = monster.getMyself();
 		for(IType type: monster.getMyself().getType()){
-			if((type.attackFromType(new PoisonType()) == 0) || (type.attackFromType(new SteelType()) == 0)){
+			if(type.isPoison() || type.isSteel()){
 				noEfect = true;
 				this.drawEfects = new DrawStateEfects("StateImages/Poisoned.png", 64, 64,0f , 8, this);
+				return;
 			}
 		}
-		double rand = 2 + Math.random()*2;
+		double rand = 10 + Math.random()*10;
 		this.drawEfects = new DrawStateEfects("StateImages/Poisoned.png", 64, 64,(float)rand , 8, this);
 	}
 	
 	@Override
 	public void affectMonsters() {
-		damage = friend.getMaxHealth()/16;	
+		damage = friend.getMaxHealth()/20;	
 	}
 	
 	@Override
 	public void act(float delta){
+		super.act(delta);
 		if(this.noEfect){
 			return;
 		}
-		super.act(delta);
 		localTime+=delta;
-		if(this.localTime>1){
-			this.localTime--;
-			this.friend.setHealth(friend.getHealth()-damage);
-			
+		if(this.localTime>2){
+			this.localTime=-2;
+			monster.damage(damage, attack);
 		}
 		
 	}

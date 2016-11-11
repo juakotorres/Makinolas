@@ -2,6 +2,10 @@ package cl.makinolas.atk.types;
 
 public class FlyingType extends AbstractType implements IType {
 
+	public FlyingType() {
+		this.isFlying=true;
+	}
+
 	@Override
 	public double attackFromType(IType type) {
 		return type.flyingPokemonAttacks(this);

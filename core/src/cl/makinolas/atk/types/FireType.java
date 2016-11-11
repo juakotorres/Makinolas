@@ -62,4 +62,8 @@ public class FireType extends AbstractType implements IType {
 		return  2;
 	}
 
+	public FireType() {
+		this.isFire = true;
+	}
+
 }
