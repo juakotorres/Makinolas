@@ -80,6 +80,8 @@ public class BagVis extends Group {
             case ITEM2:
                 handleKey(Input.Keys.S);
                 break;
+            default:
+            	break;
         }
     }
 
