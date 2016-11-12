@@ -21,104 +21,108 @@ import cl.makinolas.atk.screen.MenuScreen;
 import cl.makinolas.atk.start.StartingJourneyStage;
 
 public class LoadStage extends Stage {
+	  private Game myGame;
+	  private LoadActor[] options;
+	  private int lastSelected;
+	  private Title arrow;
+	  
+	  public LoadStage(Viewport v, GameScreen actualScreen, Game myGame) {
+	    super(v);
+	    
+	    lastSelected = 0;
+	    this.myGame = myGame;
+	    //myScreen = actualScreen;
+	    addActor(new Background("Background/Wood.png", getCamera()));
+	    addActor(new Title("Background/LoadFiles.png",220 ,400));
+	    
+	    arrow = new Title("CharacterImages/arrow.png", 50, 300);
+	    addActor(arrow);
+	    LoadActor firstSave = new LoadActor("Save 1", "ATK.sav", 80, 250, this);
+	    firstSave.addListener(new InputListener(){
+	      @Override
+	      public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
+				Gdx.graphics.setContinuousRendering(true);
+				options[0].loadMap();
+				return true;
+			}
+		});
+		addActor(firstSave);
 
-  private Game myGame;
-  private LoadActor[] options;
-  private int lastSelected;
-  private Title arrow;
-  
-  public LoadStage(Viewport v, GameScreen actualScreen, Game myGame) {
-    super(v);
-    
-    lastSelected = 0;
-    this.myGame = myGame;
-    //myScreen = actualScreen;
-    addActor(new Background("Background/Wood.png", getCamera()));
-    addActor(new Title("Background/LoadFiles.png",220 ,400));
-    
-    arrow = new Title("CharacterImages/arrow.png", 50, 300);
-    addActor(arrow);
-    LoadActor firstSave = new LoadActor("Save 1", "ATK.sav", 80, 250, this);
-    firstSave.addListener(new InputListener(){
-      @Override
-      public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
-        options[0].loadMap();
-        return true;
-      }
-    });
-    addActor(firstSave);
-    
-    LoadActor secondSave = new LoadActor("Save 2", "ATK2.sav", 80, 140, this);
-    secondSave.addListener(new InputListener(){
-      @Override
-      public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
-        options[1].loadMap();
-        return true;
-      }
-    });
-    addActor(secondSave);
-    
-    TextButton menuButton = new TextButton("Back to menu",  new Skin(Gdx.files.internal("Data/uiskin.json")));
-    menuButton.setPosition(500, 50);
-    menuButton.addListener(new ClickListener(){
-        @Override
-        public void clicked(InputEvent event, float x, float y) {
-          MainMenu();
-        }
-    });
-    
-    addActor(menuButton);
-    
-    options = new LoadActor[]{firstSave,secondSave};
+		LoadActor secondSave = new LoadActor("Save 2", "ATK2.sav", 80, 140, this);
+		secondSave.addListener(new InputListener() {
+			@Override
+			public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
+				Gdx.graphics.setContinuousRendering(true);
+				options[1].loadMap();
+				return true;
+			}
+		});
+		addActor(secondSave);
 
-    //MobileGroup group = new MobileGroup(Gdx.app.getType() == Application.ApplicationType.Android);
-    Gdx.input.setInputProcessor(this);
+		TextButton menuButton = new TextButton("Back to menu", new Skin(Gdx.files.internal("Data/uiskin.json")));
+		menuButton.setPosition(500, 50);
+		menuButton.addListener(new ClickListener() {
+			@Override
+			public void clicked(InputEvent event, float x, float y) {
+				Gdx.graphics.setContinuousRendering(true);
+				MainMenu();
+			}
+		});
 
-    //setupCamera();
-  }
-  
-  protected void MainMenu() {
-    MenuScreen menuScreen = new MenuScreen(myGame);
-    myGame.setScreen(menuScreen);
-  }
+		addActor(menuButton);
+		options = new LoadActor[] { firstSave, secondSave };
 
-  public void loadMap(){
-    MapScreen mapScreen = new MapScreen(myGame,new MapStage(new FitViewport(640, 480),myGame, Levels.LEVEL1.levelSpot));
-    myGame.setScreen(mapScreen);
-  }
+		// MobileGroup group = new MobileGroup(Gdx.app.getType() ==
+		// Application.ApplicationType.Android);
+		Gdx.input.setInputProcessor(this);
+		Gdx.graphics.setContinuousRendering(false);
+		// setupCamera();
+	}
 
+	protected void MainMenu() {
+		MenuScreen menuScreen = new MenuScreen(myGame);
+		myGame.setScreen(menuScreen);
+	}
 
-  public void act(float delta){
-    super.act(delta);
+	public void loadMap() {
+		MapScreen mapScreen = new MapScreen(myGame,
+				new MapStage(new FitViewport(640, 480), myGame, Levels.LEVEL1.levelSpot));
+		myGame.setScreen(mapScreen);
+	}
 
-    if (Gdx.input.isKeyJustPressed(Keys.UP)){
-      int last = lastSelected;
-      lastSelected = (lastSelected == 0)? 1 : (lastSelected - 1);
-      changeArrow(last, lastSelected);
-    } if (Gdx.input.isKeyJustPressed(Keys.DOWN)){
-      int last = lastSelected;
-      lastSelected = (lastSelected == 1)? 0 : (lastSelected + 1);
-      changeArrow(last, lastSelected);
-    } if (Gdx.input.isKeyJustPressed(Keys.Z)){
-      options[lastSelected].loadMap();
-    }
-  }
-  
-  private void changeArrow(int previous, int actual) {
-    
-    if(actual == 0){
-      arrow.changeCoordinates(50, 300);
-    } else if( actual == 1){
-      arrow.changeCoordinates(50, 190);
-    }
-    
-  }
+	public void act(float delta) {
+		super.act(delta);
 
-  public void startJourney() {
-    GameScreen gameScreen = new GameScreen(myGame);
-    gameScreen.setStage(new StartingJourneyStage(new FitViewport(640,480), gameScreen, myGame));
-    myGame.setScreen(gameScreen);
-  }
+		if (Gdx.input.isKeyJustPressed(Keys.UP)) {
+			int last = lastSelected;
+			lastSelected = (lastSelected == 0) ? 1 : (lastSelected - 1);
+			changeArrow(last, lastSelected);
+		}
+		if (Gdx.input.isKeyJustPressed(Keys.DOWN)) {
+			int last = lastSelected;
+			lastSelected = (lastSelected == 1) ? 0 : (lastSelected + 1);
+			changeArrow(last, lastSelected);
+		}
+		if (Gdx.input.isKeyJustPressed(Keys.Z)) {
+			options[lastSelected].loadMap();
+		}
 
+	}
+
+	private void changeArrow(int previous, int actual) {
+
+		if (actual == 0) {
+			arrow.changeCoordinates(50, 300);
+		} else if (actual == 1) {
+			arrow.changeCoordinates(50, 190);
+		}
+
+	}
+
+	public void startJourney() {
+		GameScreen gameScreen = new GameScreen(myGame);
+		gameScreen.setStage(new StartingJourneyStage(new FitViewport(640, 480), gameScreen, myGame));
+		myGame.setScreen(gameScreen);
+	}
 
 }
