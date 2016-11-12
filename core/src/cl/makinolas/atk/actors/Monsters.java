@@ -4,15 +4,11 @@ import java.util.ArrayList;
 import java.util.ConcurrentModificationException;
 
 import com.badlogic.gdx.graphics.g2d.Batch;
-import com.badlogic.gdx.graphics.g2d.TextureRegion;
-import com.badlogic.gdx.math.Vector2;
 
-import cl.makinolas.atk.GameConstants;
 import cl.makinolas.atk.actors.attacks.Attacks;
 import cl.makinolas.atk.actors.attacks.MeleeAttack;
 import cl.makinolas.atk.actors.friend.Enemies;
 import cl.makinolas.atk.actors.friend.EvStates.EvState;
-import cl.makinolas.atk.stateEfects.DrawStateEfects;
 import cl.makinolas.atk.stateEfects.IStateEfects;
 import cl.makinolas.atk.actors.friend.Friend;
 
@@ -26,8 +22,12 @@ public abstract class Monsters extends AnimatedActor {
   public abstract void CriticalDamage();
   public abstract float getRelativeY();
   public abstract float getRelativeX();
+  public abstract void sing();
+  public abstract void unSing();
+  public abstract void sleep();
+  public abstract void unSleep();
   
-  private ArrayList<IStateEfects> states;
+  protected ArrayList<IStateEfects> states;
   
   public Monsters(){
 	  super();
@@ -103,6 +103,7 @@ public abstract class Monsters extends AnimatedActor {
 	  
 	  this.states.remove(state);
   }
+
 
 }
 

@@ -2,6 +2,10 @@ package cl.makinolas.atk.types;
 
 public class WaterType extends AbstractType implements IType {
 
+	public WaterType() {
+		this.isWater=true;
+	}
+
 	@Override
 	public double attackFromType(IType type) {
 		return type.waterPokemonAttacks(this);
