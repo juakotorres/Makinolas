@@ -111,7 +111,8 @@ public class SurvivalHero extends Monsters implements IHero {
 
     @Override
     public void moveHorizontal(int i, boolean b) {
-
+        System.out.println("aaaaaaa");
+        myBody.setLinearVelocity(5*i,0);
     }
 
     @Override

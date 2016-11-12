@@ -61,24 +61,12 @@ public class SurvivalModeStage extends AbstractStage implements ContactListener{
         ground.addActor(new PlatformCreator(survivalWorld, this, 20, 0, ground));
         hero = new SurvivalHero();
         hero.setWorld(survivalWorld);
+        addGameActor(hero);
+
         //cameraObserver.setPosition(hero.getBody().getPosition().x, hero.getBody().getPosition().y);
 
-        ui.addActor(group);
-        ui.addActor(BagVis.getInstance());
 
-        FxManager.getInstance().setParent(ui);
-        addGameActor(hero);
-        addListener(new SurvivalInputController(hero,group));
-        renderer = new Box2DDebugRenderer();
-        /*MobileGroup group = new MobileGroup(false);
-        Gdx.input.setInputProcessor(this);
-        hero = new SurvivalHero();
-        addActor(hero);
-        ui.addActor(group);
-        ui.addActor(BagVis.getInstance());
 
-        FxManager.getInstance().setParent(ui);
-        addListener(new SurvivalInputController(hero,group));*/
 
     }
 
@@ -111,6 +99,14 @@ public class SurvivalModeStage extends AbstractStage implements ContactListener{
     public void addGameActor(GameActor actor) {
         mons.addActor(actor);
         gameActors.add(actor);
+    }
+
+    @Override
+    public void act(float delta){
+        super.act(delta);
+        survivalWorld.step(frameTime, 0, 0);
+
+
     }
 
 
