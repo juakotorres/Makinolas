@@ -1,5 +1,6 @@
 package cl.makinolas.atk.actors.friend;
 
+import java.util.ArrayList;
 import java.util.Observable;
 import java.util.Observer;
 
@@ -7,6 +8,7 @@ import com.badlogic.gdx.graphics.Cursor;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.physics.box2d.World;
 
+import cl.makinolas.atk.actors.GameActor;
 import cl.makinolas.atk.actors.Hero;
 import cl.makinolas.atk.actors.Monsters;
 import cl.makinolas.atk.actors.attacks.Attacks;
@@ -20,6 +22,8 @@ import cl.makinolas.atk.actors.enemies.LongRangeEnemy;
 import cl.makinolas.atk.actors.enemies.PhysicalEnemy;
 import cl.makinolas.atk.actors.enemies.StayAndShootEnemy;
 import cl.makinolas.atk.actors.ui.MainBar;
+import cl.makinolas.atk.types.DragonType;
+import cl.makinolas.atk.types.IType;
 import cl.makinolas.atk.utils.Formulas;
 
 public abstract class AbstractFriend implements Friend {
@@ -42,10 +46,13 @@ public abstract class AbstractFriend implements Friend {
   private int[][] hurtAnimation;
   private int[][] meleeAnimation;
   private int[][] specialAnimation;
+  private int[][] singAnimation;
   private TextureRegion faceSprite;
   protected Level level;
   private int actualEvolution;
   public Enemies friend;
+  public ArrayList<IType> type = new ArrayList<IType>();
+  
   private int evs1;
   private int evs2;
   private int totalEvs;
@@ -55,6 +62,7 @@ public abstract class AbstractFriend implements Friend {
   private int evSpAttack;
   private int evSpDefense;
   private int evSpeed;
+  private int criticModificator;
 
   protected void setCutSprites(int width, int height){
     this.cutSprites = new int[]{width, height};
@@ -101,6 +109,13 @@ public abstract class AbstractFriend implements Friend {
       this.specialAnimation[i - beginSpecialAnimation] = new int[]{0,i};
     }
   }
+  
+  protected void setSingAnimation(int beginSpecialAnimation, int endSpecialAnimation){
+	    this.singAnimation = new int[endSpecialAnimation - beginSpecialAnimation + 1][];
+	    for (int i = beginSpecialAnimation; i <= endSpecialAnimation; i++ ){
+	      this.singAnimation[i - beginSpecialAnimation] = new int[]{0,i};
+	    }
+	  }
   
   protected void setMeleeAnimation(int... positions){
     this.meleeAnimation = new int[positions.length][];
@@ -300,6 +315,11 @@ public abstract class AbstractFriend implements Friend {
   }
   
   @Override
+  public int[][] getSingAnimation() {
+    return specialAnimation;
+  }
+  
+  @Override
   public int getMeleeFrame() {
     return meleeAnimation.length;
   }
@@ -461,7 +481,7 @@ public abstract class AbstractFriend implements Friend {
   }
   
   @Override
-  public Enemies getType(){
+  public Enemies getFriend(){
     return friend;
   }
   
@@ -488,6 +508,15 @@ public abstract class AbstractFriend implements Friend {
   @Override
   public int getCatchRate(){
     return friend.catchRate;
+  }
+  
+  public boolean secondaryAttack(){
+	  return false;
+  }
+  
+  public GameActor getFriendSecondaryAttack(World myWorld, float f, float y, boolean isFacingRight,
+			Monsters source){
+	  return null;
   }
 
   /**
@@ -520,6 +549,7 @@ public abstract class AbstractFriend implements Friend {
     evSpAttack = 0;
     evSpDefense = 0;
     evSpeed = 0;
+    criticModificator = 0;
   }
 
   private int newIVs(){
@@ -536,6 +566,11 @@ public abstract class AbstractFriend implements Friend {
   public int getSpeed(){
     return speed;
   }
+  
+	@Override
+	public int getCriticModificator() {
+		return criticModificator;
+	}
 
   public void forceEvolve(int numberOfEvolution){
     this.evolve(numberOfEvolution);
@@ -555,8 +590,23 @@ public abstract class AbstractFriend implements Friend {
   
   @Override
   public String getName(){
-    return this.getType().toString();
+    return this.getFriend().toString();
   }
+
+  @Override
+  public ArrayList<IType> getType(){
+    return this.type;
+  }
+  
+  @Override
+  public void addType(IType type){
+	  this.type.add(type);
+  }
+  
+  @Override
+  public void resetType(){
+	  this.type = new ArrayList<IType>();
+  }  
 
   @Override
   public void setEvs(int ev1, int ev2){
@@ -657,4 +707,21 @@ public abstract class AbstractFriend implements Friend {
       totalEvs += posibleSum;
     }
   }
+  
+  public int getAttackiv(){
+	  return this.evAttack;
+  }
+  
+  public void setAttackiv(int val){
+	  this.evAttack = val;
+  }
+  
+  public void setCriticModificator(int val){
+	  this.criticModificator = val;
+  }
+  public int getAttackMagicRequirement() {
+	// TODO Auto-generated method stub
+	return DragonBreathState.magicRequirement;
+  }
+  
 }

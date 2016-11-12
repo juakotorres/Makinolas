@@ -15,6 +15,7 @@ public class Potion extends Item {
 
     @Override
     public void use(Hero hero) {
+    	hero.Getmplayer().playpotion();
         hero.getFriend().setHealth(hero.getHealth()+30);
         FxManager.getInstance().addFx(FxManager.Fx.GREENFX,hero.getStageX(),hero.getStageY());
     }
