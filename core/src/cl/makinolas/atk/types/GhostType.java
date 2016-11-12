@@ -2,6 +2,10 @@ package cl.makinolas.atk.types;
 
 public class GhostType extends AbstractType implements IType {
 
+	public GhostType() {
+		this.isGhost=true;
+	}
+
 	@Override
 	public double attackFromType(IType type) {
 		return type.ghostPokemonAttacks(this);

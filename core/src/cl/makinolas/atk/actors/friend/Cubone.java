@@ -73,4 +73,10 @@ public class Cubone extends AbstractFriend {
     return new BoomerangAttack(new BoneAttackState(), myWorld, x, y, facingRight, source, false);
   }
   
+  @Override
+  public int getAttackMagicRequirement() {
+	// TODO Auto-generated method stub
+	return BoneAttackState.magicRequirement;
+  }
+  
 }

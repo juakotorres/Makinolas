@@ -89,4 +89,10 @@ public class Zubat extends AbstractFriend {
     return new BombAttack(new TornadoState(), myWorld, x, y, facingRight, source);
   }
   
+  @Override
+  public int getAttackMagicRequirement() {
+	// TODO Auto-generated method stub
+	return TornadoState.magicRequirement;
+  }
+  
 }

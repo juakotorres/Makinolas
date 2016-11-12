@@ -12,6 +12,8 @@ import cl.makinolas.atk.types.IType;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 
 public class TornadoState extends SpriteState {
+	
+  public static int magicRequirement = 60;
 
   @Override
   public int getAttackDamage() {

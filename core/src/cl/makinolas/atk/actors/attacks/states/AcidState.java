@@ -7,14 +7,22 @@ import com.badlogic.gdx.graphics.g2d.Animation.PlayMode;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 
 import cl.makinolas.atk.actors.Monsters;
+import cl.makinolas.atk.stateEfects.StateEfectsCriticRate;
 import cl.makinolas.atk.types.IType;
 import cl.makinolas.atk.types.PoisonType;
 
 public class AcidState extends SpriteState {
+	
+  public static int magicRequirement = 60;
   
-  @Override
+  public AcidState() {
+	  super();
+	  cooldown = 150;
+	}
+
+@Override
   public int getAttackDamage() {
-    return 20;
+    return 40;
   }
 
   @Override

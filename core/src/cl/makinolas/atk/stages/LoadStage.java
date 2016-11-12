@@ -23,7 +23,6 @@ import cl.makinolas.atk.start.StartingJourneyStage;
 public class LoadStage extends Stage {
 
   private Game myGame;
-
   private LoadActor[] options;
   private int lastSelected;
   private Title arrow;

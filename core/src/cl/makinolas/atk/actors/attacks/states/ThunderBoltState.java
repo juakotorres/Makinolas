@@ -12,6 +12,8 @@ import cl.makinolas.atk.types.IType;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 
 public class ThunderBoltState extends SpriteState {
+	
+  public static int magicRequirement = 45;
 
   @Override
   public int getAttackDamage() {

@@ -13,6 +13,8 @@ import com.badlogic.gdx.graphics.g2d.TextureRegion;
 
 public class FallingLeafState extends SpriteState {
   
+  public static int magicRequirement = 60;
+
   @Override
   public void initializeBody(float x, float y) {
     myAttack.initializeBody(x, y);    
@@ -71,6 +73,11 @@ public class FallingLeafState extends SpriteState {
 @Override
 public IType getType() {
 	return new GrassType();
+}
+
+@Override
+public int getCriticalChance(){
+	  return 2;
 }
   
 }

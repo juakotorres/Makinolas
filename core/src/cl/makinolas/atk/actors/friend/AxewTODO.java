@@ -9,8 +9,6 @@ import cl.makinolas.atk.actors.Monsters;
 import cl.makinolas.atk.actors.attacks.Attacks;
 import cl.makinolas.atk.actors.attacks.ShootAttack;
 import cl.makinolas.atk.actors.attacks.states.DragonBreathState;
-import cl.makinolas.atk.actors.friend.AbstractFriend.Evolution;
-import cl.makinolas.atk.actors.friend.AbstractFriend.Level;
 import cl.makinolas.atk.types.DragonType;
 
 
@@ -20,9 +18,19 @@ public class AxewTODO extends AbstractFriend {
 	
 	public AxewTODO(){
 		friend = Enemies.AXEW;
-		/* aquí yace todo lo relacionado con los sprites */
+		faces = new TextureRegion(new Texture(Gdx.files.internal("Actors/Axew_faces.png"))).split(40,40);
+		setTexture(new TextureRegion(new Texture(Gdx.files.internal("Actors/Axew.png"))));
+		/* aqui yace todo lo relacionado con los sprites */
+		
+	    /*setCutSprites(30,28);
+	    setWalkAnimation(1,2,3,2);
+	    setHurtAnimation(0);
+	    setMeleeAnimation(4,6);
+	    setIdleAnimation(1,2,3,2);
+	    setSpecialAnimation(4,6);*/
+		
 	    setFaceSprite(faces[0][0]);
-	    initLevel(10);
+	    initLevel(5);
 	    initDead();
 	    newMonster();
 	    setActualEvolution(0);
@@ -48,7 +56,16 @@ public class AxewTODO extends AbstractFriend {
 	protected void evolve(int numberOfLevel) {
 		if (numberOfLevel == 1 && getActualEvolution() < 1) {
 			friend = Enemies.FRAXURE;
+			setTexture(new TextureRegion(new Texture(Gdx.files.internal("Actors/Fraxure.png"))));
 			/* texturas */
+			
+		    /*setCutSprites(30,28);
+		    setWalkAnimation(1,2,3,2);
+		    setHurtAnimation(0);
+		    setMeleeAnimation(4,6);
+		    setIdleAnimation(1,2,3,2);
+		    setSpecialAnimation(4,6);*/
+			
 		    setFaceSprite(faces[0][1]);
 		    setActualEvolution(1);
 		    setStats();
@@ -56,7 +73,16 @@ public class AxewTODO extends AbstractFriend {
 			
 		} else if (numberOfLevel == 2 && getActualEvolution() < 2) {
 			friend = Enemies.HAXORUS;
+			setTexture(new TextureRegion(new Texture(Gdx.files.internal("Actors/Haxorus.png"))));
 			/* texturas */
+			
+		    /*setCutSprites(30,28);
+		    setWalkAnimation(1,2,3,2);
+		    setHurtAnimation(0);
+		    setMeleeAnimation(4,6);
+		    setIdleAnimation(1,2,3,2);
+		    setSpecialAnimation(4,6);*/
+			
 		    setFaceSprite(faces[0][2]);
 		    setActualEvolution(2);
 		    setStats();
@@ -68,4 +94,11 @@ public class AxewTODO extends AbstractFriend {
 	public Attacks getFriendAttack(World myWorld, float x , float y, boolean facingRight, Monsters source){
 	    return new ShootAttack(new DragonBreathState(), myWorld, x, y, facingRight, source);
 	}
+	
+	@Override
+	public int getAttackMagicRequirement() {
+	  // TODO Auto-generated method stub
+	  return DragonBreathState.magicRequirement;
+	}
+
 }

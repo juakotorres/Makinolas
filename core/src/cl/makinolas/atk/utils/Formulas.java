@@ -2,6 +2,7 @@ package cl.makinolas.atk.utils;
 
 import java.util.ArrayList;
 
+import cl.makinolas.atk.actors.Monsters;
 import cl.makinolas.atk.actors.friend.Enemies;
 import cl.makinolas.atk.types.IType;
 
@@ -21,7 +22,7 @@ public class Formulas {
   }
   
   // damage formula
-  public static int getDamage(int attack1, int level1, int defense2, int attackBaseDamage, ArrayList<IType> typeFriendSource, ArrayList<IType> typeFriendMonster, IType type){
+  public static int getDamage(Monsters monster, int attack1, int level1, int defense2, int attackBaseDamage, ArrayList<IType> typeFriendSource, ArrayList<IType> typeFriendMonster, IType type, int criticModificator){
 
     double randomMultiplier = Math.random()* 0.15 + 0.85;
     double criticalRandomizer = Math.random();
@@ -37,14 +38,25 @@ public class Formulas {
     	efectivity = efectivity * type.attackToType(auxType);
     }
     
-    if( criticalRandomizer < 1/16){
+    if( criticalRandomizer < getCritical(criticModificator)){
       critical = 1.5;
+      monster.CriticalDamage();
+      System.out.println("Critical ! Formula");
     }
 
     return (int) (critical*extra*efectivity*randomMultiplier*(2+(0.2*(double)level1+1)*(double)attack1)*(double)attackBaseDamage*(1/(25*(double)defense2)));
   }
   
-  // stats formula
+  private static double getCritical(int criticModificator) {
+	  switch (criticModificator) {
+		  case 1: return 0.0625;
+		  case 2: return 0.125;
+		  case 3: return 0.5;
+		  default: return 1;
+	  }
+}
+
+// stats formula
   public static int getOtherStat(int baseStat, int level){
     return (((2 * baseStat) * level) / 100) + 5;
   }

@@ -86,4 +86,10 @@ public class Pichu extends AbstractFriend {
     return new BombAttack(new ThunderBoltState(), myWorld, x, y, facingRight, source);
   }
   
+  @Override
+  public int getAttackMagicRequirement() {
+	// TODO Auto-generated method stub
+	return ThunderBoltState.magicRequirement;
+  }
+  
 }

@@ -15,6 +15,7 @@ public class LeppaBerry extends Item {
 
     @Override
     public void use(Hero hero) {
+    	hero.Getmplayer().playpotion();
         hero.getFriend().setMagic(hero.getFriend().getMagic()+100);
         FxManager.getInstance().addFx(FxManager.Fx.BLUEFX,hero.getStageX(),hero.getStageY());
     }
