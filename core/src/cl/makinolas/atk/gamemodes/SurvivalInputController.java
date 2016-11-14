@@ -2,6 +2,7 @@ package cl.makinolas.atk.gamemodes;
 
 import cl.makinolas.atk.actors.InputController;
 import cl.makinolas.atk.actors.ui.BagVis;
+import cl.makinolas.atk.actors.ui.IHero;
 import cl.makinolas.atk.actors.ui.MobileGroup;
 import cl.makinolas.atk.stages.AbstractStage;
 import cl.makinolas.atk.utils.SaveManager;
@@ -13,8 +14,8 @@ import com.badlogic.gdx.scenes.scene2d.InputListener;
  * Created by belisariops on 11/8/16.
  */
 public class SurvivalInputController extends InputListener {
-    SurvivalHero hero;
-    public SurvivalInputController(SurvivalHero h, MobileGroup mob) {
+    IHero hero;
+    public SurvivalInputController(IHero h, MobileGroup mob) {
         hero = h;
     }
     public boolean keyDown(InputEvent event, int keycode) {
@@ -67,10 +68,10 @@ public class SurvivalInputController extends InputListener {
         if(((AbstractStage) hero.getStage()).isPaused()) return true;
         switch (keycode) {
             case Input.Keys.LEFT:
-                hero.moveHorizontal(1,true);
+                hero.moveHorizontal(0,true);
                 break;
             case Input.Keys.RIGHT:
-                hero.moveHorizontal(-1,true);
+                hero.moveHorizontal(0,true);
                 break;
             case Input.Keys.SPACE:
                 hero.isNotPressingSpace();

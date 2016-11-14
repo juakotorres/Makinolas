@@ -3,9 +3,11 @@ package cl.makinolas.atk.gamemodes;
 
 import cl.makinolas.atk.actors.Background;
 import cl.makinolas.atk.actors.GameActor;
+import cl.makinolas.atk.actors.Hero;
 import cl.makinolas.atk.actors.fx.FxManager;
 import cl.makinolas.atk.actors.platform.Platform;
 import cl.makinolas.atk.actors.ui.BagVis;
+import cl.makinolas.atk.actors.ui.IHero;
 import cl.makinolas.atk.actors.ui.MobileGroup;
 import cl.makinolas.atk.minigames.MinigameCharacter;
 import cl.makinolas.atk.minigames.MinigameInputController;
@@ -25,13 +27,13 @@ import com.badlogic.gdx.utils.viewport.Viewport;
 
 public class SurvivalModeStage extends AbstractStage implements ContactListener{
     private World survivalWorld;
-    private final float frameTime = 1 / 600f;
+    private final float frameTime = 1 / 100f;
     private Array<GameActor> gameActors;
     private OrthographicCamera camera;
     private Box2DDebugRenderer renderer;
     private Platform initialPlatform;
     private Group ground, mons, ui, deco;
-    private SurvivalHero hero;
+    private IHero hero;
 
     //Agregar requisitode calidad y restriccion
     public SurvivalModeStage(Viewport v, GameScreen actualScreen, Game game) {
@@ -59,10 +61,15 @@ public class SurvivalModeStage extends AbstractStage implements ContactListener{
 
         ground.addActor(initialPlatform);
         ground.addActor(new PlatformCreator(survivalWorld, this, 20, 0, ground));
-        hero = new SurvivalHero();
+        hero = Hero.getInstance();
         hero.setWorld(survivalWorld);
-        addGameActor(hero);
-
+        addGameActor((GameActor)hero);
+        ui.addActor(group);
+        ui.addActor(BagVis.getInstance());
+        FxManager.getInstance().setParent(ui);
+        survivalWorld.setGravity(new Vector2(0,-30));
+        addListener(new SurvivalInputController(hero,group));
+        renderer = new Box2DDebugRenderer();
         //cameraObserver.setPosition(hero.getBody().getPosition().x, hero.getBody().getPosition().y);
 
 
@@ -104,7 +111,10 @@ public class SurvivalModeStage extends AbstractStage implements ContactListener{
     @Override
     public void act(float delta){
         super.act(delta);
-        survivalWorld.step(frameTime, 0, 0);
+        /*elapsed time es static en abstract stage, hay que agregarle el delta o no funciona la animacion*/
+        AbstractStage.elapsedTime += delta;
+        survivalWorld.step(frameTime, 6, 2);
+
 
 
     }

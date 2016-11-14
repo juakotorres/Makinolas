@@ -111,7 +111,7 @@ public class Hero extends Monsters implements IHero {
     
     // Guardar animaciones del jugador
     setAnimation();
-    changeAnimation(walkAnimation);
+    //changeAnimation(walkAnimation);
     state = new OnGround();
     myBodyDefinition.fixedRotation = true;
     
@@ -179,7 +179,7 @@ public class Hero extends Monsters implements IHero {
     setSizeCollider(initialPosition, true);
     // Guardar animaciones del jugador
     setAnimation();
-    changeAnimation(walkAnimation);
+    //changeAnimation(walkAnimation);
   }
 
   public void setWorld(World myWorld){
@@ -320,7 +320,7 @@ public class Hero extends Monsters implements IHero {
       accumulator += delta;
       if(accumulator > hurtTime){
         isDamaged = false;
-        changeAnimation(walkAnimation);
+        //changeAnimation(walkAnimation);
         accumulator = 0;
       }
     }
@@ -339,7 +339,7 @@ public class Hero extends Monsters implements IHero {
       countMeleeFrames += delta;
       if(countMeleeFrames > spriteTime){
         if(actualAnimation  < attackAnimations.length) {
-          changeAnimation(attackAnimations[actualAnimation]);
+          //changeAnimation(attackAnimations[actualAnimation]);
           countMeleeFrames = 0;
           actualAnimation += 1;
         } else {
@@ -353,7 +353,7 @@ public class Hero extends Monsters implements IHero {
       countMeleeFrames = 0;
       isAttacking = false;
       actualAnimation = 0;
-      changeAnimation(walkAnimation);
+      //changeAnimation(walkAnimation);
     } else {
       countMeleeFrames = 0;
     }

@@ -1,5 +1,6 @@
 package cl.makinolas.atk.actors;
 
+import cl.makinolas.atk.minigames.ICharacter;
 import cl.makinolas.atk.minigames.MinigameCharacter;
 
 public class OnAir extends JumpState {
@@ -14,7 +15,7 @@ public class OnAir extends JumpState {
 	}
 	
 	@Override
-  public void setAnimation(MinigameCharacter minigameCharacter, float delta) {
+  public void setAnimation(ICharacter minigameCharacter, float delta) {
 	  minigameCharacter.onAirAnimation(delta);
 	}
 }

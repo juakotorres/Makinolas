@@ -23,7 +23,7 @@ import cl.makinolas.atk.actors.platform.Platform;
 import cl.makinolas.atk.stages.AbstractStage;
 import cl.makinolas.atk.stages.OnWall;
 
-public class MinigameCharacter extends AnimatedActor{
+public class MinigameCharacter extends AnimatedActor implements ICharacter{
   
   
   private BodyDef myBodyDefinition;
@@ -73,7 +73,7 @@ public class MinigameCharacter extends AnimatedActor{
     setSizeCollider(new Vector2(10,10), true);
   }
   
-  private void setAnimation(){
+  public void setAnimation(){
     setMasterTexture(actualFriend.getTexture(),actualFriend.getWidth(),actualFriend.getHeight());
     walkAnimation = addAnimation(0.15f, actualFriend.getWalkAnimation());
     fallingAnimation = addAnimation(0.15f, actualFriend.getHurtAnimation());  
@@ -112,7 +112,7 @@ public class MinigameCharacter extends AnimatedActor{
       state.countFrames();    
   }
   
-  private void checkPosition(float delta) {
+  public void checkPosition(float delta) {
     accumulator += delta;
         
     if(accumulator > 1/2f){
@@ -132,7 +132,7 @@ public class MinigameCharacter extends AnimatedActor{
   @Override
   public void endInteraction(GameActor actor2, WorldManifold worldManifold) {}
 
-  private void setSizeCollider(Vector2 position, boolean first) {
+  public void setSizeCollider(Vector2 position, boolean first) {
     myBodyDefinition.position.set(position);
     Body myBody = myWorld.createBody(myBodyDefinition);
     PolygonShape shape = new PolygonShape();
@@ -147,7 +147,7 @@ public class MinigameCharacter extends AnimatedActor{
   }
   
   // This is used to get body width and height.
-  private float getBodySize(int size){
+  public float getBodySize(int size){
     return (0.5f*size)/22;
   }
   
@@ -209,7 +209,7 @@ public class MinigameCharacter extends AnimatedActor{
     }
   }
   
-  private void setDead() {
+  public void setDead() {
     dead = true;   
   }
 

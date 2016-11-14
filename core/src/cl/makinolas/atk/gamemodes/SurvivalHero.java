@@ -1,19 +1,20 @@
 package cl.makinolas.atk.gamemodes;
 
 
+import cl.makinolas.atk.GameConstants;
 import cl.makinolas.atk.actors.GameActor;
 import cl.makinolas.atk.actors.JumpState;
 import cl.makinolas.atk.actors.Monsters;
 import cl.makinolas.atk.actors.OnGround;
 import cl.makinolas.atk.actors.attacks.Attacks;
-import cl.makinolas.atk.actors.friend.AbstractFriend;
-import cl.makinolas.atk.actors.friend.Charmander;
-import cl.makinolas.atk.actors.friend.Enemies;
-import cl.makinolas.atk.actors.friend.Friend;
+import cl.makinolas.atk.actors.friend.*;
 import cl.makinolas.atk.actors.items.Inventory;
 import cl.makinolas.atk.actors.ui.IHero;
+import cl.makinolas.atk.minigames.ICharacter;
 import cl.makinolas.atk.stages.AbstractStage;
 import cl.makinolas.atk.stages.Spot;
+import com.badlogic.gdx.graphics.g2d.Batch;
+import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.*;
 import com.badlogic.gdx.utils.Array;
@@ -21,8 +22,8 @@ import com.badlogic.gdx.utils.Array;
 /**
  * Created by belisariops on 11/8/16.
  */
-public class SurvivalHero extends Monsters implements IHero {
-    Friend character;
+public class SurvivalHero extends Monsters implements ICharacter, IHero {
+    private Friend character;
     protected int walkAnimation;
     protected int hurtAnimation;
     protected int[] attackAnimations;
@@ -32,13 +33,15 @@ public class SurvivalHero extends Monsters implements IHero {
     private JumpState jumpState;
     private World myWorld;
 
-    public SurvivalHero() {
-        character = new Charmander();
-        setAnimation();
-        changeAnimation(walkAnimation);
+    public SurvivalHero(World survivalWorld) {
+        this.myWorld = survivalWorld;
+        character = new Weedle();
         // Set correct collider.
         myBodyDefinition = new BodyDef();
         myBodyDefinition.type = BodyDef.BodyType.DynamicBody;
+        setAnimation();
+        changeAnimation(walkAnimation);
+
         jumpState = new OnGround();
         jumpState.setHero(this);
         myBodyDefinition.fixedRotation = true;
@@ -48,18 +51,25 @@ public class SurvivalHero extends Monsters implements IHero {
 
     @Override
     public void act(float delta){
-
+        jumpState.setAnimation(this, delta);
 
     }
 
+
+    @Override
+    public void checkPosition(float delta) {
+
+    }
+
+
     public void setAnimation(){
         setMasterTexture(character.getTexture(),character.getWidth(),character.getHeight());
-        walkAnimation = addAnimation(0.2f, character.getWalkAnimation());
-        hurtAnimation = addAnimation(0.2f, character.getHurtAnimation());
+        walkAnimation = addAnimation(0.15f, character.getWalkAnimation());
+        hurtAnimation = addAnimation(0.15f, character.getHurtAnimation());
         attackAnimations = new int[character.getMeleeAnimation().length];
         countMeleeFrames = 0;
         for(int i = 0; i < character.getMeleeAnimation().length; i++){
-            attackAnimations[i] = addAnimation(0.2f, character.getMeleeAnimation()[i][1]);
+            attackAnimations[i] = addAnimation(0.15f, character.getMeleeAnimation()[i][1]);
         }
         actualAnimation = 0;
     }
@@ -102,6 +112,16 @@ public class SurvivalHero extends Monsters implements IHero {
     @Override
     public void interact(GameActor actor2, WorldManifold worldManifold) {
 
+    }
+
+    @Override
+    public void onAirAnimation(float delta) {
+
+    }
+
+    @Override
+    public void onGroundAnimation(float delta) {
+        changeAnimation(walkAnimation);
     }
 
     @Override
@@ -155,6 +175,11 @@ public class SurvivalHero extends Monsters implements IHero {
 
     }
 
+    @Override
+    public void setDead() {
+
+    }
+
     public void setWorld(World myWorld, Vector2 initialPosition){
         this.myWorld = myWorld;
 
@@ -165,7 +190,7 @@ public class SurvivalHero extends Monsters implements IHero {
     }
 
 
-    private void setSizeCollider(Vector2 position, boolean first) {
+    public void setSizeCollider(Vector2 position, boolean first) {
         myBodyDefinition.position.set(position);
         if(!first){
             myWorld.destroyBody(getBody());
@@ -182,7 +207,7 @@ public class SurvivalHero extends Monsters implements IHero {
         setBody(myBody);
     }
 
-    private float getBodySize(int size){
+    public float getBodySize(int size){
         return (0.5f*size)/22;
     }
     @Override
