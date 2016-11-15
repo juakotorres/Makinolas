@@ -368,7 +368,9 @@ public class Hero extends Monsters {
   }
 
   public void landedPlatform(WorldManifold worldManifold, Platform platform){
-    for(int i = 0; i < worldManifold.getNumberOfContactPoints(); i++){
+	  if(isInsideWater)
+		  return;
+	  for(int i = 0; i < worldManifold.getNumberOfContactPoints(); i++){
       if(worldManifold.getPoints()[i].y < myBody.getPosition().y && (worldManifold.getNormal().y > 0.95 || worldManifold.getNormal().y < -0.95)){
         isJumping = false;
         setState(new OnGround());
@@ -704,6 +706,10 @@ public class Hero extends Monsters {
   public void setSpeed(float x, float y) {
       myBody.setLinearVelocity(x, y);
   }
+  
+  public void setInsideWater(boolean bool) {
+	  isInsideWater = bool;
+  }
 
   @Override
   public void endInteraction(GameActor actor2, WorldManifold worldManifold) {
@@ -719,8 +725,6 @@ public class Hero extends Monsters {
   public void CriticalDamage() {
 		FxManager.getInstance().addFx(FxManager.Fx.CRITICAL,  this.getStageX(),this.getStageY());
   }
-
-
 
 }
 

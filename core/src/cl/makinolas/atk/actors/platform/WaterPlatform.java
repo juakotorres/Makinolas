@@ -17,6 +17,9 @@ import com.badlogic.gdx.physics.box2d.FixtureDef;
 import cl.makinolas.atk.GameConstants;
 import cl.makinolas.atk.actors.GameActor;
 import cl.makinolas.atk.actors.Hero;
+import cl.makinolas.atk.actors.NullState;
+import cl.makinolas.atk.actors.OnGround;
+import cl.makinolas.atk.actors.OnWater;
 
 public class WaterPlatform extends GameActor {
 	
@@ -53,7 +56,10 @@ public class WaterPlatform extends GameActor {
 	@Override
 	public void interactWithHero(Hero hero, WorldManifold worldManifold){	    
 		System.out.println("Entrando agua");
-		hero.getBody().setLinearDamping(5);		
+		hero.getBody().setLinearDamping(1);	
+		hero.setState(new OnWater());
+		hero.setInsideWater(true);
+
 
 	}
 	
@@ -61,6 +67,8 @@ public class WaterPlatform extends GameActor {
 	public void endHeroInteraction(Hero hero, WorldManifold worldManifold) {
 		System.out.println("Saliendo agua");
 		hero.getBody().setLinearDamping(0);
+		hero.setState(new OnGround());
+		hero.setInsideWater(false);
 
 	}
 	
