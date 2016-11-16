@@ -4,7 +4,6 @@ import cl.makinolas.atk.actors.Background;
 import cl.makinolas.atk.actors.GameActor;
 import cl.makinolas.atk.actors.Hero;
 import cl.makinolas.atk.actors.InputController;
-import cl.makinolas.atk.actors.SimpleImageActor;
 import cl.makinolas.atk.actors.fx.FxManager;
 import cl.makinolas.atk.actors.ui.BagVis;
 import cl.makinolas.atk.actors.ui.MainBar;
@@ -40,7 +39,7 @@ public class GameStage extends AbstractStage implements ContactListener {
   
   public GameStage(Viewport v, GameScreen actualScreen, Game myGame, Levels type){
     super(v);
-    musicplayer=new GDXMusicPlayer();
+    musicplayer = GDXMusicPlayer.getInstance();
     level = type;
     levelName = getLevelName();
     myScreen = actualScreen;
