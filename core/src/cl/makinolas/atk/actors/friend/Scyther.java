@@ -37,7 +37,7 @@ public class Scyther extends AbstractFriend {
     setActualEvolution(0);
     setMaxMagic(1000);
     addType(BugType.getInstance());
-    addType(new FlyingType());
+    addType(FlyingType.getInstance());
   }
   
   public Scyther(int level){
@@ -70,7 +70,7 @@ public class Scyther extends AbstractFriend {
       setMaxMagic(1000);
       resetType();
       addType(BugType.getInstance());
-      addType(new SteelType());      
+      addType(SteelType.getInstance());      
     } 
   }
   

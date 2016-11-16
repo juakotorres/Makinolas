@@ -71,7 +71,7 @@ public class FireWallState extends SpriteState{
 
 	@Override
 	public IType getType() {
-		return new FireType();
+		return FireType.getInstance();
 	}
 	
 	@Override

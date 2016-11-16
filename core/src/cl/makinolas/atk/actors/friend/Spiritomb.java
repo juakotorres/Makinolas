@@ -27,7 +27,7 @@ public class Spiritomb extends AbstractFriend {
     newMonster();
     setActualEvolution(0);
     setMaxMagic(1000);
-    addType(new GhostType());
+    addType(GhostType.getInstance());
     addType(DarkType.getInstance());
   }
   

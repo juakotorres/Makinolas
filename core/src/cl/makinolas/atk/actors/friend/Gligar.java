@@ -27,8 +27,8 @@ public class Gligar extends AbstractFriend {
     newMonster();
     setActualEvolution(0);
     setMaxMagic(1000);
-    addType(new GroundType());
-    addType(new FlyingType());
+    addType(GroundType.getInstance());
+    addType(FlyingType.getInstance());
   }
   
   public Gligar(int level){

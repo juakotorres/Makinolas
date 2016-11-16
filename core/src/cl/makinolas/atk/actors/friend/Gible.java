@@ -36,7 +36,7 @@ public class Gible extends AbstractFriend {
     setActualEvolution(0);
     setMaxMagic(1000);
     addType(DragonType.getInstance());
-    addType(new GroundType());
+    addType(GroundType.getInstance());
     }
 
   public Gible(int level){

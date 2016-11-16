@@ -29,7 +29,7 @@ public class Skorupi extends AbstractFriend {
     setActualEvolution(0);
     setMaxMagic(1000);
     addType(BugType.getInstance());
-    addType(new PoisonType());
+    addType(PoisonType.getInstance());
   }
   
   public Skorupi(int level){
