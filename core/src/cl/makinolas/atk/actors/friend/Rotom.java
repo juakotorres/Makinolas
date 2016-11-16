@@ -28,7 +28,7 @@ public class Rotom extends AbstractFriend {
     setActualEvolution(0);
     setMaxMagic(1000);
     addType(new GhostType());
-    addType(new ElectricType());
+    addType(ElectricType.getInstance());
   }
   
   public Rotom(int level){

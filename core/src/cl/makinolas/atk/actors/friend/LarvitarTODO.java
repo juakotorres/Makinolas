@@ -91,7 +91,7 @@ public class LarvitarTODO extends AbstractFriend {
 		    setMaxMagic(1000);
 		    resetType();
 		    addType(new RockType());
-		    addType(new DarkType());
+		    addType(DarkType.getInstance());
 		}
 	}
 	

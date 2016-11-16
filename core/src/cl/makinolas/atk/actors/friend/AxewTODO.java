@@ -35,7 +35,7 @@ public class AxewTODO extends AbstractFriend {
 	    newMonster();
 	    setActualEvolution(0);
 	    setMaxMagic(1000);
-	    addType(new DragonType());
+	    addType(DragonType.getInstance());
 	}
 	
 	public AxewTODO(int level){

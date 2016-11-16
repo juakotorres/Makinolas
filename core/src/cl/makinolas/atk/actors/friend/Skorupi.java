@@ -28,7 +28,7 @@ public class Skorupi extends AbstractFriend {
     newMonster();
     setActualEvolution(0);
     setMaxMagic(1000);
-    addType(new BugType());
+    addType(BugType.getInstance());
     addType(new PoisonType());
   }
   
@@ -61,8 +61,8 @@ public class Skorupi extends AbstractFriend {
       setStats();
       setMaxMagic(1000);
       resetType();
-      addType(new BugType());
-      addType(new DarkType());
+      addType(BugType.getInstance());
+      addType(DarkType.getInstance());
     }
   }
 
