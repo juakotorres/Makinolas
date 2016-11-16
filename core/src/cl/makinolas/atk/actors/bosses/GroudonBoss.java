@@ -93,6 +93,11 @@ public class GroudonBoss extends Boss {
                 health = (int) Math.min(maxHealth,health+5);
                 healthBar.setCurrent(health);
                 goBack();
+                throwRock();
+                throwRock();
+                goBack();
+                throwRock();
+                goBack();
             }
         };
         BossState rocks = new BossState(processor){
@@ -106,6 +111,7 @@ public class GroudonBoss extends Boss {
                 nextRockAt -= delta;
                 if(nextRockAt <= 0){
                     nextRockAt = 0.5f;
+                    throwRock();
                     throwRock();
                     numRocks--;
                     if(numRocks <= 0)
@@ -126,7 +132,9 @@ public class GroudonBoss extends Boss {
                     jumpTime = (jumpDirection + 1)/2;
                     myBody.setAwake(true);
                     isFacingRight = !isFacingRight;
+                    throwRock();
                     goBack();
+                    throwRock();
                 }
                 myBody.setTransform(new Vector2(4+jumpTime*20,2 + 16*jumpTime*(1-jumpTime)),0);
             }
