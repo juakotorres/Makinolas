@@ -3,16 +3,23 @@ package cl.makinolas.atk.audio;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.audio.Music;
 
+import cl.makinolas.atk.stages.OptionsStage;
+
 public class GDXMusicPlayer {
 	private static Music music;
-	
+	private static GDXMusicPlayer instance;
 
-	public GDXMusicPlayer(){
+	private GDXMusicPlayer(){
+	}
 	
+	public static GDXMusicPlayer getInstance() {
+		if (instance == null)
+			instance = new GDXMusicPlayer();
+		return instance;
 	}
 	
 	public void PlayLooped(String s){
-		if(music==null){
+		if(music == null){
 			 music = Gdx.audio.newMusic(Gdx.files.internal(s)); 
 		}
 		else{
@@ -20,12 +27,11 @@ public class GDXMusicPlayer {
 		 music = Gdx.audio.newMusic(Gdx.files.internal(s)); 
 		
 		}
-		 music.setVolume(0.4f);
+		 music.setVolume(OptionsStage.getMusicVolume());
 		 music.play();
 		 music.setLooping(true);  
 		
 	}
-
 
 	public void StopMusic(){
 		if(music!=null){
