@@ -25,6 +25,7 @@ public class OptionsStage extends AbstractStage {
 	private static Slider sfxSlider = new Slider(0.0f, 1.0f, 0.05f, false, sharedSkin);
 	private static Slider brightnessSlider = new Slider(0.0f, 0.3f, 0.025f, false, sharedSkin);
 	private static boolean isFirstRun = true;
+	private boolean isFullScreen = false;
 	
 	public OptionsStage(Viewport v, GameScreen gameScreen, final Game myGame) {
 		super(v);
@@ -37,8 +38,7 @@ public class OptionsStage extends AbstractStage {
 
 	    // Buttons
 	    TextButton menuButton = new TextButton("Back to menu", sharedSkin);
-	    TextButton windowedButton = new TextButton("Windowed", sharedSkin);
-	    TextButton fullscreenButton = new TextButton("Full Screen", sharedSkin);
+	    final TextButton windowStateButton = new TextButton("Toggle to Full Screen", sharedSkin);
 
 	    // Labels
 	    Label musicLabel = new Label("Music Volume", sharedSkin);
@@ -60,8 +60,7 @@ public class OptionsStage extends AbstractStage {
 	    brightnessSlider.setPosition(320, 120);
 	    brightnessSlider.setValue(brightnessSlider.getValue());
 	    
-	    windowedButton.setPosition(230, 80);
-	    fullscreenButton.setPosition(350, 80);
+	    windowStateButton.setPosition(290, 80);
 	    
 	    // Listeners
 	    menuButton.addListener(new ClickListener(){
@@ -73,17 +72,18 @@ public class OptionsStage extends AbstractStage {
 	        }
 	    });
 	    
-	    windowedButton.addListener(new ClickListener(){
+	    windowStateButton.addListener(new ClickListener(){
 	        @Override
 	        public void clicked(InputEvent event, float x, float y) {
-	        	Gdx.graphics.setWindowedMode(640, 480);
-	        }
-	    });
-	    
-	    fullscreenButton.addListener(new ClickListener(){
-	        @Override
-	        public void clicked(InputEvent event, float x, float y) {
-	        	Gdx.graphics.setFullscreenMode(Gdx.graphics.getDisplayMode());
+	        	if (isFullScreen) {
+	        		Gdx.graphics.setWindowedMode(640, 480);
+	        		windowStateButton.setText("Toggle to Full Screen");
+	        	}
+	        	else {
+	        		Gdx.graphics.setFullscreenMode(Gdx.graphics.getDisplayMode());
+	        		windowStateButton.setText("Toggle to Windowed");
+	        	}
+	        	isFullScreen = !isFullScreen;
 	        }
 	    });
 	    
@@ -123,8 +123,7 @@ public class OptionsStage extends AbstractStage {
 	    addActor(sfxSlider);
 	    addActor(brightnessLabel);
 	    addActor(brightnessSlider);
-	    addActor(windowedButton);
-	    addActor(fullscreenButton);
+	    addActor(windowStateButton);
 	    setToFull();
 	}
 
