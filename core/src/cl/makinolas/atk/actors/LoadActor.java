@@ -28,7 +28,7 @@ public class LoadActor extends Actor {
   private boolean noFile;
   private LoadStage myStage;
   
-  public LoadActor(String saveName, String fileName, int xPosition, int yPosition, LoadStage stage, int cantidad) {
+  public LoadActor(String saveName, String fileName, int xPosition, int yPosition, LoadStage stage) {
     
     try {
       SaveManager.getInstance().loadData(fileName);
@@ -71,12 +71,12 @@ public class LoadActor extends Actor {
     renderer.setTransformMatrix(batch.getTransformMatrix());
     renderer.setProjectionMatrix(batch.getProjectionMatrix());
     renderer.setColor(Color.BROWN);
-    renderer.rect(cx, cy, 500, 50);
+    renderer.rect(cx, cy, 500, 100);
     renderer.end();
     batch.begin();
     
     if(!noFile){
-      font.draw(batch,trainerName,cx+20,cy+10);
+      font.draw(batch,trainerName,cx+20,cy+95);
       batch.draw(typeImage, cx + 10, cy, 50, 80);
       
       for(String face: myFriends){
