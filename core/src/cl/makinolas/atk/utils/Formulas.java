@@ -59,6 +59,10 @@ public class Formulas {
     return Math.random()<=bernulli;
   }
 
+  public static float getCatchProb(float ballFactor, float enemyCatchRatio, int currentHP, int maxHP) {
+    return (3 * maxHP - 2 * currentHP) * ballFactor * enemyCatchRatio / (3 * maxHP);
+  }
+
   public static int getMoney(int level, int experience) {
     float r = (float) Math.random();
     return (int) ((0.3f + 0.7f*r)*level*experience/20f);

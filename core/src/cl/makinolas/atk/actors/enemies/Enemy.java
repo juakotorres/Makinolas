@@ -283,7 +283,7 @@ public class Enemy extends Monsters {
       myBody.setLinearVelocity(0,0);
     }
     else if(free){
-      ball.roll(2, new BallActor.BrokeListener() {
+      ball.roll((int) (1 + Formulas.getCatchProb(ball.getType().catchability/100f,parent.getCatchRate(),health,parent.getMaxHealth())*2), new BallActor.BrokeListener() {
         @Override
         public void onBroke(float x, float y) {
           free = true;
