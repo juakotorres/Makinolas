@@ -1,5 +1,6 @@
 package cl.makinolas.atk.screen;
 
+import cl.makinolas.atk.stages.NewStage;
 import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
@@ -38,7 +39,7 @@ public class MenuScreen extends SimpleScreen {
     newGame.addListener(new ClickListener(){
       @Override
       public void clicked(InputEvent event, float x, float y) {
-        loadGame();}});
+        newGame();}});
     optionButton.addListener(new ClickListener(){
       @Override
       public void clicked(InputEvent event, float x, float y) {
@@ -81,6 +82,12 @@ public class MenuScreen extends SimpleScreen {
   protected void loadGame() {
     GameScreen gameScreen = new GameScreen(myGame);
     gameScreen.setStage(new LoadStage(new FitViewport(640,480), gameScreen, myGame));
+    myGame.setScreen(gameScreen);
+  }
+
+  protected void newGame() {
+    GameScreen gameScreen = new GameScreen(myGame);
+    gameScreen.setStage(new NewStage(new FitViewport(640,480), gameScreen, myGame));
     myGame.setScreen(gameScreen);
   }
 

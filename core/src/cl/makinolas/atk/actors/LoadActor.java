@@ -27,7 +27,24 @@ public class LoadActor extends Actor {
   private TextureRegion typeImage;
   private boolean noFile;
   private LoadStage myStage;
-  
+
+  /**
+   * se usa para crear un nuevo juego directamente
+   * @param fileName: el nombre del archivo
+   * @param stage: el juego
+   */
+  public LoadActor(String fileName,LoadStage stage){
+    try {
+      SaveManager.getInstance().loadData(fileName);
+      noFile = false;
+    } catch (SaveDoesNotExistException e) {
+      noFile = true;
+    }
+
+    this.myStage = stage;
+    this.fileName = fileName;
+  }
+
   public LoadActor(String saveName, String fileName, int xPosition, int yPosition, LoadStage stage) {
     
     try {

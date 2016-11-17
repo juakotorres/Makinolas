@@ -21,12 +21,8 @@ import cl.makinolas.atk.screen.MenuScreen;
 import cl.makinolas.atk.start.StartingJourneyStage;
 
 import java.io.File;
-import java.io.IOException;
-import java.nio.file.Files;
-import java.nio.file.Paths;
 import java.util.ArrayList;
 
-import static java.nio.file.Paths.get;
 
 public class LoadStage extends Stage {
 
@@ -43,8 +39,8 @@ public class LoadStage extends Stage {
   
   public LoadStage(Viewport v, GameScreen actualScreen, Game myGame) {
     super(v);
-    File saves = new File("save");
-    cantidad_juegos = saves.list().length;
+    File saves = new File("Save");
+    cantidad_juegos = saves.list().length-1;
     titulos = saves.list();
     lastSelected = 0;
     this.myGame = myGame;
@@ -59,7 +55,7 @@ public class LoadStage extends Stage {
     addActor(arrow);
 
 
-    firstSave = new LoadActor("Save 1", "save/"+titulos[0], 80, 250, this);
+    firstSave = new LoadActor("Save 1", "Save/"+titulos[1], 80, 250, this);
     firstSave.addListener(new InputListener(){
       @Override
       public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
@@ -70,7 +66,7 @@ public class LoadStage extends Stage {
 
     addActor(firstSave);
     
-    secondSave = new LoadActor("Save 2", "save/"+titulos[1], 80, 140, this);
+    secondSave = new LoadActor("Save 2", "Save/"+titulos[2], 80, 140, this);
     secondSave.addListener(new InputListener(){
       @Override
       public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
@@ -93,7 +89,7 @@ public class LoadStage extends Stage {
     
     addActor(menuButton);
 
-    options = new LoadActor[]{firstSave,secondSave,firstSave,secondSave};
+    options = new LoadActor[]{firstSave,secondSave};
 
     //MobileGroup group = new MobileGroup(Gdx.app.getType() == Application.ApplicationType.Android);
     Gdx.input.setInputProcessor(this);
@@ -126,7 +122,7 @@ public class LoadStage extends Stage {
       lastSelected = (lastSelected == cantidad_juegos-1)? 0 : (lastSelected + 1);
       changeArrow(last, lastSelected);
     } if (Gdx.input.isKeyJustPressed(Keys.Z)){
-      options[lastSelected].loadMap();
+      options[lastSelected%2].loadMap();
     }
   }
   
@@ -134,14 +130,14 @@ public class LoadStage extends Stage {
     
     if(actual < previous){
       arrow.changeCoordinates(50, 300);
-      addActor(firstSave =new LoadActor("Save 2", "save/"+titulos[actual], 80, 250, this));
-      addActor(secondSave = new LoadActor("Save 2", "save/"+titulos[actual+1], 80, 140, this));
+      addActor(firstSave = new LoadActor("Save 2", "Save/"+titulos[actual], 80, 250, this));
+      addActor(secondSave = new LoadActor("Save 2", "Save/"+titulos[actual+1], 80, 140, this));
     }
 
     if( actual > previous){
       arrow.changeCoordinates(50, 190);
-      addActor(firstSave = new LoadActor("Save 2", "save/"+titulos[actual-1], 80, 250, this));
-      addActor(secondSave = new LoadActor("Save 2", "save/"+titulos[actual], 80, 140, this));
+      addActor(firstSave = new LoadActor("Save 2", "Save/"+titulos[actual-1], 80, 250, this));
+      addActor(secondSave = new LoadActor("Save 2", "Save/"+titulos[actual], 80, 140, this));
     }
 
     
