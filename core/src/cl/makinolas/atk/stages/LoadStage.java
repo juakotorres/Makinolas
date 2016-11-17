@@ -40,7 +40,7 @@ public class LoadStage extends Stage {
   public LoadStage(Viewport v, GameScreen actualScreen, Game myGame) {
     super(v);
     File saves = new File("Save");
-    cantidad_juegos = saves.list().length-1;
+    cantidad_juegos = saves.list().length;
     titulos = saves.list();
     lastSelected = 0;
     this.myGame = myGame;
@@ -55,7 +55,7 @@ public class LoadStage extends Stage {
     addActor(arrow);
 
 
-    firstSave = new LoadActor("Save 1", "Save/"+titulos[1], 80, 250, this);
+    firstSave = new LoadActor("Save 1", "Save/"+titulos[0], 80, 250, this);
     firstSave.addListener(new InputListener(){
       @Override
       public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
@@ -66,7 +66,7 @@ public class LoadStage extends Stage {
 
     addActor(firstSave);
     
-    secondSave = new LoadActor("Save 2", "Save/"+titulos[2], 80, 140, this);
+    secondSave = new LoadActor("Save 2", "Save/"+titulos[1], 80, 140, this);
     secondSave.addListener(new InputListener(){
       @Override
       public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
