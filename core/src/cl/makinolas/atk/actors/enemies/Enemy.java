@@ -11,6 +11,7 @@ import cl.makinolas.atk.actors.platform.Platform;
 import cl.makinolas.atk.actors.ui.MainBar;
 import cl.makinolas.atk.stateEfects.CriticalHit;
 import cl.makinolas.atk.audio.GDXSoundEffectsEnemy;
+import cl.makinolas.atk.audio.GDXSoundEffectsPlayer;
 import cl.makinolas.atk.utils.Formulas;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
@@ -47,7 +48,7 @@ public class Enemy extends Monsters {
 	private int[] attackAnimations;
 	private int actualAnimation;
 	protected boolean viewGround = true;
-	private GDXSoundEffectsEnemy mplayer=new GDXSoundEffectsEnemy();
+	private GDXSoundEffectsPlayer mplayer = GDXSoundEffectsEnemy.getInstance();
 	protected RayCastCallback rayListener = new RayCastCallback() {
 		@Override
 		public float reportRayFixture(Fixture fixture, Vector2 point, Vector2 normal, float fraction) {
@@ -235,7 +236,7 @@ public class Enemy extends Monsters {
 		inflictor.setDead();
 		healthBar.setCurrent(health);
 		if (health <= 0) {
-		     Hero.getInstance().getHeroPlayer().StopProyectileSound();
+		    Hero.getInstance().getHeroPlayer().StopProyectileSound();
 		    mplayer.PlayExplotionEnd();
 			source.gainExperience(getLevel(), type);
 			source.gainEffortValues(type);
