@@ -25,8 +25,10 @@ public class LoadActor extends Actor {
   private BitmapFont font;
   private ShapeRenderer renderer;
   private TextureRegion typeImage;
+  private TextureRegion[] friendImages;
   private boolean noFile;
   private LoadStage myStage;
+
   
   public LoadActor(String saveName, String fileName, int xPosition, int yPosition, LoadStage stage) {
     
@@ -42,9 +44,12 @@ public class LoadActor extends Actor {
     
     if(!noFile){
       myFriends = new String[SaveManager.getInstance().getSaveInstance().friends.length];
+      friendImages= new TextureRegion[4];
+      
       FriendDescriptor[] herosFriends = SaveManager.getInstance().getSaveInstance().friends;
       for(int i = 0;  i < myFriends.length ; i++){
           myFriends[i] = herosFriends[i].name;
+          friendImages[i]=MonsterFactory.getInstance().getHeroFriend(myFriends[i], 5).getFriendFaceSprite();;
       }
       trainerName = SaveManager.getInstance().getSaveInstance().name;
       if(SaveManager.getInstance().getSaveInstance().sex){
@@ -60,12 +65,14 @@ public class LoadActor extends Actor {
     setPosition(xPosition,yPosition);
   }
   
+  
   @Override
   public void draw(Batch batch, float alpha){
     float cx = getX();
     float cy = getY();
     float friendPosition = 100;
-    
+
+
     batch.end();
     renderer.begin(ShapeRenderer.ShapeType.Filled);
     renderer.setTransformMatrix(batch.getTransformMatrix());
@@ -74,21 +81,18 @@ public class LoadActor extends Actor {
     renderer.rect(cx, cy, 500, 100);
     renderer.end();
     batch.begin();
-    
+
+ 
     if(!noFile){
       font.draw(batch,trainerName,cx+20,cy+95);
       batch.draw(typeImage, cx + 10, cy, 50, 80);
-      
-      for(String face: myFriends){
-        batch.draw(MonsterFactory.getInstance().getHeroFriend(face, 5).getFriendFaceSprite(), cx + friendPosition, cy + 30);
+      for(int i = 0;  i < myFriends.length ; i++){
+        batch.draw(friendImages[i], cx + friendPosition, cy + 30);
         friendPosition += 50;      
-      }
+        }
     } else {
       font.draw(batch,"No save data",cx+200,cy+50);
     }
-
-    
-  
   }
 
   
