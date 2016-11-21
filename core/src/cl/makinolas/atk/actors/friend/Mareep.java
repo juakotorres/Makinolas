@@ -26,7 +26,7 @@ public class Mareep extends AbstractFriend {
     newMonster();
     setActualEvolution(0);
     setMaxMagic(1000);
-    addType(new ElectricType());
+    addType(ElectricType.getInstance());
   }
   
   public Mareep(int level){

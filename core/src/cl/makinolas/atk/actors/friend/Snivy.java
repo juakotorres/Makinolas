@@ -36,7 +36,7 @@ public class Snivy extends AbstractFriend {
     newMonster();
     setActualEvolution(0);
     setMaxMagic(1000);
-    addType(new GrassType());
+    addType(GrassType.getInstance());
   }
   
   public Snivy(int level){

@@ -105,6 +105,7 @@ public class OptionsStage extends AbstractStage {
 	        @Override
 	        public void clicked(InputEvent event, float x, float y) {
 	        	sfxplayer.SetVolume((sfxSlider.getPercent()));
+	        	sfxplayer.PlayJumpSound();
 	        }
 	    });
 	    
@@ -112,6 +113,7 @@ public class OptionsStage extends AbstractStage {
 	        @Override
 	        public void drag(InputEvent event, float x, float y, int pointer) {
 	        	sfxplayer.SetVolume((sfxSlider.getPercent()));
+	        	sfxplayer.PlayJumpSound();
 	        }
 	    });
 	    
