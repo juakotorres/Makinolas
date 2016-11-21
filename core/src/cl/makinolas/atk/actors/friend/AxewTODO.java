@@ -20,7 +20,7 @@ public class AxewTODO extends AbstractFriend {
 		friend = Enemies.AXEW;
 		faces = new TextureRegion(new Texture(Gdx.files.internal("Actors/Axew_faces.png"))).split(40,40);
 		setTexture(new TextureRegion(new Texture(Gdx.files.internal("Actors/Axew.png"))));
-		/* aquí yace todo lo relacionado con los sprites */
+		/* aqui yace todo lo relacionado con los sprites */
 		
 	    /*setCutSprites(30,28);
 	    setWalkAnimation(1,2,3,2);
@@ -35,7 +35,7 @@ public class AxewTODO extends AbstractFriend {
 	    newMonster();
 	    setActualEvolution(0);
 	    setMaxMagic(1000);
-	    addType(new DragonType());
+	    addType(DragonType.getInstance());
 	}
 	
 	public AxewTODO(int level){
@@ -93,6 +93,12 @@ public class AxewTODO extends AbstractFriend {
 	@Override
 	public Attacks getFriendAttack(World myWorld, float x , float y, boolean facingRight, Monsters source){
 	    return new ShootAttack(new DragonBreathState(), myWorld, x, y, facingRight, source);
+	}
+	
+	@Override
+	public int getAttackMagicRequirement() {
+	  // TODO Auto-generated method stub
+	  return DragonBreathState.magicRequirement;
 	}
 
 }

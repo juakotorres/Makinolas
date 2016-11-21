@@ -12,9 +12,9 @@ public class FxManager {
         REDFX("Fx/fxred.png",48,48,0.5f,5),
         BLUEFX("Fx/fxblue.png",48,48,0.5f,5),
         GREENFX("Fx/fxgreen.png",48,48,0.5f,5),
-        YELLOWFX("Fx/fxyellow.png",48,48,0.5f,5),
-    	CRITICAL("StateImages/criticalHut.png",48,48,1f,5);
+        YELLOWFX("Fx/fxyellow.png",48,48,0.5f,5);
 
+    	
         public String region;
         public int width, height, frames;
         public float duration;

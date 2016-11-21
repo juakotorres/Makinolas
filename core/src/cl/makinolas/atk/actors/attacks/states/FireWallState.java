@@ -1,6 +1,7 @@
 package cl.makinolas.atk.actors.attacks.states;
 
 import cl.makinolas.atk.actors.Monsters;
+import cl.makinolas.atk.stateEfects.BurnedStateEffect;
 import cl.makinolas.atk.types.FireType;
 import cl.makinolas.atk.types.IType;
 
@@ -11,6 +12,8 @@ import com.badlogic.gdx.graphics.g2d.TextureRegion;
 
 public class FireWallState extends SpriteState{
 
+    public static int magicRequirement = 50;
+	
     @Override
     public int getAttackDamage() {
         return 40;
@@ -68,6 +71,13 @@ public class FireWallState extends SpriteState{
 
 	@Override
 	public IType getType() {
-		return new FireType();
+		return FireType.getInstance();
 	}
+	
+	@Override
+	public void secondaryEfectsToAfected(Monsters monster) {
+		monster.addState(new BurnedStateEffect(monster, myAttack), 20);
+	}
+
+	
 }

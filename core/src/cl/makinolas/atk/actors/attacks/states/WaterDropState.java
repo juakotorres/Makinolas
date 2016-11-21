@@ -12,6 +12,8 @@ import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 
 public class WaterDropState extends SpriteState {
+	
+  public static int magicRequirement = 70;
   
   @Override
   public int getAttackDamage() {
@@ -60,7 +62,7 @@ public class WaterDropState extends SpriteState {
 
 @Override
 public IType getType() {
-	return new WaterType();
+	return WaterType.getInstance();
 }
   
 }

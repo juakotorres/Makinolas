@@ -35,7 +35,7 @@ public class Caterpie extends AbstractFriend {
     newMonster();
     setActualEvolution(0);
     setMaxMagic(1000);
-    addType(new BugType());
+    addType(BugType.getInstance());
   }
   
   public Caterpie(int level){
@@ -80,7 +80,7 @@ public class Caterpie extends AbstractFriend {
       setActualEvolution(2);
       setStats();
       setMaxMagic(1000);
-      addType(new FlyingType());
+      addType(FlyingType.getInstance());
     }
   }
   
@@ -88,6 +88,12 @@ public class Caterpie extends AbstractFriend {
   @Override
   public Attacks getFriendAttack(World myWorld, float x , float y, boolean facingRight, Monsters source){
     return new DroppingAttack(new FallingLeafState(), myWorld, x, y, facingRight, source, true);
+  }
+  
+  @Override
+  public int getAttackMagicRequirement() {
+	// TODO Auto-generated method stub
+	return FallingLeafState.magicRequirement;
   }
 
 }

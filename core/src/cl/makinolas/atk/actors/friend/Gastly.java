@@ -34,8 +34,8 @@ public class Gastly extends AbstractFriend {
     newMonster();
     setActualEvolution(0);
     setMaxMagic(1000);
-    addType(new GhostType());
-    addType(new PoisonType());
+    addType(GhostType.getInstance());
+    addType(PoisonType.getInstance());
   }
   
   public Gastly(int level){
@@ -86,6 +86,12 @@ public class Gastly extends AbstractFriend {
   @Override
   public Attacks getFriendAttack(World myWorld, float x , float y, boolean facingRight, Monsters source){
     return new ShootAttack(new AcidState(),myWorld, x, y, facingRight, source);
+  }
+  
+  @Override
+  public int getAttackMagicRequirement() {
+	// TODO Auto-generated method stub
+	return AcidState.magicRequirement;
   }
 
 }

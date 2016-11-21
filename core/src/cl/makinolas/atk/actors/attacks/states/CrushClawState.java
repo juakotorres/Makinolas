@@ -12,6 +12,8 @@ import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 
 public class CrushClawState extends SpriteState {
+	
+  public static int magicRequirement = 70;
   
   @Override
   public void initializeBody(float x, float y) {
@@ -70,6 +72,6 @@ public class CrushClawState extends SpriteState {
 
 @Override
 public IType getType() {
-	return new NormalType();
+	return NormalType.getInstance();
 }
 }

@@ -2,6 +2,19 @@ package cl.makinolas.atk.types;
 
 public class GrassType extends AbstractType implements IType {
 
+	private static GrassType instance = null;
+	
+	private GrassType(){
+		this.isGrass = true;
+	}
+	
+	public static GrassType getInstance(){
+		if (instance == null){
+			instance = new GrassType();
+		}
+		return instance;
+	}
+
 	@Override
 	public double attackFromType(IType type) {
 		return type.grassPokemonAttacks(this);

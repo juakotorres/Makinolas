@@ -36,8 +36,8 @@ public class Scyther extends AbstractFriend {
     newMonster();
     setActualEvolution(0);
     setMaxMagic(1000);
-    addType(new BugType());
-    addType(new FlyingType());
+    addType(BugType.getInstance());
+    addType(FlyingType.getInstance());
   }
   
   public Scyther(int level){
@@ -69,14 +69,20 @@ public class Scyther extends AbstractFriend {
       setStats();
       setMaxMagic(1000);
       resetType();
-      addType(new BugType());
-      addType(new SteelType());      
+      addType(BugType.getInstance());
+      addType(SteelType.getInstance());      
     } 
   }
   
   @Override
   public Attacks getFriendAttack(World myWorld, float x , float y, boolean facingRight, Monsters source){
     return new CloseRangeAttack(new VineWhipState(), myWorld, x, y, facingRight, source);
+  }
+  
+  @Override
+  public int getAttackMagicRequirement() {
+	// TODO Auto-generated method stub
+	return VineWhipState.magicRequirement;
   }
   
 }

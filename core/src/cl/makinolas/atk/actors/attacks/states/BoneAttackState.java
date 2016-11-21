@@ -12,6 +12,8 @@ import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 
 public class BoneAttackState extends SpriteState {
+	
+  public static int magicRequirement = 60;
   
   @Override
   public void initializeBody(float x, float y) {
@@ -85,7 +87,7 @@ public class BoneAttackState extends SpriteState {
 
 @Override
 public IType getType() {
-	return new GroundType();
+	return GroundType.getInstance();
 }
   
 }

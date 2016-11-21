@@ -35,7 +35,7 @@ public class Charmander extends AbstractFriend {
     newMonster();
     setActualEvolution(0);
     setMaxMagic(1000);
-    addType(new FireType());
+    addType(FireType.getInstance());
   }
   
   public Charmander(int level){
@@ -80,7 +80,7 @@ public class Charmander extends AbstractFriend {
       setActualEvolution(2);
       setStats();
       setMaxMagic(1000);
-      addType(new FlyingType());
+      addType(FlyingType.getInstance());
     }
   }
   
@@ -89,5 +89,11 @@ public class Charmander extends AbstractFriend {
   public Attacks getFriendAttack(World myWorld, float x , float y, boolean facingRight, Monsters source){
     return new ParabolicAttack(new FireballState(),myWorld, x, y, facingRight, source);
   }
+  
+  @Override
+  public int getAttackMagicRequirement() {
+	// TODO Auto-generated method stub
+	return FireballState.magicRequirement;
+  }  
   
 }

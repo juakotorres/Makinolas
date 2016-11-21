@@ -20,22 +20,22 @@ public class Elekid extends AbstractFriend {
 		friend = Enemies.ELEKID;
 		faces = new TextureRegion(new Texture(Gdx.files.internal("Actors/Elekid_faces.png"))).split(40,40);
 		setTexture(new TextureRegion(new Texture(Gdx.files.internal("Actors/Elekid.png"))));
-		/* aquí yace todo lo relacionado con los sprites */
+		/* aqui yace todo lo relacionado con los sprites */
 		
-	    setCutSprites(35,35);
+	    setCutSprites(33,35);
 	    setWalkAnimation(3,4,5,4);
 	    setHurtAnimation(0);
 	    setMeleeAnimation(6,7,8,9);
 	    setIdleAnimation(1,2,1);
 	    setSpecialAnimation(10);
-		
+	    
 	    setFaceSprite(faces[0][0]);
 	    initLevel(5);
 	    initDead();
 	    newMonster();
 	    setActualEvolution(0);
 	    setMaxMagic(1000);
-	    addType(new ElectricType());
+	    addType(ElectricType.getInstance());
 	}
 
 	public Elekid(int level){
@@ -92,6 +92,12 @@ public class Elekid extends AbstractFriend {
 	@Override
 	public Attacks getFriendAttack(World myWorld, float x , float y, boolean facingRight, Monsters source) {
 		return new BombAttack(new ThunderBoltState(), myWorld, x, y, facingRight, source);
+	}
+	
+	@Override
+	public int getAttackMagicRequirement() {
+	  // TODO Auto-generated method stub
+	  return ThunderBoltState.magicRequirement;
 	}
 	
 }

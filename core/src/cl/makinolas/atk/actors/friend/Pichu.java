@@ -33,7 +33,7 @@ public class Pichu extends AbstractFriend {
     newMonster();
     setActualEvolution(0);
     setMaxMagic(1000);
-    addType(new ElectricType());
+    addType(ElectricType.getInstance());
     setStats();
   }
   
@@ -84,6 +84,12 @@ public class Pichu extends AbstractFriend {
   @Override
   public Attacks getFriendAttack(World myWorld, float x , float y, boolean facingRight, Monsters source){
     return new BombAttack(new ThunderBoltState(), myWorld, x, y, facingRight, source);
+  }
+  
+  @Override
+  public int getAttackMagicRequirement() {
+	// TODO Auto-generated method stub
+	return ThunderBoltState.magicRequirement;
   }
   
 }

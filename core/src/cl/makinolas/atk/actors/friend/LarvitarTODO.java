@@ -21,7 +21,7 @@ public class LarvitarTODO extends AbstractFriend {
 		friend = Enemies.LARVITAR;
 		faces = new TextureRegion(new Texture(Gdx.files.internal("Actors/Larvitar_faces.png"))).split(40,40);
 		setTexture(new TextureRegion(new Texture(Gdx.files.internal("Actors/Larvitar.png"))));
-		/* aquí yace todo lo relacionado con los sprites */
+		/* aqui yace todo lo relacionado con los sprites */
 		
 		/*setCutSprites(30,28);
 	    setWalkAnimation(1,2,3,2);
@@ -36,8 +36,8 @@ public class LarvitarTODO extends AbstractFriend {
 	    newMonster();
 	    setActualEvolution(0);
 	    setMaxMagic(1000);
-	    addType(new RockType());
-	    addType(new GroundType());
+	    addType(RockType.getInstance());
+	    addType(GroundType.getInstance());
 	}
 	
 	public LarvitarTODO(int level){
@@ -90,8 +90,8 @@ public class LarvitarTODO extends AbstractFriend {
 		    setStats();
 		    setMaxMagic(1000);
 		    resetType();
-		    addType(new RockType());
-		    addType(new DarkType());
+		    addType(RockType.getInstance());
+		    addType(DarkType.getInstance());
 		}
 	}
 	
@@ -99,4 +99,11 @@ public class LarvitarTODO extends AbstractFriend {
 	public Attacks getFriendAttack(World myWorld, float x , float y, boolean facingRight, Monsters source){
 	    return new ShootAttack(new RockState(), myWorld, x, y, facingRight, source);
 	}
+	
+	@Override
+	public int getAttackMagicRequirement() {
+	  // TODO Auto-generated method stub
+	  return RockState.magicRequirement;
+	}
+	
 }

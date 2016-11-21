@@ -2,6 +2,19 @@ package cl.makinolas.atk.types;
 
 public class RockType extends AbstractType implements IType {
 
+	private static RockType instance = null;
+	
+	private RockType(){
+		this.isRock = true;
+	}
+	
+	public static RockType getInstance(){
+		if (instance == null){
+			instance = new RockType();
+		}
+		return instance;
+	}
+
 	@Override
 	public double attackFromType(IType type) {
 		return type.rockPokemonAttacks(this);

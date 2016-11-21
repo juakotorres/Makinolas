@@ -34,7 +34,7 @@ public class Magikarp extends AbstractFriend {
     newMonster();
     setActualEvolution(0);
     setMaxMagic(1000);
-    addType(new WaterType());
+    addType(WaterType.getInstance());
   }
   
   public Magikarp(int level){
@@ -65,7 +65,7 @@ public class Magikarp extends AbstractFriend {
       setActualEvolution(1);
       setStats();
       setMaxMagic(1000);
-      addType(new FlyingType());
+      addType(FlyingType.getInstance());
     }
   }
   
@@ -73,6 +73,12 @@ public class Magikarp extends AbstractFriend {
   @Override
   public Attacks getFriendAttack(World myWorld, float x , float y, boolean facingRight, Monsters source){
     return new ShootAttack(new WindShurikenState(), myWorld, x, y, facingRight, source, false);
+  }
+  
+  @Override
+  public int getAttackMagicRequirement() {
+	// TODO Auto-generated method stub
+	return WindShurikenState.magicRequirement;
   }
   
 }

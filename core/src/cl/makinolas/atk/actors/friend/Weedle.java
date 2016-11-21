@@ -34,8 +34,8 @@ public class Weedle extends AbstractFriend {
     newMonster();
     setActualEvolution(0);
     setMaxMagic(1000);
-    addType(new BugType());
-    addType(new PoisonType());
+    addType(BugType.getInstance());
+    addType(PoisonType.getInstance());
   }
   
   public Weedle(int level){
@@ -86,6 +86,12 @@ public class Weedle extends AbstractFriend {
   @Override
   public Attacks getFriendAttack(World myWorld, float x , float y, boolean facingRight, Monsters source){
     return new ShootAttack(new Poison_StingState(), myWorld, x, y, facingRight, source);
+  }
+  
+  @Override
+  public int getAttackMagicRequirement() {
+	// TODO Auto-generated method stub
+	return Poison_StingState.magicRequirement;
   }
   
 }
