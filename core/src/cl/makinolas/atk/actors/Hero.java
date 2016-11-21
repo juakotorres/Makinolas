@@ -29,6 +29,7 @@ import cl.makinolas.atk.actors.platform.Platform;
 import cl.makinolas.atk.actors.platform.WaterPlatform;
 import cl.makinolas.atk.actors.ui.MainBar;
 import cl.makinolas.atk.audio.GDXSoundEffectsHero;
+import cl.makinolas.atk.audio.GDXSoundEffectsPlayer;
 import cl.makinolas.atk.screen.MapScreen;
 import cl.makinolas.atk.start.GameText;
 import cl.makinolas.atk.stateEfects.CriticalHit;
@@ -72,8 +73,8 @@ public class Hero extends Monsters {
   private boolean[] levelsUnlocked;
   private JumpState state;
   private boolean onWall = false;
-  private GDXSoundEffectsHero mplayer=new GDXSoundEffectsHero();
-  public GDXSoundEffectsHero Getmplayer(){
+  private GDXSoundEffectsPlayer mplayer = GDXSoundEffectsHero.getInstance();
+  public GDXSoundEffectsPlayer Getmplayer(){
 	  return mplayer;
   }
   private Spot currentSpot;
@@ -731,7 +732,7 @@ public class Hero extends Monsters {
   public boolean[] getLevelsUnlocked() {
     return levelsUnlocked;
   }
-  public GDXSoundEffectsHero getHeroPlayer(){
+  public GDXSoundEffectsPlayer getHeroPlayer(){
 	  return mplayer;
   }
 

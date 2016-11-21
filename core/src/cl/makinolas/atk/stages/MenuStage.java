@@ -17,6 +17,7 @@ public class MenuStage extends Stage {
     addActor(new Title("Background/atk.png", 320, 350 ));
     Hero.getInstance().reset();
     MainBar.getInstance().reset();
+    OptionsStage.setToFull();
   }
 
   public static void setCleanSAV() {

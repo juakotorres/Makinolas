@@ -38,7 +38,7 @@ public class MapStage extends Stage implements KeyHandable{
     
         //Adding the actors to the stage (currently just the background, the traveler and the levels)
         addActor(new Background("Background/mapa.png", getCamera()));
-        musicplayer=new GDXMusicPlayer();
+        musicplayer = GDXMusicPlayer.getInstance();
         musicplayer.PlayLooped("Music/palett.mp3");
         buildLevels();
 
