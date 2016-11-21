@@ -47,7 +47,7 @@ public class LoadActor extends Actor {
       FriendDescriptor[] herosFriends = SaveManager.getInstance().getSaveInstance().friends;
       for(int i = 0;  i < myFriends.length ; i++){
           myFriends[i] = herosFriends[i].name;
-          friendImages[i]=MonsterFactory.getInstance().getHeroFriend(myFriends[i], 5).getFriendFaceSprite();;
+          friendImages[i]=MonsterFactory.getInstance().getHeroFriend(myFriends[i], 5).getFriendFaceSprite();
       }
       trainerName = SaveManager.getInstance().getSaveInstance().name;
       if(SaveManager.getInstance().getSaveInstance().sex){
