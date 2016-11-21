@@ -5,8 +5,8 @@ import java.util.HashMap;
 import com.badlogic.gdx.audio.Music;
 
 public class GDXSoundEffectsPlayer {
-	protected static GDXSoundEffectsPlayer instance;
-	protected HashMap<String, Music> sfxmap;
+	private static GDXSoundEffectsPlayer instance;
+	protected static HashMap<String, Music> sfxmap;
 
 	protected GDXSoundEffectsPlayer() {
 		sfxmap = new HashMap<String, Music>();
@@ -18,7 +18,7 @@ public class GDXSoundEffectsPlayer {
 		return instance;
 	}
 	
-	public HashMap<String, Music> getSFXMap() {
+	public static HashMap<String, Music> getSFXMap() {
 		return sfxmap;
 	}
 
@@ -27,8 +27,9 @@ public class GDXSoundEffectsPlayer {
 			Music m = sfxmap.get(s);
 			m.setVolume(f);
 		}
-		
 	}
+	
+	// Hero
 	
 	public void PlayJumpSound(){
 		sfxmap.get("soundJump").play();
@@ -37,9 +38,11 @@ public class GDXSoundEffectsPlayer {
 	public void PlayProyectileSound(){
 		sfxmap.get("soundProyectile").play();
 	}
+	
 	public void StopProyectileSound(){
 		sfxmap.get("soundProyectile").stop();
 	}
+	
 	public void PlayEnd(){
 		sfxmap.get("soundEndStage").play();
 	}
@@ -73,10 +76,12 @@ public class GDXSoundEffectsPlayer {
 			sfxmap.get("soundnotCaptured").stop();
 		sfxmap.get("soundnotCaptured").play();
 	}
-
+	
+	// Enemy
 	public void PlayExplotion(){
 		sfxmap.get("soundExplotion").play();
 	}
+	
 	public void PlayExplotionEnd(){
 		sfxmap.get("soundExplotionEnd").play();
 	}
