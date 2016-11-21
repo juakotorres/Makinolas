@@ -35,7 +35,7 @@ public class Elekid extends AbstractFriend {
 	    newMonster();
 	    setActualEvolution(0);
 	    setMaxMagic(1000);
-	    addType(new ElectricType());
+	    addType(ElectricType.getInstance());
 	}
 
 	public Elekid(int level){

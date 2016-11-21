@@ -33,7 +33,7 @@ public class Totodile extends AbstractFriend {
     newMonster();
     setActualEvolution(0);
     setMaxMagic(1000);
-    addType(new WaterType());
+    addType(WaterType.getInstance());
   }
   
   public Totodile(int level){

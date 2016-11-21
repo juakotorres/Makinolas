@@ -35,7 +35,7 @@ public class Caterpie extends AbstractFriend {
     newMonster();
     setActualEvolution(0);
     setMaxMagic(1000);
-    addType(new BugType());
+    addType(BugType.getInstance());
   }
   
   public Caterpie(int level){
@@ -80,7 +80,7 @@ public class Caterpie extends AbstractFriend {
       setActualEvolution(2);
       setStats();
       setMaxMagic(1000);
-      addType(new FlyingType());
+      addType(FlyingType.getInstance());
     }
   }
   
