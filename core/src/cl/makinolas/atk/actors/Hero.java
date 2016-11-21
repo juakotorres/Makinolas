@@ -112,7 +112,7 @@ public class Hero extends Monsters implements IHero {
     // Guardar animaciones del jugador
     setAnimation();
     //changeAnimation(walkAnimation);
-    state = new OnGround();
+    state = new OnAir()  ;
     myBodyDefinition.fixedRotation = true;
     
     
