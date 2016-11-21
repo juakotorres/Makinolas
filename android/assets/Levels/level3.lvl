@@ -53,6 +53,7 @@ CGR,63,-38,2,3
 %BreakP,64,-21
 %BreakP,68,-21
 %BreakP,72,-21
+%WaterP,8,-4,5,3
 %S,1,2,false
 %E,Shinx,21,2,4,false
 %E,Shinx,15,-1,1,false
