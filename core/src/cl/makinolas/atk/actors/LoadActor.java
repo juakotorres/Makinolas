@@ -84,6 +84,7 @@ public class LoadActor extends Actor {
       
       for(int i = 0;  i < myFriends.length ; i++){
           batch.draw(friendImages[i], cx + friendPosition, cy + 30);
+          friendPosition += 50;
       }
     } else {
       font.draw(batch,"No save data",cx+200,cy+50);
