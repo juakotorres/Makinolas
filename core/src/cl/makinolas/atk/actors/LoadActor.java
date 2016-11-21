@@ -47,7 +47,8 @@ public class LoadActor extends Actor {
       FriendDescriptor[] herosFriends = SaveManager.getInstance().getSaveInstance().friends;
       for(int i = 0;  i < myFriends.length ; i++){
           myFriends[i] = herosFriends[i].name;
-          friendImages[i]=MonsterFactory.getInstance().getHeroFriend(myFriends[i], 5).getFriendFaceSprite();
+          if (i < friendImages.length)
+        	  friendImages[i]=MonsterFactory.getInstance().getHeroFriend(myFriends[i], 5).getFriendFaceSprite();
       }
       trainerName = SaveManager.getInstance().getSaveInstance().name;
       if(SaveManager.getInstance().getSaveInstance().sex){
@@ -82,7 +83,7 @@ public class LoadActor extends Actor {
       font.draw(batch,trainerName,cx+20,cy+95);
       batch.draw(typeImage, cx + 10, cy, 50, 80);
       
-      for(int i = 0;  i < myFriends.length ; i++){
+      for(int i = 0;  i < friendImages.length ; i++){
           batch.draw(friendImages[i], cx + friendPosition, cy + 30);
           friendPosition += 50;
       }
