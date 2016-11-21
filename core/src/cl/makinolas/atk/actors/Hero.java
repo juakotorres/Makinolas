@@ -1,5 +1,6 @@
 package cl.makinolas.atk.actors;
 
+import cl.makinolas.atk.actors.bosses.Boss;
 import cl.makinolas.atk.actors.items.ItemActor;
 import cl.makinolas.atk.actors.ui.IHero;
 import cl.makinolas.atk.stages.*;
@@ -422,6 +423,11 @@ public class Hero extends Monsters implements IHero {
     }
   }
 
+  @Override
+  public void interactWithMonster(Boss boss) {
+
+  }
+
   public void setAnimation(){
     setMasterTexture(actualFriend.getTexture(),actualFriend.getWidth(),actualFriend.getHeight());
     walkAnimation = addAnimation(0.2f, actualFriend.getWalkAnimation());
@@ -759,6 +765,11 @@ public class Hero extends Monsters implements IHero {
   public void setSpeed(float x, float y) {
 	  mplayer.PlayJumpSound();
       myBody.setLinearVelocity(x, y);
+  }
+
+  @Override
+  public void interactWithMonster(Enemy enemy) {
+
   }
 
   @Override

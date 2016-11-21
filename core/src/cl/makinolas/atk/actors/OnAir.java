@@ -5,7 +5,7 @@ import cl.makinolas.atk.minigames.MinigameCharacter;
 
 public class OnAir extends JumpState {
 	public void secondJump() {
-		hero.myBody.setGravityScale(1);
+		hero.getBody().setGravityScale(1);
 		hero.setSpeed(hero.getBody().getLinearVelocity().x,8);
 		hero.setState(new NullState(hero));
 	}

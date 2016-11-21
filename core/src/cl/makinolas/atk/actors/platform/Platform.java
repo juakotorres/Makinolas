@@ -1,5 +1,6 @@
 package cl.makinolas.atk.actors.platform;
 
+import cl.makinolas.atk.actors.ui.IHero;
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.Vector2;
@@ -88,7 +89,7 @@ public class Platform extends GameActor {
   }
   
   @Override
-  public void interactWithHero(Hero hero, WorldManifold worldManifold){
+  public void interactWithHero(IHero hero, WorldManifold worldManifold){
     hero.landedPlatform(worldManifold, this);
   }
   

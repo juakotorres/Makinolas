@@ -7,8 +7,11 @@ import cl.makinolas.atk.actors.JumpState;
 import cl.makinolas.atk.actors.Monsters;
 import cl.makinolas.atk.actors.OnGround;
 import cl.makinolas.atk.actors.attacks.Attacks;
+import cl.makinolas.atk.actors.bosses.Boss;
+import cl.makinolas.atk.actors.enemies.Enemy;
 import cl.makinolas.atk.actors.friend.*;
 import cl.makinolas.atk.actors.items.Inventory;
+import cl.makinolas.atk.actors.platform.Platform;
 import cl.makinolas.atk.actors.ui.IHero;
 import cl.makinolas.atk.minigames.ICharacter;
 import cl.makinolas.atk.stages.AbstractStage;
@@ -53,6 +56,7 @@ public class SurvivalHero extends Monsters implements ICharacter, IHero {
     public void act(float delta){
         //jumpState.setAnimation(this, delta);
 
+
     }
 
 
@@ -76,6 +80,27 @@ public class SurvivalHero extends Monsters implements ICharacter, IHero {
 
     @Override
     public void damage(int damage, Attacks inflictor) {
+
+    }
+
+    @Override
+    public void setSpeed(float x, float y) {
+        //mplayer.PlayJumpSound();
+        myBody.setLinearVelocity(x, y);
+    }
+
+    @Override
+    public void interactWithMonster(Enemy enemy) {
+
+    }
+
+    @Override
+    public void landedPlatform(WorldManifold worldManifold, Platform platform) {
+
+    }
+
+    @Override
+    public void interactWithMonster(Boss boss) {
 
     }
 
@@ -110,6 +135,12 @@ public class SurvivalHero extends Monsters implements ICharacter, IHero {
     }
 
     @Override
+    public void setState(JumpState state) {
+        this.jumpState = state;
+        jumpState.setHero(this);
+    }
+
+    @Override
     public void unSing() {
 
     }
@@ -141,7 +172,7 @@ public class SurvivalHero extends Monsters implements ICharacter, IHero {
 
     @Override
     public void interact(GameActor actor2, WorldManifold worldManifold) {
-
+            actor2.interactWithHero(this,worldManifold);
     }
 
     @Override
@@ -161,13 +192,13 @@ public class SurvivalHero extends Monsters implements ICharacter, IHero {
 
     @Override
     public void moveHorizontal(int i, boolean b) {
-        System.out.println("aaaaaaa");
-        myBody.setLinearVelocity(5*i,0);
+        myBody.setLinearVelocity(5*i,myBody.getLinearVelocity().y);
+        isFacingRight = b;
     }
 
     @Override
     public void jump(int i) {
-
+            jumpState.jump();
     }
 
     @Override
@@ -194,6 +225,15 @@ public class SurvivalHero extends Monsters implements ICharacter, IHero {
     public void nextAllie() {
 
     }
+
+
+    @Override
+    public void interactWithPlatform(Platform platform, WorldManifold worldManifold){
+        platform.interactWithHero(this, worldManifold);
+        setState(new OnGround());
+
+    }
+
 
     @Override
     public void foo() {
@@ -243,5 +283,9 @@ public class SurvivalHero extends Monsters implements ICharacter, IHero {
     @Override
     public void setWorld(World myWorld) {
         setWorld(myWorld, new Vector2(2,3));
+    }
+
+    public void stopMovement() {
+        myBody.setLinearVelocity(0,myBody.getLinearVelocity().y);
     }
 }

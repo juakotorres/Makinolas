@@ -2,6 +2,7 @@ package cl.makinolas.atk.actors.attacks;
 
 import java.util.ArrayList;
 
+import cl.makinolas.atk.actors.ui.IHero;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.Body;
 import com.badlogic.gdx.physics.box2d.BodyDef;
@@ -117,8 +118,8 @@ public abstract class Attacks extends AnimatedActor {
   }
   
   @Override
-  public void interactWithHero(Hero hero, WorldManifold worldManifold){
-    manageInteractWithMonster(hero, worldManifold);
+  public void interactWithHero(IHero hero, WorldManifold worldManifold){
+    manageInteractWithMonster((Monsters)hero, worldManifold);
   }
 
   @Override

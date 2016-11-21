@@ -1,5 +1,6 @@
 package cl.makinolas.atk.actors.platform;
 
+import cl.makinolas.atk.actors.ui.IHero;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Batch;
@@ -51,7 +52,7 @@ public class WaterPlatform extends GameActor {
 	    
 	
 	@Override
-	public void interactWithHero(Hero hero, WorldManifold worldManifold){	    
+	public void interactWithHero(IHero hero, WorldManifold worldManifold){
 		System.out.println("Entrando agua");
 
 	}

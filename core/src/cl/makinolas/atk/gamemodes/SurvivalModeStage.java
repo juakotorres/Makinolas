@@ -33,7 +33,7 @@ public class SurvivalModeStage extends AbstractStage implements ContactListener{
     private Box2DDebugRenderer renderer;
     private Platform initialPlatform;
     private Group ground, mons, ui, deco;
-    private IHero hero;
+    private SurvivalHero hero;
 
     //Agregar requisitode calidad y restriccion
     public SurvivalModeStage(Viewport v, GameScreen actualScreen, Game game) {
@@ -61,7 +61,7 @@ public class SurvivalModeStage extends AbstractStage implements ContactListener{
 
         ground.addActor(initialPlatform);
         ground.addActor(new PlatformCreator(survivalWorld, this, 20, 0, ground));
-        hero = Hero.getInstance();
+        hero = new SurvivalHero(survivalWorld);
         hero.setWorld(survivalWorld);
         addGameActor((GameActor)hero);
         ui.addActor(group);
