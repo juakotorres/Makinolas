@@ -2,6 +2,19 @@ package cl.makinolas.atk.types;
 
 public class FireType extends AbstractType implements IType {
 
+	private static FireType instance = null;
+	
+	private FireType(){
+		this.isFire = true;
+	}
+	
+	public static FireType getInstance(){
+		if (instance == null){
+			instance = new FireType();
+		}
+		return instance;
+	}
+	
 	@Override
 	public double attackFromType(IType type) {
 		return type.firePokemonAttacks(this);
@@ -60,10 +73,6 @@ public class FireType extends AbstractType implements IType {
 	@Override
 	public double monsterHasAttackedFromWater() {
 		return  2;
-	}
-
-	public FireType() {
-		this.isFire = true;
 	}
 
 }

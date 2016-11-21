@@ -34,8 +34,8 @@ public class Igglybuff extends AbstractFriend {
     newMonster();
     setActualEvolution(0);
     setMaxMagic(1000);
-    addType(new NormalType());
-    addType(new FairyType());
+    addType(NormalType.getInstance());
+    addType(FairyType.getInstance());
   }
   
   public Igglybuff(int level){

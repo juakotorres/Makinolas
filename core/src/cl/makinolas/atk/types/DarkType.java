@@ -2,8 +2,17 @@ package cl.makinolas.atk.types;
 
 public class DarkType extends AbstractType implements IType {
 
-	public DarkType(){
+	private static DarkType instance = null;
+	
+	private DarkType(){
 		this.isDark = true;
+	}
+	
+	public static DarkType getInstance(){
+		if (instance == null){
+			instance = new DarkType();
+		}
+		return instance;
 	}
 	
 	@Override

@@ -34,8 +34,8 @@ public class Weedle extends AbstractFriend {
     newMonster();
     setActualEvolution(0);
     setMaxMagic(1000);
-    addType(new BugType());
-    addType(new PoisonType());
+    addType(BugType.getInstance());
+    addType(PoisonType.getInstance());
   }
   
   public Weedle(int level){

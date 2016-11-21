@@ -63,7 +63,7 @@ public class SlashState extends SpriteState {
 
 @Override
 public IType getType() {
-	return new NormalType();
+	return NormalType.getInstance();
 }
 
 @Override

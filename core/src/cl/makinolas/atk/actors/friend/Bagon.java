@@ -32,7 +32,7 @@ public class Bagon extends AbstractFriend {
     newMonster();
     setActualEvolution(0);
     setMaxMagic(1000);
-    addType(new DragonType());
+    addType(DragonType.getInstance());
   }
   
   public Bagon(int level){
@@ -77,7 +77,7 @@ public class Bagon extends AbstractFriend {
       setActualEvolution(2);
       setStats();
       setMaxMagic(1000);
-      addType(new FlyingType());
+      addType(FlyingType.getInstance());
     }
   }
   

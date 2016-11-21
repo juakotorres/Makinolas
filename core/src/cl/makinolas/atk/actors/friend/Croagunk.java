@@ -34,8 +34,8 @@ public class Croagunk extends AbstractFriend {
 	    newMonster();
 	    setActualEvolution(0);
 	    setMaxMagic(1000);
-	    addType(new PoisonType());
-	    addType(new FightType());
+	    addType(PoisonType.getInstance());
+	    addType(FightType.getInstance());
 	}
 	
 	public Croagunk(int level){

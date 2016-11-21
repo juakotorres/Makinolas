@@ -29,7 +29,7 @@ public class PiplupTODO extends AbstractFriend {
 	    newMonster();
 	    setActualEvolution(0);
 	    setMaxMagic(1000);
-	    addType(new WaterType());
+	    addType(WaterType.getInstance());
 	    
 	}
 
@@ -82,7 +82,7 @@ public class PiplupTODO extends AbstractFriend {
 		    setActualEvolution(2);
 		    setStats();
 		    setMaxMagic(1000);
-		    addType(new SteelType());
+		    addType(SteelType.getInstance());
 		}
 	}
 	

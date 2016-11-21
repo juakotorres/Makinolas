@@ -33,7 +33,7 @@ public class Pichu extends AbstractFriend {
     newMonster();
     setActualEvolution(0);
     setMaxMagic(1000);
-    addType(new ElectricType());
+    addType(ElectricType.getInstance());
     setStats();
   }
   

@@ -34,8 +34,8 @@ public class Magnemite extends AbstractFriend {
     newMonster();
     setActualEvolution(0);
     setMaxMagic(1000);
-    addType(new ElectricType());
-    addType(new SteelType());
+    addType(ElectricType.getInstance());
+    addType(SteelType.getInstance());
   }
   
   public Magnemite(int level){

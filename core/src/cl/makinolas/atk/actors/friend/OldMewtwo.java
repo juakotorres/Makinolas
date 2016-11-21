@@ -34,7 +34,7 @@ public class OldMewtwo extends AbstractFriend {
     setActualEvolution(0);
     setStats();
     setMaxMagic(1000);
-    addType(new PsychicType());
+    addType(PsychicType.getInstance());
   }
   
   @Override

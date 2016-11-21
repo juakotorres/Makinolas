@@ -27,8 +27,8 @@ public class Beldum extends AbstractFriend {
     newMonster();
     setActualEvolution(0);
     setMaxMagic(1000);
-    addType(new SteelType());
-    addType(new PsychicType());
+    addType(SteelType.getInstance());
+    addType(PsychicType.getInstance());
   }
   
   public Beldum(int level){
