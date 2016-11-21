@@ -10,7 +10,7 @@ public class StateEfectsCriticRate extends AbstractStateEfects {
 
 	
 	public StateEfectsCriticRate(Monsters monster){
-		this.drawEfects = new DrawStateEfects("StateImages/Poisoned.png", 64, 64, 2f, 8, this);
+		this.drawEfects = new DrawStateEfects("StateImages/Poisoned.png", 64, 64, 2f, 2f, 8, this);
 		this.monster = monster;
 		this.friend = monster.getMyself() ;
 		this.basecritic = friend.getCriticModificator();
