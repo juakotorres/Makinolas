@@ -9,9 +9,9 @@ public class OnWater extends JumpState {
 	}
 	
 	public void firstJump() {
-	  hero.myBody.setGravityScale(0.3f);
-	  //hero.setSpeed(hero.getBody().getLinearVelocity().x,15f);
-	  hero.setSpeed(hero.getBody().getLinearVelocity().x,7f);
+				
+		/*Setea cuanto sube el hero al nadar*/
+		hero.setSpeed(hero.getBody().getLinearVelocity().x, 10f);
 	}
 	
 	@Override

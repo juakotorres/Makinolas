@@ -707,8 +707,8 @@ public class Hero extends Monsters {
       myBody.setLinearVelocity(x, y);
   }
   
-  public void setInsideWater(boolean bool) {
-	  isInsideWater = bool;
+  public void setInsideWater(boolean b) {
+	  isInsideWater = b;
   }
 
   @Override
