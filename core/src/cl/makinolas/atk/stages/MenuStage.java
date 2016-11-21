@@ -9,6 +9,7 @@ import cl.makinolas.atk.actors.Title;
 import cl.makinolas.atk.actors.ui.MainBar;
 
 public class MenuStage extends Stage {
+  private static boolean hasCorruptSAV;
   
   public MenuStage(Viewport v){
     super(v);
@@ -16,5 +17,18 @@ public class MenuStage extends Stage {
     addActor(new Title("Background/atk.png", 320, 350 ));
     Hero.getInstance().reset();
     MainBar.getInstance().reset();
+    OptionsStage.setToFull();
+  }
+
+  public static void setCleanSAV() {
+	hasCorruptSAV = false;	
+  }
+
+  public static void setCorruptSAV() {
+	hasCorruptSAV = true;
+  }
+  
+  public static boolean hasCorruptSAV() {
+	  return hasCorruptSAV;
   }
 }

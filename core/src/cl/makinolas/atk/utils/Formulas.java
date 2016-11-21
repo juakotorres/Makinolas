@@ -3,7 +3,6 @@ package cl.makinolas.atk.utils;
 import java.util.ArrayList;
 
 import cl.makinolas.atk.actors.Monsters;
-import cl.makinolas.atk.actors.attacks.Attacks;
 import cl.makinolas.atk.actors.friend.Enemies;
 import cl.makinolas.atk.types.IType;
 
@@ -40,7 +39,7 @@ public class Formulas {
     }
     
     if( criticalRandomizer < getCritical(criticModificator)){
-      critical = 1.33;
+      critical = 1.5;
       monster.CriticalDamage();
       System.out.println("Critical ! Formula");
     }

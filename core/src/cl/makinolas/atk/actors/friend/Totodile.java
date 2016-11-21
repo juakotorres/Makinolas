@@ -86,4 +86,10 @@ public class Totodile extends AbstractFriend {
     return new ShootBombAttack(new BubbleState(),myWorld, x, y, facingRight, source);
   }
   
+  @Override
+  public int getAttackMagicRequirement() {
+	// TODO Auto-generated method stub
+	return BubbleState.magicRequirement;
+  }
+  
 }

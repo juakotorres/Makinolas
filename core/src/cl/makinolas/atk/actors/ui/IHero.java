@@ -1,5 +1,6 @@
 package cl.makinolas.atk.actors.ui;
 
+import cl.makinolas.atk.actors.friend.Enemies;
 import cl.makinolas.atk.actors.items.Inventory;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.World;
@@ -36,4 +37,6 @@ public interface IHero {
     public void setWorld(World myWorld, Vector2 initialPosition);
 
     public void setWorld(World myWorld);
+
+    void gainExp(int i, Enemies eevee);
 }

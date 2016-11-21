@@ -51,7 +51,7 @@ public class SurvivalHero extends Monsters implements ICharacter, IHero {
 
     @Override
     public void act(float delta){
-        jumpState.setAnimation(this, delta);
+        //jumpState.setAnimation(this, delta);
 
     }
 
@@ -95,6 +95,36 @@ public class SurvivalHero extends Monsters implements ICharacter, IHero {
     }
 
     @Override
+    public float getRelativeY() {
+        return 0;
+    }
+
+    @Override
+    public float getRelativeX() {
+        return 0;
+    }
+
+    @Override
+    public void sing() {
+
+    }
+
+    @Override
+    public void unSing() {
+
+    }
+
+    @Override
+    public void sleep() {
+
+    }
+
+    @Override
+    public void unSleep() {
+
+    }
+
+    @Override
     public float getMonsterWidth() {
         return 0;
     }
@@ -105,7 +135,7 @@ public class SurvivalHero extends Monsters implements ICharacter, IHero {
     }
 
     @Override
-    protected void gainExp(int level, Enemies type) {
+    public void gainExp(int level, Enemies type) {
 
     }
 

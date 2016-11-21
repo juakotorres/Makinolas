@@ -12,6 +12,8 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 
 public class AquaAttackState extends SpriteState {
+	
+  public static int magicRequirement = 90;
   
   @Override
   public int getAttackDamage() {

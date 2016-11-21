@@ -1,6 +1,7 @@
 package cl.makinolas.atk.actors;
 
-import cl.makinolas.atk.minigames.ICharacter;
+
+import cl.makinolas.atk.audio.GDXMusicPlayer;
 import cl.makinolas.atk.minigames.MinigameCharacter;
 
 public class JumpState {
@@ -50,9 +51,8 @@ public class JumpState {
 		frames = 0;
 	}
 	public void release() {
-		
 	}
 
-  public void setAnimation(ICharacter minigameCharacter, float delta) {}
 
+  public void setAnimation(MinigameCharacter minigameCharacter, float delta) {}
 }

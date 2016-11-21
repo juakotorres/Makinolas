@@ -75,4 +75,10 @@ public class Magikarp extends AbstractFriend {
     return new ShootAttack(new WindShurikenState(), myWorld, x, y, facingRight, source, false);
   }
   
+  @Override
+  public int getAttackMagicRequirement() {
+	// TODO Auto-generated method stub
+	return WindShurikenState.magicRequirement;
+  }
+  
 }

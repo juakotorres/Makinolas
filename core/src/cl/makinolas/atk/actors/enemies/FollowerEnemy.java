@@ -28,9 +28,11 @@ public class FollowerEnemy extends Enemy {
   
   @Override
   public void act(float delta){     
+	  super.act(delta);
     
-    myBody.setLinearVelocity(vx * 2, vy);
-    
+	  if(!this.isSinging){
+		  myBody.setLinearVelocity(vx * 2, vy);
+	  }
     checkDamage(delta, 0);
     checkHeroPosition(delta);
     accumulatorAttack += delta; 
@@ -40,6 +42,7 @@ public class FollowerEnemy extends Enemy {
       attack.isDropping();
       attack.setSource(this);
       ((AbstractStage) getStage()).addGameActor(attack);
+      attack.getSpriteState().secondaryEfectsToSource(this);
       accumulatorAttack = 0;
     }
   }

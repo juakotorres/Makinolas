@@ -3,6 +3,9 @@ package cl.makinolas.atk.actors;
 import cl.makinolas.atk.actors.items.ItemActor;
 import cl.makinolas.atk.actors.ui.IHero;
 import cl.makinolas.atk.stages.*;
+
+import java.util.ArrayList;
+
 import com.badlogic.gdx.Game;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.Body;
@@ -10,29 +13,28 @@ import com.badlogic.gdx.physics.box2d.BodyDef;
 import com.badlogic.gdx.physics.box2d.PolygonShape;
 import com.badlogic.gdx.physics.box2d.World;
 import com.badlogic.gdx.physics.box2d.WorldManifold;
-import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.viewport.FitViewport;
-
 import cl.makinolas.atk.GameConstants;
 import cl.makinolas.atk.actors.attacks.Attacks;
-import cl.makinolas.atk.actors.attacks.ShootAttack;
-import cl.makinolas.atk.actors.attacks.states.DragonBreathState;
 import cl.makinolas.atk.actors.bosses.IBoss;
 import cl.makinolas.atk.actors.enemies.Enemy;
 import cl.makinolas.atk.actors.enemies.MonsterFactory;
 import cl.makinolas.atk.actors.friend.Enemies;
 import cl.makinolas.atk.actors.friend.Friend;
 import cl.makinolas.atk.actors.friend.FriendDescriptor;
-import cl.makinolas.atk.actors.fx.FxManager;
-import cl.makinolas.atk.actors.fx.FxManager.Fx;
 import cl.makinolas.atk.actors.items.Ball;
 import cl.makinolas.atk.actors.items.BallActor;
 import cl.makinolas.atk.actors.items.Inventory;
 import cl.makinolas.atk.actors.platform.Platform;
+import cl.makinolas.atk.actors.platform.WaterPlatform;
 import cl.makinolas.atk.actors.ui.MainBar;
+import cl.makinolas.atk.audio.GDXSoundEffectsHero;
+import cl.makinolas.atk.audio.GDXSoundEffectsPlayer;
 import cl.makinolas.atk.screen.MapScreen;
 import cl.makinolas.atk.start.GameText;
+import cl.makinolas.atk.stateEfects.CriticalHit;
+import cl.makinolas.atk.stateEfects.IStateEfects;
 import cl.makinolas.atk.utils.Formulas;
 import cl.makinolas.atk.utils.SaveDoesNotExistException;
 import cl.makinolas.atk.utils.SaveManager;
@@ -41,41 +43,64 @@ import cl.makinolas.atk.utils.SaveManager;
 public class Hero extends Monsters implements IHero {
 
   public static Hero player = new Hero();
-  protected boolean changing;
-  protected int changeIndex;
-  protected boolean isJumping;
-  protected boolean isDamaged;
-  protected boolean isAttacking;
-  protected int[] attackAnimations;
-  protected int actualAnimation;
+
+  private boolean changing;
+  private int changeIndex;
+  private boolean isJumping;
+  private boolean isDamaged;
+  private boolean isAttacking;
+  private boolean[] isSinging = {false, false, false, false};
+  private int[] attackAnimations;
+  private int actualAnimation[] = {0, 0, 0, 0};
   protected final float spriteTime = 1 / 5f;
-  protected float countMeleeFrames;
-  protected boolean dead;
-  protected float jumpAccumulator;
-  protected boolean isAccumulatingJump;
-  protected World myWorld;
-  protected int walkAnimation;
-  protected int hurtAnimation;
-  protected final float hurtTime = 1 / 4f;
-  protected float accumulator;
-  protected Array<Friend> allies;
-  protected Array<Friend> backupAllies;
-  protected Friend actualFriend;
-  protected int indexFriend;
-  protected int backupIndexFriend;
-  protected BodyDef myBodyDefinition;
-  protected Inventory inventory;
-  protected int vx;
-  protected boolean inertia;
-  protected boolean hasEvolved;
-  protected boolean[] levelsUnlocked;
-  protected JumpState state;
-  protected boolean onWall = false;
-  protected Spot currentSpot;
-  protected Vector2 platformSpeed;
+  private float countMeleeFrames;
+  private boolean dead;
+  private float jumpAccumulator;
+  private boolean isAccumulatingJump;
+  private World myWorld;
+  private int walkAnimation;
+  private int hurtAnimation;
+  private final float hurtTime = 1 / 4f;
+  private float accumulator;
+  private Array<Friend> allies;
+  private Array<Friend> backupAllies;
+  private Friend actualFriend;
+  private int indexFriend;
+  private int backupIndexFriend;
+  private BodyDef myBodyDefinition;
+  private Inventory inventory;
+  private int vx;
+  private boolean inertia;
+  private boolean hasEvolved;
+  private boolean[] levelsUnlocked;
+  private JumpState state;
+  private boolean onWall = false;
+  private GDXSoundEffectsPlayer mplayer = GDXSoundEffectsHero.getInstance();
+  public GDXSoundEffectsPlayer Getmplayer(){
+	  return mplayer;
+  }
+  private Spot currentSpot;
+  private Vector2 platformSpeed;
+  private long cooldownTimer;
+  
+  private ArrayList<IStateEfects> statesPokemon1;
+  private ArrayList<IStateEfects> statesPokemon2;
+  private ArrayList<IStateEfects> statesPokemon3;
+  private ArrayList<IStateEfects> statesPokemon4;
+  
+  private ArrayList<ArrayList<IStateEfects>> liststates;
 
-  protected Hero() {
-
+  private Hero() {
+	 super();
+	  statesPokemon2 = new ArrayList<IStateEfects>();
+	  statesPokemon3 = new ArrayList<IStateEfects>();
+	  statesPokemon4 = new ArrayList<IStateEfects>();
+	 statesPokemon1 = states;
+	 liststates =  new ArrayList<ArrayList<IStateEfects>>();
+	 liststates.add(statesPokemon1);
+	 liststates.add(statesPokemon2);
+	 liststates.add(statesPokemon3);
+	 liststates.add(statesPokemon4);
     isJumping = false;
     isFacingRight = false;
     isDamaged = false;
@@ -114,7 +139,8 @@ public class Hero extends Monsters implements IHero {
     //changeAnimation(walkAnimation);
     state = new OnAir()  ;
     myBodyDefinition.fixedRotation = true;
-    
+
+    cooldownTimer = 0;
     
   }
   /* Aqui se hace un intento fallido de arreglar el bug del sabe al parecer,
@@ -246,9 +272,12 @@ public class Hero extends Monsters implements IHero {
   
   @Override
   public void act(float delta){
+	  super.act(delta);
     checkChangingAllie();
 
-    myBody.setLinearVelocity(vx + platformSpeed.x, myBody.getLinearVelocity().y);
+    if(!isSinging[this.getIndexFriend()])
+    	myBody.setLinearVelocity(vx + platformSpeed.x, myBody.getLinearVelocity().y);
+
 
     ((AbstractStage) getStage()).changeCamera(myBody.getPosition().x , myBody.getPosition().y );
     
@@ -257,7 +286,7 @@ public class Hero extends Monsters implements IHero {
     checkEvolution();
     checkAccumulatingJump();
     giveMagic();
-    
+
     if (isJumping)
     	state.countFrames();
   }
@@ -316,17 +345,21 @@ public class Hero extends Monsters implements IHero {
   }
   
   private void checkDamage(float delta) {
-    if(isDamaged){
-      accumulator += delta;
-      if(accumulator > hurtTime){
-        isDamaged = false;
-        //changeAnimation(walkAnimation);
-        accumulator = 0;
+
+	  if(!isSinging[this.getIndexFriend()]) {
+        if (isDamaged) {
+          accumulator += delta;
+          if (accumulator > hurtTime) {
+            isDamaged = false;
+            changeAnimation(walkAnimation);
+            accumulator = 0;
+          }
+        }
       }
-    }
   }
 
   private void giveMagic() {
+	  //magic sound
     if(actualFriend.getMagic() < 1000){
       actualFriend.setMagic(((actualFriend.getMagic() + 1)%1001));
     } else {
@@ -338,26 +371,32 @@ public class Hero extends Monsters implements IHero {
     if(isAttacking){
       countMeleeFrames += delta;
       if(countMeleeFrames > spriteTime){
-        if(actualAnimation  < attackAnimations.length) {
-          //changeAnimation(attackAnimations[actualAnimation]);
+
+        if(actualAnimation[this.getIndexFriend()]  < attackAnimations.length) {
+        	if(!isSinging[this.getIndexFriend()])
+        		changeAnimation(attackAnimations[actualAnimation[this.getIndexFriend()]]);
           countMeleeFrames = 0;
-          actualAnimation += 1;
+          actualAnimation[this.getIndexFriend()] += 1;
         } else {
           isAttacking = false;
           countMeleeFrames = 0;
-          actualAnimation = 0;
+          actualAnimation[this.getIndexFriend()] = 0;
         }
       }
     }
     else if(!isDamaged){
-      countMeleeFrames = 0;
-      isAttacking = false;
-      actualAnimation = 0;
-      //changeAnimation(walkAnimation);
-    } else {
-      countMeleeFrames = 0;
+
+    	if(!isSinging[this.getIndexFriend()]){
+	      countMeleeFrames = 0;
+	      isAttacking = false;
+	      actualAnimation[this.getIndexFriend()] = 0;
+	      changeAnimation(walkAnimation);
+	    }}
+    else {
+	      countMeleeFrames = 0;
+	    }
     }
-  }
+  
 
   @Deprecated
   private float getImpulse(float impulse) {
@@ -391,8 +430,9 @@ public class Hero extends Monsters implements IHero {
     countMeleeFrames = 0;
     for(int i = 0; i < actualFriend.getMeleeAnimation().length; i++){
       attackAnimations[i] = addAnimation(0.2f, actualFriend.getMeleeAnimation()[i][1]);
-    }
-    actualAnimation = 0;
+
+    }  
+    //actualAnimation[this.getIndexFriend()] = 0;
   }
   
   @Override
@@ -440,6 +480,7 @@ public class Hero extends Monsters implements IHero {
       allies.set(indexFriend, actualFriend);
       actualFriend = allies.get(index);
       indexFriend = index;
+      states = liststates.get(index);
       parent = actualFriend;
       MainBar.getInstance().setBars();
       setSizeCollider(getBody().getPosition(), false);
@@ -485,6 +526,11 @@ public class Hero extends Monsters implements IHero {
   }
   
   @Override
+  public void interactWithWater(WaterPlatform waterplatform, WorldManifold worldManifold){
+    waterplatform.interactWithHero(this, worldManifold);
+  }
+  
+  @Override
   public void interactWithAttack(Attacks attack, WorldManifold worldManifold){
     attack.manageInteractWithMonster(this, worldManifold);    
   }
@@ -502,16 +548,23 @@ public class Hero extends Monsters implements IHero {
   }
 
   public void interactWithMonster(Monsters monster) {
+	  /*heroe es golpeado por mounstruo falta sonido*/
+	
     meleeAttack(monster, isAttacking);  
   }
   
   @Override
   public void interactWithPortal(Portal portal){
+	mplayer.PlayEnd();
     portal.completeStage();
   }
 
   public void endPlatformInteraction(Platform platform, WorldManifold worldManifold) { platform.endHeroInteraction(this, worldManifold);}
 
+  public void endWaterInteraction(WaterPlatform waterplatform, WorldManifold worldmanifold) {
+	  waterplatform.endHeroInteraction(this, worldmanifold);
+  }
+  
   @Override
   public float getMonsterWidth() {
     return getBodySize(actualFriend.getWidth());
@@ -531,15 +584,19 @@ public class Hero extends Monsters implements IHero {
     if(restitutive && !inertia) return;
     vx += 7*i;
     if(vx!=0)
-      isFacingRight = (vx>0);
+      if(!isSinging[this.getIndexFriend()])
+    	isFacingRight = (vx>0);
     inertia = true;
   }
 
 
   public void jump(int button) {
-	isJumping = true;
-	state.restarCount();
-    state.jump();
+	  if(!isSinging[this.getIndexFriend()]){
+		  isJumping = true;
+		state.restarCount();
+    	state.jump();
+	  }
+    
   }
   
   public void isNotPressingSpace() {
@@ -553,16 +610,21 @@ public class Hero extends Monsters implements IHero {
     }    
   }
 
+  // FIXME El gcd no es global, depende del tipo de ataque
   public void attackPrimary() {
-    if(actualFriend.getMagic() >= 100){
-      actualFriend.setMagic(actualFriend.getMagic() - 100);
+    if(!isSinging[this.getIndexFriend()] && cooldownTimer < System.currentTimeMillis() && actualFriend.getMagic() >= actualFriend.getAttackMagicRequirement()){
+      actualFriend.setMagic(actualFriend.getMagic() - actualFriend.getAttackMagicRequirement());
+      mplayer.PlayProyectileSound();
       GameActor fireball = actualFriend.getFriendAttack(myWorld, myBody.getPosition().x,myBody.getPosition().y,isFacingRight, this);
       ((AbstractStage) getStage()).addGameActor(fireball);
+      ((Attacks) fireball).getSpriteState().secondaryEfectsToSource(this);
+      cooldownTimer = System.currentTimeMillis() + ((Attacks)fireball).getSpriteState().getCooldown();
     }
   }
 
   public void attackSecondary() {
-    if(!isAttacking){
+    if(!isAttacking && !isSinging[this.getIndexFriend()]){
+      mplayer.PlayClaw();
       isAttacking = true;
     }
   }
@@ -575,22 +637,25 @@ public class Hero extends Monsters implements IHero {
   }
 
   @Override
-  protected void gainExp(int enemyLevel, Enemies type) {
+  public void gainExp(int enemyLevel, Enemies type) {
     actualFriend.gainExperience(enemyLevel, type);
   }
 
   public void throwBall(Ball.BallType type) {
-    BallActor ball = new BallActor(type, myWorld, myBody.getPosition().x + ((isFacingRight)?0.6f:-0.6f)*actualFriend.getWidth()/ GameConstants.WORLD_FACTOR,
-            myBody.getPosition().y);
-    ball.setThrowImpulse((isFacingRight)?1:-1);
-    ((AbstractStage) getStage()).addGameActor(ball);
-  }
+		 mplayer.playthrow();
+	    BallActor ball = new BallActor(type, myWorld, myBody.getPosition().x + ((isFacingRight)?0.6f:-0.6f)*actualFriend.getWidth()/ GameConstants.WORLD_FACTOR,
+	            myBody.getPosition().y);
+	    ball.setThrowImpulse((isFacingRight)?1:-1);
+	    ((AbstractStage) getStage()).addGameActor(ball);
+}
+	  
 
   public void nextAllie() {
     for (int i = 1; i <= allies.size; i++) {
       int j = (indexFriend + i) % allies.size;
       if(!allies.get(j).getDead()) {
         changeAllie(j);
+        
         break;
       }
     }
@@ -654,8 +719,7 @@ public class Hero extends Monsters implements IHero {
   public void completeStage(Game myGame){
     AbstractStage myStage = ((AbstractStage) getStage());
     Levels actualLevel = myStage.getLevel();
-    
-    AbstractStage.music.stop();
+    myStage.musicplayer.StopMusic();
 
     int[] levels = actualLevel.unlockableLevels;
     for(int level : levels){
@@ -674,6 +738,9 @@ public class Hero extends Monsters implements IHero {
   public boolean[] getLevelsUnlocked() {
     return levelsUnlocked;
   }
+  public GDXSoundEffectsPlayer getHeroPlayer(){
+	  return mplayer;
+  }
 
   public float getStageX(){
     return myBody.getPosition().x * GameConstants.WORLD_FACTOR;
@@ -690,6 +757,7 @@ public class Hero extends Monsters implements IHero {
 
   @Override
   public void setSpeed(float x, float y) {
+	  mplayer.PlayJumpSound();
       myBody.setLinearVelocity(x, y);
   }
 
@@ -700,14 +768,44 @@ public class Hero extends Monsters implements IHero {
 
   @Override
   public void interactWithItem(ItemActor item) {
+	  System.out.println(item.getName());
     item.interactWithHero(this,null);
+    
+	
   }
   
 
   public void CriticalDamage() {
-		FxManager.getInstance().addFx(FxManager.Fx.CRITICAL,  this.getStageX(),this.getStageY());
+	  this.addState(new CriticalHit(this), 100);
   }
+@Override
+public float getRelativeY() {
+	return this.getStageY();
+}
+@Override
+public float getRelativeX() {
+	return this.getStageX();
+}
+@Override
+public void sing() {
+	this.isSinging[this.getIndexFriend()] = true;
+	this.changeAnimation(hurtAnimation);;
+}
+@Override
+public void unSing() {
+	this.isSinging[this.getIndexFriend()] = false;
+}
+@Override
+public void sleep() {
+	this.isSinging[this.getIndexFriend()] = true;
+	this.changeAnimation(hurtAnimation);;
+}
+@Override
+public void unSleep() {
+	this.isSinging[this.getIndexFriend()] = false;
+}
 
 
 
 }
+

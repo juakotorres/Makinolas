@@ -2,6 +2,10 @@ package cl.makinolas.atk.types;
 
 public class PoisonType extends AbstractType implements IType {
 
+	public PoisonType() {
+		this.isPoison=true;
+	}
+
 	@Override
 	public double attackFromType(IType type) {
 		return type.poisonPokemonAttacks(this);

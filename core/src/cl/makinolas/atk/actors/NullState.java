@@ -10,7 +10,7 @@ public class NullState extends JumpState {
 	}
 	
 	@Override
-	 public void setAnimation(ICharacter minigameCharacter, float delta) {
+	 public void setAnimation(MinigameCharacter minigameCharacter, float delta) {
 	   minigameCharacter.onAirAnimation(delta);
 	}
 }
