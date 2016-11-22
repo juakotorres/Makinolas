@@ -95,8 +95,14 @@ public class MenuScreen extends SimpleScreen {
 
   protected void newGame() {
     File saves = new File("Save");
-    String last_title = saves.list()[saves.list().length-1];
-    int actual = Integer.parseInt(last_title.substring(3,4));
+    int actual;
+    if(saves.list().length==0){
+      actual = 0;
+    }
+    else{
+      String last_title = saves.list()[saves.list().length-1];
+      actual = Integer.parseInt(last_title.substring(3,4));
+    }
     actual++;
     GameText.savePath = "Save/ATK"+actual+".sav";GameScreen gameScreen = new GameScreen(myGame);
     gameScreen.setStage(new StartingJourneyStage(new FitViewport(640,480), gameScreen, myGame));
