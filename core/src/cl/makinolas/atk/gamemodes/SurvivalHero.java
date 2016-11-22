@@ -35,6 +35,8 @@ public class SurvivalHero extends Monsters implements ICharacter, IHero {
     private BodyDef myBodyDefinition;
     private JumpState jumpState;
     private World myWorld;
+    private long cooldownTimer;
+    private boolean[] isSinging = {false, false, false, false};
 
     public SurvivalHero(World survivalWorld) {
         this.myWorld = survivalWorld;
@@ -44,10 +46,13 @@ public class SurvivalHero extends Monsters implements ICharacter, IHero {
         myBodyDefinition.type = BodyDef.BodyType.DynamicBody;
         setAnimation();
         changeAnimation(walkAnimation);
+        parent = character;
 
         jumpState = new OnGround();
         jumpState.setHero(this);
         myBodyDefinition.fixedRotation = true;
+        myWorld.setGravity(new Vector2(0,30));
+        cooldownTimer = 0;
 
 
     }
@@ -96,12 +101,12 @@ public class SurvivalHero extends Monsters implements ICharacter, IHero {
 
     @Override
     public void landedPlatform(WorldManifold worldManifold, Platform platform) {
-
+            setState(new OnGround());
     }
 
     @Override
     public void interactWithMonster(Boss boss) {
-
+            
     }
 
     @Override
@@ -208,7 +213,14 @@ public class SurvivalHero extends Monsters implements ICharacter, IHero {
 
     @Override
     public void attackPrimary() {
-
+        if(!isSinging[0] && cooldownTimer < System.currentTimeMillis() && character.getMagic() >= character.getAttackMagicRequirement()){
+            character.setMagic(character.getMagic() - character.getAttackMagicRequirement());
+            //mplayer.PlayProyectileSound();
+            GameActor fireball = character.getFriendAttack(myWorld, myBody.getPosition().x,myBody.getPosition().y,isFacingRight, this);
+            ((AbstractStage) getStage()).addGameActor(fireball);
+            ((Attacks) fireball).getSpriteState().secondaryEfectsToSource(this);
+            cooldownTimer = System.currentTimeMillis() + ((Attacks)fireball).getSpriteState().getCooldown();
+        }
     }
 
     @Override
@@ -233,6 +245,8 @@ public class SurvivalHero extends Monsters implements ICharacter, IHero {
         setState(new OnGround());
 
     }
+
+
 
 
     @Override

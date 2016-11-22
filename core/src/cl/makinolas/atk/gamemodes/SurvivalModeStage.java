@@ -33,7 +33,7 @@ public class SurvivalModeStage extends AbstractStage implements ContactListener{
     private Box2DDebugRenderer renderer;
     private Platform initialPlatform;
     private Group ground, mons, ui, deco;
-    private SurvivalHero hero;
+    private IHero hero;
 
     //Agregar requisitode calidad y restriccion
     public SurvivalModeStage(Viewport v, GameScreen actualScreen, Game game) {
@@ -67,7 +67,7 @@ public class SurvivalModeStage extends AbstractStage implements ContactListener{
         ui.addActor(group);
         ui.addActor(BagVis.getInstance());
         FxManager.getInstance().setParent(ui);
-        survivalWorld.setGravity(new Vector2(0,-30));
+        survivalWorld.setGravity(new Vector2(0,-100));
         addListener(new SurvivalInputController(hero,group));
         renderer = new Box2DDebugRenderer();
         //cameraObserver.setPosition(hero.getBody().getPosition().x, hero.getBody().getPosition().y);
@@ -84,7 +84,9 @@ public class SurvivalModeStage extends AbstractStage implements ContactListener{
 
     @Override
     public void beginContact(Contact contact) {
-
+        GameActor actor1 = (GameActor) contact.getFixtureA().getBody().getUserData();
+        GameActor actor2 = (GameActor) contact.getFixtureB().getBody().getUserData();
+        actor1.interact(actor2, contact.getWorldManifold());
     }
 
     @Override
@@ -118,6 +120,7 @@ public class SurvivalModeStage extends AbstractStage implements ContactListener{
 
 
     }
+
 
 
 

@@ -58,4 +58,6 @@ public interface IHero {
     void landedPlatform(WorldManifold worldManifold, Platform platform);
 
     void interactWithMonster(Boss boss);
+
+    void stopMovement();
 }

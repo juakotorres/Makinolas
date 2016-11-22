@@ -14,8 +14,8 @@ import com.badlogic.gdx.scenes.scene2d.InputListener;
  * Created by belisariops on 11/8/16.
  */
 public class SurvivalInputController extends InputListener {
-    SurvivalHero hero;
-    public SurvivalInputController(SurvivalHero h, MobileGroup mob) {
+    IHero hero;
+    public SurvivalInputController(IHero h, MobileGroup mob) {
         hero = h;
     }
     boolean leftDown = false;

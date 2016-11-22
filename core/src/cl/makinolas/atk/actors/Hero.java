@@ -428,6 +428,11 @@ public class Hero extends Monsters implements IHero {
 
   }
 
+  @Override
+  public void stopMovement() {
+
+  }
+
   public void setAnimation(){
     setMasterTexture(actualFriend.getTexture(),actualFriend.getWidth(),actualFriend.getHeight());
     walkAnimation = addAnimation(0.2f, actualFriend.getWalkAnimation());

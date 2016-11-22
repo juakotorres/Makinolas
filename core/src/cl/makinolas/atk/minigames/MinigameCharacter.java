@@ -274,6 +274,11 @@ public class MinigameCharacter extends AnimatedActor implements ICharacter, IHer
 
   }
 
+  @Override
+  public void stopMovement() {
+
+  }
+
   public void setDead() {
     dead = true;   
   }
