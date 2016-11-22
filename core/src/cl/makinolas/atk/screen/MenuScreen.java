@@ -1,6 +1,7 @@
 package cl.makinolas.atk.screen;
 
-import cl.makinolas.atk.stages.NewStage;
+import cl.makinolas.atk.start.GameText;
+import cl.makinolas.atk.start.StartingJourneyStage;
 import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
@@ -14,6 +15,8 @@ import cl.makinolas.atk.minigames.MinigameStage;
 import cl.makinolas.atk.stages.LoadStage;
 import cl.makinolas.atk.stages.MenuStage;
 import cl.makinolas.atk.stages.OptionsStage;
+
+import java.io.File;
 
 public class MenuScreen extends SimpleScreen {
 
@@ -47,10 +50,11 @@ public class MenuScreen extends SimpleScreen {
       }
     });
 
-    loadButton.setPosition(270, 200);
-    optionButton.setPosition(270, 120);
-    minigameButton.setPosition(270, 160);
-    newGame.setPosition(270, 80);
+    newGame.setPosition(270, 200);
+    loadButton.setPosition(270, 160);
+    optionButton.setPosition(270, 80);
+    minigameButton.setPosition(270, 120);
+
     newGame.setWidth(100);
     loadButton.setWidth(100);
     optionButton.setWidth(100);
@@ -86,8 +90,12 @@ public class MenuScreen extends SimpleScreen {
   }
 
   protected void newGame() {
-    GameScreen gameScreen = new GameScreen(myGame);
-    gameScreen.setStage(new NewStage(new FitViewport(640,480), gameScreen, myGame));
+    File saves = new File("Save");
+    String last_title = saves.list()[saves.list().length-1];
+    int actual = Integer.parseInt(last_title.substring(3,4));
+    actual++;
+    GameText.savePath = "Save/ATK"+actual+".sav";GameScreen gameScreen = new GameScreen(myGame);
+    gameScreen.setStage(new StartingJourneyStage(new FitViewport(640,480), gameScreen, myGame));
     myGame.setScreen(gameScreen);
   }
 

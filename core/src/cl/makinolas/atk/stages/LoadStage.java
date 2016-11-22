@@ -36,6 +36,7 @@ public class LoadStage extends Stage {
   String [] titulos;
   LoadActor secondSave;
   LoadActor firstSave;
+  private int indicador;
   
   public LoadStage(Viewport v, GameScreen actualScreen, Game myGame) {
     super(v);
@@ -89,8 +90,7 @@ public class LoadStage extends Stage {
     
     addActor(menuButton);
 
-    options = new LoadActor[]{firstSave,secondSave};
-
+    options= new LoadActor[]{firstSave, secondSave};
     //MobileGroup group = new MobileGroup(Gdx.app.getType() == Application.ApplicationType.Android);
     Gdx.input.setInputProcessor(this);
 
@@ -115,14 +115,28 @@ public class LoadStage extends Stage {
 
     if (Gdx.input.isKeyJustPressed(Keys.UP)){
       int last = lastSelected;
-      lastSelected = (lastSelected == 0)? cantidad_juegos-1 : (lastSelected - 1);
+      if(lastSelected==0){
+        lastSelected = cantidad_juegos-1;
+        indicador = 1;//da la vuelta
+      }
+      else{
+        lastSelected = lastSelected - 1;
+        indicador = 0;
+      }
       changeArrow(last, lastSelected);
     } if (Gdx.input.isKeyJustPressed(Keys.DOWN)){
       int last = lastSelected;
-      lastSelected = (lastSelected == cantidad_juegos-1)? 0 : (lastSelected + 1);
+      if(lastSelected == cantidad_juegos - 1) {
+        lastSelected = 0;
+        indicador = 0;
+      }
+      else {
+        lastSelected = lastSelected + 1;
+        indicador = 1;
+      }
       changeArrow(last, lastSelected);
     } if (Gdx.input.isKeyJustPressed(Keys.Z)){
-      options[lastSelected%2].loadMap();
+      options[indicador].loadMap();
     }
   }
   
@@ -130,17 +144,41 @@ public class LoadStage extends Stage {
     
     if(actual < previous){
       arrow.changeCoordinates(50, 300);
-      addActor(firstSave = new LoadActor("Save 2", "Save/"+titulos[actual], 80, 250, this));
-      addActor(secondSave = new LoadActor("Save 2", "Save/"+titulos[actual+1], 80, 140, this));
+      loadActors(actual,actual+1);
     }
 
     if( actual > previous){
       arrow.changeCoordinates(50, 190);
-      addActor(firstSave = new LoadActor("Save 2", "Save/"+titulos[actual-1], 80, 250, this));
-      addActor(secondSave = new LoadActor("Save 2", "Save/"+titulos[actual], 80, 140, this));
+      loadActors(actual-1,actual);
     }
 
     
+  }
+
+  public void loadActors(int first,int second) {
+    options[0].remove();
+    options[1].remove();
+    options[0] = new LoadActor("Save 2", "Save/"+titulos[first], 80, 250, this);
+    options[1] = new LoadActor("Save 2", "Save/"+titulos[second], 80, 140, this);
+
+    options[0].addListener(new InputListener(){
+      @Override
+      public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
+        options[0].loadMap();
+        return true;
+      }
+    });
+
+    options[1].addListener(new InputListener(){
+      @Override
+      public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
+        options[1].loadMap();
+        return true;
+      }
+    });
+
+    addActor(options[0]);
+    addActor(options[1]);
   }
 
   public void startJourney() {
