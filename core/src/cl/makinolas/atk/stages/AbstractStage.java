@@ -20,9 +20,7 @@ public abstract class AbstractStage extends Stage {
   public CameraPosition cameraObserver;
 
   public GDXMusicPlayer musicplayer;
-
   public GDXSoundEffectsPlayer sfxplayer;
-
 
   public AbstractStage(Viewport v) {
     super(v);

@@ -82,9 +82,7 @@ public class MineState extends SpriteState {
 
 @Override
 public IType getType() {
-
 	return NormalType.getInstance();
-
 }
   
 }

@@ -3,11 +3,11 @@ package cl.makinolas.atk.types;
 public class IceType extends AbstractType implements IType {
 
 	private static IceType instance = null;
-
+	
 	private IceType(){
 		this.isIce = true;
 	}
-
+	
 	public static IceType getInstance(){
 		if (instance == null){
 			instance = new IceType();
@@ -24,12 +24,12 @@ public class IceType extends AbstractType implements IType {
 	public double attackToType(IType type) {
 		return type.monsterHasAttackedFromIce();
 	}
-
+	
 	@Override
 	public double icePokemonAttacks(IType type) {
 		return 1.5;
 	}
-
+	
 	@Override
 	public double monsterHasAttackedFromFight() {
 		return 2;
@@ -39,7 +39,7 @@ public class IceType extends AbstractType implements IType {
 	public double monsterHasAttackedFromFire() {
 		return 2;
 	}
-
+	
 	@Override
 	public double monsterHasAttackedFromIce() {
 		return 0.5;
@@ -54,5 +54,5 @@ public class IceType extends AbstractType implements IType {
 	public double monsterHasAttackedFromSteel() {
 		return 2;
 	}
-
+	
 }

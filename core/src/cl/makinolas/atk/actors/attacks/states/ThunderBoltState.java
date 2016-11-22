@@ -72,8 +72,6 @@ public class ThunderBoltState extends SpriteState {
 
 @Override
 public IType getType() {
-
 	return ElectricType.getInstance();
-
 }
 }

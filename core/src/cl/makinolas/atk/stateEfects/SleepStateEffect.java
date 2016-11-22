@@ -4,9 +4,9 @@ import cl.makinolas.atk.actors.Monsters;
 import cl.makinolas.atk.actors.friend.Friend;
 
 public class SleepStateEffect extends AbstractStateEfects {
-
+	
 	Friend friend;
-
+	
 	public SleepStateEffect(Monsters monster){
 		float value =((float) Math.random()*10+5);
 		this.drawEfects = new DrawStateEfects("StateImages/dormir.png", 64, 64, value, 2f,4, this);
@@ -24,5 +24,5 @@ public class SleepStateEffect extends AbstractStateEfects {
 		monster.unSleep();
 		super.destroy();
 	}
-
+	
 }

@@ -3,11 +3,11 @@ package cl.makinolas.atk.types;
 public class PoisonType extends AbstractType implements IType {
 
 	private static PoisonType instance = null;
-
+	
 	private PoisonType(){
 		this.isPoison = true;
 	}
-
+	
 	public static PoisonType getInstance(){
 		if (instance == null){
 			instance = new PoisonType();
@@ -29,7 +29,7 @@ public class PoisonType extends AbstractType implements IType {
 	public double poisonPokemonAttacks(IType type) {
 		return 1.5;
 	}
-
+	
 	@Override
 	public double monsterHasAttackedFromBug() {
 		return 0.5;
@@ -39,7 +39,7 @@ public class PoisonType extends AbstractType implements IType {
 	public double monsterHasAttackedFromFairy() {
 		return 0.5;
 	}
-
+	
 	@Override
 	public double monsterHasAttackedFromFight() {
 		return 0.5;
