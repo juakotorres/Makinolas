@@ -62,7 +62,9 @@ public class WaterDropState extends SpriteState {
 
 @Override
 public IType getType() {
-	return new WaterType();
+
+	return WaterType.getInstance();
+
 }
   
 }

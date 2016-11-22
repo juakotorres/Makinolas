@@ -28,8 +28,8 @@ public class Surskit extends AbstractFriend {
     newMonster();
     setActualEvolution(0);
     setMaxMagic(1000);
-    addType(new BugType());
-    addType(new WaterType());
+    addType(BugType.getInstance());
+    addType(WaterType.getInstance());
   }
   
   public Surskit(int level){
@@ -61,8 +61,8 @@ public class Surskit extends AbstractFriend {
       setStats();
       setMaxMagic(1000);
       resetType();
-      addType(new BugType());
-      addType(new FlyingType());
+      addType(BugType.getInstance());
+      addType(FlyingType.getInstance());
     }
   }
 }

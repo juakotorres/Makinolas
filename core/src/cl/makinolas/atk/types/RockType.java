@@ -2,8 +2,17 @@ package cl.makinolas.atk.types;
 
 public class RockType extends AbstractType implements IType {
 
-	public RockType() {
+	private static RockType instance = null;
+
+	private RockType(){
 		this.isRock = true;
+	}
+
+	public static RockType getInstance(){
+		if (instance == null){
+			instance = new RockType();
+		}
+		return instance;
 	}
 
 	@Override
@@ -20,7 +29,7 @@ public class RockType extends AbstractType implements IType {
 	public double rockPokemonAttacks(IType type) {
 		return 1.5;
 	}
-	
+
 	@Override
 	public double monsterHasAttackedFromFight() {
 		return 2;
@@ -65,5 +74,5 @@ public class RockType extends AbstractType implements IType {
 	public double monsterHasAttackedFromWater() {
 		return 2;
 	}
-	
+
 }

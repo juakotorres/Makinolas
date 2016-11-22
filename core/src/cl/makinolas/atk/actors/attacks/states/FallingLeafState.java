@@ -72,7 +72,9 @@ public class FallingLeafState extends SpriteState {
 
 @Override
 public IType getType() {
-	return new GrassType();
+
+	return GrassType.getInstance();
+
 }
 
 @Override

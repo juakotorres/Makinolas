@@ -32,7 +32,7 @@ public class Groudon extends AbstractFriend {
         setActualEvolution(0);
         setStats();
         setMaxMagic(1000);
-        addType(new GroundType());
+        addType(GroundType.getInstance());
     }
 
     @Override
@@ -44,12 +44,12 @@ public class Groudon extends AbstractFriend {
     public Attacks getFriendAttack(World myWorld, float x , float y, boolean facingRight, Monsters source){
         return new ShootAttack(new BlueBeamState(),myWorld, x, y, facingRight, source);
     }
-    
+
     @Override
-	public int getAttackMagicRequirement() {
-	  // TODO Auto-generated method stub
-	  return BlueBeamState.magicRequirement;
-	}
+    public int getAttackMagicRequirement() {
+        // TODO Auto-generated method stub
+        return BlueBeamState.magicRequirement;
+    }
 
 
 }

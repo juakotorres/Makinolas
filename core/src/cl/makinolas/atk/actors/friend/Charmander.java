@@ -35,7 +35,7 @@ public class Charmander extends AbstractFriend {
     newMonster();
     setActualEvolution(0);
     setMaxMagic(1000);
-    addType(new FireType());
+    addType(FireType.getInstance());
   }
   
   public Charmander(int level){
@@ -80,7 +80,7 @@ public class Charmander extends AbstractFriend {
       setActualEvolution(2);
       setStats();
       setMaxMagic(1000);
-      addType(new FlyingType());
+      addType(FlyingType.getInstance());
     }
   }
   

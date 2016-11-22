@@ -27,7 +27,6 @@ import java.util.ArrayList;
 public class LoadStage extends Stage {
 
   private Game myGame;
-
   private LoadActor[] options;
   int k = 0;
   private int lastSelected;
@@ -93,7 +92,6 @@ public class LoadStage extends Stage {
     options= new LoadActor[]{firstSave, secondSave};
     //MobileGroup group = new MobileGroup(Gdx.app.getType() == Application.ApplicationType.Android);
     Gdx.input.setInputProcessor(this);
-
     //setupCamera();
   }
 

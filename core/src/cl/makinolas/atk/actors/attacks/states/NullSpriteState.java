@@ -52,7 +52,9 @@ public class NullSpriteState extends SpriteState {
 
 @Override
 public IType getType() {
-	return new NormalType();
+
+	return NormalType.getInstance();
+
 }
   
 }

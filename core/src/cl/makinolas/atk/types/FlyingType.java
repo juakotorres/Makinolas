@@ -2,8 +2,17 @@ package cl.makinolas.atk.types;
 
 public class FlyingType extends AbstractType implements IType {
 
-	public FlyingType() {
-		this.isFlying=true;
+	private static FlyingType instance = null;
+
+	private FlyingType(){
+		this.isFlying = true;
+	}
+
+	public static FlyingType getInstance(){
+		if (instance == null){
+			instance = new FlyingType();
+		}
+		return instance;
 	}
 
 	@Override
@@ -20,12 +29,12 @@ public class FlyingType extends AbstractType implements IType {
 	public double flyingPokemonAttacks(IType type) {
 		return 1.5;
 	}
-	
+
 	@Override
 	public double monsterHasAttackedFromBug() {
 		return 0.5;
 	}
-	
+
 	@Override
 	public double monsterHasAttackedFromElectric() {
 		return 2;
@@ -35,7 +44,7 @@ public class FlyingType extends AbstractType implements IType {
 	public double monsterHasAttackedFromFight() {
 		return 0.5;
 	}
-	
+
 	@Override
 	public double monsterHasAttackedFromGrass() {
 		return 0.5;
@@ -45,12 +54,12 @@ public class FlyingType extends AbstractType implements IType {
 	public double monsterHasAttackedFromGround() {
 		return 0;
 	}
-	
+
 	@Override
 	public double monsterHasAttackedFromIce() {
 		return 2;
 	}
-	
+
 	@Override
 	public double monsterHasAttackedFromRock() {
 		return 2;

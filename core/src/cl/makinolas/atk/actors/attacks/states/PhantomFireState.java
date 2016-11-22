@@ -72,7 +72,9 @@ public class PhantomFireState extends SpriteState {
 
 @Override
 public IType getType() {
-	return new GhostType();
+
+	return GhostType.getInstance();
+
 }
   
 }

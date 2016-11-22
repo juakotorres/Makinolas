@@ -11,9 +11,10 @@ import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.utils.viewport.FitViewport;
 
-import cl.makinolas.atk.minigames.MinigameStage;
+import cl.makinolas.atk.stages.CorruptSAVStage;
 import cl.makinolas.atk.stages.LoadStage;
 import cl.makinolas.atk.stages.MenuStage;
+import cl.makinolas.atk.stages.MiniGameStage;
 import cl.makinolas.atk.stages.OptionsStage;
 
 import java.io.File;
@@ -73,7 +74,7 @@ public class MenuScreen extends SimpleScreen {
   
   protected void minigame() {
     GameScreen gameScreen = new GameScreen(myGame);
-    gameScreen.setStage(new MinigameStage(new FitViewport(640,480), gameScreen, myGame));
+    gameScreen.setStage(new MiniGameStage(new FitViewport(640,480), gameScreen, myGame));
     myGame.setScreen(gameScreen);
   }
 
@@ -84,8 +85,11 @@ public class MenuScreen extends SimpleScreen {
   }*/
 
   protected void loadGame() {
-    GameScreen gameScreen = new GameScreen(myGame);
-    gameScreen.setStage(new LoadStage(new FitViewport(640,480), gameScreen, myGame));
+	GameScreen gameScreen = new GameScreen(myGame);
+	if (!MenuStage.hasCorruptSAV())
+    	gameScreen.setStage(new LoadStage(new FitViewport(640,480), gameScreen, myGame));
+	else
+		gameScreen.setStage(new CorruptSAVStage(new FitViewport(640,480), gameScreen, myGame));
     myGame.setScreen(gameScreen);
   }
 

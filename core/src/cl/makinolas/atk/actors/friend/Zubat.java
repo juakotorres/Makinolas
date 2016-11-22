@@ -35,8 +35,8 @@ public class Zubat extends AbstractFriend {
     newMonster();
     setActualEvolution(0);
     setMaxMagic(1000);
-    addType(new PoisonType());
-    addType(new FlyingType());
+    addType(PoisonType.getInstance());
+    addType(FlyingType.getInstance());
   }
   
   public Zubat(int level){

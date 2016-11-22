@@ -5,15 +5,15 @@ import com.badlogic.gdx.Gdx;
 import cl.makinolas.atk.stages.OptionsStage;
 
 public class GDXSoundEffectsEnemy extends GDXSoundEffectsPlayer {
-	
-	GDXSoundEffectsEnemy() {
-		sfxmap.put("soundExplotion", Gdx.audio.newMusic(Gdx.files.internal("Music/SFX_Explosion_01.wav")));
-		sfxmap.put("soundExplotionEnd", Gdx.audio.newMusic(Gdx.files.internal("Music/SFX_Explosion_03.wav")));
-	}
-	
+
 	public static GDXSoundEffectsPlayer getInstance() {
-		instance = new GDXSoundEffectsEnemy();
-		instance.SetVolume(OptionsStage.getSFXVolume());
-		return instance;
+		GDXSoundEffectsPlayer myInstance = GDXSoundEffectsPlayer.getInstance();
+
+		sfxmap.putIfAbsent("soundExplotion", Gdx.audio.newMusic(Gdx.files.internal("Music/SFX_Explosion_01.wav")));
+		sfxmap.putIfAbsent("soundExplotionEnd", Gdx.audio.newMusic(Gdx.files.internal("Music/SFX_Explosion_03.wav")));
+
+		myInstance.SetVolume(OptionsStage.getSFXVolume());
+		return myInstance;
 	}
+
 }
