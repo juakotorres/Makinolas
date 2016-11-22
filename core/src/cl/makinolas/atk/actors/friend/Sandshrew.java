@@ -26,7 +26,7 @@ public class Sandshrew extends AbstractFriend {
     newMonster();
     setActualEvolution(0);
     setMaxMagic(1000);
-    addType(new GroundType());
+    addType(GroundType.getInstance());
   }
   
   public Sandshrew(int level){

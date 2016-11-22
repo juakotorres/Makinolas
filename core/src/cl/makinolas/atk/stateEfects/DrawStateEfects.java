@@ -12,23 +12,21 @@ public class DrawStateEfects {
     private Animation animation;
     private IStateEfects state;
 	
-	public DrawStateEfects(String region, int w, int h, float duration, int frames, IStateEfects state){
+	public DrawStateEfects(String region, int w, int h, float duration,float durationAnimation , int frames, IStateEfects state){
 		this.state = state;
         TextureRegion[][] ms = (new TextureRegion(new Texture(region))).split(w,h);
         Array<TextureRegion> regs = new Array<TextureRegion>(frames);
         for (int i = 0; i < frames; i++) {
             regs.add(ms[0][i]);
         }
-        animation = new Animation(duration/frames, regs, Animation.PlayMode.LOOP);
+        animation = new Animation(durationAnimation/frames, regs, Animation.PlayMode.LOOP);
         acc = 0;
         this.duration = duration;
 	}
 
 	public void act(float delta) {
         acc += delta;
-        System.out.println("act");
         if(acc >= duration){
-        	System.out.println("destory");
         	state.destroy();
         }
         	

@@ -32,7 +32,7 @@ public class Groudon extends AbstractFriend {
         setActualEvolution(0);
         setStats();
         setMaxMagic(1000);
-        addType(new GroundType());
+        addType(GroundType.getInstance());
     }
 
     @Override

@@ -72,7 +72,7 @@ public class AcidState extends SpriteState {
 
 @Override
 public IType getType() {
-	return new PoisonType();
+	return PoisonType.getInstance();
 }
   
 }

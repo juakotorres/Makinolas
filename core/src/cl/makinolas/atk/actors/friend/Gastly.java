@@ -34,8 +34,8 @@ public class Gastly extends AbstractFriend {
     newMonster();
     setActualEvolution(0);
     setMaxMagic(1000);
-    addType(new GhostType());
-    addType(new PoisonType());
+    addType(GhostType.getInstance());
+    addType(PoisonType.getInstance());
   }
   
   public Gastly(int level){

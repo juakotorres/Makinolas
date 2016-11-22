@@ -2,8 +2,17 @@ package cl.makinolas.atk.types;
 
 public class GhostType extends AbstractType implements IType {
 
-	public GhostType() {
-		this.isGhost=true;
+	private static GhostType instance = null;
+	
+	private GhostType(){
+		this.isGhost = true;
+	}
+	
+	public static GhostType getInstance(){
+		if (instance == null){
+			instance = new GhostType();
+		}
+		return instance;
 	}
 
 	@Override

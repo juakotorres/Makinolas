@@ -38,7 +38,7 @@ public class SingState extends SpriteState {
 
     @Override
     public int getHeight() {
-        return 256;
+        return 176;
     }
 
     @Override
@@ -73,7 +73,7 @@ public class SingState extends SpriteState {
 
 	@Override
 	public IType getType() {
-		return new NormalType();
+		return NormalType.getInstance();
 	}
 	
 	@Override
