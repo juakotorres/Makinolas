@@ -126,13 +126,31 @@ public class PokeComputerScreen extends SimpleScreen implements KeyHandable {
         stage.addListener(new SimpleInputController(this,null));
 	}
 
+//importante
+    private void updateAllies(){
+    	for (int i = 0; i < hero.getAllies().size; i++) {
+            TeamFriendImage tfimg = new TeamFriendImage(hero.getAllies().get(i), true);
+            tfimg.setPosition(60 + 60 * i,350);
+            tfimg.setScale(1.5f);
+            //stage.addActor(tfimg);
+            stage.getActors().set(i+1, tfimg);
+    	}
+    	for (int i = 0; i < hero.getBackupAllies().size; i++) {
+            TeamFriendImage tfimg = new TeamFriendImage(hero.getBackupAllies().get(i), true);
+            tfimg.setPosition(60 + 60 * (i % 6),250 - 70 * (i / 6));
+            tfimg.setScale(1.5f);
+            //stage.addActor(tfimg);
+            stage.getActors().set(i+5, tfimg);
+        }
+    }
+    
     private void showAllies(){
     	for (int i = 0; i < hero.getAllies().size; i++) {
             TeamFriendImage tfimg = new TeamFriendImage(hero.getAllies().get(i), true);
             tfimg.setPosition(60 + 60 * i,350);
             tfimg.setScale(1.5f);
             stage.addActor(tfimg);
-        }
+    	}
     	for (int i = 0; i < hero.getBackupAllies().size; i++) {
             TeamFriendImage tfimg = new TeamFriendImage(hero.getBackupAllies().get(i), true);
             tfimg.setPosition(60 + 60 * (i % 6),250 - 70 * (i / 6));
