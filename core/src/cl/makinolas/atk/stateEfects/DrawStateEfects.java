@@ -7,13 +7,13 @@ import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.utils.Array;
 
 public class DrawStateEfects {
-	
+
     private float acc, duration;
     private Animation animation;
     private IStateEfects state;
-	
-	public DrawStateEfects(String region, int w, int h, float duration,float durationAnimation , int frames, IStateEfects state){
-		this.state = state;
+
+    public DrawStateEfects(String region, int w, int h, float duration,float durationAnimation , int frames, IStateEfects state){
+        this.state = state;
         TextureRegion[][] ms = (new TextureRegion(new Texture(region))).split(w,h);
         Array<TextureRegion> regs = new Array<TextureRegion>(frames);
         for (int i = 0; i < frames; i++) {
@@ -22,18 +22,18 @@ public class DrawStateEfects {
         animation = new Animation(durationAnimation/frames, regs, Animation.PlayMode.LOOP);
         acc = 0;
         this.duration = duration;
-	}
+    }
 
-	public void act(float delta) {
+    public void act(float delta) {
         acc += delta;
         if(acc >= duration){
-        	state.destroy();
+            state.destroy();
         }
-        	
-	}
 
-	public void draw(Batch batch, float alpha, float xPos, float yPos) {
-        batch.draw(animation.getKeyFrame(acc),xPos-30,yPos-30);		
-	}
+    }
+
+    public void draw(Batch batch, float alpha, float xPos, float yPos) {
+        batch.draw(animation.getKeyFrame(acc),xPos-30,yPos-30);
+    }
 
 }

@@ -77,7 +77,9 @@ public class DragonBreathState extends SpriteState{
 
 @Override
 public IType getType() {
+
 	return DragonType.getInstance();
+
 }
   
 }

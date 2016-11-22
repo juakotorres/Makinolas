@@ -2,12 +2,12 @@ package cl.makinolas.atk.types;
 
 public class ElectricType extends AbstractType implements IType {
 
-private static ElectricType instance = null;
-	
+	private static ElectricType instance = null;
+
 	private ElectricType(){
 		this.isElectric = true;
 	}
-	
+
 	public static ElectricType getInstance(){
 		if (instance == null){
 			instance = new ElectricType();
@@ -29,7 +29,7 @@ private static ElectricType instance = null;
 	public double electricPokemonAttacks(IType type) {
 		return 1.5;
 	}
-	
+
 	@Override
 	public double monsterHasAttackedFromElectric() {
 		return 0.5;

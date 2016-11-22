@@ -3,11 +3,11 @@ package cl.makinolas.atk.types;
 public class WaterType extends AbstractType implements IType {
 
 	private static WaterType instance = null;
-	
+
 	private WaterType(){
 		this.isWater = true;
 	}
-	
+
 	public static WaterType getInstance(){
 		if (instance == null){
 			instance = new WaterType();
