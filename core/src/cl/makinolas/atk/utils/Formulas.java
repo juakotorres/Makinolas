@@ -41,7 +41,6 @@ public class Formulas {
     if( criticalRandomizer < getCritical(criticModificator)){
       critical = 1.5;
       monster.CriticalDamage();
-      System.out.println("Critical ! Formula");
     }
 
     return (int) (critical*extra*efectivity*randomMultiplier*(2+(0.2*(double)level1+1)*(double)attack1)*(double)attackBaseDamage*(1/(25*(double)defense2)));
