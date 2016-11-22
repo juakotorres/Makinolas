@@ -21,6 +21,7 @@ public class MinigamePlatformCreator extends AbstractPlatformCreator{
   }
 
 
+
   @Override
   public void createPlatform(float cameraPositionX, float cameraPositionY) {
     if (Math.abs(cameraPositionX - lastXPosition * 1.8f) < 20){

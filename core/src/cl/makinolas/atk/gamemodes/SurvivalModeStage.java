@@ -9,14 +9,17 @@ import cl.makinolas.atk.actors.ui.BagVis;
 import cl.makinolas.atk.actors.ui.IHero;
 import cl.makinolas.atk.actors.ui.MobileGroup;
 import cl.makinolas.atk.platformCreator.MinigamePlatformCreator;
+import cl.makinolas.atk.platformCreator.SurvivalPlatformCreator;
 import cl.makinolas.atk.screen.GameScreen;
 import cl.makinolas.atk.stages.AbstractStage;
 import cl.makinolas.atk.stages.CameraPosition;
 import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.graphics.Camera;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.*;
+import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.Group;
 import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.viewport.Viewport;
@@ -30,6 +33,9 @@ public class SurvivalModeStage extends AbstractStage implements ContactListener{
     private Platform initialPlatform;
     private Group ground, mons, ui, deco;
     private IHero hero;
+    private float height;
+    private SurvivalPlatformCreator plataformCreator;
+    private CameraPosition cameraPosition;
 
     //Agregar requisitode calidad y restriccion
     public SurvivalModeStage(Viewport v, GameScreen actualScreen, Game game) {
@@ -38,7 +44,7 @@ public class SurvivalModeStage extends AbstractStage implements ContactListener{
         gameActors = new Array<GameActor>();
         survivalWorld = new World(new Vector2(0, -30), true);
         survivalWorld.setContactListener(this);
-        initialPlatform =  new Platform(survivalWorld, "CU", 0, 0, 10, 1);
+        initialPlatform =  new Platform(survivalWorld, "CU", 0, 0, 20, 1);
         addActor(new Background("Background/Night.png", getCamera()));
         ground = new Group();
         ground.addActor(initialPlatform);
@@ -50,13 +56,12 @@ public class SurvivalModeStage extends AbstractStage implements ContactListener{
         ui = new Group();
         addActor(ui);
 
+
         MobileGroup group = new MobileGroup(false);
         Gdx.input.setInputProcessor(this);
 
         cameraObserver = new CameraPosition();
-
-        ground.addActor(initialPlatform);
-        ground.addActor(new MinigamePlatformCreator(survivalWorld, this, 20, 0, ground));
+        plataformCreator = new SurvivalPlatformCreator(survivalWorld, this, 0, 0, ground);
         hero = new SurvivalHero(survivalWorld);
         hero.setWorld(survivalWorld);
         addGameActor((GameActor)hero);
@@ -66,7 +71,10 @@ public class SurvivalModeStage extends AbstractStage implements ContactListener{
         survivalWorld.setGravity(new Vector2(0,-100));
         addListener(new SurvivalInputController(hero,group));
         renderer = new Box2DDebugRenderer();
-        //cameraObserver.setPosition(hero.getBody().getPosition().x, hero.getBody().getPosition().y);
+        height = 0;
+        //cameraPosition = new CameraPosition(cameraObserver.getPositionX(),cameraObserver.getPositionY());
+        cameraObserver.setPosition(getCamera().position.x,getCamera().position.y);
+
 
 
 
@@ -75,7 +83,13 @@ public class SurvivalModeStage extends AbstractStage implements ContactListener{
 
     @Override
     public void changeCamera(float x, float y) {
-
+        //camera.position.set((x + 7), 7, 0);
+        //getCamera().position.set(0, height + 20, 0);
+        Camera camera = getCamera();
+        camera.translate(0,y,0);
+        camera.update();
+        cameraObserver.setPosition(camera.position.x,camera.position.y);
+        //camera.update();
     }
 
     @Override
@@ -106,13 +120,16 @@ public class SurvivalModeStage extends AbstractStage implements ContactListener{
         gameActors.add(actor);
     }
 
+
     @Override
     public void act(float delta){
         super.act(delta);
+        plataformCreator.update(cameraObserver,null);
         /*elapsed time es static en abstract stage, hay que agregarle el delta o no funciona la animacion*/
         AbstractStage.elapsedTime += delta;
         survivalWorld.step(frameTime, 6, 2);
-
+        height +=0.002;
+        changeCamera(0,height);
 
 
     }

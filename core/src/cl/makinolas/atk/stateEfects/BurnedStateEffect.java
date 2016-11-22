@@ -13,7 +13,7 @@ public class BurnedStateEffect extends AbstractStateEfects {
 	private boolean noEfect = false;
 	private int attackValue;
 	private Attacks attack;
-	
+
 	public BurnedStateEffect(Monsters monster, Attacks attack){
 		this.monster = monster;
 		this.attack = attack;
@@ -29,20 +29,20 @@ public class BurnedStateEffect extends AbstractStateEfects {
 		this.drawEfects = new DrawStateEfects("StateImages/fuego.png", 64, 64,(float)rand, 1f , 8, this);
 		this.attackValue = this.friend.getAttackiv();;
 	}
-	
+
 	@Override
 	public void affectMonsters() {
 		friend.setAttackiv(attackValue/2);
-		damage = friend.getMaxHealth()/8;	
+		damage = friend.getMaxHealth()/8;
 	}
-	
+
 	@Override
 	public void destroy() {
 		friend.setAttackiv(attackValue);
 		super.destroy();
 	}
 
-	
+
 	@Override
 	public void act(float delta){
 		super.act(delta);
@@ -54,7 +54,7 @@ public class BurnedStateEffect extends AbstractStateEfects {
 			this.localTime--;
 			monster.damage(damage, attack);
 		}
-		
+
 	}
 
 }

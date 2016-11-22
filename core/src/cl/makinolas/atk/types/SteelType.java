@@ -3,11 +3,11 @@ package cl.makinolas.atk.types;
 public class SteelType extends AbstractType implements IType {
 
 	private static SteelType instance = null;
-	
+
 	private SteelType(){
 		this.isSteel = true;
 	}
-	
+
 	public static SteelType getInstance(){
 		if (instance == null){
 			instance = new SteelType();
@@ -29,7 +29,7 @@ public class SteelType extends AbstractType implements IType {
 	public double steelPokemonAttacks(IType type) {
 		return 1.5;
 	}
-	
+
 	@Override
 	public double monsterHasAttackedFromBug() {
 		return 0.5;
@@ -44,7 +44,7 @@ public class SteelType extends AbstractType implements IType {
 	public double monsterHasAttackedFromFairy() {
 		return 0.5;
 	}
-	
+
 	@Override
 	public double monsterHasAttackedFromFight() {
 		return 2;
@@ -69,7 +69,7 @@ public class SteelType extends AbstractType implements IType {
 	public double monsterHasAttackedFromGround() {
 		return 2;
 	}
-	
+
 	@Override
 	public double monsterHasAttackedFromIce() {
 		return 0.5;

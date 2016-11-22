@@ -84,7 +84,9 @@ public class BranchAttackState extends SpriteState {
 
 @Override
 public IType getType() {
+
 	return GrassType.getInstance();
+
 }
 
 

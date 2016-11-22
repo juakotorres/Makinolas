@@ -3,18 +3,18 @@ package cl.makinolas.atk.types;
 public class BugType extends AbstractType implements IType {
 
 	private static BugType instance = null;
-	
+
 	private BugType(){
 		this.isBug = true;
 	}
-	
+
 	public static BugType getInstance(){
 		if (instance == null){
 			instance = new BugType();
 		}
 		return instance;
 	}
-	
+
 	@Override
 	public double attackFromType(IType type) {
 		return type.bugPokemonAttacks(this);
@@ -29,7 +29,7 @@ public class BugType extends AbstractType implements IType {
 	public double bugPokemonAttacks(IType type) {
 		return 1.5;
 	}
-	
+
 	@Override
 	public double monsterHasAttackedFromFight() {
 		return 0.5;
@@ -59,5 +59,5 @@ public class BugType extends AbstractType implements IType {
 	public double monsterHasAttackedFromRock() {
 		return 2;
 	}
-	
+
 }

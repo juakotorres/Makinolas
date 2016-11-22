@@ -39,6 +39,8 @@ public abstract class AbstractPlatformCreator extends Actor implements Observer,
 
     }
 
+    /*En este metodo debe ir la generacion de plataformas (en funcion de la posicion de la camara),
+     *esto sera llamado en cada frame.                                                              */
     public abstract void createPlatform(float cameraPositionX, float cameraPositionY);
 
 }

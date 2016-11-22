@@ -72,7 +72,9 @@ public class TornadoState extends SpriteState {
 
 @Override
 public IType getType() {
+
 	return FlyingType.getInstance();
+
 }
   
 }

@@ -74,7 +74,9 @@ public class EmberState extends SpriteState{
 
 @Override
 public IType getType() {
+
 	return FireType.getInstance();
+
 }
 
 @Override
