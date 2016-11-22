@@ -72,7 +72,7 @@ public class LoadStage extends Stage {
     }
 
 
-    if(titulos.length>2){
+    if(titulos.length>1){
       secondSave = new LoadActor("Save 2", "Save/"+titulos[1], 80, 140, this);
       secondSave.addListener(new InputListener(){
         @Override
