@@ -1,7 +1,7 @@
 package cl.makinolas.atk.stages;
 
 public enum Levels {
-  LEVEL1("ezpizi", // Nombre del .lvl
+  LEVEL1("test_displacement_bug", // Nombre del .lvl -- original es "ezpizi"
           false,   // true si es bossStage
           28,      // posición x del mapa
           20,      // posicion y del mapa
