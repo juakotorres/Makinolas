@@ -5,42 +5,35 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.physics.box2d.World;
 
+
+
 import cl.makinolas.atk.actors.Monsters;
 import cl.makinolas.atk.actors.attacks.Attacks;
-import cl.makinolas.atk.actors.attacks.ShootAttack;
-import cl.makinolas.atk.actors.attacks.states.RockState;
-import cl.makinolas.atk.types.DarkType;
-import cl.makinolas.atk.types.GroundType;
-import cl.makinolas.atk.types.RockType;
+import cl.makinolas.atk.actors.attacks.ShootBombAttack;
+import cl.makinolas.atk.actors.attacks.states.BubbleState;
+import cl.makinolas.atk.types.SteelType;
+import cl.makinolas.atk.types.WaterType;
 
-public class LarvitarTODO extends AbstractFriend {
+public class Piplup extends AbstractFriend {
 
 	private TextureRegion[][] faces;
 	
-	public LarvitarTODO(){
-		friend = Enemies.LARVITAR;
-		faces = new TextureRegion(new Texture(Gdx.files.internal("Actors/Larvitar_faces.png"))).split(40,40);
-		setTexture(new TextureRegion(new Texture(Gdx.files.internal("Actors/Larvitar.png"))));
+	public Piplup(){
+		friend = Enemies.PIPLUP;
+		faces = new TextureRegion(new Texture(Gdx.files.internal("Actors/Piplup_faces.png"))).split(40,40);
+		setTexture(new TextureRegion(new Texture(Gdx.files.internal("Actors/Piplup.png"))));
 		/* aqui yace todo lo relacionado con los sprites */
-		
-		/*setCutSprites(30,28);
-	    setWalkAnimation(1,2,3,2);
-	    setHurtAnimation(0);
-	    setMeleeAnimation(4,6);
-	    setIdleAnimation(1,2,3,2);
-	    setSpecialAnimation(4,6);*/
-		
 	    setFaceSprite(faces[0][0]);
 	    initLevel(5);
 	    initDead();
 	    newMonster();
 	    setActualEvolution(0);
 	    setMaxMagic(1000);
-	    addType(new RockType());
-	    addType(new GroundType());
+	    addType(new WaterType());
+	    
 	}
-	
-	public LarvitarTODO(int level){
+
+	public Piplup(int level){
 		this();
 		initLevel(level);
 	}
@@ -50,18 +43,18 @@ public class LarvitarTODO extends AbstractFriend {
 		this.level = new Level(level);
 		setStats();
 		setHealth(getMaxHealth());
-		new Evolution(this.level, 30, 1);
-		new Evolution(this.level, 55, 2);
+		new Evolution(this.level, 16, 1);
+		new Evolution(this.level, 36, 2);
 	}
 	
 	@Override
 	protected void evolve(int numberOfLevel) {
 		if (numberOfLevel == 1 && getActualEvolution() < 1) {
-			friend = Enemies.PUPITAR;
-			setTexture(new TextureRegion(new Texture(Gdx.files.internal("Actors/Pupitar.png"))));
+			friend = Enemies.PRINPLUP;
+			setTexture(new TextureRegion(new Texture(Gdx.files.internal("Actors/Prinplup.png"))));
 			/* texturas */
 			
-			/*setCutSprites(30,28);
+		    /*setCutSprites(30,28);
 		    setWalkAnimation(1,2,3,2);
 		    setHurtAnimation(0);
 		    setMeleeAnimation(4,6);
@@ -74,11 +67,11 @@ public class LarvitarTODO extends AbstractFriend {
 		    setMaxMagic(1000);
 			
 		} else if (numberOfLevel == 2 && getActualEvolution() < 2) {
-			setTexture(new TextureRegion(new Texture(Gdx.files.internal("Actors/Tyranitar.png"))));
-			friend = Enemies.TYRANITAR;
+			friend = Enemies.EMPOLEON;
+			setTexture(new TextureRegion(new Texture(Gdx.files.internal("Actors/Empoleon.png"))));
 			/* texturas */
 			
-			/*setCutSprites(30,28);
+		    /*setCutSprites(30,28);
 		    setWalkAnimation(1,2,3,2);
 		    setHurtAnimation(0);
 		    setMeleeAnimation(4,6);
@@ -89,21 +82,20 @@ public class LarvitarTODO extends AbstractFriend {
 		    setActualEvolution(2);
 		    setStats();
 		    setMaxMagic(1000);
-		    resetType();
-		    addType(new RockType());
-		    addType(new DarkType());
+		    addType(new SteelType());
 		}
 	}
 	
+	
 	@Override
-	public Attacks getFriendAttack(World myWorld, float x , float y, boolean facingRight, Monsters source){
-	    return new ShootAttack(new RockState(), myWorld, x, y, facingRight, source);
+	public Attacks getFriendAttack(World myWorld, float x , float y, boolean facingRight, Monsters source) {
+		return new ShootBombAttack(new BubbleState(), myWorld, x, y, facingRight, source);
 	}
 	
 	@Override
 	public int getAttackMagicRequirement() {
-	  // TODO Auto-generated method stub
-	  return RockState.magicRequirement;
+		// TODO Auto-generated method stub
+		return BubbleState.magicRequirement;
 	}
-	
+
 }

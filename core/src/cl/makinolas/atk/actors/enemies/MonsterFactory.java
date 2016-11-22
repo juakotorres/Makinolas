@@ -38,6 +38,10 @@ import cl.makinolas.atk.actors.friend.Zubat;
 import cl.makinolas.atk.actors.friend.Magby;
 import cl.makinolas.atk.actors.friend.Elekid;
 import cl.makinolas.atk.actors.friend.Croagunk;
+import cl.makinolas.atk.actors.friend.Snover;
+import cl.makinolas.atk.actors.friend.Larvitar;
+import cl.makinolas.atk.actors.friend.Axew;
+import cl.makinolas.atk.actors.friend.Piplup;
 
 public class MonsterFactory {
   
@@ -128,6 +132,17 @@ public class MonsterFactory {
     map.put("electivire", EnemyFunction.Electivire);
     map.put("croagunk", EnemyFunction.Croagunk);
     map.put("toxicroak", EnemyFunction.Toxicroak);
+    map.put("snover", EnemyFunction.Snover);
+    map.put("abomasnow", EnemyFunction.Abomasnow);
+    map.put("piplup", EnemyFunction.Piplup);
+    map.put("prinplup", EnemyFunction.Prinplup);
+    map.put("empoleon", EnemyFunction.Empoleon);
+    map.put("axew", EnemyFunction.Axew);
+    map.put("fraxure", EnemyFunction.Fraxure);
+    map.put("haxorus", EnemyFunction.Haxorus);
+    map.put("larvitar", EnemyFunction.Larvitar);
+    map.put("Pupitar", EnemyFunction.Pupitar);
+    map.put("Tyranitar", EnemyFunction.Tyranitar);
   }
   
   public static MonsterFactory getInstance(){
@@ -627,7 +642,74 @@ public class MonsterFactory {
     	public Friend giveFriend(int level) {
     		return getEvolution(new Croagunk(level), 1);
     	}
+    },
+    Snover{
+    	@Override
+    	public Friend giveFriend(int level) {
+    		return new Snover(level);
+    	}
+    },
+    Abomasnow{
+    	@Override
+    	public Friend giveFriend(int level) {
+    		return getEvolution(new Snover(level),1);
+    	}
+    },
+    Piplup{
+    	@Override
+    	public Friend giveFriend(int level) {
+    		return new Piplup(level);
+    	}
+    },
+    Prinplup{
+    	@Override
+    	public Friend giveFriend(int level) {
+    		return getEvolution(new Piplup(level),1);
+    	}
+    },
+    Empoleon{
+    	@Override
+    	public Friend giveFriend(int level) {
+    		return getEvolution(new Piplup(level),2);
+    	}
+    },
+    Axew{
+    	@Override
+    	public Friend giveFriend(int level) {
+    		return new Axew(level);
+    	}
+    },
+    Fraxure{
+    	@Override
+    	public Friend giveFriend(int level) {
+    		return getEvolution(new Axew(level),1);
+    	}
+    },
+    Haxorus{
+    	@Override
+    	public Friend giveFriend(int level) {
+    		return getEvolution(new Axew(level),2);
+    	}
+    },
+    Larvitar{
+    	@Override
+    	public Friend giveFriend(int level) {
+    		return new Larvitar(level);
+    	}
+    },
+    Pupitar{
+    	@Override
+    	public Friend giveFriend(int level) {
+    		return getEvolution(new Larvitar(level),1);
+    	}
+    },
+    Tyranitar{
+    	@Override
+    	public Friend giveFriend(int level) {
+    		return getEvolution(new Larvitar(level),2);
+    	}
     }
+    
     
     ;
     
