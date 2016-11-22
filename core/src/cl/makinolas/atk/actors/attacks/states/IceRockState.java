@@ -62,9 +62,7 @@ public class IceRockState extends SpriteState {
 
 @Override
 public IType getType() {
-
 	return IceType.getInstance();
-
 }
   
 }

@@ -66,9 +66,7 @@ public class WaterfallState extends SpriteState {
 
 @Override
 public IType getType() {
-
 	return WaterType.getInstance();
-
 }
   
 }

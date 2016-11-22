@@ -3,11 +3,11 @@ package cl.makinolas.atk.types;
 public class GroundType extends AbstractType implements IType {
 
 	private static GroundType instance = null;
-
+	
 	private GroundType(){
 		this.isGround = true;
 	}
-
+	
 	public static GroundType getInstance(){
 		if (instance == null){
 			instance = new GroundType();
@@ -29,7 +29,7 @@ public class GroundType extends AbstractType implements IType {
 	public double groundPokemonAttacks(IType type) {
 		return 1.5;
 	}
-
+	
 	@Override
 	public double monsterHasAttackedFromElectric() {
 		return 0;
