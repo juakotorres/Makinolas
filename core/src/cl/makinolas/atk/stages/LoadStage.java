@@ -44,6 +44,7 @@ public class LoadStage extends Stage {
     titulos = saves.list();
     lastSelected = 0;
     this.myGame = myGame;
+    options= new LoadActor[2];
 
     ArrayList<LoadActor> load = new ArrayList<LoadActor>();
     //myScreen = actualScreen;
@@ -52,29 +53,37 @@ public class LoadStage extends Stage {
 
 
     arrow = new Title("CharacterImages/arrow.png", 50, 300);
-    addActor(arrow);
+    if(titulos.length>0){
+      addActor(arrow);
 
 
-    firstSave = new LoadActor("Save 1", "Save/"+titulos[0], 80, 250, this);
-    firstSave.addListener(new InputListener(){
-      @Override
-      public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
-        options[0].loadMap();
-        return true;
-      }
-    });
+      firstSave = new LoadActor("Save 1", "Save/"+titulos[0], 80, 250, this);
+      firstSave.addListener(new InputListener(){
+        @Override
+        public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
+          options[0].loadMap();
+          return true;
+        }
+      });
 
-    addActor(firstSave);
-    
-    secondSave = new LoadActor("Save 2", "Save/"+titulos[1], 80, 140, this);
-    secondSave.addListener(new InputListener(){
-      @Override
-      public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
-        options[1].loadMap();
-        return true;
-      }
-    });
-    addActor(secondSave);
+      addActor(firstSave);
+      options[0] = firstSave;
+
+    }
+
+
+    if(titulos.length>2){
+      secondSave = new LoadActor("Save 2", "Save/"+titulos[1], 80, 140, this);
+      secondSave.addListener(new InputListener(){
+        @Override
+        public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
+          options[1].loadMap();
+          return true;
+        }
+      });
+      addActor(secondSave);
+      options[1] = secondSave;
+    }
 
 
 
@@ -89,7 +98,7 @@ public class LoadStage extends Stage {
     
     addActor(menuButton);
 
-    options= new LoadActor[]{firstSave, secondSave};
+
     //MobileGroup group = new MobileGroup(Gdx.app.getType() == Application.ApplicationType.Android);
     Gdx.input.setInputProcessor(this);
     //setupCamera();
@@ -110,8 +119,12 @@ public class LoadStage extends Stage {
 
   public void act(float delta){
     super.act(delta);
-
+    if (Gdx.input.isKeyJustPressed(Keys.Z) && titulos.length>0){
+      options[indicador].loadMap();
+    }
+    if(titulos.length<2) return;
     if (Gdx.input.isKeyJustPressed(Keys.UP)){
+
       int last = lastSelected;
       if(lastSelected==0){
         lastSelected = cantidad_juegos-1;
@@ -133,8 +146,6 @@ public class LoadStage extends Stage {
         indicador = 1;
       }
       changeArrow(last, lastSelected);
-    } if (Gdx.input.isKeyJustPressed(Keys.Z)){
-      options[indicador].loadMap();
     }
   }
   
