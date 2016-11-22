@@ -3,19 +3,15 @@ package cl.makinolas.atk.gamemodes;
 
 import cl.makinolas.atk.actors.Background;
 import cl.makinolas.atk.actors.GameActor;
-import cl.makinolas.atk.actors.Hero;
 import cl.makinolas.atk.actors.fx.FxManager;
 import cl.makinolas.atk.actors.platform.Platform;
 import cl.makinolas.atk.actors.ui.BagVis;
 import cl.makinolas.atk.actors.ui.IHero;
 import cl.makinolas.atk.actors.ui.MobileGroup;
-import cl.makinolas.atk.minigames.MinigameCharacter;
-import cl.makinolas.atk.minigames.MinigameInputController;
-import cl.makinolas.atk.minigames.PlatformCreator;
+import cl.makinolas.atk.platformCreator.MinigamePlatformCreator;
 import cl.makinolas.atk.screen.GameScreen;
 import cl.makinolas.atk.stages.AbstractStage;
 import cl.makinolas.atk.stages.CameraPosition;
-import cl.makinolas.atk.utils.SaveManager;
 import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.OrthographicCamera;
@@ -42,7 +38,7 @@ public class SurvivalModeStage extends AbstractStage implements ContactListener{
         gameActors = new Array<GameActor>();
         survivalWorld = new World(new Vector2(0, -30), true);
         survivalWorld.setContactListener(this);
-        initialPlatform =  new Platform(survivalWorld, "CU", 0, 0, 9, 1);
+        initialPlatform =  new Platform(survivalWorld, "CU", 0, 0, 10, 1);
         addActor(new Background("Background/Night.png", getCamera()));
         ground = new Group();
         ground.addActor(initialPlatform);
@@ -60,7 +56,7 @@ public class SurvivalModeStage extends AbstractStage implements ContactListener{
         cameraObserver = new CameraPosition();
 
         ground.addActor(initialPlatform);
-        ground.addActor(new PlatformCreator(survivalWorld, this, 20, 0, ground));
+        ground.addActor(new MinigamePlatformCreator(survivalWorld, this, 20, 0, ground));
         hero = new SurvivalHero(survivalWorld);
         hero.setWorld(survivalWorld);
         addGameActor((GameActor)hero);

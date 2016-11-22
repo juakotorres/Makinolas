@@ -1,5 +1,6 @@
 package cl.makinolas.atk.minigames;
 
+import cl.makinolas.atk.platformCreator.MinigamePlatformCreator;
 import cl.makinolas.atk.utils.SaveManager;
 import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
@@ -80,7 +81,7 @@ public class MinigameStage extends AbstractStage implements ContactListener{
     cameraObserver = new CameraPosition();
 
     ground.addActor(initialPlatform);
-    ground.addActor(new PlatformCreator(suMundo, this, 20, 0, ground));
+    ground.addActor(new MinigamePlatformCreator(suMundo, this, 20, 0, ground));
     hero = new MinigameCharacter(suMundo);
     cameraObserver.setPosition(hero.getBody().getPosition().x, hero.getBody().getPosition().y);
     addGameActor(hero);
