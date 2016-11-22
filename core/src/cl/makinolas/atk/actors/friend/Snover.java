@@ -20,7 +20,7 @@ public class Snover extends AbstractFriend {
 		friend = Enemies.SNOVER;
 		faces = new TextureRegion(new Texture(Gdx.files.internal("Actors/Snover_faces.png"))).split(40,40);
 		setTexture(new TextureRegion(new Texture(Gdx.files.internal("Actors/Snover.png"))));
-		/* aquí yace todo lo relacionado con los sprites */
+		/* aquï¿½ yace todo lo relacionado con los sprites */
 		
 	    setCutSprites(23,25);
 	    setWalkAnimation(4,5,6,5);
@@ -35,8 +35,8 @@ public class Snover extends AbstractFriend {
 	    newMonster();
 	    setActualEvolution(0);
 	    setMaxMagic(1000);
-	    addType(new IceType());
-	    addType(new GrassType());
+	    addType(IceType.getInstance());
+	    addType(GrassType.getInstance());
 	}
 	
 	public Snover(int level){

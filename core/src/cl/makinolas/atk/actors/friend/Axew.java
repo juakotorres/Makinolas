@@ -35,7 +35,7 @@ public class Axew extends AbstractFriend {
 	    newMonster();
 	    setActualEvolution(0);
 	    setMaxMagic(1000);
-	    addType(new DragonType());
+	    addType(DragonType.getInstance());
 	}
 	
 	public Axew(int level){

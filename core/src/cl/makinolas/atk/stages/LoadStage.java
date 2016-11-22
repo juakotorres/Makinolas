@@ -73,7 +73,6 @@ public class LoadStage extends Stage {
 
     //MobileGroup group = new MobileGroup(Gdx.app.getType() == Application.ApplicationType.Android);
     Gdx.input.setInputProcessor(this);
-
     //setupCamera();
   }
   

@@ -44,6 +44,25 @@ public interface IType {
 	public double monsterHasAttackedFromSteel();
 	public double monsterHasAttackedFromWater();
 	
+	public boolean isBug();
+	public boolean isDark();
+	public boolean isDragon();
+	public boolean isElectric();
+	public boolean isFairy();
+	public boolean isFight();
+	public boolean isFire();
+	public boolean isFlying();
+	public boolean isGhost();
+	public boolean isGrass();
+	public boolean isGround();
+	public boolean isIce();
+	public boolean isNormal();
+	public boolean isPoison();
+	public boolean isPsychic();
+	public boolean isRock();
+	public boolean isSteel();
+	public boolean isWater();
+	
 	
 	
 	

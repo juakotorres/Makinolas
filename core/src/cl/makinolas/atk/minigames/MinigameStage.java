@@ -28,7 +28,6 @@ import cl.makinolas.atk.audio.GDXMusicPlayer;
 import cl.makinolas.atk.screen.GameScreen;
 import cl.makinolas.atk.stages.AbstractStage;
 import cl.makinolas.atk.stages.CameraPosition;
-import cl.makinolas.atk.stages.OptionsStage;
 
 public class MinigameStage extends AbstractStage implements ContactListener{
   
@@ -52,7 +51,7 @@ public class MinigameStage extends AbstractStage implements ContactListener{
   public MinigameStage(Viewport v, GameScreen actualScreen, Game myGame){
     super(v);
 
-    musicplayer=new GDXMusicPlayer();
+    musicplayer = GDXMusicPlayer.getInstance();
     myScreen = actualScreen;
     gameActors = new Array<GameActor>();
     suMundo = new World(new Vector2(0, -30), true);

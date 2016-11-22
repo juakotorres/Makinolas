@@ -36,8 +36,8 @@ public class Larvitar extends AbstractFriend {
 	    newMonster();
 	    setActualEvolution(0);
 	    setMaxMagic(1000);
-	    addType(new RockType());
-	    addType(new GroundType());
+	    addType(RockType.getInstance());
+	    addType(GroundType.getInstance());
 	}
 	
 	public Larvitar(int level){
@@ -90,8 +90,8 @@ public class Larvitar extends AbstractFriend {
 		    setStats();
 		    setMaxMagic(1000);
 		    resetType();
-		    addType(new RockType());
-		    addType(new DarkType());
+		    addType(RockType.getInstance());
+		    addType(DarkType.getInstance());
 		}
 	}
 	

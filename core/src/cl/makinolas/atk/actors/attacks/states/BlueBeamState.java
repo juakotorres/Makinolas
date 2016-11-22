@@ -67,7 +67,7 @@ public class BlueBeamState extends SpriteState {
 
 @Override
 public IType getType() {
-	return new WaterType();
+	return WaterType.getInstance();
 }
   
 }
