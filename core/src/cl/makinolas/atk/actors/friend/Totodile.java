@@ -83,12 +83,13 @@ public class Totodile extends AbstractFriend {
   
   @Override
   public Attacks getFriendAttack(World myWorld, float x , float y, boolean facingRight, Monsters source){
-    return new ShootBombAttack(new BubbleState(),myWorld, x, y, facingRight, source, new WaterType());
+    return new ShootBombAttack(new BubbleState(),myWorld, x, y, facingRight, source);
   }
   
   @Override
-  public IType getTypeofAttack() {
-  	return new WaterType();
+  public int getAttackMagicRequirement() {
+	// TODO Auto-generated method stub
+	return BubbleState.magicRequirement;
   }
   
 }

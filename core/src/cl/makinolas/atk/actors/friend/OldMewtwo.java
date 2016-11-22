@@ -44,12 +44,13 @@ public class OldMewtwo extends AbstractFriend {
   
   @Override
   public Attacks getFriendAttack(World myWorld, float x , float y, boolean facingRight, Monsters source){
-    return new ShootAttack(new BlueBeamState(),myWorld, x, y, facingRight, source, new PsychicType());
+    return new ShootAttack(new BlueBeamState(),myWorld, x, y, facingRight, source);
   }
   
   @Override
-  public IType getTypeofAttack() {
-  	return new PsychicType();
+  public int getAttackMagicRequirement() {
+	// TODO Auto-generated method stub
+	return BlueBeamState.magicRequirement;
   }
   
 }

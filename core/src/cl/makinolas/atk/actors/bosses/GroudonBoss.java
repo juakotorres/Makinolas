@@ -4,6 +4,7 @@ import cl.makinolas.atk.GameConstants;
 import cl.makinolas.atk.actors.GameActor;
 import cl.makinolas.atk.actors.HBarFliped;
 import cl.makinolas.atk.actors.Hero;
+import cl.makinolas.atk.actors.attacks.Attacks;
 import cl.makinolas.atk.actors.attacks.BombAttack;
 import cl.makinolas.atk.actors.attacks.CloseRangeAttack;
 import cl.makinolas.atk.actors.attacks.DirectionAttack;
@@ -12,6 +13,7 @@ import cl.makinolas.atk.actors.attacks.states.FireWallState;
 import cl.makinolas.atk.actors.attacks.states.TRockState;
 import cl.makinolas.atk.actors.friend.Groudon;
 import cl.makinolas.atk.actors.friend.OldMewtwo;
+import cl.makinolas.atk.actors.fx.FxManager;
 import cl.makinolas.atk.stages.AbstractStage;
 import cl.makinolas.atk.types.FireType;
 import cl.makinolas.atk.types.RockType;
@@ -34,6 +36,7 @@ public class GroudonBoss extends Boss {
     private int numRocks;
     private float jumpTime;
     private int jumpDirection;
+	private int singAnimation;
 
     public GroudonBoss(World myWorld, Hero hero) {
         super();
@@ -75,6 +78,7 @@ public class GroudonBoss extends Boss {
         setAnimation(new TextureRegion(new Texture(Gdx.files.internal("Actors/Groudon.png"))), 64, 55);
         hurtAnimation = addAnimation(0.2f, 2);
         walkAnimation = addAnimation(0.2f, 3,4,5,6);
+        singAnimation = hurtAnimation;
         changeAnimation(walkAnimation);
     }
 
@@ -133,15 +137,17 @@ public class GroudonBoss extends Boss {
 
     private void generateFirewalls() {
         Vector2 pos = myBody.getPosition();
-        GameActor wall = new BombAttack(new FireWallState(),myWorld,pos.x+1-2*jumpDirection,pos.y,false,this, new FireType());
+        GameActor wall = new BombAttack(new FireWallState(),myWorld,pos.x+1-2*jumpDirection,pos.y,false,this);
         ((AbstractStage) getStage()).addGameActor(wall);
+        ((Attacks) wall).getSpriteState().secondaryEfectsToSource(this);
     }
 
     private void throwRock() {
         Vector2 pos = myBody.getPosition();
         GameActor rock = new DirectionAttack(new TRockState(),myWorld,pos.x-1,pos.y+3,
-                hero.getBody().getPosition().x,hero.getBody().getPosition().y,300,this, new RockType());
+                hero.getBody().getPosition().x,hero.getBody().getPosition().y,300,this);
         ((AbstractStage) getStage()).addGameActor(rock);
+        ((Attacks) rock).getSpriteState().secondaryEfectsToSource(this);
     }
 
     @Override
@@ -153,4 +159,25 @@ public class GroudonBoss extends Boss {
     public float getXDirection() {
         return vx;
     }
+
+	@Override
+	public void sing() {
+		this.changeAnimation(singAnimation);
+	}
+
+	@Override
+	public void unSing() {
+		
+	}
+
+	@Override
+	public void sleep() {
+		
+	}
+
+	@Override
+	public void unSleep() {
+		
+	}
+
 }

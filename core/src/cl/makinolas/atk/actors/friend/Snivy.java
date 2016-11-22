@@ -6,9 +6,12 @@ import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.physics.box2d.World;
 
 import cl.makinolas.atk.actors.Monsters;
+import cl.makinolas.atk.actors.attacks.AreaEffectAttack;
 import cl.makinolas.atk.actors.attacks.Attacks;
+import cl.makinolas.atk.actors.attacks.BombAttack;
 import cl.makinolas.atk.actors.attacks.ShootAttack;
 import cl.makinolas.atk.actors.attacks.states.BranchAttackState;
+import cl.makinolas.atk.actors.attacks.states.SingState;
 import cl.makinolas.atk.types.ElectricType;
 import cl.makinolas.atk.types.GrassType;
 import cl.makinolas.atk.types.IType;
@@ -83,12 +86,13 @@ public class Snivy extends AbstractFriend {
   
   @Override
   public Attacks getFriendAttack(World myWorld, float x , float y, boolean facingRight, Monsters source){
-    return new ShootAttack(new BranchAttackState(), myWorld, x, y, facingRight, source, false, new GrassType());
+    return new ShootAttack(new BranchAttackState(), myWorld, x, y, facingRight, source, false);
   }
   
   @Override
-  public IType getTypeofAttack() {
-  	return new GrassType();
+  public int getAttackMagicRequirement() {
+	// TODO Auto-generated method stub
+	return SingState.magicRequirement;
   }
-  
+
 }

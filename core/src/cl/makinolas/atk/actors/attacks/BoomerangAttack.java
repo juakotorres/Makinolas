@@ -21,8 +21,8 @@ public class BoomerangAttack extends ShootAttack {
   private boolean isReturning;
   private Vector2 sourceReturningPosition;
     
-  public BoomerangAttack(SpriteState spriteState, World myWorld, float x, float y, boolean facingRight, Monsters source, boolean rotated, IType type) {
-    super(spriteState, myWorld, x, y, facingRight, source, rotated, type);
+  public BoomerangAttack(SpriteState spriteState, World myWorld, float x, float y, boolean facingRight, Monsters source, boolean rotated) {
+    super(spriteState, myWorld, x, y, facingRight, source, rotated);
     
     accumulator = 0;
     bankVelocity = xVelocity;

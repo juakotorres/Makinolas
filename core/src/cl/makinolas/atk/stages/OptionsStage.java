@@ -2,83 +2,154 @@ package cl.makinolas.atk.stages;
 
 import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
-import com.badlogic.gdx.scenes.scene2d.Stage;
+import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
+import com.badlogic.gdx.scenes.scene2d.ui.Slider;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
+import com.badlogic.gdx.scenes.scene2d.utils.DragListener;
 import com.badlogic.gdx.utils.viewport.Viewport;
 
+import cl.makinolas.atk.actors.Background;
 import cl.makinolas.atk.actors.Title;
+import cl.makinolas.atk.audio.GDXMusicPlayer;
+import cl.makinolas.atk.audio.GDXSoundEffectsPlayer;
 import cl.makinolas.atk.screen.GameScreen;
 import cl.makinolas.atk.screen.MenuScreen;
 
-public class OptionsStage extends Stage {
-	private Game myGame;
+public class OptionsStage extends AbstractStage {
+	private static Skin sharedSkin = new Skin(Gdx.files.internal("Data/uiskin.json"));
+	private static Slider musicSlider = new Slider(0.0f, 1.0f, 0.05f, false, sharedSkin);
+	private static Slider sfxSlider = new Slider(0.0f, 1.0f, 0.05f, false, sharedSkin);
+	private static Slider brightnessSlider = new Slider(0.0f, 0.3f, 0.025f, false, sharedSkin);
+	private static boolean isFirstRun = true;
+	private boolean isFullScreen = false;
 	
-	public OptionsStage(Viewport v, GameScreen gameScreen, Game myGame) {
+	public OptionsStage(Viewport v, GameScreen gameScreen, final Game myGame) {
 		super(v);
-		this.myGame = myGame;
-		
-	    addActor(new Title("Background/atk.png", 320, 350 ));
-	    
+
+	    addActor(new Title("Background/atk.png", 320, 350));
+	    addActor(new Background("Background/MenuBackground.jpg", getCamera()));
+	    musicplayer = GDXMusicPlayer.getInstance();
+	    musicplayer.PlayLooped("Music/Never-Gonna-Give-You-Up.mp3");
+	    sfxplayer = GDXSoundEffectsPlayer.getInstance();
+
 	    // Buttons
-	    TextButton menuButton = new TextButton("Back to menu",  new Skin(Gdx.files.internal("Data/uiskin.json")));
-	    TextButton soundButton = new TextButton("*Sound - Slider bar",  new Skin(Gdx.files.internal("Data/uiskin.json")));
-	    TextButton brightnessButton = new TextButton("*Brightness - Slider bar",  new Skin(Gdx.files.internal("Data/uiskin.json")));
-	    TextButton windowedButton = new TextButton("*Windowed",  new Skin(Gdx.files.internal("Data/uiskin.json")));
-	    TextButton fullscreenButton = new TextButton("*Full Screen",  new Skin(Gdx.files.internal("Data/uiskin.json")));
-	    
+	    TextButton menuButton = new TextButton("Back to menu", sharedSkin);
+	    final TextButton windowStateButton = new TextButton("Toggle to Full Screen", sharedSkin);
+
+	    // Labels
+	    Label musicLabel = new Label("Music Volume", sharedSkin);
+	    Label sfxLabel = new Label("SFX Volume", sharedSkin);
+	    Label brightnessLabel = new Label("Brightness", sharedSkin);
+	    musicLabel.setColor(Color.BLACK);
+	    sfxLabel.setColor(Color.BLACK);
+	    brightnessLabel.setColor(Color.BLACK);
+
 	    // Positions
 	    menuButton.setPosition(500, 50);
-	    soundButton.setPosition(270, 200);
-	    brightnessButton.setPosition(270, 160);
-	    windowedButton.setPosition(270, 120);
-	    fullscreenButton.setPosition(270, 80);
+	    musicLabel.setPosition(200, 200);
+	    sfxLabel.setPosition(200, 160);
+	    brightnessLabel.setPosition(200, 120);
+	    
+	    // Sliders
+	    musicSlider.setPosition(320, 200);
+	    sfxSlider.setPosition(320, 160);
+	    brightnessSlider.setPosition(320, 120);
+	    brightnessSlider.setValue(brightnessSlider.getValue());
+	    
+	    windowStateButton.setPosition(290, 80);
 	    
 	    // Listeners
 	    menuButton.addListener(new ClickListener(){
 	        @Override
 	        public void clicked(InputEvent event, float x, float y) {
-	          MainMenu();
+	        	musicplayer.StopMusic();
+	  	    	MenuScreen menuScreen = new MenuScreen(myGame);
+	  	    	myGame.setScreen(menuScreen);	  
 	        }
 	    });
 	    
-	    windowedButton.addListener(new ClickListener(){
+	    windowStateButton.addListener(new ClickListener(){
 	        @Override
 	        public void clicked(InputEvent event, float x, float y) {
-	          windowed();
+	        	if (isFullScreen) {
+	        		Gdx.graphics.setWindowedMode(640, 480);
+	        		windowStateButton.setText("Toggle to Full Screen");
+	        	}
+	        	else {
+	        		Gdx.graphics.setFullscreenMode(Gdx.graphics.getDisplayMode());
+	        		windowStateButton.setText("Toggle to Windowed");
+	        	}
+	        	isFullScreen = !isFullScreen;
 	        }
 	    });
 	    
-	    fullscreenButton.addListener(new ClickListener(){
+	    musicSlider.addListener(new ClickListener(){
 	        @Override
 	        public void clicked(InputEvent event, float x, float y) {
-	          fullscreen();
+	        	musicplayer.SetVolume((musicSlider.getPercent()));
+	        }
+	    });
+	    
+	    musicSlider.addListener(new DragListener(){
+	        @Override
+	        public void drag(InputEvent event, float x, float y, int pointer) {
+	        	musicplayer.SetVolume((musicSlider.getPercent()));
+	        }
+	    });
+	    
+	    sfxSlider.addListener(new ClickListener(){
+	        @Override
+	        public void clicked(InputEvent event, float x, float y) {
+	        	sfxplayer.SetVolume((sfxSlider.getPercent()));
+	        }
+	    });
+	    
+	    sfxSlider.addListener(new DragListener(){
+	        @Override
+	        public void drag(InputEvent event, float x, float y, int pointer) {
+	        	sfxplayer.SetVolume((sfxSlider.getPercent()));
 	        }
 	    });
 	    
 	    // Add to screen
 	    addActor(menuButton);
-	    addActor(soundButton);
-	    addActor(brightnessButton);
-	    addActor(windowedButton);
-	    addActor(fullscreenButton);
-	    
+	    addActor(musicLabel);
+	    addActor(musicSlider);
+	    addActor(sfxLabel);
+	    addActor(sfxSlider);
+	    addActor(brightnessLabel);
+	    addActor(brightnessSlider);
+	    addActor(windowStateButton);
+	    setToFull();
+	}
+
+	@Override
+	public void changeCamera(float x, float y) {
+		// Does nothing here
 	}
 	
-	// Listener methods
-	
-	protected void MainMenu() {
-	    MenuScreen menuScreen = new MenuScreen(myGame);
-	    myGame.setScreen(menuScreen);	    
+	public static void setToFull() {
+		if (isFirstRun) {
+			brightnessSlider.setValue(brightnessSlider.getMaxValue());
+			musicSlider.setValue(musicSlider.getMaxValue());
+			sfxSlider.setValue(sfxSlider.getMaxValue());
+			isFirstRun = false;
+		}
 	}
 	
-	protected void windowed() {
-		Gdx.graphics.setWindowedMode(640, 480);
+	public static float getMusicVolume() {
+		return musicSlider.getValue();
 	}
-	
-	protected void fullscreen() {
-		Gdx.graphics.setFullscreenMode(Gdx.graphics.getDisplayMode());
+
+	public static float getBrightness() {
+		return brightnessSlider.getMaxValue() - brightnessSlider.getValue();
+	}
+
+	public static float getSFXVolume() {
+		return sfxSlider.getValue();
 	}
 }

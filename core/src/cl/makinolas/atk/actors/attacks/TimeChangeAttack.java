@@ -20,8 +20,8 @@ public class TimeChangeAttack extends Attacks {
   private boolean firstTime;
   private boolean isMoving;
   
-  public TimeChangeAttack(SpriteState spriteState, World myWorld, float x, float y, boolean facingRight, Monsters source, boolean rotated,  IType type) {
-    super(myWorld, x, y, facingRight, source, rotated, type);
+  public TimeChangeAttack(SpriteState spriteState, World myWorld, float x, float y, boolean facingRight, Monsters source, boolean rotated) {
+    super(myWorld, x, y, facingRight, source, rotated);
     
     mySpriteState = spriteState;
     

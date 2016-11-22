@@ -8,6 +8,7 @@ import cl.makinolas.atk.actors.fx.FxManager;
 import cl.makinolas.atk.actors.ui.BagVis;
 import cl.makinolas.atk.actors.ui.MainBar;
 import cl.makinolas.atk.actors.ui.MobileGroup;
+import cl.makinolas.atk.audio.GDXMusicPlayer;
 import cl.makinolas.atk.screen.GameScreen;
 import cl.makinolas.atk.utils.LevelReader;
 import com.badlogic.gdx.Application;
@@ -38,6 +39,7 @@ public class GameStage extends AbstractStage implements ContactListener {
   
   public GameStage(Viewport v, GameScreen actualScreen, Game myGame, Levels type){
     super(v);
+    musicplayer = GDXMusicPlayer.getInstance();
     level = type;
     levelName = getLevelName();
     myScreen = actualScreen;
@@ -45,11 +47,7 @@ public class GameStage extends AbstractStage implements ContactListener {
     suMundo = new World(new Vector2(0, -30), true);
     suMundo.setContactListener(this);
     addActor(new Background(getLevelBackground(), getCamera()));
-
-    music = Gdx.audio.newMusic(Gdx.files.internal(getLevelMusic()));
-    music.setLooping(true); 
-    music.play();
-
+    musicplayer.PlayLooped(getLevelMusic());
     deco = new Group();
     addActor(deco);
     ground = new Group();
@@ -86,7 +84,7 @@ public class GameStage extends AbstractStage implements ContactListener {
     mons.addActor(actor);
     gameActors.add(actor);
   }
-
+  
   private void createPlatforms(Game g) {
     LevelReader reader = LevelReader.getInstance();   
     reader.setWorld(suMundo);

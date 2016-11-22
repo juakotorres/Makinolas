@@ -14,8 +14,8 @@ public class ParabolicAttack extends Attacks {
 
   private boolean firstAttack;
 
-  public ParabolicAttack(SpriteState spriteState, World myWorld, float x, float y, boolean facingRight, Monsters source, IType type) {
-    super(myWorld, x, y, facingRight, source, false, type);
+  public ParabolicAttack(SpriteState spriteState, World myWorld, float x, float y, boolean facingRight, Monsters source) {
+    super(myWorld, x, y, facingRight, source, false);
     
     mySpriteState = spriteState;
     

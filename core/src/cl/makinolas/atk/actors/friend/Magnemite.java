@@ -85,12 +85,13 @@ public class Magnemite extends AbstractFriend {
   
   @Override
   public Attacks getFriendAttack(World myWorld, float x , float y, boolean facingRight, Monsters source){
-    return new BombAttack(new ThunderBoltState(), myWorld, x, y, facingRight, source, new ElectricType());
+    return new BombAttack(new ThunderBoltState(), myWorld, x, y, facingRight, source);
   }
   
   @Override
-  public IType getTypeofAttack() {
-  	return new ElectricType();
+  public int getAttackMagicRequirement() {
+	 // TODO Auto-generated method stub
+	 return ThunderBoltState.magicRequirement;
   }
   
 }

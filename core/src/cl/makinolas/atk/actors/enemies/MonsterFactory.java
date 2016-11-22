@@ -35,6 +35,9 @@ import cl.makinolas.atk.actors.friend.Totodile;
 import cl.makinolas.atk.actors.friend.Vulpix;
 import cl.makinolas.atk.actors.friend.Weedle;
 import cl.makinolas.atk.actors.friend.Zubat;
+import cl.makinolas.atk.actors.friend.Magby;
+import cl.makinolas.atk.actors.friend.Elekid;
+import cl.makinolas.atk.actors.friend.Croagunk;
 
 public class MonsterFactory {
   
@@ -117,6 +120,14 @@ public class MonsterFactory {
     map.put("snivy", EnemyFunction.Snivy);
     map.put("servine", EnemyFunction.Servine);
     map.put("serperior", EnemyFunction.Serperior);
+    map.put("magby", EnemyFunction.Magby);
+    map.put("magmar", EnemyFunction.Magmar);
+    map.put("magmortar", EnemyFunction.Magmortar);
+    map.put("elekid", EnemyFunction.Elekid);
+    map.put("electabuzz", EnemyFunction.Electabuzz);
+    map.put("electivire", EnemyFunction.Electivire);
+    map.put("croagunk", EnemyFunction.Croagunk);
+    map.put("toxicroak", EnemyFunction.Toxicroak);
   }
   
   public static MonsterFactory getInstance(){
@@ -568,7 +579,57 @@ public class MonsterFactory {
       public Friend giveFriend(int level) {
         return getEvolution(new Snivy(level), 2);
       }
-    };
+    },
+    Magby{
+    	@Override
+    	public Friend giveFriend(int level) {
+    		return new Magby(level);
+    	}
+    },
+    Magmar{
+    	@Override
+    	public Friend giveFriend(int level) {
+    		return getEvolution(new Magby(level), 1);
+    	}
+    },
+    Magmortar{
+    	@Override
+    	public Friend giveFriend(int level) {
+    		return getEvolution(new Magby(level), 2);
+    	}
+    },
+    Elekid{
+    	@Override
+    	public Friend giveFriend(int level) {
+    		return new Elekid(level);
+    	}
+    },
+    Electabuzz{
+    	@Override
+    	public Friend giveFriend(int level) {
+    		return getEvolution(new Elekid(level), 1);
+    	}
+    },
+    Electivire{
+    	@Override
+    	public Friend giveFriend(int level) {
+    		return getEvolution(new Elekid(level), 2);
+    	}
+    },
+    Croagunk{
+    	@Override
+    	public Friend giveFriend(int level) {
+    		return new Croagunk(level);
+    	}
+    },
+    Toxicroak{
+    	@Override
+    	public Friend giveFriend(int level) {
+    		return getEvolution(new Croagunk(level), 1);
+    	}
+    }
+    
+    ;
     
     protected Friend getEvolution(AbstractFriend friend, int numberOfEvolution){
       friend.forceEvolve(numberOfEvolution);

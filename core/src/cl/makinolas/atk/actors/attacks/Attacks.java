@@ -1,5 +1,7 @@
 package cl.makinolas.atk.actors.attacks;
 
+import java.util.ArrayList;
+
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.Body;
 import com.badlogic.gdx.physics.box2d.BodyDef;
@@ -33,9 +35,8 @@ public abstract class Attacks extends AnimatedActor {
   public abstract void setDead();
   protected SpriteState mySpriteState;
   protected boolean rotated;
-  protected IType type;
   
-  public Attacks(World myWorld, float x , float y, boolean facingRight, Monsters source, boolean rotated, IType type){
+  public Attacks(World myWorld, float x , float y, boolean facingRight, Monsters source, boolean rotated){
     this.myWorld = myWorld;
     this.rotated = rotated;
     dead = false;
@@ -43,7 +44,6 @@ public abstract class Attacks extends AnimatedActor {
     isFacingRight = !facingRight;
     this.xVelocity = (facingRight)? 10: -10;
     this.initialPosition= (facingRight)? .5f: -.5f;
-    this.type = type;
     
     // Guardar animaciones del jugador
     setAnimation();
@@ -95,12 +95,12 @@ public abstract class Attacks extends AnimatedActor {
     return true;
   }
   
-  public IType getType(){
-	  return this.type;
-  }
-  
   protected int getAttackDamage(Monsters monster){
     return mySpriteState.getTypeAttack(monster);
+  }
+  
+  private int getCriticValue() {
+	return mySpriteState.getCriticalChance();
   }
   
   public void manageInteractWithMonster(Monsters monster, WorldManifold worldManifold) {
@@ -159,13 +159,40 @@ public abstract class Attacks extends AnimatedActor {
     int attackStat = getSource().getMyself().getAttack();
     int level1 = getSource().getMyself().getLevel();
     int defenseStat = monster.getMyself().getDefense();
-    return Formulas.getDamage(attackStat, level1, defenseStat, getAttackDamage());
-  }
-  
-  public int getSpecialAttackDamage(Monsters monster) {
+    int criticModificator = getSource().getMyself().getCriticModificator() + getCriticValue();
+    
+    ArrayList<IType> typeFriendSource = getSource().getMyself().getType();
+    ArrayList<IType> typeFriendMonster = monster.getMyself().getType();
+    
+    if((getSource().isEnemy() && monster.isHero()) || (getSource().isHero() && monster.isEnemy())){
+    	this.mySpriteState.secondaryEfectsToAfected(monster);
+    	return Formulas.getDamage(monster, attackStat, level1, defenseStat, getAttackDamage(), typeFriendSource, typeFriendMonster, this.mySpriteState.getType(), criticModificator);
+    }
+    
+    return 0;
+    
+ }
+
+public int getSpecialAttackDamage(Monsters monster) {
     int spAttackStat = getSource().getMyself().getSpecialAttack();
     int level1 = getSource().getMyself().getLevel();
     int spDefenseStat = monster.getMyself().getSpecialDefense();
-    return Formulas.getDamage(spAttackStat, level1, spDefenseStat, getAttackDamage());
+    int criticModificator = getSource().getMyself().getCriticModificator() + getCriticValue();
+    
+    ArrayList<IType> typeFriendSource = getSource().getMyself().getType();
+    ArrayList<IType> typeFriendMonster = monster.getMyself().getType();
+    
+    
+    if((getSource().isEnemy() && monster.isHero()) || (getSource().isHero() && monster.isEnemy())){
+    	this.mySpriteState.secondaryEfectsToAfected(monster);
+    	return Formulas.getDamage(monster, spAttackStat, level1, spDefenseStat, getAttackDamage(), typeFriendSource, typeFriendMonster, this.mySpriteState.getType(), criticModificator);
+    }
+    
+    return 0;
   }
+
+public SpriteState getSpriteState() {
+	return mySpriteState;
+}
+
 }

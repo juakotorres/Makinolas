@@ -86,12 +86,13 @@ public class Zubat extends AbstractFriend {
   
   @Override
   public Attacks getFriendAttack(World myWorld, float x , float y, boolean facingRight, Monsters source){
-    return new BombAttack(new TornadoState(), myWorld, x, y, facingRight, source, new PsychicType());
+    return new BombAttack(new TornadoState(), myWorld, x, y, facingRight, source);
   }
   
   @Override
-  public IType getTypeofAttack() {
-  	return new PsychicType();
+  public int getAttackMagicRequirement() {
+	// TODO Auto-generated method stub
+	return TornadoState.magicRequirement;
   }
   
 }

@@ -70,12 +70,13 @@ public class Cubone extends AbstractFriend {
   
   @Override
   public Attacks getFriendAttack(World myWorld, float x , float y, boolean facingRight, Monsters source){
-    return new BoomerangAttack(new BoneAttackState(), myWorld, x, y, facingRight, source, false, new NormalType());
+    return new BoomerangAttack(new BoneAttackState(), myWorld, x, y, facingRight, source, false);
   }
   
   @Override
-  public IType getTypeofAttack() {
-  	return new NormalType();
+  public int getAttackMagicRequirement() {
+	// TODO Auto-generated method stub
+	return BoneAttackState.magicRequirement;
   }
   
 }

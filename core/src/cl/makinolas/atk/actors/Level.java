@@ -32,6 +32,10 @@ public class Level extends Actor{
     public Level getAfter() {
         return myAfter;
     }
+    
+    public String getmyName(){
+    	return myName;
+    }
 
     public Level getBefore() { return myBefore;}
 

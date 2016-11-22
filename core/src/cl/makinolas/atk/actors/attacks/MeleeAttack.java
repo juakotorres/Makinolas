@@ -8,7 +8,7 @@ import cl.makinolas.atk.types.NormalType;
 public class MeleeAttack extends Attacks {
   
   public MeleeAttack(Monsters monster){
-    super(null, 0, 0, false, monster, false, new NormalType());
+    super(null, 0, 0, false, monster, false);
     xVelocity =0;
     
     SpriteState spriteState = new NullSpriteState();
