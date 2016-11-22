@@ -133,9 +133,15 @@ public class MapStage extends Stage implements KeyHandable{
           auxiliarSpot = current.RightMove();
         }
 
-        if(unlockedStages[auxiliarSpot.getLevel().ordinal()])
+        if(unlockedStages[auxiliarSpot.getLevel().ordinal()]){
+        	if(current!=auxiliarSpot){
+        		Hero.getInstance().Getmplayer().playmovemenu();
+        	}
           current = auxiliarSpot;
-
+          
+    	}
+        
+          
         moveToLevel(current);
     }
 
