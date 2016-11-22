@@ -12,7 +12,7 @@ import com.badlogic.gdx.utils.viewport.FitViewport;
 import cl.makinolas.atk.stages.CorruptSAVStage;
 import cl.makinolas.atk.stages.LoadStage;
 import cl.makinolas.atk.stages.MenuStage;
-import cl.makinolas.atk.stages.MiniGameSelect;
+import cl.makinolas.atk.stages.MiniGameStage;
 import cl.makinolas.atk.stages.OptionsStage;
 
 public class MenuScreen extends SimpleScreen {
@@ -61,7 +61,7 @@ public class MenuScreen extends SimpleScreen {
   
   protected void minigame() {
     GameScreen gameScreen = new GameScreen(myGame);
-    gameScreen.setStage(new MiniGameSelect(new FitViewport(640,480), gameScreen, myGame));
+    gameScreen.setStage(new MiniGameStage(new FitViewport(640,480), gameScreen, myGame));
     myGame.setScreen(gameScreen);
   }
 
