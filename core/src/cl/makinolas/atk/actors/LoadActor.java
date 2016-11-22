@@ -43,7 +43,7 @@ public class LoadActor extends Actor {
     
     if(!noFile){
       myFriends = new String[SaveManager.getInstance().getSaveInstance().friends.length];
-      friendImages= new TextureRegion[4];
+      friendImages= new TextureRegion[myFriends.length];
       FriendDescriptor[] herosFriends = SaveManager.getInstance().getSaveInstance().friends;
       for(int i = 0;  i < myFriends.length ; i++){
           myFriends[i] = herosFriends[i].name;
