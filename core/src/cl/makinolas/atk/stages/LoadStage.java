@@ -42,7 +42,6 @@ public class LoadStage extends Stage {
     firstSave.addListener(new InputListener(){
       @Override
       public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
-//        Gdx.graphics.setContinuousRendering(true);
         options[0].loadMap();
         return true;
       }
@@ -53,7 +52,6 @@ public class LoadStage extends Stage {
     secondSave.addListener(new InputListener(){
       @Override
       public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
-//        Gdx.graphics.setContinuousRendering(true);
         options[1].loadMap();
         return true;
       }
@@ -65,7 +63,6 @@ public class LoadStage extends Stage {
     menuButton.addListener(new ClickListener(){
         @Override
         public void clicked(InputEvent event, float x, float y) {
-//          Gdx.graphics.setContinuousRendering(true);
           MainMenu();
         }
     });
@@ -76,7 +73,6 @@ public class LoadStage extends Stage {
 
     //MobileGroup group = new MobileGroup(Gdx.app.getType() == Application.ApplicationType.Android);
     Gdx.input.setInputProcessor(this);
-//    Gdx.graphics.setContinuousRendering(false);
     //setupCamera();
   }
   

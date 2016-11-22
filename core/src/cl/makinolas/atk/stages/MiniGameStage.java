@@ -17,11 +17,11 @@ import cl.makinolas.atk.minigames.MinigameStage;
 import cl.makinolas.atk.screen.GameScreen;
 import cl.makinolas.atk.screen.MenuScreen;
 
-public class MiniGameSelect extends AbstractStage {
+public class MiniGameStage extends AbstractStage {
 	private static Skin sharedSkin = new Skin(Gdx.files.internal("Data/uiskin.json"));
 
 	
-	public MiniGameSelect(Viewport v, GameScreen gameScreen, final Game myGame) {
+	public MiniGameStage(Viewport v, GameScreen gameScreen, final Game myGame) {
 		super(v);
 	    addActor(new Title("Background/atk.png", 320, 350));
 	    addActor(new Background("Background/MenuBackground.jpg", getCamera()));
