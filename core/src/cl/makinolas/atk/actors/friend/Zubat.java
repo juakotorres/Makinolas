@@ -35,8 +35,8 @@ public class Zubat extends AbstractFriend {
     newMonster();
     setActualEvolution(0);
     setMaxMagic(1000);
-    addType(new PoisonType());
-    addType(new FlyingType());
+    addType(PoisonType.getInstance());
+    addType(FlyingType.getInstance());
   }
   
   public Zubat(int level){
@@ -87,6 +87,12 @@ public class Zubat extends AbstractFriend {
   @Override
   public Attacks getFriendAttack(World myWorld, float x , float y, boolean facingRight, Monsters source){
     return new BombAttack(new TornadoState(), myWorld, x, y, facingRight, source);
+  }
+  
+  @Override
+  public int getAttackMagicRequirement() {
+	// TODO Auto-generated method stub
+	return TornadoState.magicRequirement;
   }
   
 }

@@ -34,7 +34,7 @@ public class Cubone extends AbstractFriend {
     newMonster();
     setActualEvolution(0);
     setMaxMagic(1000);
-    addType(new GroundType());
+    addType(GroundType.getInstance());
   }
   
   public Cubone(int level){
@@ -71,6 +71,12 @@ public class Cubone extends AbstractFriend {
   @Override
   public Attacks getFriendAttack(World myWorld, float x , float y, boolean facingRight, Monsters source){
     return new BoomerangAttack(new BoneAttackState(), myWorld, x, y, facingRight, source, false);
+  }
+  
+  @Override
+  public int getAttackMagicRequirement() {
+	// TODO Auto-generated method stub
+	return BoneAttackState.magicRequirement;
   }
   
 }

@@ -12,6 +12,8 @@ import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 
 public class ExplosionState extends SpriteState {
+	
+  public static int magicRequirement = 150;
   
   @Override
   public int getAttackDamage() {
@@ -85,7 +87,7 @@ public class ExplosionState extends SpriteState {
 
 @Override
 public IType getType() {
-	return new NormalType();
+	return NormalType.getInstance();
 }
   
 }

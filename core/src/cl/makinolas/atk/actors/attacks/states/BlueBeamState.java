@@ -12,6 +12,8 @@ import cl.makinolas.atk.types.WaterType;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 
 public class BlueBeamState extends SpriteState {
+	
+  public static int magicRequirement = 80;
   
   @Override
   public int getAttackDamage() {
@@ -65,7 +67,7 @@ public class BlueBeamState extends SpriteState {
 
 @Override
 public IType getType() {
-	return new WaterType();
+	return WaterType.getInstance();
 }
   
 }

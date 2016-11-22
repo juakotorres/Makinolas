@@ -4,6 +4,7 @@ import cl.makinolas.atk.actors.friend.Enemies;
 import cl.makinolas.atk.actors.ui.BagVis;
 import cl.makinolas.atk.actors.ui.MobileGroup;
 import cl.makinolas.atk.actors.ui.MobileKeyListener;
+import cl.makinolas.atk.audio.GDXMusicPlayer;
 import cl.makinolas.atk.stages.AbstractStage;
 import cl.makinolas.atk.utils.SaveManager;
 import com.badlogic.gdx.Input;
@@ -59,7 +60,9 @@ public class InputController extends InputListener implements MobileKeyListener{
                 	hero.foo();
                 	break;
                 	
-                	
+                case Input.Keys.H:
+                	hero.gainExp(100, Enemies.EEVEE);
+                	break;
                 case Input.Keys.NUM_8:
                     SaveManager.getInstance().saveState();
                     break;

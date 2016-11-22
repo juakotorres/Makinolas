@@ -1,10 +1,21 @@
 package cl.makinolas.atk.types;
 
-import java.awt.event.ItemEvent;
-import java.awt.event.ItemListener;
 
 public class FightType extends AbstractType implements IType {
-
+	
+	private static FightType instance = null;
+	
+	private FightType(){
+		this.isFight = true;
+	}
+	
+	public static FightType getInstance(){
+		if (instance == null){
+			instance = new FightType();
+		}
+		return instance;
+	}
+	
 	@Override
 	public double attackFromType(IType type) {
 		return type.fightPokemonAttacks(this);

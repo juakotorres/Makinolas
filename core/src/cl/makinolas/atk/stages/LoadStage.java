@@ -23,7 +23,6 @@ import cl.makinolas.atk.start.StartingJourneyStage;
 public class LoadStage extends Stage {
 
   private Game myGame;
-
   private LoadActor[] options;
   private int lastSelected;
   private Title arrow;
@@ -74,7 +73,6 @@ public class LoadStage extends Stage {
 
     //MobileGroup group = new MobileGroup(Gdx.app.getType() == Application.ApplicationType.Android);
     Gdx.input.setInputProcessor(this);
-
     //setupCamera();
   }
   

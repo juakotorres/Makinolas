@@ -33,7 +33,7 @@ public class Totodile extends AbstractFriend {
     newMonster();
     setActualEvolution(0);
     setMaxMagic(1000);
-    addType(new WaterType());
+    addType(WaterType.getInstance());
   }
   
   public Totodile(int level){
@@ -84,6 +84,12 @@ public class Totodile extends AbstractFriend {
   @Override
   public Attacks getFriendAttack(World myWorld, float x , float y, boolean facingRight, Monsters source){
     return new ShootBombAttack(new BubbleState(),myWorld, x, y, facingRight, source);
+  }
+  
+  @Override
+  public int getAttackMagicRequirement() {
+	// TODO Auto-generated method stub
+	return BubbleState.magicRequirement;
   }
   
 }

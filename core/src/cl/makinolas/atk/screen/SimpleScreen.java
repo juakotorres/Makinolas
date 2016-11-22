@@ -13,11 +13,13 @@ import cl.makinolas.atk.stages.OptionsStage;
 public abstract class SimpleScreen implements Screen {
     protected Stage stage;
     protected Game myGame;
+
     private ShapeRenderer shapeRenderer = new ShapeRenderer();
     
     public SimpleScreen() {}
 
     public SimpleScreen(Game g, Stage s){
+
         myGame = g;
         stage = s;
         Gdx.input.setInputProcessor(stage);
