@@ -420,6 +420,7 @@ public class Hero extends Monsters {
       isDamaged = true;
       changeAnimation(hurtAnimation);
       inflictor.setDead();
+      mplayer.playgetDmg();
     }
     if(getHealth() <= 0){
       changeAllie();

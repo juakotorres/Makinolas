@@ -4,6 +4,7 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.audio.Music;
 
 public class GDXSoundEffectsHero {
+	
 	private Music soundJump=Gdx.audio.newMusic(Gdx.files.internal("Music/jump_02.wav"));
 	private Music soundProyectile=Gdx.audio.newMusic(Gdx.files.internal("Music/laser4.wav"));
 	private Music soundEndStage=Gdx.audio.newMusic(Gdx.files.internal("Music/FX098.wav"));
@@ -12,6 +13,9 @@ public class GDXSoundEffectsHero {
 	private Music soundThrow=Gdx.audio.newMusic(Gdx.files.internal("Music/firered_throw.wav"));
 	private Music soundCaptured=Gdx.audio.newMusic(Gdx.files.internal("Music/firered_captured.wav"));
 	private Music soundnotCaptured=Gdx.audio.newMusic(Gdx.files.internal("Music/firered_notcaptured.wav"));
+	private Music soundgetDmg=Gdx.audio.newMusic(Gdx.files.internal("Music/firered_00F1.wav"));
+	private Music soundmovemenu=Gdx.audio.newMusic(Gdx.files.internal("Music/firered_000A.wav")); 
+	
 	public GDXSoundEffectsHero(){
 	}
 	
@@ -73,6 +77,27 @@ public class GDXSoundEffectsHero {
 		else{
 			soundnotCaptured.play();
 		}
+	}
+
+	public void playgetDmg() {
+		if(soundgetDmg.isPlaying()){
+			soundgetDmg.stop();
+			soundgetDmg.play();
+		}
+		else{
+			soundgetDmg.play();
+		}
+		
+	}
+	public void playmovemenu() {
+		if(soundmovemenu.isPlaying()){
+			soundmovemenu.stop();
+			soundmovemenu.play();
+		}
+		else{
+			soundmovemenu.play();
+		}
+		
 	}
 
 }

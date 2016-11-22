@@ -28,6 +28,7 @@ public class ShopItem extends Actor {
 
     @Override
     public void draw(Batch batch, float parentAlpha) {
+    	
         float cx = getX();
         float cy = getY();
         int quantity = Hero.getInstance().getInventory().getItemQuantity(itemname);
@@ -42,5 +43,6 @@ public class ShopItem extends Actor {
 
     public void setSelected(boolean selected) {
         this.selected = selected;
+        Hero.getInstance().Getmplayer().playmovemenu();
     }
 }
