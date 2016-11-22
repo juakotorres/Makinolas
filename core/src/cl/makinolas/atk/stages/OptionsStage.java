@@ -13,6 +13,7 @@ import com.badlogic.gdx.scenes.scene2d.utils.DragListener;
 import com.badlogic.gdx.utils.viewport.Viewport;
 
 import cl.makinolas.atk.actors.Background;
+import cl.makinolas.atk.actors.Hero;
 import cl.makinolas.atk.actors.Title;
 import cl.makinolas.atk.audio.GDXMusicPlayer;
 import cl.makinolas.atk.screen.GameScreen;
@@ -61,6 +62,7 @@ public class OptionsStage extends AbstractStage {
 	        	musicplayer.StopMusic();
 	  	    	MenuScreen menuScreen = new MenuScreen(myGame);
 	  	    	myGame.setScreen(menuScreen);	  
+	  	    	Hero.getInstance().Getmplayer().playpressbutton();
 	        }
 	    });
 	    
@@ -68,6 +70,7 @@ public class OptionsStage extends AbstractStage {
 	        @Override
 	        public void clicked(InputEvent event, float x, float y) {
 	        	Gdx.graphics.setWindowedMode(640, 480);
+	        	Hero.getInstance().Getmplayer().playpressbutton();
 	        }
 	    });
 	    
@@ -75,6 +78,7 @@ public class OptionsStage extends AbstractStage {
 	        @Override
 	        public void clicked(InputEvent event, float x, float y) {
 	        	Gdx.graphics.setFullscreenMode(Gdx.graphics.getDisplayMode());
+	        	Hero.getInstance().Getmplayer().playpressbutton();
 	        }
 	    });
 	    
@@ -82,6 +86,7 @@ public class OptionsStage extends AbstractStage {
 	        @Override
 	        public void clicked(InputEvent event, float x, float y) {
 	        	musicplayer.SetVolume((volumeSlider.getPercent()));
+	        	Hero.getInstance().Getmplayer().playpressbutton();
 	        }
 	    });
 	    

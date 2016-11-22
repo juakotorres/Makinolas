@@ -47,6 +47,7 @@ public class ShopScreen extends SimpleScreen implements KeyHandable{
             @Override
             public void clicked(InputEvent event, float x, float y) {
                 exitShop();
+                Hero.getInstance().Getmplayer().playpressbutton();
             }
         });
         stage.addActor(exitButton);
@@ -56,6 +57,7 @@ public class ShopScreen extends SimpleScreen implements KeyHandable{
             @Override
             public void clicked(InputEvent event, float x, float y) {
                 purchaseItem(1);
+                Hero.getInstance().Getmplayer().playpressbutton();
             }
         });
         stage.addActor(buyButton);
@@ -65,6 +67,7 @@ public class ShopScreen extends SimpleScreen implements KeyHandable{
             @Override
             public void clicked(InputEvent event, float x, float y) {
                 purchaseItem(10);
+                Hero.getInstance().Getmplayer().playpressbutton();
             }
         });
         stage.addActor(buy10Button);

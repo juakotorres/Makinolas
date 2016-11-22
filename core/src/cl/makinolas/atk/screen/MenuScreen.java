@@ -9,6 +9,7 @@ import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.utils.viewport.FitViewport;
 
+import cl.makinolas.atk.actors.Hero;
 import cl.makinolas.atk.stages.CorruptSAVStage;
 import cl.makinolas.atk.stages.LoadStage;
 import cl.makinolas.atk.stages.MenuStage;
@@ -24,6 +25,7 @@ public class MenuScreen extends SimpleScreen {
     loadButton.addListener(new ClickListener(){
       @Override
       public void clicked(InputEvent event, float x, float y) {
+    	  Hero.getInstance().Getmplayer().playpressbutton();
           loadGame();
       }
     });
@@ -31,6 +33,7 @@ public class MenuScreen extends SimpleScreen {
     minigameButton.addListener(new ClickListener(){
       @Override
       public void clicked(InputEvent event, float x, float y) {
+    	  Hero.getInstance().Getmplayer().playpressbutton();
           minigame();
       }
     });
@@ -38,6 +41,7 @@ public class MenuScreen extends SimpleScreen {
     optionButton.addListener(new ClickListener(){
       @Override
       public void clicked(InputEvent event, float x, float y) {
+    	  Hero.getInstance().Getmplayer().playpressbutton();
           options();
       }
     });

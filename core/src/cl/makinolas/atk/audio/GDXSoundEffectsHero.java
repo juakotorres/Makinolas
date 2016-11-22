@@ -15,7 +15,10 @@ public class GDXSoundEffectsHero {
 	private Music soundnotCaptured=Gdx.audio.newMusic(Gdx.files.internal("Music/firered_notcaptured.wav"));
 	private Music soundgetDmg=Gdx.audio.newMusic(Gdx.files.internal("Music/firered_00F1.wav"));
 	private Music soundmovemenu=Gdx.audio.newMusic(Gdx.files.internal("Music/firered_000A.wav")); 
-	
+	private Music soundpressbutton=Gdx.audio.newMusic(Gdx.files.internal("Music/firered_00F6.wav")); 
+	private Music soundpausemenuin=Gdx.audio.newMusic(Gdx.files.internal("Music/firered_00FA.wav")); 
+	private Music soundpausemenuout=Gdx.audio.newMusic(Gdx.files.internal("Music/firered_00FB.wav")); 
+	//firered_00FA
 	public GDXSoundEffectsHero(){
 	}
 	
@@ -87,7 +90,6 @@ public class GDXSoundEffectsHero {
 		else{
 			soundgetDmg.play();
 		}
-		
 	}
 	public void playmovemenu() {
 		if(soundmovemenu.isPlaying()){
@@ -97,7 +99,33 @@ public class GDXSoundEffectsHero {
 		else{
 			soundmovemenu.play();
 		}
-		
 	}
-
+	public void playpressbutton() {
+		if(soundpressbutton.isPlaying()){
+			soundpressbutton.stop();
+			soundpressbutton.play();
+		}
+		else{
+			soundpressbutton.play();
+		}
+	}
+	//firered_00FA
+	public void playpausemenuin() {
+		if(soundpausemenuin.isPlaying()){
+			soundpausemenuin.stop();
+			soundpausemenuin.play();
+		}
+		else{
+			soundpausemenuin.play();
+		}
+	}
+	public void playpausemenuout() {
+		if(soundpausemenuout.isPlaying()){
+			soundpausemenuout.stop();
+			soundpausemenuout.play();
+		}
+		else{
+			soundpausemenuout.play();
+		}
+	}
 }

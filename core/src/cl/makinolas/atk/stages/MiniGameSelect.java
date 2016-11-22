@@ -12,6 +12,7 @@ import com.badlogic.gdx.utils.viewport.FitViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
 
 import cl.makinolas.atk.actors.Background;
+import cl.makinolas.atk.actors.Hero;
 import cl.makinolas.atk.actors.Title;
 import cl.makinolas.atk.minigames.MinigameStage;
 import cl.makinolas.atk.screen.GameScreen;
@@ -49,7 +50,8 @@ public class MiniGameSelect extends AbstractStage {
 	        @Override
 	        public void clicked(InputEvent event, float x, float y) {
 	  	    	MenuScreen menuScreen = new MenuScreen(myGame);
-	  	    	myGame.setScreen(menuScreen);	  
+	  	    	myGame.setScreen(menuScreen);	
+	  	    	Hero.getInstance().Getmplayer().playpressbutton();
 	        }
 	    });
 	    
@@ -59,6 +61,7 @@ public class MiniGameSelect extends AbstractStage {
 	          GameScreen gameScreen = new GameScreen(myGame);
 	          gameScreen.setStage(new MinigameStage(new FitViewport(640,480), gameScreen, myGame));
 	          myGame.setScreen(gameScreen);
+	          Hero.getInstance().Getmplayer().playpressbutton();
 	        }
 	    });
 	    
@@ -66,6 +69,7 @@ public class MiniGameSelect extends AbstractStage {
 	        @Override
 	        public void clicked(InputEvent event, float x, float y) {
 	        	//setStage( survival...)
+	        	Hero.getInstance().Getmplayer().playpressbutton();
 	        }
 	    });
 	    

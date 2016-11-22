@@ -73,8 +73,10 @@ public class InputController extends InputListener implements MobileKeyListener{
             switch (keycode) {
                 case Input.Keys.P:
                     ((AbstractStage) hero.getStage()).togglePause();
+                    hero.Getmplayer().playpausemenuout();
                     break;
                 default:
+                	
                     BagVis.getInstance().handleKey(keycode);
                     break;
             }

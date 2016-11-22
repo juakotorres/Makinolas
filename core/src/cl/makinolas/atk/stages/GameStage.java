@@ -157,6 +157,7 @@ public class GameStage extends AbstractStage implements ContactListener {
   public void togglePause() {
     super.togglePause();
     if(isPaused()){
+      Hero.player.Getmplayer().playpausemenuin();
       bagVis = BagVis.getInstance();
       //bagVis.setPosition(getCamera().position.x,getCamera().position.y);
       bagVis.show();

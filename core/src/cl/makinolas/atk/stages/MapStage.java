@@ -62,6 +62,7 @@ public class MapStage extends Stage implements KeyHandable{
             @Override
             public void clicked(InputEvent event, float x, float y) {
                 enterShop();
+                Hero.getInstance().Getmplayer().playpressbutton();
             }
         });
         shopButton.setPosition(20,12);
@@ -72,6 +73,7 @@ public class MapStage extends Stage implements KeyHandable{
             @Override
             public void clicked(InputEvent event, float x, float y) {
                 enterCenter();
+                Hero.getInstance().Getmplayer().playpressbutton();
             }
         });
         centerButton.setPosition(160,12);
@@ -82,6 +84,7 @@ public class MapStage extends Stage implements KeyHandable{
             @Override
             public void clicked(InputEvent event, float x, float y) {
                 enterComputer();
+                Hero.getInstance().Getmplayer().playpressbutton();
             }
         });
         computerButton.setPosition(350,12);
@@ -92,6 +95,7 @@ public class MapStage extends Stage implements KeyHandable{
             @Override
             public void clicked(InputEvent event, float x, float y) {
                 startLevel();
+                Hero.getInstance().Getmplayer().playpressbutton();
             }
         });
         startButton.setPosition(640-80,12);
@@ -117,6 +121,7 @@ public class MapStage extends Stage implements KeyHandable{
         Spot auxiliarSpot = current;
         if(keycode == Input.Keys.Z){
         	musicplayer.StopMusic();
+        	Hero.player.Getmplayer().playpressbutton();
             startLevel();
             return;
         }

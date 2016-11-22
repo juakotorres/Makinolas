@@ -175,7 +175,7 @@ public class Enemy extends Monsters {
 	}
 
 	protected void checkDamage(float delta, float inflictorVel) {
-		if (isDamaged) {
+		if (isDamaged) {		
 			myBody.setLinearVelocity(new Vector2(inflictorVel, 0));
 			accumulator += delta;
 			if (accumulator > hurtTime) {
@@ -218,6 +218,7 @@ public class Enemy extends Monsters {
 			health = 0;
 		} else {
 			health -= damage;
+			mplayer.playenemygetDmg();
 		}
 		isDamaged = true;
 		changeAnimation(hurtAnimation);

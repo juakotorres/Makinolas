@@ -38,6 +38,7 @@ public class PokeCenterScreen extends SimpleScreen implements KeyHandable{
             @Override
             public void clicked(InputEvent event, float x, float y) {
                 exitCenter();
+                Hero.getInstance().Getmplayer().playpressbutton();
             }
         });
         stage.addActor(exitButton);
@@ -47,6 +48,7 @@ public class PokeCenterScreen extends SimpleScreen implements KeyHandable{
             @Override
             public void clicked(InputEvent event, float x, float y) {
                 healTeam();
+                Hero.getInstance().Getmplayer().playpressbutton();
             }
         });
         stage.addActor(healButton);

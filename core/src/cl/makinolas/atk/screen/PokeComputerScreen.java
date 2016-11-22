@@ -49,6 +49,7 @@ public class PokeComputerScreen extends SimpleScreen implements KeyHandable {
             @Override
             public void clicked(InputEvent event, float x, float y) {
                 exitComputer();
+                Hero.getInstance().Getmplayer().playpressbutton();
             }
         });
         stage.addActor(exitButton);
@@ -59,6 +60,7 @@ public class PokeComputerScreen extends SimpleScreen implements KeyHandable {
             @Override
             public void clicked(InputEvent event, float x, float y) {
                 swapPokemon();
+                Hero.getInstance().Getmplayer().playpressbutton();
             }
         });
         stage.addActor(swapButton);
@@ -75,6 +77,7 @@ public class PokeComputerScreen extends SimpleScreen implements KeyHandable {
                 if (index_team < 0){
                 	index_team = 3;
                 }
+                Hero.getInstance().Getmplayer().playpressbutton();
             }
         });
         stage.addActor(leftTeamButton);
@@ -88,6 +91,7 @@ public class PokeComputerScreen extends SimpleScreen implements KeyHandable {
                 if (index_team > 3){
                 	index_team = 0;
                 }
+                Hero.getInstance().Getmplayer().playpressbutton();
             }
         });
         stage.addActor(rightTeamButton);
@@ -101,6 +105,7 @@ public class PokeComputerScreen extends SimpleScreen implements KeyHandable {
                 if (index_backup < 0){
                 	index_backup = hero.getBackupAllies().size - 1;
                 }
+                Hero.getInstance().Getmplayer().playpressbutton();
             }
         });
         stage.addActor(leftBackupButton);
@@ -114,6 +119,7 @@ public class PokeComputerScreen extends SimpleScreen implements KeyHandable {
                 if (index_backup > hero.getBackupAllies().size - 1){
                 	index_backup = 0;
                 }
+                Hero.getInstance().Getmplayer().playpressbutton();
             }
         });
         stage.addActor(rightBackupButton);

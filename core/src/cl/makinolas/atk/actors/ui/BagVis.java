@@ -112,6 +112,7 @@ public class BagVis extends Group {
             item.setSelected(false);
         }
         if(i!=-1)
+        	Hero.getInstance().Getmplayer().playmovemenu();
             items.get(i).setSelected(true);
         selected = i;
     }

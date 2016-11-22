@@ -13,6 +13,7 @@ import com.badlogic.gdx.utils.viewport.FitViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
 
 import cl.makinolas.atk.actors.Background;
+import cl.makinolas.atk.actors.Hero;
 import cl.makinolas.atk.actors.LoadActor;
 import cl.makinolas.atk.actors.Title;
 import cl.makinolas.atk.screen.GameScreen;
@@ -64,6 +65,7 @@ public class LoadStage extends Stage {
         @Override
         public void clicked(InputEvent event, float x, float y) {
           MainMenu();
+          Hero.getInstance().Getmplayer().playpressbutton();
         }
     });
     
@@ -94,12 +96,19 @@ public class LoadStage extends Stage {
     if (Gdx.input.isKeyJustPressed(Keys.UP)){
       int last = lastSelected;
       lastSelected = (lastSelected == 0)? 1 : (lastSelected - 1);
+      if(last!=lastSelected){
+    	  Hero.getInstance().Getmplayer().playmovemenu();
+      }
       changeArrow(last, lastSelected);
     } if (Gdx.input.isKeyJustPressed(Keys.DOWN)){
       int last = lastSelected;
       lastSelected = (lastSelected == 1)? 0 : (lastSelected + 1);
+      if(last!=lastSelected){
+    	  Hero.getInstance().Getmplayer().playmovemenu();
+      }
       changeArrow(last, lastSelected);
     } if (Gdx.input.isKeyJustPressed(Keys.Z)){
+      Hero.getInstance().Getmplayer().playpressbutton();
       options[lastSelected].loadMap();
     }
   }
