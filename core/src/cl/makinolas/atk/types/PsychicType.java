@@ -3,11 +3,11 @@ package cl.makinolas.atk.types;
 public class PsychicType extends AbstractType implements IType {
 
 	private static PsychicType instance = null;
-
+	
 	private PsychicType(){
 		this.isPsychic = true;
 	}
-
+	
 	public static PsychicType getInstance(){
 		if (instance == null){
 			instance = new PsychicType();
@@ -39,7 +39,7 @@ public class PsychicType extends AbstractType implements IType {
 	public double monsterHasAttackedFromDark() {
 		return 2;
 	}
-
+	
 	@Override
 	public double monsterHasAttackedFromFight() {
 		return 0.5;
@@ -54,5 +54,5 @@ public class PsychicType extends AbstractType implements IType {
 	public double monsterHasAttackedFromPsychic() {
 		return 0.5;
 	}
-
+	
 }

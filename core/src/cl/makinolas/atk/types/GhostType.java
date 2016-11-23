@@ -3,11 +3,11 @@ package cl.makinolas.atk.types;
 public class GhostType extends AbstractType implements IType {
 
 	private static GhostType instance = null;
-
+	
 	private GhostType(){
 		this.isGhost = true;
 	}
-
+	
 	public static GhostType getInstance(){
 		if (instance == null){
 			instance = new GhostType();
@@ -29,7 +29,7 @@ public class GhostType extends AbstractType implements IType {
 	public double ghostPokemonAttacks(IType type) {
 		return 1.5;
 	}
-
+	
 	@Override
 	public double monsterHasAttackedFromBug() {
 		return 0.5;
@@ -44,7 +44,7 @@ public class GhostType extends AbstractType implements IType {
 	public double monsterHasAttackedFromFight() {
 		return 0;
 	}
-
+	
 	@Override
 	public double monsterHasAttackedFromGhost() {
 		return 2;

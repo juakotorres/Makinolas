@@ -87,9 +87,7 @@ public class TreeState extends SpriteState {
 
 @Override
 public IType getType() {
-
 	return GrassType.getInstance();
-
 }
   
   
