@@ -12,7 +12,6 @@ import cl.makinolas.atk.actors.Hero;
 import cl.makinolas.atk.actors.Monsters;
 import cl.makinolas.atk.actors.attacks.Attacks;
 import cl.makinolas.atk.actors.friend.Enemies;
-import cl.makinolas.atk.actors.fx.FxManager;
 import cl.makinolas.atk.actors.items.ItemFinder;
 import cl.makinolas.atk.stages.BossStage;
 import cl.makinolas.atk.stateEfects.CriticalHit;

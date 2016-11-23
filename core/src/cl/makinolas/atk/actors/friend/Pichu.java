@@ -10,8 +10,6 @@ import cl.makinolas.atk.actors.attacks.Attacks;
 import cl.makinolas.atk.actors.attacks.BombAttack;
 import cl.makinolas.atk.actors.attacks.states.ThunderBoltState;
 import cl.makinolas.atk.types.ElectricType;
-import cl.makinolas.atk.types.IType;
-import cl.makinolas.atk.types.PsychicType;
 
 public class Pichu extends AbstractFriend {
   

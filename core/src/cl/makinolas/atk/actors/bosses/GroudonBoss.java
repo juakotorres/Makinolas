@@ -6,17 +6,11 @@ import cl.makinolas.atk.actors.HBarFliped;
 import cl.makinolas.atk.actors.Hero;
 import cl.makinolas.atk.actors.attacks.Attacks;
 import cl.makinolas.atk.actors.attacks.BombAttack;
-import cl.makinolas.atk.actors.attacks.CloseRangeAttack;
 import cl.makinolas.atk.actors.attacks.DirectionAttack;
-import cl.makinolas.atk.actors.attacks.DroppingAttack;
 import cl.makinolas.atk.actors.attacks.states.FireWallState;
 import cl.makinolas.atk.actors.attacks.states.TRockState;
 import cl.makinolas.atk.actors.friend.Groudon;
-import cl.makinolas.atk.actors.friend.OldMewtwo;
-import cl.makinolas.atk.actors.fx.FxManager;
 import cl.makinolas.atk.stages.AbstractStage;
-import cl.makinolas.atk.types.FireType;
-import cl.makinolas.atk.types.RockType;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;

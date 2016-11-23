@@ -4,8 +4,6 @@ import cl.makinolas.atk.actors.attacks.ParabolicAttack;
 import cl.makinolas.atk.actors.attacks.states.FireballState;
 import cl.makinolas.atk.types.FireType;
 import cl.makinolas.atk.types.FlyingType;
-import cl.makinolas.atk.types.GrassType;
-import cl.makinolas.atk.types.IType;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
