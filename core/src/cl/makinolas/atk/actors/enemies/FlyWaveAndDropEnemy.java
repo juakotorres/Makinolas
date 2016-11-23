@@ -26,18 +26,21 @@ public class FlyWaveAndDropEnemy extends Enemy {
   
   @Override
   public void act(float delta){     
+	  super.act(delta);
     
-    flyingAccumulator += delta;
-    myBody.setLinearVelocity(vx, (float) (6*Math.sin(4*flyingAccumulator)));
-    
+	  if(!this.isSinging){
+	    flyingAccumulator += delta;
+	    myBody.setLinearVelocity(vx, (float) (6*Math.sin(4*flyingAccumulator)));
+	  }
     checkDamage(delta, 0);
     accumulatorAttack += delta; 
     
-    if(accumulatorAttack > attackTime){
+    if(accumulatorAttack > attackTime && super.isFree()){
       Attacks attack = parent.getFriendAttack(myWorld, myBody.getPosition().x, myBody.getPosition().y - 1f, isFacingRight, this);
       attack.isDropping();
       attack.setSource(this);
       ((AbstractStage) getStage()).addGameActor(attack);
+      attack.getSpriteState().secondaryEfectsToSource(this);
       accumulatorAttack = 0;
     }
   }

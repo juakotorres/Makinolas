@@ -7,8 +7,12 @@ import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 
 import cl.makinolas.atk.actors.Monsters;
+import cl.makinolas.atk.types.IType;
+import cl.makinolas.atk.types.WaterType;
 
 public class WaterfallState extends SpriteState {
+	
+  public static int magicRequirement = 95;
   
   @Override
   public int getAttackDamage() {
@@ -59,5 +63,10 @@ public class WaterfallState extends SpriteState {
   public int getTypeAttack(Monsters monster) {
     return myAttack.getPhysicalAttackDamage(monster);
   }
+
+@Override
+public IType getType() {
+	return WaterType.getInstance();
+}
   
 }

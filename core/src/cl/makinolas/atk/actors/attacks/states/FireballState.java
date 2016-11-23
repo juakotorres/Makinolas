@@ -6,10 +6,15 @@ import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.Animation.PlayMode;
 
 import cl.makinolas.atk.actors.Monsters;
+import cl.makinolas.atk.stateEfects.BurnedStateEffect;
+import cl.makinolas.atk.types.FireType;
+import cl.makinolas.atk.types.IType;
 
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 
 public class FireballState extends SpriteState {
+	
+  public static int magicRequirement = 45;
 
   @Override
   public void initializeBody(float x, float y) {
@@ -60,4 +65,16 @@ public class FireballState extends SpriteState {
   public int getTypeAttack(Monsters monster) {
     return myAttack.getSpecialAttackDamage(monster);
   }
+
+@Override
+public IType getType() {
+	return FireType.getInstance();
+}
+
+@Override
+public void secondaryEfectsToAfected(Monsters monster) {
+	monster.addState(new BurnedStateEffect(monster, myAttack), 20);
+}
+
+
 }

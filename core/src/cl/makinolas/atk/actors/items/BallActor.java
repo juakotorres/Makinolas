@@ -7,6 +7,7 @@ import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.*;
 
 import cl.makinolas.atk.actors.GameActor;
+import cl.makinolas.atk.actors.Hero;
 import cl.makinolas.atk.actors.platform.Platform;
 import cl.makinolas.atk.actors.enemies.Enemy;
 
@@ -98,6 +99,7 @@ public class BallActor extends GameActor {
             batch.draw(region, myPosition.x * 20 - 10, myPosition.y * 20 - 10, 20, 20);
         }
         else {
+            myBody.setActive(false);
             float r = (float) (40*Math.sin(captureTime));
             r = (r>10)?10:r;
             batch.draw(region, captureX * 20 - 16, captureY * 20 - 16, 16, 16, 32, 32, 1, 1, r);
