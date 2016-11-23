@@ -48,11 +48,8 @@ public class Hero extends Monsters {
   private boolean isJumping;
   private boolean isDamaged;
   private boolean isAttacking;
-<<<<<<< HEAD
   private boolean isInsideWater;
-=======
   private boolean[] isSinging = {false, false, false, false};
->>>>>>> refs/remotes/origin/master
   private int[] attackAnimations;
   private int actualAnimation[] = {0, 0, 0, 0};
   protected final float spriteTime = 1 / 5f;
@@ -784,8 +781,7 @@ public class Hero extends Monsters {
   public void CriticalDamage() {
 	  this.addState(new CriticalHit(this), 100);
   }
-<<<<<<< HEAD
-=======
+
 @Override
 public float getRelativeY() {
 	return this.getStageY();
@@ -814,7 +810,6 @@ public void unSleep() {
 }
 
 
->>>>>>> refs/remotes/origin/master
 
 }
 
