@@ -2,11 +2,12 @@ package cl.makinolas.atk.screen;
 
 import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 
-public class GameScreen implements Screen{
+import cl.makinolas.atk.stages.OptionsStage;
+
+public class GameScreen extends SimpleScreen {
   
   private Stage stage;
   private Game myGame;
@@ -27,7 +28,11 @@ public class GameScreen implements Screen{
     //Update the stage
     stage.draw();
     stage.act(delta);
+    
+    // Brightness
+    super.renderBlackRectangle(OptionsStage.getBrightness());
   }
+  
 
   @Override
   public void resize(int width, int height) {

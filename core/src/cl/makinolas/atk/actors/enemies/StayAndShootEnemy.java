@@ -38,10 +38,10 @@ public class StayAndShootEnemy extends Enemy {
       myBody.setLinearVelocity(0, myBody.getLinearVelocity().y);
     }
     
-    if(accumulatorAttack > attackTime){
-      GameActor attack = parent.getFriendAttack(myWorld, myBody.getPosition().x - 0.5f, myBody.getPosition().y, isFacingRight, this);
-      ((AbstractStage) getStage()).addGameActor(attack);
-      accumulatorAttack = 0;
+    if(accumulatorAttack > attackTime && super.isFree()){
+        GameActor attack = parent.getFriendAttack(myWorld, myBody.getPosition().x - 0.5f, myBody.getPosition().y, isFacingRight, this);
+        ((AbstractStage) getStage()).addGameActor(attack);
+        accumulatorAttack = 0;
     }
   }
   

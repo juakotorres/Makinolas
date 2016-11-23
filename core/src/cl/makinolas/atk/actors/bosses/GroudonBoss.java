@@ -12,7 +12,11 @@ import cl.makinolas.atk.actors.attacks.states.FireWallState;
 import cl.makinolas.atk.actors.attacks.states.TRockState;
 import cl.makinolas.atk.actors.friend.Groudon;
 import cl.makinolas.atk.actors.friend.OldMewtwo;
+import cl.makinolas.atk.actors.fx.FxManager;
 import cl.makinolas.atk.stages.AbstractStage;
+import cl.makinolas.atk.types.FireType;
+import cl.makinolas.atk.types.RockType;
+
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
@@ -150,4 +154,12 @@ public class GroudonBoss extends Boss {
     public float getXDirection() {
         return vx;
     }
+
+	@Override
+	public void CriticalDamage() {
+		Vector2 myPosition = myBody.getPosition();
+		FxManager.getInstance().addFx(FxManager.Fx.CRITICAL,
+				myPosition.x * GameConstants.WORLD_FACTOR - getActualSprite().getRegionWidth() / 2,
+				myPosition.y * GameConstants.WORLD_FACTOR + getActualSprite().getRegionHeight() / 2);
+	}
 }

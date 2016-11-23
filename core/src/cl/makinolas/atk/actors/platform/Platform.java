@@ -53,7 +53,7 @@ public class Platform extends GameActor {
     Body myBody = myWorld.createBody(myBodyDefinition);
 
     PolygonShape shape = new PolygonShape();
-    shape.setAsBox(widthTiles * TILE_FACTOR /2, heightTiles * TILE_FACTOR / 2);
+    shape.setAsBox((widthTiles)* TILE_FACTOR /2, heightTiles * TILE_FACTOR / 2);
     ///
     myBody.setGravityScale(1);
     myBody.createFixture(shape, 0.5f).setFriction(0);
@@ -62,6 +62,7 @@ public class Platform extends GameActor {
 
     // Guardar body.
     setBody(myBody);
+
   }
   public Platform(World myWorld, int x, int y, int widthTiles){
       this(myWorld,"CU",x,y,widthTiles,1);
