@@ -61,9 +61,7 @@ public class TRockState extends SpriteState {
 
 	@Override
 	public IType getType() {
-
 		return RockType.getInstance();
-
 	}
 
 }

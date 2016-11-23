@@ -69,9 +69,7 @@ public class Poison_StingState extends SpriteState{
 
 @Override
 public IType getType() {
-
 	return PoisonType.getInstance();
-
 }
 
 @Override

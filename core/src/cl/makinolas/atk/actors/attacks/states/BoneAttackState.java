@@ -87,9 +87,7 @@ public class BoneAttackState extends SpriteState {
 
 @Override
 public IType getType() {
-
 	return GroundType.getInstance();
-
 }
   
 }
