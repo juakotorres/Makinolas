@@ -69,6 +69,6 @@ build/
 .DS_Store
 Thumbs.db
 
-*.sav
+android/assets/Save/*.sav
 local.properties
 *.apk
