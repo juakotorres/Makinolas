@@ -34,6 +34,11 @@ public class Groudon extends AbstractFriend {
         setMaxMagic(1000);
         addType(GroundType.getInstance());
     }
+    
+    public Groudon(int lvl) {
+    	this();
+    	this.initLevel(lvl);
+    }
 
     @Override
     protected void initLevel(int level){
