@@ -13,6 +13,8 @@ import com.badlogic.gdx.graphics.g2d.TextureRegion;
 
 public class FallingLeafState extends SpriteState {
 
+	public static int magicRequirement = 60;
+	
   @Override
   public void initializeBody(float x, float y) {
     myAttack.initializeBody(x, y);    
@@ -76,11 +78,6 @@ public IType getType() {
 @Override
 public int getCriticalChance(){
 	  return 2;
-}
-
-public static int getmagicRequirement() {
-	// TODO Auto-generated method stub
-	return 60;
 }
   
 }
