@@ -6,7 +6,6 @@ import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 
 import cl.makinolas.atk.actors.Monsters;
-import cl.makinolas.atk.stateEfects.BurnedStateEffect;
 import cl.makinolas.atk.stateEfects.SleepStateEffect;
 import cl.makinolas.atk.types.IType;
 import cl.makinolas.atk.types.NormalType;
@@ -33,13 +32,23 @@ public class SingState extends SpriteState {
 
     @Override
     public int getWidth() {
-        return 256;
+        return 40;
     }
 
     @Override
     public int getHeight() {
-        return 176;
+        return 40;
     }
+    
+    @Override
+    public int getBodyWidth() {
+        return 256;
+      }
+
+    @Override
+      public int getBodyHeight() {
+        return 180;
+      }
 
     @Override
     public float getFrameTime() {

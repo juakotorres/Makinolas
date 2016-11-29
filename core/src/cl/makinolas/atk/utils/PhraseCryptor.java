@@ -29,6 +29,7 @@ public class PhraseCryptor implements Cryptor{
         for (int i = 0; i < msg.length(); i++) {
             builder.append(alphabet.charAt((alphabet.indexOf(msg.charAt(i))-key[i%n]+alphabet.length())%alphabet.length()));
         }
+        System.out.println(builder.toString());
         return builder.toString();
     }
 }

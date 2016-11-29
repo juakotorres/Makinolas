@@ -11,6 +11,7 @@ import cl.makinolas.atk.actors.attacks.DirectionAttack;
 import cl.makinolas.atk.actors.attacks.DroppingAttack;
 import cl.makinolas.atk.actors.attacks.states.FireWallState;
 import cl.makinolas.atk.actors.attacks.states.TRockState;
+import cl.makinolas.atk.actors.friend.Friend;
 import cl.makinolas.atk.actors.friend.Groudon;
 import cl.makinolas.atk.actors.friend.OldMewtwo;
 import cl.makinolas.atk.actors.fx.FxManager;
@@ -26,6 +27,7 @@ import com.badlogic.gdx.physics.box2d.Body;
 import com.badlogic.gdx.physics.box2d.BodyDef;
 import com.badlogic.gdx.physics.box2d.PolygonShape;
 import com.badlogic.gdx.physics.box2d.World;
+import com.badlogic.gdx.utils.Array;
 
 public class GroudonBoss extends Boss {
 
@@ -40,15 +42,15 @@ public class GroudonBoss extends Boss {
 
     public GroudonBoss(World myWorld, Hero hero) {
         super();
-        health = 200;
-        maxHealth = 150;
+        health = Math.max(Hero.getInstance().getHealth()*5+50, 200);
+        maxHealth = Math.max(Hero.getInstance().getHealth()*5, 150);
         jumpDirection = 1;
         width = 39;
         height = 33;
         isAttacking = true;
         isFacingRight = false;
         vx = 0;
-        parent = new Groudon();
+        parent = new Groudon(maxLevelOfAllies(Hero.getInstance().getAllies()));
         this.hero = hero;
         healthBar = new HBarFliped(health, health, 20, 133, new TextureRegion( new Texture(Gdx.files.internal("Overlays/bar_green.png"))));
         isDamaged = false;
@@ -92,11 +94,6 @@ public class GroudonBoss extends Boss {
                 generateFirewalls();
                 health = (int) Math.min(maxHealth,health+5);
                 healthBar.setCurrent(health);
-                goBack();
-                throwRock();
-                throwRock();
-                goBack();
-                throwRock();
                 goBack();
             }
         };
@@ -187,5 +184,14 @@ public class GroudonBoss extends Boss {
 	public void unSleep() {
 		
 	}
+	
+	  private int maxLevelOfAllies(Array<Friend> allies) {
+		    int maxLevel = allies.get(0).getLevel();
+		    for(Friend ally : allies){
+		      if(maxLevel < ally.getLevel())
+		        maxLevel = ally.getLevel();
+		    }
+		    return maxLevel;
+		  } 
 
 }
