@@ -32,6 +32,7 @@ public class PokeComputerScreen extends SimpleScreen implements KeyHandable {
     private int index_backup;
     private int page_number;
     private int page_max;
+    private int team_size;
     private int backup_size;
     
     public PokeComputerScreen(Game g) {
@@ -44,6 +45,7 @@ public class PokeComputerScreen extends SimpleScreen implements KeyHandable {
         index_team = 0;
         index_backup = 0;
         page_number = 0;
+        team_size = hero.getAllies().size;
         backup_size = hero.getBackupAllies().size;
         page_max = backup_size < 18 || backup_size % 18 == 0 ? (backup_size / 18) : (backup_size / 18) + 1 ;
         showAllies();
@@ -77,7 +79,7 @@ public class PokeComputerScreen extends SimpleScreen implements KeyHandable {
         leftTeamButton.addListener(new ClickListener(){
             @Override
             public void clicked(InputEvent event, float x, float y) {
-            	index_team = index_team - 1 < 0 ? 3 : index_team - 1;
+            	index_team = index_team - 1 < 0 ? team_size - 1 : index_team - 1;
             }
         });
         stage.addActor(leftTeamButton);
@@ -87,7 +89,7 @@ public class PokeComputerScreen extends SimpleScreen implements KeyHandable {
         rightTeamButton.addListener(new ClickListener(){
             @Override
             public void clicked(InputEvent event, float x, float y) {
-            	index_team = index_team + 1 > 3 ? 0 : index_team + 1;
+            	index_team = index_team + 1 > team_size - 1 ? 0 : index_team + 1;
             }
         });
         stage.addActor(rightTeamButton);
