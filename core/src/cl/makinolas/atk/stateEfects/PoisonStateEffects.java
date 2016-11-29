@@ -21,12 +21,12 @@ public class PoisonStateEffects extends AbstractStateEfects {
 		for(IType type: monster.getMyself().getType()){
 			if(type.isPoison() || type.isSteel()){
 				noEfect = true;
-				this.drawEfects = new DrawStateEfects("StateImages/Poisoned.png", 64, 64,0f, 0f, 8, this);
+				this.drawEfects = new DrawStateEfects("StateImages/Poisoned.png", 64, 64,0, 0, 0f, 0f, 8, this);
 				return;
 			}
 		}
 		double rand = 10 + Math.random()*10;
-		this.drawEfects = new DrawStateEfects("StateImages/Poisoned.png", 64, 64,(float)rand , 2f, 8, this);
+		this.drawEfects = new DrawStateEfects("StateImages/Poisoned.png", 64, 64,0, 0, (float)rand , 2f, 8, this);
 	}
 	
 	@Override

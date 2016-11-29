@@ -9,9 +9,7 @@ import cl.makinolas.atk.actors.Monsters;
 import cl.makinolas.atk.actors.attacks.Attacks;
 import cl.makinolas.atk.actors.attacks.ShootAttack;
 import cl.makinolas.atk.actors.attacks.states.BlueBeamState;
-import cl.makinolas.atk.types.IType;
 import cl.makinolas.atk.types.PsychicType;
-import cl.makinolas.atk.types.WaterType;
 //
 public class OldMewtwo extends AbstractFriend {
   
