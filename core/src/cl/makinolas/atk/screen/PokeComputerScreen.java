@@ -1,5 +1,7 @@
 package cl.makinolas.atk.screen;
 
+import java.util.ArrayList;
+
 import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
@@ -30,10 +32,14 @@ public class PokeComputerScreen extends SimpleScreen implements KeyHandable {
     private Hero hero;
     private int index_team;
     private int index_backup;
+	private ArrayList<TeamFriendImage> backupImages;
+	private ArrayList<TeamFriendImage> alliesImages;
     
     public PokeComputerScreen(Game g) {
 		super(g, new Stage(new FitViewport(640,480)));
 		//CAMBIAR POR UNA IMAGEN DE UN pokemon computer
+		alliesImages = new ArrayList<TeamFriendImage>();
+		backupImages = new ArrayList<TeamFriendImage>();
 		stage.addActor(new Background("Background/PokeCenter.jpg",stage.getCamera()));
 		//quizas esto es innecesario, o poner una foto de un computador
         //stage.addActor(new SimpleImageActor("Humans/LadyCenter.gif",440,60));
@@ -125,16 +131,18 @@ public class PokeComputerScreen extends SimpleScreen implements KeyHandable {
         stage.addActor(currentItem);
         stage.addListener(new SimpleInputController(this,null));
 	}
-
+    
     private void showAllies(){
     	for (int i = 0; i < hero.getAllies().size; i++) {
             TeamFriendImage tfimg = new TeamFriendImage(hero.getAllies().get(i), true);
+            alliesImages.add(tfimg);
             tfimg.setPosition(60 + 60 * i,350);
             tfimg.setScale(1.5f);
             stage.addActor(tfimg);
-        }
+    	}
     	for (int i = 0; i < hero.getBackupAllies().size; i++) {
             TeamFriendImage tfimg = new TeamFriendImage(hero.getBackupAllies().get(i), true);
+            backupImages.add(tfimg);
             tfimg.setPosition(60 + 60 * (i % 6),250 - 70 * (i / 6));
             tfimg.setScale(1.5f);
             stage.addActor(tfimg);
@@ -148,7 +156,16 @@ public class PokeComputerScreen extends SimpleScreen implements KeyHandable {
     
     public void swapPokemon(){
     	hero.swapTeamAllies(index_team, index_backup);
-    	showAllies();
+    	TeamFriendImage ally = alliesImages.get(index_team);
+    	TeamFriendImage backup = backupImages.get(index_backup);
+    	float auxX = ally.getX();
+    	float auxY = ally.getY();
+    	ally.setPosition(backup.getX(), backup.getY());
+    	backup.setPosition(auxX, auxY);  	
+    	stage.addActor(ally);
+    	stage.addActor(backup);
+    	alliesImages.set(index_team, backup);
+    	backupImages.set(index_backup, ally);
     }
 
     /*
