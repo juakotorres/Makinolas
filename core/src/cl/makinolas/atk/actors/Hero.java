@@ -263,9 +263,11 @@ public class Hero extends Monsters {
   */
   //MODIFICAR PARA POSIBLEMENTE ACTUALIZAR LA PANTALLA LUEGO DE EL INTERCAMBIO
   public void swapTeamAllies( int i, int j){
-	  Friend auxfriend = backupAllies.get(j);
-	  backupAllies.set(j, allies.get(i));
-	  allies.set(i, auxfriend);
+	  if(backupAllies.size != 0){
+		  Friend auxfriend = backupAllies.get(j);
+		  backupAllies.set(j, allies.get(i));
+		  allies.set(i, auxfriend);
+	  }
   }
   
   @Override
