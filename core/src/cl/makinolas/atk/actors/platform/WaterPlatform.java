@@ -15,6 +15,9 @@ import com.badlogic.gdx.physics.box2d.FixtureDef;
 import cl.makinolas.atk.GameConstants;
 import cl.makinolas.atk.actors.GameActor;
 import cl.makinolas.atk.actors.Hero;
+import cl.makinolas.atk.actors.NullState;
+import cl.makinolas.atk.actors.OnGround;
+import cl.makinolas.atk.actors.OnWater;
 
 public class WaterPlatform extends GameActor {
 	
@@ -24,7 +27,7 @@ public class WaterPlatform extends GameActor {
 	int xp, yp, wp, hp;
 
 	public WaterPlatform(World myWorld, int x, int y, int widthTiles, int heightTiles) {
-		
+				
 		texture = new TextureRegion(new Texture(Gdx.files.internal("Background/Water.gif")));
 
 		myBodyDefinition = new BodyDef();
@@ -34,6 +37,7 @@ public class WaterPlatform extends GameActor {
 	    PolygonShape shape = new PolygonShape();
 	    shape.setAsBox(widthTiles * TILE_FACTOR /2, heightTiles * TILE_FACTOR / 2);
 
+	    /*Fixture atravesable de la plataforma para detectar cuando entra y sale del agua*/
 	    FixtureDef fixture= new FixtureDef();
 	    fixture.isSensor=true;
 	    fixture.shape=shape;
@@ -50,20 +54,29 @@ public class WaterPlatform extends GameActor {
 	
 	@Override
 	public void interactWithHero(Hero hero, WorldManifold worldManifold){	    
-		System.out.println("Entrando agua");
+		/*setea que tan rapido cae en el agua*/
+		hero.myBody.setGravityScale(0.5f);
+		
+		/*damping para frenar al hero cuando entra al agua y cuando se mueve en general*/
+		hero.myBody.setLinearDamping(5);
+		
+		/*setea estado a dentro del agua*/
+		hero.setState(new OnWater());
+		hero.setInsideWater(true);
 
 	}
 	
 	@Override
 	public void endHeroInteraction(Hero hero, WorldManifold worldManifold) {
-		System.out.println("Saliendo agua");
-	
-	}
-	
-	@Override
-	public void act(float delta) {
-	   
-	        
+		/*restituimos que caiga con la velocidad original*/
+		hero.myBody.setGravityScale(1);
+		
+		/*eliminamos damping*/
+		hero.myBody.setLinearDamping(0);
+		
+		/*seteamos estado a ground para que pueda saltar luego de salir del agua*/
+		hero.setState(new OnGround());
+		hero.setInsideWater(false);
 	}
 	
 	@Override

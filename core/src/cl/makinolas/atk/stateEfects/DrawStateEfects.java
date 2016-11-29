@@ -11,9 +11,12 @@ public class DrawStateEfects {
     private float acc, duration;
     private Animation animation;
     private IStateEfects state;
+    private int xdespl,ydespl;
 	
-	public DrawStateEfects(String region, int w, int h, float duration,float durationAnimation , int frames, IStateEfects state){
+	public DrawStateEfects(String region, int w, int h, int xdespl, int ydespl, float duration,float durationAnimation , int frames, IStateEfects state){
 		this.state = state;
+		this.xdespl=xdespl;
+		this.ydespl=ydespl;
         TextureRegion[][] ms = (new TextureRegion(new Texture(region))).split(w,h);
         Array<TextureRegion> regs = new Array<TextureRegion>(frames);
         for (int i = 0; i < frames; i++) {
@@ -33,7 +36,7 @@ public class DrawStateEfects {
 	}
 
 	public void draw(Batch batch, float alpha, float xPos, float yPos) {
-        batch.draw(animation.getKeyFrame(acc),xPos-30,yPos-30);		
+        batch.draw(animation.getKeyFrame(acc),xPos+xdespl-30,yPos+ydespl-30);		
 	}
 
 }
