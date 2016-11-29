@@ -16,10 +16,7 @@ import com.badlogic.gdx.utils.viewport.FitViewport;
 import cl.makinolas.atk.actors.Background;
 import cl.makinolas.atk.actors.Hero;
 import cl.makinolas.atk.actors.KeyHandable;
-import cl.makinolas.atk.actors.SimpleImageActor;
 import cl.makinolas.atk.actors.SimpleInputController;
-import cl.makinolas.atk.actors.friend.Friend;
-import cl.makinolas.atk.actors.items.Inventory;
 import cl.makinolas.atk.actors.ui.TeamFriendImage;
 import cl.makinolas.atk.utils.SaveManager;
 

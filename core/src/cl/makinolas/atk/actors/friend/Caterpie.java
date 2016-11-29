@@ -10,10 +10,7 @@ import cl.makinolas.atk.actors.attacks.Attacks;
 import cl.makinolas.atk.actors.attacks.DroppingAttack;
 import cl.makinolas.atk.actors.attacks.states.FallingLeafState;
 import cl.makinolas.atk.types.BugType;
-import cl.makinolas.atk.types.DragonType;
 import cl.makinolas.atk.types.FlyingType;
-import cl.makinolas.atk.types.GrassType;
-import cl.makinolas.atk.types.IType;
 
 public class Caterpie extends AbstractFriend {
 

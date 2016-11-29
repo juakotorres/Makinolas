@@ -10,8 +10,6 @@ import cl.makinolas.atk.actors.attacks.Attacks;
 import cl.makinolas.atk.actors.attacks.ShootAttack;
 import cl.makinolas.atk.actors.attacks.states.Poison_StingState;
 import cl.makinolas.atk.types.BugType;
-import cl.makinolas.atk.types.GrassType;
-import cl.makinolas.atk.types.IType;
 import cl.makinolas.atk.types.PoisonType;
 
 public class Weedle extends AbstractFriend {

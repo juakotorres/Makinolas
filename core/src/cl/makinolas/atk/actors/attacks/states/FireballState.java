@@ -15,6 +15,10 @@ import com.badlogic.gdx.graphics.g2d.TextureRegion;
 public class FireballState extends SpriteState {
 	
   public static int magicRequirement = 45;
+  public FireballState() {
+	  super();
+	  cooldown = 100;
+  }
 
   @Override
   public void initializeBody(float x, float y) {
