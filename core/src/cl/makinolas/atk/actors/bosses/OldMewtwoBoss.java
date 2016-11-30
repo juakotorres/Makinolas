@@ -22,10 +22,10 @@ import cl.makinolas.atk.stages.AbstractStage;
 public abstract class OldMewtwoBoss extends Boss {
   
   private final float enemyAttack = 2f;
-  private boolean isLaunchingAttack;
-  private final float accumulator;
-  private final float accumulatorAttack;
-  private final int attackAnimation;
+  //private boolean isLaunchingAttack;
+  //private final float accumulator;
+  //private final float accumulatorAttack;
+  //private final int attackAnimation;
   private final int secondaryAttackAnimation;
   private float nextEnemyAttackAt;
   private World myWorld;
@@ -45,18 +45,18 @@ public abstract class OldMewtwoBoss extends Boss {
     parent = new OldMewtwo();
     nextEnemyAttackAt = enemyAttack;
     isAttacking = true;
-    isLaunchingAttack = false;
+    //isLaunchingAttack = false;
     isFacingRight = false;
     vx = -velocityMewtwo;
     this.hero = hero;
     healthBar = new HBarFliped(health, health, 20, 133, new TextureRegion( new Texture(Gdx.files.internal("Overlays/bar_green.png"))));
     isDamaged = false;
     dead = false;
-    accumulator = 0;
-    accumulatorAttack = 0;
+    //accumulator = 0;
+    //accumulatorAttack = 0;
     this.myWorld = myWorld;
     
-    // Definici�n del cuerpo del jugador.
+    // Definicion del cuerpo del jugador.
     BodyDef myBodyDefinition = new BodyDef();
     myBodyDefinition.type = BodyDef.BodyType.DynamicBody;
     myBodyDefinition.position.set(new Vector2(16,3));
@@ -79,7 +79,7 @@ public abstract class OldMewtwoBoss extends Boss {
     setAnimation(new TextureRegion(new Texture(Gdx.files.internal("Actors/OldMewtwo.png"))), 39, 33);
     hurtAnimation = addAnimation(0.2f, 0);
     walkAnimation = addAnimation(0.2f, 3,4);
-    attackAnimation = addAnimation(0.2f, 5,6,7,8,9);
+    //attackAnimation = addAnimation(0.2f, 5,6,7,8,9);
     secondaryAttackAnimation = addAnimation(0.2f, 1);
     changeAnimation(walkAnimation);
     
@@ -96,7 +96,7 @@ public abstract class OldMewtwoBoss extends Boss {
     nextEnemyAttackAt -= delta;
     
     if(nextEnemyAttackAt < 0){
-      isLaunchingAttack = true;
+      //isLaunchingAttack = true;
       changeAnimation(secondaryAttackAnimation);
       seeHero(); 
       if(myAttacks[currentAttack] == 1){

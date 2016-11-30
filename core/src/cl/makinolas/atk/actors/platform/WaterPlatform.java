@@ -15,7 +15,6 @@ import com.badlogic.gdx.physics.box2d.FixtureDef;
 import cl.makinolas.atk.GameConstants;
 import cl.makinolas.atk.actors.GameActor;
 import cl.makinolas.atk.actors.Hero;
-import cl.makinolas.atk.actors.NullState;
 import cl.makinolas.atk.actors.OnGround;
 import cl.makinolas.atk.actors.OnWater;
 

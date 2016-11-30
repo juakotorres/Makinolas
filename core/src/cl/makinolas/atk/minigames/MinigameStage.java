@@ -3,11 +3,9 @@ package cl.makinolas.atk.minigames;
 import cl.makinolas.atk.utils.SaveManager;
 import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.Body;
-import com.badlogic.gdx.physics.box2d.Box2DDebugRenderer;
 import com.badlogic.gdx.physics.box2d.Contact;
 import com.badlogic.gdx.physics.box2d.ContactImpulse;
 import com.badlogic.gdx.physics.box2d.ContactListener;
@@ -22,7 +20,6 @@ import cl.makinolas.atk.actors.GameActor;
 import cl.makinolas.atk.actors.fx.FxManager;
 import cl.makinolas.atk.actors.platform.Platform;
 import cl.makinolas.atk.actors.ui.BagVis;
-import cl.makinolas.atk.actors.ui.MainBar;
 import cl.makinolas.atk.actors.ui.MobileGroup;
 import cl.makinolas.atk.audio.GDXMusicPlayer;
 import cl.makinolas.atk.screen.GameScreen;
@@ -36,7 +33,7 @@ public class MinigameStage extends AbstractStage implements ContactListener{
   private final float frameTime = 1 / 300f;
   private Array<GameActor> gameActors;
   private Group ground, mons, ui, deco;
-  private MainBar bar;
+  //private MainBar bar;
   private BagVis bagVis;
   private Platform initialPlatform;
   private MinigameCharacter hero;
@@ -45,8 +42,8 @@ public class MinigameStage extends AbstractStage implements ContactListener{
   private float score;
   private int hgsc;
 
-  private OrthographicCamera camera;
-  private Box2DDebugRenderer renderer;
+  //private OrthographicCamera camera;
+  //private Box2DDebugRenderer renderer;
   
   public MinigameStage(Viewport v, GameScreen actualScreen, Game myGame){
     super(v);
@@ -91,7 +88,7 @@ public class MinigameStage extends AbstractStage implements ContactListener{
    
     addListener(new MinigameInputController(hero,group));
     accumulator = 0;
-    renderer = new Box2DDebugRenderer();
+    //renderer = new Box2DDebugRenderer();
     //setupCamera();
   }
 
@@ -100,11 +97,13 @@ public class MinigameStage extends AbstractStage implements ContactListener{
     gameActors.add(actor);
   }
 
+  /*
   private void setupCamera() {
     camera = new OrthographicCamera(32, 24);
     camera.position.set(camera.viewportWidth / 2, camera.viewportHeight / 2, 0f);
     camera.update();
   }
+  */
   
   public void changeCamera(float x, float y){
     //camera.position.set((x + 7), 7, 0);
