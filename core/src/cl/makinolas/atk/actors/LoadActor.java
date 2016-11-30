@@ -82,7 +82,7 @@ public class LoadActor extends Actor {
       font.draw(batch,trainerName,cx+20,cy+95);
       batch.draw(typeImage, cx + 10, cy, 50, 80);
       
-      for(int i = 0;  i < friendImages.length ; i++){
+      for(int i = 0;  i < friendImages.length  && i < 4 ; i++){
           batch.draw(friendImages[i], cx + friendPosition, cy + 30);
           friendPosition += 50;
       }
