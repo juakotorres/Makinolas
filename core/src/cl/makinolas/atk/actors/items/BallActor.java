@@ -7,7 +7,6 @@ import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.*;
 
 import cl.makinolas.atk.actors.GameActor;
-import cl.makinolas.atk.actors.Hero;
 import cl.makinolas.atk.actors.platform.Platform;
 import cl.makinolas.atk.actors.enemies.Enemy;
 

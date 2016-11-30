@@ -9,6 +9,7 @@ import com.badlogic.gdx.Game;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.Body;
 import com.badlogic.gdx.physics.box2d.BodyDef;
+import com.badlogic.gdx.physics.box2d.Fixture;
 import com.badlogic.gdx.physics.box2d.PolygonShape;
 import com.badlogic.gdx.physics.box2d.World;
 import com.badlogic.gdx.physics.box2d.WorldManifold;
@@ -47,6 +48,7 @@ public class Hero extends Monsters {
   private boolean isJumping;
   private boolean isDamaged;
   private boolean isAttacking;
+  private boolean isInsideWater;
   private boolean[] isSinging = {false, false, false, false};
   private int[] attackAnimations;
   private int actualAnimation[] = {0, 0, 0, 0};
@@ -103,6 +105,7 @@ public class Hero extends Monsters {
     isFacingRight = false;
     isDamaged = false;
     isAttacking = false;
+    isInsideWater = false;
     hasEvolved = false;
     dead = false;
     changing = false;
@@ -263,9 +266,11 @@ public class Hero extends Monsters {
   */
   //MODIFICAR PARA POSIBLEMENTE ACTUALIZAR LA PANTALLA LUEGO DE EL INTERCAMBIO
   public void swapTeamAllies( int i, int j){
-	  Friend auxfriend = backupAllies.get(j);
-	  backupAllies.set(j, allies.get(i));
-	  allies.set(i, auxfriend);
+	  if(backupAllies.size != 0){
+		  Friend auxfriend = backupAllies.get(j);
+		  backupAllies.set(j, allies.get(i));
+		  allies.set(i, auxfriend);
+	  }
   }
   
   @Override
@@ -399,7 +404,9 @@ public class Hero extends Monsters {
   }
 
   public void landedPlatform(WorldManifold worldManifold, Platform platform){
-    for(int i = 0; i < worldManifold.getNumberOfContactPoints(); i++){
+	  if(isInsideWater)
+		  return;
+	  for(int i = 0; i < worldManifold.getNumberOfContactPoints(); i++){
       if(worldManifold.getPoints()[i].y < myBody.getPosition().y && (worldManifold.getNormal().y > 0.95 || worldManifold.getNormal().y < -0.95)){
         isJumping = false;
         setState(new OnGround());
@@ -492,7 +499,7 @@ public class Hero extends Monsters {
     shape.setAsBox(getBodySize(actualFriend.getWidth()), getBodySize(actualFriend.getHeight()));
     myBody.setGravityScale(1);
     myBody.createFixture(shape, 0.5f);
-    myBody.resetMassData();
+    myBody.resetMassData();    
     shape.dispose();
     
     // Change Body.
@@ -754,6 +761,10 @@ public class Hero extends Monsters {
 	  mplayer.PlayJumpSound();
       myBody.setLinearVelocity(x, y);
   }
+  
+  public void setInsideWater(boolean b) {
+	  isInsideWater = b;
+  }
 
   @Override
   public void endInteraction(GameActor actor2, WorldManifold worldManifold) {
@@ -772,6 +783,7 @@ public class Hero extends Monsters {
   public void CriticalDamage() {
 	  this.addState(new CriticalHit(this), 100);
   }
+
 @Override
 public float getRelativeY() {
 	return this.getStageY();
