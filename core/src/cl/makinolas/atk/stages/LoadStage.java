@@ -21,8 +21,6 @@ import cl.makinolas.atk.screen.MenuScreen;
 import cl.makinolas.atk.start.StartingJourneyStage;
 
 import java.io.File;
-import java.util.ArrayList;
-
 
 public class LoadStage extends Stage {
 
@@ -46,7 +44,7 @@ public class LoadStage extends Stage {
     this.myGame = myGame;
     options= new LoadActor[2];
 
-    ArrayList<LoadActor> load = new ArrayList<LoadActor>();
+    //ArrayList<LoadActor> load = new ArrayList<LoadActor>();
     //myScreen = actualScreen;
     addActor(new Background("Background/Wood.png", getCamera()));
     addActor(new Title("Background/LoadFiles.png",220 ,400));
