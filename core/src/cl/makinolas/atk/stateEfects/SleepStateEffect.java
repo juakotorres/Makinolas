@@ -1,8 +1,5 @@
 package cl.makinolas.atk.stateEfects;
 
-import com.badlogic.gdx.graphics.Texture;
-import com.badlogic.gdx.graphics.g2d.TextureRegion;
-
 import cl.makinolas.atk.actors.Monsters;
 import cl.makinolas.atk.actors.friend.Friend;
 

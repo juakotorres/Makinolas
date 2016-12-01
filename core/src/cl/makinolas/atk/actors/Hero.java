@@ -9,7 +9,6 @@ import com.badlogic.gdx.Game;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.Body;
 import com.badlogic.gdx.physics.box2d.BodyDef;
-import com.badlogic.gdx.physics.box2d.Fixture;
 import com.badlogic.gdx.physics.box2d.PolygonShape;
 import com.badlogic.gdx.physics.box2d.World;
 import com.badlogic.gdx.physics.box2d.WorldManifold;
@@ -402,10 +401,12 @@ public class Hero extends Monsters {
     }
   
 
+  /*
   @Deprecated
   private float getImpulse(float impulse) {
     return getBody().getMass()*impulse; // El 12 se busco por testing.
   }
+  */
 
   public void landedPlatform(WorldManifold worldManifold, Platform platform){
 	  if(isInsideWater)
