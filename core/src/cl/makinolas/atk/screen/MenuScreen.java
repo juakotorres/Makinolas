@@ -95,6 +95,9 @@ public class MenuScreen extends SimpleScreen {
 
   protected void newGame() {
     File saves = new File("Save");
+    if (!saves.exists()) {
+      saves.mkdir();
+    }
     int actual;
     if(saves.list().length==0){
       actual = 0;

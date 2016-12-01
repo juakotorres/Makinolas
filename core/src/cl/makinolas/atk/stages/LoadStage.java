@@ -40,6 +40,9 @@ public class LoadStage extends Stage {
   public LoadStage(Viewport v, GameScreen actualScreen, Game myGame) {
     super(v);
     File saves = new File("Save");
+    if (!saves.exists()) {
+      saves.mkdir();
+    }
     cantidad_juegos = saves.list().length;
     titulos = saves.list();
     lastSelected = 0;
