@@ -34,7 +34,6 @@ public class GDXSoundEffectsPlayer {
 	// Hero
 	
 	public void PlayJumpSound(){
-		Hero.getInstance().reset();
 		sfxmap.get("soundJump").play();
 	}
 

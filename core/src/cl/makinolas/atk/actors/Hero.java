@@ -23,6 +23,8 @@ import cl.makinolas.atk.actors.enemies.MonsterFactory;
 import cl.makinolas.atk.actors.friend.Enemies;
 import cl.makinolas.atk.actors.friend.Friend;
 import cl.makinolas.atk.actors.friend.FriendDescriptor;
+import cl.makinolas.atk.actors.heroState.AbstractHeroState;
+import cl.makinolas.atk.actors.heroState.StandartState;
 import cl.makinolas.atk.actors.items.Ball;
 import cl.makinolas.atk.actors.items.BallActor;
 import cl.makinolas.atk.actors.items.Inventory;
@@ -82,6 +84,8 @@ public class Hero extends Monsters {
   private Spot currentSpot;
   private Vector2 platformSpeed;
   private long cooldownTimer;
+  
+  private AbstractHeroState[] status = {new StandartState(), new StandartState(), new StandartState(), new StandartState()};
   
   private ArrayList<IStateEfects> statesPokemon1;
   private ArrayList<IStateEfects> statesPokemon2;
