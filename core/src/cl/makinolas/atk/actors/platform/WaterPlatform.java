@@ -20,6 +20,7 @@ import cl.makinolas.atk.actors.Hero;
 import cl.makinolas.atk.actors.NullState;
 import cl.makinolas.atk.actors.OnGround;
 import cl.makinolas.atk.actors.OnWater;
+import cl.makinolas.atk.actors.enemies.Enemy;
 
 public class WaterPlatform extends GameActor {
 	
@@ -32,10 +33,11 @@ public class WaterPlatform extends GameActor {
 
 	public WaterPlatform(World myWorld, int x, int y, int widthTiles, int heightTiles) {
 				
-		/* 8x4 */
+		/*bloque de agua tiene 8 columnas x 4 filas */
 		texture = new TextureRegion(new Texture(Gdx.files.internal("Background/WaterBlock.png"))).split(44,44);
+		
 		/*k es el indice de que tan rapido se mueve el agua, entre mas alto mas lento, 0 es lo mas rapido*/
-		k=6;
+		k=3;
 		
 		myBodyDefinition = new BodyDef();
 	    myBodyDefinition.position.set(new Vector2(x*TILE_FACTOR + widthTiles * TILE_FACTOR /2, y*TILE_FACTOR + heightTiles * TILE_FACTOR / 2));
@@ -89,6 +91,24 @@ public class WaterPlatform extends GameActor {
 	}
 	
 	@Override
+	  public void interactWithEnemy(Enemy enemy, WorldManifold worldManifold){
+		enemy.myBody.setGravityScale(0.5f);
+		enemy.myBody.setLinearDamping(5);
+		enemy.setState(new OnWater());
+		enemy.setInsideWater(1);
+	  }
+	
+	@Override
+	  public void endEnemyInteraction(Enemy enemy, WorldManifold worldManifold){
+		enemy.setInsideWater(-1);
+		if(enemy.getInsideWater()>0)
+			return;
+		enemy.myBody.setGravityScale(1);
+		enemy.myBody.setLinearDamping(0);
+		enemy.setState(new OnGround());
+	  }
+	
+	@Override
 	public void act(float delta) {
 	    if(n%k==0)
 	    	c++;
@@ -111,7 +131,6 @@ public class WaterPlatform extends GameActor {
 	      }
 	    }
 	  }
-
 
 	@Override
 	public void interact(GameActor actor2, WorldManifold worldManifold) {
