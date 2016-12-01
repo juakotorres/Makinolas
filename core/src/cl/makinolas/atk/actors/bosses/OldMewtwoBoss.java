@@ -18,8 +18,6 @@ import cl.makinolas.atk.actors.attacks.ShootAttack;
 import cl.makinolas.atk.actors.attacks.states.BlueBeamState;
 import cl.makinolas.atk.actors.friend.OldMewtwo;
 import cl.makinolas.atk.stages.AbstractStage;
-import cl.makinolas.atk.types.FireType;
-import cl.makinolas.atk.types.WaterType;
 
 public abstract class OldMewtwoBoss extends Boss {
   

@@ -788,7 +788,7 @@ public class MonsterFactory {
   }
 
   public Friend getHeroFriend(String nameFriend, int level){
-    return map.get(nameFriend.toLowerCase()).giveFriend(level);
+	  return map.get(nameFriend.toLowerCase()).giveFriend(level);
   }
 
 

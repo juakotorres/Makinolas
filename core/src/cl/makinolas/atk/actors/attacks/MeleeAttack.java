@@ -3,7 +3,6 @@ package cl.makinolas.atk.actors.attacks;
 import cl.makinolas.atk.actors.Monsters;
 import cl.makinolas.atk.actors.attacks.states.NullSpriteState;
 import cl.makinolas.atk.actors.attacks.states.SpriteState;
-import cl.makinolas.atk.types.NormalType;
 
 public class MeleeAttack extends Attacks {
   
