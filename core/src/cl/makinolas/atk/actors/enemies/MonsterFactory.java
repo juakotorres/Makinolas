@@ -99,7 +99,7 @@ public class MonsterFactory {
     map.put("scizor", EnemyFunction.Scizor);
     map.put("surskit", EnemyFunction.Surskit);
     map.put("masquerain", EnemyFunction.Masquerain);
-    map.put("castformn", EnemyFunction.CastformN);
+    map.put("castform", EnemyFunction.CastformN);
     map.put("castforms", EnemyFunction.CastformS);
     map.put("castformw", EnemyFunction.CastformW);
     map.put("castformc", EnemyFunction.CastformC);
