@@ -9,10 +9,6 @@ import cl.makinolas.atk.actors.Monsters;
 import cl.makinolas.atk.actors.attacks.Attacks;
 import cl.makinolas.atk.actors.attacks.ShootAttack;
 import cl.makinolas.atk.actors.attacks.states.IceRockState;
-<<<<<<< HEAD
-=======
-
->>>>>>> a586a97f6262a5eaf5ed257ae47cf2b9acbf9510
 import cl.makinolas.atk.types.GrassType;
 import cl.makinolas.atk.types.IceType;
 
