@@ -35,7 +35,7 @@ public class WaterPlatform extends GameActor {
 		/* 8x4 */
 		texture = new TextureRegion(new Texture(Gdx.files.internal("Background/WaterBlock.png"))).split(44,44);
 		/*k es el indice de que tan rapido se mueve el agua, entre mas alto mas lento, 0 es lo mas rapido*/
-		k=5;
+		k=6;
 		
 		myBodyDefinition = new BodyDef();
 	    myBodyDefinition.position.set(new Vector2(x*TILE_FACTOR + widthTiles * TILE_FACTOR /2, y*TILE_FACTOR + heightTiles * TILE_FACTOR / 2));
@@ -69,12 +69,15 @@ public class WaterPlatform extends GameActor {
 		
 		/*setea estado a dentro del agua*/
 		hero.setState(new OnWater());
-		hero.setInsideWater(true);
+		hero.setInsideWater(1);
 
 	}
 	
 	@Override
 	public void endHeroInteraction(Hero hero, WorldManifold worldManifold) {
+		hero.setInsideWater(-1);
+		if(hero.getInsideWater()>0)
+			return;
 		/*restituimos que caiga con la velocidad original*/
 		hero.myBody.setGravityScale(1);
 		
@@ -83,7 +86,6 @@ public class WaterPlatform extends GameActor {
 		
 		/*seteamos estado a ground para que pueda saltar luego de salir del agua*/
 		hero.setState(new OnGround());
-		hero.setInsideWater(false);
 	}
 	
 	@Override

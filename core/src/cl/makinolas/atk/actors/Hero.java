@@ -48,7 +48,7 @@ public class Hero extends Monsters {
   private boolean isJumping;
   private boolean isDamaged;
   private boolean isAttacking;
-  private boolean isInsideWater;
+  private int isInsideWater;
   private boolean[] isSinging = {false, false, false, false};
   private int[] attackAnimations;
   private int actualAnimation[] = {0, 0, 0, 0};
@@ -105,7 +105,7 @@ public class Hero extends Monsters {
     isFacingRight = false;
     isDamaged = false;
     isAttacking = false;
-    isInsideWater = false;
+    isInsideWater = 0;
     hasEvolved = false;
     dead = false;
     changing = false;
@@ -402,7 +402,7 @@ public class Hero extends Monsters {
   }
 
   public void landedPlatform(WorldManifold worldManifold, Platform platform){
-	  if(isInsideWater)
+	  if(isInsideWater>0)
 		  return;
 	  for(int i = 0; i < worldManifold.getNumberOfContactPoints(); i++){
       if(worldManifold.getPoints()[i].y < myBody.getPosition().y && (worldManifold.getNormal().y > 0.95 || worldManifold.getNormal().y < -0.95)){
@@ -760,8 +760,12 @@ public class Hero extends Monsters {
       myBody.setLinearVelocity(x, y);
   }
   
-  public void setInsideWater(boolean b) {
-	  isInsideWater = b;
+  public void setInsideWater(int i) {
+	  isInsideWater+=i;
+  }
+  
+  public int getInsideWater() {
+	  return isInsideWater;
   }
 
   @Override
