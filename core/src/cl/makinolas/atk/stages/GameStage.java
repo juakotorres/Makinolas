@@ -10,6 +10,7 @@ import cl.makinolas.atk.actors.ui.MainBar;
 import cl.makinolas.atk.actors.ui.MobileGroup;
 import cl.makinolas.atk.audio.GDXMusicPlayer;
 import cl.makinolas.atk.screen.GameScreen;
+import cl.makinolas.atk.screen.MenuScreen;
 import cl.makinolas.atk.utils.LevelReader;
 import com.badlogic.gdx.Application;
 import com.badlogic.gdx.Game;
@@ -18,6 +19,10 @@ import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.*;
 import com.badlogic.gdx.scenes.scene2d.Group;
+import com.badlogic.gdx.scenes.scene2d.InputEvent;
+import com.badlogic.gdx.scenes.scene2d.ui.Skin;
+import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
+import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.viewport.Viewport;
 
@@ -37,8 +42,12 @@ public class GameStage extends AbstractStage implements ContactListener {
   private OrthographicCamera camera;
   private Box2DDebugRenderer renderer;
   
+  private TextButton menuButton;
+  private Game myGame;
+  
   public GameStage(Viewport v, GameScreen actualScreen, Game myGame, Levels type){
     super(v);
+    this.myGame = myGame;
     musicplayer = GDXMusicPlayer.getInstance();
     level = type;
     levelName = getLevelName();
@@ -56,6 +65,9 @@ public class GameStage extends AbstractStage implements ContactListener {
     addActor(mons);
     ui = new Group();
     addActor(ui);
+    menuButton = new TextButton("Back to Menu",  new Skin(Gdx.files.internal("Data/uiskin.json")));
+    menuButton.setVisible(false);
+    addActor(menuButton);
 
     MobileGroup group = new MobileGroup(Gdx.app.getType() == Application.ApplicationType.Android);
     Gdx.input.setInputProcessor(this);
@@ -159,11 +171,28 @@ public class GameStage extends AbstractStage implements ContactListener {
       bagVis = BagVis.getInstance();
       //bagVis.setPosition(getCamera().position.x,getCamera().position.y);
       bagVis.show();
+
+      menuButton.addListener(new ClickListener(){
+          @Override
+          public void clicked(InputEvent event, float x, float y) {
+        	  bagVis.hide();
+        	  toMenu();
+          }
+
+      });
+      menuButton.setPosition(getCamera().position.x - 60, getCamera().position.y - 150);
+      menuButton.setVisible(true);
     }
     else{
       bagVis.hide();
+      menuButton.setVisible(false);
     }
   }
+  
+  private void toMenu() {
+  	musicplayer.StopMusic();
+  	myGame.setScreen(new MenuScreen(myGame));
+	}
 
   @Override
   public void beginContact(Contact contact) {

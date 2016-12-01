@@ -86,7 +86,7 @@ public class LoadStage extends Stage {
 
 
     TextButton menuButton = new TextButton("Back to menu",  new Skin(Gdx.files.internal("Data/uiskin.json")));
-    menuButton.setPosition(500, 50);
+    menuButton.setPosition(450, 50);
     menuButton.addListener(new ClickListener(){
         @Override
         public void clicked(InputEvent event, float x, float y) {
