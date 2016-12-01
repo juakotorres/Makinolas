@@ -128,7 +128,7 @@ public class SurvivalModeStage extends AbstractStage implements ContactListener{
         /*elapsed time es static en abstract stage, hay que agregarle el delta o no funciona la animacion*/
         AbstractStage.elapsedTime += delta;
         survivalWorld.step(frameTime, 6, 2);
-        height +=0.002;
+        height += Math.abs(0.00001*Math.sin(height)) + (delta*delta);
         changeCamera(0,height);
 
 

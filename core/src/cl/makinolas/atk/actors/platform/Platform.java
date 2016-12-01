@@ -23,6 +23,9 @@ public class Platform extends GameActor {
   int xp, yp, wp, hp;
   TextureRegion region;
   static final float TILE_FACTOR = 1.8f;
+  private World myWorld;
+  private int widthTiles;
+  private int heightTiles;
 
   /**
    * Creates a new platform object.
@@ -33,6 +36,9 @@ public class Platform extends GameActor {
    * @param heightTiles number of tiles of height
      */
   public Platform(World myWorld, String textureCode, int x, int y, int widthTiles, int heightTiles) {
+    this.myWorld = myWorld;
+    this.widthTiles = widthTiles;
+    this.heightTiles = heightTiles;
     
     setPlatformBody(myWorld, x, y, widthTiles, heightTiles);
 
@@ -81,6 +87,16 @@ public class Platform extends GameActor {
         batch.draw(region,xp + i*36, yp + j*36,37,37);
       }
     }
+  }
+
+  @Override
+  public void setPosition (float x, float y) {
+    if (this.xp != x || this.yp != y) {
+      this.xp = (int) ((int)x * TILE_FACTOR * GameConstants.WORLD_FACTOR);
+      this.yp = (int)((int)y * TILE_FACTOR* GameConstants.WORLD_FACTOR);
+      setPlatformBody(myWorld,(int)x,(int)y,widthTiles,heightTiles);
+    }
+
   }
 
   @Override
