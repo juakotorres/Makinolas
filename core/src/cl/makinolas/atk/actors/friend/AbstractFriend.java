@@ -401,13 +401,13 @@ public abstract class AbstractFriend implements Friend {
     
     private float evolLevel;
     private int numberOfEvolution;
-    private boolean evolved;
+    //private boolean evolved;
     
     public Evolution(Level level, float evolLevel, int numberOfEvolution){
       observe(level);
       this.evolLevel = evolLevel;
       this.numberOfEvolution = numberOfEvolution;
-      evolved = false;
+      //evolved = false;
     }
     
     public void observe(Observable o) {
@@ -420,7 +420,7 @@ public abstract class AbstractFriend implements Friend {
       if(newLevel >= evolLevel && getActualEvolution() < numberOfEvolution && getActualEvolution() + 1 == numberOfEvolution){
        evolve(this.numberOfEvolution);
        Hero.getInstance().evolved();
-       evolved = true;
+       //evolved = true;
        setFriendStats();
       }
     }

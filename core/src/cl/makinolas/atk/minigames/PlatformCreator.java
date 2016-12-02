@@ -32,7 +32,7 @@ public class PlatformCreator extends Actor implements Observer{
   @Override
   public void update(Observable o, Object arg) {
     float cameraPositionX = ((CameraPosition) o).getPositionX();
-    float cameraPositionY = ((CameraPosition) o).getPositionY();
+    //float cameraPositionY = ((CameraPosition) o).getPositionY();
     
     if (Math.abs(cameraPositionX - lastXPosition * 1.8f) < 20){
       int newXPosition = (lastXPosition) +  (int)(Math.random()*3 + 2);
