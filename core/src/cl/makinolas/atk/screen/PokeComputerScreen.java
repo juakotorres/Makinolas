@@ -47,7 +47,7 @@ public class PokeComputerScreen extends SimpleScreen implements KeyHandable {
         index_page = 0;
         team_size = hero.getAllies().size;
         backup_size = hero.getBackupAllies().size;
-        page_limit = backup_size < 18 || backup_size % 18 == 0 ? (backup_size / 18) : (backup_size / 18) + 1 ;
+        page_limit = backup_size % 18 == 0 && backup_size != 0? (backup_size / 18) : (backup_size / 18) + 1 ;//backup_size < 18 || 
         showAllies();
         
         Skin uskin = new Skin(Gdx.files.internal("Data/uiskin.json"));
@@ -110,13 +110,7 @@ public class PokeComputerScreen extends SimpleScreen implements KeyHandable {
             @Override
             public void clicked(InputEvent event, float x, float y) {
             	indexBackupHandler(1);
-            	/*debug
-            	System.out.println("alliesImages size: " + alliesImages.size());
-            	System.out.println("backupImages size: " + backupImages.size());
-            	System.out.println("page limit: "+ page_limit);
-            	System.out.println("page index: "+index_page);
-            	System.out.println("backup index: " + index_backup +" team index: "+ index_team);
-            	*/
+            	
             }
         });
         stage.addActor(rightBackupButton);
@@ -152,7 +146,7 @@ public class PokeComputerScreen extends SimpleScreen implements KeyHandable {
      * de la pantalla del PC.
      * */
     private void showAllies(){
-    	for (int i = 0; i < hero.getAllies().size; i++) {
+    	for (int i = 0; i < team_size ; i++) {
             TeamFriendImage tfimg = new TeamFriendImage(hero.getAllies().get(i), true);
             alliesImages.add(tfimg);
             tfimg.setPosition(60 + 60 * i,350);
@@ -160,7 +154,7 @@ public class PokeComputerScreen extends SimpleScreen implements KeyHandable {
             stage.addActor(tfimg);
     	}    	
     	for (int j = 0; j < page_limit; j++){
-    		for (int i = 0; i < 18 && i + j * 18 < hero.getBackupAllies().size ; i++) {//i < hero.getBackupAllies().size && 
+    		for (int i = 0; i < 18 && i + j * 18 < backup_size ; i++) {//i < hero.getBackupAllies().size && 
                 TeamFriendImage tfimg = new TeamFriendImage(hero.getBackupAllies().get(i + j * 18), true);
                 backupImages.add(tfimg);
                 tfimg.setPosition(60 + 60 * (i % 6),250 - 70 * (i / 6));
@@ -178,7 +172,7 @@ public class PokeComputerScreen extends SimpleScreen implements KeyHandable {
      * */
     private void changePage(int change){
     	//modificar las anteriores
-    	for (int i = 0; i < 18 && i + index_page * 18 < hero.getBackupAllies().size ; i++) {
+    	for (int i = 0; i < 18 && i + index_page * 18 < backup_size ; i++) {
     		TeamFriendImage tfimg = backupImages.get(i + index_page * 18);
     		tfimg.setVisible(false);
     		stage.addActor(tfimg);
@@ -186,9 +180,15 @@ public class PokeComputerScreen extends SimpleScreen implements KeyHandable {
     	
     	//cambiar el numero de pagina
     	changePageNumber(change);
-    	
+    	/*debug
+    	System.out.println("alliesImages size: " + alliesImages.size());
+    	System.out.println("backupImages size: " + backupImages.size());
+    	System.out.println("page limit: "+ page_limit);
+    	System.out.println("page index: "+index_page);
+    	System.out.println("backup index: " + index_backup +" team index: "+ index_team);
+    	*/
     	//modificar las nuevas imagenes
-    	for (int i = 0; i < 18 && i + index_page * 18 < hero.getBackupAllies().size ; i++) {
+    	for (int i = 0; i < 18 && i + index_page * 18 < backup_size ; i++) {
     		TeamFriendImage tfimg = backupImages.get(i + index_page * 18);
     		tfimg.setVisible(true);
     		stage.addActor(tfimg);
@@ -219,7 +219,7 @@ public class PokeComputerScreen extends SimpleScreen implements KeyHandable {
     private void indexBackupHandler(int i){
     	int aux = index_backup + i;
     	int min_limit = index_page * 18;
-    	int max_limit = Math.min(((index_page+1) * 18) - 1, backup_size - 1);
+    	int max_limit = Math.min(((index_page + 1) * 18) - 1, Math.max(0, backup_size - 1));
     	index_backup = aux < min_limit? max_limit : (aux > max_limit? min_limit : aux);
     }
 
