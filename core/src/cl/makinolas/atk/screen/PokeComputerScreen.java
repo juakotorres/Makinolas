@@ -47,7 +47,7 @@ public class PokeComputerScreen extends SimpleScreen implements KeyHandable {
         index_page = 0;
         team_size = hero.getAllies().size;
         backup_size = hero.getBackupAllies().size;
-        page_limit = backup_size % 18 == 0 && backup_size != 0? (backup_size / 18) : (backup_size / 18) + 1 ;//backup_size < 18 || 
+        page_limit = backup_size % 18 == 0 && backup_size != 0? (backup_size / 18) : (backup_size / 18) + 1 ;
         showAllies();
         
         Skin uskin = new Skin(Gdx.files.internal("Data/uiskin.json"));
