@@ -38,9 +38,9 @@ public abstract class AbstractFriendState {
 	}
 
 	public void jump(JumpState state, Hero hero2) {
-		hero2.setJumping(true);
-		state.restarCount();
-		state.jump();
+			hero2.setJumping(true);
+			state.restarCount();
+			state.jump();
 	}
 
 	public boolean isFacingRight(int vx) {

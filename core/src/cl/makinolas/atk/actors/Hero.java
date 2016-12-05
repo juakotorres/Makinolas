@@ -47,7 +47,6 @@ public class Hero extends Monsters {
   private boolean isDamaged;
   private boolean isAttacking;
   private boolean isInsideWater;
-  private boolean[] isSinging = {false, false, false, false};
   private int[] attackAnimations;
   private int actualAnimation[] = {0, 0, 0, 0};
   protected final float spriteTime = 1 / 5f;
@@ -121,9 +120,8 @@ public class Hero extends Monsters {
     // Guardar animaciones del jugador
     setAnimation();
     changeAnimation(walkAnimation);
-    state = new OnGround();
+    state = new OnAir();
     myBodyDefinition.fixedRotation = true;
-
   }
   /* Aqui se hace un intento fallido de arreglar el bug del sabe al parecer,
    * consiste en que cuando no se puede cargar el archivo, se agregaran dos
@@ -261,7 +259,7 @@ public class Hero extends Monsters {
 	  super.act(delta);
     checkChangingAllie();
 
-    if(!isSinging[this.getIndexFriend()])
+    if(!actualFriend.getState().isSinging())
     	myBody.setLinearVelocity(vx + platformSpeed.x, myBody.getLinearVelocity().y);
 
 
@@ -331,7 +329,7 @@ public class Hero extends Monsters {
   }
   
   private void checkDamage(float delta) {
-	  if(!isSinging[this.getIndexFriend()]){
+	  if(!actualFriend.getState().isSinging()){
 	    if(isDamaged){
 	      accumulator += delta;
 	      if(accumulator > hurtTime){
@@ -357,7 +355,7 @@ public class Hero extends Monsters {
       countMeleeFrames += delta;
       if(countMeleeFrames > spriteTime){
         if(actualAnimation[this.getIndexFriend()]  < attackAnimations.length) {
-        	if(!isSinging[this.getIndexFriend()])
+        	if(!actualFriend.getState().isSinging())
         		changeAnimation(attackAnimations[actualAnimation[this.getIndexFriend()]]);
           countMeleeFrames = 0;
           actualAnimation[this.getIndexFriend()] += 1;
@@ -764,22 +762,18 @@ public float getRelativeX() {
 }
 @Override
 public void sing() {
-	this.isSinging[this.getIndexFriend()] = true;
 	this.changeAnimation(hurtAnimation);;
 }
 @Override
 public void unSing() {
-	this.isSinging[this.getIndexFriend()] = false;
 }
 @Override
 public void sleep() {
-	this.isSinging[this.getIndexFriend()] = true;
 	actualFriend.setState(new SleepState());
 	this.changeAnimation(hurtAnimation);
 }
 @Override
 public void unSleep() {
-	this.isSinging[this.getIndexFriend()] = false;
 	actualFriend.setState(new StandartState());
 }
 
