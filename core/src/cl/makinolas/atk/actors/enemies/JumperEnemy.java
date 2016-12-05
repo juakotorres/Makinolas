@@ -44,7 +44,7 @@ public class JumperEnemy extends Enemy {
     checkDamage(delta, 0);
     accumulatorAttack += delta; 
     
-    if(accumulatorAttack > attackTime && super.isFree()){
+    if(!this.isSinging && accumulatorAttack > attackTime && super.isFree()){
         GameActor attack = parent.getFriendAttack(myWorld, myBody.getPosition().x - 0.5f, myBody.getPosition().y, isFacingRight, this);
         ((AbstractStage) getStage()).addGameActor(attack);
        ((Attacks) attack).getSpriteState().secondaryEfectsToSource(this);

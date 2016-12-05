@@ -22,6 +22,7 @@ import com.badlogic.gdx.physics.box2d.*;
 
 public class Enemy extends Monsters {
 	protected float vx;
+	protected float auxvx;
 	private int health;
 	private HBar healthBar;
 	private boolean isDamaged;
@@ -97,6 +98,7 @@ public class Enemy extends Monsters {
 
 		isFacingRight = facingRight;
 		vx = isFacingRight ? 3 : -3;
+		auxvx = vx;
 		// Definici�n del cuerpo del jugador.
 		BodyDef myBodyDefinition = new BodyDef();
 		myBodyDefinition.type = BodyDef.BodyType.DynamicBody;
@@ -157,7 +159,7 @@ public class Enemy extends Monsters {
 	}
 
 	private void checkMelee(float delta) {
-		if(!this.isSinging){
+		if(!isSinging){
 			if (isAttacking) {
 				countMeleeFrames += delta;
 				if (countMeleeFrames > spriteTime) {
@@ -420,11 +422,13 @@ public class Enemy extends Monsters {
 
 	@Override
 	public void sleep() {
-		
+		vx = 0;
+		isSinging = true;
 	}
 
 	@Override
-	public void unSleep() {
-		
+	public void Awake() {
+		vx = auxvx;
+		isSinging = false;
 	}
 }

@@ -13,6 +13,7 @@ public abstract class AbstractFriendState {
 	protected Hero hero;
 	
 	  private long cooldownTimer;
+	  protected Attacks attack;
 
 	public AbstractFriendState() {
 		hero = Hero.getInstance();
@@ -28,7 +29,7 @@ public abstract class AbstractFriendState {
 			boolean isFacingRight, Hero hero2) {
 		if (actualFriend.getMagic() >= actualFriend.getAttackMagicRequirement()
 				&& cooldownTimer < System.currentTimeMillis()) {
-			Attacks attack = actualFriend.getFriendAttack(myWorld, position.x, position.y, isFacingRight, hero2);
+			attack = actualFriend.getFriendAttack(myWorld, position.x, position.y, isFacingRight, hero2);
 			actualFriend.setMagic(actualFriend.getMagic() - actualFriend.getAttackMagicRequirement());
 			hero2.Getmplayer().PlayProyectileSound();
 			abstractStage.addGameActor(attack);
@@ -49,6 +50,19 @@ public abstract class AbstractFriendState {
 
 	public boolean isSinging() {
 		return false;
+	}
+	
+	public Attacks getAttack(){
+		return attack;
+	}
+	
+	public void setAttack(Attacks attack){
+		this.attack = attack;
+	}
+
+	public void isNotPressingPrimaryAttack() {
+		if(attack != null)
+			attack.unPress();;
 	}
 
 }

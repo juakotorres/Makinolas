@@ -259,8 +259,12 @@ public class Hero extends Monsters {
 	  super.act(delta);
     checkChangingAllie();
 
-    if(!actualFriend.getState().isSinging())
+    if(!actualFriend.getState().isSinging()){
     	myBody.setLinearVelocity(vx + platformSpeed.x, myBody.getLinearVelocity().y);
+  }
+    else{
+    	myBody.setLinearVelocity(0 + platformSpeed.x, myBody.getLinearVelocity().y);
+    }
 
 
     ((AbstractStage) getStage()).changeCamera(myBody.getPosition().x , myBody.getPosition().y );
@@ -568,7 +572,7 @@ public class Hero extends Monsters {
     if(restitutive && !inertia) return;
     vx += 7*i;
     if(vx!=0)
-    	isFacingRight = actualFriend.getState().isFacingRight(vx);
+    	isFacingRight = actualFriend.getState().isFacingRight((int) vx);
     inertia = true;
   }
 
@@ -590,6 +594,10 @@ public class Hero extends Monsters {
 
 	public void attackPrimary() {
 		actualFriend.getState().attackPrimary(((AbstractStage) getStage()), actualFriend, myWorld, myBody.getPosition(), isFacingRight, this);			
+	}
+	
+	public void isNotPressingPrimaryAttack() {
+		actualFriend.getState().isNotPressingPrimaryAttack();
 	}
 
   public void attackSecondary() {
@@ -762,10 +770,14 @@ public float getRelativeX() {
 }
 @Override
 public void sing() {
+	actualFriend.setState(new SleepState());
 	this.changeAnimation(hurtAnimation);;
 }
 @Override
 public void unSing() {
+	Attacks attack = actualFriend.getState().getAttack();
+	actualFriend.setState(new StandartState());
+	 actualFriend.getState().setAttack(attack);
 }
 @Override
 public void sleep() {
@@ -773,7 +785,7 @@ public void sleep() {
 	this.changeAnimation(hurtAnimation);
 }
 @Override
-public void unSleep() {
+public void Awake() {
 	actualFriend.setState(new StandartState());
 }
 
