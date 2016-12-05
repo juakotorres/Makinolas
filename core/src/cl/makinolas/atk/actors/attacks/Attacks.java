@@ -76,6 +76,13 @@ public abstract class Attacks extends AnimatedActor {
     setBody(myBody);
   }
   
+  @Override
+  public boolean remove(){
+	  this.dead = true;
+	  
+	  return 	  super.remove();
+  }
+  
   protected int getBodyWidth() {
     return mySpriteState.getBodyWidth();
   }

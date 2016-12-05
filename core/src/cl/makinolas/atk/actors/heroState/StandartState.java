@@ -1,5 +1,5 @@
 package cl.makinolas.atk.actors.heroState;
 
-public class StandartState extends AbstractHeroState {
-
+public class StandartState extends AbstractFriendState {
+		
 }
