@@ -89,7 +89,7 @@ public class Gible extends AbstractFriend {
   @Override
   public int getAttackMagicRequirement() {
 	// TODO Auto-generated method stub
-	return AquaAttackState.magicRequirement;
+	return AquaAttackState.getMagicRequirement();
   }
   
 }

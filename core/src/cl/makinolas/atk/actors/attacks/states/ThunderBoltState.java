@@ -13,7 +13,7 @@ import com.badlogic.gdx.graphics.g2d.TextureRegion;
 
 public class ThunderBoltState extends SpriteState {
 	
-  public static int magicRequirement = 45;
+  private static int magicRequirement = 45;
 
   @Override
   public int getAttackDamage() {
@@ -74,4 +74,9 @@ public class ThunderBoltState extends SpriteState {
 public IType getType() {
 	return ElectricType.getInstance();
 }
+
+public static int getMagicRequirement(){
+	return magicRequirement;
+}
+
 }

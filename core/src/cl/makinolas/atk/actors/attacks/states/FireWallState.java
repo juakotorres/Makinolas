@@ -12,7 +12,7 @@ import com.badlogic.gdx.graphics.g2d.TextureRegion;
 
 public class FireWallState extends SpriteState{
 
-    public static int magicRequirement = 50;
+    private static int magicRequirement = 50;
 	
     @Override
     public int getAttackDamage() {
@@ -79,5 +79,8 @@ public class FireWallState extends SpriteState{
 		monster.addState(new BurnedStateEffect(monster, myAttack), 20);
 	}
 
+	public static int getMagicRequirement(){
+		return magicRequirement;
+	}
 	
 }

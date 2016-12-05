@@ -88,7 +88,7 @@ public class Snivy extends AbstractFriend {
   @Override
   public int getAttackMagicRequirement() {
 	// TODO Auto-generated method stub
-	return SingState.magicRequirement;
+	return SingState.getMagicRequirement();
   }
 
 }

@@ -103,7 +103,7 @@ public class LarvitarTODO extends AbstractFriend {
 	@Override
 	public int getAttackMagicRequirement() {
 	  // TODO Auto-generated method stub
-	  return RockState.magicRequirement;
+	  return RockState.getMagicRequirement();
 	}
 	
 }

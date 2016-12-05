@@ -14,7 +14,7 @@ import com.badlogic.gdx.graphics.g2d.TextureRegion;
 
 public class Poison_StingState extends SpriteState{
 	
-  public static int magicRequirement = 40;
+  private static int magicRequirement = 40;
   
   @Override
   public int getAttackDamage() {
@@ -76,5 +76,8 @@ public void secondaryEfectsToAfected(Monsters monster) {
 	monster.addState(new PoisonStateEffects(monster, myAttack), 30);
 }
 
+public static int getMagicRequirement(){
+	return magicRequirement;
+}
 
 }

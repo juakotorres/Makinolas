@@ -13,7 +13,7 @@ import com.badlogic.gdx.graphics.g2d.TextureRegion;
 
 public class TreeState extends SpriteState {
 	
-  public static int magicRequirement = 80;
+  private static int magicRequirement = 80;
   
   @Override
   public int getAttackDamage() {
@@ -89,6 +89,9 @@ public class TreeState extends SpriteState {
 public IType getType() {
 	return GrassType.getInstance();
 }
-  
-  
+
+public static int getMagicRequirement(){
+	return magicRequirement;
+}
+   
 }

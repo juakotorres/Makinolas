@@ -13,7 +13,7 @@ import com.badlogic.gdx.graphics.g2d.TextureRegion;
 
 public class WindShurikenState extends SpriteState {
 	
-  public static int magicRequirement = 80;
+  private static int magicRequirement = 80;
   
   @Override
   public void initializeBody(float x, float y) {
@@ -80,4 +80,9 @@ public class WindShurikenState extends SpriteState {
 public IType getType() {
 	return FlyingType.getInstance();
 }
+
+public static int getMagicRequirement(){
+	return magicRequirement;
+}
+
 }

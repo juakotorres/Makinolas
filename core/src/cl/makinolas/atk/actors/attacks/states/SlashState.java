@@ -13,7 +13,7 @@ import com.badlogic.gdx.graphics.g2d.TextureRegion;
 
 public class SlashState extends SpriteState {
 	
-  public static int magicRequirement = 55;
+  private static int magicRequirement = 55;
   
   @Override
   public int getAttackDamage() {
@@ -69,6 +69,10 @@ public IType getType() {
 @Override
 public int getCriticalChance(){
 	  return 2;
+}
+
+public static int getMagicRequirement(){
+	return magicRequirement;
 }
 
 }

@@ -89,7 +89,7 @@ public class Magnemite extends AbstractFriend {
   @Override
   public int getAttackMagicRequirement() {
 	 // TODO Auto-generated method stub
-	 return ThunderBoltState.magicRequirement;
+	 return ThunderBoltState.getMagicRequirement();
   }
   
 }

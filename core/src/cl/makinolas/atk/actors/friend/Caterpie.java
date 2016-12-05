@@ -90,7 +90,7 @@ public class Caterpie extends AbstractFriend {
   @Override
   public int getAttackMagicRequirement() {
 	// TODO Auto-generated method stub
-	return FallingLeafState.magicRequirement;
+	return FallingLeafState.getMagicRequirement();
   }
 
 }

@@ -13,7 +13,7 @@ import com.badlogic.gdx.graphics.g2d.TextureRegion;
 
 public class PhantomFireState extends SpriteState {
 	
-  public static int magicRequirement = 60;
+  private static int magicRequirement = 60;
   
   @Override
   public void initializeBody(float x, float y) {
@@ -73,6 +73,10 @@ public class PhantomFireState extends SpriteState {
 @Override
 public IType getType() {
 	return GhostType.getInstance();
+}
+
+public static int getMagicRequirement(){
+	return magicRequirement;
 }
   
 }

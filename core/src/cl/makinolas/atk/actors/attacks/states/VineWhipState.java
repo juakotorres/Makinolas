@@ -13,7 +13,7 @@ import com.badlogic.gdx.graphics.g2d.TextureRegion;
 
 public class VineWhipState extends SpriteState {
 	
-  public static int magicRequirement = 70;
+  private static int magicRequirement = 70;
 
   @Override
   public int getAttackDamage() {
@@ -73,6 +73,10 @@ public class VineWhipState extends SpriteState {
 @Override
 public IType getType() {
 	return GrassType.getInstance();
+}
+
+public static int getMagicRequirement(){
+	return magicRequirement;
 }
   
 }

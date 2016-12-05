@@ -12,7 +12,7 @@ import com.badlogic.gdx.graphics.g2d.TextureRegion;
 
 public class TRockState extends SpriteState {
 	
-    public static int magicRequirement = 40;
+    private static int magicRequirement = 40;
 
     @Override
     public int getAttackDamage() {
@@ -62,6 +62,10 @@ public class TRockState extends SpriteState {
 	@Override
 	public IType getType() {
 		return RockType.getInstance();
+	}
+	
+	public static int getMagicRequirement(){
+		return magicRequirement;
 	}
 
 }

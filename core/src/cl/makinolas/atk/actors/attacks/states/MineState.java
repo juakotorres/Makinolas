@@ -13,7 +13,7 @@ import com.badlogic.gdx.graphics.g2d.TextureRegion;
 
 public class MineState extends SpriteState {
 	
-  public static int magicRequirement = 65;
+  private static int magicRequirement = 65;
   
   @Override
   public int getAttackDamage() {
@@ -85,4 +85,8 @@ public IType getType() {
 	return NormalType.getInstance();
 }
   
+public static int getMagicRequirement(){
+	return magicRequirement;
+}
+
 }

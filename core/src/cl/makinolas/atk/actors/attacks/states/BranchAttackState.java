@@ -13,7 +13,7 @@ import com.badlogic.gdx.graphics.g2d.TextureRegion;
 
 public class BranchAttackState extends SpriteState {
 	
-  public static int magicRequirement = 60;
+  private static int magicRequirement = 60;
   
   public BranchAttackState() {
 	  super();
@@ -85,5 +85,8 @@ public IType getType() {
 	return GrassType.getInstance();
 }
 
+public static int getMagicRequirement(){
+	return magicRequirement;
+}
 
 }

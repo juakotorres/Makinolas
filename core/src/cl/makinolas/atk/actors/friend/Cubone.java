@@ -73,7 +73,7 @@ public class Cubone extends AbstractFriend {
   @Override
   public int getAttackMagicRequirement() {
 	// TODO Auto-generated method stub
-	return BoneAttackState.magicRequirement;
+	return BoneAttackState.getMagicRequirement();
   }
   
 }

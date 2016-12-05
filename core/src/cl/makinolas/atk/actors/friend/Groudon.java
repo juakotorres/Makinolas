@@ -50,7 +50,7 @@ public class Groudon extends AbstractFriend {
     @Override
 	public int getAttackMagicRequirement() {
 	  // TODO Auto-generated method stub
-	  return BlueBeamState.magicRequirement;
+	  return BlueBeamState.getMagicRequirement();
 	}
 
 

@@ -95,7 +95,7 @@ public class Magby extends AbstractFriend {
 	  @Override
 	  public int getAttackMagicRequirement() {
 		// TODO Auto-generated method stub
-		return FireballState.magicRequirement;
+		return FireballState.getMagicRequirement();
 	  }
 
 }

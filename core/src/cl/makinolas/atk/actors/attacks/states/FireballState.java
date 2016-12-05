@@ -14,7 +14,8 @@ import com.badlogic.gdx.graphics.g2d.TextureRegion;
 
 public class FireballState extends SpriteState {
 	
-  public static int magicRequirement = 45;
+  private static int magicRequirement = 45;
+  
   public FireballState() {
 	  super();
 	  cooldown = 100;
@@ -80,5 +81,8 @@ public void secondaryEfectsToAfected(Monsters monster) {
 	monster.addState(new BurnedStateEffect(monster, myAttack), 20);
 }
 
+public static int getMagicRequirement(){
+	return magicRequirement;
+}
 
 }

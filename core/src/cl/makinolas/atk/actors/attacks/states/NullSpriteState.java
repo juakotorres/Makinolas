@@ -8,7 +8,7 @@ import cl.makinolas.atk.types.NormalType;
 
 public class NullSpriteState extends SpriteState {
 	
-  public static int magicRequirement = 0;
+  private static int magicRequirement = 0;
   
   @Override
   public int getAttackDamage() {
@@ -53,6 +53,10 @@ public class NullSpriteState extends SpriteState {
 @Override
 public IType getType() {
 	return NormalType.getInstance();
+}
+
+public static int getMagicRequirement(){
+	return magicRequirement;
 }
   
 }

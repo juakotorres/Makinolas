@@ -89,7 +89,7 @@ public class Weedle extends AbstractFriend {
   @Override
   public int getAttackMagicRequirement() {
 	// TODO Auto-generated method stub
-	return Poison_StingState.magicRequirement;
+	return Poison_StingState.getMagicRequirement();
   }
   
 }

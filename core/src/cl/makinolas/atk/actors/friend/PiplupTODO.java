@@ -95,7 +95,7 @@ public class PiplupTODO extends AbstractFriend {
 	@Override
 	public int getAttackMagicRequirement() {
 		// TODO Auto-generated method stub
-		return BubbleState.magicRequirement;
+		return BubbleState.getMagicRequirement();
 	}
 
 }

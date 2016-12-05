@@ -719,7 +719,7 @@ public abstract class AbstractFriend implements Friend {
   }
   public int getAttackMagicRequirement() {
 	// TODO Auto-generated method stub
-	return DragonBreathState.magicRequirement;
+	return DragonBreathState.getMagicRequirement();
   }
   
 }

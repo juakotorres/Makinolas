@@ -12,7 +12,7 @@ import cl.makinolas.atk.types.WaterType;
 
 public class WaterfallState extends SpriteState {
 	
-  public static int magicRequirement = 95;
+  private static int magicRequirement = 95;
   
   @Override
   public int getAttackDamage() {
@@ -67,6 +67,10 @@ public class WaterfallState extends SpriteState {
 @Override
 public IType getType() {
 	return WaterType.getInstance();
+}
+
+public static int getMagicRequirement(){
+	return magicRequirement;
 }
   
 }

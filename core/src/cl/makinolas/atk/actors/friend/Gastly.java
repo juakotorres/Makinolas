@@ -89,7 +89,7 @@ public class Gastly extends AbstractFriend {
   @Override
   public int getAttackMagicRequirement() {
 	// TODO Auto-generated method stub
-	return AcidState.magicRequirement;
+	return AcidState.getMagicRequirement();
   }
 
 }

@@ -98,7 +98,7 @@ public class AxewTODO extends AbstractFriend {
 	@Override
 	public int getAttackMagicRequirement() {
 	  // TODO Auto-generated method stub
-	  return DragonBreathState.magicRequirement;
+	  return DragonBreathState.getMagicRequirement();
 	}
 
 }

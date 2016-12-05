@@ -14,7 +14,7 @@ import com.badlogic.gdx.graphics.g2d.TextureRegion;
 
 public class EmberState extends SpriteState{
   
-  public static int magicRequirement = 35;
+  private static int magicRequirement = 35;
 	
   @Override
   public int getAttackDamage() {
@@ -81,5 +81,8 @@ public void secondaryEfectsToAfected(Monsters monster) {
 	monster.addState(new BurnedStateEffect(monster, myAttack), 10);
 }
 
+public static int getMagicRequirement(){
+	return magicRequirement;
+}
 
 }

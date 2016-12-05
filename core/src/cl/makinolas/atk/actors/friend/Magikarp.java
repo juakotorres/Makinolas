@@ -76,7 +76,7 @@ public class Magikarp extends AbstractFriend {
   @Override
   public int getAttackMagicRequirement() {
 	// TODO Auto-generated method stub
-	return WindShurikenState.magicRequirement;
+	return WindShurikenState.getMagicRequirement();
   }
   
 }
