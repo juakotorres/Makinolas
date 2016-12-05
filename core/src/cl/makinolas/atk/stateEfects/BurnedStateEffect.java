@@ -21,12 +21,12 @@ public class BurnedStateEffect extends AbstractStateEfects {
 		for(IType type: monster.getMyself().getType()){
 			if(type.isFire()){
 				noEfect = true;
-				this.drawEfects = new DrawStateEfects("StateImages/fuego.png", 64, 64,0f, 0f , 8, this);
+				this.drawEfects = new DrawStateEfects("StateImages/fuego.png", 64, 64,10, -15, 0f, 0f , 8, this);
 				return;
 			}
 		}
 		double rand = 2 + Math.random()*2;
-		this.drawEfects = new DrawStateEfects("StateImages/fuego.png", 64, 64,(float)rand, 1f , 8, this);
+		this.drawEfects = new DrawStateEfects("StateImages/fuego.png", 64, 64,10, -15, (float)rand, 1f , 8, this);
 		this.attackValue = this.friend.getAttackiv();;
 	}
 	

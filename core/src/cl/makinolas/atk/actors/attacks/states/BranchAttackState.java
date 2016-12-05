@@ -3,8 +3,6 @@ package cl.makinolas.atk.actors.attacks.states;
 import com.badlogic.gdx.graphics.g2d.Animation.PlayMode;
 
 import cl.makinolas.atk.actors.Monsters;
-import cl.makinolas.atk.stateEfects.PoisonStateEffects;
-import cl.makinolas.atk.stateEfects.StateEfectsCriticRate;
 import cl.makinolas.atk.types.GrassType;
 import cl.makinolas.atk.types.IType;
 
@@ -19,7 +17,7 @@ public class BranchAttackState extends SpriteState {
   
   public BranchAttackState() {
 	  super();
-	  cooldown = 100;
+	  cooldown = 300;
   }
 
   @Override

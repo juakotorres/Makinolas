@@ -11,9 +11,6 @@ import cl.makinolas.atk.actors.attacks.Attacks;
 import cl.makinolas.atk.actors.attacks.states.AquaAttackState;
 import cl.makinolas.atk.types.DragonType;
 import cl.makinolas.atk.types.GroundType;
-import cl.makinolas.atk.types.IType;
-import cl.makinolas.atk.types.PoisonType;
-import cl.makinolas.atk.types.WaterType;
 
 public class Gible extends AbstractFriend {
   

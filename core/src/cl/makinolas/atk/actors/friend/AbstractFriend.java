@@ -4,7 +4,6 @@ import java.util.ArrayList;
 import java.util.Observable;
 import java.util.Observer;
 
-import com.badlogic.gdx.graphics.Cursor;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.physics.box2d.World;
 
@@ -22,7 +21,6 @@ import cl.makinolas.atk.actors.enemies.LongRangeEnemy;
 import cl.makinolas.atk.actors.enemies.PhysicalEnemy;
 import cl.makinolas.atk.actors.enemies.StayAndShootEnemy;
 import cl.makinolas.atk.actors.ui.MainBar;
-import cl.makinolas.atk.types.DragonType;
 import cl.makinolas.atk.types.IType;
 import cl.makinolas.atk.utils.Formulas;
 
@@ -403,13 +401,13 @@ public abstract class AbstractFriend implements Friend {
     
     private float evolLevel;
     private int numberOfEvolution;
-    private boolean evolved;
+    //private boolean evolved;
     
     public Evolution(Level level, float evolLevel, int numberOfEvolution){
       observe(level);
       this.evolLevel = evolLevel;
       this.numberOfEvolution = numberOfEvolution;
-      evolved = false;
+      //evolved = false;
     }
     
     public void observe(Observable o) {
@@ -422,7 +420,7 @@ public abstract class AbstractFriend implements Friend {
       if(newLevel >= evolLevel && getActualEvolution() < numberOfEvolution && getActualEvolution() + 1 == numberOfEvolution){
        evolve(this.numberOfEvolution);
        Hero.getInstance().evolved();
-       evolved = true;
+       //evolved = true;
        setFriendStats();
       }
     }

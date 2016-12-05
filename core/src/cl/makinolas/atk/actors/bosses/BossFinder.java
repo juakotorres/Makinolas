@@ -3,7 +3,6 @@ package cl.makinolas.atk.actors.bosses;
 import cl.makinolas.atk.actors.Hero;
 import com.badlogic.gdx.physics.box2d.World;
 
-import java.lang.reflect.InvocationTargetException;
 import java.util.HashMap;
 
 public class BossFinder {

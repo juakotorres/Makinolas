@@ -27,7 +27,7 @@ public class AreaEffectAttack extends Attacks {
 	    yVelocity = 0;
 	    accumulator = 0;
 	    
-	    this.initialPosition= (facingRight)? 1f: -1f;
+	    this.initialPosition= (facingRight)? -1f: 1f;
 	    this.initialPosition *= source.getMonsterWidth() * 3;
 	    
 	    setSprite();

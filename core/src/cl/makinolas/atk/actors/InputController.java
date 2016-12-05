@@ -4,7 +4,6 @@ import cl.makinolas.atk.actors.friend.Enemies;
 import cl.makinolas.atk.actors.ui.BagVis;
 import cl.makinolas.atk.actors.ui.MobileGroup;
 import cl.makinolas.atk.actors.ui.MobileKeyListener;
-import cl.makinolas.atk.audio.GDXMusicPlayer;
 import cl.makinolas.atk.stages.AbstractStage;
 import cl.makinolas.atk.utils.SaveManager;
 import com.badlogic.gdx.Input;
