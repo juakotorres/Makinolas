@@ -37,6 +37,7 @@ public class SurvivalHero extends Monsters implements ICharacter, IHero {
     private World myWorld;
     private long cooldownTimer;
     private boolean[] isSinging = {false, false, false, false};
+    private float xVelocity;
 
     public SurvivalHero(World survivalWorld) {
         this.myWorld = survivalWorld;
@@ -53,6 +54,7 @@ public class SurvivalHero extends Monsters implements ICharacter, IHero {
         myBodyDefinition.fixedRotation = true;
         myWorld.setGravity(new Vector2(0,30));
         cooldownTimer = 0;
+        xVelocity = 0;
 
 
     }
@@ -60,6 +62,7 @@ public class SurvivalHero extends Monsters implements ICharacter, IHero {
     @Override
     public void act(float delta){
         //jumpState.setAnimation(this, delta);
+        myBody.setLinearVelocity(xVelocity,myBody.getLinearVelocity().y);
 
 
     }
@@ -198,6 +201,7 @@ public class SurvivalHero extends Monsters implements ICharacter, IHero {
     @Override
     public void moveHorizontal(int i, boolean b) {
         myBody.setLinearVelocity(5*i,myBody.getLinearVelocity().y);
+        xVelocity = 5 * i;
         isFacingRight = b;
     }
 
@@ -301,5 +305,6 @@ public class SurvivalHero extends Monsters implements ICharacter, IHero {
 
     public void stopMovement() {
         myBody.setLinearVelocity(0,myBody.getLinearVelocity().y);
+        xVelocity = 0;
     }
 }
