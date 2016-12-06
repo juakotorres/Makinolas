@@ -4,6 +4,8 @@ import cl.makinolas.atk.actors.friend.Enemies;
 import cl.makinolas.atk.actors.ui.BagVis;
 import cl.makinolas.atk.actors.ui.MobileGroup;
 import cl.makinolas.atk.actors.ui.MobileKeyListener;
+import cl.makinolas.atk.audio.GDXSoundEffectsHero;
+import cl.makinolas.atk.audio.GDXSoundEffectsPlayer;
 import cl.makinolas.atk.stages.AbstractStage;
 import cl.makinolas.atk.utils.SaveManager;
 import com.badlogic.gdx.Input;
@@ -13,7 +15,7 @@ import com.badlogic.gdx.scenes.scene2d.InputListener;
 public class InputController extends InputListener implements MobileKeyListener{
 
     private Hero hero;
-
+    private GDXSoundEffectsPlayer mplayer = GDXSoundEffectsHero.getInstance();
     public InputController(Hero h, MobileGroup mob){
         hero = h;
         mob.setMobileKeyListener(this);
@@ -74,8 +76,10 @@ public class InputController extends InputListener implements MobileKeyListener{
             switch (keycode) {
                 case Input.Keys.P:
                     ((AbstractStage) hero.getStage()).togglePause();
+                    mplayer.PlayPauseMenuOut();
                     break;
                 default:
+                	
                     BagVis.getInstance().handleKey(keycode);
                     break;
             }

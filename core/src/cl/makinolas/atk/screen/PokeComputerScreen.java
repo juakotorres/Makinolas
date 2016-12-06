@@ -20,6 +20,8 @@ import cl.makinolas.atk.actors.Hero;
 import cl.makinolas.atk.actors.KeyHandable;
 import cl.makinolas.atk.actors.SimpleInputController;
 import cl.makinolas.atk.actors.ui.TeamFriendImage;
+import cl.makinolas.atk.audio.GDXSoundEffectsHero;
+import cl.makinolas.atk.audio.GDXSoundEffectsPlayer;
 import cl.makinolas.atk.utils.SaveManager;
 
 public class PokeComputerScreen extends SimpleScreen implements KeyHandable {
@@ -35,7 +37,7 @@ public class PokeComputerScreen extends SimpleScreen implements KeyHandable {
     private int page_limit;
     private int team_size;
     private int backup_size;
-    
+    private GDXSoundEffectsPlayer mplayer = GDXSoundEffectsHero.getInstance();
     public PokeComputerScreen(Game g) {
 		super(g, new Stage(new FitViewport(640,480)));
 		alliesImages = new ArrayList<TeamFriendImage>();
@@ -57,6 +59,7 @@ public class PokeComputerScreen extends SimpleScreen implements KeyHandable {
             @Override
             public void clicked(InputEvent event, float x, float y) {
                 exitComputer();
+                mplayer.PlayPressButton();
             }
         });
         stage.addActor(exitButton);
@@ -67,6 +70,7 @@ public class PokeComputerScreen extends SimpleScreen implements KeyHandable {
             @Override
             public void clicked(InputEvent event, float x, float y) {
                 swapPokemon();
+                mplayer.PlayPressButton();
             }
         });
         stage.addActor(swapButton);
@@ -79,7 +83,10 @@ public class PokeComputerScreen extends SimpleScreen implements KeyHandable {
         leftTeamButton.addListener(new ClickListener(){
             @Override
             public void clicked(InputEvent event, float x, float y) {
+
             	index_team = index_team - 1 < 0 ? team_size - 1 : index_team - 1;
+            	mplayer.PlayPressButton();
+
             }
         });
         stage.addActor(leftTeamButton);
@@ -89,6 +96,7 @@ public class PokeComputerScreen extends SimpleScreen implements KeyHandable {
         rightTeamButton.addListener(new ClickListener(){
             @Override
             public void clicked(InputEvent event, float x, float y) {
+            	 mplayer.PlayPressButton();
             	index_team = index_team + 1 > team_size - 1 ? 0 : index_team + 1;
             }
         });
@@ -99,7 +107,9 @@ public class PokeComputerScreen extends SimpleScreen implements KeyHandable {
         leftBackupButton.addListener(new ClickListener(){
             @Override
             public void clicked(InputEvent event, float x, float y) {
+            	 mplayer.PlayPressButton();
             	indexBackupHandler(-1);
+
             }
         });
         stage.addActor(leftBackupButton);
@@ -109,6 +119,7 @@ public class PokeComputerScreen extends SimpleScreen implements KeyHandable {
         rightBackupButton.addListener(new ClickListener(){
             @Override
             public void clicked(InputEvent event, float x, float y) {
+            	 mplayer.PlayPressButton();
             	indexBackupHandler(1);
             	
             }

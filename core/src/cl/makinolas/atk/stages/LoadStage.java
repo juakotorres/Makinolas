@@ -86,11 +86,12 @@ public class LoadStage extends Stage {
 
 
     TextButton menuButton = new TextButton("Back to menu",  new Skin(Gdx.files.internal("Data/uiskin.json")));
-    menuButton.setPosition(500, 50);
+    menuButton.setPosition(450, 50);
     menuButton.addListener(new ClickListener(){
         @Override
         public void clicked(InputEvent event, float x, float y) {
           MainMenu();
+          //playpressbutton();
         }
     });
     
@@ -124,18 +125,23 @@ public class LoadStage extends Stage {
     if (Gdx.input.isKeyJustPressed(Keys.UP)){
 
       int last = lastSelected;
+
       if(lastSelected==0){
         lastSelected = cantidad_juegos-1;
         indicador = 1;//da la vuelta
+        //move menu
       }
       else{
         lastSelected = lastSelected - 1;
         indicador = 0;
+
       }
       changeArrow(last, lastSelected);
     } if (Gdx.input.isKeyJustPressed(Keys.DOWN)){
       int last = lastSelected;
+
       if(lastSelected == cantidad_juegos - 1) {
+    	 //movemenu
         lastSelected = 0;
         indicador = 0;
       }
@@ -144,6 +150,7 @@ public class LoadStage extends Stage {
         indicador = 1;
       }
       changeArrow(last, lastSelected);
+
     }
   }
   
