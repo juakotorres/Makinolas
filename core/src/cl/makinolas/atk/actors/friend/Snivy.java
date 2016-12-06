@@ -84,14 +84,13 @@ public class Snivy extends AbstractFriend {
   
   @Override
   public Attacks getFriendAttack(World myWorld, float x , float y, boolean facingRight, Monsters source){
-	  return  new AreaEffectAttack(new SingState(), myWorld, x, y, facingRight, source, false);
-	  //return new ShootAttack(new BranchAttackState(), myWorld, x, y, facingRight, source, false);
+	  return new ShootAttack(new BranchAttackState(), myWorld, x, y, facingRight, source, false);
   }
   
   @Override
   public int getAttackMagicRequirement() {
 	// TODO Auto-generated method stub
-	return SingState.getMagicRequirement();
+	return BranchAttackState.getMagicRequirement();
   }
 
 }
