@@ -61,13 +61,13 @@ public class IceRockState extends SpriteState {
     return myAttack.getPhysicalAttackDamage(monster);
   }
 
-@Override
-public IType getType() {
-	return TypeFactory.getType("Ice");
-}
-
-public static int getMagicRequirement(){
-	return magicRequirement;
-}
+	@Override
+	public IType getType() {
+		return TypeFactory.getType("Ice");
+	}
+	
+	public static int getMagicRequirement(){
+		return magicRequirement;
+	}
 
 }

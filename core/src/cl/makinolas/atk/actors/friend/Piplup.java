@@ -15,16 +15,22 @@ import cl.makinolas.atk.types.SteelType;
 import cl.makinolas.atk.types.TypeFactory;
 import cl.makinolas.atk.types.WaterType;
 
-public class PiplupTODO extends AbstractFriend {
+public class Piplup extends AbstractFriend {
 
 	private TextureRegion[][] faces;
 	
-	public PiplupTODO(){
+	public Piplup(){
 		friend = Enemies.PIPLUP;
 		faces = new TextureRegion(new Texture(Gdx.files.internal("Actors/Piplup_faces.png"))).split(40,40);
 		setTexture(new TextureRegion(new Texture(Gdx.files.internal("Actors/Piplup.png"))));
-		/* aqui yace todo lo relacionado con los sprites */
 	    setFaceSprite(faces[0][0]);
+		
+	    setCutSprites(20,26);
+	    setWalkAnimation(1,2,3,2);
+	    setHurtAnimation(0);
+	    setMeleeAnimation(4,5,6);
+	    setIdleAnimation(1);
+	    setSpecialAnimation(4,5,6);
 	    initLevel(5);
 	    initDead();
 	    newMonster();
@@ -34,7 +40,7 @@ public class PiplupTODO extends AbstractFriend {
 	    
 	}
 
-	public PiplupTODO(int level){
+	public Piplup(int level){
 		this();
 		initLevel(level);
 	}
@@ -53,14 +59,12 @@ public class PiplupTODO extends AbstractFriend {
 		if (numberOfLevel == 1 && getActualEvolution() < 1) {
 			friend = Enemies.PRINPLUP;
 			setTexture(new TextureRegion(new Texture(Gdx.files.internal("Actors/Prinplup.png"))));
-			/* texturas */
-			
-		    /*setCutSprites(30,28);
+			setCutSprites(25,26);
 		    setWalkAnimation(1,2,3,2);
 		    setHurtAnimation(0);
-		    setMeleeAnimation(4,6);
-		    setIdleAnimation(1,2,3,2);
-		    setSpecialAnimation(4,6);*/
+		    setMeleeAnimation(4,5,6);
+		    setIdleAnimation(1);
+		    setSpecialAnimation(7,6);
 			
 		    setFaceSprite(faces[0][1]);
 		    setActualEvolution(1);
@@ -72,12 +76,12 @@ public class PiplupTODO extends AbstractFriend {
 			setTexture(new TextureRegion(new Texture(Gdx.files.internal("Actors/Empoleon.png"))));
 			/* texturas */
 			
-		    /*setCutSprites(30,28);
-		    setWalkAnimation(1,2,3,2);
+		    setCutSprites(32,35);
+		    setWalkAnimation(3,4,5,4);
 		    setHurtAnimation(0);
-		    setMeleeAnimation(4,6);
-		    setIdleAnimation(1,2,3,2);
-		    setSpecialAnimation(4,6);*/
+		    setMeleeAnimation(6,7,8);
+		    setIdleAnimation(1,2);
+		    setSpecialAnimation(6,7,10);
 			
 		    setFaceSprite(faces[0][2]);
 		    setActualEvolution(2);
