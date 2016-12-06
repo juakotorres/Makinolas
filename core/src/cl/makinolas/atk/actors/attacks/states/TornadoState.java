@@ -8,12 +8,13 @@ import com.badlogic.gdx.graphics.g2d.Animation.PlayMode;
 import cl.makinolas.atk.actors.Monsters;
 import cl.makinolas.atk.types.FlyingType;
 import cl.makinolas.atk.types.IType;
+import cl.makinolas.atk.types.TypeFactory;
 
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 
 public class TornadoState extends SpriteState {
 	
-  public static int magicRequirement = 60;
+  private static int magicRequirement = 60;
 
   @Override
   public int getAttackDamage() {
@@ -72,7 +73,11 @@ public class TornadoState extends SpriteState {
 
 @Override
 public IType getType() {
-	return FlyingType.getInstance();
+	return TypeFactory.getType("Flying");
+}
+
+public static int getMagicRequirement(){
+	return magicRequirement;
 }
   
 }

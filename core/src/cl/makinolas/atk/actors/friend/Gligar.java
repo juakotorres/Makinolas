@@ -6,6 +6,7 @@ import com.badlogic.gdx.graphics.g2d.TextureRegion;
 
 import cl.makinolas.atk.types.FlyingType;
 import cl.makinolas.atk.types.GroundType;
+import cl.makinolas.atk.types.TypeFactory;
 
 public class Gligar extends AbstractFriend {
   
@@ -27,8 +28,8 @@ public class Gligar extends AbstractFriend {
     newMonster();
     setActualEvolution(0);
     setMaxMagic(1000);
-    addType(GroundType.getInstance());
-    addType(FlyingType.getInstance());
+    addType(TypeFactory.getType("Ground"));
+    addType(TypeFactory.getType("Flying"));
   }
   
   public Gligar(int level){

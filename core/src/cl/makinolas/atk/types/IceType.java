@@ -2,17 +2,8 @@ package cl.makinolas.atk.types;
 
 public class IceType extends AbstractType implements IType {
 
-	private static IceType instance = null;
-	
-	private IceType(){
+	public IceType(){
 		this.isIce = true;
-	}
-	
-	public static IceType getInstance(){
-		if (instance == null){
-			instance = new IceType();
-		}
-		return instance;
 	}
 
 	@Override

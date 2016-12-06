@@ -2,19 +2,10 @@ package cl.makinolas.atk.types;
 
 public class NormalType extends AbstractType implements IType {
 
-	private static NormalType instance = null;
-	
-	private NormalType(){
+	public NormalType(){
 		this.isNormal = true;
 	}
 	
-	public static NormalType getInstance(){
-		if (instance == null){
-			instance = new NormalType();
-		}
-		return instance;
-	}
-
 	@Override
 	public double attackFromType(IType type) {
 		return type.normalPokemonAttacks(this);

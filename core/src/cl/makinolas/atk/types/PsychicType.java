@@ -2,17 +2,8 @@ package cl.makinolas.atk.types;
 
 public class PsychicType extends AbstractType implements IType {
 
-	private static PsychicType instance = null;
-	
-	private PsychicType(){
+	public PsychicType(){
 		this.isPsychic = true;
-	}
-	
-	public static PsychicType getInstance(){
-		if (instance == null){
-			instance = new PsychicType();
-		}
-		return instance;
 	}
 
 	@Override

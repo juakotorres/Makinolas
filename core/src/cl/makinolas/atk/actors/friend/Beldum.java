@@ -6,6 +6,7 @@ import com.badlogic.gdx.graphics.g2d.TextureRegion;
 
 import cl.makinolas.atk.types.PsychicType;
 import cl.makinolas.atk.types.SteelType;
+import cl.makinolas.atk.types.TypeFactory;
 
 public class Beldum extends AbstractFriend {
   
@@ -27,8 +28,8 @@ public class Beldum extends AbstractFriend {
     newMonster();
     setActualEvolution(0);
     setMaxMagic(1000);
-    addType(SteelType.getInstance());
-    addType(PsychicType.getInstance());
+    addType(TypeFactory.getType("Steel"));
+    addType(TypeFactory.getType("Psychic"));
   }
   
   public Beldum(int level){
