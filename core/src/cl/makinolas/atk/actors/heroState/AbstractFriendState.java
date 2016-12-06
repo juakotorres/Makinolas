@@ -11,13 +11,13 @@ import cl.makinolas.atk.stages.AbstractStage;
 
 public abstract class AbstractFriendState {
 	protected Hero hero;
-	
-	  private long cooldownTimer;
-	  protected Attacks attack;
+
+	private long cooldownTimer;
+	protected Attacks attack;
 
 	public AbstractFriendState() {
 		hero = Hero.getInstance();
-	    cooldownTimer = 0;
+		cooldownTimer = 0;
 	}
 
 	public void attackSecondary() {
@@ -39,30 +39,27 @@ public abstract class AbstractFriendState {
 	}
 
 	public void jump(JumpState state, Hero hero2) {
-			hero2.setJumping(true);
-			state.restarCount();
-			state.jump();
+		hero2.setJumping(true);
+		state.restarCount();
+		state.jump();
 	}
 
 	public boolean isFacingRight(int vx) {
-		return vx>0;
+		return vx > 0;
 	}
 
 	public boolean isSinging() {
 		return false;
 	}
-	
-	public Attacks getAttack(){
+
+	public Attacks getAttack() {
 		return attack;
-	}
-	
-	public void setAttack(Attacks attack){
-		this.attack = attack;
 	}
 
 	public void isNotPressingPrimaryAttack() {
-		if(attack != null)
-			attack.unPress();;
+		if (attack != null)
+			attack.unPress();
+		;
 	}
 
 }

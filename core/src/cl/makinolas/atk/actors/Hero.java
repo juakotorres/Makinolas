@@ -568,14 +568,16 @@ public class Hero extends Monsters {
     return inventory;
   }
 
-  public void moveHorizontal(int i, boolean restitutive) {
-    if(restitutive && !inertia) return;
-    vx += 7*i;
-    if(vx!=0)
-    	isFacingRight = actualFriend.getState().isFacingRight((int) vx);
-    inertia = true;
-  }
-
+	public void moveHorizontal(int i, boolean restitutive) {
+		if (restitutive && !inertia)
+			return;
+		vx += 7 * i;
+		if (!actualFriend.getState().isSinging()) {
+			if (vx != 0)
+				isFacingRight = actualFriend.getState().isFacingRight((int) vx);
+			inertia = true;
+		}
+	}
 
   public void jump(int button) {
 	  actualFriend.getState().jump(state, this);
@@ -770,18 +772,17 @@ public float getRelativeX() {
 }
 @Override
 public void sing() {
-	actualFriend.setState(new SleepState());
-	this.changeAnimation(hurtAnimation);;
+	Attacks attack = actualFriend.getState().getAttack();
+	actualFriend.setState(new SleepState(attack));
+	this.changeAnimation(hurtAnimation);
 }
 @Override
 public void unSing() {
-	Attacks attack = actualFriend.getState().getAttack();
 	actualFriend.setState(new StandartState());
-	 actualFriend.getState().setAttack(attack);
 }
 @Override
 public void sleep() {
-	actualFriend.setState(new SleepState());
+	actualFriend.setState(new SleepState(null));
 	this.changeAnimation(hurtAnimation);
 }
 @Override

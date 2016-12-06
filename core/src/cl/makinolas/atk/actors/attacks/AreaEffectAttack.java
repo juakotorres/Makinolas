@@ -22,8 +22,6 @@ public class AreaEffectAttack extends Attacks {
 	    spriteState.setAttack(this);
 	    spriteState.initializeBody(x,y); 
 	    
-	    source.sing();
-	    
 	    xVelocity = 0;
 	    yVelocity = 0;
 	    accumulator = 0;
@@ -37,15 +35,14 @@ public class AreaEffectAttack extends Attacks {
   @Override
   public void act(float delta){
 	  super.act(delta);
-    myBody.setLinearVelocity(Hero.getInstance().getBody().getLinearVelocity().x, Hero.getInstance().getBody().getLinearVelocity().y);
+    myBody.setLinearVelocity(getSource().getBody().getLinearVelocity().x, getSource().getBody().getLinearVelocity().y);
     checkFinish(delta);
   }
   
   protected void checkFinish(float delta) {
     accumulator += delta;
     if(accumulator >= attackTime){
-    	this.getSource().unSing();
-      dead = true;
+    	unPress();
     }    
   }
 
@@ -60,8 +57,8 @@ public class AreaEffectAttack extends Attacks {
   
   @Override
   public void unPress(){
-	  this.getSource().unSing();
       dead = true;
+	  this.getSource().unSing();
   }
   
   @Override

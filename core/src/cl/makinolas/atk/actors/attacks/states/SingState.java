@@ -85,6 +85,10 @@ public class SingState extends SpriteState {
 		return NormalType.getInstance();
 	}
 	
+	public void secondaryEfectsToSource(Monsters monster) {
+		monster.sing();
+	}
+	
 	@Override
 	public void secondaryEfectsToAfected(Monsters monster) {
 		monster.addState(new SleepStateEffect(monster), 50);
