@@ -3,7 +3,6 @@ package cl.makinolas.atk.actors.attacks;
 import com.badlogic.gdx.physics.box2d.World;
 import com.badlogic.gdx.physics.box2d.WorldManifold;
 
-import cl.makinolas.atk.actors.Hero;
 import cl.makinolas.atk.actors.Monsters;
 import cl.makinolas.atk.actors.attacks.states.SpriteState;
 import cl.makinolas.atk.actors.platform.Platform;

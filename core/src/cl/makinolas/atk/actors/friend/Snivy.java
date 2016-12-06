@@ -6,11 +6,9 @@ import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.physics.box2d.World;
 
 import cl.makinolas.atk.actors.Monsters;
-import cl.makinolas.atk.actors.attacks.AreaEffectAttack;
 import cl.makinolas.atk.actors.attacks.Attacks;
 import cl.makinolas.atk.actors.attacks.ShootAttack;
 import cl.makinolas.atk.actors.attacks.states.BranchAttackState;
-import cl.makinolas.atk.actors.attacks.states.SingState;
 import cl.makinolas.atk.types.TypeFactory;
 
 public class Snivy extends AbstractFriend {

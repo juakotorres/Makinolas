@@ -4,8 +4,6 @@ import java.util.HashMap;
 
 import com.badlogic.gdx.audio.Music;
 
-import cl.makinolas.atk.actors.Hero;
-
 public class GDXSoundEffectsPlayer {
 	private static GDXSoundEffectsPlayer instance;
 	protected static HashMap<String, Music> sfxmap;
