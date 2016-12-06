@@ -5,7 +5,7 @@ import cl.makinolas.atk.minigames.MinigameCharacter;
 public class NullState extends JumpState {
 	public NullState(GameActor actor) {
 		super(actor);
-		hero.myBody.setGravityScale(1);
+		hero.setGravityScale(1);
 	}
 	
 	@Override

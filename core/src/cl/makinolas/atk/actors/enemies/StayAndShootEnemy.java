@@ -40,7 +40,7 @@ public class StayAndShootEnemy extends Enemy {
       myBody.setLinearVelocity(0, myBody.getLinearVelocity().y);
     }
     
-    if(accumulatorAttack > attackTime && super.isFree()){
+    if(!isSinging && accumulatorAttack > attackTime && super.isFree()){
 	    	if(parent.secondaryAttack()){
 	    		double rand = Math.random()*100;
 	    		if(rand>70){

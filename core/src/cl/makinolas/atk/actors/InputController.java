@@ -103,6 +103,9 @@ public class InputController extends InputListener implements MobileKeyListener{
             case Input.Keys.UP:
                 hero.isNotPressingSpace();
                 break;
+            case Input.Keys.Z:
+                hero.isNotPressingPrimaryAttack();
+                break;
         }
         return true;
     }

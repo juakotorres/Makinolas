@@ -25,7 +25,7 @@ public abstract class Monsters extends AnimatedActor {
   public abstract void sing();
   public abstract void unSing();
   public abstract void sleep();
-  public abstract void unSleep();
+  public abstract void Awake();
   
   protected ArrayList<IStateEfects> states;
   

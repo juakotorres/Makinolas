@@ -3,8 +3,6 @@ package cl.makinolas.atk.actors;
 import cl.makinolas.atk.actors.items.ItemActor;
 import cl.makinolas.atk.stages.*;
 
-import java.util.ArrayList;
-
 import com.badlogic.gdx.Game;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.Body;
@@ -22,6 +20,8 @@ import cl.makinolas.atk.actors.enemies.MonsterFactory;
 import cl.makinolas.atk.actors.friend.Enemies;
 import cl.makinolas.atk.actors.friend.Friend;
 import cl.makinolas.atk.actors.friend.FriendDescriptor;
+import cl.makinolas.atk.actors.heroState.SleepState;
+import cl.makinolas.atk.actors.heroState.StandartState;
 import cl.makinolas.atk.actors.items.Ball;
 import cl.makinolas.atk.actors.items.BallActor;
 import cl.makinolas.atk.actors.items.Inventory;
@@ -33,7 +33,6 @@ import cl.makinolas.atk.audio.GDXSoundEffectsPlayer;
 import cl.makinolas.atk.screen.MapScreen;
 import cl.makinolas.atk.start.GameText;
 import cl.makinolas.atk.stateEfects.CriticalHit;
-import cl.makinolas.atk.stateEfects.IStateEfects;
 import cl.makinolas.atk.utils.Formulas;
 import cl.makinolas.atk.utils.SaveDoesNotExistException;
 import cl.makinolas.atk.utils.SaveManager;
@@ -48,7 +47,6 @@ public class Hero extends Monsters {
   private boolean isDamaged;
   private boolean isAttacking;
   private boolean isInsideWater;
-  private boolean[] isSinging = {false, false, false, false};
   private int[] attackAnimations;
   private int actualAnimation[] = {0, 0, 0, 0};
   protected final float spriteTime = 1 / 5f;
@@ -80,26 +78,10 @@ public class Hero extends Monsters {
   }
   private Spot currentSpot;
   private Vector2 platformSpeed;
-  private long cooldownTimer;
   
-  private ArrayList<IStateEfects> statesPokemon1;
-  private ArrayList<IStateEfects> statesPokemon2;
-  private ArrayList<IStateEfects> statesPokemon3;
-  private ArrayList<IStateEfects> statesPokemon4;
-  
-  private ArrayList<ArrayList<IStateEfects>> liststates;
 
   private Hero() {
 	 super();
-	  statesPokemon2 = new ArrayList<IStateEfects>();
-	  statesPokemon3 = new ArrayList<IStateEfects>();
-	  statesPokemon4 = new ArrayList<IStateEfects>();
-	 statesPokemon1 = states;
-	 liststates =  new ArrayList<ArrayList<IStateEfects>>();
-	 liststates.add(statesPokemon1);
-	 liststates.add(statesPokemon2);
-	 liststates.add(statesPokemon3);
-	 liststates.add(statesPokemon4);
     isJumping = false;
     isFacingRight = false;
     isDamaged = false;
@@ -126,9 +108,10 @@ public class Hero extends Monsters {
     inventory = new Inventory(this);
 
     // Set actual allie
-    actualFriend = allies.get(0);
+    setActualFriend(allies.get(0));
     indexFriend = 0;
-    parent = actualFriend;
+    parent = getActualFriend();
+    states = parent.getStateEfectList();
     
     // Set correct collider.
     myBodyDefinition = new BodyDef();
@@ -137,11 +120,8 @@ public class Hero extends Monsters {
     // Guardar animaciones del jugador
     setAnimation();
     changeAnimation(walkAnimation);
-    state = new OnGround();
+    state = new OnAir();
     myBodyDefinition.fixedRotation = true;
-
-    cooldownTimer = 0;
-    
   }
   /* Aqui se hace un intento fallido de arreglar el bug del sabe al parecer,
    * consiste en que cuando no se puede cargar el archivo, se agregaran dos
@@ -218,6 +198,7 @@ public class Hero extends Monsters {
     else{
       backupAllies.add(friend);    	
     }
+    friend.setState(new StandartState());
   }
   
   
@@ -231,16 +212,17 @@ public class Hero extends Monsters {
   //BORRAR
   public void changeAlliesTeam(int index){
 	if(!isJumping ){
-	  System.out.println("changeAlliesTeam , isjumping " + !isJumping + "getDead " + actualFriend.getDead() + " name " + actualFriend.getName());
+	  System.out.println("changeAlliesTeam , isjumping " + !isJumping + "getDead " + getActualFriend().getDead() + " name " + getActualFriend().getName());
       GameActor puff = new Puff(myWorld, myBody.getPosition().x,myBody.getPosition().y,isFacingRight, this);
       ((AbstractStage) getStage()).addGameActor(puff);
-      allies.set(indexFriend, actualFriend);
-      actualFriend = backupAllies.get(index);
+      allies.set(indexFriend, getActualFriend());
+      setActualFriend(backupAllies.get(index));
       backupAllies.set(index, allies.get(indexFriend));
-      allies.set(indexFriend, actualFriend);
+      allies.set(indexFriend, getActualFriend());
       //indexFriend = index;
       backupIndexFriend = index;
-      parent = actualFriend;
+      parent = getActualFriend();
+      states = parent.getStateEfectList(); 
       MainBar.getInstance().setBars();
       setSizeCollider(getBody().getPosition(), false);
       setAnimation();
@@ -277,8 +259,12 @@ public class Hero extends Monsters {
 	  super.act(delta);
     checkChangingAllie();
 
-    if(!isSinging[this.getIndexFriend()])
+    if(!actualFriend.getState().isSinging()){
     	myBody.setLinearVelocity(vx + platformSpeed.x, myBody.getLinearVelocity().y);
+  }
+    else{
+    	myBody.setLinearVelocity(0 + platformSpeed.x, myBody.getLinearVelocity().y);
+    }
 
 
     ((AbstractStage) getStage()).changeCamera(myBody.getPosition().x , myBody.getPosition().y );
@@ -322,7 +308,7 @@ public class Hero extends Monsters {
 
   private void changeAllie() {
     changing = true;
-    actualFriend.isDead();
+    getActualFriend().isDead();
     lookForAliveAllie();
   }
 
@@ -347,7 +333,7 @@ public class Hero extends Monsters {
   }
   
   private void checkDamage(float delta) {
-	  if(!isSinging[this.getIndexFriend()]){
+	  if(!actualFriend.getState().isSinging()){
 	    if(isDamaged){
 	      accumulator += delta;
 	      if(accumulator > hurtTime){
@@ -361,10 +347,10 @@ public class Hero extends Monsters {
 
   private void giveMagic() {
 	  //magic sound
-    if(actualFriend.getMagic() < 1000){
-      actualFriend.setMagic(((actualFriend.getMagic() + 1)%1001));
+    if(getActualFriend().getMagic() < 1000){
+      getActualFriend().setMagic(((getActualFriend().getMagic() + 1)%1001));
     } else {
-      actualFriend.setMagic(1000);
+      getActualFriend().setMagic(1000);
     }
   }
 
@@ -373,7 +359,7 @@ public class Hero extends Monsters {
       countMeleeFrames += delta;
       if(countMeleeFrames > spriteTime){
         if(actualAnimation[this.getIndexFriend()]  < attackAnimations.length) {
-        	if(!isSinging[this.getIndexFriend()])
+        	if(!actualFriend.getState().isSinging())
         		changeAnimation(attackAnimations[actualAnimation[this.getIndexFriend()]]);
           countMeleeFrames = 0;
           actualAnimation[this.getIndexFriend()] += 1;
@@ -385,7 +371,7 @@ public class Hero extends Monsters {
       }
     }
     else if(!isDamaged){
-    	if(!isSinging[this.getIndexFriend()]){
+    	if(!actualFriend.getState().isSinging()){
 	      countMeleeFrames = 0;
 	      isAttacking = false;
 	      actualAnimation[this.getIndexFriend()] = 0;
@@ -426,13 +412,13 @@ public class Hero extends Monsters {
   }
 
   private void setAnimation(){
-    setMasterTexture(actualFriend.getTexture(),actualFriend.getWidth(),actualFriend.getHeight());
-    walkAnimation = addAnimation(0.2f, actualFriend.getWalkAnimation());
-    hurtAnimation = addAnimation(0.2f, actualFriend.getHurtAnimation());
-    attackAnimations = new int[actualFriend.getMeleeAnimation().length];
+    setMasterTexture(getActualFriend().getTexture(),getActualFriend().getWidth(),getActualFriend().getHeight());
+    walkAnimation = addAnimation(0.2f, getActualFriend().getWalkAnimation());
+    hurtAnimation = addAnimation(0.2f, getActualFriend().getHurtAnimation());
+    attackAnimations = new int[getActualFriend().getMeleeAnimation().length];
     countMeleeFrames = 0;
-    for(int i = 0; i < actualFriend.getMeleeAnimation().length; i++){
-      attackAnimations[i] = addAnimation(0.2f, actualFriend.getMeleeAnimation()[i][1]);
+    for(int i = 0; i < getActualFriend().getMeleeAnimation().length; i++){
+      attackAnimations[i] = addAnimation(0.2f, getActualFriend().getMeleeAnimation()[i][1]);
     }  
     //actualAnimation[this.getIndexFriend()] = 0;
   }
@@ -443,18 +429,18 @@ public class Hero extends Monsters {
   }
 
   public int getHealth(){
-    return actualFriend.getHealth();
+    return getActualFriend().getHealth();
   }
   
   public int getMagic(){
-    return actualFriend.getMagic();
+    return getActualFriend().getMagic();
   }
 
 
   @Override
   public void damage(int damage, Attacks inflictor)  {
     if(!inflictor.getSource().isHero()){
-      actualFriend.setHealth(actualFriend.getHealth() - damage);
+      getActualFriend().setHealth(getActualFriend().getHealth() - damage);
       isDamaged = true;
       changeAnimation(hurtAnimation);
       inflictor.setDead();
@@ -472,19 +458,19 @@ public class Hero extends Monsters {
   }
   
   public Friend getFriend(){
-    return actualFriend;
+    return getActualFriend();
   }
   
   private void setNewAllie(int index){
-    if(!isJumping || actualFriend.getDead()){
-      System.out.println("setNewAllie, isjumping " + !isJumping + "getDead " + actualFriend.getDead() + " name " + actualFriend.getName());
+    if(!isJumping || getActualFriend().getDead()){
+      System.out.println("setNewAllie, isjumping " + !isJumping + "getDead " + getActualFriend().getDead() + " name " + getActualFriend().getName());
       GameActor puff = new Puff(myWorld, myBody.getPosition().x,myBody.getPosition().y,isFacingRight, this);
       ((AbstractStage) getStage()).addGameActor(puff);
-      allies.set(indexFriend, actualFriend);
-      actualFriend = allies.get(index);
+      allies.set(indexFriend, getActualFriend());
+      setActualFriend(allies.get(index));
       indexFriend = index;
-      states = liststates.get(index);
-      parent = actualFriend;
+      parent = getActualFriend();
+      states = parent.getStateEfectList();
       MainBar.getInstance().setBars();
       setSizeCollider(getBody().getPosition(), false);
       setAnimation();
@@ -498,7 +484,7 @@ public class Hero extends Monsters {
     }
     Body myBody = myWorld.createBody(myBodyDefinition);
     PolygonShape shape = new PolygonShape();
-    shape.setAsBox(getBodySize(actualFriend.getWidth()), getBodySize(actualFriend.getHeight()));
+    shape.setAsBox(getBodySize(getActualFriend().getWidth()), getBodySize(getActualFriend().getHeight()));
     myBody.setGravityScale(1);
     myBody.createFixture(shape, 0.5f);
     myBody.resetMassData();    
@@ -570,12 +556,12 @@ public class Hero extends Monsters {
   
   @Override
   public float getMonsterWidth() {
-    return getBodySize(actualFriend.getWidth());
+    return getBodySize(getActualFriend().getWidth());
   }
 
   @Override
   public float getMonsterHeight() {
-    return getBodySize(actualFriend.getHeight());
+    return getBodySize(getActualFriend().getHeight());
   }
 
 
@@ -583,23 +569,19 @@ public class Hero extends Monsters {
     return inventory;
   }
 
-  public void moveHorizontal(int i, boolean restitutive) {
-    if(restitutive && !inertia) return;
-    vx += 7*i;
-    if(vx!=0)
-      if(!isSinging[this.getIndexFriend()])
-    	isFacingRight = (vx>0);
-    inertia = true;
-  }
-
+	public void moveHorizontal(int i, boolean restitutive) {
+		if (restitutive && !inertia)
+			return;
+		vx += 7 * i;
+		if (!actualFriend.getState().isSinging()) {
+			if (vx != 0)
+				isFacingRight = actualFriend.getState().isFacingRight((int) vx);
+			inertia = true;
+		}
+	}
 
   public void jump(int button) {
-	  if(!isSinging[this.getIndexFriend()]){
-		  isJumping = true;
-		state.restarCount();
-    	state.jump();
-	  }
-    
+	  actualFriend.getState().jump(state, this);
   }
   
   public void isNotPressingSpace() {
@@ -613,22 +595,17 @@ public class Hero extends Monsters {
     }    
   }
 
-  // FIXME El gcd no es global, depende del tipo de ataque
-  public void attackPrimary() {
-    if(!isSinging[this.getIndexFriend()] && cooldownTimer < System.currentTimeMillis() && actualFriend.getMagic() >= actualFriend.getAttackMagicRequirement()){
-      actualFriend.setMagic(actualFriend.getMagic() - actualFriend.getAttackMagicRequirement());
-      mplayer.PlayProyectileSound();
-      GameActor fireball = actualFriend.getFriendAttack(myWorld, myBody.getPosition().x,myBody.getPosition().y,isFacingRight, this);
-      ((AbstractStage) getStage()).addGameActor(fireball);
-      ((Attacks) fireball).getSpriteState().secondaryEfectsToSource(this);
-      cooldownTimer = System.currentTimeMillis() + ((Attacks)fireball).getSpriteState().getCooldown();
-    }
-  }
+	public void attackPrimary() {
+		actualFriend.getState().attackPrimary(((AbstractStage) getStage()), actualFriend, myWorld, myBody.getPosition(), isFacingRight, this);			
+	}
+	
+	public void isNotPressingPrimaryAttack() {
+		actualFriend.getState().isNotPressingPrimaryAttack();
+	}
 
   public void attackSecondary() {
-    if(!isAttacking && !isSinging[this.getIndexFriend()]){
-      mplayer.PlayClaw();
-      isAttacking = true;
+    if(!isAttacking){
+    	actualFriend.getState().attackSecondary();
     }
   }
 
@@ -641,12 +618,12 @@ public class Hero extends Monsters {
 
   @Override
   protected void gainExp(int enemyLevel, Enemies type) {
-    actualFriend.gainExperience(enemyLevel, type);
+    getActualFriend().gainExperience(enemyLevel, type);
   }
 
   public void throwBall(Ball.BallType type) {
 		 mplayer.playthrow();
-	    BallActor ball = new BallActor(type, myWorld, myBody.getPosition().x + ((isFacingRight)?0.6f:-0.6f)*actualFriend.getWidth()/ GameConstants.WORLD_FACTOR,
+	    BallActor ball = new BallActor(type, myWorld, myBody.getPosition().x + ((isFacingRight)?0.6f:-0.6f)*getActualFriend().getWidth()/ GameConstants.WORLD_FACTOR,
 	            myBody.getPosition().y);
 	    ball.setThrowImpulse((isFacingRight)?1:-1);
 	    ((AbstractStage) getStage()).addGameActor(ball);
@@ -796,24 +773,36 @@ public float getRelativeX() {
 }
 @Override
 public void sing() {
-	this.isSinging[this.getIndexFriend()] = true;
-	this.changeAnimation(hurtAnimation);;
+	Attacks attack = actualFriend.getState().getAttack();
+	actualFriend.setState(new SleepState(attack));
+	this.changeAnimation(hurtAnimation);
 }
 @Override
 public void unSing() {
-	this.isSinging[this.getIndexFriend()] = false;
+	actualFriend.setState(new StandartState());
 }
 @Override
 public void sleep() {
-	this.isSinging[this.getIndexFriend()] = true;
-	this.changeAnimation(hurtAnimation);;
+	actualFriend.setState(new SleepState(null));
+	this.changeAnimation(hurtAnimation);
 }
 @Override
-public void unSleep() {
-	this.isSinging[this.getIndexFriend()] = false;
+public void Awake() {
+	actualFriend.setState(new StandartState());
 }
 
-
+public void setAttacking(boolean bool) {
+	this.isAttacking = bool;
+}
+public Friend getActualFriend() {
+	return actualFriend;
+}
+public void setActualFriend(Friend actualFriend) {
+	this.actualFriend = actualFriend;
+}
+public void setJumping(boolean bool) {
+	isJumping = bool;
+}
 
 }
 
