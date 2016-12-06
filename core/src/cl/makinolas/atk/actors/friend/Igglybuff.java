@@ -8,8 +8,6 @@ import com.badlogic.gdx.physics.box2d.World;
 import cl.makinolas.atk.actors.GameActor;
 import cl.makinolas.atk.actors.Monsters;
 import cl.makinolas.atk.actors.attacks.AreaEffectAttack;
-import cl.makinolas.atk.actors.attacks.ShootAttack;
-import cl.makinolas.atk.actors.attacks.states.DragonBreathState;
 import cl.makinolas.atk.actors.attacks.states.SingState;
 import cl.makinolas.atk.types.FairyType;
 import cl.makinolas.atk.types.NormalType;

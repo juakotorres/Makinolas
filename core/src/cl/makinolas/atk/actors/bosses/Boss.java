@@ -12,7 +12,6 @@ import cl.makinolas.atk.actors.Hero;
 import cl.makinolas.atk.actors.Monsters;
 import cl.makinolas.atk.actors.attacks.Attacks;
 import cl.makinolas.atk.actors.friend.Enemies;
-import cl.makinolas.atk.actors.fx.FxManager;
 import cl.makinolas.atk.actors.items.ItemFinder;
 import cl.makinolas.atk.stages.BossStage;
 import cl.makinolas.atk.stateEfects.CriticalHit;
@@ -77,9 +76,9 @@ public abstract class Boss extends Monsters implements IBoss{
     	 Monsters source = inflictor.getSource();
         ((BossStage) getStage()).bossIsDead();
 		Hero.getInstance().getHeroPlayer().StopProyectileSound();
-		source.gainExperience(30, Enemies.GROUDON);
+		source.gainExperience(40, Enemies.GROUDON);
 		source.gainEffortValues(Enemies.GROUDON);
-		Hero.getInstance().earnMoney(30, Enemies.GROUDON);
+		Hero.getInstance().earnMoney(40, Enemies.GROUDON);
 		ItemFinder.getInstance().requestDrop(myBody.getPosition().x, myBody.getPosition().y, getStage(), Hero.getInstance().getMyWorld());
 		
 
