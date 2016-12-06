@@ -4,7 +4,6 @@ public class GrassType extends AbstractType implements IType {
 
 	public GrassType(){
 		this.isGrass = true;
-		System.out.println("GrassCreated");
 	}
 
 	@Override

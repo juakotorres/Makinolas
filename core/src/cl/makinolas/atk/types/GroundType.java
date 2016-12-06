@@ -4,7 +4,6 @@ public class GroundType extends AbstractType implements IType {
 
 	public GroundType(){
 		this.isGround = true;
-		System.out.println("GroundCreated");
 	}
 
 	@Override

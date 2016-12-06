@@ -4,7 +4,6 @@ public class FireType extends AbstractType implements IType {
 
 	public FireType(){
 		this.isFire = true;
-		System.out.println("FireCreated");
 	}
 	
 	@Override

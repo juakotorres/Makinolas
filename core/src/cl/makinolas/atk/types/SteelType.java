@@ -4,7 +4,6 @@ public class SteelType extends AbstractType implements IType {
 
 	public SteelType(){
 		this.isSteel = true;
-		System.out.println("SteelCreated");
 	}
 
 	@Override

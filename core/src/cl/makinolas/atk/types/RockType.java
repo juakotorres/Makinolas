@@ -4,7 +4,6 @@ public class RockType extends AbstractType implements IType {
 
 	public RockType(){
 		this.isRock = true;
-		System.out.println("RockCreated");
 	}
 
 	@Override

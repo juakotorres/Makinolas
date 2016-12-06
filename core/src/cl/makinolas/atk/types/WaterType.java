@@ -4,7 +4,6 @@ public class WaterType extends AbstractType implements IType {
 
 	public WaterType(){
 		this.isWater = true;
-		System.out.println("WaterCreated");
 	}
 
 	@Override

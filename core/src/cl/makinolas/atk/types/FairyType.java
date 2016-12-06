@@ -4,7 +4,6 @@ public class FairyType extends AbstractType implements IType {
 	
 	public FairyType(){
 		this.isFairy = true;
-		System.out.println("FairyCreated");
 	}
 
 	@Override

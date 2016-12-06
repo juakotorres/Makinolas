@@ -4,7 +4,6 @@ public class DragonType extends AbstractType implements IType {
 
 	public DragonType(){
 		this.isDragon = true;
-		System.out.println("DragonCreated");
 	}
 	
 	@Override

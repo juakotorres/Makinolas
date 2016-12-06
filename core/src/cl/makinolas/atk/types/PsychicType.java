@@ -4,7 +4,6 @@ public class PsychicType extends AbstractType implements IType {
 
 	public PsychicType(){
 		this.isPsychic = true;
-		System.out.println("PsychicCreated");
 	}
 
 	@Override

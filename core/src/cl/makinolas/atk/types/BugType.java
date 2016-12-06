@@ -4,7 +4,6 @@ public class BugType extends AbstractType implements IType {
 
 	public BugType(){
 		this.isBug = true;
-		System.out.println("BugCreated");
 	}
 	
 	@Override

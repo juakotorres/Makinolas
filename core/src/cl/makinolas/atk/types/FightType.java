@@ -5,7 +5,6 @@ public class FightType extends AbstractType implements IType {
 	
 	public FightType(){
 		this.isFight = true;
-		System.out.println("FightCreated");
 	}
 	
 	@Override

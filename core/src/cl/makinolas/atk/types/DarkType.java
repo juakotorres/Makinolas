@@ -4,7 +4,6 @@ public class DarkType extends AbstractType implements IType {
 
 	public DarkType(){
 		this.isDark = true;
-		System.out.println("DarkCreated");
 	}
 	
 	@Override

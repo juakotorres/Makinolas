@@ -4,7 +4,6 @@ public class GhostType extends AbstractType implements IType {
 
 	public GhostType(){
 		this.isGhost = true;
-		System.out.println("GhostCreated");
 	}
 
 	@Override

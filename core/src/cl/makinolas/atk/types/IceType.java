@@ -4,7 +4,6 @@ public class IceType extends AbstractType implements IType {
 
 	public IceType(){
 		this.isIce = true;
-		System.out.println("IceCreated");
 	}
 
 	@Override

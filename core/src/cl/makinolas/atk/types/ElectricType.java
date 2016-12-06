@@ -4,7 +4,6 @@ public class ElectricType extends AbstractType implements IType {
 
 	public ElectricType(){
 		this.isElectric = true;
-		System.out.println("ElectricCreated");
 	}
 	
 	@Override

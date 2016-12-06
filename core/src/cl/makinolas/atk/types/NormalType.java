@@ -4,7 +4,6 @@ public class NormalType extends AbstractType implements IType {
 
 	public NormalType(){
 		this.isNormal = true;
-		System.out.println("NormalCreated");
 	}
 	
 	@Override

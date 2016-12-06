@@ -4,7 +4,6 @@ public class PoisonType extends AbstractType implements IType {
 
 	public PoisonType(){
 		this.isPoison = true;
-		System.out.println("PoisonCreated");
 	}
 
 	@Override

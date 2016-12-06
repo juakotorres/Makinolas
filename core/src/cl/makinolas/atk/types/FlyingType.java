@@ -4,7 +4,6 @@ public class FlyingType extends AbstractType implements IType {
 
 	public FlyingType(){
 		this.isFlying = true;
-		System.out.println("FlyingCreated");
 	}
 	
 	@Override
