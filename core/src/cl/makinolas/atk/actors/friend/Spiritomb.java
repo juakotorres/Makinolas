@@ -6,6 +6,7 @@ import com.badlogic.gdx.graphics.g2d.TextureRegion;
 
 import cl.makinolas.atk.types.DarkType;
 import cl.makinolas.atk.types.GhostType;
+import cl.makinolas.atk.types.TypeFactory;
 
 public class Spiritomb extends AbstractFriend {
 
@@ -27,8 +28,8 @@ public class Spiritomb extends AbstractFriend {
     newMonster();
     setActualEvolution(0);
     setMaxMagic(1000);
-    addType(GhostType.getInstance());
-    addType(DarkType.getInstance());
+    addType(TypeFactory.getType("Ghost"));
+    addType(TypeFactory.getType("Dark"));
   }
   
   public Spiritomb(int level){

@@ -4,6 +4,7 @@ import cl.makinolas.atk.actors.attacks.ParabolicAttack;
 import cl.makinolas.atk.actors.attacks.states.FireballState;
 import cl.makinolas.atk.types.FireType;
 import cl.makinolas.atk.types.FlyingType;
+import cl.makinolas.atk.types.TypeFactory;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
@@ -33,7 +34,7 @@ public class Charmander extends AbstractFriend {
     newMonster();
     setActualEvolution(0);
     setMaxMagic(1000);
-    addType(FireType.getInstance());
+    addType(TypeFactory.getType("Fire"));
   }
   
   public Charmander(int level){
@@ -78,7 +79,7 @@ public class Charmander extends AbstractFriend {
       setActualEvolution(2);
       setStats();
       setMaxMagic(1000);
-      addType(FlyingType.getInstance());
+      addType(TypeFactory.getType("Flying"));
     }
   }
   

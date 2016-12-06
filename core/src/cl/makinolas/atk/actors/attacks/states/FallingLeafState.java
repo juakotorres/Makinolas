@@ -5,6 +5,7 @@ import com.badlogic.gdx.graphics.g2d.Animation.PlayMode;
 import cl.makinolas.atk.actors.Monsters;
 import cl.makinolas.atk.types.GrassType;
 import cl.makinolas.atk.types.IType;
+import cl.makinolas.atk.types.TypeFactory;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
@@ -72,7 +73,7 @@ public class FallingLeafState extends SpriteState {
 
 @Override
 public IType getType() {
-	return GrassType.getInstance();
+	return TypeFactory.getType("Grass");
 }
 
 @Override

@@ -12,6 +12,7 @@ import cl.makinolas.atk.actors.attacks.states.RockState;
 import cl.makinolas.atk.types.DarkType;
 import cl.makinolas.atk.types.GroundType;
 import cl.makinolas.atk.types.RockType;
+import cl.makinolas.atk.types.TypeFactory;
 
 public class LarvitarTODO extends AbstractFriend {
 
@@ -36,8 +37,8 @@ public class LarvitarTODO extends AbstractFriend {
 	    newMonster();
 	    setActualEvolution(0);
 	    setMaxMagic(1000);
-	    addType(RockType.getInstance());
-	    addType(GroundType.getInstance());
+	    addType(new RockType());
+	    addType(new GroundType());
 	}
 	
 	public LarvitarTODO(int level){
@@ -90,8 +91,8 @@ public class LarvitarTODO extends AbstractFriend {
 		    setStats();
 		    setMaxMagic(1000);
 		    resetType();
-		    addType(RockType.getInstance());
-		    addType(DarkType.getInstance());
+		    addType(TypeFactory.getType("Rock"));
+		    addType(TypeFactory.getType("Dark"));
 		}
 	}
 	

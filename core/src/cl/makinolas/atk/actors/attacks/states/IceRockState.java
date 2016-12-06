@@ -5,6 +5,7 @@ import com.badlogic.gdx.graphics.g2d.Animation.PlayMode;
 import cl.makinolas.atk.actors.Monsters;
 import cl.makinolas.atk.types.IType;
 import cl.makinolas.atk.types.IceType;
+import cl.makinolas.atk.types.TypeFactory;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
@@ -62,7 +63,7 @@ public class IceRockState extends SpriteState {
 
 @Override
 public IType getType() {
-	return IceType.getInstance();
+	return TypeFactory.getType("Ice");
 }
 
 public static int getMagicRequirement(){

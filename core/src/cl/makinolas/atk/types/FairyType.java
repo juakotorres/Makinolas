@@ -2,17 +2,9 @@ package cl.makinolas.atk.types;
 
 public class FairyType extends AbstractType implements IType {
 	
-	private static FairyType instance = null;
-	
-	private FairyType(){
+	public FairyType(){
 		this.isFairy = true;
-	}
-	
-	public static FairyType getInstance(){
-		if (instance == null){
-			instance = new FairyType();
-		}
-		return instance;
+		System.out.println("FairyCreated");
 	}
 
 	@Override

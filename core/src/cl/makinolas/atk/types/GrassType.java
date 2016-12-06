@@ -2,17 +2,9 @@ package cl.makinolas.atk.types;
 
 public class GrassType extends AbstractType implements IType {
 
-	private static GrassType instance = null;
-	
-	private GrassType(){
+	public GrassType(){
 		this.isGrass = true;
-	}
-	
-	public static GrassType getInstance(){
-		if (instance == null){
-			instance = new GrassType();
-		}
-		return instance;
+		System.out.println("GrassCreated");
 	}
 
 	@Override

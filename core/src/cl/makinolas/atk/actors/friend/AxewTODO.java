@@ -10,6 +10,7 @@ import cl.makinolas.atk.actors.attacks.Attacks;
 import cl.makinolas.atk.actors.attacks.ShootAttack;
 import cl.makinolas.atk.actors.attacks.states.DragonBreathState;
 import cl.makinolas.atk.types.DragonType;
+import cl.makinolas.atk.types.TypeFactory;
 
 
 public class AxewTODO extends AbstractFriend {
@@ -35,7 +36,7 @@ public class AxewTODO extends AbstractFriend {
 	    newMonster();
 	    setActualEvolution(0);
 	    setMaxMagic(1000);
-	    addType(DragonType.getInstance());
+	    addType(TypeFactory.getType("Dragon"));
 	}
 	
 	public AxewTODO(int level){

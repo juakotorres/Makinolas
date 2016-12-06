@@ -11,6 +11,7 @@ import cl.makinolas.atk.actors.attacks.BombAttack;
 import cl.makinolas.atk.actors.attacks.states.TornadoState;
 import cl.makinolas.atk.types.FlyingType;
 import cl.makinolas.atk.types.PoisonType;
+import cl.makinolas.atk.types.TypeFactory;
 
 public class Zubat extends AbstractFriend {
   
@@ -32,8 +33,8 @@ public class Zubat extends AbstractFriend {
     newMonster();
     setActualEvolution(0);
     setMaxMagic(1000);
-    addType(PoisonType.getInstance());
-    addType(FlyingType.getInstance());
+    addType(TypeFactory.getType("Poison"));
+    addType(TypeFactory.getType("Flying"));
   }
   
   public Zubat(int level){

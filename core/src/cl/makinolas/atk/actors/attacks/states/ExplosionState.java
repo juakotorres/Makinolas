@@ -5,6 +5,7 @@ import com.badlogic.gdx.graphics.g2d.Animation.PlayMode;
 import cl.makinolas.atk.actors.Monsters;
 import cl.makinolas.atk.types.IType;
 import cl.makinolas.atk.types.NormalType;
+import cl.makinolas.atk.types.TypeFactory;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
@@ -87,7 +88,7 @@ public class ExplosionState extends SpriteState {
 
 @Override
 public IType getType() {
-	return NormalType.getInstance();
+	return TypeFactory.getType("Normal");
 }
 
 public static int getMagicRequirement(){

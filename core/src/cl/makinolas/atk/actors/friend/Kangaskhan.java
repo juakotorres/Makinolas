@@ -5,6 +5,7 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 
 import cl.makinolas.atk.types.NormalType;
+import cl.makinolas.atk.types.TypeFactory;
 
 public class Kangaskhan extends AbstractFriend {
 
@@ -26,7 +27,7 @@ public class Kangaskhan extends AbstractFriend {
     newMonster();
     setActualEvolution(0);
     setMaxMagic(1000);
-    addType(NormalType.getInstance());
+    addType(TypeFactory.getType("Normal"));
     }
   
   public Kangaskhan(int level){

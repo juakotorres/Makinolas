@@ -10,6 +10,7 @@ import cl.makinolas.atk.actors.attacks.Attacks;
 import cl.makinolas.atk.actors.attacks.BombAttack;
 import cl.makinolas.atk.actors.attacks.states.ThunderBoltState;
 import cl.makinolas.atk.types.ElectricType;
+import cl.makinolas.atk.types.TypeFactory;
 
 
 public class Elekid extends AbstractFriend {
@@ -35,7 +36,7 @@ public class Elekid extends AbstractFriend {
 	    newMonster();
 	    setActualEvolution(0);
 	    setMaxMagic(1000);
-	    addType(ElectricType.getInstance());
+	    addType(TypeFactory.getType("Electric"));
 	}
 
 	public Elekid(int level){

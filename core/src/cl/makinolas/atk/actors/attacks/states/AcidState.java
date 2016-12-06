@@ -9,6 +9,7 @@ import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import cl.makinolas.atk.actors.Monsters;
 import cl.makinolas.atk.types.IType;
 import cl.makinolas.atk.types.PoisonType;
+import cl.makinolas.atk.types.TypeFactory;
 
 public class AcidState extends SpriteState {
 	
@@ -71,7 +72,7 @@ public class AcidState extends SpriteState {
 
 @Override
 public IType getType() {
-	return PoisonType.getInstance();
+	return TypeFactory.getType("Poison");
 }
 
 public static int getMagicRequirement(){

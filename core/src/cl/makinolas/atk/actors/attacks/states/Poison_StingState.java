@@ -9,6 +9,7 @@ import cl.makinolas.atk.actors.Monsters;
 import cl.makinolas.atk.stateEfects.PoisonStateEffects;
 import cl.makinolas.atk.types.IType;
 import cl.makinolas.atk.types.PoisonType;
+import cl.makinolas.atk.types.TypeFactory;
 
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 
@@ -68,7 +69,7 @@ public class Poison_StingState extends SpriteState{
 
 @Override
 public IType getType() {
-	return PoisonType.getInstance();
+	return TypeFactory.getType("Poison");
 }
 
 @Override

@@ -2,17 +2,9 @@ package cl.makinolas.atk.types;
 
 public class BugType extends AbstractType implements IType {
 
-	private static BugType instance = null;
-	
-	private BugType(){
+	public BugType(){
 		this.isBug = true;
-	}
-	
-	public static BugType getInstance(){
-		if (instance == null){
-			instance = new BugType();
-		}
-		return instance;
+		System.out.println("BugCreated");
 	}
 	
 	@Override

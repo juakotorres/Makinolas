@@ -11,6 +11,7 @@ import cl.makinolas.atk.actors.attacks.AreaEffectAttack;
 import cl.makinolas.atk.actors.attacks.states.SingState;
 import cl.makinolas.atk.types.FairyType;
 import cl.makinolas.atk.types.NormalType;
+import cl.makinolas.atk.types.TypeFactory;
 
 public class Igglybuff extends AbstractFriend {
   
@@ -32,8 +33,8 @@ public class Igglybuff extends AbstractFriend {
     newMonster();
     setActualEvolution(0);
     setMaxMagic(1000);
-    addType(NormalType.getInstance());
-    addType(FairyType.getInstance());
+    addType(TypeFactory.getType("Normal"));
+    addType(TypeFactory.getType("Fairy"));
   }
   
   public Igglybuff(int level){

@@ -2,17 +2,9 @@ package cl.makinolas.atk.types;
 
 public class GroundType extends AbstractType implements IType {
 
-	private static GroundType instance = null;
-	
-	private GroundType(){
+	public GroundType(){
 		this.isGround = true;
-	}
-	
-	public static GroundType getInstance(){
-		if (instance == null){
-			instance = new GroundType();
-		}
-		return instance;
+		System.out.println("GroundCreated");
 	}
 
 	@Override

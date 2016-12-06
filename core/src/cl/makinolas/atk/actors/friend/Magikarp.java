@@ -10,6 +10,7 @@ import cl.makinolas.atk.actors.attacks.Attacks;
 import cl.makinolas.atk.actors.attacks.ShootAttack;
 import cl.makinolas.atk.actors.attacks.states.WindShurikenState;
 import cl.makinolas.atk.types.FlyingType;
+import cl.makinolas.atk.types.TypeFactory;
 import cl.makinolas.atk.types.WaterType;
 
 public class Magikarp extends AbstractFriend {
@@ -32,7 +33,7 @@ public class Magikarp extends AbstractFriend {
     newMonster();
     setActualEvolution(0);
     setMaxMagic(1000);
-    addType(WaterType.getInstance());
+    addType(TypeFactory.getType("Water"));
   }
   
   public Magikarp(int level){
@@ -63,7 +64,7 @@ public class Magikarp extends AbstractFriend {
       setActualEvolution(1);
       setStats();
       setMaxMagic(1000);
-      addType(FlyingType.getInstance());
+      addType(TypeFactory.getType("Flying"));
     }
   }
   

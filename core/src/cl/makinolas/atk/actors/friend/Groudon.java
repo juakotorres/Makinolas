@@ -5,6 +5,7 @@ import cl.makinolas.atk.actors.attacks.Attacks;
 import cl.makinolas.atk.actors.attacks.ShootAttack;
 import cl.makinolas.atk.actors.attacks.states.BlueBeamState;
 import cl.makinolas.atk.types.GroundType;
+import cl.makinolas.atk.types.TypeFactory;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
@@ -29,7 +30,7 @@ public class Groudon extends AbstractFriend {
         setActualEvolution(0);
         setStats();
         setMaxMagic(1000);
-        addType(GroundType.getInstance());
+        addType(TypeFactory.getType("Ground"));
     }
     
     public Groudon(int lvl) {

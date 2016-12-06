@@ -3,6 +3,7 @@ package cl.makinolas.atk.actors.attacks.states;
 import cl.makinolas.atk.actors.Monsters;
 import cl.makinolas.atk.types.IType;
 import cl.makinolas.atk.types.RockType;
+import cl.makinolas.atk.types.TypeFactory;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
@@ -61,7 +62,7 @@ public class TRockState extends SpriteState {
 
 	@Override
 	public IType getType() {
-		return RockType.getInstance();
+		return TypeFactory.getType("Rock");
 	}
 	
 	public static int getMagicRequirement(){

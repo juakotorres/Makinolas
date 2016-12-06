@@ -2,17 +2,9 @@ package cl.makinolas.atk.types;
 
 public class PoisonType extends AbstractType implements IType {
 
-	private static PoisonType instance = null;
-	
-	private PoisonType(){
+	public PoisonType(){
 		this.isPoison = true;
-	}
-	
-	public static PoisonType getInstance(){
-		if (instance == null){
-			instance = new PoisonType();
-		}
-		return instance;
+		System.out.println("PoisonCreated");
 	}
 
 	@Override

@@ -2,17 +2,9 @@ package cl.makinolas.atk.types;
 
 public class DragonType extends AbstractType implements IType {
 
-	private static DragonType instance = null;
-	
-	private DragonType(){
+	public DragonType(){
 		this.isDragon = true;
-	}
-	
-	public static DragonType getInstance(){
-		if (instance == null){
-			instance = new DragonType();
-		}
-		return instance;
+		System.out.println("DragonCreated");
 	}
 	
 	@Override
