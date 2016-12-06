@@ -65,9 +65,6 @@ public class GameStage extends AbstractStage implements ContactListener {
     addActor(mons);
     ui = new Group();
     addActor(ui);
-    menuButton = new TextButton("Back to Menu",  new Skin(Gdx.files.internal("Data/uiskin.json")));
-    menuButton.setVisible(false);
-    addActor(menuButton);
 
     MobileGroup group = new MobileGroup(Gdx.app.getType() == Application.ApplicationType.Android);
     Gdx.input.setInputProcessor(this);
@@ -90,6 +87,17 @@ public class GameStage extends AbstractStage implements ContactListener {
     accumulator = 0;
     renderer = new Box2DDebugRenderer();
     setupCamera();
+    
+    menuButton = new TextButton("Back to Menu",  new Skin(Gdx.files.internal("Data/uiskin.json")));
+    menuButton.setVisible(false);
+    menuButton.addListener(new ClickListener(){
+        @Override
+        public void clicked(InputEvent event, float x, float y) {
+      	  bagVis.hide();
+      	  toMenu();
+        }
+    });
+    addActor(menuButton);
   }
 
   public void addGameActor(GameActor actor) {
@@ -167,20 +175,12 @@ public class GameStage extends AbstractStage implements ContactListener {
   @Override
   public void togglePause() {
     super.togglePause();
-    if(isPaused()){
+    if (isPaused()) {
       bagVis = BagVis.getInstance();
       //bagVis.setPosition(getCamera().position.x,getCamera().position.y);
       bagVis.show();
 
-      menuButton.addListener(new ClickListener(){
-          @Override
-          public void clicked(InputEvent event, float x, float y) {
-        	  bagVis.hide();
-        	  toMenu();
-          }
-
-      });
-      menuButton.setPosition(getCamera().position.x - 60, getCamera().position.y - 150);
+      menuButton.setPosition(getCamera().position.x - 60, getCamera().position.y - 180);
       menuButton.setVisible(true);
     }
     else{
@@ -192,7 +192,7 @@ public class GameStage extends AbstractStage implements ContactListener {
   private void toMenu() {
   	musicplayer.StopMusic();
   	myGame.setScreen(new MenuScreen(myGame));
-	}
+  }
 
   @Override
   public void beginContact(Contact contact) {
