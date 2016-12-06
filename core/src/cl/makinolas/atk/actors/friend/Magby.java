@@ -8,7 +8,7 @@ import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.physics.box2d.World;
 
 import cl.makinolas.atk.types.FireType;
-
+import cl.makinolas.atk.types.TypeFactory;
 import cl.makinolas.atk.actors.Monsters;
 import cl.makinolas.atk.actors.attacks.Attacks;
 
@@ -34,7 +34,7 @@ public class Magby extends AbstractFriend {
 	    newMonster();
 	    setActualEvolution(0);
 	    setMaxMagic(1000);
-	    addType(FireType.getInstance());
+	    addType(TypeFactory.getType("Fire"));
 	  }
 	  
 	  public Magby(int level){
@@ -95,7 +95,7 @@ public class Magby extends AbstractFriend {
 	  @Override
 	  public int getAttackMagicRequirement() {
 		// TODO Auto-generated method stub
-		return FireballState.magicRequirement;
+		return FireballState.getMagicRequirement();
 	  }
 
 }

@@ -2,17 +2,8 @@ package cl.makinolas.atk.types;
 
 public class RockType extends AbstractType implements IType {
 
-	private static RockType instance = null;
-	
-	private RockType(){
+	public RockType(){
 		this.isRock = true;
-	}
-	
-	public static RockType getInstance(){
-		if (instance == null){
-			instance = new RockType();
-		}
-		return instance;
 	}
 
 	@Override

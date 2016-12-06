@@ -185,15 +185,13 @@ public class Enemy extends Monsters {
 	}
 
 	protected void checkDamage(float delta, float inflictorVel) {
-		if(!this.isSinging){
-			if (isDamaged) {
-				myBody.setLinearVelocity(new Vector2(inflictorVel, 0));
-				accumulator += delta;
-				if (accumulator > hurtTime) {
-					isDamaged = false;
-					changeAnimation(walkAnimation);
-					accumulator = 0;
-				}
+		if (isDamaged) {		
+			myBody.setLinearVelocity(new Vector2(inflictorVel, 0));
+			accumulator += delta;
+			if (accumulator > hurtTime) {
+				isDamaged = false;
+				changeAnimation(walkAnimation);
+				accumulator = 0;
 			}
 		}
 	}
@@ -230,6 +228,7 @@ public class Enemy extends Monsters {
 			health = 0;
 		} else {
 			health -= damage;
+			mplayer.PlayGetDmg();
 		}
 		isDamaged = true;
 		changeAnimation(hurtAnimation);

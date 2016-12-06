@@ -11,6 +11,7 @@ import cl.makinolas.atk.actors.attacks.DroppingAttack;
 import cl.makinolas.atk.actors.attacks.states.FallingLeafState;
 import cl.makinolas.atk.types.BugType;
 import cl.makinolas.atk.types.FlyingType;
+import cl.makinolas.atk.types.TypeFactory;
 
 public class Caterpie extends AbstractFriend {
 
@@ -32,7 +33,7 @@ public class Caterpie extends AbstractFriend {
     newMonster();
     setActualEvolution(0);
     setMaxMagic(1000);
-    addType(BugType.getInstance());
+    addType(TypeFactory.getType("Bug"));
   }
   
   public Caterpie(int level){
@@ -77,7 +78,7 @@ public class Caterpie extends AbstractFriend {
       setActualEvolution(2);
       setStats();
       setMaxMagic(1000);
-      addType(FlyingType.getInstance());
+      addType(TypeFactory.getType("Flying"));
     }
   }
   
@@ -90,7 +91,7 @@ public class Caterpie extends AbstractFriend {
   @Override
   public int getAttackMagicRequirement() {
 	// TODO Auto-generated method stub
-	return FallingLeafState.magicRequirement;
+	return FallingLeafState.getMagicRequirement();
   }
 
 }

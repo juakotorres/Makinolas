@@ -12,6 +12,7 @@ import cl.makinolas.atk.actors.attacks.states.IceRockState;
 
 import cl.makinolas.atk.types.GrassType;
 import cl.makinolas.atk.types.IceType;
+import cl.makinolas.atk.types.TypeFactory;
 
 public class Snover extends AbstractFriend {
 
@@ -36,8 +37,8 @@ public class Snover extends AbstractFriend {
 	    newMonster();
 	    setActualEvolution(0);
 	    setMaxMagic(1000);
-	    addType(IceType.getInstance());
-	    addType(GrassType.getInstance());
+	    addType(TypeFactory.getType("Ice"));
+	    addType(TypeFactory.getType("Grass"));
 	}
 	
 	public Snover(int level){
