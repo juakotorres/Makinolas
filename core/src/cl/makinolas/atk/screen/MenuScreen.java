@@ -11,6 +11,8 @@ import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.utils.viewport.FitViewport;
 
+import cl.makinolas.atk.audio.GDXSoundEffectsHero;
+import cl.makinolas.atk.audio.GDXSoundEffectsPlayer;
 import cl.makinolas.atk.stages.CorruptSAVStage;
 import cl.makinolas.atk.stages.LoadStage;
 import cl.makinolas.atk.stages.MenuStage;
@@ -21,6 +23,7 @@ import java.io.File;
 
 public class MenuScreen extends SimpleScreen {
 
+  private GDXSoundEffectsPlayer mplayer = GDXSoundEffectsHero.getInstance();
   public MenuScreen(Game game){
     super(game, new MenuStage(new FitViewport(640,480)));
 
@@ -28,6 +31,7 @@ public class MenuScreen extends SimpleScreen {
     loadButton.addListener(new ClickListener(){
       @Override
       public void clicked(InputEvent event, float x, float y) {
+    	  mplayer.PlayPressButton();
           loadGame();
       }
     });
@@ -35,6 +39,7 @@ public class MenuScreen extends SimpleScreen {
     minigameButton.addListener(new ClickListener(){
       @Override
       public void clicked(InputEvent event, float x, float y) {
+    	  mplayer.PlayPressButton();
           minigame();
       }
     });
@@ -47,6 +52,7 @@ public class MenuScreen extends SimpleScreen {
     optionButton.addListener(new ClickListener(){
       @Override
       public void clicked(InputEvent event, float x, float y) {
+    	  mplayer.PlayPressButton();
           options();
       }
     });

@@ -458,6 +458,7 @@ public class Hero extends Monsters {
       isDamaged = true;
       changeAnimation(hurtAnimation);
       inflictor.setDead();
+      mplayer.PlayGetDmg();
     }
     if(getHealth() <= 0){
       changeAllie();

@@ -3,6 +3,8 @@ package cl.makinolas.atk.actors.ui;
 import cl.makinolas.atk.actors.Hero;
 import cl.makinolas.atk.actors.items.Inventory;
 import cl.makinolas.atk.actors.items.ItemBox;
+import cl.makinolas.atk.audio.GDXSoundEffectsHero;
+import cl.makinolas.atk.audio.GDXSoundEffectsPlayer;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
@@ -20,6 +22,7 @@ public class BagVis extends Group {
 
     private static BagVis instance = new BagVis();
     private Inventory inventory;
+    private GDXSoundEffectsPlayer mplayer = GDXSoundEffectsHero.getInstance();
     private ArrayList<ItemBag> items;
     private int selected = -1;
     private boolean showing;
@@ -113,6 +116,7 @@ public class BagVis extends Group {
             item.setSelected(false);
         }
         if(i!=-1)
+        	mplayer.PlayMoveMenu();
             items.get(i).setSelected(true);
         selected = i;
     }

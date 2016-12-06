@@ -9,6 +9,8 @@ import cl.makinolas.atk.actors.ui.BagVis;
 import cl.makinolas.atk.actors.ui.MainBar;
 import cl.makinolas.atk.actors.ui.MobileGroup;
 import cl.makinolas.atk.audio.GDXMusicPlayer;
+import cl.makinolas.atk.audio.GDXSoundEffectsEnemy;
+import cl.makinolas.atk.audio.GDXSoundEffectsPlayer;
 import cl.makinolas.atk.screen.GameScreen;
 import cl.makinolas.atk.screen.MenuScreen;
 import cl.makinolas.atk.utils.LevelReader;
@@ -38,6 +40,7 @@ public class GameStage extends AbstractStage implements ContactListener {
   private Group ground, mons, ui, deco;
   private MainBar bar;
   private BagVis bagVis;
+  private GDXSoundEffectsPlayer mplayer = GDXSoundEffectsEnemy.getInstance();
 
   private OrthographicCamera camera;
   private Box2DDebugRenderer renderer;
@@ -175,7 +178,9 @@ public class GameStage extends AbstractStage implements ContactListener {
   @Override
   public void togglePause() {
     super.togglePause();
-    if (isPaused()) {
+
+    if(isPaused()){
+      mplayer.PlayPauseMenuIn();
       bagVis = BagVis.getInstance();
       //bagVis.setPosition(getCamera().position.x,getCamera().position.y);
       bagVis.show();
