@@ -9,7 +9,6 @@ import cl.makinolas.atk.actors.Monsters;
 import cl.makinolas.atk.actors.attacks.Attacks;
 import cl.makinolas.atk.actors.attacks.BoomerangAttack;
 import cl.makinolas.atk.actors.attacks.states.BoneAttackState;
-import cl.makinolas.atk.types.GroundType;
 import cl.makinolas.atk.types.TypeFactory;
 
 public class Cubone extends AbstractFriend {

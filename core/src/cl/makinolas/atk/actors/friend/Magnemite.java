@@ -9,8 +9,6 @@ import cl.makinolas.atk.actors.Monsters;
 import cl.makinolas.atk.actors.attacks.Attacks;
 import cl.makinolas.atk.actors.attacks.BombAttack;
 import cl.makinolas.atk.actors.attacks.states.ThunderBoltState;
-import cl.makinolas.atk.types.ElectricType;
-import cl.makinolas.atk.types.SteelType;
 import cl.makinolas.atk.types.TypeFactory;
 
 public class Magnemite extends AbstractFriend {

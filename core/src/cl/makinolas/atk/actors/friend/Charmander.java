@@ -2,8 +2,6 @@ package cl.makinolas.atk.actors.friend;
 
 import cl.makinolas.atk.actors.attacks.ParabolicAttack;
 import cl.makinolas.atk.actors.attacks.states.FireballState;
-import cl.makinolas.atk.types.FireType;
-import cl.makinolas.atk.types.FlyingType;
 import cl.makinolas.atk.types.TypeFactory;
 
 import com.badlogic.gdx.Gdx;

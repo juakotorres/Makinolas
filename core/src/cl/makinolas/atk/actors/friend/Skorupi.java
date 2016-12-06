@@ -5,7 +5,6 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 
 import cl.makinolas.atk.types.BugType;
-import cl.makinolas.atk.types.DarkType;
 import cl.makinolas.atk.types.PoisonType;
 import cl.makinolas.atk.types.TypeFactory;
 

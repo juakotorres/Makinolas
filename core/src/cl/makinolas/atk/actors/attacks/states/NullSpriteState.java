@@ -4,7 +4,6 @@ import com.badlogic.gdx.graphics.g2d.Animation.PlayMode;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 
 import cl.makinolas.atk.types.IType;
-import cl.makinolas.atk.types.NormalType;
 import cl.makinolas.atk.types.TypeFactory;
 
 public class NullSpriteState extends SpriteState {

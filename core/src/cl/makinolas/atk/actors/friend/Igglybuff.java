@@ -9,8 +9,6 @@ import cl.makinolas.atk.actors.GameActor;
 import cl.makinolas.atk.actors.Monsters;
 import cl.makinolas.atk.actors.attacks.AreaEffectAttack;
 import cl.makinolas.atk.actors.attacks.states.SingState;
-import cl.makinolas.atk.types.FairyType;
-import cl.makinolas.atk.types.NormalType;
 import cl.makinolas.atk.types.TypeFactory;
 
 public class Igglybuff extends AbstractFriend {

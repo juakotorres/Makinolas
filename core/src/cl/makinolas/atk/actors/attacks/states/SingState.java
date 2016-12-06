@@ -8,7 +8,6 @@ import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import cl.makinolas.atk.actors.Monsters;
 import cl.makinolas.atk.stateEfects.SleepStateEffect;
 import cl.makinolas.atk.types.IType;
-import cl.makinolas.atk.types.NormalType;
 import cl.makinolas.atk.types.TypeFactory;
 
 public class SingState extends SpriteState {
