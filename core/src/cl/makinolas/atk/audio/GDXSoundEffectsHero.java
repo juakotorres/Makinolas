@@ -4,11 +4,19 @@ import com.badlogic.gdx.Gdx;
 
 import cl.makinolas.atk.stages.OptionsStage;
 
+
+
 public class GDXSoundEffectsHero extends GDXSoundEffectsPlayer {
 	
 	public static GDXSoundEffectsPlayer getInstance() {
-		GDXSoundEffectsPlayer myInstance = GDXSoundEffectsPlayer.getInstance();
 		
+	
+		GDXSoundEffectsPlayer myInstance = GDXSoundEffectsPlayer.getInstance();
+		sfxmap.putIfAbsent("soundPauseMenuOut",Gdx.audio.newMusic(Gdx.files.internal("Music/firered_00FB.wav")));
+		sfxmap.putIfAbsent("soundPauseMenuIn",Gdx.audio.newMusic(Gdx.files.internal("Music/firered_00FA.wav")));
+		sfxmap.putIfAbsent("soundPressButton",Gdx.audio.newMusic(Gdx.files.internal("Music/firered_00F6.wav")));
+		sfxmap.putIfAbsent("soundMoveMenu", Gdx.audio.newMusic(Gdx.files.internal("Music/firered_000A.wav")));
+		sfxmap.putIfAbsent("soundGetDmg", Gdx.audio.newMusic(Gdx.files.internal("Music/firered_00F1.wav")));
 		sfxmap.putIfAbsent("soundJump", Gdx.audio.newMusic(Gdx.files.internal("Music/jump_02.wav")));
 		sfxmap.putIfAbsent("soundProyectile", Gdx.audio.newMusic(Gdx.files.internal("Music/laser4.wav")));
 		sfxmap.putIfAbsent("soundEndStage", Gdx.audio.newMusic(Gdx.files.internal("Music/FX098.wav")));
@@ -23,4 +31,5 @@ public class GDXSoundEffectsHero extends GDXSoundEffectsPlayer {
 
 	}	
 
+	
 }

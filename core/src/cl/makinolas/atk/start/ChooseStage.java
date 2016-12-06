@@ -46,8 +46,8 @@ public class ChooseStage extends Stage {
     
     arrow = new Title("CharacterImages/arrow.png", 50, 300);
     addActor(arrow);
-    PokemonStarter firstOption = new PokemonStarter("CharacterImages/charmander.png", new Snover(5),120,300
-        ,"CharacterImages/firetype.png", GameText.charmanderDescription,0);
+    PokemonStarter firstOption = new PokemonStarter("CharacterImages/snover.png", new Snover(5),120,300
+        ,"CharacterImages/icetype.png", GameText.charmanderDescription,0);
     addActor(firstOption);
     PokemonStarter secondOption = new PokemonStarter("CharacterImages/snivy.png", new Snivy(5), 320,300
         ,"CharacterImages/grasstype.png", GameText.snivyDescription,1 );

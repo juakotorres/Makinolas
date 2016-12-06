@@ -6,6 +6,8 @@ import cl.makinolas.atk.actors.items.Inventory;
 import cl.makinolas.atk.actors.items.Item;
 import cl.makinolas.atk.actors.items.ItemFinder;
 import cl.makinolas.atk.actors.ui.ShopItem;
+import cl.makinolas.atk.audio.GDXSoundEffectsHero;
+import cl.makinolas.atk.audio.GDXSoundEffectsPlayer;
 import cl.makinolas.atk.utils.SaveManager;
 import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
@@ -27,6 +29,7 @@ import com.badlogic.gdx.utils.viewport.FitViewport;
 public class ShopScreen extends SimpleScreen implements KeyHandable{
 
     private String[] items = {"PokeBall","GreatBall","UltraBall","Potion","MaxPotion","MasterBall"};
+    private GDXSoundEffectsPlayer mplayer = GDXSoundEffectsHero.getInstance();
     private int[] prices = {200,400,800,200,100,10};
     private TextureRegion[] sps = {Ball.BallType.POKEBALL.texture, Ball.BallType.GREATBALL.texture,
             Ball.BallType.ULTRABALL.texture, Item.textures[1][0],Item.textures[1][3], Ball.BallType.MASTERBALL.texture};
@@ -47,6 +50,7 @@ public class ShopScreen extends SimpleScreen implements KeyHandable{
             @Override
             public void clicked(InputEvent event, float x, float y) {
                 exitShop();
+                mplayer.PlayPressButton();
             }
         });
         stage.addActor(exitButton);
@@ -56,6 +60,7 @@ public class ShopScreen extends SimpleScreen implements KeyHandable{
             @Override
             public void clicked(InputEvent event, float x, float y) {
                 purchaseItem(1);
+                mplayer.PlayPressButton();
             }
         });
         stage.addActor(buyButton);
@@ -65,6 +70,7 @@ public class ShopScreen extends SimpleScreen implements KeyHandable{
             @Override
             public void clicked(InputEvent event, float x, float y) {
                 purchaseItem(10);
+                mplayer.PlayPressButton();
             }
         });
         stage.addActor(buy10Button);

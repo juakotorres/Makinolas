@@ -29,6 +29,24 @@ public class GDXSoundEffectsPlayer {
 		}
 	}
 	
+	
+	//Menu
+	public void PlayPauseMenuIn(){
+		sfxmap.get("soundPauseMenuIn").play();
+	}
+	public void PlayPauseMenuOut(){
+		sfxmap.get("soundPauseMenuOut").play();
+	}
+	
+	public void PlayPressButton(){
+		sfxmap.get("soundPressButton").play();
+	}
+	public void PlayMoveMenu(){
+		sfxmap.get("soundMoveMenu").play();
+	}
+	public void PlayGetDmg(){
+		sfxmap.get("soundGetDmg").play();
+	}
 	// Hero
 	
 	public void PlayJumpSound(){

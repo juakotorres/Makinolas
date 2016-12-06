@@ -1,6 +1,9 @@
 package cl.makinolas.atk.actors.ui;
 
 import cl.makinolas.atk.actors.Hero;
+import cl.makinolas.atk.audio.GDXSoundEffectsHero;
+import cl.makinolas.atk.audio.GDXSoundEffectsPlayer;
+
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Batch;
@@ -14,6 +17,7 @@ public class ShopItem extends Actor {
     private final TextureRegion bg = new TextureRegion(new Texture("Overlays/boxgray.png"));
     private final TextureRegion sbg = new TextureRegion(new Texture("Overlays/boxblue.png"));
     private BitmapFont font = new BitmapFont(Gdx.files.internal("Fonts/normal.fnt"),Gdx.files.internal("Fonts/normal.png"),false);
+    private GDXSoundEffectsPlayer mplayer = GDXSoundEffectsHero.getInstance();
     private int price;
     private String itemname;
     private boolean selected;
@@ -28,6 +32,7 @@ public class ShopItem extends Actor {
 
     @Override
     public void draw(Batch batch, float parentAlpha) {
+    	
         float cx = getX();
         float cy = getY();
         int quantity = Hero.getInstance().getInventory().getItemQuantity(itemname);
@@ -42,5 +47,6 @@ public class ShopItem extends Actor {
 
     public void setSelected(boolean selected) {
         this.selected = selected;
+        mplayer.PlayMoveMenu();
     }
 }
