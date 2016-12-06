@@ -4,12 +4,13 @@ import cl.makinolas.atk.actors.Background;
 import cl.makinolas.atk.actors.GameActor;
 import cl.makinolas.atk.actors.Hero;
 import cl.makinolas.atk.actors.InputController;
-import cl.makinolas.atk.actors.SimpleImageActor;
 import cl.makinolas.atk.actors.fx.FxManager;
 import cl.makinolas.atk.actors.ui.BagVis;
 import cl.makinolas.atk.actors.ui.MainBar;
 import cl.makinolas.atk.actors.ui.MobileGroup;
 import cl.makinolas.atk.audio.GDXMusicPlayer;
+import cl.makinolas.atk.audio.GDXSoundEffectsEnemy;
+import cl.makinolas.atk.audio.GDXSoundEffectsPlayer;
 import cl.makinolas.atk.screen.GameScreen;
 import cl.makinolas.atk.utils.LevelReader;
 import com.badlogic.gdx.Application;
@@ -34,13 +35,14 @@ public class GameStage extends AbstractStage implements ContactListener {
   private Group ground, mons, ui, deco;
   private MainBar bar;
   private BagVis bagVis;
+  private GDXSoundEffectsPlayer mplayer = GDXSoundEffectsEnemy.getInstance();
 
   private OrthographicCamera camera;
   private Box2DDebugRenderer renderer;
   
   public GameStage(Viewport v, GameScreen actualScreen, Game myGame, Levels type){
     super(v);
-    musicplayer=new GDXMusicPlayer();
+    musicplayer = GDXMusicPlayer.getInstance();
     level = type;
     levelName = getLevelName();
     myScreen = actualScreen;
@@ -157,7 +159,7 @@ public class GameStage extends AbstractStage implements ContactListener {
   public void togglePause() {
     super.togglePause();
     if(isPaused()){
-      Hero.player.Getmplayer().playpausemenuin();
+      mplayer.PlayPauseMenuIn();
       bagVis = BagVis.getInstance();
       //bagVis.setPosition(getCamera().position.x,getCamera().position.y);
       bagVis.show();

@@ -34,7 +34,7 @@ public class Magby extends AbstractFriend {
 	    newMonster();
 	    setActualEvolution(0);
 	    setMaxMagic(1000);
-	    addType(new FireType());
+	    addType(FireType.getInstance());
 	  }
 	  
 	  public Magby(int level){
@@ -57,7 +57,7 @@ public class Magby extends AbstractFriend {
 	      friend = Enemies.MAGMAR;
 	      setTexture(new TextureRegion(new Texture(Gdx.files.internal("Actors/Magmar.png"))));
 	      
-		  setCutSprites(36,33);
+		  setCutSprites(38,33);
 		  setWalkAnimation(3,4,5,4);
 		  setHurtAnimation(0);
 		  setMeleeAnimation(6,7,8);
@@ -72,7 +72,7 @@ public class Magby extends AbstractFriend {
 	    } else if (numberOfLevel == 2 && getActualEvolution() < 2){
 	      friend = Enemies.MAGMORTAR;
 	      setTexture(new TextureRegion(new Texture(Gdx.files.internal("Actors/Magmortar.png"))));
-		  setCutSprites(30,33);
+		  setCutSprites(35,40);
 		  setWalkAnimation(3,4,5,4);
 		  setHurtAnimation(0);
 		  setMeleeAnimation(8,9);

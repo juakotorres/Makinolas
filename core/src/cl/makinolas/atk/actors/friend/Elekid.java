@@ -22,7 +22,7 @@ public class Elekid extends AbstractFriend {
 		setTexture(new TextureRegion(new Texture(Gdx.files.internal("Actors/Elekid.png"))));
 		/* aqui yace todo lo relacionado con los sprites */
 		
-	    setCutSprites(35,35);
+	    setCutSprites(33,35);
 	    setWalkAnimation(3,4,5,4);
 	    setHurtAnimation(0);
 	    setMeleeAnimation(6,7,8,9);
@@ -35,7 +35,7 @@ public class Elekid extends AbstractFriend {
 	    newMonster();
 	    setActualEvolution(0);
 	    setMaxMagic(1000);
-	    addType(new ElectricType());
+	    addType(ElectricType.getInstance());
 	}
 
 	public Elekid(int level){

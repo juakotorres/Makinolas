@@ -17,6 +17,8 @@ import com.badlogic.gdx.utils.viewport.Viewport;
 import cl.makinolas.atk.actors.ui.MapStageActor;
 import cl.makinolas.atk.actors.ui.MobileGroup;
 import cl.makinolas.atk.audio.GDXMusicPlayer;
+import cl.makinolas.atk.audio.GDXSoundEffectsEnemy;
+import cl.makinolas.atk.audio.GDXSoundEffectsPlayer;
 import cl.makinolas.atk.screen.GameScreen;
 import cl.makinolas.atk.screen.ShopScreen;
 import cl.makinolas.atk.screen.PokeComputerScreen;
@@ -28,6 +30,7 @@ public class MapStage extends Stage implements KeyHandable{
     private Levels[] levels;
     private Spot current;
     private Game myGame;
+    private GDXSoundEffectsPlayer mplayer = GDXSoundEffectsEnemy.getInstance();
 
     private boolean[] unlockedStages;
 
@@ -38,7 +41,7 @@ public class MapStage extends Stage implements KeyHandable{
     
         //Adding the actors to the stage (currently just the background, the traveler and the levels)
         addActor(new Background("Background/mapa.png", getCamera()));
-        musicplayer=new GDXMusicPlayer();
+        musicplayer = GDXMusicPlayer.getInstance();
         musicplayer.PlayLooped("Music/palett.mp3");
         buildLevels();
 
@@ -62,7 +65,7 @@ public class MapStage extends Stage implements KeyHandable{
             @Override
             public void clicked(InputEvent event, float x, float y) {
                 enterShop();
-                Hero.getInstance().Getmplayer().playpressbutton();
+                mplayer.PlayPressButton();
             }
         });
         shopButton.setPosition(20,12);
@@ -73,7 +76,7 @@ public class MapStage extends Stage implements KeyHandable{
             @Override
             public void clicked(InputEvent event, float x, float y) {
                 enterCenter();
-                Hero.getInstance().Getmplayer().playpressbutton();
+                mplayer.PlayPressButton();
             }
         });
         centerButton.setPosition(160,12);
@@ -84,7 +87,7 @@ public class MapStage extends Stage implements KeyHandable{
             @Override
             public void clicked(InputEvent event, float x, float y) {
                 enterComputer();
-                Hero.getInstance().Getmplayer().playpressbutton();
+                mplayer.PlayPressButton();
             }
         });
         computerButton.setPosition(350,12);
@@ -95,7 +98,7 @@ public class MapStage extends Stage implements KeyHandable{
             @Override
             public void clicked(InputEvent event, float x, float y) {
                 startLevel();
-                Hero.getInstance().Getmplayer().playpressbutton();
+                mplayer.PlayPressButton();
             }
         });
         startButton.setPosition(640-80,12);
@@ -121,7 +124,7 @@ public class MapStage extends Stage implements KeyHandable{
         Spot auxiliarSpot = current;
         if(keycode == Input.Keys.Z){
         	musicplayer.StopMusic();
-        	Hero.player.Getmplayer().playpressbutton();
+        	mplayer.PlayPressButton();
             startLevel();
             return;
         }
@@ -140,7 +143,7 @@ public class MapStage extends Stage implements KeyHandable{
 
         if(unlockedStages[auxiliarSpot.getLevel().ordinal()]){
         	if(current!=auxiliarSpot){
-        		Hero.getInstance().Getmplayer().playmovemenu();
+        		mplayer.PlayMoveMenu();
         	}
           current = auxiliarSpot;
           

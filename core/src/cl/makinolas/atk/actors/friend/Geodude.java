@@ -27,8 +27,8 @@ public class Geodude extends AbstractFriend {
     newMonster();
     setActualEvolution(0);
     setMaxMagic(1000);
-    addType(new RockType());
-    addType(new GroundType());
+    addType(RockType.getInstance());
+    addType(GroundType.getInstance());
   }
   
   public Geodude(int level){

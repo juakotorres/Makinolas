@@ -72,7 +72,7 @@ public class MovablePlatform extends Platform {
     }
 
     if(heroIsInPlatform){
-      Vector2 heroVel = Hero.getInstance().getBody().getLinearVelocity();
+      //Vector2 heroVel = Hero.getInstance().getBody().getLinearVelocity();
       Hero.getInstance().setMovablePLatformSpeed(vX,vY);
     }
 

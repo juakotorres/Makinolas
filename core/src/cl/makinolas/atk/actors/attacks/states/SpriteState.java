@@ -23,7 +23,7 @@ public abstract class SpriteState {
   public abstract IType getType();
   
   public SpriteState() {
-	  cooldown = 500; // Default Value
+	  cooldown = 250; // Default Value
   }
   
   public int getBodyWidth() {
@@ -71,6 +71,13 @@ public abstract class SpriteState {
   }
 public long getCooldown() {
 	return cooldown;
+}
+
+public void secondaryEfectsToSource(Monsters monster) {
+	
+}
+public void secondaryEfectsToAfected(Monsters monster) {
+	
 }
 
 }

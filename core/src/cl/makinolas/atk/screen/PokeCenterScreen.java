@@ -4,6 +4,8 @@ import cl.makinolas.atk.actors.*;
 import cl.makinolas.atk.actors.friend.Friend;
 import cl.makinolas.atk.actors.items.Inventory;
 import cl.makinolas.atk.actors.ui.TeamFriendImage;
+import cl.makinolas.atk.audio.GDXSoundEffectsHero;
+import cl.makinolas.atk.audio.GDXSoundEffectsPlayer;
 import cl.makinolas.atk.utils.SaveManager;
 import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
@@ -24,6 +26,7 @@ public class PokeCenterScreen extends SimpleScreen implements KeyHandable{
     private BitmapFont large = new BitmapFont(Gdx.files.internal("Fonts/large.fnt"),Gdx.files.internal("Fonts/large.png"),false);
     private Label currentItem, currentMoney;
     private Hero hero;
+    private GDXSoundEffectsPlayer mplayer = GDXSoundEffectsHero.getInstance();
 
     public PokeCenterScreen(Game g) {
         super(g, new Stage(new FitViewport(640,480)));
@@ -38,7 +41,7 @@ public class PokeCenterScreen extends SimpleScreen implements KeyHandable{
             @Override
             public void clicked(InputEvent event, float x, float y) {
                 exitCenter();
-                Hero.getInstance().Getmplayer().playpressbutton();
+                mplayer.PlayPressButton();
             }
         });
         stage.addActor(exitButton);
@@ -48,7 +51,7 @@ public class PokeCenterScreen extends SimpleScreen implements KeyHandable{
             @Override
             public void clicked(InputEvent event, float x, float y) {
                 healTeam();
-                Hero.getInstance().Getmplayer().playpressbutton();
+                mplayer.PlayPressButton();
             }
         });
         stage.addActor(healButton);

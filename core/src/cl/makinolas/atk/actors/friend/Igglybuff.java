@@ -3,7 +3,12 @@ package cl.makinolas.atk.actors.friend;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
+import com.badlogic.gdx.physics.box2d.World;
 
+import cl.makinolas.atk.actors.GameActor;
+import cl.makinolas.atk.actors.Monsters;
+import cl.makinolas.atk.actors.attacks.AreaEffectAttack;
+import cl.makinolas.atk.actors.attacks.states.SingState;
 import cl.makinolas.atk.types.FairyType;
 import cl.makinolas.atk.types.NormalType;
 
@@ -27,8 +32,8 @@ public class Igglybuff extends AbstractFriend {
     newMonster();
     setActualEvolution(0);
     setMaxMagic(1000);
-    addType(new NormalType());
-    addType(new FairyType());
+    addType(NormalType.getInstance());
+    addType(FairyType.getInstance());
   }
   
   public Igglybuff(int level){
@@ -73,6 +78,15 @@ public class Igglybuff extends AbstractFriend {
       setStats();
       setMaxMagic(1000);
     }
+  }
+  
+  public boolean secondaryAttack(){
+	  return true;
+  }
+  
+  public GameActor getFriendSecondaryAttack(World myWorld, float f, float y, boolean isFacingRight,
+			Monsters source){
+	  return  new AreaEffectAttack(new SingState(), myWorld, f, y, isFacingRight, source, isFacingRight);
   }
   
 }

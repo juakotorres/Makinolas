@@ -3,7 +3,6 @@ package cl.makinolas.atk.stages;
 import java.io.IOException;
 
 import cl.makinolas.atk.actors.bosses.BossFinder;
-import cl.makinolas.atk.actors.bosses.GroudonBoss;
 import com.badlogic.gdx.Application;
 import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
@@ -16,7 +15,6 @@ import com.badlogic.gdx.physics.box2d.ContactImpulse;
 import com.badlogic.gdx.physics.box2d.ContactListener;
 import com.badlogic.gdx.physics.box2d.Manifold;
 import com.badlogic.gdx.physics.box2d.World;
-import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.Group;
 import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.viewport.Viewport;
@@ -26,9 +24,7 @@ import cl.makinolas.atk.actors.GameActor;
 import cl.makinolas.atk.actors.Hero;
 import cl.makinolas.atk.actors.InputController;
 import cl.makinolas.atk.actors.Portal;
-import cl.makinolas.atk.actors.SimpleImageActor;
 import cl.makinolas.atk.actors.Title;
-import cl.makinolas.atk.actors.bosses.OldMewtwoBoss;
 import cl.makinolas.atk.actors.ui.MainBar;
 import cl.makinolas.atk.actors.ui.MobileGroup;
 import cl.makinolas.atk.audio.GDXMusicPlayer;
@@ -51,7 +47,7 @@ public class BossStage extends AbstractStage implements ContactListener {
 
   public BossStage(Viewport v, GameScreen actualScreen, Game myGame, Levels type){
     super(v);
-    musicplayer= new GDXMusicPlayer();
+    musicplayer= GDXMusicPlayer.getInstance();
     level = type;
     levelName = getLevelName();
     this.myGame = myGame;

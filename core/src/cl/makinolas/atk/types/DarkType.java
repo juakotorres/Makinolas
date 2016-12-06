@@ -2,6 +2,19 @@ package cl.makinolas.atk.types;
 
 public class DarkType extends AbstractType implements IType {
 
+	private static DarkType instance = null;
+	
+	private DarkType(){
+		this.isDark = true;
+	}
+	
+	public static DarkType getInstance(){
+		if (instance == null){
+			instance = new DarkType();
+		}
+		return instance;
+	}
+	
 	@Override
 	public double attackFromType(IType type) {
 		return type.darkPokemonAttacks(this);

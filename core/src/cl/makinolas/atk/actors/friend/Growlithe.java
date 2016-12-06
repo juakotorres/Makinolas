@@ -26,7 +26,7 @@ public class Growlithe extends AbstractFriend {
     newMonster();
     setActualEvolution(0);
     setMaxMagic(1000);
-    addType(new FireType());
+    addType(FireType.getInstance());
   }
   
   public Growlithe(int level){

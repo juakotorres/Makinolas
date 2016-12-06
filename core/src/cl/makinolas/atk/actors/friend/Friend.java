@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.physics.box2d.World;
 
+import cl.makinolas.atk.actors.GameActor;
 import cl.makinolas.atk.actors.Monsters;
 import cl.makinolas.atk.actors.attacks.Attacks;
 import cl.makinolas.atk.actors.enemies.Enemy;
@@ -28,6 +29,7 @@ public interface Friend {
   public int[][] getWalkAnimation();
   public int[][] getMeleeAnimation();
   public int[][] getSpecialAnimation();
+  public int[][] getSingAnimation();
   public int getMeleeFrame();
   public TextureRegion getTexture();
   public int getWidth();
@@ -70,7 +72,13 @@ public interface Friend {
   void addSpAttackEv(int n);
   void addSpDefenseEv(int n);
   void addSpeedEv(int n);
+  void setCriticModificator(int val);
+  void setAttackiv(int val);
+  int getAttackiv();
   public int getCriticModificator();
   public int getAttackMagicRequirement();
-
+public boolean secondaryAttack();
+public GameActor getFriendSecondaryAttack(World myWorld, float f, float y, boolean isFacingRight,
+		Monsters source);
+  
 }

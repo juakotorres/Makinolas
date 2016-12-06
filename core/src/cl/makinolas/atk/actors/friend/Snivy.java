@@ -9,9 +9,8 @@ import cl.makinolas.atk.actors.Monsters;
 import cl.makinolas.atk.actors.attacks.Attacks;
 import cl.makinolas.atk.actors.attacks.ShootAttack;
 import cl.makinolas.atk.actors.attacks.states.BranchAttackState;
-import cl.makinolas.atk.types.ElectricType;
+import cl.makinolas.atk.actors.attacks.states.SingState;
 import cl.makinolas.atk.types.GrassType;
-import cl.makinolas.atk.types.IType;
 
 public class Snivy extends AbstractFriend {
   
@@ -33,7 +32,7 @@ public class Snivy extends AbstractFriend {
     newMonster();
     setActualEvolution(0);
     setMaxMagic(1000);
-    addType(new GrassType());
+    addType(GrassType.getInstance());
   }
   
   public Snivy(int level){
@@ -89,7 +88,7 @@ public class Snivy extends AbstractFriend {
   @Override
   public int getAttackMagicRequirement() {
 	// TODO Auto-generated method stub
-	return BranchAttackState.magicRequirement;
+	return SingState.magicRequirement;
   }
 
 }

@@ -23,7 +23,7 @@ public class Eevee extends AbstractFriend {
     initDead();
     newMonster();
     setMaxMagic(1000);
-    addType(new NormalType());
+    addType(NormalType.getInstance());
   }
 
   public Eevee(int level){

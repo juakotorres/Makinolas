@@ -2,6 +2,19 @@ package cl.makinolas.atk.types;
 
 public class PsychicType extends AbstractType implements IType {
 
+	private static PsychicType instance = null;
+	
+	private PsychicType(){
+		this.isPsychic = true;
+	}
+	
+	public static PsychicType getInstance(){
+		if (instance == null){
+			instance = new PsychicType();
+		}
+		return instance;
+	}
+
 	@Override
 	public double attackFromType(IType type) {
 		return type.psychicPokemonAttacks(this);

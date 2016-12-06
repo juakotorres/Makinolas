@@ -9,9 +9,7 @@ import cl.makinolas.atk.actors.Monsters;
 import cl.makinolas.atk.actors.attacks.Attacks;
 import cl.makinolas.atk.actors.attacks.ShootAttack;
 import cl.makinolas.atk.actors.attacks.states.AcidState;
-import cl.makinolas.atk.types.FireType;
 import cl.makinolas.atk.types.GhostType;
-import cl.makinolas.atk.types.IType;
 import cl.makinolas.atk.types.PoisonType;
 
 public class Gastly extends AbstractFriend {
@@ -34,8 +32,8 @@ public class Gastly extends AbstractFriend {
     newMonster();
     setActualEvolution(0);
     setMaxMagic(1000);
-    addType(new GhostType());
-    addType(new PoisonType());
+    addType(GhostType.getInstance());
+    addType(PoisonType.getInstance());
   }
   
   public Gastly(int level){

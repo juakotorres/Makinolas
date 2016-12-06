@@ -4,18 +4,14 @@ import cl.makinolas.atk.GameConstants;
 import cl.makinolas.atk.actors.GameActor;
 import cl.makinolas.atk.actors.HBarFliped;
 import cl.makinolas.atk.actors.Hero;
+import cl.makinolas.atk.actors.attacks.Attacks;
 import cl.makinolas.atk.actors.attacks.BombAttack;
-import cl.makinolas.atk.actors.attacks.CloseRangeAttack;
 import cl.makinolas.atk.actors.attacks.DirectionAttack;
-import cl.makinolas.atk.actors.attacks.DroppingAttack;
 import cl.makinolas.atk.actors.attacks.states.FireWallState;
 import cl.makinolas.atk.actors.attacks.states.TRockState;
+import cl.makinolas.atk.actors.friend.Friend;
 import cl.makinolas.atk.actors.friend.Groudon;
-import cl.makinolas.atk.actors.friend.OldMewtwo;
-import cl.makinolas.atk.actors.fx.FxManager;
 import cl.makinolas.atk.stages.AbstractStage;
-import cl.makinolas.atk.types.FireType;
-import cl.makinolas.atk.types.RockType;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
@@ -25,6 +21,7 @@ import com.badlogic.gdx.physics.box2d.Body;
 import com.badlogic.gdx.physics.box2d.BodyDef;
 import com.badlogic.gdx.physics.box2d.PolygonShape;
 import com.badlogic.gdx.physics.box2d.World;
+import com.badlogic.gdx.utils.Array;
 
 public class GroudonBoss extends Boss {
 
@@ -35,18 +32,19 @@ public class GroudonBoss extends Boss {
     private int numRocks;
     private float jumpTime;
     private int jumpDirection;
+	private int singAnimation;
 
     public GroudonBoss(World myWorld, Hero hero) {
         super();
-        health = 200;
-        maxHealth = 150;
+        health = Math.max(Hero.getInstance().getHealth()*5+50, 200);
+        maxHealth = Math.max(Hero.getInstance().getHealth()*5, 150);
         jumpDirection = 1;
         width = 39;
         height = 33;
         isAttacking = true;
         isFacingRight = false;
         vx = 0;
-        parent = new Groudon();
+        parent = new Groudon(maxLevelOfAllies(Hero.getInstance().getAllies()));
         this.hero = hero;
         healthBar = new HBarFliped(health, health, 20, 133, new TextureRegion( new Texture(Gdx.files.internal("Overlays/bar_green.png"))));
         isDamaged = false;
@@ -76,6 +74,7 @@ public class GroudonBoss extends Boss {
         setAnimation(new TextureRegion(new Texture(Gdx.files.internal("Actors/Groudon.png"))), 64, 55);
         hurtAnimation = addAnimation(0.2f, 2);
         walkAnimation = addAnimation(0.2f, 3,4,5,6);
+        singAnimation = hurtAnimation;
         changeAnimation(walkAnimation);
     }
 
@@ -104,6 +103,7 @@ public class GroudonBoss extends Boss {
                 if(nextRockAt <= 0){
                     nextRockAt = 0.5f;
                     throwRock();
+                    throwRock();
                     numRocks--;
                     if(numRocks <= 0)
                         goBack();
@@ -123,7 +123,9 @@ public class GroudonBoss extends Boss {
                     jumpTime = (jumpDirection + 1)/2;
                     myBody.setAwake(true);
                     isFacingRight = !isFacingRight;
+                    throwRock();
                     goBack();
+                    throwRock();
                 }
                 myBody.setTransform(new Vector2(4+jumpTime*20,2 + 16*jumpTime*(1-jumpTime)),0);
             }
@@ -136,6 +138,7 @@ public class GroudonBoss extends Boss {
         Vector2 pos = myBody.getPosition();
         GameActor wall = new BombAttack(new FireWallState(),myWorld,pos.x+1-2*jumpDirection,pos.y,false,this);
         ((AbstractStage) getStage()).addGameActor(wall);
+        ((Attacks) wall).getSpriteState().secondaryEfectsToSource(this);
     }
 
     private void throwRock() {
@@ -143,6 +146,7 @@ public class GroudonBoss extends Boss {
         GameActor rock = new DirectionAttack(new TRockState(),myWorld,pos.x-1,pos.y+3,
                 hero.getBody().getPosition().x,hero.getBody().getPosition().y,300,this);
         ((AbstractStage) getStage()).addGameActor(rock);
+        ((Attacks) rock).getSpriteState().secondaryEfectsToSource(this);
     }
 
     @Override
@@ -156,10 +160,32 @@ public class GroudonBoss extends Boss {
     }
 
 	@Override
-	public void CriticalDamage() {
-		Vector2 myPosition = myBody.getPosition();
-		FxManager.getInstance().addFx(FxManager.Fx.CRITICAL,
-				myPosition.x * GameConstants.WORLD_FACTOR - getActualSprite().getRegionWidth() / 2,
-				myPosition.y * GameConstants.WORLD_FACTOR + getActualSprite().getRegionHeight() / 2);
+	public void sing() {
+		this.changeAnimation(singAnimation);
 	}
+
+	@Override
+	public void unSing() {
+		
+	}
+
+	@Override
+	public void sleep() {
+		
+	}
+
+	@Override
+	public void unSleep() {
+		
+	}
+	
+	  private int maxLevelOfAllies(Array<Friend> allies) {
+		    int maxLevel = allies.get(0).getLevel();
+		    for(Friend ally : allies){
+		      if(maxLevel < ally.getLevel())
+		        maxLevel = ally.getLevel();
+		    }
+		    return maxLevel;
+		  } 
+
 }

@@ -6,6 +6,7 @@ public class OnGround extends JumpState {
 	
 	public OnGround() {
 		super();
+		
 	}
 	
 	public void firstJump() {

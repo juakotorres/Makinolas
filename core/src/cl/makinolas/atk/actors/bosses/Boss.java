@@ -2,6 +2,7 @@ package cl.makinolas.atk.actors.bosses;
 
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
+import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.WorldManifold;
 
 import cl.makinolas.atk.GameConstants;
@@ -11,7 +12,9 @@ import cl.makinolas.atk.actors.Hero;
 import cl.makinolas.atk.actors.Monsters;
 import cl.makinolas.atk.actors.attacks.Attacks;
 import cl.makinolas.atk.actors.friend.Enemies;
+import cl.makinolas.atk.actors.items.ItemFinder;
 import cl.makinolas.atk.stages.BossStage;
+import cl.makinolas.atk.stateEfects.CriticalHit;
 
 public abstract class Boss extends Monsters implements IBoss{
   
@@ -39,6 +42,7 @@ public abstract class Boss extends Monsters implements IBoss{
 
   @Override
   public void act(float delta){
+	  super.act(delta);
     myBody.setLinearVelocity(vx, myBody.getLinearVelocity().y);
     if(processor!=null)
       processor.act(delta);
@@ -69,7 +73,15 @@ public abstract class Boss extends Monsters implements IBoss{
       inflictor.setDead();
       healthBar.setCurrent(health);
       if(health <= 0){
+    	 Monsters source = inflictor.getSource();
         ((BossStage) getStage()).bossIsDead();
+		Hero.getInstance().getHeroPlayer().StopProyectileSound();
+		source.gainExperience(40, Enemies.GROUDON);
+		source.gainEffortValues(Enemies.GROUDON);
+		Hero.getInstance().earnMoney(40, Enemies.GROUDON);
+		ItemFinder.getInstance().requestDrop(myBody.getPosition().x, myBody.getPosition().y, getStage(), Hero.getInstance().getMyWorld());
+		
+
         dead = true;
       }
     }
@@ -123,5 +135,26 @@ public abstract class Boss extends Monsters implements IBoss{
   }
   
   @Override
+  public boolean isEnemy(){
+	  return true;
+  }
+  
+  @Override
   protected void gainExp(int enemyLevel, Enemies type) {}
+  
+	public void CriticalDamage() {
+		  this.addState(new CriticalHit(this), 100);
+	}
+
+	@Override
+	public float getRelativeY() {
+		Vector2 myPosition = myBody.getPosition();
+		return myPosition.y * GameConstants.WORLD_FACTOR + getActualSprite().getRegionHeight() / 2;
+	}
+
+	@Override
+	public float getRelativeX() {
+		Vector2 myPosition = myBody.getPosition();
+		return myPosition.x * GameConstants.WORLD_FACTOR - getActualSprite().getRegionWidth() / 2;
+	}
 }

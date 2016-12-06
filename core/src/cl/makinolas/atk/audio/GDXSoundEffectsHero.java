@@ -1,131 +1,35 @@
 package cl.makinolas.atk.audio;
 
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.audio.Music;
 
-public class GDXSoundEffectsHero {
+import cl.makinolas.atk.stages.OptionsStage;
+
+
+
+public class GDXSoundEffectsHero extends GDXSoundEffectsPlayer {
 	
-	private Music soundJump=Gdx.audio.newMusic(Gdx.files.internal("Music/jump_02.wav"));
-	private Music soundProyectile=Gdx.audio.newMusic(Gdx.files.internal("Music/laser4.wav"));
-	private Music soundEndStage=Gdx.audio.newMusic(Gdx.files.internal("Music/FX098.wav"));
-	private Music soundClaw=Gdx.audio.newMusic(Gdx.files.internal("Music/Swoosh 3-SoundBible.com-1573211927.mp3"));
-	private Music soundPotion=Gdx.audio.newMusic(Gdx.files.internal("Music/firered_potion.wav"));
-	private Music soundThrow=Gdx.audio.newMusic(Gdx.files.internal("Music/firered_throw.wav"));
-	private Music soundCaptured=Gdx.audio.newMusic(Gdx.files.internal("Music/firered_captured.wav"));
-	private Music soundnotCaptured=Gdx.audio.newMusic(Gdx.files.internal("Music/firered_notcaptured.wav"));
-	private Music soundgetDmg=Gdx.audio.newMusic(Gdx.files.internal("Music/firered_00F1.wav"));
-	private Music soundmovemenu=Gdx.audio.newMusic(Gdx.files.internal("Music/firered_000A.wav")); 
-	private Music soundpressbutton=Gdx.audio.newMusic(Gdx.files.internal("Music/firered_00F6.wav")); 
-	private Music soundpausemenuin=Gdx.audio.newMusic(Gdx.files.internal("Music/firered_00FA.wav")); 
-	private Music soundpausemenuout=Gdx.audio.newMusic(Gdx.files.internal("Music/firered_00FB.wav")); 
-	//firered_00FA
-	public GDXSoundEffectsHero(){
-	}
+	public static GDXSoundEffectsPlayer getInstance() {
+		
 	
-	public void PlayJumpSound(){ 
-		soundJump.play();
-	}
+		GDXSoundEffectsPlayer myInstance = GDXSoundEffectsPlayer.getInstance();
+		sfxmap.putIfAbsent("soundPauseMenuOut",Gdx.audio.newMusic(Gdx.files.internal("Music/firered_00FB.wav")));
+		sfxmap.putIfAbsent("soundPauseMenuIn",Gdx.audio.newMusic(Gdx.files.internal("Music/firered_00FA.wav")));
+		sfxmap.putIfAbsent("soundPressButton",Gdx.audio.newMusic(Gdx.files.internal("Music/firered_00F6.wav")));
+		sfxmap.putIfAbsent("soundMoveMenu", Gdx.audio.newMusic(Gdx.files.internal("Music/firered_000A.wav")));
+		sfxmap.putIfAbsent("soundGetDmg", Gdx.audio.newMusic(Gdx.files.internal("Music/firered_00F1.wav")));
+		sfxmap.putIfAbsent("soundJump", Gdx.audio.newMusic(Gdx.files.internal("Music/jump_02.wav")));
+		sfxmap.putIfAbsent("soundProyectile", Gdx.audio.newMusic(Gdx.files.internal("Music/laser4.wav")));
+		sfxmap.putIfAbsent("soundEndStage", Gdx.audio.newMusic(Gdx.files.internal("Music/FX098.wav")));
+		sfxmap.putIfAbsent("soundClaw", Gdx.audio.newMusic(Gdx.files.internal("Music/Swoosh 3-SoundBible.com-1573211927.mp3")));
+		sfxmap.putIfAbsent("soundPotion", Gdx.audio.newMusic(Gdx.files.internal("Music/firered_potion.wav")));
+		sfxmap.putIfAbsent("soundThrow", Gdx.audio.newMusic(Gdx.files.internal("Music/firered_throw.wav")));
+		sfxmap.putIfAbsent("soundCaptured", Gdx.audio.newMusic(Gdx.files.internal("Music/firered_captured.wav")));
+		sfxmap.putIfAbsent("soundnotCaptured", Gdx.audio.newMusic(Gdx.files.internal("Music/firered_notcaptured.wav")));
+		
+		myInstance.SetVolume(OptionsStage.getSFXVolume());
+		return myInstance;
 
-	public void PlayProyectileSound(){
-		soundProyectile.play();		
-	}
-	public void StopProyectileSound(){
-		soundProyectile.stop();		
-	}
-	public void PlayEnd(){
-		soundEndStage.play();
-	}
-	public void PlayClaw(){
-		if(soundClaw.isPlaying()){
-	    soundClaw.stop();
-		soundClaw.play();
-		}
-		else{
-		soundClaw.play();
-		}
-	}
-	public void playpotion(){
-		if(soundPotion.isPlaying()){
-			soundPotion.stop();
-			soundPotion.play();
-			}
-			else{
-			soundPotion.play();
-			}
-	}
-	public void playthrow(){
-		if(soundThrow.isPlaying()){
-			soundThrow.stop();
-			soundThrow.play();
-			}
-			else{
-				soundThrow.play();
-			}
-	}
-	public void playcaptured(){
-		if(soundCaptured.isPlaying()){
-			soundCaptured.stop();
-			soundCaptured.play();
-			}
-			else{
-				soundCaptured.play();
-			}
-	}
+	}	
 
-	public void playnotcaptured(){
-		if(soundnotCaptured.isPlaying()){
-		soundnotCaptured.stop();
-		soundnotCaptured.play();
-		}
-		else{
-			soundnotCaptured.play();
-		}
-	}
-
-	public void playgetDmg() {
-		if(soundgetDmg.isPlaying()){
-			soundgetDmg.stop();
-			soundgetDmg.play();
-		}
-		else{
-			soundgetDmg.play();
-		}
-	}
-	public void playmovemenu() {
-		if(soundmovemenu.isPlaying()){
-			soundmovemenu.stop();
-			soundmovemenu.play();
-		}
-		else{
-			soundmovemenu.play();
-		}
-	}
-	public void playpressbutton() {
-		if(soundpressbutton.isPlaying()){
-			soundpressbutton.stop();
-			soundpressbutton.play();
-		}
-		else{
-			soundpressbutton.play();
-		}
-	}
-	//firered_00FA
-	public void playpausemenuin() {
-		if(soundpausemenuin.isPlaying()){
-			soundpausemenuin.stop();
-			soundpausemenuin.play();
-		}
-		else{
-			soundpausemenuin.play();
-		}
-	}
-	public void playpausemenuout() {
-		if(soundpausemenuout.isPlaying()){
-			soundpausemenuout.stop();
-			soundpausemenuout.play();
-		}
-		else{
-			soundpausemenuout.play();
-		}
-	}
+	
 }

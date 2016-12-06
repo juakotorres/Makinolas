@@ -78,6 +78,6 @@ public class WindShurikenState extends SpriteState {
 
 @Override
 public IType getType() {
-	return new FlyingType();
+	return FlyingType.getInstance();
 }
 }

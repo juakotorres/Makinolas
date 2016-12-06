@@ -17,7 +17,7 @@ public class BranchAttackState extends SpriteState {
   
   public BranchAttackState() {
 	  super();
-	  cooldown = 100;
+	  cooldown = 300;
   }
 
   @Override
@@ -82,7 +82,8 @@ public class BranchAttackState extends SpriteState {
 
 @Override
 public IType getType() {
-	return new GrassType();
+	return GrassType.getInstance();
 }
-  
+
+
 }
