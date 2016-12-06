@@ -21,7 +21,7 @@ public class SleepStateEffect extends AbstractStateEfects {
 
 	@Override
 	public void destroy() {
-		monster.unSleep();
+		monster.Awake();
 		super.destroy();
 	}
 	

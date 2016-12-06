@@ -175,7 +175,7 @@ public class GroudonBoss extends Boss {
 	}
 
 	@Override
-	public void unSleep() {
+	public void Awake() {
 		
 	}
 	

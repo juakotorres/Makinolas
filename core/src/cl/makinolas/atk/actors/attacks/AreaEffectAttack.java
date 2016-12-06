@@ -3,6 +3,7 @@ package cl.makinolas.atk.actors.attacks;
 import com.badlogic.gdx.physics.box2d.World;
 import com.badlogic.gdx.physics.box2d.WorldManifold;
 
+import cl.makinolas.atk.actors.Hero;
 import cl.makinolas.atk.actors.Monsters;
 import cl.makinolas.atk.actors.attacks.states.SpriteState;
 import cl.makinolas.atk.actors.platform.Platform;
@@ -21,8 +22,6 @@ public class AreaEffectAttack extends Attacks {
 	    spriteState.setAttack(this);
 	    spriteState.initializeBody(x,y); 
 	    
-	    source.sing();
-	    
 	    xVelocity = 0;
 	    yVelocity = 0;
 	    accumulator = 0;
@@ -35,15 +34,15 @@ public class AreaEffectAttack extends Attacks {
   
   @Override
   public void act(float delta){
-    myBody.setLinearVelocity(xVelocity, yVelocity);
+	  super.act(delta);
+    myBody.setLinearVelocity(getSource().getBody().getLinearVelocity().x, getSource().getBody().getLinearVelocity().y);
     checkFinish(delta);
   }
   
   protected void checkFinish(float delta) {
     accumulator += delta;
     if(accumulator >= attackTime){
-    	this.getSource().unSing();
-      dead = true;
+    	unPress();
     }    
   }
 
@@ -54,8 +53,12 @@ public class AreaEffectAttack extends Attacks {
   }
   
   @Override
-  public void setDead(){
-    
+  public void setDead(){}
+  
+  @Override
+  public void unPress(){
+      dead = true;
+	  this.getSource().unSing();
   }
   
   @Override
