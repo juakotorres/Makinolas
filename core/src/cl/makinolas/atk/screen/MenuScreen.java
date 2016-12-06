@@ -11,7 +11,6 @@ import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.utils.viewport.FitViewport;
 
-import cl.makinolas.atk.actors.Hero;
 import cl.makinolas.atk.audio.GDXSoundEffectsHero;
 import cl.makinolas.atk.audio.GDXSoundEffectsPlayer;
 import cl.makinolas.atk.stages.CorruptSAVStage;
@@ -102,6 +101,9 @@ public class MenuScreen extends SimpleScreen {
 
   protected void newGame() {
     File saves = new File("Save");
+    if (!saves.exists()) {
+      saves.mkdir();
+    }
     int actual;
     if(saves.list().length==0){
       actual = 0;

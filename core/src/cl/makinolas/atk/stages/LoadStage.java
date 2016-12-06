@@ -13,7 +13,6 @@ import com.badlogic.gdx.utils.viewport.FitViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
 
 import cl.makinolas.atk.actors.Background;
-import cl.makinolas.atk.actors.Hero;
 import cl.makinolas.atk.actors.LoadActor;
 import cl.makinolas.atk.actors.Title;
 import cl.makinolas.atk.screen.GameScreen;
@@ -39,6 +38,9 @@ public class LoadStage extends Stage {
   public LoadStage(Viewport v, GameScreen actualScreen, Game myGame) {
     super(v);
     File saves = new File("Save");
+    if (!saves.exists()) {
+      saves.mkdir();
+    }
     cantidad_juegos = saves.list().length;
     titulos = saves.list();
     lastSelected = 0;
@@ -87,7 +89,7 @@ public class LoadStage extends Stage {
 
 
     TextButton menuButton = new TextButton("Back to menu",  new Skin(Gdx.files.internal("Data/uiskin.json")));
-    menuButton.setPosition(500, 50);
+    menuButton.setPosition(450, 50);
     menuButton.addListener(new ClickListener(){
         @Override
         public void clicked(InputEvent event, float x, float y) {

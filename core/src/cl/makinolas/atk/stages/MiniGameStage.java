@@ -12,7 +12,6 @@ import com.badlogic.gdx.utils.viewport.FitViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
 
 import cl.makinolas.atk.actors.Background;
-import cl.makinolas.atk.actors.Hero;
 import cl.makinolas.atk.actors.Title;
 import cl.makinolas.atk.audio.GDXSoundEffectsEnemy;
 import cl.makinolas.atk.audio.GDXSoundEffectsPlayer;

@@ -129,7 +129,7 @@ public class BagVis extends Group {
         large.draw(batch,"PAUSE",getStage().getCamera().position.x-48,getStage().getCamera().position.y+220);
         super.draw(batch, parentAlpha);
         if(selected!=-1)
-            font.draw(batch, "Press [A] or [S] to asign the item",
+            font.draw(batch, "Press [A] or [S] to assign the item",
                     getStage().getCamera().position.x-108, getStage().getCamera().position.y+180);
     }
 }

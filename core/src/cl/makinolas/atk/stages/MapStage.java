@@ -20,6 +20,7 @@ import cl.makinolas.atk.audio.GDXMusicPlayer;
 import cl.makinolas.atk.audio.GDXSoundEffectsEnemy;
 import cl.makinolas.atk.audio.GDXSoundEffectsPlayer;
 import cl.makinolas.atk.screen.GameScreen;
+import cl.makinolas.atk.screen.MenuScreen;
 import cl.makinolas.atk.screen.ShopScreen;
 import cl.makinolas.atk.screen.PokeComputerScreen;
 
@@ -59,6 +60,17 @@ public class MapStage extends Stage implements KeyHandable{
         Gdx.input.setInputProcessor(this);
 
         current = mySpot;
+        
+        TextButton menuButton = new TextButton("Back to Menu",  new Skin(Gdx.files.internal("Data/uiskin.json")));
+        menuButton.addListener(new ClickListener(){
+            @Override
+            public void clicked(InputEvent event, float x, float y) {
+                toMenu();
+            }
+
+        });
+        menuButton.setPosition(20,12);
+        addActor(menuButton);
 
         TextButton shopButton = new TextButton("Enter Shop",  new Skin(Gdx.files.internal("Data/uiskin.json")));
         shopButton.addListener(new ClickListener(){
@@ -68,7 +80,7 @@ public class MapStage extends Stage implements KeyHandable{
                 mplayer.PlayPressButton();
             }
         });
-        shopButton.setPosition(20,12);
+        shopButton.setPosition(140,12);
         addActor(shopButton);
 
         TextButton centerButton = new TextButton("Enter PokeCenter",  new Skin(Gdx.files.internal("Data/uiskin.json")));
@@ -79,7 +91,7 @@ public class MapStage extends Stage implements KeyHandable{
                 mplayer.PlayPressButton();
             }
         });
-        centerButton.setPosition(160,12);
+        centerButton.setPosition(240,12);
         addActor(centerButton);
         
         TextButton computerButton = new TextButton("Enter PokeComputer",  new Skin(Gdx.files.internal("Data/uiskin.json")));
@@ -90,7 +102,7 @@ public class MapStage extends Stage implements KeyHandable{
                 mplayer.PlayPressButton();
             }
         });
-        computerButton.setPosition(350,12);
+        computerButton.setPosition(390,12);
         addActor(computerButton);
 
         TextButton startButton = new TextButton("Start",  new Skin(Gdx.files.internal("Data/uiskin.json")));
@@ -164,6 +176,11 @@ public class MapStage extends Stage implements KeyHandable{
     private void enterComputer() {
         myGame.setScreen(new PokeComputerScreen(myGame));
     }
+    
+    private void toMenu() {
+    	musicplayer.StopMusic();
+    	myGame.setScreen(new MenuScreen(myGame));
+	}
 
     public void startLevel(){
         Hero.getInstance().setSpot(current);

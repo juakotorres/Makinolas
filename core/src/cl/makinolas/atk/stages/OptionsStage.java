@@ -13,7 +13,6 @@ import com.badlogic.gdx.scenes.scene2d.utils.DragListener;
 import com.badlogic.gdx.utils.viewport.Viewport;
 
 import cl.makinolas.atk.actors.Background;
-import cl.makinolas.atk.actors.Hero;
 import cl.makinolas.atk.actors.Title;
 import cl.makinolas.atk.audio.GDXMusicPlayer;
 import cl.makinolas.atk.audio.GDXSoundEffectsEnemy;
