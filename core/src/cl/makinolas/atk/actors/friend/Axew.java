@@ -13,22 +13,21 @@ import cl.makinolas.atk.types.DragonType;
 import cl.makinolas.atk.types.TypeFactory;
 
 
-public class AxewTODO extends AbstractFriend {
+public class Axew extends AbstractFriend {
 	
 	private TextureRegion[][] faces;
 	
-	public AxewTODO(){
+	public Axew(){
 		friend = Enemies.AXEW;
 		faces = new TextureRegion(new Texture(Gdx.files.internal("Actors/Axew_faces.png"))).split(40,40);
 		setTexture(new TextureRegion(new Texture(Gdx.files.internal("Actors/Axew.png"))));
-		/* aqui yace todo lo relacionado con los sprites */
 		
-	    /*setCutSprites(30,28);
-	    setWalkAnimation(1,2,3,2);
+	    setCutSprites(25,35);
+	    setWalkAnimation(3,4,5,4);
 	    setHurtAnimation(0);
-	    setMeleeAnimation(4,6);
-	    setIdleAnimation(1,2,3,2);
-	    setSpecialAnimation(4,6);*/
+	    setMeleeAnimation(0,6);
+	    setIdleAnimation(1,2);
+	    setSpecialAnimation(0,6);
 		
 	    setFaceSprite(faces[0][0]);
 	    initLevel(5);
@@ -39,7 +38,7 @@ public class AxewTODO extends AbstractFriend {
 	    addType(TypeFactory.getType("Dragon"));
 	}
 	
-	public AxewTODO(int level){
+	public Axew(int level){
 		this();
 		initLevel(level);
 	}
@@ -60,12 +59,12 @@ public class AxewTODO extends AbstractFriend {
 			setTexture(new TextureRegion(new Texture(Gdx.files.internal("Actors/Fraxure.png"))));
 			/* texturas */
 			
-		    /*setCutSprites(30,28);
-		    setWalkAnimation(1,2,3,2);
+		    setCutSprites(40,35);
+		    setWalkAnimation(3,4);
 		    setHurtAnimation(0);
-		    setMeleeAnimation(4,6);
-		    setIdleAnimation(1,2,3,2);
-		    setSpecialAnimation(4,6);*/
+		    setMeleeAnimation(5,6);
+		    setIdleAnimation(1,2);
+		    setSpecialAnimation(5,7);
 			
 		    setFaceSprite(faces[0][1]);
 		    setActualEvolution(1);
@@ -77,12 +76,12 @@ public class AxewTODO extends AbstractFriend {
 			setTexture(new TextureRegion(new Texture(Gdx.files.internal("Actors/Haxorus.png"))));
 			/* texturas */
 			
-		    /*setCutSprites(30,28);
-		    setWalkAnimation(1,2,3,2);
+		    setCutSprites(57,60);
+		    setWalkAnimation(3,4,5,4);
 		    setHurtAnimation(0);
-		    setMeleeAnimation(4,6);
-		    setIdleAnimation(1,2,3,2);
-		    setSpecialAnimation(4,6);*/
+		    setMeleeAnimation(6,7,8);
+		    setIdleAnimation(1,2);
+		    setSpecialAnimation(6,7,9);
 			
 		    setFaceSprite(faces[0][2]);
 		    setActualEvolution(2);

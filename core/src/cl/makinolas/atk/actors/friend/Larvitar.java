@@ -14,11 +14,11 @@ import cl.makinolas.atk.types.GroundType;
 import cl.makinolas.atk.types.RockType;
 import cl.makinolas.atk.types.TypeFactory;
 
-public class LarvitarTODO extends AbstractFriend {
+public class Larvitar extends AbstractFriend {
 
 	private TextureRegion[][] faces;
 	
-	public LarvitarTODO(){
+	public Larvitar(){
 		friend = Enemies.LARVITAR;
 		faces = new TextureRegion(new Texture(Gdx.files.internal("Actors/Larvitar_faces.png"))).split(40,40);
 		setTexture(new TextureRegion(new Texture(Gdx.files.internal("Actors/Larvitar.png"))));
@@ -41,7 +41,7 @@ public class LarvitarTODO extends AbstractFriend {
 	    addType(new GroundType());
 	}
 	
-	public LarvitarTODO(int level){
+	public Larvitar(int level){
 		this();
 		initLevel(level);
 	}
