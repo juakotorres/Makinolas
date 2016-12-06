@@ -11,6 +11,7 @@ import cl.makinolas.atk.actors.attacks.ShootAttack;
 import cl.makinolas.atk.actors.attacks.states.Poison_StingState;
 import cl.makinolas.atk.types.FightType;
 import cl.makinolas.atk.types.PoisonType;
+import cl.makinolas.atk.types.TypeFactory;
 
 public class Croagunk extends AbstractFriend {
 
@@ -34,8 +35,8 @@ public class Croagunk extends AbstractFriend {
 	    newMonster();
 	    setActualEvolution(0);
 	    setMaxMagic(1000);
-	    addType(PoisonType.getInstance());
-	    addType(FightType.getInstance());
+	    addType(TypeFactory.getType("Poison"));
+	    addType(TypeFactory.getType("Fight"));
 	}
 	
 	public Croagunk(int level){

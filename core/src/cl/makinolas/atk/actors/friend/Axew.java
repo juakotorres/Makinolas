@@ -10,6 +10,7 @@ import cl.makinolas.atk.actors.attacks.Attacks;
 import cl.makinolas.atk.actors.attacks.ShootAttack;
 import cl.makinolas.atk.actors.attacks.states.DragonBreathState;
 import cl.makinolas.atk.types.DragonType;
+import cl.makinolas.atk.types.TypeFactory;
 
 
 public class Axew extends AbstractFriend {
@@ -34,7 +35,7 @@ public class Axew extends AbstractFriend {
 	    newMonster();
 	    setActualEvolution(0);
 	    setMaxMagic(1000);
-	    addType(DragonType.getInstance());
+	    addType(TypeFactory.getType("Dragon"));
 	}
 	
 	public Axew(int level){
@@ -97,7 +98,7 @@ public class Axew extends AbstractFriend {
 	@Override
 	public int getAttackMagicRequirement() {
 	  // TODO Auto-generated method stub
-	  return DragonBreathState.magicRequirement;
+	  return DragonBreathState.getMagicRequirement();
 	}
 
 }

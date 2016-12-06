@@ -5,6 +5,7 @@ import com.badlogic.gdx.graphics.g2d.Animation.PlayMode;
 import cl.makinolas.atk.actors.Monsters;
 import cl.makinolas.atk.types.GhostType;
 import cl.makinolas.atk.types.IType;
+import cl.makinolas.atk.types.TypeFactory;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
@@ -13,7 +14,7 @@ import com.badlogic.gdx.graphics.g2d.TextureRegion;
 
 public class PhantomFireState extends SpriteState {
 	
-  public static int magicRequirement = 60;
+  private static int magicRequirement = 60;
   
   @Override
   public void initializeBody(float x, float y) {
@@ -72,7 +73,11 @@ public class PhantomFireState extends SpriteState {
 
 @Override
 public IType getType() {
-	return GhostType.getInstance();
+	return TypeFactory.getType("Ghost");
+}
+
+public static int getMagicRequirement(){
+	return magicRequirement;
 }
   
 }

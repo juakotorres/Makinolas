@@ -12,6 +12,7 @@ import cl.makinolas.atk.actors.attacks.Attacks;
 import cl.makinolas.atk.actors.attacks.ShootBombAttack;
 import cl.makinolas.atk.actors.attacks.states.BubbleState;
 import cl.makinolas.atk.types.SteelType;
+import cl.makinolas.atk.types.TypeFactory;
 import cl.makinolas.atk.types.WaterType;
 
 public class Piplup extends AbstractFriend {
@@ -35,7 +36,7 @@ public class Piplup extends AbstractFriend {
 	    newMonster();
 	    setActualEvolution(0);
 	    setMaxMagic(1000);
-	    addType(WaterType.getInstance());
+	    addType(TypeFactory.getType("Water"));
 	    
 	}
 
@@ -86,7 +87,7 @@ public class Piplup extends AbstractFriend {
 		    setActualEvolution(2);
 		    setStats();
 		    setMaxMagic(1000);
-		    addType(SteelType.getInstance());
+		    addType(TypeFactory.getType("Steel"));
 		}
 	}
 	
@@ -99,7 +100,7 @@ public class Piplup extends AbstractFriend {
 	@Override
 	public int getAttackMagicRequirement() {
 		// TODO Auto-generated method stub
-		return BubbleState.magicRequirement;
+		return BubbleState.getMagicRequirement();
 	}
 
 }

@@ -5,6 +5,7 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 
 import cl.makinolas.atk.types.ElectricType;
+import cl.makinolas.atk.types.TypeFactory;
 
 public class Shinx extends AbstractFriend{
   
@@ -26,7 +27,7 @@ public class Shinx extends AbstractFriend{
     newMonster();
     setActualEvolution(0);
     setMaxMagic(1000);
-    addType(ElectricType.getInstance());
+    addType(TypeFactory.getType("Electric"));
   }
   
   public Shinx(int level){

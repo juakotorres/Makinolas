@@ -9,11 +9,12 @@ import cl.makinolas.atk.actors.Monsters;
 import cl.makinolas.atk.stateEfects.SleepStateEffect;
 import cl.makinolas.atk.types.IType;
 import cl.makinolas.atk.types.NormalType;
+import cl.makinolas.atk.types.TypeFactory;
 
 public class SingState extends SpriteState {
 
 
-    public static int magicRequirement = 50;
+    private static int magicRequirement = 50;
 	
     @Override
     public int getAttackDamage() {
@@ -82,12 +83,16 @@ public class SingState extends SpriteState {
 
 	@Override
 	public IType getType() {
-		return NormalType.getInstance();
+		return TypeFactory.getType("Normal");
 	}
 	
 	@Override
 	public void secondaryEfectsToAfected(Monsters monster) {
 		monster.addState(new SleepStateEffect(monster), 50);
+	}
+	
+	public static int getMagicRequirement(){
+		return magicRequirement;
 	}
 
 }
