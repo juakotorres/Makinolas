@@ -10,7 +10,6 @@ import cl.makinolas.atk.actors.Monsters;
 import cl.makinolas.atk.actors.attacks.Attacks;
 import cl.makinolas.atk.actors.enemies.Enemy;
 import cl.makinolas.atk.actors.heroState.AbstractFriendState;
-import cl.makinolas.atk.actors.heroState.StandartState;
 import cl.makinolas.atk.stateEfects.IStateEfects;
 import cl.makinolas.atk.types.IType;
 

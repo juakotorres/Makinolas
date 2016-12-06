@@ -4,10 +4,7 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 
-import cl.makinolas.atk.types.BugType;
-import cl.makinolas.atk.types.FlyingType;
 import cl.makinolas.atk.types.TypeFactory;
-import cl.makinolas.atk.types.WaterType;
 
 public class Surskit extends AbstractFriend {
   

@@ -9,8 +9,6 @@ import cl.makinolas.atk.actors.Monsters;
 import cl.makinolas.atk.actors.attacks.Attacks;
 import cl.makinolas.atk.actors.attacks.ShootAttack;
 import cl.makinolas.atk.actors.attacks.states.IceRockState;
-import cl.makinolas.atk.types.GrassType;
-import cl.makinolas.atk.types.IceType;
 import cl.makinolas.atk.types.TypeFactory;
 
 public class Snover extends AbstractFriend {

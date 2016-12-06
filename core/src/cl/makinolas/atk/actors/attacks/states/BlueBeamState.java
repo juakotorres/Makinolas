@@ -8,7 +8,6 @@ import com.badlogic.gdx.graphics.g2d.Animation.PlayMode;
 import cl.makinolas.atk.actors.Monsters;
 import cl.makinolas.atk.types.IType;
 import cl.makinolas.atk.types.TypeFactory;
-import cl.makinolas.atk.types.WaterType;
 
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 

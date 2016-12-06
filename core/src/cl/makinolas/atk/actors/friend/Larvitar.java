@@ -9,7 +9,6 @@ import cl.makinolas.atk.actors.Monsters;
 import cl.makinolas.atk.actors.attacks.Attacks;
 import cl.makinolas.atk.actors.attacks.ShootAttack;
 import cl.makinolas.atk.actors.attacks.states.RockState;
-import cl.makinolas.atk.types.DarkType;
 import cl.makinolas.atk.types.GroundType;
 import cl.makinolas.atk.types.RockType;
 import cl.makinolas.atk.types.TypeFactory;

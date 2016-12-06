@@ -9,8 +9,6 @@ import cl.makinolas.atk.actors.Monsters;
 import cl.makinolas.atk.actors.attacks.Attacks;
 import cl.makinolas.atk.actors.attacks.DroppingAttack;
 import cl.makinolas.atk.actors.attacks.states.FallingLeafState;
-import cl.makinolas.atk.types.BugType;
-import cl.makinolas.atk.types.FlyingType;
 import cl.makinolas.atk.types.TypeFactory;
 
 public class Caterpie extends AbstractFriend {

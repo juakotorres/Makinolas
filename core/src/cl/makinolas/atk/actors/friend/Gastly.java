@@ -9,8 +9,6 @@ import cl.makinolas.atk.actors.Monsters;
 import cl.makinolas.atk.actors.attacks.Attacks;
 import cl.makinolas.atk.actors.attacks.ShootAttack;
 import cl.makinolas.atk.actors.attacks.states.AcidState;
-import cl.makinolas.atk.types.GhostType;
-import cl.makinolas.atk.types.PoisonType;
 import cl.makinolas.atk.types.TypeFactory;
 
 public class Gastly extends AbstractFriend {

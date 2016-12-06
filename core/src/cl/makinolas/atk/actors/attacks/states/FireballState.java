@@ -7,7 +7,6 @@ import com.badlogic.gdx.graphics.g2d.Animation.PlayMode;
 
 import cl.makinolas.atk.actors.Monsters;
 import cl.makinolas.atk.stateEfects.BurnedStateEffect;
-import cl.makinolas.atk.types.FireType;
 import cl.makinolas.atk.types.IType;
 import cl.makinolas.atk.types.TypeFactory;
 
