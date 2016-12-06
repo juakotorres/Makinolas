@@ -8,6 +8,7 @@ import com.badlogic.gdx.Input;
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
+import com.badlogic.gdx.scenes.scene2d.InputListener;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
@@ -35,6 +36,7 @@ public class PokeComputerScreen extends SimpleScreen implements KeyHandable {
     private int page_limit;
     private int team_size;
     private int backup_size;
+    private Label currentTeamIndex, currentBackupIndex;
     
     public PokeComputerScreen(Game g) {
 		super(g, new Stage(new FitViewport(640,480)));
@@ -49,6 +51,39 @@ public class PokeComputerScreen extends SimpleScreen implements KeyHandable {
         backup_size = hero.getBackupAllies().size;
         page_limit = backup_size % 18 == 0 && backup_size != 0? (backup_size / 18) : (backup_size / 18) + 1 ;
         showAllies();
+        
+        /*
+        final int aux1 = 0;
+        TeamFriendImage tfimg1 = new TeamFriendImage(hero.getAllies().get(0), true);
+        alliesImages.add(tfimg1);
+        tfimg1.setPosition(60 + 60 * 0,350);
+        tfimg1.setScale(1.5f);
+        tfimg1.addListener(new ClickListener(){
+        	@Override
+            public void clicked(InputEvent event, float x, float y) {
+            	//index_team = aux1;
+            	System.out.println("imagen apretada, indice" + aux1);
+            }
+        });
+        stage.addActor(tfimg1);
+        
+        
+        for (int i = 0; i < team_size ; i++) {
+    		final int aux = i;
+            TeamFriendImage tfimg = new TeamFriendImage(hero.getAllies().get(i), true);
+            alliesImages.add(tfimg);
+            tfimg.setPosition(60 + 60 * i,350);
+            tfimg.setScale(1.5f);
+            tfimg.addListener(new ClickListener(){
+            	@Override
+                public void clicked(InputEvent event, float x, float y) {
+                	index_team = aux;
+                	System.out.println("imagen apretada, indice" + aux);
+                }
+            });
+            stage.addActor(tfimg);
+    	}   
+        */
         
         Skin uskin = new Skin(Gdx.files.internal("Data/uiskin.json"));
         TextButton exitButton = new TextButton("Exit PokeComputer", uskin);
@@ -138,6 +173,15 @@ public class PokeComputerScreen extends SimpleScreen implements KeyHandable {
         currentItem = new Label("",uskin);
         currentItem.setPosition(440,60);
         stage.addActor(currentItem);
+        
+        currentTeamIndex = new Label("",uskin);
+        currentTeamIndex.setPosition(440,440);
+        stage.addActor(currentTeamIndex);
+        
+        currentBackupIndex = new Label("",uskin);
+        currentBackupIndex.setPosition(440,420);
+        stage.addActor(currentBackupIndex);
+        
         stage.addListener(new SimpleInputController(this,null));
 	}
     
@@ -146,13 +190,22 @@ public class PokeComputerScreen extends SimpleScreen implements KeyHandable {
      * de la pantalla del PC.
      * */
     private void showAllies(){
+    	
     	for (int i = 0; i < team_size ; i++) {
+    		final int aux = i;
             TeamFriendImage tfimg = new TeamFriendImage(hero.getAllies().get(i), true);
-            alliesImages.add(tfimg);
             tfimg.setPosition(60 + 60 * i,350);
             tfimg.setScale(1.5f);
+            tfimg.addListener(new InputListener(){
+            	@Override
+                public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
+                	setIndexTeam(aux);
+                	return true;
+                }
+            });
+            alliesImages.add(tfimg);
             stage.addActor(tfimg);
-    	}    	
+    	}   	
     	for (int j = 0; j < page_limit; j++){
     		for (int i = 0; i < 18 && i + j * 18 < backup_size ; i++) {//i < hero.getBackupAllies().size && 
                 TeamFriendImage tfimg = new TeamFriendImage(hero.getBackupAllies().get(i + j * 18), true);
@@ -170,6 +223,13 @@ public class PokeComputerScreen extends SimpleScreen implements KeyHandable {
      * actual, debe obtener entre 1 y 18 elementos del arreglo backupImages, modificar los atributos 
      * de los anteriores Pokemon a no visibles y poner los nuevos elementos en estado visible. 
      * */
+    
+    private void setIndexTeam(int i){
+    	index_team = i;
+    	currentTeamIndex.setText("imagen apretada, indice" + i);
+    	System.out.println("imagen apretada, indice" + i);
+    }
+    
     private void changePage(int change){
     	//modificar las anteriores
     	for (int i = 0; i < 18 && i + index_page * 18 < backup_size ; i++) {
@@ -213,7 +273,7 @@ public class PokeComputerScreen extends SimpleScreen implements KeyHandable {
     /* el indice que apuntan en el arreglo de los Backup Pokemon debe estar entre los limites
      * definidos de la pagina actual, esto significa que el limite inferior de la variable
      * index_backup es (index_page * 18), es decir 0, 18, 36, ... 
-     * Luego el limite superior de index_backup es el minimo entre el tamaño del arreglo de
+     * Luego el limite superior de index_backup es el minimo entre el size del arreglo de
      * Backup Pokemon y el limite superior de la pagina (((index_page + 1) * 18) - 1). 
      * */
     private void indexBackupHandler(int i){
@@ -221,6 +281,7 @@ public class PokeComputerScreen extends SimpleScreen implements KeyHandable {
     	int min_limit = index_page * 18;
     	int max_limit = Math.min(((index_page + 1) * 18) - 1, Math.max(0, backup_size - 1));
     	index_backup = aux < min_limit? max_limit : (aux > max_limit? min_limit : aux);
+    	currentBackupIndex.setText("Backup_Index :" + index_backup);
     }
 
     private void exitComputer() {
