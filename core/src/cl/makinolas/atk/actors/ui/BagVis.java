@@ -115,9 +115,10 @@ public class BagVis extends Group {
         for(ItemBag item : items){
             item.setSelected(false);
         }
-        if(i!=-1)
+        if(i!=-1){
         	mplayer.PlayMoveMenu();
             items.get(i).setSelected(true);
+            }
         selected = i;
     }
 
