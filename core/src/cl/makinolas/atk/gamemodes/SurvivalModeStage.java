@@ -3,6 +3,7 @@ package cl.makinolas.atk.gamemodes;
 
 import cl.makinolas.atk.actors.Background;
 import cl.makinolas.atk.actors.GameActor;
+import cl.makinolas.atk.actors.friend.Gastly;
 import cl.makinolas.atk.actors.fx.FxManager;
 import cl.makinolas.atk.actors.platform.Platform;
 import cl.makinolas.atk.actors.ui.BagVis;
@@ -129,6 +130,7 @@ public class SurvivalModeStage extends AbstractStage implements ContactListener{
         AbstractStage.elapsedTime += delta;
         survivalWorld.step(frameTime, 6, 2);
         height += Math.abs(0.00001*Math.sin(height)) + (delta*delta);
+        plataformCreator.setPlayerHeight(height);
         changeCamera(0,height);
 
 
