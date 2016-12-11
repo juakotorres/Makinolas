@@ -8,7 +8,7 @@ import cl.makinolas.atk.types.IType;
 
 public abstract class AbstractClimate implements IClimate {
 	/**TODO:
-	 * Hero entrega unalista de friends
+	 * Hero entrega una lista de friends
 	 * Para cada friend se le alteran sus stats */
 	
 	public ArrayList<IType> getTypeFriend(Friend friend){
