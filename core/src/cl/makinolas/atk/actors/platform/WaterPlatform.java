@@ -80,8 +80,9 @@ public class WaterPlatform extends GameActor {
 		hero.setInsideWater(-1);
 		if(hero.getInsideWater()>0)
 			return;
-		/*restituimos que caiga con la velocidad original*/
-		hero.myBody.setGravityScale(1);
+		
+		/*setea que tan rapido cae luego de salir del agua antes de saltar, cuando esta en la superficie*/
+		hero.myBody.setGravityScale(2);
 		
 		/*eliminamos damping*/
 		hero.myBody.setLinearDamping(0);
