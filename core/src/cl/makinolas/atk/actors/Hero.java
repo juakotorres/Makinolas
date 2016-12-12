@@ -32,7 +32,9 @@ import cl.makinolas.atk.audio.GDXSoundEffectsHero;
 import cl.makinolas.atk.audio.GDXSoundEffectsPlayer;
 import cl.makinolas.atk.screen.MapScreen;
 import cl.makinolas.atk.start.GameText;
+import cl.makinolas.atk.stateEfects.AbstractStateEfects;
 import cl.makinolas.atk.stateEfects.CriticalHit;
+import cl.makinolas.atk.stateEfects.ManaReduceState;
 import cl.makinolas.atk.utils.Formulas;
 import cl.makinolas.atk.utils.SaveDoesNotExistException;
 import cl.makinolas.atk.utils.SaveManager;
@@ -78,6 +80,7 @@ public class Hero extends Monsters {
   }
   private Spot currentSpot;
   private Vector2 platformSpeed;
+  private AbstractStateEfects manaReduce;
   
 
   private Hero() {
@@ -747,6 +750,7 @@ public class Hero extends Monsters {
 
   @Override
   public void endInteraction(GameActor actor2, WorldManifold worldManifold) {
+	  super.endInteraction(actor2, worldManifold);
     actor2.endHeroInteraction(this, worldManifold);
   }
 
@@ -775,11 +779,13 @@ public float getRelativeX() {
 public void sing() {
 	Attacks attack = actualFriend.getState().getAttack();
 	actualFriend.setState(new SleepState(attack));
+	this.addState(manaReduce = new ManaReduceState(this, 15, attack), 100);
 	this.changeAnimation(hurtAnimation);
 }
 @Override
 public void unSing() {
 	actualFriend.setState(new StandartState());
+	this.removeState(manaReduce);
 }
 @Override
 public void sleep() {
@@ -802,6 +808,9 @@ public void setActualFriend(Friend actualFriend) {
 }
 public void setJumping(boolean bool) {
 	isJumping = bool;
+}
+public void drainMana(int manaDrain, Attacks attack) {
+	actualFriend.getState().drainMana(manaDrain, attack, actualFriend);
 }
 
 }
