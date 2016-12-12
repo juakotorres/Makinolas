@@ -13,8 +13,8 @@ import cl.makinolas.atk.types.TypeFactory;
 public class SingState extends SpriteState {
 
 
-    private static int magicRequirement = 50;
-	
+    private static int magicRequirement = 200;
+    
     @Override
     public int getAttackDamage() {
         return 0;
@@ -91,7 +91,7 @@ public class SingState extends SpriteState {
 	
 	@Override
 	public void secondaryEfectsToAfected(Monsters monster) {
-		monster.addState(new SleepStateEffect(monster), 50);
+		monster.addState(new SleepStateEffect(monster), 20);
 	}
 	
 	public static int getMagicRequirement(){

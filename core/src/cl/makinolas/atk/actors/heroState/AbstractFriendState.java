@@ -27,6 +27,7 @@ public abstract class AbstractFriendState {
 
 	public void attackPrimary(AbstractStage abstractStage, Friend actualFriend, World myWorld, Vector2 position,
 			boolean isFacingRight, Hero hero2) {
+		System.out.println(actualFriend.getMagic());
 		if (actualFriend.getMagic() >= actualFriend.getAttackMagicRequirement()
 				&& cooldownTimer < System.currentTimeMillis()) {
 			attack = actualFriend.getFriendAttack(myWorld, position.x, position.y, isFacingRight, hero2);
@@ -59,6 +60,15 @@ public abstract class AbstractFriendState {
 	public void isNotPressingPrimaryAttack() {
 		if (attack != null)
 			attack.unPressButton();
+	}
+
+	public void drainMana(int manaDrain, Attacks attack2, Friend actualFriend) {
+		if (actualFriend.getMagic() >= manaDrain){
+			actualFriend.setMagic(actualFriend.getMagic() - manaDrain);
+		}
+		else{
+			attack2.unPress();
+		}
 	}
 
 }
