@@ -290,6 +290,8 @@ public class Hero extends Monsters {
 
     if (isJumping)
     	state.countFrames();
+    
+    
   }
 
   public void setMovablePLatformSpeed(float vX, float vY) {
