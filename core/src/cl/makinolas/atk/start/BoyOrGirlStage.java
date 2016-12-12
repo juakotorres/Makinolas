@@ -12,15 +12,13 @@ import com.badlogic.gdx.utils.viewport.Viewport;
 
 import cl.makinolas.atk.actors.Background;
 import cl.makinolas.atk.actors.Title;
-import cl.makinolas.atk.audio.GDXSoundEffectsHero;
-import cl.makinolas.atk.audio.GDXSoundEffectsPlayer;
 import cl.makinolas.atk.screen.GameScreen;
 
 public class BoyOrGirlStage extends Stage {
 
   private Game myGame;
 
-  private GDXSoundEffectsPlayer mplayer = GDXSoundEffectsHero.getInstance();
+  //private GDXSoundEffectsPlayer mplayer = GDXSoundEffectsHero.getInstance();
   private TextActor actualText;
   private Title images;
   private int sceneCount;

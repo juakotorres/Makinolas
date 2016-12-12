@@ -9,9 +9,6 @@ import cl.makinolas.atk.actors.Monsters;
 import cl.makinolas.atk.actors.attacks.Attacks;
 import cl.makinolas.atk.actors.attacks.CloseRangeAttack;
 import cl.makinolas.atk.actors.attacks.states.VineWhipState;
-import cl.makinolas.atk.types.BugType;
-import cl.makinolas.atk.types.FlyingType;
-import cl.makinolas.atk.types.SteelType;
 import cl.makinolas.atk.types.TypeFactory;
 
 public class Scyther extends AbstractFriend {

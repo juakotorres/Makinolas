@@ -10,7 +10,6 @@ import cl.makinolas.atk.actors.attacks.Attacks;
 import cl.makinolas.atk.actors.attacks.ShootBombAttack;
 import cl.makinolas.atk.actors.attacks.states.BubbleState;
 import cl.makinolas.atk.types.TypeFactory;
-import cl.makinolas.atk.types.WaterType;
 
 public class Totodile extends AbstractFriend {
   

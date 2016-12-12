@@ -2,7 +2,6 @@ package cl.makinolas.atk.actors.attacks.states;
 
 import cl.makinolas.atk.actors.Monsters;
 import cl.makinolas.atk.types.IType;
-import cl.makinolas.atk.types.RockType;
 import cl.makinolas.atk.types.TypeFactory;
 
 import com.badlogic.gdx.Gdx;

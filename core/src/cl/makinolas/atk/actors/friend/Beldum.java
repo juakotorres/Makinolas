@@ -4,8 +4,6 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 
-import cl.makinolas.atk.types.PsychicType;
-import cl.makinolas.atk.types.SteelType;
 import cl.makinolas.atk.types.TypeFactory;
 
 public class Beldum extends AbstractFriend {

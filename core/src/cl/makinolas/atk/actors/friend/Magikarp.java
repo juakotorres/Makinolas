@@ -9,9 +9,7 @@ import cl.makinolas.atk.actors.Monsters;
 import cl.makinolas.atk.actors.attacks.Attacks;
 import cl.makinolas.atk.actors.attacks.ShootAttack;
 import cl.makinolas.atk.actors.attacks.states.WindShurikenState;
-import cl.makinolas.atk.types.FlyingType;
 import cl.makinolas.atk.types.TypeFactory;
-import cl.makinolas.atk.types.WaterType;
 
 public class Magikarp extends AbstractFriend {
 

@@ -4,8 +4,6 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 
-import cl.makinolas.atk.types.FlyingType;
-import cl.makinolas.atk.types.GroundType;
 import cl.makinolas.atk.types.TypeFactory;
 
 public class Gligar extends AbstractFriend {
