@@ -15,7 +15,7 @@ public class ManaReduceState extends AbstractStateEfects {
 		this.monster = monster;
 		this.attack = attack;
 		this.manaDrain = mana;
-		this.drawEfects = new DrawStateEfects("StateImages/Poisoned.png", 64, 64,0, 0, (float)10000 , 2f, 8, this);
+		this.drawEfects = new DrawStateEfects("StateImages/ManaDrain.png", 64, 64,0, 0, (float)10000 , 2f, 8, this);
 	}
 	
 	@Override
