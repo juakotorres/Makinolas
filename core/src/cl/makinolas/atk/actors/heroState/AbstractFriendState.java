@@ -58,8 +58,7 @@ public abstract class AbstractFriendState {
 
 	public void isNotPressingPrimaryAttack() {
 		if (attack != null)
-			attack.unPress();
-		;
+			attack.unPressButton();
 	}
 
 }

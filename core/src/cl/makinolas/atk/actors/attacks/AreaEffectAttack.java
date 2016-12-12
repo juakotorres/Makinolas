@@ -61,6 +61,12 @@ public class AreaEffectAttack extends Attacks {
 	  this.getSource().unSing();
   }
   
+  public void unPressButton() {
+	  if(attackTime- accumulator > 1){
+		  accumulator = attackTime -1;
+	  }
+  }
+  
   @Override
   public boolean isDead(){
     return dead;

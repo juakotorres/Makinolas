@@ -201,9 +201,7 @@ public int getSpecialAttackDamage(Monsters monster) {
 public SpriteState getSpriteState() {
 	return mySpriteState;
 }
-public void unPress() {
-	// TODO Auto-generated method stub
-	
-}
+public void unPress() {}
+public void unPressButton() {}
 
 }
