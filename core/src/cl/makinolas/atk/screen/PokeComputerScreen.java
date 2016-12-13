@@ -10,6 +10,7 @@ import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.InputListener;
 import com.badlogic.gdx.scenes.scene2d.Stage;
+import com.badlogic.gdx.scenes.scene2d.ui.ImageButton;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
@@ -20,6 +21,7 @@ import cl.makinolas.atk.actors.Background;
 import cl.makinolas.atk.actors.Hero;
 import cl.makinolas.atk.actors.KeyHandable;
 import cl.makinolas.atk.actors.SimpleInputController;
+import cl.makinolas.atk.actors.ui.PCFriend;
 import cl.makinolas.atk.actors.ui.TeamFriendImage;
 import cl.makinolas.atk.utils.SaveManager;
 
@@ -38,6 +40,9 @@ public class PokeComputerScreen extends SimpleScreen implements KeyHandable {
     private int backup_size;
     private Label currentTeamIndex, currentBackupIndex;
     
+    //Shoptest
+    private ArrayList<PCFriend> pcfriends;
+    
     public PokeComputerScreen(Game g) {
 		super(g, new Stage(new FitViewport(640,480)));
 		alliesImages = new ArrayList<TeamFriendImage>();
@@ -50,6 +55,10 @@ public class PokeComputerScreen extends SimpleScreen implements KeyHandable {
         team_size = hero.getAllies().size;
         backup_size = hero.getBackupAllies().size;
         page_limit = backup_size % 18 == 0 && backup_size != 0? (backup_size / 18) : (backup_size / 18) + 1 ;
+        
+        //Shoptest
+        pcfriends = new ArrayList<PCFriend>();
+        
         showAllies();
         
         /*
@@ -190,12 +199,52 @@ public class PokeComputerScreen extends SimpleScreen implements KeyHandable {
      * de la pantalla del PC.
      * */
     private void showAllies(){
+    	//REVISAR EL SHOP 
+    	/*intentando hacer un ImageButton
+    	 * ImageButton imbut = new ImageButton(hero.getAllies().get(0).getFriendFaceSprite());
+    	imbut.setPosition(440, 440);
+    	imbut.addListener(new ClickListener(){
+    		 @Override
+             public void clicked(InputEvent event, float x, float y) {
+             	System.out.println("it just works!");
+             }
+    	});
+    	stage.addActor(imbut);*/
     	
+    	//PRUEBA USANDO ESTILO SHOPSCREEN (tag Shoptest)
+    	for (int i = 0; i < team_size ; i++) {
+    		final int aux = i;
+    		PCFriend pcfriend = new PCFriend(hero.getAllies().get(i));
+    		pcfriend.setPosition(60 + 60 * i,350);
+            pcfriend.setScale(1.5f);
+            pcfriend.addListener(new InputListener(){
+            	@Override
+                public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
+            		/*Este metodo deberia cambiar la imagen mostrada del pokemon seleccionado y el 
+            		 * indice actual por el "aux", por otro lado se debe setear a todos los valores
+            		 * de "selected" en los PCFriends como false , excepto el del indice "aux"...creo xD
+            		 * */
+                    setFriendSelected(aux);
+                    return true;
+                }
+            });
+            //OJO que el codigo usa alliesImages para manejar a las imagenes de los pokemon, por lo que se cae
+            stage.addActor(pcfriend);
+            pcfriends.add(pcfriend);
+    	}
+    	//
+    	
+    	
+    	
+    	
+    	/*
     	for (int i = 0; i < team_size ; i++) {
     		final int aux = i;
             TeamFriendImage tfimg = new TeamFriendImage(hero.getAllies().get(i), true);
             tfimg.setPosition(60 + 60 * i,350);
             tfimg.setScale(1.5f);
+            
+            /*PROBANDO
             tfimg.addListener(new InputListener(){
             	@Override
                 public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
@@ -203,9 +252,11 @@ public class PokeComputerScreen extends SimpleScreen implements KeyHandable {
                 	return true;
                 }
             });
+           
             alliesImages.add(tfimg);
             stage.addActor(tfimg);
-    	}   	
+    	}  
+    	*/ 	
     	for (int j = 0; j < page_limit; j++){
     		for (int i = 0; i < 18 && i + j * 18 < backup_size ; i++) {//i < hero.getBackupAllies().size && 
                 TeamFriendImage tfimg = new TeamFriendImage(hero.getBackupAllies().get(i + j * 18), true);
@@ -218,18 +269,33 @@ public class PokeComputerScreen extends SimpleScreen implements KeyHandable {
     	}
     }
     
-    /*
-     * Metodo utilizado para cambiar las imagenes de los Pokemon disponibles en el PC segun la pagina 
-     * actual, debe obtener entre 1 y 18 elementos del arreglo backupImages, modificar los atributos 
-     * de los anteriores Pokemon a no visibles y poner los nuevos elementos en estado visible. 
-     * */
+    //Shoptest
     
+    /*Este metodo deberia cambiar la imagen mostrada del pokemon seleccionado y el 
+	 * indice actual por el "aux", por otro lado se debe setear a todos los valores
+	 * de "selected" en los PCFriends como false , excepto el del indice "aux"...creo xD
+	 * */
+    private void setFriendSelected(int i){
+    	index_team = i;
+    	currentTeamIndex.setText("imagen apretada, indice" + i);
+    	for (PCFriend pcfriend: pcfriends)
+    		pcfriend.setSelected(false);
+    	pcfriends.get(i).setSelected(true);
+    }
+    //
+    
+    //Borrar (?)
     private void setIndexTeam(int i){
     	index_team = i;
     	currentTeamIndex.setText("imagen apretada, indice" + i);
     	System.out.println("imagen apretada, indice" + i);
     }
     
+    /* ChangePage(int):
+     * Metodo utilizado para cambiar las imagenes de los Pokemon disponibles en el PC segun la pagina 
+     * actual, debe obtener entre 1 y 18 elementos del arreglo backupImages, modificar los atributos 
+     * de los anteriores Pokemon a no visibles y poner los nuevos elementos en estado visible. 
+     * */
     private void changePage(int change){
     	//modificar las anteriores
     	for (int i = 0; i < 18 && i + index_page * 18 < backup_size ; i++) {
