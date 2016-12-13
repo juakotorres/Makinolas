@@ -27,8 +27,7 @@ import cl.makinolas.atk.utils.SaveManager;
 
 public class PokeComputerScreen extends SimpleScreen implements KeyHandable {
 
-	private BitmapFont large = new BitmapFont(Gdx.files.internal("Fonts/large.fnt"),
-			Gdx.files.internal("Fonts/large.png"), false);
+	private BitmapFont large = new BitmapFont(Gdx.files.internal("Fonts/large.fnt"),Gdx.files.internal("Fonts/large.png"), false);
 	private Label currentItem;
 	private Hero hero;
 	private int index_team;
@@ -57,10 +56,7 @@ public class PokeComputerScreen extends SimpleScreen implements KeyHandable {
 
 		team_size = hero.getAllies().size;
 		backup_size = hero.getBackupAllies().size;
-		page_limit = backup_size % 18 == 0 && backup_size != 0 ? (backup_size / 18) : (backup_size / 18) + 1;// backup_size
-																												// <
-																												// 18
-																												// ||
+		page_limit = backup_size % 18 == 0 && backup_size != 0 ? (backup_size / 18) : (backup_size / 18) + 1;// backup_size	< 18 ||
 		showAllies();
 
 		ally = new FriendInfo(hero.getAllies().get(0));
