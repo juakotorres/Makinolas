@@ -17,6 +17,7 @@ import com.badlogic.gdx.physics.box2d.FixtureDef;
 import cl.makinolas.atk.GameConstants;
 import cl.makinolas.atk.actors.GameActor;
 import cl.makinolas.atk.actors.Hero;
+import cl.makinolas.atk.actors.LeavingWaterState;
 import cl.makinolas.atk.actors.NullState;
 import cl.makinolas.atk.actors.OnGround;
 import cl.makinolas.atk.actors.OnWater;
@@ -87,8 +88,8 @@ public class WaterPlatform extends GameActor {
 		/*eliminamos damping*/
 		hero.myBody.setLinearDamping(0);
 		
-		/*seteamos estado a ground para que pueda saltar luego de salir del agua*/
-		hero.setState(new OnGround());
+		/*seteamos estado que indica que acaba de salir del agua */
+		hero.setState(new LeavingWaterState());
 	}
 	
 	@Override
@@ -106,7 +107,7 @@ public class WaterPlatform extends GameActor {
 			return;
 		enemy.myBody.setGravityScale(1);
 		enemy.myBody.setLinearDamping(0);
-		enemy.setState(new OnGround());
+		enemy.setState(new LeavingWaterState());
 	  }
 	
 	@Override
