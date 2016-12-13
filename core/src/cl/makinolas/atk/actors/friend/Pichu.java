@@ -86,7 +86,6 @@ public class Pichu extends AbstractFriend {
   
   @Override
   public int getAttackMagicRequirement() {
-	// TODO Auto-generated method stub
 	return ThunderBoltState.getMagicRequirement();
   }
   

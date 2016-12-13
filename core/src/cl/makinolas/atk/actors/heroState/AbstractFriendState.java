@@ -12,12 +12,18 @@ import cl.makinolas.atk.stages.AbstractStage;
 public abstract class AbstractFriendState {
 	protected Hero hero;
 
-	private long cooldownTimer;
+	protected long cooldownTimer;
 	protected Attacks attack;
 
 	public AbstractFriendState() {
 		hero = Hero.getInstance();
 		cooldownTimer = 0;
+	}
+	
+	public AbstractFriendState(AbstractFriendState state) {
+		hero = state.hero;
+		cooldownTimer = state.cooldownTimer;
+		attack = state.attack;
 	}
 
 	public void attackSecondary() {
@@ -58,8 +64,16 @@ public abstract class AbstractFriendState {
 
 	public void isNotPressingPrimaryAttack() {
 		if (attack != null)
-			attack.unPress();
-		;
+			attack.unPressButton();
+	}
+
+	public void drainMana(int manaDrain, Attacks attack2, Friend actualFriend) {
+		if (actualFriend.getMagic() >= manaDrain){
+			actualFriend.setMagic(actualFriend.getMagic() - manaDrain);
+		}
+		else{
+			attack2.unPress();
+		}
 	}
 
 }

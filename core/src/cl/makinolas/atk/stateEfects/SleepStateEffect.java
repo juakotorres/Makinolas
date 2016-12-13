@@ -13,6 +13,7 @@ public class SleepStateEffect extends AbstractStateEfects {
 		this.friend = monster.getMyself() ;
 		this.drawEfects = new DrawStateEfects("StateImages/dormir.png", 64, 64, 5, 25, value, 2f,4, this);
 	}
+	
 
 	@Override
 	public void affectMonsters() {

@@ -89,7 +89,6 @@ public class Charmander extends AbstractFriend {
   
   @Override
   public int getAttackMagicRequirement() {
-	// TODO Auto-generated method stub
 	return FireballState.getMagicRequirement();
   }  
   
