@@ -277,7 +277,7 @@ public class Enemy extends Monsters {
 
 	@Override
 	public void interactWithHero(Hero hero, WorldManifold worldManifold) {
-		if (free) {
+		if (free && !isSinging) {
 			interactWithHero2(hero);
 			hero.interactWithMonster(this);
 		}
@@ -339,8 +339,7 @@ public class Enemy extends Monsters {
 	@Override
 	public void interactWithPlatform(Platform platform, WorldManifold worldManifold) {
 		if (worldManifold.getNormal().x < -0.95 || worldManifold.getNormal().x > 0.95) {
-			vx = -vx;
-			isFacingRight = !isFacingRight;
+			flip();
 		}
 	}
 
@@ -351,8 +350,10 @@ public class Enemy extends Monsters {
 	}
 
 	public void flip() {
-		vx = -vx;
-		isFacingRight = !isFacingRight;
+		if(!isSinging){
+			vx = -vx;
+			isFacingRight = vx>0;
+		}
 	}
 
 	@Override
@@ -423,7 +424,19 @@ public class Enemy extends Monsters {
 
 	@Override
 	public void Awake() {
-		vx = auxvx;
+		vx = isFacingRight?-auxvx:auxvx;
 		isSinging = false;
+	}
+
+	@Override
+	public void paraliza3() {
+		vx = vx/2;
+		auxvx = auxvx/2;
+	}
+
+	@Override
+	public void desparaliza3() {
+		vx = vx*2;
+		auxvx = auxvx*2;
 	}
 }

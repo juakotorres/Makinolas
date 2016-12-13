@@ -12,12 +12,18 @@ import cl.makinolas.atk.stages.AbstractStage;
 public abstract class AbstractFriendState {
 	protected Hero hero;
 
-	private long cooldownTimer;
+	protected long cooldownTimer;
 	protected Attacks attack;
 
 	public AbstractFriendState() {
 		hero = Hero.getInstance();
 		cooldownTimer = 0;
+	}
+	
+	public AbstractFriendState(AbstractFriendState state) {
+		hero = state.hero;
+		cooldownTimer = state.cooldownTimer;
+		attack = state.attack;
 	}
 
 	public void attackSecondary() {
@@ -27,7 +33,6 @@ public abstract class AbstractFriendState {
 
 	public void attackPrimary(AbstractStage abstractStage, Friend actualFriend, World myWorld, Vector2 position,
 			boolean isFacingRight, Hero hero2) {
-		System.out.println(actualFriend.getMagic());
 		if (actualFriend.getMagic() >= actualFriend.getAttackMagicRequirement()
 				&& cooldownTimer < System.currentTimeMillis()) {
 			attack = actualFriend.getFriendAttack(myWorld, position.x, position.y, isFacingRight, hero2);

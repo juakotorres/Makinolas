@@ -143,6 +143,9 @@ public class BossStage extends AbstractStage implements ContactListener {
       }
       if(actor.isMonster() || actor.isPuff() || actor.isBall() || actor.isAttack() || actor.isDetector()){
         Body actorBody = actor.getBody();
+        if(actor.isHero() && (actorBody.getPosition().y < -200 || actorBody.getPosition().x < -100 || actor.isDead())){
+            changeDeadMenu();
+         }
         if(actorBody.getPosition().y < -200 || actorBody.getPosition().x < -100 || actorBody.getPosition().x > 200 || actor.isDead()){
           gameActors.removeValue(actor,true);
           suMundo.destroyBody(actorBody);

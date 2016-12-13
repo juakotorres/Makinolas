@@ -5,17 +5,19 @@ import com.badlogic.gdx.physics.box2d.World;
 
 import cl.makinolas.atk.actors.Hero;
 import cl.makinolas.atk.actors.JumpState;
-import cl.makinolas.atk.actors.attacks.Attacks;
 import cl.makinolas.atk.actors.friend.Friend;
 import cl.makinolas.atk.stages.AbstractStage;
 
 public class SleepState extends AbstractFriendState {
 
-	public SleepState(Attacks attack) {
+	public SleepState(){
 		super();
-		this.attack = attack;
 	}
-
+	
+	public SleepState(AbstractFriendState state){
+		super(state);
+	}
+	
 	@Override
 	public void attackSecondary() {
 	}

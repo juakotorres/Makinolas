@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.ConcurrentModificationException;
 
 import com.badlogic.gdx.graphics.g2d.Batch;
+import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.WorldManifold;
 
 import cl.makinolas.atk.actors.attacks.Attacks;
@@ -27,6 +28,8 @@ public abstract class Monsters extends AnimatedActor {
   public abstract void unSing();
   public abstract void sleep();
   public abstract void Awake();
+  public abstract void paraliza3();
+  public abstract void desparaliza3();
   
   protected ArrayList<IStateEfects> states;
   
@@ -108,7 +111,9 @@ public abstract class Monsters extends AnimatedActor {
   public  void removeState(IStateEfects state){
 	  this.states.remove(state);
   }
-
+public void stun() {
+	myBody.setLinearVelocity(new Vector2(myBody.getLinearVelocity().x/2, myBody.getLinearVelocity().y/2));
+}
 
 }
 

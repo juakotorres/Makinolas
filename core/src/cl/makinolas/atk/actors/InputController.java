@@ -26,10 +26,10 @@ public class InputController extends InputListener implements MobileKeyListener{
         if(!((AbstractStage) hero.getStage()).isPaused()) {
             switch (keycode) {
                 case Input.Keys.LEFT:
-                    hero.moveHorizontal(-1, false);
+                    hero.pressingLeft();
                     break;
                 case Input.Keys.RIGHT:
-                    hero.moveHorizontal(1, false);
+                    hero.pressingRight();
                     break;
                 case Input.Keys.SPACE:
                     hero.jump(1);
@@ -92,10 +92,10 @@ public class InputController extends InputListener implements MobileKeyListener{
         if(((AbstractStage) hero.getStage()).isPaused()) return true;
         switch (keycode) {
             case Input.Keys.LEFT:
-                hero.moveHorizontal(1,true);
+                hero.notPressingLeft();
                 break;
             case Input.Keys.RIGHT:
-                hero.moveHorizontal(-1,true);
+                hero.notPressingRight();
                 break;
             case Input.Keys.SPACE:
                 hero.isNotPressingSpace();
@@ -115,10 +115,10 @@ public class InputController extends InputListener implements MobileKeyListener{
         if(!((AbstractStage) hero.getStage()).isPaused()) {
             switch (key) {
                 case LEFT:
-                    hero.moveHorizontal(-1, false);
+                    hero.pressingLeft();
                     break;
                 case RIGHT:
-                    hero.moveHorizontal(1, false);
+                    hero.pressingRight();
                     break;
                 case UP:
                     hero.jump(1);
@@ -157,10 +157,10 @@ public class InputController extends InputListener implements MobileKeyListener{
         if(((AbstractStage) hero.getStage()).isPaused()) return;
         switch (k) {
             case LEFT:
-                hero.moveHorizontal(1,true);
+                hero.notPressingLeft();
                 break;
             case RIGHT:
-                hero.moveHorizontal(-1,true);
+                hero.notPressingRight();
                 break;
             case UP:
                 hero.isNotPressingSpace();

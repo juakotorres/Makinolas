@@ -85,5 +85,8 @@ public GameActor getFriendSecondaryAttack(World myWorld, float f, float y, boole
 public void setState(AbstractFriendState standartState);
 public AbstractFriendState getState();
 public ArrayList<IStateEfects> getStateEfectList();
+public int getVex();
+
+public void setVex(int vex);
   
 }

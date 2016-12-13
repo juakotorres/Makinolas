@@ -28,6 +28,7 @@ import cl.makinolas.atk.utils.Formulas;
 
 public abstract class AbstractFriend implements Friend {
   
+  private int vex;
   private int health;
   private int hp;
   private int ivs;
@@ -69,6 +70,7 @@ public abstract class AbstractFriend implements Friend {
   private ArrayList<IStateEfects> states;
   
   public AbstractFriend(){
+	  vex = 7;
 	  states = new ArrayList<IStateEfects>();
   }
 
@@ -743,5 +745,13 @@ public abstract class AbstractFriend implements Friend {
   public ArrayList<IStateEfects> getStateEfectList(){
 	  return states;
   }
+
+public int getVex() {
+	return vex;
+}
+
+public void setVex(int vex) {
+	this.vex = vex;
+}
   
 }
