@@ -352,7 +352,7 @@ public class Enemy extends Monsters {
 	public void flip() {
 		if(!isSinging){
 			vx = -vx;
-			isFacingRight = !isFacingRight;
+			isFacingRight = vx>0;
 		}
 	}
 
