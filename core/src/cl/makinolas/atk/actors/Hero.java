@@ -102,8 +102,8 @@ public class Hero extends Monsters {
 		accumulator = 0;
 		vx = 0;
 		platformSpeed = new Vector2(0, 0);
-		pressingRight = true;
-		pressingLeft = true;
+		pressingRight = false;
+		pressingLeft = false;
 
 		// Set team for player;
 		allies = new Array<Friend>();
@@ -576,8 +576,8 @@ public class Hero extends Monsters {
 	}
 
 	public void moveHorizontal(int val) {
+		vx = val;
 		if (!actualFriend.getState().isSinging()) {
-			vx = val;
 			isFacingRight = actualFriend.getState().isFacingRight((int) vx);
 		}
 	}

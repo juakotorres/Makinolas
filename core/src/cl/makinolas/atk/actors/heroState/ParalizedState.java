@@ -21,10 +21,11 @@ public class ParalizedState extends AbstractFriendState {
 	
 	@Override
 	public void attackSecondary() {
-			if(Math.random()<.8){
+			if(Math.random()<0.8){
 				super.attackSecondary();
 			}
 			else{
+				System.out.println("Fail");
 				hero.CriticalDamage();
 			}
 	}
@@ -32,20 +33,22 @@ public class ParalizedState extends AbstractFriendState {
 	@Override
 	public void attackPrimary(AbstractStage abstractStage, Friend actualFriend, World myWorld, Vector2 position,
 			boolean isFacingRight, Hero hero2) {
-		if(Math.random()<.8){
+		if(Math.random()<0.8){
 			super.attackPrimary(abstractStage, actualFriend, myWorld, position, isFacingRight, hero2);
 		}
 		else{
+			System.out.println("Fail");
 			hero.CriticalDamage();
 		}
 	}
 
 	@Override
 	public void jump(JumpState state, Hero hero2) {
-		if(Math.random()<.8){
+		if(Math.random()<0.8){
 			super.jump(state, hero2);
 		}
 		else{
+			System.out.println("Fail");
 			hero.CriticalDamage();
 		}
 	}
