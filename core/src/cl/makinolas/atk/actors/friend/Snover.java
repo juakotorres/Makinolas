@@ -4,11 +4,13 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.physics.box2d.World;
+import com.badlogic.gdx.physics.box2d.WorldManifold;
 
 import cl.makinolas.atk.actors.Monsters;
 import cl.makinolas.atk.actors.attacks.Attacks;
 import cl.makinolas.atk.actors.attacks.ShootAttack;
 import cl.makinolas.atk.actors.attacks.states.IceRockState;
+import cl.makinolas.atk.actors.platform.Platform;
 import cl.makinolas.atk.types.TypeFactory;
 
 public class Snover extends AbstractFriend {
@@ -75,7 +77,7 @@ public class Snover extends AbstractFriend {
 	
 	@Override
 	public Attacks getFriendAttack(World myWorld, float x , float y, boolean facingRight, Monsters source){
-	    return new ShootAttack(new IceRockState(), myWorld, x, y, facingRight, source);
+	    return new ShootAttack(new IceRockState(), myWorld, x, (float) (y+0.3), facingRight, source);
 	}
 
 }
