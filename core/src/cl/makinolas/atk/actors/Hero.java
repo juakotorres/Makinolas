@@ -451,6 +451,7 @@ public class Hero extends Monsters {
 			mplayer.PlayGetDmg();
 		}
 		if (getHealth() <= 0) {
+			unSing();
 			changeAllie();
 		}
 	}
