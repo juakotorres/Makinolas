@@ -87,6 +87,9 @@ public AbstractFriendState getState();
 public ArrayList<IStateEfects> getStateEfectList();
 public int getVex();
 
+void weatherEffect(int newAttack, int newDefense, int newHp, int newSpAttack,
+		int newSpDefense, int newSpeed);
+
 public void setVex(int vex);
-  
+
 }

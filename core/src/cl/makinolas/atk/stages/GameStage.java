@@ -73,6 +73,8 @@ public class GameStage extends AbstractStage implements ContactListener {
     Gdx.input.setInputProcessor(this);
     
     Hero hero =  Hero.getInstance();
+    level.climate.applyClimateEffect(hero);
+    
     cameraObserver = new CameraPosition();
 
     createPlatforms(myGame);
