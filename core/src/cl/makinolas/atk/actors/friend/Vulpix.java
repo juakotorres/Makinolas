@@ -4,7 +4,7 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 
-import cl.makinolas.atk.types.FireType;
+import cl.makinolas.atk.types.TypeFactory;
 
 public class Vulpix extends AbstractFriend {
 
@@ -26,7 +26,7 @@ public class Vulpix extends AbstractFriend {
     newMonster();
     setActualEvolution(0);
     setMaxMagic(1000);
-    addType(FireType.getInstance());
+    addType(TypeFactory.getType("Fire"));
   }
   
   public Vulpix(int level){

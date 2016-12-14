@@ -4,8 +4,7 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 
-import cl.makinolas.atk.types.GroundType;
-import cl.makinolas.atk.types.RockType;
+import cl.makinolas.atk.types.TypeFactory;
 
 public class Geodude extends AbstractFriend {
   
@@ -27,8 +26,8 @@ public class Geodude extends AbstractFriend {
     newMonster();
     setActualEvolution(0);
     setMaxMagic(1000);
-    addType(RockType.getInstance());
-    addType(GroundType.getInstance());
+    addType(TypeFactory.getType("Rock"));
+    addType(TypeFactory.getType("Ground"));
   }
   
   public Geodude(int level){

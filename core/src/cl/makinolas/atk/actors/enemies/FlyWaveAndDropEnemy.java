@@ -13,6 +13,7 @@ public class FlyWaveAndDropEnemy extends Enemy {
   private final float attackTime = 1.5f;
   private float accumulatorAttack;
   private float flyingAccumulator;
+  private float AunxGravity;
   
   public FlyWaveAndDropEnemy(World myWorld, TextureRegion enemyTexture, int[] cutSprite, int[][] numberOfSprite,
       int[][] numberOfHurtSprites, int givenHealth, int positionX, int positionY, boolean facingRight, int level, Enemies type,
@@ -22,6 +23,7 @@ public class FlyWaveAndDropEnemy extends Enemy {
     
     accumulatorAttack = 0;
     flyingAccumulator = 0;
+    AunxGravity = this.getBody().getGravityScale();
   }
   
   @Override
@@ -32,10 +34,12 @@ public class FlyWaveAndDropEnemy extends Enemy {
 	    flyingAccumulator += delta;
 	    myBody.setLinearVelocity(vx, (float) (6*Math.sin(4*flyingAccumulator)));
 	  }
+
+			  
     checkDamage(delta, 0);
     accumulatorAttack += delta; 
     
-    if(accumulatorAttack > attackTime && super.isFree()){
+    if(!this.isSinging && accumulatorAttack > attackTime && super.isFree()){
       Attacks attack = parent.getFriendAttack(myWorld, myBody.getPosition().x, myBody.getPosition().y - 1f, isFacingRight, this);
       attack.isDropping();
       attack.setSource(this);
@@ -44,4 +48,19 @@ public class FlyWaveAndDropEnemy extends Enemy {
       accumulatorAttack = 0;
     }
   }
-}
+    
+	@Override
+	public void sleep(){
+		super.sleep();
+		this.getBody().setGravityScale(1);
+	}
+
+	@Override
+	public void Awake(){
+		super.Awake();
+		this.getBody().setGravityScale(this.AunxGravity);
+	}
+    
+    
+  }
+

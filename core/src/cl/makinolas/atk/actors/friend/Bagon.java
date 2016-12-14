@@ -9,8 +9,8 @@ import cl.makinolas.atk.actors.Monsters;
 import cl.makinolas.atk.actors.attacks.Attacks;
 import cl.makinolas.atk.actors.attacks.ShootAttack;
 import cl.makinolas.atk.actors.attacks.states.DragonBreathState;
-import cl.makinolas.atk.types.DragonType;
 import cl.makinolas.atk.types.FlyingType;
+import cl.makinolas.atk.types.TypeFactory;
 
 public class Bagon extends AbstractFriend {
   
@@ -32,7 +32,7 @@ public class Bagon extends AbstractFriend {
     newMonster();
     setActualEvolution(0);
     setMaxMagic(1000);
-    addType(DragonType.getInstance());
+    addType(TypeFactory.getType("Dragon"));
   }
   
   public Bagon(int level){
@@ -77,7 +77,7 @@ public class Bagon extends AbstractFriend {
       setActualEvolution(2);
       setStats();
       setMaxMagic(1000);
-      addType(FlyingType.getInstance());
+      addType(new FlyingType());
     }
   }
   
@@ -89,7 +89,7 @@ public class Bagon extends AbstractFriend {
   @Override
   public int getAttackMagicRequirement() {
 	// TODO Auto-generated method stub
-	return DragonBreathState.magicRequirement;
+	return DragonBreathState.getMagicRequirement();
   }
 
 }

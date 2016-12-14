@@ -9,12 +9,7 @@ import cl.makinolas.atk.actors.Monsters;
 import cl.makinolas.atk.actors.attacks.Attacks;
 import cl.makinolas.atk.actors.attacks.CloseRangeAttack;
 import cl.makinolas.atk.actors.attacks.states.VineWhipState;
-import cl.makinolas.atk.types.BugType;
-import cl.makinolas.atk.types.ElectricType;
-import cl.makinolas.atk.types.FlyingType;
-import cl.makinolas.atk.types.IType;
-import cl.makinolas.atk.types.NormalType;
-import cl.makinolas.atk.types.SteelType;
+import cl.makinolas.atk.types.TypeFactory;
 
 public class Scyther extends AbstractFriend {
   
@@ -36,8 +31,8 @@ public class Scyther extends AbstractFriend {
     newMonster();
     setActualEvolution(0);
     setMaxMagic(1000);
-    addType(BugType.getInstance());
-    addType(FlyingType.getInstance());
+    addType(TypeFactory.getType("Bug"));
+    addType(TypeFactory.getType("Flying"));
   }
   
   public Scyther(int level){
@@ -69,8 +64,8 @@ public class Scyther extends AbstractFriend {
       setStats();
       setMaxMagic(1000);
       resetType();
-      addType(BugType.getInstance());
-      addType(SteelType.getInstance());      
+      addType(TypeFactory.getType("Bug"));
+      addType(TypeFactory.getType("Steel"));      
     } 
   }
   
@@ -82,7 +77,7 @@ public class Scyther extends AbstractFriend {
   @Override
   public int getAttackMagicRequirement() {
 	// TODO Auto-generated method stub
-	return VineWhipState.magicRequirement;
+	return VineWhipState.getMagicRequirement();
   }
   
 }

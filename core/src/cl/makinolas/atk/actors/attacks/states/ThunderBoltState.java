@@ -6,14 +6,16 @@ import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.Animation.PlayMode;
 
 import cl.makinolas.atk.actors.Monsters;
-import cl.makinolas.atk.types.ElectricType;
+import cl.makinolas.atk.stateEfects.BurnedStateEffect;
+import cl.makinolas.atk.stateEfects.ParalysisStateEfects;
 import cl.makinolas.atk.types.IType;
+import cl.makinolas.atk.types.TypeFactory;
 
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 
 public class ThunderBoltState extends SpriteState {
 	
-  public static int magicRequirement = 45;
+  private static int magicRequirement = 45;
 
   @Override
   public int getAttackDamage() {
@@ -72,6 +74,16 @@ public class ThunderBoltState extends SpriteState {
 
 @Override
 public IType getType() {
-	return ElectricType.getInstance();
+	return TypeFactory.getType("Electric");
 }
+
+@Override
+public void secondaryEfectsToAfected(Monsters monster) {
+	monster.addState(new ParalysisStateEfects(monster), 20);
+}
+
+public static int getMagicRequirement(){
+	return magicRequirement;
+}
+
 }

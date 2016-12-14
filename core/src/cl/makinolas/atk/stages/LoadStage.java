@@ -21,8 +21,6 @@ import cl.makinolas.atk.screen.MenuScreen;
 import cl.makinolas.atk.start.StartingJourneyStage;
 
 import java.io.File;
-import java.util.ArrayList;
-
 
 public class LoadStage extends Stage {
 
@@ -40,13 +38,16 @@ public class LoadStage extends Stage {
   public LoadStage(Viewport v, GameScreen actualScreen, Game myGame) {
     super(v);
     File saves = new File("Save");
+    if (!saves.exists()) {
+      saves.mkdir();
+    }
     cantidad_juegos = saves.list().length;
     titulos = saves.list();
     lastSelected = 0;
     this.myGame = myGame;
     options= new LoadActor[2];
 
-    ArrayList<LoadActor> load = new ArrayList<LoadActor>();
+    //ArrayList<LoadActor> load = new ArrayList<LoadActor>();
     //myScreen = actualScreen;
     addActor(new Background("Background/Wood.png", getCamera()));
     addActor(new Title("Background/LoadFiles.png",220 ,400));
@@ -88,11 +89,12 @@ public class LoadStage extends Stage {
 
 
     TextButton menuButton = new TextButton("Back to menu",  new Skin(Gdx.files.internal("Data/uiskin.json")));
-    menuButton.setPosition(500, 50);
+    menuButton.setPosition(450, 50);
     menuButton.addListener(new ClickListener(){
         @Override
         public void clicked(InputEvent event, float x, float y) {
           MainMenu();
+          //playpressbutton();
         }
     });
     
@@ -126,18 +128,23 @@ public class LoadStage extends Stage {
     if (Gdx.input.isKeyJustPressed(Keys.UP)){
 
       int last = lastSelected;
+
       if(lastSelected==0){
         lastSelected = cantidad_juegos-1;
         indicador = 1;//da la vuelta
+        //move menu
       }
       else{
         lastSelected = lastSelected - 1;
         indicador = 0;
+
       }
       changeArrow(last, lastSelected);
     } if (Gdx.input.isKeyJustPressed(Keys.DOWN)){
       int last = lastSelected;
+
       if(lastSelected == cantidad_juegos - 1) {
+    	 //movemenu
         lastSelected = 0;
         indicador = 0;
       }
@@ -146,6 +153,7 @@ public class LoadStage extends Stage {
         indicador = 1;
       }
       changeArrow(last, lastSelected);
+
     }
   }
   

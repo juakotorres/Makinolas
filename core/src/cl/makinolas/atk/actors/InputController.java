@@ -4,7 +4,8 @@ import cl.makinolas.atk.actors.friend.Enemies;
 import cl.makinolas.atk.actors.ui.BagVis;
 import cl.makinolas.atk.actors.ui.MobileGroup;
 import cl.makinolas.atk.actors.ui.MobileKeyListener;
-import cl.makinolas.atk.audio.GDXMusicPlayer;
+import cl.makinolas.atk.audio.GDXSoundEffectsHero;
+import cl.makinolas.atk.audio.GDXSoundEffectsPlayer;
 import cl.makinolas.atk.stages.AbstractStage;
 import cl.makinolas.atk.utils.SaveManager;
 import com.badlogic.gdx.Input;
@@ -14,7 +15,7 @@ import com.badlogic.gdx.scenes.scene2d.InputListener;
 public class InputController extends InputListener implements MobileKeyListener{
 
     private Hero hero;
-
+    private GDXSoundEffectsPlayer mplayer = GDXSoundEffectsHero.getInstance();
     public InputController(Hero h, MobileGroup mob){
         hero = h;
         mob.setMobileKeyListener(this);
@@ -25,10 +26,10 @@ public class InputController extends InputListener implements MobileKeyListener{
         if(!((AbstractStage) hero.getStage()).isPaused()) {
             switch (keycode) {
                 case Input.Keys.LEFT:
-                    hero.moveHorizontal(-1, false);
+                    hero.pressingLeft();
                     break;
                 case Input.Keys.RIGHT:
-                    hero.moveHorizontal(1, false);
+                    hero.pressingRight();
                     break;
                 case Input.Keys.SPACE:
                     hero.jump(1);
@@ -75,8 +76,10 @@ public class InputController extends InputListener implements MobileKeyListener{
             switch (keycode) {
                 case Input.Keys.P:
                     ((AbstractStage) hero.getStage()).togglePause();
+                    mplayer.PlayPauseMenuOut();
                     break;
                 default:
+                	
                     BagVis.getInstance().handleKey(keycode);
                     break;
             }
@@ -89,16 +92,19 @@ public class InputController extends InputListener implements MobileKeyListener{
         if(((AbstractStage) hero.getStage()).isPaused()) return true;
         switch (keycode) {
             case Input.Keys.LEFT:
-                hero.moveHorizontal(1,true);
+                hero.notPressingLeft();
                 break;
             case Input.Keys.RIGHT:
-                hero.moveHorizontal(-1,true);
+                hero.notPressingRight();
                 break;
             case Input.Keys.SPACE:
                 hero.isNotPressingSpace();
                 break;
             case Input.Keys.UP:
                 hero.isNotPressingSpace();
+                break;
+            case Input.Keys.Z:
+                hero.isNotPressingPrimaryAttack();
                 break;
         }
         return true;
@@ -109,10 +115,10 @@ public class InputController extends InputListener implements MobileKeyListener{
         if(!((AbstractStage) hero.getStage()).isPaused()) {
             switch (key) {
                 case LEFT:
-                    hero.moveHorizontal(-1, false);
+                    hero.pressingLeft();
                     break;
                 case RIGHT:
-                    hero.moveHorizontal(1, false);
+                    hero.pressingRight();
                     break;
                 case UP:
                     hero.jump(1);
@@ -151,10 +157,10 @@ public class InputController extends InputListener implements MobileKeyListener{
         if(((AbstractStage) hero.getStage()).isPaused()) return;
         switch (k) {
             case LEFT:
-                hero.moveHorizontal(1,true);
+                hero.notPressingLeft();
                 break;
             case RIGHT:
-                hero.moveHorizontal(-1,true);
+                hero.notPressingRight();
                 break;
             case UP:
                 hero.isNotPressingSpace();

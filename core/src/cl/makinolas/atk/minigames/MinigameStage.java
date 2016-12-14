@@ -3,17 +3,19 @@ package cl.makinolas.atk.minigames;
 import cl.makinolas.atk.utils.SaveManager;
 import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.Body;
-import com.badlogic.gdx.physics.box2d.Box2DDebugRenderer;
 import com.badlogic.gdx.physics.box2d.Contact;
 import com.badlogic.gdx.physics.box2d.ContactImpulse;
 import com.badlogic.gdx.physics.box2d.ContactListener;
 import com.badlogic.gdx.physics.box2d.Manifold;
 import com.badlogic.gdx.physics.box2d.World;
 import com.badlogic.gdx.scenes.scene2d.Group;
+import com.badlogic.gdx.scenes.scene2d.InputEvent;
+import com.badlogic.gdx.scenes.scene2d.ui.Skin;
+import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
+import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.viewport.Viewport;
 
@@ -22,10 +24,10 @@ import cl.makinolas.atk.actors.GameActor;
 import cl.makinolas.atk.actors.fx.FxManager;
 import cl.makinolas.atk.actors.platform.Platform;
 import cl.makinolas.atk.actors.ui.BagVis;
-import cl.makinolas.atk.actors.ui.MainBar;
 import cl.makinolas.atk.actors.ui.MobileGroup;
 import cl.makinolas.atk.audio.GDXMusicPlayer;
 import cl.makinolas.atk.screen.GameScreen;
+import cl.makinolas.atk.screen.MenuScreen;
 import cl.makinolas.atk.stages.AbstractStage;
 import cl.makinolas.atk.stages.CameraPosition;
 
@@ -36,7 +38,7 @@ public class MinigameStage extends AbstractStage implements ContactListener{
   private final float frameTime = 1 / 300f;
   private Array<GameActor> gameActors;
   private Group ground, mons, ui, deco;
-  private MainBar bar;
+  //private MainBar bar;
   private BagVis bagVis;
   private Platform initialPlatform;
   private MinigameCharacter hero;
@@ -44,12 +46,16 @@ public class MinigameStage extends AbstractStage implements ContactListener{
   private BitmapFont normal = new BitmapFont(Gdx.files.internal("Fonts/normal.fnt"),Gdx.files.internal("Fonts/normal.png"),false);
   private float score;
   private int hgsc;
+  private Game myGame;
+  private TextButton menuButton;
 
-  private OrthographicCamera camera;
-  private Box2DDebugRenderer renderer;
+  //private OrthographicCamera camera;
+  //private Box2DDebugRenderer renderer;
   
   public MinigameStage(Viewport v, GameScreen actualScreen, Game myGame){
     super(v);
+    
+    this.myGame = myGame;
 
     musicplayer = GDXMusicPlayer.getInstance();
     myScreen = actualScreen;
@@ -60,10 +66,7 @@ public class MinigameStage extends AbstractStage implements ContactListener{
     addActor(new Background("Background/OldRuins1.1.png", getCamera()));
     hgsc = SaveManager.getInstance().getHighscore();
 
-
     musicplayer.PlayLooped("Music/Freesia.mp3");
-
-
 
     deco = new Group();
     addActor(deco);
@@ -91,8 +94,18 @@ public class MinigameStage extends AbstractStage implements ContactListener{
    
     addListener(new MinigameInputController(hero,group));
     accumulator = 0;
-    renderer = new Box2DDebugRenderer();
+    //renderer = new Box2DDebugRenderer();
     //setupCamera();
+    menuButton = new TextButton("Back to Menu",  new Skin(Gdx.files.internal("Data/uiskin.json")));
+    menuButton.setVisible(false);
+    menuButton.addListener(new ClickListener(){
+        @Override
+        public void clicked(InputEvent event, float x, float y) {
+      	  bagVis.hide();
+      	  toMenu();
+        }
+    });
+    addActor(menuButton);
   }
 
   public void addGameActor(GameActor actor) {
@@ -100,17 +113,24 @@ public class MinigameStage extends AbstractStage implements ContactListener{
     gameActors.add(actor);
   }
 
+  /*
   private void setupCamera() {
     camera = new OrthographicCamera(32, 24);
     camera.position.set(camera.viewportWidth / 2, camera.viewportHeight / 2, 0f);
     camera.update();
   }
+  */
   
   public void changeCamera(float x, float y){
     //camera.position.set((x + 7), 7, 0);
     getCamera().position.set((x + 7) * 20, 7* 20, 0);
     getCamera().update();    
     //camera.update();
+  }
+  
+  private void toMenu() {
+	  	musicplayer.StopMusic();
+	  	myGame.setScreen(new MenuScreen(myGame));
   }
   
   @Override
@@ -167,9 +187,13 @@ public class MinigameStage extends AbstractStage implements ContactListener{
       bagVis = BagVis.getInstance();
       //bagVis.setPosition(getCamera().position.x,getCamera().position.y);
       bagVis.show();
+      
+      menuButton.setPosition(getCamera().position.x - 60, getCamera().position.y - 180);
+      menuButton.setVisible(true);
     }
     else{
       bagVis.hide();
+      menuButton.setVisible(false);
     }
   }
 

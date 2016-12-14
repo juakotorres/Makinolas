@@ -26,7 +26,7 @@ public class Castform extends AbstractFriend {
     newMonster();
     setActualEvolution(0);
     setMaxMagic(1000);
-    addType(NormalType.getInstance());
+    addType(new NormalType());
   }
   
   public Castform(int level){

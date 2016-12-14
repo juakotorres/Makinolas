@@ -4,7 +4,7 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 
-import cl.makinolas.atk.types.GroundType;
+import cl.makinolas.atk.types.TypeFactory;
 
 public class Sandshrew extends AbstractFriend {
 
@@ -26,7 +26,7 @@ public class Sandshrew extends AbstractFriend {
     newMonster();
     setActualEvolution(0);
     setMaxMagic(1000);
-    addType(GroundType.getInstance());
+    addType(TypeFactory.getType("Ground"));
   }
   
   public Sandshrew(int level){

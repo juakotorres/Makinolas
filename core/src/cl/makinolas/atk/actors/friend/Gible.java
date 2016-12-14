@@ -9,11 +9,7 @@ import cl.makinolas.atk.actors.Monsters;
 import cl.makinolas.atk.actors.attacks.AquaAttack;
 import cl.makinolas.atk.actors.attacks.Attacks;
 import cl.makinolas.atk.actors.attacks.states.AquaAttackState;
-import cl.makinolas.atk.types.DragonType;
-import cl.makinolas.atk.types.GroundType;
-import cl.makinolas.atk.types.IType;
-import cl.makinolas.atk.types.PoisonType;
-import cl.makinolas.atk.types.WaterType;
+import cl.makinolas.atk.types.TypeFactory;
 
 public class Gible extends AbstractFriend {
   
@@ -35,8 +31,8 @@ public class Gible extends AbstractFriend {
     newMonster();
     setActualEvolution(0);
     setMaxMagic(1000);
-    addType(DragonType.getInstance());
-    addType(GroundType.getInstance());
+    addType(TypeFactory.getType("Dragon"));
+    addType(TypeFactory.getType("Ground"));
     }
 
   public Gible(int level){
@@ -92,7 +88,7 @@ public class Gible extends AbstractFriend {
   @Override
   public int getAttackMagicRequirement() {
 	// TODO Auto-generated method stub
-	return AquaAttackState.magicRequirement;
+	return AquaAttackState.getMagicRequirement();
   }
   
 }
