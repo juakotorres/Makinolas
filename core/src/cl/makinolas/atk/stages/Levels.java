@@ -1,8 +1,11 @@
 package cl.makinolas.atk.stages;
 
+import cl.makinolas.atk.climate.*;
+
 public enum Levels {
   LEVEL1("ezpizi", // Nombre del .lvl -- reemplazar por "test_displacement_bug" para probar bug de desplazamiento
           false,   // true si es bossStage
+          new NormalClimate(), //clima 
           28,      // posición x del mapa
           20,      // posicion y del mapa
           "Background/SuPuente.jpg",  // imagen de fondo
@@ -12,6 +15,7 @@ public enum Levels {
           8), // etapas que se desboquean al completar esta
   FIRSTSTAGE("FirstStage",
           false,
+          new NormalClimate(),
           28,
           18,
           "Background/SandOcean.png",
@@ -20,6 +24,7 @@ public enum Levels {
           2),
   LEVEL2("Electric_Campament",
           false,
+          new NormalClimate(),
           28,
           16,
           "Background/AbandonedMansion.jpg",
@@ -28,6 +33,7 @@ public enum Levels {
           3),
   LEVEL3("UpAndDown",
           false,
+          new NormalClimate(),
           26,
           16,
           "Background/Night.png",
@@ -36,6 +42,7 @@ public enum Levels {
           4),
   BOSSLEVEL1("bossstage1",
           true,
+          new NormalClimate(),
           24,
           16,
           "Background/SuPuente.jpg",
@@ -45,6 +52,7 @@ public enum Levels {
          6),
   LEVEL4("DownLevel",
           false,
+          new NormalClimate(),
           24,
           18,
           "Background/OldRuins1.1.png",
@@ -53,6 +61,7 @@ public enum Levels {
          7),
   LEVEL5("cuito_maincra",
           false,
+          new NormalClimate(),
           24,
           14,
           "Background/SandOcean2.1.png",
@@ -60,6 +69,7 @@ public enum Levels {
           new Spot(24, 14,  BOSSLEVEL1.levelSpot, new NullSpot(), new NullSpot(), new NullSpot())),
   LEVEL6("Fibonacci_confirmed",
           false,
+          new NormalClimate(),
           22,
           18,
           "Background/OldRuins1.1.png",
@@ -67,6 +77,7 @@ public enum Levels {
           new Spot(22, 18,  new NullSpot(), new NullSpot(), LEVEL4.levelSpot, new NullSpot())),
   LEVEL8("level2",
       false,
+      new NormalClimate(),
       26,
       20,
       "Background/Pradera.png",
@@ -75,6 +86,7 @@ public enum Levels {
       9),
   LEVEL9("level3",
       false,
+      new NormalClimate(),
       26,
       22,
       "Background/SuPuente.jpg",
@@ -90,9 +102,11 @@ public enum Levels {
   public String levelMusic;
   public Spot levelSpot;
   public int[] unlockableLevels;
-  Levels(String name, boolean boss, int mx, int my, String background, String music, Spot levelSpot, int... unlockableLevels){
+  public IClimate climate;
+  Levels(String name, boolean boss, IClimate weather, int mx, int my, String background, String music, Spot levelSpot, int... unlockableLevels){
     levelName = name;
     bossLevel = boss;
+    climate = weather;
     mapx = mx;
     mapy = my;
     levelBackground = background;
