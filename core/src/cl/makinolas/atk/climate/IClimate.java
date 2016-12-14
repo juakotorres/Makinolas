@@ -2,6 +2,7 @@ package cl.makinolas.atk.climate;
 
 import java.util.ArrayList;
 
+import cl.makinolas.atk.actors.Hero;
 import cl.makinolas.atk.actors.friend.Friend;
 import cl.makinolas.atk.types.IType;
 
@@ -9,6 +10,7 @@ public interface IClimate {
 	
 	public ArrayList<IType> getTypeFriend(Friend friend);
 	public void modifyStates(Friend friend);
+	public void applyClimateEffect(Hero h);
 	
 	public boolean bugPokemon(IType type);
 	public boolean darkPokemon(IType type);
