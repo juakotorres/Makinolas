@@ -25,6 +25,7 @@ public class LoadActor extends Actor {
   private BitmapFont font;
   private ShapeRenderer renderer;
   private TextureRegion typeImage;
+  private TextureRegion[] friendImages;
   private boolean noFile;
   private LoadStage myStage;
   
@@ -42,9 +43,11 @@ public class LoadActor extends Actor {
     
     if(!noFile){
       myFriends = new String[SaveManager.getInstance().getSaveInstance().friends.length];
+      friendImages= new TextureRegion[myFriends.length];
       FriendDescriptor[] herosFriends = SaveManager.getInstance().getSaveInstance().friends;
       for(int i = 0;  i < myFriends.length ; i++){
           myFriends[i] = herosFriends[i].name;
+          friendImages[i]=MonsterFactory.getInstance().getHeroFriend(myFriends[i], 5).getFriendFaceSprite();
       }
       trainerName = SaveManager.getInstance().getSaveInstance().name;
       if(SaveManager.getInstance().getSaveInstance().sex){
@@ -79,9 +82,10 @@ public class LoadActor extends Actor {
       font.draw(batch,trainerName,cx+20,cy+95);
       batch.draw(typeImage, cx + 10, cy, 50, 80);
       
-      for(String face: myFriends){
-        batch.draw(MonsterFactory.getInstance().getHeroFriend(face, 5).getFriendFaceSprite(), cx + friendPosition, cy + 30);
-        friendPosition += 50;      
+
+      for(int i = 0;  i < friendImages.length  && i < 4 ; i++){
+          batch.draw(friendImages[i], cx + friendPosition, cy + 30);
+          friendPosition += 50;
       }
     } else {
       font.draw(batch,"No save data",cx+200,cy+50);

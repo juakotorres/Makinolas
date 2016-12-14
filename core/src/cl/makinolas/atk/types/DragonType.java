@@ -2,6 +2,10 @@ package cl.makinolas.atk.types;
 
 public class DragonType extends AbstractType implements IType {
 
+	public DragonType(){
+		this.isDragon = true;
+	}
+	
 	@Override
 	public double attackFromType(IType type) {
 		return type.dragonPokemonAttacks(this);

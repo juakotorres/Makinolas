@@ -2,7 +2,7 @@ package cl.makinolas.atk.actors.attacks.states;
 
 import cl.makinolas.atk.actors.Monsters;
 import cl.makinolas.atk.types.IType;
-import cl.makinolas.atk.types.RockType;
+import cl.makinolas.atk.types.TypeFactory;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
@@ -11,6 +11,8 @@ import com.badlogic.gdx.graphics.g2d.TextureRegion;
 
 
 public class TRockState extends SpriteState {
+	
+    private static int magicRequirement = 40;
 
     @Override
     public int getAttackDamage() {
@@ -59,7 +61,11 @@ public class TRockState extends SpriteState {
 
 	@Override
 	public IType getType() {
-		return new RockType();
+		return TypeFactory.getType("Rock");
+	}
+	
+	public static int getMagicRequirement(){
+		return magicRequirement;
 	}
 
 }

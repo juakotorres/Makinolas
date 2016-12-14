@@ -5,9 +5,12 @@ import java.util.ArrayList;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.physics.box2d.World;
 
+import cl.makinolas.atk.actors.GameActor;
 import cl.makinolas.atk.actors.Monsters;
 import cl.makinolas.atk.actors.attacks.Attacks;
 import cl.makinolas.atk.actors.enemies.Enemy;
+import cl.makinolas.atk.actors.heroState.AbstractFriendState;
+import cl.makinolas.atk.stateEfects.IStateEfects;
 import cl.makinolas.atk.types.IType;
 
 public interface Friend {  
@@ -28,6 +31,7 @@ public interface Friend {
   public int[][] getWalkAnimation();
   public int[][] getMeleeAnimation();
   public int[][] getSpecialAnimation();
+  public int[][] getSingAnimation();
   public int getMeleeFrame();
   public TextureRegion getTexture();
   public int getWidth();
@@ -70,9 +74,22 @@ public interface Friend {
   void addSpAttackEv(int n);
   void addSpDefenseEv(int n);
   void addSpeedEv(int n);
-public int getCriticModificator();
+  void setCriticModificator(int val);
+  void setAttackiv(int val);
+  int getAttackiv();
+  public int getCriticModificator();
+  public int getAttackMagicRequirement();
+public boolean secondaryAttack();
+public GameActor getFriendSecondaryAttack(World myWorld, float f, float y, boolean isFacingRight,
+		Monsters source);
+public void setState(AbstractFriendState standartState);
+public AbstractFriendState getState();
+public ArrayList<IStateEfects> getStateEfectList();
+public int getVex();
 
-  void weatherEffect(int newAttack, int newDefense, int newHp, int newSpAttack,
+void weatherEffect(int newAttack, int newDefense, int newHp, int newSpAttack,
 		int newSpDefense, int newSpeed);
+
+public void setVex(int vex);
 
 }

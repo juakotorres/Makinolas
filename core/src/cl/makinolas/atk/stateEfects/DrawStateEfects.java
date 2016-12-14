@@ -1,0 +1,42 @@
+package cl.makinolas.atk.stateEfects;
+
+import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.Animation;
+import com.badlogic.gdx.graphics.g2d.Batch;
+import com.badlogic.gdx.graphics.g2d.TextureRegion;
+import com.badlogic.gdx.utils.Array;
+
+public class DrawStateEfects {
+	
+    private float acc, duration;
+    private Animation animation;
+    private IStateEfects state;
+    private int xdespl,ydespl;
+	
+	public DrawStateEfects(String region, int w, int h, int xdespl, int ydespl, float duration,float durationAnimation , int frames, IStateEfects state){
+		this.state = state;
+		this.xdespl=xdespl;
+		this.ydespl=ydespl;
+        TextureRegion[][] ms = (new TextureRegion(new Texture(region))).split(w,h);
+        Array<TextureRegion> regs = new Array<TextureRegion>(frames);
+        for (int i = 0; i < frames; i++) {
+            regs.add(ms[0][i]);
+        }
+        animation = new Animation(durationAnimation/frames, regs, Animation.PlayMode.LOOP);
+        acc = 0;
+        this.duration = duration;
+	}
+
+	public void act(float delta) {
+        acc += delta;
+        if(acc >= duration){
+        	state.destroy();
+        }
+        	
+	}
+
+	public void draw(Batch batch, float alpha, float xPos, float yPos) {
+        batch.draw(animation.getKeyFrame(acc),xPos+xdespl-30,yPos+ydespl-30);		
+	}
+
+}

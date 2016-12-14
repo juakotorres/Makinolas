@@ -13,15 +13,17 @@ import com.badlogic.gdx.utils.viewport.Viewport;
 
 import cl.makinolas.atk.actors.Background;
 import cl.makinolas.atk.actors.Title;
+import cl.makinolas.atk.audio.GDXSoundEffectsEnemy;
+import cl.makinolas.atk.audio.GDXSoundEffectsPlayer;
 import cl.makinolas.atk.minigames.MinigameStage;
 import cl.makinolas.atk.screen.GameScreen;
 import cl.makinolas.atk.screen.MenuScreen;
 
-public class MiniGameSelect extends AbstractStage {
+public class MiniGameStage extends AbstractStage {
 	private static Skin sharedSkin = new Skin(Gdx.files.internal("Data/uiskin.json"));
-
+	private GDXSoundEffectsPlayer mplayer = GDXSoundEffectsEnemy.getInstance();
 	
-	public MiniGameSelect(Viewport v, GameScreen gameScreen, final Game myGame) {
+	public MiniGameStage(Viewport v, GameScreen gameScreen, final Game myGame) {
 		super(v);
 	    addActor(new Title("Background/atk.png", 320, 350));
 	    addActor(new Background("Background/MenuBackground.jpg", getCamera()));
@@ -49,7 +51,8 @@ public class MiniGameSelect extends AbstractStage {
 	        @Override
 	        public void clicked(InputEvent event, float x, float y) {
 	  	    	MenuScreen menuScreen = new MenuScreen(myGame);
-	  	    	myGame.setScreen(menuScreen);	  
+	  	    	myGame.setScreen(menuScreen);	
+	  	    	
 	        }
 	    });
 	    
@@ -59,6 +62,7 @@ public class MiniGameSelect extends AbstractStage {
 	          GameScreen gameScreen = new GameScreen(myGame);
 	          gameScreen.setStage(new MinigameStage(new FitViewport(640,480), gameScreen, myGame));
 	          myGame.setScreen(gameScreen);
+	          mplayer.PlayPressButton();
 	        }
 	    });
 	    
@@ -66,6 +70,7 @@ public class MiniGameSelect extends AbstractStage {
 	        @Override
 	        public void clicked(InputEvent event, float x, float y) {
 	        	//setStage( survival...)
+	        	mplayer.PlayPressButton();
 	        }
 	    });
 	    

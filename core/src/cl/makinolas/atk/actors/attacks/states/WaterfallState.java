@@ -8,9 +8,11 @@ import com.badlogic.gdx.graphics.g2d.TextureRegion;
 
 import cl.makinolas.atk.actors.Monsters;
 import cl.makinolas.atk.types.IType;
-import cl.makinolas.atk.types.WaterType;
+import cl.makinolas.atk.types.TypeFactory;
 
 public class WaterfallState extends SpriteState {
+	
+  private static int magicRequirement = 95;
   
   @Override
   public int getAttackDamage() {
@@ -64,7 +66,11 @@ public class WaterfallState extends SpriteState {
 
 @Override
 public IType getType() {
-	return new WaterType();
+	return TypeFactory.getType("Water");
+}
+
+public static int getMagicRequirement(){
+	return magicRequirement;
 }
   
 }

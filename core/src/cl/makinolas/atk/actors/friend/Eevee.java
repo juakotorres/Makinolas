@@ -4,7 +4,7 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 
-import cl.makinolas.atk.types.NormalType;
+import cl.makinolas.atk.types.TypeFactory;
 
 public class Eevee extends AbstractFriend {
   
@@ -23,7 +23,7 @@ public class Eevee extends AbstractFriend {
     initDead();
     newMonster();
     setMaxMagic(1000);
-    addType(new NormalType());
+    addType(TypeFactory.getType("Normal"));
   }
 
   public Eevee(int level){

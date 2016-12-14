@@ -2,6 +2,10 @@ package cl.makinolas.atk.types;
 
 public class IceType extends AbstractType implements IType {
 
+	public IceType(){
+		this.isIce = true;
+	}
+
 	@Override
 	public double attackFromType(IType type) {
 		return type.icePokemonAttacks(this);

@@ -2,6 +2,10 @@ package cl.makinolas.atk.types;
 
 public class GroundType extends AbstractType implements IType {
 
+	public GroundType(){
+		this.isGround = true;
+	}
+
 	@Override
 	public double attackFromType(IType type) {
 		return type.groundPokemonAttacks(this);

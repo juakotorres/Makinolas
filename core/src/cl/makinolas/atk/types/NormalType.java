@@ -2,6 +2,10 @@ package cl.makinolas.atk.types;
 
 public class NormalType extends AbstractType implements IType {
 
+	public NormalType(){
+		this.isNormal = true;
+	}
+	
 	@Override
 	public double attackFromType(IType type) {
 		return type.normalPokemonAttacks(this);

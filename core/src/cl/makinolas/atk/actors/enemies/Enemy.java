@@ -5,11 +5,14 @@ import cl.makinolas.atk.actors.*;
 import cl.makinolas.atk.actors.attacks.Attacks;
 import cl.makinolas.atk.actors.friend.Enemies;
 import cl.makinolas.atk.actors.friend.Friend;
-import cl.makinolas.atk.actors.fx.FxManager;
 import cl.makinolas.atk.actors.items.BallActor;
 import cl.makinolas.atk.actors.items.ItemFinder;
 import cl.makinolas.atk.actors.platform.Platform;
+import cl.makinolas.atk.actors.platform.WaterPlatform;
 import cl.makinolas.atk.actors.ui.MainBar;
+import cl.makinolas.atk.stateEfects.CriticalHit;
+import cl.makinolas.atk.audio.GDXSoundEffectsEnemy;
+import cl.makinolas.atk.audio.GDXSoundEffectsPlayer;
 import cl.makinolas.atk.utils.Formulas;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
@@ -19,17 +22,20 @@ import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.*;
 
 public class Enemy extends Monsters {
-
 	protected float vx;
+	protected float auxvx;
 	private int health;
 	private HBar healthBar;
 	private boolean isDamaged;
+	protected boolean isSinging;
+	private int isInsideWater;
 	private int width;
 	private int height;
 	private int meleeDamage;
 	private boolean dead, free;
 	private int walkAnimation;
 	private int hurtAnimation;
+	private int singAnimation;
 	private final float hurtTime = 1 / 4f;
 	private final float meleeTime = 2f;
 	protected final float groundTime = 0.5f;
@@ -45,7 +51,7 @@ public class Enemy extends Monsters {
 	private int[] attackAnimations;
 	private int actualAnimation;
 	protected boolean viewGround = true;
-
+	private GDXSoundEffectsPlayer mplayer = GDXSoundEffectsEnemy.getInstance();
 	protected RayCastCallback rayListener = new RayCastCallback() {
 		@Override
 		public float reportRayFixture(Fixture fixture, Vector2 point, Vector2 normal, float fraction) {
@@ -72,6 +78,7 @@ public class Enemy extends Monsters {
 			int[][] numberOfHurtSprites, int givenHealth, int positionX, int positionY, boolean facingRight, int level,
 			Enemies type, Friend parent) {
 
+		super();
 		this.myWorld = myWorld;
 		health = givenHealth;
 		width = cutSprite[0];
@@ -83,6 +90,8 @@ public class Enemy extends Monsters {
 		healthBar = new HBar(givenHealth, health, cutSprite[0], 4,
 				new TextureRegion(new Texture(Gdx.files.internal("Overlays/bar_green.png"))));
 		isDamaged = false;
+		isSinging = false;
+		isInsideWater = 0;
 		dead = false;
 		free = true;
 		meleeDamage = 45;
@@ -92,6 +101,7 @@ public class Enemy extends Monsters {
 
 		isFacingRight = facingRight;
 		vx = isFacingRight ? 3 : -3;
+		auxvx = vx;
 		// Definici�n del cuerpo del jugador.
 		BodyDef myBodyDefinition = new BodyDef();
 		myBodyDefinition.type = BodyDef.BodyType.DynamicBody;
@@ -115,12 +125,14 @@ public class Enemy extends Monsters {
 		setAnimation(enemyTexture, cutSprite);
 		hurtAnimation = addAnimation(0.2f, numberOfHurtSprites);
 		walkAnimation = addAnimation(0.2f, numberOfSprite);
+		singAnimation = hurtAnimation;
 		changeAnimation(walkAnimation);
 
 	}
 
 	@Override
 	public void act(float delta) {
+		super.act(delta);
 		if (!free) {
 			myBody.setLinearVelocity(0, 0);
 			return;
@@ -150,32 +162,33 @@ public class Enemy extends Monsters {
 	}
 
 	private void checkMelee(float delta) {
-		if (isAttacking) {
-			countMeleeFrames += delta;
-			if (countMeleeFrames > spriteTime) {
-				if (actualAnimation < attackAnimations.length) {
-					changeAnimation(attackAnimations[actualAnimation]);
-					countMeleeFrames = 0;
-					actualAnimation += 1;
-				} else {
-					isAttacking = false;
-					countMeleeFrames = 0;
-					actualAnimation = 0;
+		if(!isSinging){
+			if (isAttacking) {
+				countMeleeFrames += delta;
+				if (countMeleeFrames > spriteTime) {
+					if (actualAnimation < attackAnimations.length) {
+						changeAnimation(attackAnimations[actualAnimation]);
+						countMeleeFrames = 0;
+						actualAnimation += 1;
+					} else {
+						isAttacking = false;
+						countMeleeFrames = 0;
+						actualAnimation = 0;
+					}
 				}
+			} else if (!isDamaged) {
+				countMeleeFrames = 0;
+				isAttacking = false;
+				actualAnimation = 0;
+				changeAnimation(walkAnimation);
+			} else {
+				countMeleeFrames = 0;
 			}
-		} else if (!isDamaged) {
-			countMeleeFrames = 0;
-			isAttacking = false;
-			actualAnimation = 0;
-			changeAnimation(walkAnimation);
-		} else {
-			countMeleeFrames = 0;
 		}
-
 	}
 
 	protected void checkDamage(float delta, float inflictorVel) {
-		if (isDamaged) {
+		if (isDamaged) {		
 			myBody.setLinearVelocity(new Vector2(inflictorVel, 0));
 			accumulator += delta;
 			if (accumulator > hurtTime) {
@@ -218,6 +231,7 @@ public class Enemy extends Monsters {
 			health = 0;
 		} else {
 			health -= damage;
+			mplayer.PlayGetDmg();
 		}
 		isDamaged = true;
 		changeAnimation(hurtAnimation);
@@ -226,6 +240,8 @@ public class Enemy extends Monsters {
 		inflictor.setDead();
 		healthBar.setCurrent(health);
 		if (health <= 0) {
+		    Hero.getInstance().getHeroPlayer().StopProyectileSound();
+		    mplayer.PlayExplotionEnd();
 			source.gainExperience(getLevel(), type);
 			source.gainEffortValues(type);
 			Hero.getInstance().earnMoney(getLevel(), type);
@@ -264,11 +280,16 @@ public class Enemy extends Monsters {
 
 	@Override
 	public void interactWithHero(Hero hero, WorldManifold worldManifold) {
-		if (free) {
+		if (free && !isSinging) {
 			interactWithHero2(hero);
 			hero.interactWithMonster(this);
 		}
 	}
+	
+	@Override
+	  public void interactWithWater(WaterPlatform waterplatform, WorldManifold worldManifold){
+	    waterplatform.interactWithEnemy(this, worldManifold);
+	  }
 
 	private float getBodySize(int size) {
 		return (0.5f * size) / 22;
@@ -289,11 +310,13 @@ public class Enemy extends Monsters {
 			ball.roll(3, new BallActor.BrokeListener() {
 				@Override
 				public void onBroke(float x, float y) {
+					Hero.getInstance().Getmplayer().playcaptured();
 					Hero.getInstance().addAllie(parent);
 					MainBar.getInstance().updateTeam();
 				}
 			});
 		} else if (free) {
+			Hero.getInstance().Getmplayer().playnotcaptured();
 			ball.roll(2, new BallActor.BrokeListener() {
 				@Override
 				public void onBroke(float x, float y) {
@@ -324,8 +347,7 @@ public class Enemy extends Monsters {
 	@Override
 	public void interactWithPlatform(Platform platform, WorldManifold worldManifold) {
 		if (worldManifold.getNormal().x < -0.95 || worldManifold.getNormal().x > 0.95) {
-			vx = -vx;
-			isFacingRight = !isFacingRight;
+			flip();
 		}
 	}
 
@@ -336,8 +358,10 @@ public class Enemy extends Monsters {
 	}
 
 	public void flip() {
-		vx = -vx;
-		isFacingRight = !isFacingRight;
+		if(!isSinging){
+			vx = -vx;
+			isFacingRight = vx>0;
+		}
 	}
 
 	@Override
@@ -345,11 +369,18 @@ public class Enemy extends Monsters {
 		return true;
 	}
 
-	@Override
-	public void endInteraction(GameActor actor2, WorldManifold worldManifold) {
-	}
-
 	public void jump() {
+	}
+	
+	@Override
+	public void sing() {
+		isSinging = true;
+		this.changeAnimation(singAnimation);
+	}
+	
+	@Override
+	public void unSing() {
+		isSinging = false;
 	}
 
 	public void landedPlatform(WorldManifold worldManifold, Platform platform) {
@@ -378,9 +409,52 @@ public class Enemy extends Monsters {
 	}
 
 	public void CriticalDamage() {
-		Vector2 myPosition = myBody.getPosition();
-		FxManager.getInstance().addFx(FxManager.Fx.CRITICAL,
-				myPosition.x * GameConstants.WORLD_FACTOR - getActualSprite().getRegionWidth() / 2,
-				myPosition.y * GameConstants.WORLD_FACTOR + getActualSprite().getRegionHeight() / 2);
+		  this.addState(new CriticalHit(this), 100);
 	}
+
+	@Override
+	public float getRelativeY() {
+		Vector2 myPosition = myBody.getPosition();
+		return myPosition.y * GameConstants.WORLD_FACTOR + getActualSprite().getRegionHeight() / 2;
+	}
+
+	@Override
+	public float getRelativeX() {
+		Vector2 myPosition = myBody.getPosition();
+		return myPosition.x * GameConstants.WORLD_FACTOR - getActualSprite().getRegionWidth() / 2;
+	}
+
+	@Override
+	public void sleep() {
+		vx = 0;
+		isSinging = true;
+	}
+
+	@Override
+	public void Awake() {
+		vx = isFacingRight?-auxvx:auxvx;
+		isSinging = false;
+
+	}
+
+	@Override
+	public void paraliza3() {
+		vx = vx/2;
+		auxvx = auxvx/2;
+	}
+
+	@Override
+	public void desparaliza3() {
+		vx = vx*2;
+		auxvx = auxvx*2;
+	}
+	
+	public void setInsideWater(int i) {
+		  isInsideWater+=i;
+	  }
+	  
+	  public int getInsideWater() {
+		  return isInsideWater;
+	  }
+
 }

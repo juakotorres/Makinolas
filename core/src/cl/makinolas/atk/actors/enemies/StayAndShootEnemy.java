@@ -5,6 +5,7 @@ import com.badlogic.gdx.physics.box2d.World;
 import com.badlogic.gdx.physics.box2d.WorldManifold;
 
 import cl.makinolas.atk.actors.GameActor;
+import cl.makinolas.atk.actors.attacks.Attacks;
 import cl.makinolas.atk.actors.friend.Enemies;
 import cl.makinolas.atk.actors.friend.Friend;
 import cl.makinolas.atk.actors.platform.Platform;
@@ -31,6 +32,7 @@ public class StayAndShootEnemy extends Enemy {
   
   @Override
   public void act(float delta){     
+	  super.act(delta);
     checkDamage(delta, 0);
     accumulatorAttack += delta; 
     
@@ -38,10 +40,27 @@ public class StayAndShootEnemy extends Enemy {
       myBody.setLinearVelocity(0, myBody.getLinearVelocity().y);
     }
     
-    if(accumulatorAttack > attackTime && super.isFree()){
-        GameActor attack = parent.getFriendAttack(myWorld, myBody.getPosition().x - 0.5f, myBody.getPosition().y, isFacingRight, this);
-        ((AbstractStage) getStage()).addGameActor(attack);
-        accumulatorAttack = 0;
+    if(!isSinging && accumulatorAttack > attackTime && super.isFree()){
+	    	if(parent.secondaryAttack()){
+	    		double rand = Math.random()*100;
+	    		if(rand>70){
+	    			GameActor attack = parent.getFriendSecondaryAttack(myWorld, myBody.getPosition().x - 0.5f, myBody.getPosition().y, isFacingRight, this);
+	                ((AbstractStage) getStage()).addGameActor(attack);
+	                ((Attacks) attack).getSpriteState().secondaryEfectsToSource(this);
+	                accumulatorAttack = 0;
+	    		}else{
+	    			GameActor attack = parent.getFriendAttack(myWorld, myBody.getPosition().x - 0.5f, myBody.getPosition().y, isFacingRight, this);
+	                ((AbstractStage) getStage()).addGameActor(attack);
+	                ((Attacks) attack).getSpriteState().secondaryEfectsToSource(this);
+	                accumulatorAttack = 0;
+	    		}
+	    	}else{
+	            GameActor attack = parent.getFriendAttack(myWorld, myBody.getPosition().x - 0.5f, myBody.getPosition().y, isFacingRight, this);
+	            ((AbstractStage) getStage()).addGameActor(attack);
+	            ((Attacks) attack).getSpriteState().secondaryEfectsToSource(this);
+	            accumulatorAttack = 0;
+	    	}
+	    
     }
   }
   

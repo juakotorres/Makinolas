@@ -18,6 +18,7 @@ public class BoyOrGirlStage extends Stage {
 
   private Game myGame;
 
+  //private GDXSoundEffectsPlayer mplayer = GDXSoundEffectsHero.getInstance();
   private TextActor actualText;
   private Title images;
   private int sceneCount;

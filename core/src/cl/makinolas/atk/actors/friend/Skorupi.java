@@ -5,8 +5,8 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 
 import cl.makinolas.atk.types.BugType;
-import cl.makinolas.atk.types.DarkType;
 import cl.makinolas.atk.types.PoisonType;
+import cl.makinolas.atk.types.TypeFactory;
 
 public class Skorupi extends AbstractFriend {
   
@@ -61,8 +61,8 @@ public class Skorupi extends AbstractFriend {
       setStats();
       setMaxMagic(1000);
       resetType();
-      addType(new BugType());
-      addType(new DarkType());
+      addType(TypeFactory.getType("Bug"));
+      addType(TypeFactory.getType("Dark"));
     }
   }
 

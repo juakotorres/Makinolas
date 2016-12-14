@@ -96,6 +96,12 @@ public enum Enemies {
   PRINPLUP(142, 45, 64, 66, 68, 81, 76, 50, new EvSpAttackState(2)),
   EMPOLEON(240, 45, 84, 86, 88, 111, 101, 60, new EvSpAttackState(3)),
   
+  CROAGUNK(140, 62, 48, 61, 40, 61, 40, 50, new EvAttackState(1)),
+  TOXICROAK(75, 200, 83, 106, 65, 86, 65, 85, new EvAttackState(3)),
+  
+  SNOVER(120, 62, 60, 62, 50, 62, 60, 40, new EvHpState(1)),
+  ABOMASNOW(60, 250, 90, 92, 75, 92, 85, 60, new EvHpState(3)),
+  
   AXEW(60, 75, 46, 87, 60, 30, 40, 57, new EvAttackState(1)),
   FRAXURE(144, 60, 66, 117, 70, 40, 50, 67, new EvAttackState(2)),
   HAXORUS(270, 45, 76, 147, 90, 60, 70, 97, new EvAttackState(3));

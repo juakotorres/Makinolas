@@ -1,6 +1,10 @@
 package cl.makinolas.atk.types;
 
 public class FairyType extends AbstractType implements IType {
+	
+	public FairyType(){
+		this.isFairy = true;
+	}
 
 	@Override
 	public double attackFromType(IType type) {

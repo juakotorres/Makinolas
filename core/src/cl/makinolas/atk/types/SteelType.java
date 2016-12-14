@@ -2,6 +2,10 @@ package cl.makinolas.atk.types;
 
 public class SteelType extends AbstractType implements IType {
 
+	public SteelType(){
+		this.isSteel = true;
+	}
+
 	@Override
 	public double attackFromType(IType type) {
 		return type.steelPokemonAttacks(this);

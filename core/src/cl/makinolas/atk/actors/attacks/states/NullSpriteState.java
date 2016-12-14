@@ -4,9 +4,11 @@ import com.badlogic.gdx.graphics.g2d.Animation.PlayMode;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 
 import cl.makinolas.atk.types.IType;
-import cl.makinolas.atk.types.NormalType;
+import cl.makinolas.atk.types.TypeFactory;
 
 public class NullSpriteState extends SpriteState {
+	
+  private static int magicRequirement = 0;
   
   @Override
   public int getAttackDamage() {
@@ -50,7 +52,11 @@ public class NullSpriteState extends SpriteState {
 
 @Override
 public IType getType() {
-	return new NormalType();
+	return TypeFactory.getType("Normal");
+}
+
+public static int getMagicRequirement(){
+	return magicRequirement;
 }
   
 }

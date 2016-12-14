@@ -3,8 +3,8 @@ package cl.makinolas.atk.actors.attacks.states;
 import com.badlogic.gdx.graphics.g2d.Animation.PlayMode;
 
 import cl.makinolas.atk.actors.Monsters;
-import cl.makinolas.atk.types.GrassType;
 import cl.makinolas.atk.types.IType;
+import cl.makinolas.atk.types.TypeFactory;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
@@ -12,6 +12,8 @@ import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 
 public class TreeState extends SpriteState {
+	
+  private static int magicRequirement = 80;
   
   @Override
   public int getAttackDamage() {
@@ -85,8 +87,11 @@ public class TreeState extends SpriteState {
 
 @Override
 public IType getType() {
-	return new GrassType();
+	return TypeFactory.getType("Grass");
 }
-  
-  
+
+public static int getMagicRequirement(){
+	return magicRequirement;
+}
+   
 }

@@ -4,7 +4,7 @@ import com.badlogic.gdx.graphics.g2d.Animation.PlayMode;
 
 import cl.makinolas.atk.actors.Monsters;
 import cl.makinolas.atk.types.IType;
-import cl.makinolas.atk.types.IceType;
+import cl.makinolas.atk.types.TypeFactory;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
@@ -12,6 +12,8 @@ import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 
 public class IceRockState extends SpriteState {
+	
+  private static int magicRequirement = 75;
   
   @Override
   public int getAttackDamage() {
@@ -58,9 +60,13 @@ public class IceRockState extends SpriteState {
     return myAttack.getPhysicalAttackDamage(monster);
   }
 
-@Override
-public IType getType() {
-	return new IceType();
-}
-  
+	@Override
+	public IType getType() {
+		return TypeFactory.getType("Ice");
+	}
+	
+	public static int getMagicRequirement(){
+		return magicRequirement;
+	}
+
 }
