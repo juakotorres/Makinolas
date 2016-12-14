@@ -47,6 +47,7 @@ public class WaterPlatform extends GameActor {
 	    PolygonShape shape = new PolygonShape();
 	    shape.setAsBox(widthTiles * TILE_FACTOR /2, heightTiles * TILE_FACTOR / 2);
 
+	    
 	    /*Fixture atravesable de la plataforma para detectar cuando entra y sale del agua*/
 	    FixtureDef fixture= new FixtureDef();
 	    fixture.isSensor=true;
@@ -72,12 +73,14 @@ public class WaterPlatform extends GameActor {
 		
 		/*setea estado a dentro del agua*/
 		hero.setState(new OnWater());
+		
+		/*esto es para poder poner plataformas de agua contiguas*/
 		hero.setInsideWater(1);
-
 	}
 	
 	@Override
 	public void endHeroInteraction(Hero hero, WorldManifold worldManifold) {
+		/*para poder poner plataformas de agua contiguas*/
 		hero.setInsideWater(-1);
 		if(hero.getInsideWater()>0)
 			return;
@@ -110,6 +113,7 @@ public class WaterPlatform extends GameActor {
 		enemy.setState(new LeavingWaterState());
 	  }
 	
+	/*iterador sobre imagenes del bloque de imagenes del agua*/
 	@Override
 	public void act(float delta) {
 	    if(n%k==0)
