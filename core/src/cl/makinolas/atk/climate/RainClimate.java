@@ -8,8 +8,6 @@ import cl.makinolas.atk.types.IType;
 public class RainClimate extends AbstractClimate{
 	/** TODO 
 	 * [x] Especificar los cambios en cada clima
-	 * [] Agregar animaciones en los niveles
-	 * 
 	 *  +50% water atk
 	 *  -50% fire atk
 	 *  **/
