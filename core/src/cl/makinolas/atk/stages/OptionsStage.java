@@ -15,11 +15,13 @@ import com.badlogic.gdx.utils.viewport.Viewport;
 import cl.makinolas.atk.actors.Background;
 import cl.makinolas.atk.actors.Title;
 import cl.makinolas.atk.audio.GDXMusicPlayer;
+import cl.makinolas.atk.audio.GDXSoundEffectsEnemy;
 import cl.makinolas.atk.audio.GDXSoundEffectsPlayer;
 import cl.makinolas.atk.screen.GameScreen;
 import cl.makinolas.atk.screen.MenuScreen;
 
 public class OptionsStage extends AbstractStage {
+	private GDXSoundEffectsPlayer mplayer = GDXSoundEffectsEnemy.getInstance();
 	private static Skin sharedSkin = new Skin(Gdx.files.internal("Data/uiskin.json"));
 	private static Slider musicSlider = new Slider(0.0f, 1.0f, 0.05f, false, sharedSkin);
 	private static Slider sfxSlider = new Slider(0.0f, 1.0f, 0.05f, false, sharedSkin);
@@ -69,12 +71,14 @@ public class OptionsStage extends AbstractStage {
 	        	musicplayer.StopMusic();
 	  	    	MenuScreen menuScreen = new MenuScreen(myGame);
 	  	    	myGame.setScreen(menuScreen);	  
+	  	    	mplayer.PlayPressButton();
 	        }
 	    });
 	    
 	    windowStateButton.addListener(new ClickListener(){
 	        @Override
 	        public void clicked(InputEvent event, float x, float y) {
+	            mplayer.PlayPressButton();
 	        	if (isFullScreen) {
 	        		Gdx.graphics.setWindowedMode(640, 480);
 	        		windowStateButton.setText("Toggle to Full Screen");
@@ -84,12 +88,14 @@ public class OptionsStage extends AbstractStage {
 	        		windowStateButton.setText("Toggle to Windowed");
 	        	}
 	        	isFullScreen = !isFullScreen;
+
 	        }
 	    });
 	    
 	    musicSlider.addListener(new ClickListener(){
 	        @Override
 	        public void clicked(InputEvent event, float x, float y) {
+	        	mplayer.PlayPressButton();
 	        	musicplayer.SetVolume((musicSlider.getPercent()));
 	        }
 	    });
@@ -104,6 +110,7 @@ public class OptionsStage extends AbstractStage {
 	    sfxSlider.addListener(new ClickListener(){
 	        @Override
 	        public void clicked(InputEvent event, float x, float y) {
+	        	mplayer.PlayPressButton();
 	        	sfxplayer.SetVolume((sfxSlider.getPercent()));
 	        	sfxplayer.PlayJumpSound();
 	        }

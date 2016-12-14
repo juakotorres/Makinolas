@@ -20,12 +20,15 @@ import cl.makinolas.atk.actors.enemies.JumperEnemy;
 import cl.makinolas.atk.actors.enemies.LongRangeEnemy;
 import cl.makinolas.atk.actors.enemies.PhysicalEnemy;
 import cl.makinolas.atk.actors.enemies.StayAndShootEnemy;
+import cl.makinolas.atk.actors.heroState.AbstractFriendState;
 import cl.makinolas.atk.actors.ui.MainBar;
+import cl.makinolas.atk.stateEfects.IStateEfects;
 import cl.makinolas.atk.types.IType;
 import cl.makinolas.atk.utils.Formulas;
 
 public abstract class AbstractFriend implements Friend {
   
+  private int vex;
   private int health;
   private int hp;
   private int ivs;
@@ -61,6 +64,15 @@ public abstract class AbstractFriend implements Friend {
   private int evSpDefense;
   private int evSpeed;
   private int criticModificator;
+  
+  private AbstractFriendState state;
+  
+  private ArrayList<IStateEfects> states;
+  
+  public AbstractFriend(){
+	  vex = 7;
+	  states = new ArrayList<IStateEfects>();
+  }
 
   protected void setCutSprites(int width, int height){
     this.cutSprites = new int[]{width, height};
@@ -719,7 +731,27 @@ public abstract class AbstractFriend implements Friend {
   }
   public int getAttackMagicRequirement() {
 	// TODO Auto-generated method stub
-	return DragonBreathState.magicRequirement;
+	return DragonBreathState.getMagicRequirement();
   }
+  
+  public void setState(AbstractFriendState standartState){
+	  state = standartState;
+  }
+  
+  public AbstractFriendState getState(){
+	return state;
+  }
+  
+  public ArrayList<IStateEfects> getStateEfectList(){
+	  return states;
+  }
+
+public int getVex() {
+	return vex;
+}
+
+public void setVex(int vex) {
+	this.vex = vex;
+}
   
 }

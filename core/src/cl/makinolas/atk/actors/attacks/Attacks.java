@@ -76,6 +76,13 @@ public abstract class Attacks extends AnimatedActor {
     setBody(myBody);
   }
   
+  @Override
+  public boolean remove(){
+	  this.dead = true;
+	  
+	  return 	  super.remove();
+  }
+  
   protected int getBodyWidth() {
     return mySpriteState.getBodyWidth();
   }
@@ -194,5 +201,7 @@ public int getSpecialAttackDamage(Monsters monster) {
 public SpriteState getSpriteState() {
 	return mySpriteState;
 }
+public void unPress() {}
+public void unPressButton() {}
 
 }

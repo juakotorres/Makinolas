@@ -3,17 +3,8 @@ package cl.makinolas.atk.types;
 
 public class FightType extends AbstractType implements IType {
 	
-	private static FightType instance = null;
-	
-	private FightType(){
+	public FightType(){
 		this.isFight = true;
-	}
-	
-	public static FightType getInstance(){
-		if (instance == null){
-			instance = new FightType();
-		}
-		return instance;
 	}
 	
 	@Override

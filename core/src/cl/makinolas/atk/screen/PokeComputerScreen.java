@@ -10,7 +10,6 @@ import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.InputListener;
 import com.badlogic.gdx.scenes.scene2d.Stage;
-import com.badlogic.gdx.scenes.scene2d.ui.ImageButton;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
@@ -21,27 +20,27 @@ import cl.makinolas.atk.actors.Background;
 import cl.makinolas.atk.actors.Hero;
 import cl.makinolas.atk.actors.KeyHandable;
 import cl.makinolas.atk.actors.SimpleInputController;
-import cl.makinolas.atk.actors.ui.PCFriend;
 import cl.makinolas.atk.actors.ui.TeamFriendImage;
+import cl.makinolas.atk.audio.GDXSoundEffectsHero;
+import cl.makinolas.atk.audio.GDXSoundEffectsPlayer;
 import cl.makinolas.atk.utils.SaveManager;
 
 public class PokeComputerScreen extends SimpleScreen implements KeyHandable {
 
 	private BitmapFont large = new BitmapFont(Gdx.files.internal("Fonts/large.fnt"),Gdx.files.internal("Fonts/large.png"),false);
-	private Label currentItem;
-	private Hero hero;
-	private int index_team;
-	private int index_backup;
-	private ArrayList<TeamFriendImage> backupImages;
-	private ArrayList<TeamFriendImage> alliesImages;
-	private int index_page;
-	private int page_limit;
-	private int team_size;
-	private int backup_size;
-	private Label currentTeamIndex, currentBackupIndex;
-	
-	
-	public PokeComputerScreen(Game g) {
+    private Label currentItem;
+    private Hero hero;
+    private int index_team;
+    private int index_backup;
+    private ArrayList<TeamFriendImage> backupImages;
+    private ArrayList<TeamFriendImage> alliesImages;
+    private int index_page;
+    private int page_limit;
+    private int team_size;
+    private int backup_size;
+    private GDXSoundEffectsPlayer mplayer = GDXSoundEffectsHero.getInstance();
+    
+    public PokeComputerScreen(Game g) {
 		super(g, new Stage(new FitViewport(640,480)));
 		alliesImages = new ArrayList<TeamFriendImage>();
 		backupImages = new ArrayList<TeamFriendImage>();
@@ -65,6 +64,7 @@ public class PokeComputerScreen extends SimpleScreen implements KeyHandable {
 			@Override
 			public void clicked(InputEvent event, float x, float y) {
 				exitComputer();
+                mplayer.PlayPressButton();
 			}
 		});
 		stage.addActor(exitButton);
@@ -75,6 +75,7 @@ public class PokeComputerScreen extends SimpleScreen implements KeyHandable {
 			@Override
 			public void clicked(InputEvent event, float x, float y) {
 				swapPokemon();
+                mplayer.PlayPressButton();
 			}
 		});
 		stage.addActor(swapButton);
@@ -88,6 +89,7 @@ public class PokeComputerScreen extends SimpleScreen implements KeyHandable {
 			@Override
 			public void clicked(InputEvent event, float x, float y) {
 				index_team = index_team - 1 < 0 ? team_size - 1 : index_team - 1;
+                mplayer.PlayPressButton();
 			}
 		});
 		stage.addActor(leftTeamButton);
@@ -98,6 +100,7 @@ public class PokeComputerScreen extends SimpleScreen implements KeyHandable {
 			@Override
 			public void clicked(InputEvent event, float x, float y) {
 				index_team = index_team + 1 > team_size - 1 ? 0 : index_team + 1;
+                mplayer.PlayPressButton();
 			}
 		});
 		stage.addActor(rightTeamButton);
@@ -108,6 +111,7 @@ public class PokeComputerScreen extends SimpleScreen implements KeyHandable {
 			@Override
 			public void clicked(InputEvent event, float x, float y) {
 				indexBackupHandler(-1);
+                mplayer.PlayPressButton();
 			}
 		});
 		stage.addActor(leftBackupButton);
@@ -118,6 +122,7 @@ public class PokeComputerScreen extends SimpleScreen implements KeyHandable {
 			@Override
 			public void clicked(InputEvent event, float x, float y) {
 				indexBackupHandler(1);
+                mplayer.PlayPressButton();
 				
 			}
 		});
@@ -129,6 +134,7 @@ public class PokeComputerScreen extends SimpleScreen implements KeyHandable {
 			@Override
 			public void clicked(InputEvent event, float x, float y) {
 				changePage(1);
+                mplayer.PlayPressButton();
 			}
 		});
 		stage.addActor(pageRightBackupButton);
@@ -139,6 +145,7 @@ public class PokeComputerScreen extends SimpleScreen implements KeyHandable {
 			@Override
 			public void clicked(InputEvent event, float x, float y) {
 				changePage(-1);
+                mplayer.PlayPressButton();
 			}
 		});
 		stage.addActor(pageLeftBackupButton);
@@ -146,15 +153,6 @@ public class PokeComputerScreen extends SimpleScreen implements KeyHandable {
 		currentItem = new Label("",uskin);
 		currentItem.setPosition(440,60);
 		stage.addActor(currentItem);
-		
-		currentTeamIndex = new Label("",uskin);
-		currentTeamIndex.setPosition(440,440);
-		stage.addActor(currentTeamIndex);
-		
-		currentBackupIndex = new Label("",uskin);
-		currentBackupIndex.setPosition(440,420);
-		stage.addActor(currentBackupIndex);
-		
 		stage.addListener(new SimpleInputController(this,null));
 	}
 	
@@ -208,11 +206,9 @@ public class PokeComputerScreen extends SimpleScreen implements KeyHandable {
 	 * */
 	private void setTeamSelected(int i){
 		index_team = i;
-		currentTeamIndex.setText("imagen apretada, indice" + i);
 	}
 	private void setBackupSelected(int i){
 		index_backup = i;
-		currentBackupIndex.setText("imagen apretada, indice" + i);
 	}
 	//
 	
@@ -277,9 +273,8 @@ public class PokeComputerScreen extends SimpleScreen implements KeyHandable {
 		int min_limit = index_page * 18;
 		int max_limit = Math.min(((index_page + 1) * 18) - 1, Math.max(0, backup_size - 1));
 		index_backup = aux < min_limit? max_limit : (aux > max_limit? min_limit : aux);
-		currentBackupIndex.setText("Backup_Index :" + index_backup);
 	}
-
+	
 	private void exitComputer() {
 		SaveManager.getInstance().saveState();
 		myGame.setScreen(new MapScreen(myGame));

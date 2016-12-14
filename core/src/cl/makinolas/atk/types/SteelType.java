@@ -2,17 +2,8 @@ package cl.makinolas.atk.types;
 
 public class SteelType extends AbstractType implements IType {
 
-	private static SteelType instance = null;
-	
-	private SteelType(){
+	public SteelType(){
 		this.isSteel = true;
-	}
-	
-	public static SteelType getInstance(){
-		if (instance == null){
-			instance = new SteelType();
-		}
-		return instance;
 	}
 
 	@Override

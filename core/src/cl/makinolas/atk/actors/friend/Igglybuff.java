@@ -5,12 +5,12 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.physics.box2d.World;
 
-import cl.makinolas.atk.actors.GameActor;
 import cl.makinolas.atk.actors.Monsters;
 import cl.makinolas.atk.actors.attacks.AreaEffectAttack;
+import cl.makinolas.atk.actors.attacks.Attacks;
+import cl.makinolas.atk.actors.attacks.states.BranchAttackState;
 import cl.makinolas.atk.actors.attacks.states.SingState;
-import cl.makinolas.atk.types.FairyType;
-import cl.makinolas.atk.types.NormalType;
+import cl.makinolas.atk.types.TypeFactory;
 
 public class Igglybuff extends AbstractFriend {
   
@@ -32,8 +32,8 @@ public class Igglybuff extends AbstractFriend {
     newMonster();
     setActualEvolution(0);
     setMaxMagic(1000);
-    addType(NormalType.getInstance());
-    addType(FairyType.getInstance());
+    addType(TypeFactory.getType("Normal"));
+    addType(TypeFactory.getType("Fairy"));
   }
   
   public Igglybuff(int level){
@@ -80,13 +80,24 @@ public class Igglybuff extends AbstractFriend {
     }
   }
   
+  @Override
+  public Attacks getFriendAttack(World myWorld, float x , float y, boolean facingRight, Monsters source){
+	  return new AreaEffectAttack(new SingState(), myWorld, x, y, facingRight, source, false);
+  }
+  
   public boolean secondaryAttack(){
 	  return true;
   }
   
-  public GameActor getFriendSecondaryAttack(World myWorld, float f, float y, boolean isFacingRight,
+  public Attacks getFriendSecondaryAttack(World myWorld, float f, float y, boolean isFacingRight,
 			Monsters source){
-	  return  new AreaEffectAttack(new SingState(), myWorld, f, y, isFacingRight, source, isFacingRight);
+	  return  new AreaEffectAttack(new SingState(), myWorld, f, y, isFacingRight, source, false);
   }
+  
+  @Override
+  public int getAttackMagicRequirement() {
+	return SingState.getMagicRequirement();
+  }
+
   
 }

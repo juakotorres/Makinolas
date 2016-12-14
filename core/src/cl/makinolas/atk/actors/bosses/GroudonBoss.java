@@ -175,7 +175,7 @@ public class GroudonBoss extends Boss {
 	}
 
 	@Override
-	public void unSleep() {
+	public void Awake() {
 		
 	}
 	
@@ -186,6 +186,15 @@ public class GroudonBoss extends Boss {
 		        maxLevel = ally.getLevel();
 		    }
 		    return maxLevel;
-		  } 
+		  }
 
+	@Override
+	public void paraliza3() {
+		
+	}
+
+	@Override
+	public void desparaliza3() {
+		
+	}
 }

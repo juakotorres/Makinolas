@@ -107,4 +107,14 @@ public abstract class GameActor extends Actor{
 
   public void endWaterInteraction(WaterPlatform waterplatform, WorldManifold worldManifold) {}
   
+  public void endMonsterIntercation(Monsters monsters, WorldManifold worldManifold) {}
+
+public void setGravityScale(float f) {
+	if(myBody!=null)
+		myBody.setGravityScale(f);
+}
+
+
+
+  
 }

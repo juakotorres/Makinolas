@@ -22,6 +22,7 @@ import com.badlogic.gdx.physics.box2d.*;
 
 public class Enemy extends Monsters {
 	protected float vx;
+	protected float auxvx;
 	private int health;
 	private HBar healthBar;
 	private boolean isDamaged;
@@ -97,6 +98,7 @@ public class Enemy extends Monsters {
 
 		isFacingRight = facingRight;
 		vx = isFacingRight ? 3 : -3;
+		auxvx = vx;
 		// Definici�n del cuerpo del jugador.
 		BodyDef myBodyDefinition = new BodyDef();
 		myBodyDefinition.type = BodyDef.BodyType.DynamicBody;
@@ -157,7 +159,7 @@ public class Enemy extends Monsters {
 	}
 
 	private void checkMelee(float delta) {
-		if(!this.isSinging){
+		if(!isSinging){
 			if (isAttacking) {
 				countMeleeFrames += delta;
 				if (countMeleeFrames > spriteTime) {
@@ -183,15 +185,13 @@ public class Enemy extends Monsters {
 	}
 
 	protected void checkDamage(float delta, float inflictorVel) {
-		if(!this.isSinging){
-			if (isDamaged) {
-				myBody.setLinearVelocity(new Vector2(inflictorVel, 0));
-				accumulator += delta;
-				if (accumulator > hurtTime) {
-					isDamaged = false;
-					changeAnimation(walkAnimation);
-					accumulator = 0;
-				}
+		if (isDamaged) {		
+			myBody.setLinearVelocity(new Vector2(inflictorVel, 0));
+			accumulator += delta;
+			if (accumulator > hurtTime) {
+				isDamaged = false;
+				changeAnimation(walkAnimation);
+				accumulator = 0;
 			}
 		}
 	}
@@ -228,6 +228,7 @@ public class Enemy extends Monsters {
 			health = 0;
 		} else {
 			health -= damage;
+			mplayer.PlayGetDmg();
 		}
 		isDamaged = true;
 		changeAnimation(hurtAnimation);
@@ -276,7 +277,7 @@ public class Enemy extends Monsters {
 
 	@Override
 	public void interactWithHero(Hero hero, WorldManifold worldManifold) {
-		if (free) {
+		if (free && !isSinging) {
 			interactWithHero2(hero);
 			hero.interactWithMonster(this);
 		}
@@ -338,8 +339,7 @@ public class Enemy extends Monsters {
 	@Override
 	public void interactWithPlatform(Platform platform, WorldManifold worldManifold) {
 		if (worldManifold.getNormal().x < -0.95 || worldManifold.getNormal().x > 0.95) {
-			vx = -vx;
-			isFacingRight = !isFacingRight;
+			flip();
 		}
 	}
 
@@ -350,17 +350,15 @@ public class Enemy extends Monsters {
 	}
 
 	public void flip() {
-		vx = -vx;
-		isFacingRight = !isFacingRight;
+		if(!isSinging){
+			vx = -vx;
+			isFacingRight = vx>0;
+		}
 	}
 
 	@Override
 	public boolean isEnemy() {
 		return true;
-	}
-
-	@Override
-	public void endInteraction(GameActor actor2, WorldManifold worldManifold) {
 	}
 
 	public void jump() {
@@ -420,11 +418,25 @@ public class Enemy extends Monsters {
 
 	@Override
 	public void sleep() {
-		
+		vx = 0;
+		isSinging = true;
 	}
 
 	@Override
-	public void unSleep() {
-		
+	public void Awake() {
+		vx = isFacingRight?-auxvx:auxvx;
+		isSinging = false;
+	}
+
+	@Override
+	public void paraliza3() {
+		vx = vx/2;
+		auxvx = auxvx/2;
+	}
+
+	@Override
+	public void desparaliza3() {
+		vx = vx*2;
+		auxvx = auxvx*2;
 	}
 }

@@ -9,7 +9,7 @@ import cl.makinolas.atk.actors.Monsters;
 import cl.makinolas.atk.actors.attacks.Attacks;
 import cl.makinolas.atk.actors.attacks.ShootAttack;
 import cl.makinolas.atk.actors.attacks.states.BlueBeamState;
-import cl.makinolas.atk.types.PsychicType;
+import cl.makinolas.atk.types.TypeFactory;
 //
 public class OldMewtwo extends AbstractFriend {
   
@@ -32,7 +32,7 @@ public class OldMewtwo extends AbstractFriend {
     setActualEvolution(0);
     setStats();
     setMaxMagic(1000);
-    addType(PsychicType.getInstance());
+    addType(TypeFactory.getType("Psychic"));
   }
   
   @Override
@@ -48,7 +48,7 @@ public class OldMewtwo extends AbstractFriend {
   @Override
   public int getAttackMagicRequirement() {
 	// TODO Auto-generated method stub
-	return BlueBeamState.magicRequirement;
+	return BlueBeamState.getMagicRequirement();
   }
   
 }

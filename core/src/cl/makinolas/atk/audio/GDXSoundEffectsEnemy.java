@@ -1,7 +1,6 @@
 package cl.makinolas.atk.audio;
 
 import com.badlogic.gdx.Gdx;
-
 import cl.makinolas.atk.stages.OptionsStage;
 
 public class GDXSoundEffectsEnemy extends GDXSoundEffectsPlayer {
@@ -14,6 +13,5 @@ public class GDXSoundEffectsEnemy extends GDXSoundEffectsPlayer {
 		
 		myInstance.SetVolume(OptionsStage.getSFXVolume());
 		return myInstance;
-	}
-	
+	}	
 }
