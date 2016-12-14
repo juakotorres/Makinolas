@@ -8,6 +8,7 @@ import cl.makinolas.atk.actors.friend.Friend;
 import cl.makinolas.atk.actors.items.BallActor;
 import cl.makinolas.atk.actors.items.ItemFinder;
 import cl.makinolas.atk.actors.platform.Platform;
+import cl.makinolas.atk.actors.platform.WaterPlatform;
 import cl.makinolas.atk.actors.ui.MainBar;
 import cl.makinolas.atk.stateEfects.CriticalHit;
 import cl.makinolas.atk.audio.GDXSoundEffectsEnemy;
@@ -27,6 +28,7 @@ public class Enemy extends Monsters {
 	private HBar healthBar;
 	private boolean isDamaged;
 	protected boolean isSinging;
+	private int isInsideWater;
 	private int width;
 	private int height;
 	private int meleeDamage;
@@ -89,6 +91,7 @@ public class Enemy extends Monsters {
 				new TextureRegion(new Texture(Gdx.files.internal("Overlays/bar_green.png"))));
 		isDamaged = false;
 		isSinging = false;
+		isInsideWater = 0;
 		dead = false;
 		free = true;
 		meleeDamage = 45;
@@ -282,6 +285,11 @@ public class Enemy extends Monsters {
 			hero.interactWithMonster(this);
 		}
 	}
+	
+	@Override
+	  public void interactWithWater(WaterPlatform waterplatform, WorldManifold worldManifold){
+	    waterplatform.interactWithEnemy(this, worldManifold);
+	  }
 
 	private float getBodySize(int size) {
 		return (0.5f * size) / 22;
@@ -426,6 +434,7 @@ public class Enemy extends Monsters {
 	public void Awake() {
 		vx = isFacingRight?-auxvx:auxvx;
 		isSinging = false;
+
 	}
 
 	@Override
@@ -439,4 +448,13 @@ public class Enemy extends Monsters {
 		vx = vx*2;
 		auxvx = auxvx*2;
 	}
+	
+	public void setInsideWater(int i) {
+		  isInsideWater+=i;
+	  }
+	  
+	  public int getInsideWater() {
+		  return isInsideWater;
+	  }
+
 }
