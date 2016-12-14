@@ -58,9 +58,11 @@ public class PokeComputerScreen extends SimpleScreen implements KeyHandable {
 		backup_size = hero.getBackupAllies().size;
 		page_limit = backup_size % 18 == 0 && backup_size != 0 ? (backup_size / 18) : (backup_size / 18) + 1;// backup_size	< 18 ||
 		showAllies();
-
-		ally = new FriendInfo(hero.getAllies().get(0));
-		backup = new FriendInfo(hero.getBackupAllies().get(0));
+		
+		if(hero.getAllies().size!=0)
+			ally = new FriendInfo(hero.getAllies().get(0));
+		if(hero.getBackupAllies().size!=0)
+			backup = new FriendInfo(hero.getBackupAllies().get(0));
 		allyInfo();
 		BackupInfo();
 
@@ -194,12 +196,16 @@ public class PokeComputerScreen extends SimpleScreen implements KeyHandable {
 	}
 
 	private void allyInfo() {
+		if(hero.getAllies().size==0)
+			return;
 		ally.setFriend(hero.getAllies().get(index_team));
 		ally.setPosition(460, 420);
 		stage.addActor(ally);
 	}
 
 	private void BackupInfo() {
+		if(hero.getBackupAllies().size==0)
+			return;
 		backup.setFriend(hero.getBackupAllies().get(index_backup));
 		backup.setPosition(460, 300);
 		stage.addActor(backup);
