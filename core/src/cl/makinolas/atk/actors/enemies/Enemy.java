@@ -434,6 +434,7 @@ public class Enemy extends Monsters {
 	public void Awake() {
 		vx = isFacingRight?-auxvx:auxvx;
 		isSinging = false;
+
 	}
 
 	@Override
