@@ -1,5 +1,10 @@
 package cl.makinolas.atk.minigames;
 
+import cl.makinolas.atk.actors.bosses.Boss;
+import cl.makinolas.atk.actors.enemies.Enemy;
+import cl.makinolas.atk.actors.friend.Enemies;
+import cl.makinolas.atk.actors.items.Inventory;
+import cl.makinolas.atk.actors.ui.IHero;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Batch;
@@ -23,7 +28,7 @@ import cl.makinolas.atk.actors.platform.Platform;
 import cl.makinolas.atk.stages.AbstractStage;
 import cl.makinolas.atk.stages.OnWall;
 
-public class MinigameCharacter extends AnimatedActor{
+public class MinigameCharacter extends AnimatedActor implements ICharacter, IHero{
   
   
   private BodyDef myBodyDefinition;
@@ -73,7 +78,7 @@ public class MinigameCharacter extends AnimatedActor{
     setSizeCollider(new Vector2(10,10), true);
   }
   
-  private void setAnimation(){
+  public void setAnimation(){
     setMasterTexture(actualFriend.getTexture(),actualFriend.getWidth(),actualFriend.getHeight());
     walkAnimation = addAnimation(0.15f, actualFriend.getWalkAnimation());
     fallingAnimation = addAnimation(0.15f, actualFriend.getHurtAnimation());  
@@ -111,8 +116,13 @@ public class MinigameCharacter extends AnimatedActor{
     if (isJumping == true)
       state.countFrames();    
   }
-  
-  private void checkPosition(float delta) {
+
+  @Override
+  public void moveHorizontal(int i, boolean b) {
+
+  }
+
+  public void checkPosition(float delta) {
     accumulator += delta;
         
     if(accumulator > 1/2f){
@@ -132,7 +142,7 @@ public class MinigameCharacter extends AnimatedActor{
   @Override
   public void endInteraction(GameActor actor2, WorldManifold worldManifold) {}
 
-  private void setSizeCollider(Vector2 position, boolean first) {
+  public void setSizeCollider(Vector2 position, boolean first) {
     myBodyDefinition.position.set(position);
     Body myBody = myWorld.createBody(myBodyDefinition);
     PolygonShape shape = new PolygonShape();
@@ -147,7 +157,7 @@ public class MinigameCharacter extends AnimatedActor{
   }
   
   // This is used to get body width and height.
-  private float getBodySize(int size){
+  public float getBodySize(int size){
     return (0.5f*size)/22;
   }
   
@@ -173,10 +183,55 @@ public class MinigameCharacter extends AnimatedActor{
   state.restarCount();
     state.jump();
   }
-  
+
+  @Override
+  public Inventory getInventory() {
+    return null;
+  }
+
+  @Override
+  public void attackPrimary() {
+
+  }
+
+  @Override
+  public void attackSecondary() {
+
+  }
+
+  @Override
+  public void prevAllie() {
+
+  }
+
+  @Override
+  public void nextAllie() {
+
+  }
+
+  @Override
+  public void foo() {
+
+  }
+
   public void isNotPressingSpace() {
     isJumping = false;
     state.release();
+  }
+
+  @Override
+  public void setWorld(World myWorld, Vector2 initialPosition) {
+
+  }
+
+  @Override
+  public void setWorld(World myWorld) {
+
+  }
+
+  @Override
+  public void gainExp(int i, Enemies eevee) {
+
   }
 
   @Override
@@ -189,7 +244,12 @@ public class MinigameCharacter extends AnimatedActor{
   public void setSpeed(float x, float y) {
     myBody.setLinearVelocity(x, y);
   }
-  
+
+  @Override
+  public void interactWithMonster(Enemy enemy) {
+
+  }
+
   public void landedPlatform(WorldManifold worldManifold, Platform platform){
     for(int i = 0; i < worldManifold.getNumberOfContactPoints(); i++){
       if(worldManifold.getPoints()[i].y < myBody.getPosition().y && (worldManifold.getNormal().y > 0.95 || worldManifold.getNormal().y < -0.95)){
@@ -208,8 +268,18 @@ public class MinigameCharacter extends AnimatedActor{
       }
     }
   }
-  
-  private void setDead() {
+
+  @Override
+  public void interactWithMonster(Boss boss) {
+
+  }
+
+  @Override
+  public void stopMovement() {
+
+  }
+
+  public void setDead() {
     dead = true;   
   }
 
@@ -217,7 +287,32 @@ public class MinigameCharacter extends AnimatedActor{
   public boolean isDead(){
     return dead;
   }
-  
+
+  @Override
+  public void pressingLeft() {
+
+  }
+
+  @Override
+  public void pressingRight() {
+
+  }
+
+  @Override
+  public void notPressingLeft() {
+
+  }
+
+  @Override
+  public void notPressingRight() {
+
+  }
+
+  @Override
+  public void isNotPressingPrimaryAttack() {
+
+  }
+
   @Override
   public void interact(GameActor actor2, WorldManifold worldManifold) {
     actor2.interactWithMinigameCharacter(this, worldManifold);

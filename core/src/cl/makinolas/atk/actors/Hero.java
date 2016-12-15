@@ -1,6 +1,9 @@
 package cl.makinolas.atk.actors;
 
+import cl.makinolas.atk.actors.bosses.Boss;
 import cl.makinolas.atk.actors.items.ItemActor;
+import cl.makinolas.atk.actors.platform.WaterPlatform;
+import cl.makinolas.atk.actors.ui.IHero;
 import cl.makinolas.atk.stages.*;
 
 import com.badlogic.gdx.Game;
@@ -27,7 +30,6 @@ import cl.makinolas.atk.actors.items.Ball;
 import cl.makinolas.atk.actors.items.BallActor;
 import cl.makinolas.atk.actors.items.Inventory;
 import cl.makinolas.atk.actors.platform.Platform;
-import cl.makinolas.atk.actors.platform.WaterPlatform;
 import cl.makinolas.atk.actors.ui.MainBar;
 import cl.makinolas.atk.audio.GDXSoundEffectsHero;
 import cl.makinolas.atk.audio.GDXSoundEffectsPlayer;
@@ -40,7 +42,8 @@ import cl.makinolas.atk.utils.Formulas;
 import cl.makinolas.atk.utils.SaveDoesNotExistException;
 import cl.makinolas.atk.utils.SaveManager;
 
-public class Hero extends Monsters {
+
+public class Hero extends Monsters implements IHero {
 
 	public static Hero player = new Hero();
 
@@ -288,7 +291,12 @@ public class Hero extends Monsters {
 			state.countFrames();
 	}
 
-	public void setMovablePLatformSpeed(float vX, float vY) {
+  @Override
+  public void moveHorizontal(int i, boolean b) {
+
+  }
+
+  public void setMovablePLatformSpeed(float vX, float vY) {
 		this.platformSpeed = new Vector2(vX, vY);
 	}
 
@@ -416,7 +424,17 @@ public class Hero extends Monsters {
 		}
 	}
 
-	private void setAnimation() {
+  @Override
+  public void interactWithMonster(Boss boss) {
+
+  }
+
+  @Override
+  public void stopMovement() {
+
+  }
+
+  public void setAnimation() {
 		setMasterTexture(getActualFriend().getTexture(), getActualFriend().getWidth(), getActualFriend().getHeight());
 		walkAnimation = addAnimation(0.2f, getActualFriend().getWalkAnimation());
 		hurtAnimation = addAnimation(0.2f, getActualFriend().getHurtAnimation());
@@ -651,7 +669,7 @@ public class Hero extends Monsters {
 	}
 
 	@Override
-	protected void gainExp(int enemyLevel, Enemies type) {
+    public void gainExp(int enemyLevel, Enemies type) {
 		getActualFriend().gainExperience(enemyLevel, type);
 	}
 
@@ -774,7 +792,12 @@ public class Hero extends Monsters {
 		myBody.setLinearVelocity(x, y);
 	}
 
-	@Override
+  @Override
+  public void interactWithMonster(Enemy enemy) {
+
+  }
+
+  @Override
 	public void endInteraction(GameActor actor2, WorldManifold worldManifold) {
 		super.endInteraction(actor2, worldManifold);
 		actor2.endHeroInteraction(this, worldManifold);

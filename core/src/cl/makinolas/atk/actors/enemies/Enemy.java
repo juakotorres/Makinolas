@@ -9,6 +9,7 @@ import cl.makinolas.atk.actors.items.BallActor;
 import cl.makinolas.atk.actors.items.ItemFinder;
 import cl.makinolas.atk.actors.platform.Platform;
 import cl.makinolas.atk.actors.platform.WaterPlatform;
+import cl.makinolas.atk.actors.ui.IHero;
 import cl.makinolas.atk.actors.ui.MainBar;
 import cl.makinolas.atk.stateEfects.CriticalHit;
 import cl.makinolas.atk.audio.GDXSoundEffectsEnemy;
@@ -278,7 +279,6 @@ public class Enemy extends Monsters {
 		}
 	}
 
-	@Override
 	public void interactWithHero(Hero hero, WorldManifold worldManifold) {
 		if (free && !isSinging) {
 			interactWithHero2(hero);

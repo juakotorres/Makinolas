@@ -1,5 +1,6 @@
 package cl.makinolas.atk.actors.platform;
 
+import cl.makinolas.atk.actors.ui.IHero;
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.Vector2;
@@ -15,6 +16,8 @@ import cl.makinolas.atk.actors.Hero;
 import cl.makinolas.atk.actors.attacks.Attacks;
 import cl.makinolas.atk.actors.enemies.Enemy;
 import cl.makinolas.atk.minigames.MinigameCharacter;
+import com.badlogic.gdx.scenes.scene2d.Group;
+import com.badlogic.gdx.utils.Array;
 
 public class Platform extends GameActor {
   
@@ -22,7 +25,11 @@ public class Platform extends GameActor {
   int xp, yp, wp, hp;
   TextureRegion region;
   static final float TILE_FACTOR = 1.8f;
+  private World myWorld;
+  private int widthTiles;
+  private int heightTiles;
 
+  protected float cameraPositionWhenCreated;
   /**
    * Creates a new platform object.
    * @param myWorld Box2D World.
@@ -32,6 +39,9 @@ public class Platform extends GameActor {
    * @param heightTiles number of tiles of height
      */
   public Platform(World myWorld, String textureCode, int x, int y, int widthTiles, int heightTiles) {
+    this.myWorld = myWorld;
+    this.widthTiles = widthTiles;
+    this.heightTiles = heightTiles;
     
     setPlatformBody(myWorld, x, y, widthTiles, heightTiles);
 
@@ -67,6 +77,11 @@ public class Platform extends GameActor {
   public Platform(World myWorld, int x, int y, int widthTiles){
       this(myWorld,"CU",x,y,widthTiles,1);
   }
+
+
+  public float getCameraPositionWhenCreated () {
+    return cameraPositionWhenCreated;
+  }
   
   @Override
   public boolean isPlatform(){
@@ -83,12 +98,22 @@ public class Platform extends GameActor {
   }
 
   @Override
+  public void setPosition (float x, float y) {
+    if (this.xp != x || this.yp != y) {
+      this.xp = (int) ((int)x * TILE_FACTOR * GameConstants.WORLD_FACTOR);
+      this.yp = (int)((int)y * TILE_FACTOR* GameConstants.WORLD_FACTOR);
+      setPlatformBody(myWorld,(int)x,(int)y,widthTiles,heightTiles);
+    }
+
+  }
+
+  @Override
   public void interact(GameActor actor2, WorldManifold worldManifold) {
     actor2.interactWithPlatform(this, worldManifold);
   }
   
   @Override
-  public void interactWithHero(Hero hero, WorldManifold worldManifold){
+  public void interactWithHero(IHero hero, WorldManifold worldManifold){
     hero.landedPlatform(worldManifold, this);
   }
   
@@ -110,6 +135,13 @@ public class Platform extends GameActor {
   @Override
   public void endInteraction(GameActor actor2, WorldManifold worldManifold) {
     actor2.endPlatformInteraction(this, worldManifold);
+  }
+
+  public void destroySurvivalPlatform(Array<GameActor> gameActors, Group ground, World survivalWorld, Body actorBody ) {
+    gameActors.removeValue(this, true);
+    ground.removeActor(this, true);
+    survivalWorld.destroyBody(actorBody);
+    this.remove();
   }
 
 }

@@ -3,6 +3,7 @@ package cl.makinolas.atk.actors;
 import java.util.ArrayList;
 import java.util.ConcurrentModificationException;
 
+import cl.makinolas.atk.actors.ui.IHero;
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.WorldManifold;
@@ -60,8 +61,8 @@ public abstract class Monsters extends AnimatedActor {
   
   public abstract float getMonsterWidth();
   public abstract float getMonsterHeight();
-  public void interactWithHero2(Hero hero) {
-    meleeAttack(hero, isAttacking);       
+  public void interactWithHero2(IHero hero) {
+    meleeAttack((Monsters)hero, isAttacking);
   }
   public void gainExperience(int level, Enemies type) {
     gainExp(level, type);

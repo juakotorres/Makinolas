@@ -5,7 +5,7 @@ import cl.makinolas.atk.actors.NullState;
 
 public class OnWall extends JumpState {
 	public void firstJump() {
-		hero.myBody.setGravityScale(1);
+		hero.getBody().setGravityScale(1);
 		hero.setSpeed(hero.getBody().getLinearVelocity().x,12);
 		hero.setState(new NullState(hero));
 	}

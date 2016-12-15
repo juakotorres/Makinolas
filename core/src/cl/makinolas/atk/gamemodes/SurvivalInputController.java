@@ -1,37 +1,37 @@
-package cl.makinolas.atk.actors;
+package cl.makinolas.atk.gamemodes;
 
-import cl.makinolas.atk.actors.friend.Enemies;
+import cl.makinolas.atk.actors.InputController;
 import cl.makinolas.atk.actors.ui.BagVis;
 import cl.makinolas.atk.actors.ui.IHero;
 import cl.makinolas.atk.actors.ui.MobileGroup;
-import cl.makinolas.atk.actors.ui.MobileKeyListener;
-import cl.makinolas.atk.audio.GDXSoundEffectsHero;
-import cl.makinolas.atk.audio.GDXSoundEffectsPlayer;
 import cl.makinolas.atk.stages.AbstractStage;
 import cl.makinolas.atk.utils.SaveManager;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.InputListener;
 
-public class InputController extends InputListener implements MobileKeyListener{
-
-    protected IHero hero;
-    private GDXSoundEffectsPlayer mplayer = GDXSoundEffectsHero.getInstance();
-    public InputController(IHero h, MobileGroup mob){
-
+/**
+ * Created by belisariops on 11/8/16.
+ */
+public class SurvivalInputController extends InputListener {
+    IHero hero;
+    public SurvivalInputController(IHero h, MobileGroup mob) {
         hero = h;
-        mob.setMobileKeyListener(this);
     }
+    boolean leftDown = false;
+    boolean rightDown = false;
 
-    @Override
     public boolean keyDown(InputEvent event, int keycode) {
-        if(!((AbstractStage) hero.getStage()).isPaused()) {
             switch (keycode) {
                 case Input.Keys.LEFT:
-                    hero.pressingLeft();
+                    hero.moveHorizontal(-1, false);
+                    rightDown = false;
+                    leftDown = true;
                     break;
                 case Input.Keys.RIGHT:
-                    hero.pressingRight();
+                    hero.moveHorizontal(1, true);
+                    rightDown = true;
+                    leftDown = false;
                     break;
                 case Input.Keys.SPACE:
                     hero.jump(1);
@@ -40,10 +40,10 @@ public class InputController extends InputListener implements MobileKeyListener{
                     hero.jump(2);
                     break;
                 case Input.Keys.A:
-                    hero.getInventory().useSelItem1();
+                    //hero.getInventory().useSelItem1();
                     break;
                 case Input.Keys.S:
-                    hero.getInventory().useSelItem2();
+                    //hero.getInventory().useSelItem2();
                     break;
                 case Input.Keys.Z:
                     hero.attackPrimary();
@@ -52,52 +52,35 @@ public class InputController extends InputListener implements MobileKeyListener{
                     hero.attackSecondary();
                     break;
                 case Input.Keys.NUM_1:
-                    hero.prevAllie();
+                    //hero.prevAllie();
                     break;
                 case Input.Keys.NUM_2:
-                    hero.nextAllie();
+                    //hero.nextAllie();
                     break;
-                    
-                //BORRAR!!!!!!!!!!!!!!!!!!!!
-                case Input.Keys.NUM_3:
-                	hero.foo();
-                	break;
-                	
-                case Input.Keys.H:
-                	hero.gainExp(100, Enemies.EEVEE);
-                	break;
+
+
                 case Input.Keys.NUM_8:
                     SaveManager.getInstance().saveState();
                     break;
                 case Input.Keys.P:
-                    ((AbstractStage) hero.getStage()).togglePause();
+                    //((AbstractStage) hero.getStage()).togglePause();
                     break;
-            }
+
         }
-        else{
-            switch (keycode) {
-                case Input.Keys.P:
-                    ((AbstractStage) hero.getStage()).togglePause();
-                    mplayer.PlayPauseMenuOut();
-                    break;
-                default:
-                	
-                    BagVis.getInstance().handleKey(keycode);
-                    break;
-            }
-        }
+
         return true;
     }
 
-    @Override
     public boolean keyUp(InputEvent event, int keycode) {
         if(((AbstractStage) hero.getStage()).isPaused()) return true;
         switch (keycode) {
             case Input.Keys.LEFT:
-                hero.notPressingLeft();
+                if (!rightDown)
+                    hero.stopMovement();
                 break;
             case Input.Keys.RIGHT:
-                hero.notPressingRight();
+                if (!leftDown)
+                    hero.stopMovement();
                 break;
             case Input.Keys.SPACE:
                 hero.isNotPressingSpace();
@@ -105,22 +88,18 @@ public class InputController extends InputListener implements MobileKeyListener{
             case Input.Keys.UP:
                 hero.isNotPressingSpace();
                 break;
-            case Input.Keys.Z:
-                hero.isNotPressingPrimaryAttack();
-                break;
         }
         return true;
     }
 
-    @Override
     public void onMobileKeyDown(MobileGroup.MobileKeys key) {
         if(!((AbstractStage) hero.getStage()).isPaused()) {
             switch (key) {
                 case LEFT:
-                    hero.pressingLeft();
+                    hero.moveHorizontal(-1, false);
                     break;
                 case RIGHT:
-                    hero.pressingRight();
+                    hero.moveHorizontal(1, false);
                     break;
                 case UP:
                     hero.jump(1);
@@ -129,23 +108,23 @@ public class InputController extends InputListener implements MobileKeyListener{
                     hero.attackPrimary();
                     break;
                 case ITEM1:
-                    hero.getInventory().useSelItem1();
+                    //hero.getInventory().useSelItem1();
                     break;
                 case ITEM2:
-                    hero.getInventory().useSelItem2();
+                    //hero.getInventory().useSelItem2();
                     break;
                 case CHG:
-                    hero.nextAllie();
+                    //hero.nextAllie();
                     break;
                 case PAUSE:
-                    ((AbstractStage) hero.getStage()).togglePause();
+                    //((AbstractStage) hero.getStage()).togglePause();
                     break;
             }
         }
         else{
             switch (key) {
                 case PAUSE:
-                    ((AbstractStage) hero.getStage()).togglePause();
+                    //((AbstractStage) hero.getStage()).togglePause();
                     break;
                 default:
                     BagVis.getInstance().handleKey(key);
@@ -154,21 +133,20 @@ public class InputController extends InputListener implements MobileKeyListener{
         }
     }
 
-    @Override
     public void onMobileKeyUp(MobileGroup.MobileKeys k) {
         if(((AbstractStage) hero.getStage()).isPaused()) return;
         switch (k) {
             case LEFT:
-                hero.notPressingLeft();
+                hero.moveHorizontal(1,true);
                 break;
             case RIGHT:
-                hero.notPressingRight();
+                hero.moveHorizontal(-1,true);
                 break;
             case UP:
                 hero.isNotPressingSpace();
                 break;
-        default:
-          break;
+            default:
+                break;
         }
     }
 }
