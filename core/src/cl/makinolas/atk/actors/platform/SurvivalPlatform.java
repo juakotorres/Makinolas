@@ -8,6 +8,7 @@ import cl.makinolas.atk.gamemodes.SurvivalModeStage;
 import com.badlogic.gdx.physics.box2d.Body;
 import com.badlogic.gdx.physics.box2d.World;
 import com.badlogic.gdx.scenes.scene2d.Group;
+import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.utils.Array;
 
 /**
@@ -15,12 +16,14 @@ import com.badlogic.gdx.utils.Array;
  */
 public class SurvivalPlatform extends Platform {
     private Enemy enemy;
+    private SurvivalModeStage survivalModeStage;
 
     public SurvivalPlatform(World myWorld, String textureCode, int x, int y, int widthTiles, int heightTiles,SurvivalModeStage stage, Group mons,float cameraPositionY){
         super (myWorld, textureCode, x, y, widthTiles, heightTiles);
-        enemy = new Gastly().returnStayAndShootEnemy(myWorld,x+1,y,true);
-        stage.addGameActor(enemy);
+        //enemy = new Gastly().returnStayAndShootEnemy(myWorld,x+1,y,true);
+        //stage.addGameActor(enemy);
         cameraPositionWhenCreated = cameraPositionY;
+        this.survivalModeStage = stage;
         //mons.addActor(enemy);
     }
 
@@ -29,6 +32,15 @@ public class SurvivalPlatform extends Platform {
         //enemy = new Gastly().returnStayAndShootEnemy(myWorld,x,y,true);
         //gameActors.add(enemy);
     }
+
+    @Override
+    public void act(float delta) {
+       // if ((myBody.getPosition().y/1.8) +100 <getCameraPositionWhenCreated() ) {
+         //   destroySurvivalPlatform(survivalModeStage.gameActors,survivalModeStage.ground,survivalModeStage.survivalWorld,this.getBody());
+       // }
+    }
+
+
 
 
 

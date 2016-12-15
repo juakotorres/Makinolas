@@ -28,13 +28,13 @@ import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.viewport.Viewport;
 
 public class SurvivalModeStage extends AbstractStage implements ContactListener{
-    private World survivalWorld;
+    public World survivalWorld;
     private final float frameTime = 1 / 100f;
-    private Array<GameActor> gameActors;
+    public Array<GameActor> gameActors;
     private OrthographicCamera camera;
     private Box2DDebugRenderer renderer;
     private Platform initialPlatform;
-    private Group ground, mons, ui, deco;
+    public Group ground, mons, ui, deco;
     private IHero hero;
     private float height;
     private SurvivalPlatformCreator plataformCreator;
@@ -160,7 +160,7 @@ public class SurvivalModeStage extends AbstractStage implements ContactListener{
         AbstractStage.elapsedTime += delta;
         survivalWorld.step(frameTime, 6, 2);
         height += Math.abs(0.00001*Math.sin(height)) + (delta*delta);
-        plataformCreator.setPlayerHeight(height);
+        plataformCreator.setPlayerHeight(hero.getBody().getPosition().y);
         changeCamera(0,height);
         setPlayerPosition(hero.getBody().getPosition());
 
@@ -171,12 +171,13 @@ public class SurvivalModeStage extends AbstractStage implements ContactListener{
 
         for (GameActor actor : gameActors) {
             Body actorBody = actor.getBody();
-            if (!actor.isHero() && !actor.isMonster() &&  !actor.isAttack() && getCamera().position.y - ((Platform)actor).getCameraPositionWhenCreated() > 240 ) {
-                System.out.println("Destroy!");
-                //((Platform)actor).destroySurvivalPlatform(gameActors,ground,survivalWorld,actorBody);
+            if (!actor.isHero() && !actor.isMonster() &&  !actor.isAttack() ) {
+               // gameActors.removeValue(actor, true);
+                //survivalWorld.destroyBody(actorBody);
+                //actor.remove();
                 //myScreen.mainMenu();
             } else if (actor.isHero() && (getCamera().position.y - 240 - 21.1168072596 * (actorBody.getPosition().y + 3)) > -50) {
-                //myScreen.mainMenu();
+                myScreen.mainMenu();
 
             }
             else if (actor.isMonster() && (actorBody.getPosition().y < hero.getBody().getPosition().y-50)) {

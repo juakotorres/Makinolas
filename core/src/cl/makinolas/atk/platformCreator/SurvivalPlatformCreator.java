@@ -103,7 +103,7 @@ public class SurvivalPlatformCreator extends AbstractPlatformCreator {
 
         nextPlatformPosition +=2;//+(100 * playerHeight);
 
-        myWorld.setGravity(new Vector2(0,-(gravity -(playerHeight * gravity * 0.1f))));
+        myWorld.setGravity(new Vector2(0,-(gravity))); //-(playerHeight * gravity * 0.1f))));
         lasPosition = cameraPositionY;
         // ground.addActor(new Platform(myWorld, "CU", 0, 3, 10 , 1));
        /* if(Math.random()*50>40){

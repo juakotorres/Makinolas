@@ -207,8 +207,8 @@ public class SurvivalHero extends Monsters implements ICharacter, IHero {
 
     @Override
     public void moveHorizontal(int i, boolean b) {
-        myBody.setLinearVelocity(5*i,myBody.getLinearVelocity().y);
-        xVelocity = 5 * i;
+        myBody.setLinearVelocity(10*i,myBody.getLinearVelocity().y);
+        xVelocity = 10 * i;
         isFacingRight = b;
     }
 
