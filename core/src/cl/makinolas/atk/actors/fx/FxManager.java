@@ -14,6 +14,7 @@ public class FxManager {
         GREENFX("Fx/fxgreen.png",48,48,0.5f,5),
         YELLOWFX("Fx/fxyellow.png",48,48,0.5f,5);
 
+    	
         public String region;
         public int width, height, frames;
         public float duration;

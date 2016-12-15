@@ -4,6 +4,8 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 
+import cl.makinolas.atk.types.TypeFactory;
+
 public class Rotom extends AbstractFriend {
  
   private TextureRegion[][] faces;
@@ -24,6 +26,8 @@ public class Rotom extends AbstractFriend {
     newMonster();
     setActualEvolution(0);
     setMaxMagic(1000);
+    addType(TypeFactory.getType("Ghost"));
+    addType(TypeFactory.getType("Electric"));
   }
   
   public Rotom(int level){

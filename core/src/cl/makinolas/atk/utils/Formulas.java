@@ -1,6 +1,10 @@
 package cl.makinolas.atk.utils;
 
+import java.util.ArrayList;
+
+import cl.makinolas.atk.actors.Monsters;
 import cl.makinolas.atk.actors.friend.Enemies;
+import cl.makinolas.atk.types.IType;
 
 public class Formulas {
   
@@ -18,23 +22,46 @@ public class Formulas {
   }
   
   // damage formula
-  public static int getDamage(int attack1, int level1, int defense2, int attackBaseDamage){
+  public static int getDamage(Monsters monster, int attack1, int level1, int defense2, int attackBaseDamage, 
+		  ArrayList<IType> typeFriendSource, ArrayList<IType> typeFriendMonster, IType type, int criticModificator){
 
     double randomMultiplier = Math.random()* 0.15 + 0.85;
     double criticalRandomizer = Math.random();
     double critical = 1;
     
-    if( criticalRandomizer < 1/16){
+    double extra = 1;
+    for(IType auxType:  typeFriendSource){
+    	extra = extra * type.attackFromType(auxType);
+    }
+    
+    double efectivity = 1;
+    for(IType auxType: typeFriendMonster){
+    	efectivity = efectivity * type.attackToType(auxType);
+    }
+    
+    
+    
+    
+    if( criticalRandomizer < getCritical(criticModificator)){
       critical = 1.5;
+      monster.CriticalDamage();
     }
 
-    double modifier = critical * randomMultiplier;
-    return (int) ((((2 * (double) level1) + 10) / 250) * ((double) attack1/ (double) defense2) * attackBaseDamage * modifier) + 1;
+    return (int) (critical*extra*efectivity*randomMultiplier*(2+(0.2*(double)level1+1)*(double)attack1)*(double)attackBaseDamage*(1/(25*(double)defense2)));
   }
   
-  // stats formula
-  public static int getOtherStat(int baseStat, int level){
-    return (((2 * baseStat) * level) / 100) + 5;
+  private static double getCritical(int criticModificator) {
+	  switch (criticModificator) {
+		  case 1: return 0.0625;
+		  case 2: return 0.125;
+		  case 3: return 0.5;
+		  default: return 1;
+	  }
+}
+
+// stats formula
+  public static int getOtherStat(int baseStat, int level, double bonusClimate){
+    return (int) (bonusClimate* (double) (((2 * baseStat) * level) / 100) + 5);
   }
   
   // hp formula
@@ -43,8 +70,8 @@ public class Formulas {
   }
 
   // stats formula
-  public static int getOtherStatWithIV(int baseStat, int level, int iv, int evStat){
-    return (int) ((double)((2 * baseStat + iv + ((double)evStat)/4) * level) / 100) + 5;
+  public static int getOtherStatWithIV(int baseStat, int level, int iv, int evStat, double bonusClimate){
+    return (int) ( bonusClimate * ((double)((2 * baseStat + iv + ((double)evStat)/4) * level) / 100) + 5);
   }
 
   // hp formula

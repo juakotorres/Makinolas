@@ -3,6 +3,7 @@ package cl.makinolas.atk.actors.attacks;
 
 import cl.makinolas.atk.actors.Monsters;
 import cl.makinolas.atk.actors.attacks.states.SpriteState;
+
 import com.badlogic.gdx.physics.box2d.World;
 
 public class DirectionAttack extends ShootAttack {

@@ -28,18 +28,21 @@ public class FollowerEnemy extends Enemy {
   
   @Override
   public void act(float delta){     
+	  super.act(delta);
     
-    myBody.setLinearVelocity(vx * 2, vy);
-    
+	  if(!this.isSinging){
+		  myBody.setLinearVelocity(vx * 2, vy);
+	  }
     checkDamage(delta, 0);
     checkHeroPosition(delta);
     accumulatorAttack += delta; 
     
-    if(accumulatorAttack > attackTime){
+    if(!this.isSinging && accumulatorAttack > attackTime && super.isFree()){
       Attacks attack = parent.getFriendAttack(myWorld, myBody.getPosition().x, myBody.getPosition().y - 1f, isFacingRight, this);
       attack.isDropping();
       attack.setSource(this);
       ((AbstractStage) getStage()).addGameActor(attack);
+      attack.getSpriteState().secondaryEfectsToSource(this);
       accumulatorAttack = 0;
     }
   }

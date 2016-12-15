@@ -3,7 +3,6 @@ package cl.makinolas.atk.stages;
 import java.io.IOException;
 
 import cl.makinolas.atk.actors.bosses.BossFinder;
-import cl.makinolas.atk.actors.bosses.GroudonBoss;
 import com.badlogic.gdx.Application;
 import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
@@ -26,9 +25,9 @@ import cl.makinolas.atk.actors.Hero;
 import cl.makinolas.atk.actors.InputController;
 import cl.makinolas.atk.actors.Portal;
 import cl.makinolas.atk.actors.Title;
-import cl.makinolas.atk.actors.bosses.OldMewtwoBoss;
 import cl.makinolas.atk.actors.ui.MainBar;
 import cl.makinolas.atk.actors.ui.MobileGroup;
+import cl.makinolas.atk.audio.GDXMusicPlayer;
 import cl.makinolas.atk.screen.GameScreen;
 import cl.makinolas.atk.utils.LevelReader;
 
@@ -41,7 +40,6 @@ public class BossStage extends AbstractStage implements ContactListener {
   private Array<GameActor> gameActors;
   private Group ground, mons, ui;
   private Game myGame;
-
   private MainBar bar;
 
   private OrthographicCamera camera;
@@ -49,6 +47,7 @@ public class BossStage extends AbstractStage implements ContactListener {
 
   public BossStage(Viewport v, GameScreen actualScreen, Game myGame, Levels type){
     super(v);
+    musicplayer= GDXMusicPlayer.getInstance();
     level = type;
     levelName = getLevelName();
     this.myGame = myGame;
@@ -59,10 +58,9 @@ public class BossStage extends AbstractStage implements ContactListener {
 
     addActor(new Background(getLevelBackground(), getCamera()));
     
-    music = Gdx.audio.newMusic(Gdx.files.internal(getLevelMusic()));
-    music.setLooping(true);  
-    music.play();
-    
+
+    musicplayer.PlayLooped(getLevelMusic());
+
     ground = new Group();
     addActor(ground);
     mons = new Group();
@@ -140,10 +138,14 @@ public class BossStage extends AbstractStage implements ContactListener {
     checkBossAlive();
     for(GameActor actor : gameActors){
       if(actor.isHero() && actor.isDead()){
+    	musicplayer.StopMusic();
         changeDeadMenu();
       }
       if(actor.isMonster() || actor.isPuff() || actor.isBall() || actor.isAttack() || actor.isDetector()){
         Body actorBody = actor.getBody();
+        if(actor.isHero() && (actorBody.getPosition().y < -200 || actorBody.getPosition().x < -100 || actor.isDead())){
+            changeDeadMenu();
+         }
         if(actorBody.getPosition().y < -200 || actorBody.getPosition().x < -100 || actorBody.getPosition().x > 200 || actor.isDead()){
           gameActors.removeValue(actor,true);
           suMundo.destroyBody(actorBody);
@@ -165,7 +167,7 @@ public class BossStage extends AbstractStage implements ContactListener {
   private void checkBossAlive() {
     if(bossDefeated){
       Portal portal = new Portal(suMundo, new Vector2(10, 3), myGame);
-      music.dispose();
+      musicplayer.StopMusic();
       addGameActor(portal); 
       bossDefeated = false;
     }    

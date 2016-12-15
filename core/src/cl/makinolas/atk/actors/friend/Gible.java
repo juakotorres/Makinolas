@@ -8,6 +8,8 @@ import com.badlogic.gdx.physics.box2d.World;
 import cl.makinolas.atk.actors.Monsters;
 import cl.makinolas.atk.actors.attacks.AquaAttack;
 import cl.makinolas.atk.actors.attacks.Attacks;
+import cl.makinolas.atk.actors.attacks.states.AquaAttackState;
+import cl.makinolas.atk.types.TypeFactory;
 
 public class Gible extends AbstractFriend {
   
@@ -29,7 +31,9 @@ public class Gible extends AbstractFriend {
     newMonster();
     setActualEvolution(0);
     setMaxMagic(1000);
-  }
+    addType(TypeFactory.getType("Dragon"));
+    addType(TypeFactory.getType("Ground"));
+    }
 
   public Gible(int level){
     this();
@@ -81,5 +85,10 @@ public class Gible extends AbstractFriend {
     return new AquaAttack(myWorld, x, y, facingRight, source);
   }
   
+  @Override
+  public int getAttackMagicRequirement() {
+	// TODO Auto-generated method stub
+	return AquaAttackState.getMagicRequirement();
+  }
   
 }

@@ -5,7 +5,7 @@ import cl.makinolas.atk.actors.Hero;
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.*;
-import com.sun.corba.se.impl.orbutil.HexOutputStream;
+//import com.sun.corba.se.impl.orbutil.HexOutputStream;
 
 public class MovablePlatform extends Platform {
 
@@ -72,7 +72,7 @@ public class MovablePlatform extends Platform {
     }
 
     if(heroIsInPlatform){
-      Vector2 heroVel = Hero.getInstance().getBody().getLinearVelocity();
+      //Vector2 heroVel = Hero.getInstance().getBody().getLinearVelocity();
       Hero.getInstance().setMovablePLatformSpeed(vX,vY);
     }
 

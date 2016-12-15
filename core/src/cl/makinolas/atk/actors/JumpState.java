@@ -49,8 +49,8 @@ public class JumpState {
 		frames = 0;
 	}
 	public void release() {
-		
 	}
+
 
   public void setAnimation(MinigameCharacter minigameCharacter, float delta) {}
 

@@ -9,6 +9,7 @@ import cl.makinolas.atk.actors.Monsters;
 import cl.makinolas.atk.actors.attacks.Attacks;
 import cl.makinolas.atk.actors.attacks.BombAttack;
 import cl.makinolas.atk.actors.attacks.states.ThunderBoltState;
+import cl.makinolas.atk.types.TypeFactory;
 
 public class Pichu extends AbstractFriend {
   
@@ -30,6 +31,7 @@ public class Pichu extends AbstractFriend {
     newMonster();
     setActualEvolution(0);
     setMaxMagic(1000);
+    addType(TypeFactory.getType("Electric"));
     setStats();
   }
   
@@ -82,5 +84,9 @@ public class Pichu extends AbstractFriend {
     return new BombAttack(new ThunderBoltState(), myWorld, x, y, facingRight, source);
   }
   
+  @Override
+  public int getAttackMagicRequirement() {
+	return ThunderBoltState.getMagicRequirement();
+  }
   
 }

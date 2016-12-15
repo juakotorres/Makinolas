@@ -4,6 +4,10 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 
+import cl.makinolas.atk.types.BugType;
+import cl.makinolas.atk.types.PoisonType;
+import cl.makinolas.atk.types.TypeFactory;
+
 public class Skorupi extends AbstractFriend {
   
   private TextureRegion[][] faces;
@@ -24,6 +28,8 @@ public class Skorupi extends AbstractFriend {
     newMonster();
     setActualEvolution(0);
     setMaxMagic(1000);
+    addType(new BugType());
+    addType(new PoisonType());
   }
   
   public Skorupi(int level){
@@ -54,6 +60,9 @@ public class Skorupi extends AbstractFriend {
       setActualEvolution(1);
       setStats();
       setMaxMagic(1000);
+      resetType();
+      addType(TypeFactory.getType("Bug"));
+      addType(TypeFactory.getType("Dark"));
     }
   }
 
