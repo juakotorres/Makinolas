@@ -28,7 +28,8 @@ import cl.makinolas.atk.utils.SaveManager;
 
 public class PokeComputerScreen extends SimpleScreen implements KeyHandable {
 
-	private BitmapFont large = new BitmapFont(Gdx.files.internal("Fonts/large.fnt"),Gdx.files.internal("Fonts/large.png"), false);
+	private BitmapFont large = new BitmapFont(Gdx.files.internal("Fonts/large.fnt"),
+			Gdx.files.internal("Fonts/large.png"), false);
 	private Label currentItem;
 	private Hero hero;
 	private int index_team;
@@ -58,12 +59,15 @@ public class PokeComputerScreen extends SimpleScreen implements KeyHandable {
 
 		team_size = hero.getAllies().size;
 		backup_size = hero.getBackupAllies().size;
-		page_limit = backup_size % 18 == 0 && backup_size != 0 ? (backup_size / 18) : (backup_size / 18) + 1;// backup_size	< 18 ||
+		page_limit = backup_size % 18 == 0 && backup_size != 0 ? (backup_size / 18) : (backup_size / 18) + 1;// backup_size
+																												// <
+																												// 18
+																												// ||
 		showAllies();
-		
-		if(hero.getAllies().size!=0)
+
+		if (hero.getAllies().size != 0)
 			ally = new FriendInfo(hero.getAllies().get(0));
-		if(hero.getBackupAllies().size!=0)
+		if (hero.getBackupAllies().size != 0)
 			backup = new FriendInfo(hero.getBackupAllies().get(0));
 		allyInfo();
 		BackupInfo();
@@ -168,19 +172,19 @@ public class PokeComputerScreen extends SimpleScreen implements KeyHandable {
 		stage.addActor(currentItem);
 		stage.addListener(new SimpleInputController(this, null));
 	}
-	
+
 	/*
-	 * Inicializa las imagenes de los Pokemon en la pantalla, solo debe ser utilizado en el inicio
-	 * de la pantalla del PC.
-	 * */
-	private void showAllies(){
-		for (int i = 0; i < team_size ; i++) {
+	 * Inicializa las imagenes de los Pokemon en la pantalla, solo debe ser
+	 * utilizado en el inicio de la pantalla del PC.
+	 */
+	private void showAllies() {
+		for (int i = 0; i < team_size; i++) {
 			final int aux = i;
 			TeamFriendImage tfimg = new TeamFriendImage(hero.getAllies().get(i), true);
-			tfimg.setBounds(0,0,40,40);
-			tfimg.setPosition(60 + 60 * i,350);
+			tfimg.setBounds(0, 0, 40, 40);
+			tfimg.setPosition(60 + 60 * i, 350);
 			tfimg.setScale(1.5f);
-			tfimg.addListener(new InputListener(){
+			tfimg.addListener(new InputListener() {
 				@Override
 				public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
 					setTeamSelected(aux);
@@ -190,17 +194,19 @@ public class PokeComputerScreen extends SimpleScreen implements KeyHandable {
 			});
 			alliesImages.add(tfimg);
 			stage.addActor(tfimg);
-		}  
-		 	
-		for (int j = 0; j < page_limit; j++){
-			for (int i = 0; i < 18 && i + j * 18 < backup_size ; i++) {//i < hero.getBackupAllies().size && 
+		}
+
+		for (int j = 0; j < page_limit; j++) {
+			for (int i = 0; i < 18 && i + j * 18 < backup_size; i++) {// i <
+																		// hero.getBackupAllies().size
+																		// &&
 				final int aux = i + j * 18;
 				TeamFriendImage tfimg = new TeamFriendImage(hero.getBackupAllies().get(i + j * 18), true);
-				tfimg.setBounds(0,0,40,40);
-				tfimg.setPosition(60 + 60 * (i % 6),250 - 70 * (i / 6));
+				tfimg.setBounds(0, 0, 40, 40);
+				tfimg.setPosition(60 + 60 * (i % 6), 250 - 70 * (i / 6));
 				tfimg.setScale(1.5f);
-				tfimg.setVisible(j == 0? true : false);
-				tfimg.addListener(new InputListener(){
+				tfimg.setVisible(j == 0 ? true : false);
+				tfimg.addListener(new InputListener() {
 					@Override
 					public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
 						setBackupSelected(aux);
@@ -213,90 +219,94 @@ public class PokeComputerScreen extends SimpleScreen implements KeyHandable {
 			}
 		}
 	}
-	
-	
-	/*Estos metodos deberian cambiar la imagen mostrada del pokemon seleccionado y el 
-	 * indice actual por el i. (cuando es usa esta funcion en el listener se le debe
-	 * pasar un "final int", si no, no sirve.
-	 * */
-	private void setTeamSelected(int i){
+
+	/*
+	 * Estos metodos deberian cambiar la imagen mostrada del pokemon
+	 * seleccionado y el indice actual por el i. (cuando es usa esta funcion en
+	 * el listener se le debe pasar un "final int", si no, no sirve.
+	 */
+	private void setTeamSelected(int i) {
 		index_team = i;
 	}
-	private void setBackupSelected(int i){
+
+	private void setBackupSelected(int i) {
 		index_backup = i;
 	}
 	//
-	
-	
-	/* ChangePage(int):
-	 * Metodo utilizado para cambiar las imagenes de los Pokemon disponibles en el PC segun la pagina 
-	 * actual, debe obtener entre 1 y 18 elementos del arreglo backupImages, modificar los atributos 
-	 * de los anteriores Pokemon a no visibles y poner los nuevos elementos en estado visible. 
-	 * */
-	private void changePage(int change){
-		//modificar las anteriores
-		for (int i = 0; i < 18 && i + index_page * 18 < backup_size ; i++) {
+
+	/*
+	 * ChangePage(int): Metodo utilizado para cambiar las imagenes de los
+	 * Pokemon disponibles en el PC segun la pagina actual, debe obtener entre 1
+	 * y 18 elementos del arreglo backupImages, modificar los atributos de los
+	 * anteriores Pokemon a no visibles y poner los nuevos elementos en estado
+	 * visible.
+	 */
+	private void changePage(int change) {
+		// modificar las anteriores
+		for (int i = 0; i < 18 && i + index_page * 18 < backup_size; i++) {
 			TeamFriendImage tfimg = backupImages.get(i + index_page * 18);
 			tfimg.setVisible(false);
 			stage.addActor(tfimg);
 		}
-		
-		//cambiar el numero de pagina
+
+		// cambiar el numero de pagina
 		changePageNumber(change);
-		
-		/*debug
-		System.out.println("alliesImages size: " + alliesImages.size());
-		System.out.println("backupImages size: " + backupImages.size());
-		System.out.println("page limit: "+ page_limit);
-		System.out.println("page index: "+index_page);
-		System.out.println("backup index: " + index_backup +" team index: "+ index_team);
-		*/
-		
-		//modificar las nuevas imagenes
-		for (int i = 0; i < 18 && i + index_page * 18 < backup_size ; i++) {
+
+		/*
+		 * debug System.out.println("alliesImages size: " +
+		 * alliesImages.size()); System.out.println("backupImages size: " +
+		 * backupImages.size()); System.out.println("page limit: "+ page_limit);
+		 * System.out.println("page index: "+index_page);
+		 * System.out.println("backup index: " + index_backup +" team index: "+
+		 * index_team);
+		 */
+
+		// modificar las nuevas imagenes
+		for (int i = 0; i < 18 && i + index_page * 18 < backup_size; i++) {
 			TeamFriendImage tfimg = backupImages.get(i + index_page * 18);
 			tfimg.setVisible(true);
 			stage.addActor(tfimg);
 		}
-		//setear el indice actual
+		// setear el indice actual
 		setBackupSelected(index_page * 18);
-		
+
 	}
-	
+
 	/*
 	 * Produce el cambio del indice de pagina considerando los casos bordes.
-	 * */
-	private void changePageNumber(int change){
-		if (change > 0){
-			index_page = index_page + 1 == page_limit ? 0 : index_page + 1 ;
+	 */
+	private void changePageNumber(int change) {
+		if (change > 0) {
+			index_page = index_page + 1 == page_limit ? 0 : index_page + 1;
 			index_backup = index_page * 18;
-		}
-		else{
-			index_page = index_page - 1 < 0 ? page_limit - 1 : index_page - 1 ;
+		} else {
+			index_page = index_page - 1 < 0 ? page_limit - 1 : index_page - 1;
 			index_backup = index_page * 18;
 		}
 	}
-	
-	/* el indice que apuntan en el arreglo de los Backup Pokemon debe estar entre los limites
-	 * definidos de la pagina actual, esto significa que el limite inferior de la variable
-	 * index_backup es (index_page * 18), es decir 0, 18, 36, ... 
-	 * Luego el limite superior de index_backup es el minimo entre el size del arreglo de
-	 * Backup Pokemon y el limite superior de la pagina (((index_page + 1) * 18) - 1). 
-	 * */
-	private void indexBackupHandler(int i){
+
+	/*
+	 * el indice que apuntan en el arreglo de los Backup Pokemon debe estar
+	 * entre los limites definidos de la pagina actual, esto significa que el
+	 * limite inferior de la variable index_backup es (index_page * 18), es
+	 * decir 0, 18, 36, ... Luego el limite superior de index_backup es el
+	 * minimo entre el size del arreglo de Backup Pokemon y el limite superior
+	 * de la pagina (((index_page + 1) * 18) - 1).
+	 */
+	private void indexBackupHandler(int i) {
 		int aux = index_backup + i;
 		int min_limit = index_page * 18;
 		int max_limit = Math.min(((index_page + 1) * 18) - 1, Math.max(0, backup_size - 1));
-		index_backup = aux < min_limit? max_limit : (aux > max_limit? min_limit : aux);
+		index_backup = aux < min_limit ? max_limit : (aux > max_limit ? min_limit : aux);
 	}
-	
+
 	private void exitComputer() {
 		SaveManager.getInstance().saveState();
 		myGame.setScreen(new MapScreen(myGame));
 	}
-	
-	public void swapPokemon(){
-		if (backupImages.size() != 0 ){
+
+	public void swapPokemon() {
+		if (backupImages.size() != 0) {
 			hero.swapTeamAllies(index_team, index_backup);
 			TeamFriendImage ally = alliesImages.get(index_team);
 			TeamFriendImage backup = backupImages.get(index_backup);
@@ -308,14 +318,14 @@ public class PokeComputerScreen extends SimpleScreen implements KeyHandable {
 			ally.clearListeners();
 			final int new_index_backup = index_team;
 			final int new_index_team = index_backup;
-			backup.addListener(new InputListener(){
+			backup.addListener(new InputListener() {
 				@Override
 				public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
 					setTeamSelected(new_index_backup);
 					return true;
 				}
 			});
-			ally.addListener(new InputListener(){
+			ally.addListener(new InputListener() {
 				@Override
 				public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
 					setBackupSelected(new_index_team);
@@ -331,29 +341,28 @@ public class PokeComputerScreen extends SimpleScreen implements KeyHandable {
 		}
 	}
 
-
 	@Override
 	public void render(float delta) {
 		super.render(delta);
 		Batch batch = stage.getBatch();
 		batch.begin();
-		large.draw(batch,"PokeComputer",228,460);
-		large.draw(batch,"Pokemon Team:",60,420);
-		large.draw(batch,"Pokemon Backup:",60,330);
-		large.draw(batch,"Team Index:",440,210);
-		large.draw(batch,"Backup Index:",440,130);
+		large.draw(batch, "PokeComputer", 228, 460);
+		large.draw(batch, "Pokemon Team:", 60, 420);
+		large.draw(batch, "Pokemon Backup:", 60, 330);
+		large.draw(batch, "Team Index:", 440, 210);
+		large.draw(batch, "Backup Index:", 440, 130);
 		batch.end();
 	}
 
 	@Override
 	public void handleKey(int keycode) {
-		switch (keycode){
-			case Input.Keys.X:
-				exitComputer();
-				break;
-			case Input.Keys.Z:
-				swapPokemon();
-				break;
+		switch (keycode) {
+		case Input.Keys.X:
+			exitComputer();
+			break;
+		case Input.Keys.Z:
+			swapPokemon();
+			break;
 		}
 	}
 
@@ -362,9 +371,8 @@ public class PokeComputerScreen extends SimpleScreen implements KeyHandable {
 	 * utilizado en el inicio de la pantalla del PC.
 	 */
 
-
 	private void allyInfo() {
-		if(hero.getAllies().size==0)
+		if (hero.getAllies().size == 0)
 			return;
 		ally.setFriend(hero.getAllies().get(index_team));
 		ally.setPosition(460, 420);
@@ -372,11 +380,10 @@ public class PokeComputerScreen extends SimpleScreen implements KeyHandable {
 	}
 
 	private void BackupInfo() {
-		if(hero.getBackupAllies().size==0)
+		if (hero.getBackupAllies().size == 0)
 			return;
 		backup.setFriend(hero.getBackupAllies().get(index_backup));
 		backup.setPosition(460, 300);
 		stage.addActor(backup);
 	}
-
 }

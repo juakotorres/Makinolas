@@ -353,6 +353,9 @@ public class MinigameCharacter extends AnimatedActor implements ICharacter, IHer
   public void onGroundAnimation(float delta) {
     changeAnimation(walkAnimation);
   }
+
+@Override
+public void setInsideWater(int i) {}
   
   
 }

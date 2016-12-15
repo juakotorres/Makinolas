@@ -1,5 +1,6 @@
 package cl.makinolas.atk.actors.ui;
 
+import cl.makinolas.atk.actors.Hero;
 import cl.makinolas.atk.actors.JumpState;
 import cl.makinolas.atk.actors.bosses.Boss;
 import cl.makinolas.atk.actors.enemies.Enemy;
@@ -58,7 +59,7 @@ public interface IHero {
     void landedPlatform(WorldManifold worldManifold, Platform platform);
 
     void interactWithMonster(Boss boss);
-
+    
     void stopMovement();
 
     boolean isDead();
@@ -73,4 +74,6 @@ public interface IHero {
     void notPressingRight();
 
     void isNotPressingPrimaryAttack();
+
+	public void setInsideWater(int i);
 }

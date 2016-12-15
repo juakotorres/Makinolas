@@ -353,4 +353,9 @@ public class SurvivalHero extends Monsters implements ICharacter, IHero {
     public void isNotPressingPrimaryAttack() {
 
     }
+
+	@Override
+	public void setInsideWater(int i) {
+		
+	}
 }
