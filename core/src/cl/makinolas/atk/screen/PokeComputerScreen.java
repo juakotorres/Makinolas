@@ -20,6 +20,7 @@ import cl.makinolas.atk.actors.Background;
 import cl.makinolas.atk.actors.Hero;
 import cl.makinolas.atk.actors.KeyHandable;
 import cl.makinolas.atk.actors.SimpleInputController;
+import cl.makinolas.atk.actors.ui.FriendInfo;
 import cl.makinolas.atk.actors.ui.TeamFriendImage;
 import cl.makinolas.atk.audio.GDXSoundEffectsHero;
 import cl.makinolas.atk.audio.GDXSoundEffectsPlayer;
@@ -27,133 +28,147 @@ import cl.makinolas.atk.utils.SaveManager;
 
 public class PokeComputerScreen extends SimpleScreen implements KeyHandable {
 
-	private BitmapFont large = new BitmapFont(Gdx.files.internal("Fonts/large.fnt"),Gdx.files.internal("Fonts/large.png"),false);
-    private Label currentItem;
-    private Hero hero;
-    private int index_team;
-    private int index_backup;
-    private ArrayList<TeamFriendImage> backupImages;
-    private ArrayList<TeamFriendImage> alliesImages;
-    private int index_page;
-    private int page_limit;
-    private int team_size;
-    private int backup_size;
-    private GDXSoundEffectsPlayer mplayer = GDXSoundEffectsHero.getInstance();
-    
-    public PokeComputerScreen(Game g) {
-		super(g, new Stage(new FitViewport(640,480)));
+	private BitmapFont large = new BitmapFont(Gdx.files.internal("Fonts/large.fnt"),Gdx.files.internal("Fonts/large.png"), false);
+	private Label currentItem;
+	private Hero hero;
+	private int index_team;
+	private int index_backup;
+	private ArrayList<TeamFriendImage> backupImages;
+	private ArrayList<TeamFriendImage> alliesImages;
+
+	private FriendInfo ally;
+	private FriendInfo backup;
+
+	private int index_page;
+	private int page_limit;
+	private int team_size;
+	private int backup_size;
+	private GDXSoundEffectsPlayer mplayer = GDXSoundEffectsHero.getInstance();
+
+	public PokeComputerScreen(Game g) {
+		super(g, new Stage(new FitViewport(640, 480)));
 		alliesImages = new ArrayList<TeamFriendImage>();
 		backupImages = new ArrayList<TeamFriendImage>();
-		stage.addActor(new Background("Background/PokeCenter.jpg",stage.getCamera()));
+		stage.addActor(new Background("Background/PokeCenter.jpg", stage.getCamera()));
+
 		hero = Hero.getInstance();
 		index_team = 0;
 		index_backup = 0;
 		index_page = 0;
+
 		team_size = hero.getAllies().size;
 		backup_size = hero.getBackupAllies().size;
-		page_limit = backup_size % 18 == 0 && backup_size != 0? (backup_size / 18) : (backup_size / 18) + 1 ;
-		
-		
+		page_limit = backup_size % 18 == 0 && backup_size != 0 ? (backup_size / 18) : (backup_size / 18) + 1;// backup_size	< 18 ||
 		showAllies();
 		
-		
+		if(hero.getAllies().size!=0)
+			ally = new FriendInfo(hero.getAllies().get(0));
+		if(hero.getBackupAllies().size!=0)
+			backup = new FriendInfo(hero.getBackupAllies().get(0));
+		allyInfo();
+		BackupInfo();
+
 		Skin uskin = new Skin(Gdx.files.internal("Data/uiskin.json"));
 		TextButton exitButton = new TextButton("Exit PokeComputer", uskin);
 		exitButton.setPosition(20, 20);
-		exitButton.addListener(new ClickListener(){
+		exitButton.addListener(new ClickListener() {
 			@Override
 			public void clicked(InputEvent event, float x, float y) {
 				exitComputer();
-                mplayer.PlayPressButton();
+				mplayer.PlayPressButton();
 			}
 		});
 		stage.addActor(exitButton);
-		
+
 		TextButton swapButton = new TextButton("Swap Pokemon", uskin);
 		swapButton.setPosition(500, 20);
-		swapButton.addListener(new ClickListener(){
+		swapButton.addListener(new ClickListener() {
 			@Override
 			public void clicked(InputEvent event, float x, float y) {
 				swapPokemon();
-                mplayer.PlayPressButton();
+				mplayer.PlayPressButton();
+				allyInfo();
+				BackupInfo();
 			}
 		});
 		stage.addActor(swapButton);
-		
-		
-		
-		//SOLUCION PARCHE 
+
+		// SOLUCION PARCHE
 		TextButton leftTeamButton = new TextButton("<", uskin);
-		leftTeamButton.setPosition(500, 200);
-		leftTeamButton.addListener(new ClickListener(){
+		leftTeamButton.setPosition(500, 160);
+		leftTeamButton.addListener(new ClickListener() {
 			@Override
 			public void clicked(InputEvent event, float x, float y) {
 				index_team = index_team - 1 < 0 ? team_size - 1 : index_team - 1;
-                mplayer.PlayPressButton();
+				allyInfo();
+				mplayer.PlayPressButton();
+
 			}
 		});
 		stage.addActor(leftTeamButton);
-		
+
 		TextButton rightTeamButton = new TextButton(">", uskin);
-		rightTeamButton.setPosition(520, 200);
-		rightTeamButton.addListener(new ClickListener(){
+		rightTeamButton.setPosition(520, 160);
+		rightTeamButton.addListener(new ClickListener() {
 			@Override
 			public void clicked(InputEvent event, float x, float y) {
 				index_team = index_team + 1 > team_size - 1 ? 0 : index_team + 1;
-                mplayer.PlayPressButton();
+				allyInfo();
+				mplayer.PlayPressButton();
 			}
 		});
 		stage.addActor(rightTeamButton);
-		
+
 		TextButton leftBackupButton = new TextButton("<", uskin);
-		leftBackupButton.setPosition(500, 100);
-		leftBackupButton.addListener(new ClickListener(){
+		leftBackupButton.setPosition(500, 75);
+		leftBackupButton.addListener(new ClickListener() {
 			@Override
 			public void clicked(InputEvent event, float x, float y) {
+				mplayer.PlayPressButton();
 				indexBackupHandler(-1);
-                mplayer.PlayPressButton();
+				BackupInfo();
+
 			}
 		});
 		stage.addActor(leftBackupButton);
-		
+
 		TextButton rightBackupButton = new TextButton(">", uskin);
-		rightBackupButton.setPosition(520, 100);
-		rightBackupButton.addListener(new ClickListener(){
+		rightBackupButton.setPosition(520, 75);
+		rightBackupButton.addListener(new ClickListener() {
 			@Override
 			public void clicked(InputEvent event, float x, float y) {
+				mplayer.PlayPressButton();
 				indexBackupHandler(1);
-                mplayer.PlayPressButton();
-				
+				BackupInfo();
+
 			}
 		});
 		stage.addActor(rightBackupButton);
-		
+
 		TextButton pageRightBackupButton = new TextButton("Next Page", uskin);
 		pageRightBackupButton.setPosition(400, 20);
-		pageRightBackupButton.addListener(new ClickListener(){
+		pageRightBackupButton.addListener(new ClickListener() {
 			@Override
 			public void clicked(InputEvent event, float x, float y) {
 				changePage(1);
-                mplayer.PlayPressButton();
 			}
 		});
 		stage.addActor(pageRightBackupButton);
-		
+
 		TextButton pageLeftBackupButton = new TextButton("Prev Page", uskin);
 		pageLeftBackupButton.setPosition(300, 20);
-		pageLeftBackupButton.addListener(new ClickListener(){
+		pageLeftBackupButton.addListener(new ClickListener() {
 			@Override
 			public void clicked(InputEvent event, float x, float y) {
 				changePage(-1);
-                mplayer.PlayPressButton();
 			}
 		});
 		stage.addActor(pageLeftBackupButton);
-		
-		currentItem = new Label("",uskin);
-		currentItem.setPosition(440,60);
+
+		currentItem = new Label("", uskin);
+		currentItem.setPosition(440, 60);
 		stage.addActor(currentItem);
-		stage.addListener(new SimpleInputController(this,null));
+		stage.addListener(new SimpleInputController(this, null));
 	}
 	
 	/*
@@ -341,6 +356,26 @@ public class PokeComputerScreen extends SimpleScreen implements KeyHandable {
 		}
 	}
 
+	/*
+	 * Inicializa las imagenes de los Pokemon en la pantalla, solo debe ser
+	 * utilizado en el inicio de la pantalla del PC.
+	 */
+
+
+	private void allyInfo() {
+		if(hero.getAllies().size==0)
+			return;
+		ally.setFriend(hero.getAllies().get(index_team));
+		ally.setPosition(460, 420);
+		stage.addActor(ally);
+	}
+
+	private void BackupInfo() {
+		if(hero.getBackupAllies().size==0)
+			return;
+		backup.setFriend(hero.getBackupAllies().get(index_backup));
+		backup.setPosition(460, 300);
+		stage.addActor(backup);
+	}
 
 }
-
