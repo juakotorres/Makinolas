@@ -25,7 +25,8 @@ public class BoomerangAttack extends ShootAttack {
     
     accumulator = 0;
     bankVelocity = xVelocity;
-    xVelocity = 0;
+    xVelocity = source.getBody().getLinearVelocity().x;
+    yVelocity = source.getBody().getLinearVelocity().y/5;
     spriteTime = spriteState.getFrameTime();
     initialAnimation = true;
     isReturning = false; 
