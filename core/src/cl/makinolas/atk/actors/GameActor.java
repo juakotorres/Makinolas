@@ -117,7 +117,5 @@ public void setGravityScale(float f) {
 		myBody.setGravityScale(f);
 }
 
-
-
   
 }
