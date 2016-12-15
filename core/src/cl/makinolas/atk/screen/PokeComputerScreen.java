@@ -184,6 +184,7 @@ public class PokeComputerScreen extends SimpleScreen implements KeyHandable {
 				@Override
 				public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
 					setTeamSelected(aux);
+					allyInfo();
 					return true;
 				}
 			});
@@ -203,6 +204,7 @@ public class PokeComputerScreen extends SimpleScreen implements KeyHandable {
 					@Override
 					public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
 						setBackupSelected(aux);
+						BackupInfo();
 						return true;
 					}
 				});
