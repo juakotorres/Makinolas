@@ -5,7 +5,7 @@ import cl.makinolas.atk.climate.*;
 public enum Levels {
   LEVEL1("ezpizi", // Nombre del .lvl -- reemplazar por "test_displacement_bug" para probar bug de desplazamiento
           false,   // true si es bossStage
-          new NormalClimate(), //clima 
+          new HarshSunlightClimate(), //clima 
           28,      // posición x del mapa
           20,      // posicion y del mapa
           "Background/SuPuente.jpg",  // imagen de fondo
@@ -15,7 +15,7 @@ public enum Levels {
           8), // etapas que se desboquean al completar esta
   FIRSTSTAGE("FirstStage",
           false,
-          new NormalClimate(),
+          new HarshSunlightClimate(),
           28,
           18,
           "Background/SandOcean.png",
@@ -24,7 +24,7 @@ public enum Levels {
           2),
   LEVEL2("Electric_Campament",
           false,
-          new NormalClimate(),
+          new HarshSunlightClimate(),
           28,
           16,
           "Background/AbandonedMansion.jpg",
@@ -33,7 +33,7 @@ public enum Levels {
           3),
   LEVEL3("UpAndDown",
           false,
-          new NormalClimate(),
+          new HarshSunlightClimate(),
           26,
           16,
           "Background/Night.png",
@@ -42,7 +42,7 @@ public enum Levels {
           4),
   BOSSLEVEL1("bossstage1",
           true,
-          new NormalClimate(),
+          new HarshSunlightClimate(),
           24,
           16,
           "Background/SuPuente.jpg",
@@ -52,7 +52,7 @@ public enum Levels {
          6),
   LEVEL4("DownLevel",
           false,
-          new NormalClimate(),
+          new HarshSunlightClimate(),
           24,
           18,
           "Background/OldRuins1.1.png",
@@ -61,7 +61,7 @@ public enum Levels {
          7),
   LEVEL5("cuito_maincra",
           false,
-          new NormalClimate(),
+          new HarshSunlightClimate(),
           24,
           14,
           "Background/SandOcean2.1.png",
@@ -69,7 +69,7 @@ public enum Levels {
           new Spot(24, 14,  BOSSLEVEL1.levelSpot, new NullSpot(), new NullSpot(), new NullSpot())),
   LEVEL6("Fibonacci_confirmed",
           false,
-          new NormalClimate(),
+          new HarshSunlightClimate(),
           22,
           18,
           "Background/OldRuins1.1.png",
@@ -77,7 +77,7 @@ public enum Levels {
           new Spot(22, 18,  new NullSpot(), new NullSpot(), LEVEL4.levelSpot, new NullSpot())),
   LEVEL8("level2",
       false,
-      new NormalClimate(),
+      new HarshSunlightClimate(),
       26,
       20,
       "Background/Pradera.png",
@@ -86,7 +86,7 @@ public enum Levels {
       9),
   LEVEL9("level3",
       false,
-      new NormalClimate(),
+      new HarshSunlightClimate(),
       26,
       22,
       "Background/SuPuente.jpg",

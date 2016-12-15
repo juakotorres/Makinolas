@@ -1,11 +1,5 @@
 package cl.makinolas.atk.climate;
 
-import java.util.ArrayList;
-
-import com.badlogic.gdx.utils.Array;
-
-import cl.makinolas.atk.actors.Hero;
-import cl.makinolas.atk.actors.friend.Friend;
 import cl.makinolas.atk.types.BugType;
 import cl.makinolas.atk.types.DarkType;
 import cl.makinolas.atk.types.DragonType;
@@ -27,28 +21,6 @@ import cl.makinolas.atk.types.SteelType;
 import cl.makinolas.atk.types.WaterType;
 
 public abstract class AbstractClimate implements IClimate {
-	public ArrayList<IType> getTypeFriend(Friend friend){
-		return friend.getType();
-	}
-	
-	/** este metodo es llamado al principio de cada nivel **/
-	public void applyClimateEffect(Hero h){
-		Array<Friend> allies= h.getAllies();
-		for(int i = 0; i < allies.size; i++){
-		      modifyStates(allies.get(i));
-      }
-    }
-
-	public void modifyStates(Friend friend){
-		friend.weatherEffect(
-				newAttackState(friend), 
-				newDefenseState(friend),
-				newHpState(friend),
-				newSpAttackState(friend),
-				newSpDefenseState(friend),
-				newSpeedState(friend)
-				);
-	}
 	
 	public boolean bugPokemon(BugType type) { return true;}
 	public boolean darkPokemon(DarkType type) { return true;}
@@ -88,10 +60,10 @@ public abstract class AbstractClimate implements IClimate {
 	public boolean steelPokemon(IType type) { return false;}
 	public boolean waterPokemon(IType type) { return false;}
 	
-	public int newAttackState(Friend friend) {return friend.getAttack();}
-	public int newDefenseState(Friend friend) {return friend.getDefense();}
-	public int newHpState(Friend friend) {return friend.getMaxHealth();}
-	public int newSpAttackState(Friend friend) {return friend.getSpecialAttack();}
-	public int newSpDefenseState(Friend friend) {return friend.getSpecialDefense();}
-	public int newSpeedState(Friend friend) {return friend.getSpeed();}
+	public double newAttackState(IType type) {return 1;}
+	public double newDefenseState(IType type) {return 1;}
+	public double newHpState(IType type) {return 1;}
+	public double newSpAttackState(IType type) {return 1;}
+	public double newSpDefenseState(IType type) {return 1;}
+	public double newSpeedState(IType type) {return 1;}
 }

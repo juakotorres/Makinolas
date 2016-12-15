@@ -31,6 +31,7 @@ import cl.makinolas.atk.actors.platform.WaterPlatform;
 import cl.makinolas.atk.actors.ui.MainBar;
 import cl.makinolas.atk.audio.GDXSoundEffectsHero;
 import cl.makinolas.atk.audio.GDXSoundEffectsPlayer;
+import cl.makinolas.atk.climate.IClimate;
 import cl.makinolas.atk.screen.MapScreen;
 import cl.makinolas.atk.start.GameText;
 import cl.makinolas.atk.stateEfects.AbstractStateEfects;
@@ -65,6 +66,7 @@ public class Hero extends Monsters {
 	private Array<Friend> allies;
 	private Array<Friend> backupAllies;
 	private Friend actualFriend;
+	private IClimate actualClimate;
 	private int indexFriend;
 	private int backupIndexFriend;
 	private BodyDef myBodyDefinition;
@@ -172,6 +174,7 @@ public class Hero extends Monsters {
 			addAllie(MonsterFactory.getInstance().getHeroFriend("Kakuna", 6));
 			addAllie(MonsterFactory.getInstance().getHeroFriend("Scyther", 20));
 		}
+		
 	}
 
 	public static Hero getInstance() {
@@ -462,6 +465,7 @@ public class Hero extends Monsters {
 	}
 
 	public Friend getFriend() {
+		
 		return getActualFriend();
 	}
 
@@ -733,6 +737,7 @@ public class Hero extends Monsters {
 	public void completeStage(Game myGame) {
 		AbstractStage myStage = ((AbstractStage) getStage());
 		Levels actualLevel = myStage.getLevel();
+		actualClimate = actualLevel.climate;//Ann
 		myStage.musicplayer.StopMusic();
 
 		int[] levels = actualLevel.unlockableLevels;
@@ -830,10 +835,12 @@ public class Hero extends Monsters {
 	}
 
 	public Friend getActualFriend() {
+		actualFriend.setClimate(actualClimate);//Ann
 		return actualFriend;
 	}
 
 	public void setActualFriend(Friend actualFriend) {
+		actualFriend.setClimate(actualClimate);//Ann
 		this.actualFriend = actualFriend;
 	}
 

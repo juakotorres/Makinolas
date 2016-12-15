@@ -22,6 +22,8 @@ import cl.makinolas.atk.actors.enemies.PhysicalEnemy;
 import cl.makinolas.atk.actors.enemies.StayAndShootEnemy;
 import cl.makinolas.atk.actors.heroState.AbstractFriendState;
 import cl.makinolas.atk.actors.ui.MainBar;
+import cl.makinolas.atk.climate.IClimate;
+import cl.makinolas.atk.climate.NormalClimate;
 import cl.makinolas.atk.stateEfects.IStateEfects;
 import cl.makinolas.atk.types.IType;
 import cl.makinolas.atk.utils.Formulas;
@@ -53,6 +55,8 @@ public abstract class AbstractFriend implements Friend {
   private int actualEvolution;
   public Enemies friend;
   public ArrayList<IType> type = new ArrayList<IType>();
+  
+  private IClimate actualClimate= new NormalClimate();;
   
   private int evs1;
   private int evs2;
@@ -468,13 +472,13 @@ public abstract class AbstractFriend implements Friend {
 
   protected void setStats(){
     this.hp = Formulas.getHpStatWithIV(friend.hpBase , level.level, getIVStat(6), evHp);
-    this.attack = Formulas.getOtherStatWithIV(friend.attackBase, level.level, getIVStat(5), evAttack);
-    this.defense = Formulas.getOtherStatWithIV(friend.defenseBase, level.level, getIVStat(4), evDefense);
-    this.spAttack = Formulas.getOtherStatWithIV(friend.spAttackBase, level.level, getIVStat(3), evSpAttack);
-    this.spDefense = Formulas.getOtherStatWithIV(friend.spDefenseBase, level.level, getIVStat(2), evSpDefense);
-    this.speed = Formulas.getOtherStatWithIV(friend.speedBase, level.level, getIVStat(1), evSpeed);
+    this.attack = Formulas.getOtherStatWithIV(friend.attackBase, level.level, getIVStat(5), evAttack, weatherEffect());
+    this.defense = Formulas.getOtherStatWithIV(friend.defenseBase, level.level, getIVStat(4), evDefense, 1);
+    this.spAttack = Formulas.getOtherStatWithIV(friend.spAttackBase, level.level, getIVStat(3), evSpAttack, weatherEffect());
+    this.spDefense = Formulas.getOtherStatWithIV(friend.spDefenseBase, level.level, getIVStat(2), evSpDefense, 1);
+    this.speed = Formulas.getOtherStatWithIV(friend.speedBase, level.level, getIVStat(1), evSpeed,1);
   }
-  
+    
   @Override
   public int getMaxMagic(){
     return maxMagic;
@@ -721,18 +725,19 @@ public abstract class AbstractFriend implements Friend {
 
   @Override
   /**
-   * De acuerdo a los efectos del clima
-   * se modifican los stats del pokemon*/
-  public void weatherEffect(int newAttack, int newDefense, int newHp, int newSpAttack,
-			int newSpDefense, int newSpeed){
-	  this.setStats(); //stats originales en caso de cambio de clima
-	  this.attack= newAttack;
-	  this.defense= newDefense;
-	  this.hp= newHp;
-	  this.spAttack= newSpAttack;
-	  this.spDefense= newSpDefense;
-	  this.speed= newSpeed;	  
-  };
+   * De acuerdo a los tipos del pokemon y el clima
+   * se bonifica el ataque del pokemon*/
+  public double weatherEffect(){
+	  double bonus= 1.0;
+	  for (IType t : type){
+		  bonus = bonus * actualClimate.newAttackState(t); //NullPointerException :D
+	  }
+	  return bonus;
+  }
+  /** Cuando se cambie el clima se puede setear los stats de nuevo**/
+  public void setClimate(IClimate climate){
+	  actualClimate = climate;
+  }
  
   public int getAttackiv(){
 	  return this.evAttack;

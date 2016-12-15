@@ -1,8 +1,5 @@
 package cl.makinolas.atk.climate;
 
-import java.util.ArrayList;
-
-import cl.makinolas.atk.actors.friend.Friend;
 import cl.makinolas.atk.types.IType;
 
 public class CloudyClimate extends AbstractClimate{
@@ -12,15 +9,13 @@ public class CloudyClimate extends AbstractClimate{
 	 * 
 	 * +50% dark(shadow) atk
 	 * **/
-	
-	public int newAttackState(Friend friend) {
-		ArrayList<IType> tipos = getTypeFriend(friend);
-		int atk=friend.getAttack();
-		for (IType t : tipos){
-			if(darkPokemon(t)){
-				atk = (int) (friend.getAttack()*1.5);
-			} 
+	@Override
+	public double newAttackState(IType type) {
+		if(darkPokemon(type)){
+			return 1.5;
+		} else {
+			return 1.0;
 		}
-		return atk;
 	}
 }
+

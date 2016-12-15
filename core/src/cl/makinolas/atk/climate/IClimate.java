@@ -1,16 +1,12 @@
 package cl.makinolas.atk.climate;
 
-import java.util.ArrayList;
-
-import cl.makinolas.atk.actors.Hero;
-import cl.makinolas.atk.actors.friend.Friend;
 import cl.makinolas.atk.types.IType;
 
 public interface IClimate {
 	
-	public ArrayList<IType> getTypeFriend(Friend friend);
-	public void modifyStates(Friend friend);
-	public void applyClimateEffect(Hero h);
+	//public ArrayList<IType> getTypeFriend(Friend friend);
+	//public void modifyStates(Friend friend);
+	//public void applyClimateEffect(Hero h);
 	
 	public boolean bugPokemon(IType type);
 	public boolean darkPokemon(IType type);
@@ -31,10 +27,10 @@ public interface IClimate {
 	public boolean steelPokemon(IType type) ;
 	public boolean waterPokemon(IType type);
 	
-	public int newAttackState(Friend friend);
-	public int newDefenseState(Friend friend);
-	public int newHpState(Friend friend);
-	public int newSpAttackState(Friend friend);
-	public int newSpDefenseState(Friend friend);
-	public int newSpeedState(Friend friend);
+	public double newAttackState(IType type);
+	public double newDefenseState(IType type);
+	public double newHpState(IType type);
+	public double newSpAttackState(IType type);
+	public double newSpDefenseState(IType type);
+	public double newSpeedState(IType type);
 }

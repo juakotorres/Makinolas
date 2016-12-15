@@ -22,7 +22,8 @@ public class Formulas {
   }
   
   // damage formula
-  public static int getDamage(Monsters monster, int attack1, int level1, int defense2, int attackBaseDamage, ArrayList<IType> typeFriendSource, ArrayList<IType> typeFriendMonster, IType type, int criticModificator){
+  public static int getDamage(Monsters monster, int attack1, int level1, int defense2, int attackBaseDamage, 
+		  ArrayList<IType> typeFriendSource, ArrayList<IType> typeFriendMonster, IType type, int criticModificator){
 
     double randomMultiplier = Math.random()* 0.15 + 0.85;
     double criticalRandomizer = Math.random();
@@ -37,6 +38,9 @@ public class Formulas {
     for(IType auxType: typeFriendMonster){
     	efectivity = efectivity * type.attackToType(auxType);
     }
+    
+    
+    
     
     if( criticalRandomizer < getCritical(criticModificator)){
       critical = 1.5;
@@ -56,8 +60,8 @@ public class Formulas {
 }
 
 // stats formula
-  public static int getOtherStat(int baseStat, int level){
-    return (((2 * baseStat) * level) / 100) + 5;
+  public static int getOtherStat(int baseStat, int level, double bonusClimate){
+    return (int) (bonusClimate* (double) (((2 * baseStat) * level) / 100) + 5);
   }
   
   // hp formula
@@ -66,8 +70,8 @@ public class Formulas {
   }
 
   // stats formula
-  public static int getOtherStatWithIV(int baseStat, int level, int iv, int evStat){
-    return (int) ((double)((2 * baseStat + iv + ((double)evStat)/4) * level) / 100) + 5;
+  public static int getOtherStatWithIV(int baseStat, int level, int iv, int evStat, double bonusClimate){
+    return (int) ( bonusClimate * ((double)((2 * baseStat + iv + ((double)evStat)/4) * level) / 100) + 5);
   }
 
   // hp formula

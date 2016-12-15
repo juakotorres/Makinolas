@@ -1,8 +1,5 @@
 package cl.makinolas.atk.climate;
 
-import java.util.ArrayList;
-
-import cl.makinolas.atk.actors.friend.Friend;
 import cl.makinolas.atk.types.IType;
 
 public class HeavyRainClimate extends AbstractClimate{
@@ -14,16 +11,14 @@ public class HeavyRainClimate extends AbstractClimate{
 	 *  -100% fire atk
 	 *  **/
 	
-	public int newAttackState(Friend friend) {
-		ArrayList<IType> tipos = getTypeFriend(friend);
-		int atk=friend.getAttack();
-		for (IType t : tipos){
-			if(waterPokemon(t)){
-				atk = (int) (friend.getAttack()*1.5);
-			} else if (firePokemon(t)) {
-				atk = 0;
-			} 
+	@Override
+	public double newAttackState(IType type) {
+		if(waterPokemon(type)){
+			return 1.5;
+		} else if (firePokemon(type)){
+			return 0.0;
+		} else {
+			return 1.0;
 		}
-		return atk;
 	}
 }

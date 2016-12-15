@@ -14,17 +14,15 @@ public class HarshSunlightClimate extends AbstractClimate{
 	 *  -100% water atk
 	 *  
 	 *  **/
-	
-	public int newAttackState(Friend friend) {
-		ArrayList<IType> tipos = getTypeFriend(friend);
-		int atk=friend.getAttack();
-		for (IType t : tipos){
-			if(firePokemon(t)){
-				atk = (int) (friend.getAttack()*1.5);
-			} else if (waterPokemon(t)) {
-				atk = 0;
-			} 
+
+	@Override
+	public double newAttackState(IType type) {
+		if(firePokemon(type)){
+			return 1.5;
+		} else if (waterPokemon(type)) {
+			return 0.0;
+		} else {
+			return 1.0;
 		}
-		return atk;
 	}
 }

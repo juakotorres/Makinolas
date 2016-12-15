@@ -10,6 +10,7 @@ import cl.makinolas.atk.actors.Monsters;
 import cl.makinolas.atk.actors.attacks.Attacks;
 import cl.makinolas.atk.actors.enemies.Enemy;
 import cl.makinolas.atk.actors.heroState.AbstractFriendState;
+import cl.makinolas.atk.climate.IClimate;
 import cl.makinolas.atk.stateEfects.IStateEfects;
 import cl.makinolas.atk.types.IType;
 
@@ -87,8 +88,8 @@ public AbstractFriendState getState();
 public ArrayList<IStateEfects> getStateEfectList();
 public int getVex();
 
-void weatherEffect(int newAttack, int newDefense, int newHp, int newSpAttack,
-		int newSpDefense, int newSpeed);
+public double weatherEffect();
+public void setClimate(IClimate climate);
 
 public void setVex(int vex);
 
