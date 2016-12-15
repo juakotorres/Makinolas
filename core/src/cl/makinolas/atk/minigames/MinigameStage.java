@@ -116,7 +116,6 @@ public class MinigameStage extends AbstractStage implements ContactListener{
   
   @Override
   public void act(float delta){
-    
     for(GameActor actor : gameActors){
       Body actorBody = actor.getBody();
       if(actor.isMinigameCharacter() && actor.isDead()){

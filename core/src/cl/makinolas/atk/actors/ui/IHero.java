@@ -60,4 +60,6 @@ public interface IHero {
     void interactWithMonster(Boss boss);
 
     void stopMovement();
+
+    boolean isDead();
 }

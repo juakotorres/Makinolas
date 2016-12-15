@@ -1,6 +1,7 @@
 package cl.makinolas.atk.gamemodes;
 
 
+import cl.makinolas.atk.GameConstants;
 import cl.makinolas.atk.actors.Background;
 import cl.makinolas.atk.actors.GameActor;
 import cl.makinolas.atk.actors.friend.Gastly;
@@ -18,6 +19,7 @@ import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Camera;
 import com.badlogic.gdx.graphics.OrthographicCamera;
+import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.*;
 import com.badlogic.gdx.scenes.scene2d.Actor;
@@ -37,7 +39,10 @@ public class SurvivalModeStage extends AbstractStage implements ContactListener{
     private float height;
     private SurvivalPlatformCreator plataformCreator;
     private CameraPosition cameraPosition;
-
+    private float minPlayerPosition;
+    private float minPlatformPosition;
+    private BitmapFont large = new BitmapFont(Gdx.files.internal("Fonts/large.fnt"),Gdx.files.internal("Fonts/large.png"),false);
+    private float score;
     //Agregar requisitode calidad y restriccion
     public SurvivalModeStage(Viewport v, GameScreen actualScreen, Game game) {
         super(v);
@@ -56,13 +61,13 @@ public class SurvivalModeStage extends AbstractStage implements ContactListener{
         addActor(mons);
         ui = new Group();
         addActor(ui);
-
-
+        this.playerPosition = new Vector2(0,0);
+        score = 0;
         MobileGroup group = new MobileGroup(false);
         Gdx.input.setInputProcessor(this);
 
         cameraObserver = new CameraPosition();
-        plataformCreator = new SurvivalPlatformCreator(survivalWorld, this, 0, 0, ground);
+        plataformCreator = new SurvivalPlatformCreator(survivalWorld, this, 0, 0, ground,mons,gameActors);
         hero = new SurvivalHero(survivalWorld);
         hero.setWorld(survivalWorld);
         addGameActor((GameActor)hero);
@@ -75,6 +80,8 @@ public class SurvivalModeStage extends AbstractStage implements ContactListener{
         height = 0;
         //cameraPosition = new CameraPosition(cameraObserver.getPositionX(),cameraObserver.getPositionY());
         cameraObserver.setPosition(getCamera().position.x,getCamera().position.y);
+        minPlayerPosition = getCamera().position.y;
+        minPlayerPosition = getCamera().position.y;
 
 
 
@@ -91,6 +98,24 @@ public class SurvivalModeStage extends AbstractStage implements ContactListener{
         camera.update();
         cameraObserver.setPosition(camera.position.x,camera.position.y);
         //camera.update();
+    }
+
+    private void runForYourLife() {
+        getBatch().begin();
+        large.setColor(255,0,0,255);
+        large.draw(getBatch(), "Climb for your Life!", getCamera().position.x-120 ,  getCamera().position.y );
+        getBatch().end();
+    }
+
+    @Override
+    public void draw() {
+        super.draw();
+
+        getBatch().begin();
+        large.draw(getBatch(), "Time: " + (int) score, 190 + getCamera().position.x ,  getCamera().position.y +200);
+        getBatch().end();
+        //camera.update();
+        //renderer.render(suMundo, camera.combined);
     }
 
     @Override
@@ -125,6 +150,11 @@ public class SurvivalModeStage extends AbstractStage implements ContactListener{
     @Override
     public void act(float delta){
         super.act(delta);
+
+        if (score < 2) {
+            runForYourLife();
+        }
+        score += delta;
         plataformCreator.update(cameraObserver,null);
         /*elapsed time es static en abstract stage, hay que agregarle el delta o no funciona la animacion*/
         AbstractStage.elapsedTime += delta;
@@ -132,6 +162,35 @@ public class SurvivalModeStage extends AbstractStage implements ContactListener{
         height += Math.abs(0.00001*Math.sin(height)) + (delta*delta);
         plataformCreator.setPlayerHeight(height);
         changeCamera(0,height);
+        setPlayerPosition(hero.getBody().getPosition());
+
+
+        if (hero.isDead()) {
+            myScreen.mainMenu();
+        }
+
+        for (GameActor actor : gameActors) {
+            Body actorBody = actor.getBody();
+            if (!actor.isHero() && !actor.isMonster() &&  !actor.isAttack() && getCamera().position.y - ((Platform)actor).getCameraPositionWhenCreated() > 240 ) {
+                System.out.println("Destroy!");
+                //((Platform)actor).destroySurvivalPlatform(gameActors,ground,survivalWorld,actorBody);
+                //myScreen.mainMenu();
+            } else if (actor.isHero() && (getCamera().position.y - 240 - 21.1168072596 * (actorBody.getPosition().y + 3)) > -50) {
+                //myScreen.mainMenu();
+
+            }
+            else if (actor.isMonster() && (actorBody.getPosition().y < hero.getBody().getPosition().y-50)) {
+                gameActors.removeValue(actor, true);
+                survivalWorld.destroyBody(actorBody);
+                actor.remove();
+            }
+            else if (actor.isAttack() && actorBody.getPosition().x > 20) {
+                gameActors.removeValue(actor, true);
+                survivalWorld.destroyBody(actorBody);
+                actor.remove();
+            }
+
+        }
 
 
     }

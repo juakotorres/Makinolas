@@ -16,6 +16,8 @@ import cl.makinolas.atk.actors.Hero;
 import cl.makinolas.atk.actors.attacks.Attacks;
 import cl.makinolas.atk.actors.enemies.Enemy;
 import cl.makinolas.atk.minigames.MinigameCharacter;
+import com.badlogic.gdx.scenes.scene2d.Group;
+import com.badlogic.gdx.utils.Array;
 
 public class Platform extends GameActor {
   
@@ -27,6 +29,7 @@ public class Platform extends GameActor {
   private int widthTiles;
   private int heightTiles;
 
+  protected float cameraPositionWhenCreated;
   /**
    * Creates a new platform object.
    * @param myWorld Box2D World.
@@ -73,6 +76,11 @@ public class Platform extends GameActor {
   }
   public Platform(World myWorld, int x, int y, int widthTiles){
       this(myWorld,"CU",x,y,widthTiles,1);
+  }
+
+
+  public float getCameraPositionWhenCreated () {
+    return cameraPositionWhenCreated;
   }
   
   @Override
@@ -127,6 +135,13 @@ public class Platform extends GameActor {
   @Override
   public void endInteraction(GameActor actor2, WorldManifold worldManifold) {
     actor2.endPlatformInteraction(this, worldManifold);
+  }
+
+  public void destroySurvivalPlatform(Array<GameActor> gameActors, Group ground, World survivalWorld, Body actorBody ) {
+    gameActors.removeValue(this, true);
+    ground.removeActor(this, true);
+    survivalWorld.destroyBody(actorBody);
+    this.remove();
   }
 
 }

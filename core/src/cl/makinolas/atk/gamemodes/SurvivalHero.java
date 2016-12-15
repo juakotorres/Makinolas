@@ -38,6 +38,7 @@ public class SurvivalHero extends Monsters implements ICharacter, IHero {
     private long cooldownTimer;
     private boolean[] isSinging = {false, false, false, false};
     private float xVelocity;
+    private boolean isHero;
 
     public SurvivalHero(World survivalWorld) {
         this.myWorld = survivalWorld;
@@ -55,6 +56,7 @@ public class SurvivalHero extends Monsters implements ICharacter, IHero {
         myWorld.setGravity(new Vector2(0,30));
         cooldownTimer = 0;
         xVelocity = 0;
+        isHero = true;
 
 
     }
@@ -95,6 +97,11 @@ public class SurvivalHero extends Monsters implements ICharacter, IHero {
     public void setSpeed(float x, float y) {
         //mplayer.PlayJumpSound();
         myBody.setLinearVelocity(x, y);
+    }
+
+    @Override
+    public boolean isHero() {
+        return true;
     }
 
     @Override
