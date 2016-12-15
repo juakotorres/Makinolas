@@ -87,8 +87,6 @@ public class PokeComputerScreen extends SimpleScreen implements KeyHandable {
 			public void clicked(InputEvent event, float x, float y) {
 				swapPokemon();
 				mplayer.PlayPressButton();
-				allyInfo();
-				BackupInfo();
 			}
 		});
 		stage.addActor(swapButton);
@@ -322,7 +320,8 @@ public class PokeComputerScreen extends SimpleScreen implements KeyHandable {
 					return true;
 				}
 			});
-			
+			BackupInfo();
+			allyInfo();
 			stage.addActor(ally);
 			stage.addActor(backup);
 			alliesImages.set(index_team, backup);
@@ -339,8 +338,8 @@ public class PokeComputerScreen extends SimpleScreen implements KeyHandable {
 		large.draw(batch,"PokeComputer",228,460);
 		large.draw(batch,"Pokemon Team:",60,420);
 		large.draw(batch,"Pokemon Backup:",60,330);
-		large.draw(batch,"Team Index:",440,260);
-		large.draw(batch,"Backup Index:",440,160);
+		large.draw(batch,"Team Index:",440,210);
+		large.draw(batch,"Backup Index:",440,130);
 		batch.end();
 	}
 
