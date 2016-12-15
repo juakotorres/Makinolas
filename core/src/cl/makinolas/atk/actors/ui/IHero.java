@@ -62,4 +62,15 @@ public interface IHero {
     void stopMovement();
 
     boolean isDead();
+
+    void pressingLeft();
+
+
+    void pressingRight();
+
+    void notPressingLeft();
+
+    void notPressingRight();
+
+    void isNotPressingPrimaryAttack();
 }

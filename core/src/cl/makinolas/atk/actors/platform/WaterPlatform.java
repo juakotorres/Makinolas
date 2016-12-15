@@ -92,3 +92,4 @@ public class WaterPlatform extends GameActor {
 		
 	}
 }
+

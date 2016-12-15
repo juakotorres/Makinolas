@@ -4,7 +4,6 @@ import java.util.ArrayList;
 import java.util.Observable;
 import java.util.Observer;
 
-import com.badlogic.gdx.graphics.Cursor;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.physics.box2d.World;
 
@@ -21,13 +20,15 @@ import cl.makinolas.atk.actors.enemies.JumperEnemy;
 import cl.makinolas.atk.actors.enemies.LongRangeEnemy;
 import cl.makinolas.atk.actors.enemies.PhysicalEnemy;
 import cl.makinolas.atk.actors.enemies.StayAndShootEnemy;
+import cl.makinolas.atk.actors.heroState.AbstractFriendState;
 import cl.makinolas.atk.actors.ui.MainBar;
-import cl.makinolas.atk.types.DragonType;
+import cl.makinolas.atk.stateEfects.IStateEfects;
 import cl.makinolas.atk.types.IType;
 import cl.makinolas.atk.utils.Formulas;
 
 public abstract class AbstractFriend implements Friend {
   
+  private int vex;
   private int health;
   private int hp;
   private int ivs;
@@ -63,6 +64,15 @@ public abstract class AbstractFriend implements Friend {
   private int evSpDefense;
   private int evSpeed;
   private int criticModificator;
+  
+  private AbstractFriendState state;
+  
+  private ArrayList<IStateEfects> states;
+  
+  public AbstractFriend(){
+	  vex = 7;
+	  states = new ArrayList<IStateEfects>();
+  }
 
   protected void setCutSprites(int width, int height){
     this.cutSprites = new int[]{width, height};
@@ -403,13 +413,13 @@ public abstract class AbstractFriend implements Friend {
     
     private float evolLevel;
     private int numberOfEvolution;
-    private boolean evolved;
+    //private boolean evolved;
     
     public Evolution(Level level, float evolLevel, int numberOfEvolution){
       observe(level);
       this.evolLevel = evolLevel;
       this.numberOfEvolution = numberOfEvolution;
-      evolved = false;
+      //evolved = false;
     }
     
     public void observe(Observable o) {
@@ -422,7 +432,7 @@ public abstract class AbstractFriend implements Friend {
       if(newLevel >= evolLevel && getActualEvolution() < numberOfEvolution && getActualEvolution() + 1 == numberOfEvolution){
        evolve(this.numberOfEvolution);
        Hero.getInstance().evolved();
-       evolved = true;
+       //evolved = true;
        setFriendStats();
       }
     }
@@ -708,6 +718,22 @@ public abstract class AbstractFriend implements Friend {
     }
   }
   
+
+  @Override
+  /**
+   * De acuerdo a los efectos del clima
+   * se modifican los stats del pokemon*/
+  public void weatherEffect(int newAttack, int newDefense, int newHp, int newSpAttack,
+			int newSpDefense, int newSpeed){
+	  this.setStats(); //stats originales en caso de cambio de clima
+	  this.attack= newAttack;
+	  this.defense= newDefense;
+	  this.hp= newHp;
+	  this.spAttack= newSpAttack;
+	  this.spDefense= newSpDefense;
+	  this.speed= newSpeed;	  
+  };
+ 
   public int getAttackiv(){
 	  return this.evAttack;
   }
@@ -721,7 +747,27 @@ public abstract class AbstractFriend implements Friend {
   }
   public int getAttackMagicRequirement() {
 	// TODO Auto-generated method stub
-	return DragonBreathState.magicRequirement;
+	return DragonBreathState.getMagicRequirement();
   }
   
+  public void setState(AbstractFriendState standartState){
+	  state = standartState;
+  }
+  
+  public AbstractFriendState getState(){
+	return state;
+  }
+  
+  public ArrayList<IStateEfects> getStateEfectList(){
+	  return states;
+  }
+
+public int getVex() {
+	return vex;
+}
+
+public void setVex(int vex) {
+	this.vex = vex;
+}
+
 }

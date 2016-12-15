@@ -1,8 +1,7 @@
 package cl.makinolas.atk.actors;
 
-
 import cl.makinolas.atk.actors.ui.IHero;
-import cl.makinolas.atk.audio.GDXMusicPlayer;
+
 import cl.makinolas.atk.minigames.MinigameCharacter;
 
 public class JumpState {

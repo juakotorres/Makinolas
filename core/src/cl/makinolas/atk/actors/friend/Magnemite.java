@@ -9,10 +9,7 @@ import cl.makinolas.atk.actors.Monsters;
 import cl.makinolas.atk.actors.attacks.Attacks;
 import cl.makinolas.atk.actors.attacks.BombAttack;
 import cl.makinolas.atk.actors.attacks.states.ThunderBoltState;
-import cl.makinolas.atk.types.ElectricType;
-import cl.makinolas.atk.types.IType;
-import cl.makinolas.atk.types.SteelType;
-import cl.makinolas.atk.types.WaterType;
+import cl.makinolas.atk.types.TypeFactory;
 
 public class Magnemite extends AbstractFriend {
   
@@ -34,8 +31,8 @@ public class Magnemite extends AbstractFriend {
     newMonster();
     setActualEvolution(0);
     setMaxMagic(1000);
-    addType(ElectricType.getInstance());
-    addType(SteelType.getInstance());
+    addType(TypeFactory.getType("Electric"));
+    addType(TypeFactory.getType("Steel"));
   }
   
   public Magnemite(int level){
@@ -91,7 +88,7 @@ public class Magnemite extends AbstractFriend {
   @Override
   public int getAttackMagicRequirement() {
 	 // TODO Auto-generated method stub
-	 return ThunderBoltState.magicRequirement;
+	 return ThunderBoltState.getMagicRequirement();
   }
   
 }

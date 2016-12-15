@@ -287,7 +287,32 @@ public class MinigameCharacter extends AnimatedActor implements ICharacter, IHer
   public boolean isDead(){
     return dead;
   }
-  
+
+  @Override
+  public void pressingLeft() {
+
+  }
+
+  @Override
+  public void pressingRight() {
+
+  }
+
+  @Override
+  public void notPressingLeft() {
+
+  }
+
+  @Override
+  public void notPressingRight() {
+
+  }
+
+  @Override
+  public void isNotPressingPrimaryAttack() {
+
+  }
+
   @Override
   public void interact(GameActor actor2, WorldManifold worldManifold) {
     actor2.interactWithMinigameCharacter(this, worldManifold);

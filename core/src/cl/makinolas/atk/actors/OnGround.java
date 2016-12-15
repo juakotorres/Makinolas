@@ -1,3 +1,4 @@
+
 package cl.makinolas.atk.actors;
 
 import cl.makinolas.atk.minigames.ICharacter;

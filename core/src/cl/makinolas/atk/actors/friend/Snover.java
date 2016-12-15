@@ -9,10 +9,7 @@ import cl.makinolas.atk.actors.Monsters;
 import cl.makinolas.atk.actors.attacks.Attacks;
 import cl.makinolas.atk.actors.attacks.ShootAttack;
 import cl.makinolas.atk.actors.attacks.states.IceRockState;
-import cl.makinolas.atk.actors.friend.AbstractFriend.Evolution;
-import cl.makinolas.atk.actors.friend.AbstractFriend.Level;
-import cl.makinolas.atk.types.GrassType;
-import cl.makinolas.atk.types.IceType;
+import cl.makinolas.atk.types.TypeFactory;
 
 public class Snover extends AbstractFriend {
 
@@ -24,12 +21,12 @@ public class Snover extends AbstractFriend {
 		setTexture(new TextureRegion(new Texture(Gdx.files.internal("Actors/Snover.png"))));
 		/* aqu� yace todo lo relacionado con los sprites */
 		
-	    /*setCutSprites(30,28);
-	    setWalkAnimation(1,2,3,2);
+	    setCutSprites(23,25);
+	    setWalkAnimation(4,5,6,5);
 	    setHurtAnimation(0);
-	    setMeleeAnimation(4,6);
+	    setMeleeAnimation(8,9,10);
 	    setIdleAnimation(1,2,3,2);
-	    setSpecialAnimation(4,6);*/
+	    setSpecialAnimation(8,9,10);
 		
 	    setFaceSprite(faces[0][0]);
 	    initLevel(5);
@@ -37,8 +34,8 @@ public class Snover extends AbstractFriend {
 	    newMonster();
 	    setActualEvolution(0);
 	    setMaxMagic(1000);
-	    addType(IceType.getInstance());
-	    addType(GrassType.getInstance());
+	    addType(TypeFactory.getType("Ice"));
+	    addType(TypeFactory.getType("Grass"));
 	}
 	
 	public Snover(int level){
@@ -62,12 +59,12 @@ public class Snover extends AbstractFriend {
 			setTexture(new TextureRegion(new Texture(Gdx.files.internal("Actors/Abomasnow.png"))));
 			/* texturas */
 			
-		    /*setCutSprites(30,28);
-		    setWalkAnimation(1,2,3,2);
-		    setHurtAnimation(0);
-		    setMeleeAnimation(4,6);
-		    setIdleAnimation(1,2,3,2);
-		    setSpecialAnimation(4,6);*/
+		    setCutSprites(30,31);
+		    setWalkAnimation(3,4,5,4);
+		    setHurtAnimation(10);
+		    setMeleeAnimation(6,7,8);
+		    setIdleAnimation(0,1,2);
+		    setSpecialAnimation(9,10);
 			
 		    setFaceSprite(faces[0][1]);
 		    setActualEvolution(1);

@@ -8,6 +8,7 @@ import cl.makinolas.atk.actors.friend.Friend;
 import cl.makinolas.atk.actors.items.BallActor;
 import cl.makinolas.atk.actors.items.ItemFinder;
 import cl.makinolas.atk.actors.platform.Platform;
+import cl.makinolas.atk.actors.platform.WaterPlatform;
 import cl.makinolas.atk.actors.ui.IHero;
 import cl.makinolas.atk.actors.ui.MainBar;
 import cl.makinolas.atk.stateEfects.CriticalHit;
@@ -23,10 +24,12 @@ import com.badlogic.gdx.physics.box2d.*;
 
 public class Enemy extends Monsters {
 	protected float vx;
+	protected float auxvx;
 	private int health;
 	private HBar healthBar;
 	private boolean isDamaged;
 	protected boolean isSinging;
+	private int isInsideWater;
 	private int width;
 	private int height;
 	private int meleeDamage;
@@ -89,6 +92,7 @@ public class Enemy extends Monsters {
 				new TextureRegion(new Texture(Gdx.files.internal("Overlays/bar_green.png"))));
 		isDamaged = false;
 		isSinging = false;
+		isInsideWater = 0;
 		dead = false;
 		free = true;
 		meleeDamage = 45;
@@ -98,6 +102,7 @@ public class Enemy extends Monsters {
 
 		isFacingRight = facingRight;
 		vx = isFacingRight ? 3 : -3;
+		auxvx = vx;
 		// Definici�n del cuerpo del jugador.
 		BodyDef myBodyDefinition = new BodyDef();
 		myBodyDefinition.type = BodyDef.BodyType.DynamicBody;
@@ -158,7 +163,7 @@ public class Enemy extends Monsters {
 	}
 
 	private void checkMelee(float delta) {
-		if(!this.isSinging){
+		if(!isSinging){
 			if (isAttacking) {
 				countMeleeFrames += delta;
 				if (countMeleeFrames > spriteTime) {
@@ -184,15 +189,13 @@ public class Enemy extends Monsters {
 	}
 
 	protected void checkDamage(float delta, float inflictorVel) {
-		if(!this.isSinging){
-			if (isDamaged) {
-				myBody.setLinearVelocity(new Vector2(inflictorVel, 0));
-				accumulator += delta;
-				if (accumulator > hurtTime) {
-					isDamaged = false;
-					changeAnimation(walkAnimation);
-					accumulator = 0;
-				}
+		if (isDamaged) {		
+			myBody.setLinearVelocity(new Vector2(inflictorVel, 0));
+			accumulator += delta;
+			if (accumulator > hurtTime) {
+				isDamaged = false;
+				changeAnimation(walkAnimation);
+				accumulator = 0;
 			}
 		}
 	}
@@ -229,6 +232,7 @@ public class Enemy extends Monsters {
 			health = 0;
 		} else {
 			health -= damage;
+			mplayer.PlayGetDmg();
 		}
 		isDamaged = true;
 		changeAnimation(hurtAnimation);
@@ -275,13 +279,17 @@ public class Enemy extends Monsters {
 		}
 	}
 
-	@Override
-	public void interactWithHero(IHero hero, WorldManifold worldManifold) {
-		if (free) {
+	public void interactWithHero(Hero hero, WorldManifold worldManifold) {
+		if (free && !isSinging) {
 			interactWithHero2(hero);
 			hero.interactWithMonster(this);
 		}
 	}
+	
+	@Override
+	  public void interactWithWater(WaterPlatform waterplatform, WorldManifold worldManifold){
+	    waterplatform.interactWithEnemy(this, worldManifold);
+	  }
 
 	private float getBodySize(int size) {
 		return (0.5f * size) / 22;
@@ -339,8 +347,7 @@ public class Enemy extends Monsters {
 	@Override
 	public void interactWithPlatform(Platform platform, WorldManifold worldManifold) {
 		if (worldManifold.getNormal().x < -0.95 || worldManifold.getNormal().x > 0.95) {
-			vx = -vx;
-			isFacingRight = !isFacingRight;
+			flip();
 		}
 	}
 
@@ -351,17 +358,15 @@ public class Enemy extends Monsters {
 	}
 
 	public void flip() {
-		vx = -vx;
-		isFacingRight = !isFacingRight;
+		if(!isSinging){
+			vx = -vx;
+			isFacingRight = vx>0;
+		}
 	}
 
 	@Override
 	public boolean isEnemy() {
 		return true;
-	}
-
-	@Override
-	public void endInteraction(GameActor actor2, WorldManifold worldManifold) {
 	}
 
 	public void jump() {
@@ -421,11 +426,35 @@ public class Enemy extends Monsters {
 
 	@Override
 	public void sleep() {
-		
+		vx = 0;
+		isSinging = true;
 	}
 
 	@Override
-	public void unSleep() {
-		
+	public void Awake() {
+		vx = isFacingRight?-auxvx:auxvx;
+		isSinging = false;
+
 	}
+
+	@Override
+	public void paraliza3() {
+		vx = vx/2;
+		auxvx = auxvx/2;
+	}
+
+	@Override
+	public void desparaliza3() {
+		vx = vx*2;
+		auxvx = auxvx*2;
+	}
+	
+	public void setInsideWater(int i) {
+		  isInsideWater+=i;
+	  }
+	  
+	  public int getInsideWater() {
+		  return isInsideWater;
+	  }
+
 }

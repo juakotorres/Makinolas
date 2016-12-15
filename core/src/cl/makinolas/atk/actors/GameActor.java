@@ -1,5 +1,6 @@
 package cl.makinolas.atk.actors;
 
+import cl.makinolas.atk.actors.platform.WaterPlatform;
 import cl.makinolas.atk.actors.ui.IHero;
 import com.badlogic.gdx.physics.box2d.Body;
 import com.badlogic.gdx.physics.box2d.WorldManifold;
@@ -12,7 +13,6 @@ import cl.makinolas.atk.actors.enemies.Enemy;
 import cl.makinolas.atk.actors.items.BallActor;
 import cl.makinolas.atk.actors.items.ItemActor;
 import cl.makinolas.atk.actors.platform.Platform;
-import cl.makinolas.atk.actors.platform.WaterPlatform;
 import cl.makinolas.atk.minigames.MinigameCharacter;
 
 public abstract class GameActor extends Actor{
@@ -103,9 +103,21 @@ public abstract class GameActor extends Actor{
   public abstract void endInteraction(GameActor actor2, WorldManifold worldManifold);
 
   public void endHeroInteraction(Hero hero, WorldManifold worldManifold) {}
+  
+  public void endEnemyInteraction(Enemy enemy, WorldManifold worldManifold) {}
 
   public void endPlatformInteraction(Platform platform, WorldManifold worldManifold) {}
 
   public void endWaterInteraction(WaterPlatform waterplatform, WorldManifold worldManifold) {}
+  
+  public void endMonsterIntercation(Monsters monsters, WorldManifold worldManifold) {}
+
+public void setGravityScale(float f) {
+	if(myBody!=null)
+		myBody.setGravityScale(f);
+}
+
+
+
   
 }

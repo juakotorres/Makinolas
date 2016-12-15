@@ -9,9 +9,7 @@ import cl.makinolas.atk.actors.Monsters;
 import cl.makinolas.atk.actors.attacks.Attacks;
 import cl.makinolas.atk.actors.attacks.ShootBombAttack;
 import cl.makinolas.atk.actors.attacks.states.BubbleState;
-import cl.makinolas.atk.types.GrassType;
-import cl.makinolas.atk.types.IType;
-import cl.makinolas.atk.types.WaterType;
+import cl.makinolas.atk.types.TypeFactory;
 
 public class Totodile extends AbstractFriend {
   
@@ -33,7 +31,7 @@ public class Totodile extends AbstractFriend {
     newMonster();
     setActualEvolution(0);
     setMaxMagic(1000);
-    addType(WaterType.getInstance());
+    addType(TypeFactory.getType("Water"));
   }
   
   public Totodile(int level){
@@ -89,7 +87,7 @@ public class Totodile extends AbstractFriend {
   @Override
   public int getAttackMagicRequirement() {
 	// TODO Auto-generated method stub
-	return BubbleState.magicRequirement;
+	return BubbleState.getMagicRequirement();
   }
   
 }

@@ -166,6 +166,20 @@ public class SurvivalHero extends Monsters implements ICharacter, IHero {
     }
 
     @Override
+    public void Awake() {
+
+    }
+
+    @Override
+    public void paraliza3() {
+
+    }
+
+    @Override
+    public void desparaliza3() {
+
+    }
+
     public void unSleep() {
 
     }
@@ -313,5 +327,30 @@ public class SurvivalHero extends Monsters implements ICharacter, IHero {
     public void stopMovement() {
         myBody.setLinearVelocity(0,myBody.getLinearVelocity().y);
         xVelocity = 0;
+    }
+
+    @Override
+    public void pressingLeft() {
+
+    }
+
+    @Override
+    public void pressingRight() {
+
+    }
+
+    @Override
+    public void notPressingLeft() {
+
+    }
+
+    @Override
+    public void notPressingRight() {
+
+    }
+
+    @Override
+    public void isNotPressingPrimaryAttack() {
+
     }
 }

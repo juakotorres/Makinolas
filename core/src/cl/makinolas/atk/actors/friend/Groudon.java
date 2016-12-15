@@ -4,10 +4,7 @@ import cl.makinolas.atk.actors.Monsters;
 import cl.makinolas.atk.actors.attacks.Attacks;
 import cl.makinolas.atk.actors.attacks.ShootAttack;
 import cl.makinolas.atk.actors.attacks.states.BlueBeamState;
-import cl.makinolas.atk.types.ElectricType;
-import cl.makinolas.atk.types.GroundType;
-import cl.makinolas.atk.types.IType;
-import cl.makinolas.atk.types.WaterType;
+import cl.makinolas.atk.types.TypeFactory;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
@@ -32,7 +29,12 @@ public class Groudon extends AbstractFriend {
         setActualEvolution(0);
         setStats();
         setMaxMagic(1000);
-        addType(GroundType.getInstance());
+        addType(TypeFactory.getType("Ground"));
+    }
+    
+    public Groudon(int lvl) {
+    	this();
+    	this.initLevel(lvl);
     }
 
     @Override
@@ -48,7 +50,7 @@ public class Groudon extends AbstractFriend {
     @Override
 	public int getAttackMagicRequirement() {
 	  // TODO Auto-generated method stub
-	  return BlueBeamState.magicRequirement;
+	  return BlueBeamState.getMagicRequirement();
 	}
 
 
