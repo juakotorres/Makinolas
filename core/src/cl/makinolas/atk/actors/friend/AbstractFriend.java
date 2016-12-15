@@ -734,7 +734,11 @@ public abstract class AbstractFriend implements Friend {
 	  }
 	  return bonus;
   }
-  /** Cuando se cambie el clima se puede setear los stats de nuevo**/
+  /** Cuando se cambie el clima se puede setear los stats de nuevo
+   * TODO
+   * ver como obtener mejor el clima de Levels
+   * desde el principio
+   * **/
   public void setClimate(IClimate climate){
 	  actualClimate = climate;
   }
