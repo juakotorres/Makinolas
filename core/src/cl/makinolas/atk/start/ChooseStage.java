@@ -1,5 +1,6 @@
 package cl.makinolas.atk.start;
 
+import cl.makinolas.atk.stages.Levels;
 import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input.Keys;
@@ -10,9 +11,9 @@ import com.badlogic.gdx.utils.viewport.Viewport;
 import cl.makinolas.atk.actors.Background;
 import cl.makinolas.atk.actors.Hero;
 import cl.makinolas.atk.actors.Title;
-import cl.makinolas.atk.actors.friend.Charmander;
 import cl.makinolas.atk.actors.friend.Friend;
 import cl.makinolas.atk.actors.friend.Snivy;
+import cl.makinolas.atk.actors.friend.Snover;
 import cl.makinolas.atk.actors.friend.Totodile;
 import cl.makinolas.atk.actors.ui.MainBar;
 
@@ -44,8 +45,8 @@ public class ChooseStage extends Stage {
     
     arrow = new Title("CharacterImages/arrow.png", 50, 300);
     addActor(arrow);
-    PokemonStarter firstOption = new PokemonStarter("CharacterImages/charmander.png", new Charmander(5),120,300
-        ,"CharacterImages/firetype.png", GameText.charmanderDescription,0);
+    PokemonStarter firstOption = new PokemonStarter("CharacterImages/snover.png", new Snover(5),120,300
+        ,"CharacterImages/icetype.png", GameText.charmanderDescription,0);
     addActor(firstOption);
     PokemonStarter secondOption = new PokemonStarter("CharacterImages/snivy.png", new Snivy(5), 320,300
         ,"CharacterImages/grasstype.png", GameText.snivyDescription,1 );
@@ -101,7 +102,7 @@ public class ChooseStage extends Stage {
     Hero.getInstance().reset();
     MainBar.getInstance().reset();
 
-    MapScreen mapScreen = new MapScreen(myGame,new MapStage(new FitViewport(640, 480),myGame));
+    MapScreen mapScreen = new MapScreen(myGame,new MapStage(new FitViewport(640, 480),myGame, Levels.LEVEL1.levelSpot));
     myGame.setScreen(mapScreen);
   }
 

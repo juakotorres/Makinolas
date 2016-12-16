@@ -9,6 +9,7 @@ import cl.makinolas.atk.actors.Monsters;
 import cl.makinolas.atk.actors.attacks.Attacks;
 import cl.makinolas.atk.actors.attacks.ShootAttack;
 import cl.makinolas.atk.actors.attacks.states.Poison_StingState;
+import cl.makinolas.atk.types.TypeFactory;
 
 public class Weedle extends AbstractFriend {
   
@@ -27,8 +28,11 @@ public class Weedle extends AbstractFriend {
     setFaceSprite(faces[0][0]);
     initLevel(3);
     initDead();
+    newMonster();
     setActualEvolution(0);
     setMaxMagic(1000);
+    addType(TypeFactory.getType("Bug"));
+    addType(TypeFactory.getType("Poison"));
   }
   
   public Weedle(int level){
@@ -80,4 +84,11 @@ public class Weedle extends AbstractFriend {
   public Attacks getFriendAttack(World myWorld, float x , float y, boolean facingRight, Monsters source){
     return new ShootAttack(new Poison_StingState(), myWorld, x, y, facingRight, source);
   }
+  
+  @Override
+  public int getAttackMagicRequirement() {
+	// TODO Auto-generated method stub
+	return Poison_StingState.getMagicRequirement();
+  }
+  
 }

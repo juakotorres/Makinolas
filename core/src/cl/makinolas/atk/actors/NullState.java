@@ -1,11 +1,13 @@
 package cl.makinolas.atk.actors;
 
+import cl.makinolas.atk.actors.ui.IHero;
+import cl.makinolas.atk.minigames.ICharacter;
 import cl.makinolas.atk.minigames.MinigameCharacter;
 
 public class NullState extends JumpState {
-	public NullState(GameActor actor) {
+	public NullState(IHero actor) {
 		super(actor);
-		hero.myBody.setGravityScale(1);
+		hero.getBody().setGravityScale(1);
 	}
 	
 	@Override

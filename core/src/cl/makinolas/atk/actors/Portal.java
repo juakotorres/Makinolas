@@ -1,5 +1,6 @@
 package cl.makinolas.atk.actors;
 
+import cl.makinolas.atk.actors.ui.IHero;
 import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
@@ -67,9 +68,12 @@ public class Portal extends AnimatedActor{
   }
   
   @Override
-  public void interactWithHero(Hero hero, WorldManifold worldManifold){
+  public void interactWithHero(IHero hero, WorldManifold worldManifold){
     completeStage();
   }
+
+  @Override
+  public void endInteraction(GameActor actor2, WorldManifold worldManifold) {}
 
 
   public void completeStage() {

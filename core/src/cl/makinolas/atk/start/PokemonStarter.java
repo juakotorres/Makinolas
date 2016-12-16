@@ -9,7 +9,6 @@ import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 
 import cl.makinolas.atk.actors.friend.Friend;
-import cl.makinolas.atk.utils.Formulas;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.InputListener;
 
@@ -144,12 +143,12 @@ public class PokemonStarter extends Actor {
       font.draw(batch,"Sp. Attack",cx + 420,cy + 260);
       font.draw(batch,"Sp. Defense",cx + 420,cy + 240);
       font.draw(batch,"Speed",cx + 420,cy + 220);
-      font.draw(batch,"" + Formulas.getHpStat(friend.getMaxHealth(), 5),cx + 550,cy + 320);
-      font.draw(batch,"" + Formulas.getOtherStat(friend.getAttack(), 5),cx + 550,cy + 300);
-      font.draw(batch,"" + Formulas.getOtherStat(friend.getDefense(), 5),cx + 550,cy + 280);
-      font.draw(batch,"" + Formulas.getOtherStat(friend.getSpecialAttack(), 5),cx + 550,cy + 260);
-      font.draw(batch,"" + Formulas.getOtherStat(friend.getSpecialDefense(), 5),cx + 550,cy + 240);
-      font.draw(batch,"" + Formulas.getOtherStat(friend.getSpeed(), 5),cx + 550,cy + 220);
+      font.draw(batch,"" + friend.getMaxHealth(),cx + 550,cy + 320);
+      font.draw(batch,"" + friend.getAttack(),cx + 550,cy + 300);
+      font.draw(batch,"" + friend.getDefense(),cx + 550,cy + 280);
+      font.draw(batch,"" + friend.getSpecialAttack(),cx + 550,cy + 260);
+      font.draw(batch,"" + friend.getSpecialDefense(),cx + 550,cy + 240);
+      font.draw(batch,"" + friend.getSpeed(),cx + 550,cy + 220);
       
       batch.draw(typeImage, cx + 420
           , cy + 340 );

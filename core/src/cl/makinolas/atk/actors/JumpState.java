@@ -1,20 +1,22 @@
 package cl.makinolas.atk.actors;
 
+import cl.makinolas.atk.actors.ui.IHero;
+
 import cl.makinolas.atk.minigames.MinigameCharacter;
 
 public class JumpState {
-	protected GameActor hero;
+	protected IHero hero;
 	private int frames;
 	
 	protected JumpState() {
 		hero = Hero.getInstance();
 	}
 	
-	protected JumpState(GameActor actor) {
+	protected JumpState(IHero actor) {
 	  hero = actor;
 	}
 	
-	public void setHero(GameActor hero) {
+	public void setHero(IHero hero) {
 		this.hero= hero;
   }
 	
@@ -49,9 +51,8 @@ public class JumpState {
 		frames = 0;
 	}
 	public void release() {
-		
 	}
 
-  public void setAnimation(MinigameCharacter minigameCharacter, float delta) {}
 
+  public void setAnimation(MinigameCharacter minigameCharacter, float delta) {}
 }

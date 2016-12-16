@@ -1,10 +1,14 @@
 package cl.makinolas.atk.utils;
 
+import cl.makinolas.atk.stages.Levels;
+import cl.makinolas.atk.stages.MenuStage;
+
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Preferences;
 import com.badlogic.gdx.files.FileHandle;
 import com.badlogic.gdx.utils.Json;
 import com.badlogic.gdx.utils.JsonWriter;
+import com.badlogic.gdx.utils.SerializationException;
 
 import cl.makinolas.atk.actors.Hero;
 import cl.makinolas.atk.actors.friend.Friend;
@@ -38,7 +42,13 @@ public class SaveManager {
         Json base = new Json();
         String data = cryptor.decrypt(encData);
         //System.out.println("Loaded:\n"+data);
-        save = base.fromJson(SaveInstance.class,data);
+        try {
+        	save = base.fromJson(SaveInstance.class,data);
+        	MenuStage.setCleanSAV();
+        }
+        catch (SerializationException e) {
+        	MenuStage.setCorruptSAV();
+        }
     }
 
     private void saveData(SaveInstance saved, String path){
@@ -55,11 +65,18 @@ public class SaveManager {
     public void startGameSave(Friend friend, String myName, boolean mySex){
       SaveInstance saveInstance = new SaveInstance();
       FriendDescriptor fd = new FriendDescriptor();
+      fd.individualValue = friend.getIvs();
+      fd.ev1 = friend.getEv1();
+      fd.ev2 = friend.getEv2();
       fd.name = friend.getName();
       fd.level = 5;
       saveInstance.friends = new FriendDescriptor[]{fd};
       saveInstance.name = myName;
       saveInstance.sex = mySex;
+      boolean[] unlockedStages = new boolean[Levels.values().length];
+      for(int i = 0; i < Levels.values().length; i++) unlockedStages[i] = false;
+      unlockedStages[0] = true;
+      saveInstance.levelsUnlocked = unlockedStages;
       
       //System.out.println(GameText.savePath);
       SaveManager.getInstance().saveData(saveInstance, GameText.savePath);
@@ -71,7 +88,7 @@ public class SaveManager {
         save2.friends = hero.saveMyFriends();
         save2.items = hero.getInventory().createDescriptors();
         save2.money = hero.getInventory().getMoney();
-        save2.maxLevel = hero.getMaxLevelUnlocked();
+        save2.levelsUnlocked = hero.getLevelsUnlocked();
         save2.name = save.name;
         save2.sex = save.sex;
         //System.out.println(GameText.savePath);

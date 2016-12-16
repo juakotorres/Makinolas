@@ -9,6 +9,7 @@ import cl.makinolas.atk.actors.Monsters;
 import cl.makinolas.atk.actors.attacks.Attacks;
 import cl.makinolas.atk.actors.attacks.ShootAttack;
 import cl.makinolas.atk.actors.attacks.states.AcidState;
+import cl.makinolas.atk.types.TypeFactory;
 
 public class Gastly extends AbstractFriend {
   
@@ -27,8 +28,11 @@ public class Gastly extends AbstractFriend {
     setFaceSprite(faces[0][0]);
     initLevel(5);
     initDead();
+    newMonster();
     setActualEvolution(0);
     setMaxMagic(1000);
+    addType(TypeFactory.getType("Ghost"));
+    addType(TypeFactory.getType("Poison"));
   }
   
   public Gastly(int level){
@@ -81,4 +85,10 @@ public class Gastly extends AbstractFriend {
     return new ShootAttack(new AcidState(),myWorld, x, y, facingRight, source);
   }
   
+  @Override
+  public int getAttackMagicRequirement() {
+	// TODO Auto-generated method stub
+	return AcidState.getMagicRequirement();
+  }
+
 }

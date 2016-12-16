@@ -9,6 +9,7 @@ import cl.makinolas.atk.actors.Monsters;
 import cl.makinolas.atk.actors.attacks.Attacks;
 import cl.makinolas.atk.actors.attacks.BoomerangAttack;
 import cl.makinolas.atk.actors.attacks.states.BoneAttackState;
+import cl.makinolas.atk.types.TypeFactory;
 
 public class Cubone extends AbstractFriend {
 
@@ -27,8 +28,10 @@ public class Cubone extends AbstractFriend {
     setFaceSprite(faces[0][0]);
     initLevel(10);
     initDead();
+    newMonster();
     setActualEvolution(0);
     setMaxMagic(1000);
+    addType(TypeFactory.getType("Ground"));
   }
   
   public Cubone(int level){
@@ -64,6 +67,13 @@ public class Cubone extends AbstractFriend {
   
   @Override
   public Attacks getFriendAttack(World myWorld, float x , float y, boolean facingRight, Monsters source){
-    return new BoomerangAttack(new BoneAttackState(), myWorld, x, y, facingRight, source, false);
+    return new BoomerangAttack(new BoneAttackState(), myWorld, x, (float) (y+0.5), facingRight, source, false);
   }
+  
+  @Override
+  public int getAttackMagicRequirement() {
+	// TODO Auto-generated method stub
+	return BoneAttackState.getMagicRequirement();
+  }
+  
 }

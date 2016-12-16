@@ -1,5 +1,7 @@
 package cl.makinolas.atk.actors;
 
+import cl.makinolas.atk.actors.platform.WaterPlatform;
+import cl.makinolas.atk.actors.ui.IHero;
 import com.badlogic.gdx.physics.box2d.Body;
 import com.badlogic.gdx.physics.box2d.WorldManifold;
 import com.badlogic.gdx.scenes.scene2d.Actor;
@@ -41,7 +43,7 @@ public abstract class GameActor extends Actor{
   public boolean isMonster() {
     return false;
   }
-
+  
   public boolean isBall() {
     return false;
   }
@@ -60,7 +62,7 @@ public abstract class GameActor extends Actor{
 
   public abstract void interact(GameActor actor2, WorldManifold worldManifold);
 
-  public void interactWithHero(Hero hero, WorldManifold worldManifold) {}
+  public void interactWithHero(IHero hero, WorldManifold worldManifold) {}
 
   public void interactWithEnemy(Enemy enemy, WorldManifold worldManifold) {}
 
@@ -79,6 +81,8 @@ public abstract class GameActor extends Actor{
   public void interactWithItem(ItemActor item) {}
   
   public void interactWithMinigameCharacter(MinigameCharacter minigameCharacter, WorldManifold worldManifold) {}
+  
+  public void interactWithWater(WaterPlatform waterplatform, WorldManifold worldManifold) {}
 
   public boolean isEnemy() {
     return false;
@@ -96,8 +100,22 @@ public abstract class GameActor extends Actor{
     return false;
   }
 
+  public abstract void endInteraction(GameActor actor2, WorldManifold worldManifold);
 
+  public void endHeroInteraction(Hero hero, WorldManifold worldManifold) {}
+  
+  public void endEnemyInteraction(Enemy enemy, WorldManifold worldManifold) {}
 
+  public void endPlatformInteraction(Platform platform, WorldManifold worldManifold) {}
+
+  public void endWaterInteraction(WaterPlatform waterplatform, WorldManifold worldManifold) {}
+  
+  public void endMonsterIntercation(Monsters monsters, WorldManifold worldManifold) {}
+
+public void setGravityScale(float f) {
+	if(myBody!=null)
+		myBody.setGravityScale(f);
+}
 
   
 }

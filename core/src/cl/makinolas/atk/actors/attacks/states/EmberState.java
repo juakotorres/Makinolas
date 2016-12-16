@@ -6,11 +6,16 @@ import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.Animation.PlayMode;
 
 import cl.makinolas.atk.actors.Monsters;
+import cl.makinolas.atk.stateEfects.BurnedStateEffect;
+import cl.makinolas.atk.types.IType;
+import cl.makinolas.atk.types.TypeFactory;
 
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 
 public class EmberState extends SpriteState{
   
+  private static int magicRequirement = 35;
+	
   @Override
   public int getAttackDamage() {
     return 20;
@@ -65,4 +70,19 @@ public class EmberState extends SpriteState{
   public int getTypeAttack(Monsters monster) {
     return myAttack.getSpecialAttackDamage(monster);
   }
+
+@Override
+public IType getType() {
+	return TypeFactory.getType("Fire");
+}
+
+@Override
+public void secondaryEfectsToAfected(Monsters monster) {
+	monster.addState(new BurnedStateEffect(monster, myAttack), 10);
+}
+
+public static int getMagicRequirement(){
+	return magicRequirement;
+}
+
 }

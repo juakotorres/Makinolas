@@ -1,8 +1,18 @@
 package cl.makinolas.atk.actors;
 
+import java.util.ArrayList;
+import java.util.ConcurrentModificationException;
+
+import cl.makinolas.atk.actors.ui.IHero;
+import com.badlogic.gdx.graphics.g2d.Batch;
+import com.badlogic.gdx.math.Vector2;
+import com.badlogic.gdx.physics.box2d.WorldManifold;
+
 import cl.makinolas.atk.actors.attacks.Attacks;
 import cl.makinolas.atk.actors.attacks.MeleeAttack;
 import cl.makinolas.atk.actors.friend.Enemies;
+import cl.makinolas.atk.actors.friend.EvStates.EvState;
+import cl.makinolas.atk.stateEfects.IStateEfects;
 import cl.makinolas.atk.actors.friend.Friend;
 
 public abstract class Monsters extends AnimatedActor {
@@ -12,7 +22,22 @@ public abstract class Monsters extends AnimatedActor {
   public abstract int getMeleeDamage();
   protected Friend parent;
   public abstract float getXDirection();
-
+  public abstract void CriticalDamage();
+  public abstract float getRelativeY();
+  public abstract float getRelativeX();
+  public abstract void sing();
+  public abstract void unSing();
+  public abstract void sleep();
+  public abstract void Awake();
+  public abstract void paraliza3();
+  public abstract void desparaliza3();
+  
+  protected ArrayList<IStateEfects> states;
+  
+  public Monsters(){
+	  super();
+	  states = new ArrayList<IStateEfects>();
+  }
   
   @Override
   public boolean isMonster(){
@@ -36,8 +61,8 @@ public abstract class Monsters extends AnimatedActor {
   
   public abstract float getMonsterWidth();
   public abstract float getMonsterHeight();
-  public void interactWithHero2(Hero hero) {
-    meleeAttack(hero, isAttacking);       
+  public void interactWithHero2(IHero hero) {
+    meleeAttack((Monsters)hero, isAttacking);
   }
   public void gainExperience(int level, Enemies type) {
     gainExp(level, type);
@@ -47,6 +72,49 @@ public abstract class Monsters extends AnimatedActor {
   public boolean isEnemy() {
     return false;
   }
+
+  public void gainEffortValues(Enemies type) {
+    EvState[] states = type.evState;
+    for(EvState actualState : states){
+      actualState.addEffortValue(this);
+    }
+  }
+  
+	@Override
+	public void endInteraction(GameActor actor2, WorldManifold worldManifold) {
+		actor2.endMonsterIntercation(this, worldManifold);
+	}
+  
+  @Override
+  public  void act(float delta) {
+      super.act(delta);
+      try{
+    	  for(IStateEfects state: states){
+    		  state.act(delta);
+    	  }
+      }catch(ConcurrentModificationException e){
+    	  return;
+      }
+  }
+  
+  @Override
+  public  void draw(Batch batch, float alpha){
+	  super.draw(batch, alpha);
+	  for(IStateEfects state: states){
+    	  state.getDrawStateEfects().draw(batch, alpha, this.getRelativeX(),this.getRelativeY());
+      } 
+  }  
+  
+  public  void addState(IStateEfects state, int prob){
+	  state.affect(this, prob, states);
+  }
+  
+  public  void removeState(IStateEfects state){
+	  this.states.remove(state);
+  }
+public void stun() {
+	myBody.setLinearVelocity(new Vector2(myBody.getLinearVelocity().x/2, myBody.getLinearVelocity().y/2));
+}
 
 }
 
