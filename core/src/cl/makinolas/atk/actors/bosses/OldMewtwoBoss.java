@@ -37,12 +37,12 @@ public abstract class OldMewtwoBoss extends Boss {
   private int[] myAttacks;
   
   public OldMewtwoBoss(World myWorld, Hero hero) {
-    
-    health = 50;
-    maxHealth = 50;
+
     width = 39;
     height = 33;
     parent = new OldMewtwo();
+    health = parent.getMaxHealth();
+    maxHealth = health;
     nextEnemyAttackAt = enemyAttack;
     isAttacking = true;
     isLaunchingAttack = false;
