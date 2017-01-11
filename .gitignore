@@ -70,5 +70,8 @@ build/
 Thumbs.db
 
 android/assets/Save/*.sav
+android/assets/*.sav
+build.gradle
 local.properties
 *.apk
+gradle/wrapper/gradle-wrapper.properties

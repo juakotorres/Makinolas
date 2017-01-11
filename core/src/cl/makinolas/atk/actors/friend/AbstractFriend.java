@@ -719,10 +719,10 @@ public abstract class AbstractFriend implements Friend {
   }
   
 
-  @Override
   /**
    * De acuerdo a los efectos del clima
    * se modifican los stats del pokemon*/
+  @Override
   public void weatherEffect(int newAttack, int newDefense, int newHp, int newSpAttack,
 			int newSpDefense, int newSpeed){
 	  this.setStats(); //stats originales en caso de cambio de clima

@@ -1,5 +1,6 @@
 package cl.makinolas.atk.utils;
 
+import cl.makinolas.atk.GameConstants;
 import cl.makinolas.atk.stages.Levels;
 import cl.makinolas.atk.stages.MenuStage;
 
@@ -55,7 +56,9 @@ public class SaveManager {
         Json base = new Json(JsonWriter.OutputType.javascript);
         String jstr = base.toJson(saved);
         Gdx.files.local(path).writeString(cryptor.encrypt(jstr),false);
-        System.out.println(jstr);
+        if(GameConstants.DEBUG){
+          System.out.println(jstr);
+        }
     }
 
     public boolean hasSaveInstance(){

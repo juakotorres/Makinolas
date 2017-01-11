@@ -224,8 +224,10 @@ public class Hero extends Monsters implements IHero {
 	// BORRAR
 	public void changeAlliesTeam(int index) {
 		if (!isJumping) {
-			System.out.println("changeAlliesTeam , isjumping " + !isJumping + "getDead " + getActualFriend().getDead()
-					+ " name " + getActualFriend().getName());
+      if(GameConstants.DEBUG) {
+        System.out.println("changeAlliesTeam , isjumping " + !isJumping + "getDead " + getActualFriend().getDead()
+            + " name " + getActualFriend().getName());
+      }
 			GameActor puff = new Puff(myWorld, myBody.getPosition().x, myBody.getPosition().y, isFacingRight, this);
 			((AbstractStage) getStage()).addGameActor(puff);
 			allies.set(indexFriend, getActualFriend());
@@ -485,8 +487,10 @@ public class Hero extends Monsters implements IHero {
 
 	private void setNewAllie(int index) {
 		if (!isJumping || getActualFriend().getDead()) {
-			System.out.println("setNewAllie, isjumping " + !isJumping + "getDead " + getActualFriend().getDead()
-					+ " name " + getActualFriend().getName());
+			if(GameConstants.DEBUG) {
+        System.out.println("setNewAllie, isjumping " + !isJumping + "getDead " + getActualFriend().getDead()
+            + " name " + getActualFriend().getName());
+      }
 			GameActor puff = new Puff(myWorld, myBody.getPosition().x, myBody.getPosition().y, isFacingRight, this);
 			((AbstractStage) getStage()).addGameActor(puff);
 			allies.set(indexFriend, getActualFriend());
@@ -805,7 +809,6 @@ public class Hero extends Monsters implements IHero {
 
 	@Override
 	public void interactWithItem(ItemActor item) {
-		System.out.println(item.getName());
 		item.interactWithHero(this, null);
 
 	}
